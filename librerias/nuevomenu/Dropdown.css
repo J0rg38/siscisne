@@ -1,0 +1,169 @@
+.dropdown,
+.dropdown ul,
+.dropdown li{
+  margin  : 0;
+  padding : 0;
+ font-family:Tahoma, Geneva, sans-serif;
+  font-weight:bold;
+  font-size:13px;
+ 
+}
+
+.dropdown ul{
+  display  : none;
+  position : absolute;
+  top      : 100%;
+  left     : 0;
+  z-index  : 1;
+}
+
+[dir=rtl] .dropdown ul{
+  left  : auto;
+  right : 0;
+}
+
+.dropdown ul ul,
+[dir=rtl] .dropdown ul .dropdownLeftToRight ul{
+  top   : 0;
+  left  : 100%;
+  right : auto;
+}
+
+[dir=rtl] .dropdown ul ul,
+.dropdown ul .dropdownRightToLeft ul{
+  left  : auto;
+  right : 100%;
+}
+
+.dropdown li{
+  position        : relative;
+  display         : block;
+  list-style-type : none;
+}
+
+.dropdown > li{
+  display : inline-block;
+}
+
+.dropdown a,
+.dropdown span{
+  display         : block;
+  text-decoration : none;
+  white-space     : pre;
+}
+
+.dropdown li:hover > ul{
+  display : block;
+}
+
+.dropdownVertical{
+  display : inline-block;
+}
+
+.dropdownVertical > li{
+  display : block;
+}
+
+.dropdownVertical ul{
+  top  : 0;
+  left : 100%;
+}
+
+[dir=rtl] .dropdownVertical ul{
+  left  : auto;
+  right : 100%;
+}
+
+.dropdownJavaScript li:hover > ul{
+  display : none;
+}
+
+.dropdownJavaScript li.dropdownOpen > ul{
+  display : block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* set the background colour */
+.dropdown{
+	
+}
+
+.dropdown ul{
+	background:#06C;
+	 border: 1px solid #FFF;
+ /* background:#066;*/
+/*  background:#06C;*/
+  /*border: 1px solid rgb(96, 144, 48);*/
+/*  border: 1px solid #FFF;*/
+  /*
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);*/
+}
+
+/* pad items, set their text colour, and fade their background colour */
+.dropdown a,
+.dropdown span{
+  padding    : 0.25em 0.5em;
+  color      : white;
+  transition : background 0.2s;
+   padding:5px;
+}
+
+/* set the background colour of active items */
+.dropdown li:hover > a,
+.dropdown li:hover > span,
+.dropdown li.dropdownOpen > a,
+.dropdown li.dropdownOpen > span{
+  
+  background:#039;
+}
+
+
+
+
+
+
+
+
+
+/* centre the menu */
+.dropdown{
+ /* text-align : center;*/
+}
+
+/* align the menu content */
+.dropdown > li{
+  text-align : left;
+}
+[dir=rtl] .dropdown > li{
+  text-align : right;
+}
+
+
+
+.dropdown > li > span {
+    background: url("flecha.png") no-repeat scroll right 13px rgba(0, 0, 0, 0);
+    padding: 0 24px 0 0.5em;
+}
+
+[dir="rtl"] .dropdown > li > span {
+    background: url("flecha.png") no-repeat scroll left 13px rgba(0, 0, 0, 0);
+    padding: 0 0.5em 0 24px;
+}

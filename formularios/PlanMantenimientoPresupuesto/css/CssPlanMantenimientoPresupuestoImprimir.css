@@ -1,0 +1,33 @@
+/* CSS Document */
+
+
+.EstPlanMantenimientoImprimirTarea{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+/*	background-color:#999;*/
+	text-decoration:none;	
+	font-weight:normal;
+}
+
+.EstPlanMantenimientoImprimirSeccion{
+		font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	background-color:#CCC;
+	text-decoration:none;	
+
+}
+.EstPlanMantenimientoImprimirKilometrajeSeleccionado{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-style:italic;
+	background-color:#069;
+	color:#FFF;
+	text-decoration:none;	
+
+}
+.EstPlanMantenimientoImprimirEtiqueta{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold
+
+}

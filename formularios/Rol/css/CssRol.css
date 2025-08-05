@@ -1,0 +1,48 @@
+
+.EstCapProductoCodigoReemplazos{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:250px;
+	width:300px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+
+
+.EstCodigoBarraArriba{
+	font-size:10px;
+	font-family:Verdana, Geneva, sans-serif;
+	
+}
+
+.EstCodigoBarraLateral{
+		font-size:10px;
+	font-family:Verdana, Geneva, sans-serif;
+}
+
+
+
+
+.EstCapMaterias{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:150px;
+	width:450px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+.EstCapProductoMaterias{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:150px;
+	width:700px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}

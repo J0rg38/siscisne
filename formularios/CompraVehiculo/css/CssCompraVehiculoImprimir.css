@@ -1,0 +1,132 @@
+
+/*
+* IMPRESION
+*/
+table.EstCompraVehiculoImprimirTabla{
+font-family:Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstCompraVehiculoImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstCompraVehiculoImprimirTablaHead th{
+padding-left:2px;
+padding-right:2px;
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstCompraVehiculoImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstCompraVehiculoImprimirTablaBody td {
+background-color:#FFF;
+padding-left:2px;
+padding-right:2px;
+border:#CCC 1px solid ; 
+}
+
+/*
+* TEXTO BODY
+*/
+.EstCompraVehiculoImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+color:#000;
+}
+
+.EstCompraVehiculoImprimirContenido{
+/*font-weight:bold;*/
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+/*
+* TEXTO BODY OTROS
+*/
+.EstCompraVehiculoImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+.EstCompraVehiculoImprimirContenidoFecha{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:16px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstCompraVehiculoDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstCompraVehiculoDetalleImprimirContenido td{
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstCompraVehiculoImprimirEtiquetaTotal{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#000;
+}
+.EstCompraVehiculoImprimirContenidoTotal{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstCompraVehiculoImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+/*
+* CABECERAS
+*/
+.EstCompraVehiculoImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstCompraVehiculoImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstCompraVehiculoImprimirEtiqueta2{
+	background-color:#900;
+}
+
+
+.EstTablaListadoActivo{
+	background-color:#FFF;
+	
+}
+
+EstTablaListadoInactivo{
+	background-color:#CCC;
+}

@@ -1,0 +1,16 @@
+/* CSS Document */
+
+
+
+
+.EstCapVehiculoInstalarDetalles{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:200px;
+		min-width:800px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}

@@ -1,0 +1,87 @@
+
+.EstCapProductoCodigoReemplazos{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:250px;
+	width:300px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+
+
+.EstCodigoBarra{
+	position: relative;
+/*    width: 340px;*/
+    width: 280px;
+	
+	
+    height: 90px;
+   /* border: 3px solid #FC6;*/
+	
+}
+
+
+
+.EstCodigoBarraArriba{
+	width:280px;
+		float:left;
+    /*border: 3px solid #73AD21;*/
+	
+	text-align:center;
+	
+}
+
+
+.EstCodigoBarraMedio{
+	float:left;
+   /* border: 3px solid #73AD21;*/
+	height:80px;
+}
+
+
+
+.EstCodigoBarraLateral1{
+	font-size:12px;
+	
+		float:left;
+   /* border: 3px solid #F00;*/
+	transform: rotate(90deg);
+	
+}
+
+.EstCodigoBarraLateral2{
+		font-size:12px;
+		
+	float:right;
+   /* border: 3px solid #36F;*/
+	transform: rotate(90deg);
+	
+}
+
+
+
+
+
+.EstCapMaterias{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:150px;
+	width:450px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+.EstCapProductoMaterias{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:150px;
+	width:700px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}

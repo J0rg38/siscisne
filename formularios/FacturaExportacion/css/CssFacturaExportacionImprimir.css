@@ -1,0 +1,183 @@
+/*
+* Impresion
+*/
+
+
+
+/*
+* TABLA
+*/
+table.EstFacturaExportacionImprimirTabla{
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+/*
+* TABLA HEAD
+*/
+thead.EstFacturaExportacionImprimirTablaHead{
+/*	background-image:url(../../../imagenes/tabla_barra.png);*/
+	height:20px;
+	font-size:10px;
+}
+
+thead.EstFacturaExportacionImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+}
+
+/*
+* TABLA BODY
+*/
+tbody.EstFacturaExportacionImprimirTablaBody{
+	font-size:10px;
+}
+
+tbody.EstFacturaExportacionImprimirTablaBody td {
+	background-color:#FFF;
+	padding-left:2px;
+	padding-right:2px;
+	/*border:#CCC 1px solid ; */
+}
+
+/*
+* CONTENIDO
+*/
+.EstFacturaExportacionImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+.EstFacturaExportacionImprimirContenido{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+
+.EstFacturaExportacionImprimirEtiquetaCaracteristica{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#0066CC;
+	text-transform: uppercase; 
+	
+}
+
+.EstFacturaExportacionImprimirContenidoCaracteristica{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	
+}
+
+
+/*
+* CONTENIDO ESPECIAL
+*/
+.EstFacturaExportacionImprimirContenidoEspecial{
+	letter-spacing:3px;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+/*
+* CONTENIDO FECHA
+*/
+
+.EstFacturaExportacionImprimirContenidoFecha{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+/*
+* DETALLE
+*/
+.EstFacturaExportacionDetalleImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+.EstFacturaExportacionDetalleImprimirContenido{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+/*
+* TOTALES
+*/
+.EstFacturaExportacionImprimirEtiquetaTotal{
+	font-weight:bold;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+
+/*
+* MONEDA
+*/
+.EstFacturaExportacionImprimirMoneda{
+	font-weight:bold;
+	font-size:8px;
+}
+
+/*
+* CABECERAS
+*/
+.EstFacturaExportacionImprimirCabecera{
+	font-weight:bold;
+	font-size:14px;
+}
+
+.EstFacturaExportacionImprimirSubcabecera{
+	font-weight:bold;
+	font-size:10px;
+}
+
+
+/*.EstFacturaExportacionImprimirFormatoDetalle{
+	border-bottom:#000 1px solid;
+	border-top:#000 1px solid;
+	
+	border-left:#000 1px solid;
+	border-right:#000 1px solid;
+	
+}
+
+.EstFacturaExportacionImprimirFormatoCabecera{
+	border-bottom:#000 1px solid;
+	border-top:#000 1px solid;
+	
+	border-left:#000 1px solid;
+	border-right:#000 1px solid;
+	
+}
+
+
+.EstFacturaExportacionImprimirMarco{
+	border:#000 1px solid;
+}*/
+
+.EstFacturaExportacionImprimirSeparacion{
+	border-top:dashed 1px #000;
+	margin:0px;
+	
+}
+
+
+.container {
+  display: table;
+}
+.row {
+  display: table-row;
+}
+.column {
+  display: table-cell;
+}

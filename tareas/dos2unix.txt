@@ -1,0 +1,1 @@
+dos2unix TarNotificarCitasHoy.sh & dos2unix TarNotificarCitasHoyPM.sh & dos2unix TarNotificarCitasHoyPI.sh & dos2unix TarNotificarCitasHoyPA.sh & dos2unix TarNotificarCitasHoyJU.sh & dos2unix TarNotificarCitasHoyTQ.sh  & dos2unix TarNotificarCitasHoyCQ.sh  & dos2unix TarNotificarCitasHoyAV.sh 

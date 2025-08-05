@@ -1,0 +1,146 @@
+<?php
+require_once('../../../proyecto/ClsProyecto.php');
+require_once('../../../proyecto/ClsPoo.php');
+
+$InsProyecto->Ruta = '../../../';
+$InsPoo->Ruta = '../../../';
+
+////CONFIGURACIONES GENERALES
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
+////MENSAJES GENERALES
+require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+////FUNCIONES GENERALES
+require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+
+$POST_Item = $_POST['Item'];
+$Identificador = $_POST['Identificador'];
+$POST_VehiculoId = $_POST['VehiculoId'];
+
+$POST_VehiculoIngresoId = $_POST['VehiculoIngresoId'];
+$POST_VehiculoIngresoVIN = $_POST['VehiculoIngresoVIN'];
+$POST_VehiculoIngresoNumeroMotor = $_POST['VehiculoIngresoNumeroMotor'];
+$POST_VehiculoIngresoAnoFabricacion = $_POST['VehiculoIngresoAnoFabricacion'];
+$POST_VehiculoIngresoAnoModelo = $_POST['VehiculoIngresoAnoModelo'];
+
+$POST_VehiculoIngresoColor = $_POST['VehiculoIngresoColor'];
+$POST_VehiculoIngresoColorInterior = $_POST['VehiculoIngresoColorInterior'];
+
+$POST_Costo = $_POST['CompraVehiculoDetalleCosto'];
+$POST_Cantidad = $_POST['CompraVehiculoDetalleCantidad'];
+$POST_Importe = $_POST['CompraVehiculoDetalleImporte'];
+$POST_Estado = $_POST['CompraVehiculoDetalleEstado'];
+
+$POST_CostoAnterior = $_POST['CompraVehiculoDetalleCostoAnterior'];
+$POST_Utilidad = $_POST['CompraVehiculoDetalleUtilidad'];
+$POST_UtilidadPorcentaje = $_POST['CompraVehiculoDetalleUtilidadPorcentaje'];
+
+$POST_VehiculoIngresoMarca = $_POST['VehiculoIngresoMarca'];
+$POST_VehiculoIngresoModelo = $_POST['VehiculoIngresoModelo'];
+$POST_VehiculoIngresoVersion = $_POST['VehiculoIngresoVersion'];
+
+$POST_VehiculoIngresoMarcaId = $_POST['VehiculoIngresoMarcaId'];
+$POST_VehiculoIngresoModeloId = $_POST['VehiculoIngresoModeloId'];
+$POST_VehiculoIngresoVersionId = $_POST['VehiculoIngresoVersionId'];
+
+session_start();
+if (!isset($_SESSION['InsCompraVehiculoDetalle'.$Identificador])){
+	$_SESSION['InsCompraVehiculoDetalle'.$Identificador] = new ClsSesionObjeto();
+}
+
+require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculo.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoIngreso.php');
+
+$InsVehiculo = new ClsVehiculo();
+$InsVehiculoIngreso = new ClsVehiculoIngreso();
+
+$InsVehiculoIngreso->EinId = $POST_VehiculoIngresoId;
+$InsVehiculoIngreso->MtdObtenerVehiculoIngreso(false);
+
+//SesionObjeto-CompraVehiculoDetalle
+//Parametro1 = CvdId
+//Parametro2 = EinId
+//Parametro3 = EinVIN
+
+//Parametro4 = CvdCosto
+//Parametro5 = CvdCantidad
+//Parametro6 = CvdImporte
+//Parametro7 = CvdTiempoCreacion
+//Parametro8 = CvdTiempoModificacion
+
+//Parametro9 = EinNumeroMotor
+//Parametro10 = EinAnoFabricacion
+//Parametro11 = EinAnoModelo
+//Parametro12 = VehId
+
+//Parametro13 = CvdUtilidad
+//Parametro14 = CvdUtilidadPorcentaje
+//Parametro15 = CvdCostoAnterior
+//Parametro16 = 
+//Parametro17 = EinColor
+//Parametro18 = EinColorInterior
+//Parametro19 = VmaNombre
+//Parametro20 = VmoNombre
+//Parametro21 = VveNombre
+//Parametro22 = VmaId
+//Parametro23 = VmoId
+//Parametro24 = VveId
+//Parametro25 = CvdEstado
+
+	
+	$InsCompraVehiculoDetalle1 = array();
+	$InsCompraVehiculoDetalle1 = $_SESSION['InsCompraVehiculoDetalle'.$Identificador]->MtdObtenerSesionObjeto($POST_Item);
+	
+	$Cantidad = round($POST_Cantidad,3);
+	
+	$Importe = round($POST_Importe,3);
+	$Costo = round(($Importe/$Cantidad),3);
+	$CostoAnterior = round($POST_CostoAnterior,3);
+	
+	$Utilidad = round($POST_Utilidad,3);
+	$UtilidadPorcentaje = round($POST_UtilidadPorcentaje,3);
+
+	$_SESSION['InsCompraVehiculoDetalle'.$Identificador]->MtdEditarSesionObjeto($POST_Item,1,
+	$InsCompraVehiculoDetalle1->Parametro1,
+	$InsCompraVehiculoDetalle1->Parametro2,
+	$InsCompraVehiculoDetalle1->Parametro3,
+	$Costo,
+	$Cantidad,
+	$Importe,
+	$InsCompraVehiculoDetalle1->Parametro7,
+	date("d/m/Y H:i:s"),
+	
+	$InsCompraVehiculoDetalle1->Parametro9,
+	$InsCompraVehiculoDetalle1->Parametro10,
+	$InsCompraVehiculoDetalle1->Parametro11,
+	$InsCompraVehiculoDetalle1->Parametro12,
+	$InsCompraVehiculoDetalle1->Parametro13,
+	$InsCompraVehiculoDetalle1->Parametro14,
+	$InsCompraVehiculoDetalle1->Parametro15,
+	$InsCompraVehiculoDetalle1->Parametro16,
+	NULL,
+	
+	$InsCompraVehiculoDetalle1->Parametro18,
+	$InsCompraVehiculoDetalle1->Parametro19,
+	$InsCompraVehiculoDetalle1->Parametro20,
+	$InsCompraVehiculoDetalle1->Parametro21,
+	$InsCompraVehiculoDetalle1->Parametro22,
+	$InsCompraVehiculoDetalle1->Parametro23,
+	$InsCompraVehiculoDetalle1->Parametro24,
+	
+	$POST_Estado
+	);
+
+?>

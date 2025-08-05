@@ -1,0 +1,331 @@
+/*
+* IMPRESION
+*/
+
+/*@media print {
+body {-webkit-print-color-adjust: exact;}
+}*/
+
+
+body{
+	margin:0px;
+}
+
+@media print { 
+
+} 
+@media screen { 
+	
+	
+} 
+
+
+/*
+* TABLA
+*/
+
+table.EstAprobacionVentaVehiculoImprimirTabla{
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+/*
+* TABLA HEAD
+*/
+
+thead.EstAprobacionVentaVehiculoImprimirTablaHead{
+/*	//background-image:url(../../../imagenes/tabla_barra.png);*/
+	background-color:#069;!important;
+	height:20px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+thead.EstAprobacionVentaVehiculoImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	border:#CCC 2px solid ; 
+	/*height:25px;*/
+}
+
+/*
+* TABLA BODY
+*/
+
+tbody.EstAprobacionVentaVehiculoImprimirTablaBody{
+	font-size:10px;
+}
+
+tbody.EstAprobacionVentaVehiculoImprimirTablaBody td {
+	background-color:#FFF !important;
+	border:#CCC 1px solid ; 
+	padding:2px;
+}
+
+
+/*
+* TABLA CARACTERISTICA
+*/
+
+table.EstAprobacionVentaVehiculoImprimirTablaCaracteristica {
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+table.EstAprobacionVentaVehiculoImprimirTablaCaracteristica td{
+	
+}
+
+/*
+* TABLA CARACTERISTICA HEAD
+*/
+
+
+thead.EstAprobacionVentaVehiculoImprimirTablaCaracteristicaHead{
+	/*background-image:url(../imagenes/tabla_barra.png);*/
+	background-color:#069 !important;
+	height:20px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+
+thead.EstAprobacionVentaVehiculoImprimirTablaCaracteristicaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	border:#CCC 2px solid ; 
+}
+
+/*
+* TABLA CARACTERISTICA BODY
+*/
+
+tbody.EstAprobacionVentaVehiculoImprimirTablaCaracteristicaBody{
+	font-size:10px;
+}
+
+tbody.EstAprobacionVentaVehiculoImprimirTablaCaracteristicaBody td{
+	background-color:#FFF !important;
+	border:#CCC 1px solid ; 
+	padding:2px;
+}
+
+
+
+
+/*
+* TEXTOS
+*/
+
+.EstAprobacionVentaVehiculoImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	font-size:12px;
+	color:#000;
+	/*text-transform: uppercase;*/
+}
+
+.EstAprobacionVentaVehiculoImprimirContenido{	
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:12px;
+}
+
+.EstAprobacionVentaVehiculoImprimirSubContenido{
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:8px;
+}
+
+
+.EstAprobacionVentaVehiculoImprimirReferencias{
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:8px;
+}
+
+.EstAprobacionVentaVehiculoImprimirMarcaModeloVersion{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:12px;
+
+}
+
+.EstAprobacionVentaVehiculoImprimirMarcaModeloVersionPrincipal{
+		font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:13px;
+}
+
+.EstAprobacionVentaVehiculoImprimirObservacion{
+	text-align:justify;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:12px;
+	font-style:italic;
+}
+
+
+/*
+* TEXTOS OTROS
+*/
+
+.EstAprobacionVentaVehiculoImprimirContenidoEspecial{
+	letter-spacing:3px;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+
+.EstAprobacionVentaVehiculoImprimirContenidoFecha{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+}
+
+.EstAprobacionVentaVehiculoImprimirMoneda{
+	font-weight:bold;
+	font-size:8px;
+}
+
+.EstAprobacionVentaVehiculoImprimirFecha{
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstAprobacionVentaVehiculoImprimirCliente{
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstAprobacionVentaVehiculoImprimirRepresentante{
+	font-weight:bold;
+	font-size:10px;
+}
+
+/*
+* TEXTOS DETALLES
+*/
+
+.EstAprobacionVentaVehiculoDetalleImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#0066CC;
+}
+
+.EstAprobacionVentaVehiculoDetalleImprimirContenido{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* TEXTO TOTAL
+*/
+
+.EstAprobacionVentaVehiculoImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstAprobacionVentaVehiculoImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* CABECERAS Y TITULOS
+*/
+.EstAprobacionVentaVehiculoImprimirCabecera{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:14px;
+}
+
+.EstAprobacionVentaVehiculoImprimirSubcabecera{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstAprobacionVentaVehiculoImprimirTitulo{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:12px;
+	/*text-transform:uppercase;	*/
+	text-decoration:underline;
+}
+
+
+
+
+.EstAprobacionVentaVehiculoImprimirPrecioEtiqueta{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	/*margin-left:20%;*/
+
+}
+
+.EstAprobacionVentaVehiculoImprimirPrecio{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:16px;
+	font-weight:bold;
+
+}
+
+.EstAprobacionVentaVehiculoImprimirFirma{
+	font-size:10px;
+}
+
+.EstAprobacionVentaVehiculoImprimirFirmaNombre{
+	font-size:12px;
+	font-weight:bold;
+}
+
+.EstCapAprobacionVentaVehiculoTotal{
+	border:#000 3px solid;
+}
+
+/*
+* AUXILIARES
+*/
+
+H1.SaltoDePagina { 
+/*	PAGE-BREAK-AFTER: always ;*/
+	/*PAGE-BREAK-AFTER: always ;*/
+	/*page-break-inside:always;*/
+	page-break-before:always;
+	/*page-break-inside:always;*/
+	
+} 
+
+	 
+/*.EstCapVehiculoVersionEscogida{
+	background-color:#CCC;
+	
+}
+
+*/
+
+
+/*.EstAprobacionVentaVehiculoVersionCaracteristica{
+	font-size:12px;	
+}
+
+.EstAprobacionVentaVehiculoVersionCaracteristicaEscogida{
+	font-size:18px;	
+}*/

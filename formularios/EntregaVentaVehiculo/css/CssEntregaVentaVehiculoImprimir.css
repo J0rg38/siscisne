@@ -1,0 +1,331 @@
+/*
+* IMPRESION
+*/
+
+/*@media print {
+body {-webkit-print-color-adjust: exact;}
+}*/
+
+
+body{
+	margin:0px;
+}
+
+@media print { 
+
+} 
+@media screen { 
+	
+	
+} 
+
+
+/*
+* TABLA
+*/
+
+table.EstEntregaVentaVehiculoImprimirTabla{
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+/*
+* TABLA HEAD
+*/
+
+thead.EstEntregaVentaVehiculoImprimirTablaHead{
+/*	//background-image:url(../../../imagenes/tabla_barra.png);*/
+	background-color:#069;!important;
+	height:20px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+thead.EstEntregaVentaVehiculoImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	border:#CCC 2px solid ; 
+	/*height:25px;*/
+}
+
+/*
+* TABLA BODY
+*/
+
+tbody.EstEntregaVentaVehiculoImprimirTablaBody{
+	font-size:10px;
+}
+
+tbody.EstEntregaVentaVehiculoImprimirTablaBody td {
+	background-color:#FFF !important;
+	border:#CCC 1px solid ; 
+	padding:2px;
+}
+
+
+/*
+* TABLA CARACTERISTICA
+*/
+
+table.EstEntregaVentaVehiculoImprimirTablaCaracteristica {
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+table.EstEntregaVentaVehiculoImprimirTablaCaracteristica td{
+	
+}
+
+/*
+* TABLA CARACTERISTICA HEAD
+*/
+
+
+thead.EstEntregaVentaVehiculoImprimirTablaCaracteristicaHead{
+	/*background-image:url(../imagenes/tabla_barra.png);*/
+	background-color:#069 !important;
+	height:20px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+
+thead.EstEntregaVentaVehiculoImprimirTablaCaracteristicaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	border:#CCC 2px solid ; 
+}
+
+/*
+* TABLA CARACTERISTICA BODY
+*/
+
+tbody.EstEntregaVentaVehiculoImprimirTablaCaracteristicaBody{
+	font-size:10px;
+}
+
+tbody.EstEntregaVentaVehiculoImprimirTablaCaracteristicaBody td{
+	background-color:#FFF !important;
+	border:#CCC 1px solid ; 
+	padding:2px;
+}
+
+
+
+
+/*
+* TEXTOS
+*/
+
+.EstEntregaVentaVehiculoImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	font-size:12px;
+	color:#000;
+	/*text-transform: uppercase;*/
+}
+
+.EstEntregaVentaVehiculoImprimirContenido{	
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:12px;
+}
+
+.EstEntregaVentaVehiculoImprimirSubContenido{
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:8px;
+}
+
+
+.EstEntregaVentaVehiculoImprimirReferencias{
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:8px;
+}
+
+.EstEntregaVentaVehiculoImprimirMarcaModeloVersion{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:12px;
+
+}
+
+.EstEntregaVentaVehiculoImprimirMarcaModeloVersionPrincipal{
+		font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:13px;
+}
+
+.EstEntregaVentaVehiculoImprimirObservacion{
+	text-align:justify;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	color:#666;
+	font-size:12px;
+	font-style:italic;
+}
+
+
+/*
+* TEXTOS OTROS
+*/
+
+.EstEntregaVentaVehiculoImprimirContenidoEspecial{
+	letter-spacing:3px;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+
+.EstEntregaVentaVehiculoImprimirContenidoFecha{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+}
+
+.EstEntregaVentaVehiculoImprimirMoneda{
+	font-weight:bold;
+	font-size:8px;
+}
+
+.EstEntregaVentaVehiculoImprimirFecha{
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstEntregaVentaVehiculoImprimirCliente{
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstEntregaVentaVehiculoImprimirRepresentante{
+	font-weight:bold;
+	font-size:10px;
+}
+
+/*
+* TEXTOS DETALLES
+*/
+
+.EstEntregaVentaVehiculoDetalleImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#0066CC;
+}
+
+.EstEntregaVentaVehiculoDetalleImprimirContenido{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* TEXTO TOTAL
+*/
+
+.EstEntregaVentaVehiculoImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstEntregaVentaVehiculoImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* CABECERAS Y TITULOS
+*/
+.EstEntregaVentaVehiculoImprimirCabecera{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:14px;
+}
+
+.EstEntregaVentaVehiculoImprimirSubcabecera{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstEntregaVentaVehiculoImprimirTitulo{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:12px;
+	/*text-transform:uppercase;	*/
+	text-decoration:underline;
+}
+
+
+
+
+.EstEntregaVentaVehiculoImprimirPrecioEtiqueta{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	/*margin-left:20%;*/
+
+}
+
+.EstEntregaVentaVehiculoImprimirPrecio{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:16px;
+	font-weight:bold;
+
+}
+
+.EstEntregaVentaVehiculoImprimirFirma{
+	font-size:10px;
+}
+
+.EstEntregaVentaVehiculoImprimirFirmaNombre{
+	font-size:12px;
+	font-weight:bold;
+}
+
+.EstCapEntregaVentaVehiculoTotal{
+	border:#000 3px solid;
+}
+
+/*
+* AUXILIARES
+*/
+
+H1.SaltoDePagina { 
+/*	PAGE-BREAK-AFTER: always ;*/
+	/*PAGE-BREAK-AFTER: always ;*/
+	/*page-break-inside:always;*/
+	page-break-before:always;
+	/*page-break-inside:always;*/
+	
+} 
+
+	 
+/*.EstCapVehiculoVersionEscogida{
+	background-color:#CCC;
+	
+}
+
+*/
+
+
+/*.EstEntregaVentaVehiculoVersionCaracteristica{
+	font-size:12px;	
+}
+
+.EstEntregaVentaVehiculoVersionCaracteristicaEscogida{
+	font-size:18px;	
+}*/

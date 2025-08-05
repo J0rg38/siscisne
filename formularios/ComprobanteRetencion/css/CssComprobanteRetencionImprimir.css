@@ -1,0 +1,168 @@
+/*
+* Impresion
+*/
+
+/*
+* TABLA
+*/
+table.EstComprobanteRetencionImprimirTabla{
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+/*
+* TABLA HEAD
+*/
+thead.EstComprobanteRetencionImprimirTablaHead{
+/*	background-image:url(../../../imagenes/tabla_barra.png);*/
+	height:20px;
+	font-size:10px;
+}
+
+thead.EstComprobanteRetencionImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+}
+
+/*
+* TABLA BODY
+*/
+tbody.EstComprobanteRetencionImprimirTablaBody{
+	font-size:10px;
+}
+
+tbody.EstComprobanteRetencionImprimirTablaBody td {
+	background-color:#FFF;
+	padding-left:2px;
+	padding-right:2px;
+	/*border:#CCC 1px solid ; */
+}
+
+/*
+* CONTENIDO
+*/
+.EstComprobanteRetencionImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+.EstComprobanteRetencionImprimirContenido{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+
+.EstComprobanteRetencionImprimirEtiquetaCaracteristica{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+.EstComprobanteRetencionImprimirContenidoCaracteristica{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+}
+
+/*
+* CONTENIDO ESPECIAL
+*/
+.EstComprobanteRetencionImprimirContenidoEspecial{
+	letter-spacing:3px;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+/*
+* CONTENIDO FECHA
+*/
+
+.EstComprobanteRetencionImprimirContenidoFecha{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+}
+
+/*
+* DETALLE
+*/
+.EstComprobanteRetencionDetalleImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+.EstComprobanteRetencionDetalleImprimirContenido{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+/*
+* TOTALES
+*/
+.EstComprobanteRetencionImprimirEtiquetaTotal{
+	font-weight:bold;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+
+/*
+* MONEDA
+*/
+.EstComprobanteRetencionImprimirMoneda{
+	font-weight:bold;
+	font-size:8px;
+}
+
+/*
+* CABECERAS
+*/
+.EstComprobanteRetencionImprimirCabecera{
+	font-weight:bold;
+	font-size:14px;
+}
+
+.EstComprobanteRetencionImprimirSubcabecera{
+	font-weight:bold;
+	font-size:10px;
+}
+
+/*
+.EstCrnturImprimirCapaPrincipal{
+	position:relative;
+}
+
+.EstCrnturImprimirObsequio{
+	position:absolute;
+	left: 183px;
+	top: 663px;
+	width: 302px;
+	height: 263px;
+	
+}
+
+
+.EstCrnturImprimirSpot{
+	position:absolute;
+	left: 116px;
+	top: 993px;
+	
+}
+*/
+
+
+
+.EstComprobanteRetencionImprimirSeparacion{
+	border-top:dashed 1px #000;
+	margin:0px;
+	
+}

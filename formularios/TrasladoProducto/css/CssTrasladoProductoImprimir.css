@@ -1,0 +1,141 @@
+
+/*
+* IMPRESION
+*/
+table.EstTrasladoProductoImprimirTabla{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstTrasladoProductoImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstTrasladoProductoImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstTrasladoProductoImprimirTablaBody{
+font-size:12px;
+}
+
+tbody.EstTrasladoProductoImprimirTablaBody td {
+	background-color:#FFF;
+	/*padding-left:2px;
+	padding-right:2px;*/
+	border:#CCC 1px solid ; 
+	padding:5px;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstTrasladoProductoImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#000;
+	text-transform: uppercase;  
+}
+
+.EstTrasladoProductoImprimirContenido{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:12px;
+}
+/*
+* TEXTO BODY OTROS
+*/
+.EstTrasladoProductoImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+.EstTrasladoProductoImprimirContenidoFecha{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:16px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstTrasladoProductoDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstTrasladoProductoDetalleImprimirContenido td{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstTrasladoProductoImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstTrasladoProductoImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstTrasladoProductoImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+
+/*
+* CABECERAS
+*/
+.EstTrasladoProductoImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+text-decoration:underline;
+}
+
+.EstTrasladoProductoImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstTrasladoProductoImprimirEtiqueta2{
+	background-color:#900;
+}
+
+
+
+/*
+FONDOS
+*/
+
+.EstTrasladoProductoImprimirEtiquetaFondo{
+	background-color:#F2F2F2;
+	
+}

@@ -1,0 +1,1671 @@
+[01-01-2015 06:00:17][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-325",
+CliId = "CLI-5915",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:00:17",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:00:17"
+WHERE PedId = "PED-533417";
+ Resultado: 
+ 		
+
+[01-01-2015 06:00:17][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:00:17"
+WHERE CliId = "CLI-5915";
+ Resultado: 
+ 		
+
+[01-01-2015 06:00:18][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248599";
+ Resultado: 
+ 		
+
+[01-01-2015 06:00:37][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-297",
+CliId = "CLI-2468",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:00:37",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:00:37"
+WHERE PedId = "PED-533420";
+ Resultado: 
+ 		
+
+[01-01-2015 06:00:37][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:00:37"
+WHERE CliId = "CLI-2468";
+ Resultado: 
+ 		
+
+[01-01-2015 06:00:37][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248611";
+ Resultado: 
+ 		
+
+[01-01-2015 06:00:54][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-306",
+CliId = "CLI-3928",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:00:54",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:00:54"
+WHERE PedId = "PED-533419";
+ Resultado: 
+ 		
+
+[01-01-2015 06:00:54][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:00:54"
+WHERE CliId = "CLI-3928";
+ Resultado: 
+ 		
+
+[01-01-2015 06:00:55][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248612";
+ Resultado: 
+ 		
+
+[01-01-2015 06:01:22][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-253",
+CliId = "CLI-1957",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:01:22",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:01:22"
+WHERE PedId = "PED-533416";
+ Resultado: 
+ 		
+
+[01-01-2015 06:01:22][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:01:22"
+WHERE CliId = "CLI-1957";
+ Resultado: 
+ 		
+
+[01-01-2015 06:01:23][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248586";
+ Resultado: 
+ 		
+
+[01-01-2015 06:02:25][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = NULL, 
+CliId = "CLI-7614",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = NULL, 
+PedTurno = "",
+PedEstado = 3,
+PedTiempoModificacion = "2015-01-01 06:02:25"
+WHERE PedId = "PED-533406";
+ Resultado: 
+ 		
+
+[01-01-2015 06:02:25][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:02:25"
+WHERE CliId = "CLI-7614";
+ Resultado: 
+ 		
+
+[01-01-2015 06:02:25][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 3
+WHERE RecLlamada = "2248464";
+ Resultado: 
+ 		
+
+[01-01-2015 06:02:44][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-369",
+CliId = "CLI-6981",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:02:44",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:02:44"
+WHERE PedId = "PED-533414";
+ Resultado: 
+ 		
+
+[01-01-2015 06:02:45][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:02:45"
+WHERE CliId = "CLI-6981";
+ Resultado: 
+ 		
+
+[01-01-2015 06:02:45][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248583";
+ Resultado: 
+ 		
+
+[01-01-2015 06:03:07][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-164",
+CliId = "CLI-2864",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:03:07",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:03:07"
+WHERE PedId = "PED-533418";
+ Resultado: 
+ 		
+
+[01-01-2015 06:03:07][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:03:07"
+WHERE CliId = "CLI-2864";
+ Resultado: 
+ 		
+
+[01-01-2015 06:03:07][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248609";
+ Resultado: 
+ 		
+
+[01-01-2015 06:04:00][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = NULL, 
+CliId = "CLI-3928",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = NULL, 
+PedTurno = "",
+PedEstado = 3,
+PedTiempoModificacion = "2015-01-01 06:04:00"
+WHERE PedId = "PED-533422";
+ Resultado: 
+ 		
+
+[01-01-2015 06:04:00][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:04:00"
+WHERE CliId = "CLI-3928";
+ Resultado: 
+ 		
+
+[01-01-2015 06:04:00][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 3
+WHERE RecLlamada = "2248640";
+ Resultado: 
+ 		
+
+[01-01-2015 06:06:29][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-90",
+CliId = "CLI-1301",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:06:29",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:06:29"
+WHERE PedId = "PED-533425";
+ Resultado: 
+ 		
+
+[01-01-2015 06:06:29][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:06:29"
+WHERE CliId = "CLI-1301";
+ Resultado: 
+ 		
+
+[01-01-2015 06:06:30][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248651";
+ Resultado: 
+ 		
+
+[01-01-2015 06:07:22][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = NULL, 
+CliId = "CLI-9177",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = NULL, 
+PedTurno = "",
+PedEstado = 3,
+PedTiempoModificacion = "2015-01-01 06:07:22"
+WHERE PedId = "PED-533409";
+ Resultado: 
+ 		
+
+[01-01-2015 06:07:22][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:07:22"
+WHERE CliId = "CLI-9177";
+ Resultado: 
+ 		
+
+[01-01-2015 06:07:23][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 3
+WHERE RecLlamada = "2248477";
+ Resultado: 
+ 		
+
+[01-01-2015 06:08:05][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-20",
+CliId = "CLI-8249",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:08:05",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:08:05"
+WHERE PedId = "PED-533424";
+ Resultado: 
+ 		
+
+[01-01-2015 06:08:05][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:08:05"
+WHERE CliId = "CLI-8249";
+ Resultado: 
+ 		
+
+[01-01-2015 06:08:06][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248646";
+ Resultado: 
+ 		
+
+[01-01-2015 06:08:31][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-263",
+CliId = "CLI-4989",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:08:31",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:08:31"
+WHERE PedId = "PED-533423";
+ Resultado: 
+ 		
+
+[01-01-2015 06:08:31][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:08:31"
+WHERE CliId = "CLI-4989";
+ Resultado: 
+ 		
+
+[01-01-2015 06:08:31][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248642";
+ Resultado: 
+ 		
+
+[01-01-2015 06:09:18][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-83",
+CliId = "CLI-1247",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:09:18",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:09:18"
+WHERE PedId = "PED-533421";
+ Resultado: 
+ 		
+
+[01-01-2015 06:09:18][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:09:18"
+WHERE CliId = "CLI-1247";
+ Resultado: 
+ 		
+
+[01-01-2015 06:09:19][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248618";
+ Resultado: 
+ 		
+
+[01-01-2015 06:11:17][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CcaId = "CCA-2",
+CliNumeroDocumento = "",
+CliNombre = "SN",
+CliTelefono = "52421897",
+CliCelular = "",
+CliDireccion = "SN",
+CliEmail = "",
+CliZona = "",
+CliConfirmado = 1,
+CliEstado = 1,
+CliTiempoModificacion = "2015-01-01 06:11:16"
+WHERE CliId = "CLI-13704";
+ Resultado: 
+ 		
+
+[01-01-2015 06:11:25][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = NULL, 
+CliId = "CLI-13704",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = NULL, 
+PedTurno = "",
+PedEstado = 3,
+PedTiempoModificacion = "2015-01-01 06:11:25"
+WHERE PedId = "PED-533427";
+ Resultado: 
+ 		
+
+[01-01-2015 06:11:25][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:11:25"
+WHERE CliId = "CLI-13704";
+ Resultado: 
+ 		
+
+[01-01-2015 06:11:26][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 3
+WHERE RecLlamada = "2248688";
+ Resultado: 
+ 		
+
+[01-01-2015 06:12:23][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-325",
+CliId = "CLI-4040",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:12:23",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:12:23"
+WHERE PedId = "PED-533429";
+ Resultado: 
+ 		
+
+[01-01-2015 06:12:23][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:12:23"
+WHERE CliId = "CLI-4040";
+ Resultado: 
+ 		
+
+[01-01-2015 06:12:23][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248711";
+ Resultado: 
+ 		
+
+[01-01-2015 06:13:13][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-253",
+CliId = "CLI-2780",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:13:13",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:13:13"
+WHERE PedId = "PED-533428";
+ Resultado: 
+ 		
+
+[01-01-2015 06:13:13][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:13:13"
+WHERE CliId = "CLI-2780";
+ Resultado: 
+ 		
+
+[01-01-2015 06:13:14][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248702";
+ Resultado: 
+ 		
+
+[01-01-2015 06:14:04][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = NULL, 
+CliId = "CLI-4040",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = NULL, 
+PedTurno = "",
+PedEstado = 3,
+PedTiempoModificacion = "2015-01-01 06:14:04"
+WHERE PedId = "PED-533430";
+ Resultado: 
+ 		
+
+[01-01-2015 06:14:04][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:14:04"
+WHERE CliId = "CLI-4040";
+ Resultado: 
+ 		
+
+[01-01-2015 06:14:04][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 3
+WHERE RecLlamada = "2248735";
+ Resultado: 
+ 		
+
+[01-01-2015 06:14:19][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-383",
+CliId = "CLI-1856",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:14:19",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:14:19"
+WHERE PedId = "PED-533415";
+ Resultado: 
+ 		
+
+[01-01-2015 06:14:19][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:14:19"
+WHERE CliId = "CLI-1856";
+ Resultado: 
+ 		
+
+[01-01-2015 06:14:19][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248584";
+ Resultado: 
+ 		
+
+[01-01-2015 06:14:50][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-176",
+CliId = "CLI-3406",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:14:50",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:14:50"
+WHERE PedId = "PED-533426";
+ Resultado: 
+ 		
+
+[01-01-2015 06:14:50][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:14:50"
+WHERE CliId = "CLI-3406";
+ Resultado: 
+ 		
+
+[01-01-2015 06:14:50][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248659";
+ Resultado: 
+ 		
+
+[01-01-2015 06:15:21][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = NULL, 
+CliId = "CLI-13704",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = NULL, 
+PedTurno = "",
+PedEstado = 3,
+PedTiempoModificacion = "2015-01-01 06:15:21"
+WHERE PedId = "PED-533432";
+ Resultado: 
+ 		
+
+[01-01-2015 06:15:21][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:15:21"
+WHERE CliId = "CLI-13704";
+ Resultado: 
+ 		
+
+[01-01-2015 06:15:21][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 3
+WHERE RecLlamada = "2248752";
+ Resultado: 
+ 		
+
+[01-01-2015 06:15:29][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = NULL, 
+CliId = "CLI-10828",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = NULL, 
+PedTurno = "",
+PedEstado = 3,
+PedTiempoModificacion = "2015-01-01 06:15:29"
+WHERE PedId = "PED-533433";
+ Resultado: 
+ 		
+
+[01-01-2015 06:15:29][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:15:29"
+WHERE CliId = "CLI-10828";
+ Resultado: 
+ 		
+
+[01-01-2015 06:15:29][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 3
+WHERE RecLlamada = "2248754";
+ Resultado: 
+ 		
+
+[01-01-2015 06:16:11][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-21",
+CliId = "CLI-3897",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:16:11",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:16:11"
+WHERE PedId = "PED-533434";
+ Resultado: 
+ 		
+
+[01-01-2015 06:16:11][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:16:11"
+WHERE CliId = "CLI-3897";
+ Resultado: 
+ 		
+
+[01-01-2015 06:16:11][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248758";
+ Resultado: 
+ 		
+
+[01-01-2015 06:17:29][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CcaId = "CCA-2",
+CliNumeroDocumento = "",
+CliNombre = "SN",
+CliTelefono = "52638338",
+CliCelular = "",
+CliDireccion = "SN",
+CliEmail = "",
+CliZona = "",
+CliConfirmado = 2,
+CliEstado = 1,
+CliTiempoModificacion = "2015-01-01 06:17:29"
+WHERE CliId = "CLI-13705";
+ Resultado: 
+ 		
+
+[01-01-2015 06:17:42][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = NULL, 
+CliId = "CLI-13705",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = NULL, 
+PedTurno = "",
+PedEstado = 3,
+PedTiempoModificacion = "2015-01-01 06:17:42"
+WHERE PedId = "PED-533435";
+ Resultado: 
+ 		
+
+[01-01-2015 06:17:43][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:17:43"
+WHERE CliId = "CLI-13705";
+ Resultado: 
+ 		
+
+[01-01-2015 06:17:43][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 3
+WHERE RecLlamada = "2248763";
+ Resultado: 
+ 		
+
+[01-01-2015 06:18:06][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-231",
+CliId = "CLI-10390",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:18:06",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:18:06"
+WHERE PedId = "PED-533437";
+ Resultado: 
+ 		
+
+[01-01-2015 06:18:06][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:18:06"
+WHERE CliId = "CLI-10390";
+ Resultado: 
+ 		
+
+[01-01-2015 06:18:06][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248772";
+ Resultado: 
+ 		
+
+[01-01-2015 06:18:37][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CcaId = "CCA-2",
+CliNumeroDocumento = "",
+CliNombre = "SN",
+CliTelefono = "52244937",
+CliCelular = "",
+CliDireccion = "SN",
+CliEmail = "",
+CliZona = "",
+CliConfirmado = 1,
+CliEstado = 1,
+CliTiempoModificacion = "2015-01-01 06:18:37"
+WHERE CliId = "CLI-13706";
+ Resultado: 
+ 		
+
+[01-01-2015 06:18:52][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = NULL, 
+CliId = "CLI-13706",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = NULL, 
+PedTurno = "",
+PedEstado = 3,
+PedTiempoModificacion = "2015-01-01 06:18:52"
+WHERE PedId = "PED-533438";
+ Resultado: 
+ 		
+
+[01-01-2015 06:18:52][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:18:52"
+WHERE CliId = "CLI-13706";
+ Resultado: 
+ 		
+
+[01-01-2015 06:18:52][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 3
+WHERE RecLlamada = "2248776";
+ Resultado: 
+ 		
+
+[01-01-2015 06:19:40][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = NULL, 
+CliId = "CLI-2780",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = NULL, 
+PedTurno = "",
+PedEstado = 3,
+PedTiempoModificacion = "2015-01-01 06:19:40"
+WHERE PedId = "PED-533436";
+ Resultado: 
+ 		
+
+[01-01-2015 06:19:40][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:19:40"
+WHERE CliId = "CLI-2780";
+ Resultado: 
+ 		
+
+[01-01-2015 06:19:41][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 3
+WHERE RecLlamada = "2248770";
+ Resultado: 
+ 		
+
+[01-01-2015 06:21:31][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-115",
+CliId = "CLI-10828",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:21:31",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:21:31"
+WHERE PedId = "PED-533431";
+ Resultado: 
+ 		
+
+[01-01-2015 06:21:31][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:21:31"
+WHERE CliId = "CLI-10828";
+ Resultado: 
+ 		
+
+[01-01-2015 06:21:32][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248749";
+ Resultado: 
+ 		
+
+[01-01-2015 06:23:21][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-253",
+CliId = "CLI-508",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:23:21",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:23:21"
+WHERE PedId = "PED-533439";
+ Resultado: 
+ 		
+
+[01-01-2015 06:23:21][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:23:21"
+WHERE CliId = "CLI-508";
+ Resultado: 
+ 		
+
+[01-01-2015 06:23:21][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248804";
+ Resultado: 
+ 		
+
+[01-01-2015 06:24:01][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-154",
+CliId = "CLI-13473",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:24:01",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:24:01"
+WHERE PedId = "PED-533440";
+ Resultado: 
+ 		
+
+[01-01-2015 06:24:01][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:24:01"
+WHERE CliId = "CLI-13473";
+ Resultado: 
+ 		
+
+[01-01-2015 06:24:01][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248808";
+ Resultado: 
+ 		
+
+[01-01-2015 06:24:14][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-345",
+CliId = "CLI-11465",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:24:14",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:24:14"
+WHERE PedId = "PED-533441";
+ Resultado: 
+ 		
+
+[01-01-2015 06:24:14][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:24:14"
+WHERE CliId = "CLI-11465";
+ Resultado: 
+ 		
+
+[01-01-2015 06:24:15][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248813";
+ Resultado: 
+ 		
+
+[01-01-2015 06:30:50][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-175",
+CliId = "CLI-6421",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:30:50",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:30:50"
+WHERE PedId = "PED-533443";
+ Resultado: 
+ 		
+
+[01-01-2015 06:30:50][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:30:50"
+WHERE CliId = "CLI-6421";
+ Resultado: 
+ 		
+
+[01-01-2015 06:30:50][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248832";
+ Resultado: 
+ 		
+
+[01-01-2015 06:31:58][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-34",
+CliId = "CLI-7614",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:31:58",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:31:58"
+WHERE PedId = "PED-533445";
+ Resultado: 
+ 		
+
+[01-01-2015 06:31:58][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:31:58"
+WHERE CliId = "CLI-7614";
+ Resultado: 
+ 		
+
+[01-01-2015 06:31:59][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248877";
+ Resultado: 
+ 		
+
+[01-01-2015 06:33:32][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-21",
+CliId = "CLI-3477",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:33:32",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:33:32"
+WHERE PedId = "PED-533442";
+ Resultado: 
+ 		
+
+[01-01-2015 06:33:32][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:33:32"
+WHERE CliId = "CLI-3477";
+ Resultado: 
+ 		
+
+[01-01-2015 06:33:33][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248825";
+ Resultado: 
+ 		
+
+[01-01-2015 06:35:24][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-253",
+CliId = "CLI-1859",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:35:24",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:35:24"
+WHERE PedId = "PED-533446";
+ Resultado: 
+ 		
+
+[01-01-2015 06:35:24][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:35:24"
+WHERE CliId = "CLI-1859";
+ Resultado: 
+ 		
+
+[01-01-2015 06:35:24][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248906";
+ Resultado: 
+ 		
+
+[01-01-2015 06:40:53][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-306",
+CliId = "CLI-9355",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:40:53",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:40:53"
+WHERE PedId = "PED-533448";
+ Resultado: 
+ 		
+
+[01-01-2015 06:40:53][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:40:53"
+WHERE CliId = "CLI-9355";
+ Resultado: 
+ 		
+
+[01-01-2015 06:40:53][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248949";
+ Resultado: 
+ 		
+
+[01-01-2015 06:42:49][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-161",
+CliId = "CLI-6613",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:42:49",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:42:49"
+WHERE PedId = "PED-533444";
+ Resultado: 
+ 		
+
+[01-01-2015 06:42:49][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:42:49"
+WHERE CliId = "CLI-6613";
+ Resultado: 
+ 		
+
+[01-01-2015 06:42:50][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248854";
+ Resultado: 
+ 		
+
+[01-01-2015 06:44:05][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-297",
+CliId = "CLI-5346",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:44:05",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:44:05"
+WHERE PedId = "PED-533450";
+ Resultado: 
+ 		
+
+[01-01-2015 06:44:05][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:44:05"
+WHERE CliId = "CLI-5346";
+ Resultado: 
+ 		
+
+[01-01-2015 06:44:05][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248958";
+ Resultado: 
+ 		
+
+[01-01-2015 06:44:32][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-151",
+CliId = "CLI-10331",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:44:32",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:44:32"
+WHERE PedId = "PED-533451";
+ Resultado: 
+ 		
+
+[01-01-2015 06:44:32][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:44:32"
+WHERE CliId = "CLI-10331";
+ Resultado: 
+ 		
+
+[01-01-2015 06:44:32][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248966";
+ Resultado: 
+ 		
+
+[01-01-2015 06:44:44][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-341",
+CliId = "CLI-2627",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:44:44",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:44:44"
+WHERE PedId = "PED-533452";
+ Resultado: 
+ 		
+
+[01-01-2015 06:44:44][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:44:44"
+WHERE CliId = "CLI-2627";
+ Resultado: 
+ 		
+
+[01-01-2015 06:44:44][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248972";
+ Resultado: 
+ 		
+
+[01-01-2015 06:46:13][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-268",
+CliId = "CLI-3928",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:46:13",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:46:13"
+WHERE PedId = "PED-533453";
+ Resultado: 
+ 		
+
+[01-01-2015 06:46:13][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:46:13"
+WHERE CliId = "CLI-3928";
+ Resultado: 
+ 		
+
+[01-01-2015 06:46:14][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248979";
+ Resultado: 
+ 		
+
+[01-01-2015 06:46:34][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-400",
+CliId = "CLI-7462",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:46:34",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:46:34"
+WHERE PedId = "PED-533449";
+ Resultado: 
+ 		
+
+[01-01-2015 06:46:34][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:46:34"
+WHERE CliId = "CLI-7462";
+ Resultado: 
+ 		
+
+[01-01-2015 06:46:34][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248956";
+ Resultado: 
+ 		
+
+[01-01-2015 06:47:44][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-263",
+CliId = "CLI-2567",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:47:44",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:47:44"
+WHERE PedId = "PED-533454";
+ Resultado: 
+ 		
+
+[01-01-2015 06:47:44][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:47:44"
+WHERE CliId = "CLI-2567";
+ Resultado: 
+ 		
+
+[01-01-2015 06:47:44][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248993";
+ Resultado: 
+ 		
+
+[01-01-2015 06:48:38][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-241",
+CliId = "CLI-1798",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:48:38",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:48:38"
+WHERE PedId = "PED-533456";
+ Resultado: 
+ 		
+
+[01-01-2015 06:48:39][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:48:39"
+WHERE CliId = "CLI-1798";
+ Resultado: 
+ 		
+
+[01-01-2015 06:48:39][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2248998";
+ Resultado: 
+ 		
+
+[01-01-2015 06:50:57][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-75",
+CliId = "CLI-4493",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:50:57",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:50:57"
+WHERE PedId = "PED-533458";
+ Resultado: 
+ 		
+
+[01-01-2015 06:50:57][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:50:57"
+WHERE CliId = "CLI-4493";
+ Resultado: 
+ 		
+
+[01-01-2015 06:50:57][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2249014";
+ Resultado: 
+ 		
+
+[01-01-2015 06:54:50][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-241",
+CliId = "CLI-7554",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:54:50",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:54:50"
+WHERE PedId = "PED-533463";
+ Resultado: 
+ 		
+
+[01-01-2015 06:54:50][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:54:50"
+WHERE CliId = "CLI-7554";
+ Resultado: 
+ 		
+
+[01-01-2015 06:54:51][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2249054";
+ Resultado: 
+ 		
+
+[01-01-2015 06:55:58][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-231",
+CliId = "CLI-1598",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:55:58",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:55:58"
+WHERE PedId = "PED-533465";
+ Resultado: 
+ 		
+
+[01-01-2015 06:55:58][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:55:58"
+WHERE CliId = "CLI-1598";
+ Resultado: 
+ 		
+
+[01-01-2015 06:55:58][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2249055";
+ Resultado: 
+ 		
+
+[01-01-2015 06:56:23][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-110",
+CliId = "CLI-12153",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:56:23",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:56:23"
+WHERE PedId = "PED-533457";
+ Resultado: 
+ 		
+
+[01-01-2015 06:56:23][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:56:23"
+WHERE CliId = "CLI-12153";
+ Resultado: 
+ 		
+
+[01-01-2015 06:56:23][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2249002";
+ Resultado: 
+ 		
+
+[01-01-2015 06:57:16][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-114",
+CliId = "CLI-2784",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:57:16",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:57:16"
+WHERE PedId = "PED-533462";
+ Resultado: 
+ 		
+
+[01-01-2015 06:57:16][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 1,
+CliTiempoModificacion = "2015-01-01 06:57:16"
+WHERE CliId = "CLI-2784";
+ Resultado: 
+ 		
+
+[01-01-2015 06:57:16][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2249051";
+ Resultado: 
+ 		
+
+[01-01-2015 06:57:25][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblpedpedido SET 	
+PedFecha = "2015-01-01",
+VehId = "VEH-341",
+CliId = "CLI-12428",
+PedObservacion = "",
+PedTipo = 1,
+PedTiempoAtencion = "2015-01-01 06:57:25",
+PedTurno = "",
+PedEstado = 2,
+PedTiempoModificacion = "2015-01-01 06:57:25"
+WHERE PedId = "PED-533464";
+ Resultado: 
+ 		
+
+[01-01-2015 06:57:25][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblclicliente SET 
+CliConfirmado = 2,
+CliTiempoModificacion = "2015-01-01 06:57:25"
+WHERE CliId = "CLI-12428";
+ Resultado: 
+ 		
+
+[01-01-2015 06:57:26][USU-10001][admin] 
+ Consulta: 
+ 		UPDATE tblrecrecibido SET 
+RecEstado = 2
+WHERE RecLlamada = "2249053";
+ Resultado: 
+ 		
+

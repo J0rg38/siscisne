@@ -1,0 +1,466 @@
+// JavaScript Document
+
+//function FncGuardar(){
+//	
+//	//HACK
+//	$("#CmpEstado").removeAttr('disabled');		
+//	
+//}
+
+function FncValidar(){
+
+	var FechaProgramada = $("#CmpFechaProgramada").val();
+	var HoraProgramada = $("#CmpHoraProgramada").val();
+
+	var ClienteId = $("#CmpClienteId").val();
+	var Personal = $("#CmpPersonal").val();
+	var Duracion = $("#CmpDuracion").val();
+		
+		if(FechaProgramada == ""){		
+		
+			dhtmlx.alert({
+					title:"Aviso",
+					type:"alert-error",
+					text:"Debes ingresar una fecha de cita",
+					callback: function(result){
+						$("#CmpFechaProgramada").focus();
+					}
+				});
+				
+			return false;
+		
+		}else if(HoraProgramada == ""){			
+		
+				dhtmlx.alert({
+					title:"Aviso",
+					type:"alert-error",
+					text:"Debes ingresar una hora de cita",
+					callback: function(result){
+						$("#CmpHoraProgramada").focus();
+					}
+				});
+				
+			return false;
+			
+		}else if(ClienteId == ""){			
+		
+				dhtmlx.alert({
+					title:"Aviso",
+					type:"alert-error",
+					text:"Debes escoger un cliente",
+					callback: function(result){
+						$("#CmpClienteNombre").focus();
+					}
+				});
+				
+			return false;
+	/*	}else if(Personal == ""){
+			
+				dhtmlx.alert({
+					title:"Aviso",
+					type:"alert-error",
+					text:"Debe escoger un asesor responsable",
+					callback: function(result){
+						$("#CmpPersonal").focus();
+					}
+				});
+
+			return false;*/
+
+		}else if(Duracion == ""){
+			
+				dhtmlx.alert({
+					title:"Aviso",
+					type:"alert-error",
+					text:"Debe escoger una duracion ",
+					callback: function(result){
+						$("#CmpDuracion").focus();
+					}
+				});
+
+			return false;
+
+		}else if(FncValidarPersonalHoraCita()==false){
+
+			dhtmlx.alert({
+					title:"Aviso",
+					type:"alert-error",
+					text:"El horario esta ocupado en este turno",
+					callback: function(result){
+						$("#CmpHoraProgramada").focus();
+					}
+				});
+				
+				return false;
+		}else{
+			return true;
+		}
+		
+//		alert("adfsasdf");
+	
+}
+
+$().ready(function() {
+
+	
+	$('#FrmRegistrar').on('submit', function() {
+		
+		$("#CmpEstado").removeAttr('disabled');		
+		
+		return FncValidar();
+
+	});
+
+	$('#FrmEditar').on('submit', function() {
+		
+		$("#CmpEstado").removeAttr('disabled');	
+			
+		return FncValidar();
+
+	});
+	
+/*
+* EVENTOS - NAVEGACION
+*/		
+
+	$('#BtnValidarCita').on('click', function() {
+		
+		FncValidarPersonalHoraCita();
+		
+	});
+	
+	
+	
+	$('#BtnCitaCalendario').on('click', function() {
+
+		FncCitaCalendarioCargarFormulario();
+
+	});
+	
+	$('#BtnCitaVerRestricciones').on('click', function() {
+
+		FncCitaVerRestriccionesoCargarFormulario();
+
+	});
+	
+	
+	
+//	$('#CmpPersonalMecanico').on('change', function() {
+//
+//		
+//
+//	});
+	
+	$( "#CmpPersonalMecanico" ).change(function() {
+		FncCargarPersonalHorario();
+	});
+
+	
+});
+
+
+function FncClienteSimpleFuncion(InsCliente){
+	
+	if(InsCliente.EinId!=null && InsCliente.EinId!=""){
+		
+		//$("#CmpVehiculoIngresoId").val(InsCliente.EinId);	
+//		
+//		FncVehiculoIngresoBuscar("Id");
+		
+		var VehiculoIngresoId = $("#CmpVehiculoIngresoId").val();		
+		
+		if(VehiculoIngresoId==""){
+			$("#CmpVehiculoIngresoId").val(InsCliente.EinId);	
+			FncVehiculoIngresoBuscar("Id");
+		}
+		
+
+	}else{
+		//FncVehiculoIngresoNuevo();
+	}
+	
+}
+
+
+function FncClienteSimpleFuncion(InsCliente){
+	
+	console.log("FncClienteSimpleFuncion");
+	
+	if(InsCliente.EinId!=""){
+		
+		$("#CmpVehiculoIngresoId").val(InsCliente.EinId);	
+		FncVehiculoIngresoBuscar("Id");
+	}
+	
+	
+}
+
+
+function FncVehiculoIngresoFuncion(InsVehiculoIngreso){
+	
+	console.log("FncVehiculoIngresoFuncion");
+	
+	if(InsVehiculoIngreso.CliId!=null && InsVehiculoIngreso.CliId!=""){
+		
+		//$("#CmpClienteId").val(InsVehiculoIngreso.CliId);	
+//		
+//		FncClienteSimpleBuscar("Id");
+		
+		var ClienteId = $("#CmpClienteId").val();
+		
+		if(ClienteId==""){
+			$("#CmpClienteId").val(InsVehiculoIngreso.CliId);	
+			FncClienteSimpleBuscar("Id");
+		}
+		//
+//		if(ClienteId!=InsVehiculoIngreso.CliId){
+//			
+//			$("#CmpClienteId").val(InsVehiculoIngreso.CliId);	
+//		
+//			FncClienteSimpleBuscar("Id");
+//			
+//		}
+		
+		
+		
+	}else{
+	//	FncClienteSimpleNuevo();
+	}
+	
+	
+	FncCitaMantenimientoKilometrajeEstablecer();
+	
+	FncCitaHistorialListar();
+	
+}
+
+
+
+
+
+function FncCitaMantenimientoKilometrajeEstablecer(){
+	
+	console.log("FncCitaMantenimientoKilometrajeEstablecer");
+	
+	var VehiculoMarcaId = $('#CmpVehiculoMarcaId').val();
+	var KilometrajeMantenimiento = $('#CmpKilometrajeMantenimiento').val();
+console.log(VehiculoMarcaId);
+	$.getJSON("comunes/Vehiculo/JnPlanMantenimientoKilometraje.php?VehiculoMarcaId="+VehiculoMarcaId,{}, function(j){
+
+		var options = '';
+		options += '<option value="">Escoja una opcion</option>';
+		for (var i = 0; i < j.length; i++) {
+
+			if(KilometrajeMantenimiento == j[i].PmkKilometraje){
+				options += '<option value="' + j[i].PmkKilometraje + '" selected="selected">' + j[i].PmkEtiqueta+ ' km</option>';				
+			}else{
+				options += '<option value="' + j[i].PmkKilometraje + '" >' + j[i].PmkEtiqueta+ ' km</option>';				
+			}
+
+		}
+
+		$('select#CmpCitaPresupuestoMantenimientoKilometraje').html(options);
+		
+	})
+	
+}
+
+
+
+function FncCitaCalendarioCargarFormulario(){
+	
+	tb_show(this.title,'principal2.php?Mod=Cita&Form=VerCalendarioFull&Dia=1&placeValuesBeforeTB_=savedValues&TB_iframe=true&height=620&width=890&modal=true',this.rel);		
+
+}
+
+
+function FncCitaVerRestriccionesoCargarFormulario(){
+	
+	tb_show(this.title,'principal2.php?Mod=Cita&Form=VerRestricciones&Dia=1&placeValuesBeforeTB_=savedValues&TB_iframe=true&height=280&width=480&modal=true',this.rel);		
+
+}
+
+function FncValidarPersonalHoraCita(){
+
+	var respuesta = true;
+	
+	var FechaProgramada = $("#CmpFechaProgramada").val();
+	var HoraProgramada = $("#CmpHoraProgramada").val();
+	var PersonalMecanico = $("#CmpPersonalMecanico").val();
+		
+	/*	if(PersonalMecanico==""){
+			
+			dhtmlx.alert({
+				title:"Aviso",
+				type:"alert-error",
+				text:"Debes escoger un mecanico",
+				callback: function(result){
+					$("#CmpPersonalMecanico").focus();
+				}
+			});
+			
+		}else */if(FechaProgramada==""){
+			
+			dhtmlx.alert({
+				title:"Aviso",
+				type:"alert-error",
+				text:"Debes ingresar una fecha",
+				callback: function(result){
+					$("#CmpFechaProgramada").focus();
+				}
+			});
+			
+		}else if(HoraProgramada==""){
+			
+			dhtmlx.alert({
+				title:"Aviso",
+				type:"alert-error",
+				text:"Debes ingresar una hora",
+				callback: function(result){
+					$("#CmpHoraProgramada").focus();
+				}
+			});
+			
+		}else{
+			
+				$.ajax({
+					type: 'POST',
+					dataType: "json",
+					url: 'formularios/Cita/acc/AccValidarCita.php',
+					data: 'FechaProgramada='+FechaProgramada+
+					'&HoraProgramada='+(HoraProgramada)+
+					'&PersonalMecanico='+PersonalMecanico,
+					success: function(InsCita){
+						
+						if(InsCita['respuesta']=="2"){
+
+							dhtmlx.confirm("Se ha alcanzado el total de citas permitidos en este horario. ("+InsCita['citas']+" de "+InsCita['limite']+" citas). ¿Desea continuar de todas maneras?", function(result){
+								if(result==true){		
+									respuesta = true;
+								}else{
+									respuesta = false;
+								}
+							});
+							
+						}else{
+
+							var saldo = InsCita['limite'] - InsCita['citas']
+
+							dhtmlx.alert({
+								title:"Aviso",
+								type:"alert",
+								text:"Cita disponible en este horario ("+saldo+" de "+InsCita['limite']+" citas)",
+								callback: function(result){
+									
+								}
+							});
+
+						
+							
+							//dhtmlx.alert({
+//								title:"Aviso",
+//								type:"alert-error",
+//								text:"",
+//								callback: function(result){
+//									$("#CmpHoraProgramada").focus();
+//								}
+//							});
+						}
+						
+						//if(InsCita.CitId !=null){
+//								
+//									dhtmlx.confirm("Ya existe una cita para esta hora asignada a tecnico escogido. ¿Desea continuar de todas maneras?", function(result){
+//										if(result==true){		
+//											respuesta = true;
+//										}else{
+//											respuesta = false;
+//										}
+//									});
+//		
+//		//
+////								dhtmlx.alert({
+////								title:"Aviso",
+////								type:"alert-error",
+////								text:"Ya existe una cita para esta hora, asignada ese mecanico",
+////								callback: function(result){
+////									$("#CmpHoraProgramada").focus();
+////								}
+////							});
+//	
+//						}else{
+//	
+//						}
+					},
+					error: function(){
+						
+					}
+	
+				});
+			
+		}
+
+	return respuesta;
+	
+}
+
+
+
+function FncCargarPersonalHorario(){
+
+	var FechaProgramada = $("#CmpFechaProgramada").val();
+	var HoraProgramada = $("#CmpHoraProgramada").val();
+	var PersonalMecanico = $("#CmpPersonalMecanico").val();
+		
+	if(FechaProgramada != "" && HoraProgramada=="" && PersonalMecanico==""){
+		
+		$.ajax({
+			type: 'POST',
+			dataType: "json",
+			url: 'formularios/Cita/CapPersonalHorario.php',
+			data: 'FechaProgramada='+FechaProgramada+
+			'&HoraProgramada='+(HoraProgramada)+
+			'&PersonalMecanico='+PersonalMecanico,
+			success: function(html){
+			
+				$("#CapPersonalHorario").html(html);
+			
+			},
+			error: function(){
+				
+			}
+		
+		});
+		
+	}else{
+		$("#CapPersonalHorario").html("");
+	}
+
+	
+	
+}
+
+
+function FncCitaHistorialListar(){
+console.log("FncCitaHistorialListar");
+	var Identificador = $('#Identificador').val();
+
+	var VehiculoIngresoVIN = $("#CmpVehiculoIngresoVIN").val();
+	var VehiculoIngresoId = $("#CmpVehiculoIngresoId").val();	
+
+	$('#CapCitaHistorialAccion').html('Cargando...');
+	
+	$.ajax({
+		type: 'POST',
+		url: 'formularios/Cita/FrmCitaHistorial.php',
+		data: 'VehiculoIngresoVIN='+VehiculoIngresoVIN+'&VehiculoIngresoId='+VehiculoIngresoId,
+		success: function(html){
+			$('#CapCitaHistorialAccion').html('Listo');	
+			$("#CapCitaHistoriales").html("");
+			$("#CapCitaHistoriales").append(html);
+		}
+	});
+	
+	
+
+
+}

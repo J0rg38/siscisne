@@ -1,0 +1,166 @@
+/* CSS Document */
+
+
+
+.EstCapPrincipalSubMenu{
+	margin:0px;
+	padding:0px;
+	
+	background:#FFF;
+	/*height:40px;*/
+	width:100%;
+	border: 1px solid #FFF;
+	height:80px;
+	
+	 position:fixed; 
+ top:8%; 
+/* right:3%;*/
+ z-index:8;
+ border:1px solid #000;
+ 
+}
+
+
+/*
+* SUBMENU
+*/  
+  
+.EstCapMenu{	
+
+	/*border:1px solid #F00;*/
+	/*float:right;*/
+	height:55px;	
+	/*width:67px;*/
+	/*	border:1px solid #000;*/
+	/*	margin-right:10px;*/
+	/*vertical-align:bottom;*/	 
+	position:fixed; 
+	
+	top:11%; 
+	right: 1%;;
+	/*background:#FFF;*/
+	/*z-index:-1;*/
+	 z-index:9;
+}
+
+.EstCapSubMenu{	
+  
+
+	/*border:1px solid #F00;*/
+	/*float:left;*/
+	height:60px;	
+	/*width:67px;*/
+	/*	border:1px solid #000;*/
+	margin-right:10px;
+	/*vertical-align:bottom;*/	
+	position:fixed; 
+	
+	top:11%; 
+		left: 1%;;
+	background:#FFF;
+	/*z-index:-1;*/
+	
+ z-index:9;
+}
+
+
+
+/*
+* SUBMENU BOTONES
+*/
+
+
+.EstSubMenuBoton{
+	
+	
+	/*background-image: linear-gradient(to right, rgba(102,102,102,0), rgba(204,204,204,0));*/
+	background-color:#CECECE;
+	
+	
+	
+	/*background-color:#CCC;*/
+	border:#999 1px  solid;
+	 border-radius:5px;
+	font-size:12px;
+	font-weight:bold;
+	
+	text-align:center;
+	vertical-align:bottom;
+	
+	float:left;	
+	floating :left;
+	width:60px;
+	height:50px;
+	padding:2px;
+	/*margin:2px;*/
+	/*margin-left:1px;*/
+	margin-right:3px;
+	margin-bottom:5px;
+	margin-top:1px;	
+	/*box-shadow: 1px 1px 1px #888888;*/
+	
+	
+}
+
+.EstSubMenuBoton img{
+display:inline-block !important; display:block;	
+	width:35px;
+	height:35px;
+	border:0px;
+	vertical-align:bottom;
+	margin-left:5px;
+	margin-right:5px;
+/*	margin-bottom:2px;*/	
+}
+
+.EstSubMenuBoton a:hover{
+	text-decoration:none;
+color:#666;
+	margin-left:5px;
+	margin-right:1px;	
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:10px;	
+}
+
+.EstSubMenuBoton a{
+	text-decoration:none;
+color:#666;
+	margin-left:5px;
+	margin-right:1px;	
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:10px;	
+}
+
+.EstSubMenuBoton div{
+	text-decoration:none;
+color:#666;
+	margin-left:5px;
+	margin-right:1px;	
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:10px;	
+}
+
+
+
+	
+	
+
+.EstSubMenuSeparacion{	
+	vertical-align:bottom;	
+	float:left;	
+	floating :left;
+	width:3px;
+	height:50px;
+	padding:2px;
+	/*margin:2px;*/
+	/*margin-left:1px;*/
+	margin-right:1px;
+	margin-bottom:5px;
+	margin-top:1px;
+	
+}
+
+#BtnGuardar{
+	border:#999 1px outset;
+}
+

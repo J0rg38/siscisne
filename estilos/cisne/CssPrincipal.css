@@ -1,0 +1,218 @@
+/* CSS Document */
+
+body {
+	
+	
+	/*
+margin:  0px 0px 0px 0px ;
+padding: 0px 0px 0px 0px ;
+*/
+background-image:url(../imagenes/fondo_principal.png);
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: center; 
+/*
+background-repeat:inherit;*/
+/*background-color:#FFF;*/
+/*background-color:#CCCCCC;*/
+/*margin: 2;
+*/
+
+}
+
+
+/*
+************************************************************************
+* ESTILOS PRINCIPAL
+************************************************************************
+*/
+
+/*
+#CapPrincipal{
+	overflow:auto;
+}
+*/
+
+
+/*.EstCapContenedor{	
+	float:left;
+	width:100%;
+	margin:10px;
+	padding:10px;
+}
+*/
+
+.EstCapPrincipalCabecera{
+	margin:0px;
+	padding:0px;
+	
+	height:35px;
+	width:100%;
+	/*background-color:#069;*/
+	background-color:#06C;	
+	border: 1px solid #FFF;
+	
+	/*
+	position: absolute;
+top: 120px;*/
+ position:fixed; 
+ top:0%; 
+/* right:3%;*/
+ z-index:10;
+
+}
+
+	.EstCapCabeceraLogo{
+		background-color:#06C;	
+			margin:0px;
+	padding:0px;
+	
+		float:left;	
+		width:10%;
+		height:100%;
+		vertical-align:middle;
+	}
+	
+	.EstCapCabeceraSesion{
+			margin:0px;
+		padding:0px;
+	background-color:#06C;	
+		float:left;	
+		width:38%;
+		height:100%;
+		vertical-align:middle;
+	}
+	
+	.EstCapCabeceraTipoCambio{
+			background-color:#06C;	
+				margin:0px;
+	padding:0px;
+	
+		float:left;	
+		width:27%;
+			text-align:right;
+			height:100%;
+			vertical-align:middle;
+	}
+	
+	.EstCapCabeceraTiempo{
+		background-color:#06C;	
+			margin:0px;
+	padding:0px;
+	
+		float:left;	
+		width:25%;
+	
+		text-align:right;
+		height:100%;
+		vertical-align:middle;
+	}
+
+.EstCapPrincipalMenu{
+	margin:0px;
+	padding:0px;
+	
+	background:#06C;
+	/*height:40px;*/
+	width:100%;
+	border: 1px solid #FFF;
+	
+	 position:fixed; 
+ top:6%; 
+/* right:3%;*/
+ z-index:10;
+}
+
+
+
+.EstCapPrincipalSubMenu{
+	margin:0px;
+	padding:0px;
+	
+	background:#FFF;
+	/*height:40px;*/
+	width:100%;
+	border: 1px solid #FFF;
+	height:80px;
+	
+	 position:fixed; 
+ top:8%; 
+/* right:3%;*/
+ z-index:8;
+ border:1px solid #000;
+ 
+}
+
+
+.EstCapPrincipalCuerpo{		
+	
+	margin:0px;
+	padding-left:0px;
+	padding-right:0px;
+	padding-bottom:0px;
+	padding-top:65px;
+	width:100%;	
+	
+}
+
+.EstCapPrincipalLeyenda{	
+	margin:0px;
+	padding:0px;
+	
+	height:50px;
+	width:100%;	
+}
+
+.EstCapPrincipalPie{	
+	margin:0px;
+	padding:0px;
+	
+	height:50px;
+	width:100%;	
+	color:#FFFFFF;	
+	text-align:center;
+	/*background-color:#FFF;*/
+	background-image:url(../imagenes/fondo_pie.png);
+	/*margin-top:5px;
+	padding:5px;*/
+	
+	/*float:left;*/
+/*	border-radius: 7px;
+	border:1px solid #000;*/
+	box-shadow: 5px 5px 5px #888888;
+}
+
+
+.EstCapContenido table{
+	/*padding-left:5px;
+	padding-right:5px;
+	*/
+}
+
+.EstCapContenido{
+
+	padding-top:79px;
+	padding-bottom:10px;
+	/*	
+	padding-left:10px;
+	padding-right:10px;*/
+ 	background-image:url(../imagenes/fondo_capa.png);
+	background-color:#FFF;
+	
+	
+	
+	width:100%;
+	
+	float:left;
+	border-radius: 7px;
+	border:1px solid #000;
+	/*box-shadow: 5px 5px 5px #888888;*/
+/*	min-height:400px;*/
+	/*background-image:url(../imagenes/fondo_cuerpo.jpg);*/
+		
+		
+	
+  
+  
+}
+

@@ -1,0 +1,132 @@
+
+/*
+* IMPRESION
+*/
+table.EstTrasladoVehiculoImprimirTabla{
+font-family:Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstTrasladoVehiculoImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstTrasladoVehiculoImprimirTablaHead th{
+padding-left:2px;
+padding-right:2px;
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstTrasladoVehiculoImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstTrasladoVehiculoImprimirTablaBody td {
+background-color:#FFF;
+padding-left:2px;
+padding-right:2px;
+border:#CCC 1px solid ; 
+}
+
+/*
+* TEXTO BODY
+*/
+.EstTrasladoVehiculoImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+color:#000;
+}
+
+.EstTrasladoVehiculoImprimirContenido{
+/*font-weight:bold;*/
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+/*
+* TEXTO BODY OTROS
+*/
+.EstTrasladoVehiculoImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+.EstTrasladoVehiculoImprimirContenidoFecha{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:16px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstTrasladoVehiculoDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstTrasladoVehiculoDetalleImprimirContenido td{
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstTrasladoVehiculoImprimirEtiquetaTotal{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#000;
+}
+.EstTrasladoVehiculoImprimirContenidoTotal{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstTrasladoVehiculoImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+/*
+* CABECERAS
+*/
+.EstTrasladoVehiculoImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstTrasladoVehiculoImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstTrasladoVehiculoImprimirEtiqueta2{
+	background-color:#900;
+}
+
+
+.EstTablaListadoActivo{
+	background-color:#FFF;
+	
+}
+
+EstTablaListadoInactivo{
+	background-color:#CCC;
+}

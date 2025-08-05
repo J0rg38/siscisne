@@ -1,0 +1,196 @@
+<?php
+session_start();
+require_once('../../proyecto/ClsProyecto.php');
+require_once('../../proyecto/ClsPoo.php');
+
+$InsProyecto->Ruta = '../../';
+$InsPoo->Ruta = '../../';
+
+////CONFIGURACIONES GENERALES
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+////MENSAJES GENERALES
+require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+////FUNCIONES GENERALES
+require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+
+
+$POST_ProductoId = $_POST['ProductoId'];
+//$POST_Ano = (empty($_POST['Ano'])?date("Y"):$_POST['Ano']);
+$POST_Ano = 1900;
+$POST_AlmacenId = $_POST['AlmacenId'];
+$POST_Sucursal = $_POST['Sucursal'];
+
+$FechaInicio = "01/01/".$POST_Ano;
+$FechaFin = date("d/m/Y");
+
+if(empty($POST_ProductoId)){
+	die("No ha escogido un producto");
+}
+
+require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenStock.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenMovimientoEntradaDetalle.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenMovimientoSalidaDetalle.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaConcretadaDetalle.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsKardex.php');
+
+$InsAlmacenMovimientoEntradaDetalle = new ClsAlmacenMovimientoEntradaDetalle();
+$InsAlmacenMovimientoSalidaDetalle = new ClsAlmacenMovimientoSalidaDetalle();
+$InsVentaConcretadaDetalle = new ClsVentaConcretadaDetalle();
+
+$InsAlmacenStock = new ClsAlmacenStock();
+$InsKardex = new ClsKardex();
+
+//$InsAlmacenStock->ProId = $POST_ProductoId;
+//$InsAlmacenStock->MtdObtenerAlmacenStock();
+
+
+/*
+ENTRADAS
+1 - ALMACEN MOVIMIENTO ENTRADA / compras
+2 - otros ingresos
+6 - TRASLADO ALMACEN
+7 - CONVERSION
+SALIDAS
+1 - ALMACEN MOVIMIENTO SALIDA
+2 - TALLER PEDIDO
+3 - VENTA CONCRETADA
+6 - TRASLADO ALMACEN
+7 - CONVERSION
+8 - TRANSFERENCIA ENTRADA
+
+
+*/
+
+if(!empty($POST_AlmacenId)){
+		
+}else{
+	$stipo = "1,2,6";
+}
+
+//MtdObtenerAlmacenMovimientoEntradaDetalles($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oAlmacenMovimientoEntrada=NULL,$oEstado=NULL,$oProducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oCliente=NULL,$oConOrdenCompra=0,$oOrdenCompra=NULL,$oPedidoCompraDetalleId=NULL,$oVentaDirectaDetalleId=NULL,$oAlmacenId=NULL,$oAlmacenMovimientoSubTipo=NULL,$oSucursal=NULL) {
+$ResAlmacenMovimientoEntradaDetalle = $InsKardex->MtdObtenerAlmacenMovimientoEntradaDetalles(NULL,NULL,NULL,'AmoFecha','ASC',1,NULL,NULL,3,$POST_ProductoId,FncCambiaFechaAMysql($FechaInicio),FncCambiaFechaAMysql($FechaFin),NULL,0,NULL,NULL,NULL,$POST_AlmacenId,$stipo,$POST_Sucursal);
+$ArrAlmacenMovimientoEntradaDetalles = $ResAlmacenMovimientoEntradaDetalle['Datos'];
+?>
+
+        
+        
+<table width="100%" border="0" cellpadding="0" cellspacing="1" class="EstTablaListado">
+<thead class="EstTablaListadoHead">
+  <tr>
+    <th width="1%" rowspan="2">#</th>
+    <th width="6%" rowspan="2">FICHA</th>
+    <th width="14%" rowspan="2">FEC. FICHA</th>
+    <th width="13%" rowspan="2">OPERACION</th>
+    <th width="12%" rowspan="2">PROVEEDOR</th>
+    <th colspan="2">COMPROB.</th>
+    <th width="12%" rowspan="2">ORD. COMP.</th>
+    <th colspan="2">ENTRADA</th>
+    <th colspan="2">BASE</th>
+    </tr>
+  <tr>
+    <th width="7%">NUM. </th>
+    <th width="9%">FEC. </th>
+    <th width="6%">CANT.</th>
+    <th width="7%">U.M.</th>
+    <th width="6%">CANT.</th>
+    <th width="7%">U.M.</th>
+    </tr>                
+  </thead>
+<tbody class="EstTablaListadoBody">
+<?php
+  $i=1;
+  $TotalIngresos = 0;
+  $TotalIngresosReal = 0;
+foreach($ArrAlmacenMovimientoEntradaDetalles as $DatAlmacenMovimientoEntradaDetalle){
+?>
+ 
+
+<tr>
+    <td align="left" valign="top"><?php echo $i;?></td>
+    <td align="left" valign="top">
+      
+      
+      
+      <?php 
+    switch($DatAlmacenMovimientoEntradaDetalle->AmoSubTipo){
+        case "2":
+  ?>
+      <a target="_blank" href="principal.php?Mod=AlmacenMovimientoEntradaSimple&Form=Ver&Id=<?php echo $DatAlmacenMovimientoEntradaDetalle->AmoId?>">
+        <?php echo $DatAlmacenMovimientoEntradaDetalle->AmoId?>
+        </a> 	
+      <?php  
+        break;
+        
+		 case "6":
+  ?>
+      <a title="<?php echo $DatAlmacenMovimientoEntradaDetalle->AmoId?>" target="_blank" href="principal.php?Mod=TrasladoProducto&Form=Ver&Id=<?php echo $DatAlmacenMovimientoEntradaDetalle->TptId?>">
+        <?php echo $DatAlmacenMovimientoEntradaDetalle->TptId?>
+        </a> 	
+      <?php  
+        break;
+		
+		 case "7":
+  ?>
+      <a target="_blank" href="principal.php?Mod=ProduccionProducto&Form=Ver&Id=<?php echo $DatAlmacenMovimientoEntradaDetalle->PprId?>">
+        <?php echo $DatAlmacenMovimientoEntradaDetalle->PprId?>
+        </a> 	
+      <?php  
+        break;
+		
+        default:
+  ?>
+      <a target="_blank" href="principal.php?Mod=AlmacenMovimientoEntrada&Form=Ver&Id=<?php echo $DatAlmacenMovimientoEntradaDetalle->AmoId?>">
+        <?php echo $DatAlmacenMovimientoEntradaDetalle->AmoId?>
+        </a>
+      
+  <?php	  
+        break;
+    }
+?>
+      
+    </td>
+    <td align="left" valign="top"><?php echo $DatAlmacenMovimientoEntradaDetalle->AmoFecha?></td>
+    <td align="left" valign="top"><?php echo $DatAlmacenMovimientoEntradaDetalle->TopNombre?></td>
+    <td align="left" valign="top"><?php echo $DatAlmacenMovimientoEntradaDetalle->PrvNombreCompleto;?>
+      <?php echo $DatAlmacenMovimientoEntradaDetalle->PrvApellidoPaterno;?>
+      <?php echo $DatAlmacenMovimientoEntradaDetalle->PrvApellidoMaterno;?>
+    </td>
+    <td align="left" valign="top"><?php echo $DatAlmacenMovimientoEntradaDetalle->AmoComprobanteNumero?></td>
+    <td align="left" valign="top"><?php echo $DatAlmacenMovimientoEntradaDetalle->AmoComprobanteFecha?></td>
+    <td align="left" valign="top"><?php echo $DatAlmacenMovimientoEntradaDetalle->OcoId?></td>
+    <td align="right" valign="top" bgcolor="#EEEEEE"><?php echo number_format($DatAlmacenMovimientoEntradaDetalle->AmdCantidad,2);?></td>
+    <td align="right" valign="top" bgcolor="#EEEEEE"><?php echo $DatAlmacenMovimientoEntradaDetalle->UmeNombre?></td>
+    <td align="right" valign="top" bgcolor="#37FF9B"><?php echo $DatAlmacenMovimientoEntradaDetalle->AmdCantidadReal?></td>
+    <td align="right" valign="top" bgcolor="#37FF9B"><?php echo $DatAlmacenMovimientoEntradaDetalle->UmeNombreOrigen?></td>
+    </tr>
+      
+  
+  <?php
+  $TotalIngresosReal += $DatAlmacenMovimientoEntradaDetalle->AmdCantidadReal;
+  $TotalIngresos += $DatAlmacenMovimientoEntradaDetalle->AmdCantidad;
+  $i++;  
+}
+?>
+<tr>
+    <td colspan="8" align="right">TOTAL ENTRADAS:</td>
+    <td align="right">&nbsp;</td>
+    <td align="right">&nbsp;</td>
+    <td align="right"><?php echo number_format($TotalIngresosReal,6);?></td>
+    <td align="right">&nbsp;</td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,153 @@
+.EstCapPedidoCompraDetalles{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:200px;
+	width:100%;
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding:2px;
+}
+
+
+/*
+* IMPRESION
+*/
+table.EstPedidoCompraImprimirTabla{
+	font-family:Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstPedidoCompraImprimirTablaHead{
+/*background-image:url(../../../imagenes/tabla_barra.png);*/
+/*background-color:#333;*/
+height:20px;
+font-size:12px;
+color:#333;
+
+}
+
+thead.EstPedidoCompraImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	border:#000000 1px solid ; 
+	
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstPedidoCompraImprimirTablaBody{
+font-size:12px;
+}
+
+tbody.EstPedidoCompraImprimirTablaBody td {
+	background-color:#FFF;
+	/*padding-left:2px;
+	padding-right:2px;*/
+	border:#CCC 1px solid ; 
+	padding:5px;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstPedidoCompraImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#000;
+	text-transform: uppercase;  
+}
+
+.EstPedidoCompraImprimirContenido{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:12px;
+}
+/*
+* TEXTO BODY OTROS
+*/
+.EstPedidoCompraImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+.EstPedidoCompraImprimirContenidoFecha{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:16px;
+}
+
+.EstPedidoCompraImprimirContenidoFirma{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstPedidoCompraDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+color:#0066CC;
+}
+
+.EstPedidoCompraDetalleImprimirContenido td{
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstPedidoCompraImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstPedidoCompraImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstPedidoCompraImprimirMoneda{
+font-weight:bold;
+font-size:12px;
+}
+
+/*
+* CABECERAS
+*/
+.EstPedidoCompraImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstPedidoCompraImprimirSubcabecera{
+font-weight:bold;
+font-size:12px;
+}
+
+
+
+
+/*
+FONDOS
+*/
+
+.EstPedidoCompraImprimirEtiquetaFondo{
+	background-color:#F2F2F2;
+	
+}

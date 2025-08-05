@@ -1,0 +1,23 @@
+<body>
+<head>
+	<link rel='stylesheet' href='sample.css' type='text/css'>
+	<title>DHTML Popups Sample 02</title>
+</head>
+<body>
+<h1>DHTML Popups Sample 02</h1>
+
+<script type='text/javascript' src="sample02.js"></script> 
+
+<div id='mypopup' name='mypopup' style='position: absolute; width: 250px; height: 200px; display: none; background: #ddd; border: 1px solid #000;'>
+<p>My content that will be displayed in the popup</p>
+<input type='submit' value=' Close me! ' onClick='document.getElementById("mypopup").style.display="none"'>
+</div>
+<input type='submit' value=' Fire! ' onClick='fireMyPopup()'>
+
+<p>
+<a href='http://dhtmlpopups.webarticles.org/'>DHTML Popups</a><br>
+<a href='http://dhtmlpopups.webarticles.org/'>http://dhtmlPopups.webarticles.org/</a><br>
+Copyright &copy; 2006 Ciprian Dosoftei.
+</p>
+</body>
+</html>

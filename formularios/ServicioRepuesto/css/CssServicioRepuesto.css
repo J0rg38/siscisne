@@ -1,0 +1,159 @@
+.EstCapServicioRepuestoCostoVinculados{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:500px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+.EstCapServicioRepuestoDetalles{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	/*height:500px;*/
+	
+	height:auto;
+	min-height:500px;
+	
+	
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+
+/*
+* IMPRESION
+*/
+table.EstServicioRepuestoImprimirTabla{
+font-family:Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstServicioRepuestoImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstServicioRepuestoImprimirTablaHead th{
+padding-left:2px;
+padding-right:2px;
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstServicioRepuestoImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstServicioRepuestoImprimirTablaBody td {
+background-color:#FFF;
+padding-left:2px;
+padding-right:2px;
+border:#CCC 1px solid ; 
+}
+
+/*
+* TEXTO BODY
+*/
+.EstServicioRepuestoImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+color:#000;
+}
+
+.EstServicioRepuestoImprimirContenido{
+/*font-weight:bold;*/
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+/*
+* TEXTO BODY OTROS
+*/
+.EstServicioRepuestoImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+.EstServicioRepuestoImprimirContenidoFecha{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:16px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstServicioRepuestoDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstServicioRepuestoDetalleImprimirContenido td{
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstServicioRepuestoImprimirEtiquetaTotal{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#000;
+}
+.EstServicioRepuestoImprimirContenidoTotal{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstServicioRepuestoImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+/*
+* CABECERAS
+*/
+.EstServicioRepuestoImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstServicioRepuestoImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstServicioRepuestoImprimirEtiqueta2{
+	background-color:#900;
+}
+
+
+.EstTablaListadoActivo{
+	background-color:#FFF;
+	
+}
+
+EstTablaListadoInactivo{
+	background-color:#CCC;
+}

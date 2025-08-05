@@ -1,0 +1,270 @@
+/* CSS Document */
+
+
+/*
+* IMPRESION
+*/
+
+/*@page  
+{ */
+/*    size: auto; */  /* auto is the initial value */ 
+
+    /* this affects the margin in the printer settings */ 
+  /*margin: 12mm 10mm 12mm 10mm;*/
+/*}*/ 
+
+@media print { 
+
+/*	body{
+		margin: 5mm 0mm 5mm 0mm;
+	}*/
+
+	/*.EstCotizacionProductoCabecera{ 
+		position:fixed;
+		
+		letf:3cm; 
+		top:-1.6cm; 
+		
+		
+		width:100%;		
+		
+	} 
+	
+	.EstCotizacionProductoCabeceraAux{ 
+		width:100%;
+		height:30px;
+	}*/
+	
+	.EstCotizacionProductoPie{ 
+		position:fixed; 
+	
+		letf:10cm; 
+		top:26.3cm; 
+		
+		font-size:10px;
+		width:100%;
+		text-align:center;
+			color:#CCC;
+	} 
+	
+	.EstCotizacionProductoPieAux{ 
+		width:100%;
+		height:30px;
+	}
+} 
+@media screen { 
+	
+	/*.EstCotizacionProductoCabecera{ 
+		width:100%;
+	
+	} 
+	.EstCotizacionProductoCabeceraAux{ 
+		width:100%;
+	} 
+	*/
+	.EstCotizacionProductoPie{ 
+		font-size:10px;
+		width:100%;
+		text-align:center;		
+
+	
+	} 
+	
+	.EstCotizacionProductoPieAux{ 
+		width:100%;
+		text-align:center;		
+	} 
+	
+} 
+
+
+
+
+table.EstCotizacionProductoImprimirTabla{
+	
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+/*
+* HEAD
+*/
+thead.EstCotizacionProductoImprimirTablaHead{
+	background-image:url(../../../imagenes/tabla_barra.png);
+	/*background-color:#333;*/
+	height:20px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+thead.EstCotizacionProductoImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	/*height:25px;*/
+}
+
+/*
+* BODY
+*/
+tbody.EstCotizacionProductoImprimirTablaBody{
+	font-size:10px;
+}
+
+tbody.EstCotizacionProductoImprimirTablaBody td {
+	background-color:#FFF;
+
+	border:#CCC 1px solid ; 
+	padding:2px;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstCotizacionProductoImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#999;
+	text-transform: uppercase;  
+
+}
+
+.EstCotizacionProductoImprimirContenido{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:10px;
+}
+
+.EstCotizacionProductoImprimirObservacion{
+	text-align:justify;
+	
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:10px;
+}
+
+
+/*
+* TEXTO BODY OTROS
+*/
+.EstCotizacionProductoImprimirContenidoEspecial{
+	letter-spacing:3px;
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+
+.EstCotizacionProductoImprimirContenidoFecha{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:16px;
+}
+
+.EstCotizacionProductoImprimirMoneda{
+	font-weight:bold;
+	font-size:8px;
+}
+
+.EstCotizacionProductoImprimirFecha{
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstCotizacionProductoImprimirCliente{
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstCotizacionProductoImprimirRepresentante{
+	font-weight:bold;
+	font-size:10px;
+}
+
+/*
+* TEXTO DETALLE 
+*/
+.EstCotizacionProductoDetalleImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#0066CC;
+}
+
+.EstCotizacionProductoDetalleImprimirContenido td{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstCotizacionProductoImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstCotizacionProductoImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* CABECERAS
+*/
+.EstCotizacionProductoImprimirCabecera{
+	font-weight:bold;
+	font-size:14px;
+	text-decoration:underline;
+}
+
+.EstCotizacionProductoImprimirSubcabecera{
+	font-weight:bold;
+	font-size:10px;
+}
+
+
+
+.EstCotizacionProductoImprimirEtiqueta2{
+	background-color:#900;
+}
+
+
+.EstCotizacionProductoImprimirNota1{
+	font-size:10px;
+}
+
+.EstCotizacionProductoImprimirNota2{
+	font-size:12px;
+}
+
+.EstCotizacionProductoImprimirNota3{
+	font-size:10px;
+	font-weight:bold;
+}
+
+.EstCotizacionProductoImprimirFirma{
+	font-size:10px;
+}
+
+
+
+.EstCapCotizacionProductoTotal{
+	border:#000 3px solid;
+}
+
+
+H1.SaltoDePagina { 
+/*	PAGE-BREAK-AFTER: always ;*/
+	/*PAGE-BREAK-AFTER: always ;*/
+	/*page-break-inside:always;*/
+	page-break-before:always;
+	/*page-break-inside:always;*/
+	
+} 
+	 
+
+

@@ -1,0 +1,18 @@
+
+.EstBoletaImprimirCapaPrincipal{
+	position:relative;
+}
+
+.EstBoletaImprimirObsequio{
+	position:absolute;
+	left: 208px;
+	top: 409px;
+	width: 302px;
+	height: 263px;
+}
+
+.EstBoletaImprimirSpot{
+	position:absolute;
+	left: 136px;
+	top: 882px;
+}

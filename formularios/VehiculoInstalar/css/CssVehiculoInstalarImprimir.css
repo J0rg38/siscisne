@@ -1,0 +1,138 @@
+
+/*
+* IMPRESION
+*/
+table.EstVehiculoInstalarImprimirTabla{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstVehiculoInstalarImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstVehiculoInstalarImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstVehiculoInstalarImprimirTablaBody{
+font-size:12px;
+}
+
+tbody.EstVehiculoInstalarImprimirTablaBody td {
+	background-color:#FFF;
+	/*padding-left:2px;
+	padding-right:2px;*/
+	border:#CCC 1px solid ; 
+	padding:5px;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstVehiculoInstalarImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#000;
+	text-transform: uppercase;  
+}
+
+.EstVehiculoInstalarImprimirContenido{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:12px;
+}
+/*
+* TEXTO BODY OTROS
+*/
+.EstVehiculoInstalarImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+.EstVehiculoInstalarImprimirContenidoFecha{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:16px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstVehiculoInstalarDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstVehiculoInstalarDetalleImprimirContenido td{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstVehiculoInstalarImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstVehiculoInstalarImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstVehiculoInstalarImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+
+/*
+* CABECERAS
+*/
+.EstVehiculoInstalarImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstVehiculoInstalarImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstVehiculoInstalarImprimirEtiqueta2{
+	background-color:#900;
+}
+
+/*
+FONDOS
+*/
+
+.EstVehiculoInstalarImprimirEtiquetaFondo{
+	background-color:#F2F2F2;
+	
+}

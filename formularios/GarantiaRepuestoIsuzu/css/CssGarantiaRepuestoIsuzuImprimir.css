@@ -1,0 +1,158 @@
+
+
+div.saltopagina{ 
+	display:block; 
+	page-break-before:always;
+}
+   
+   
+   
+
+/*
+* IMPRESION
+*/
+table.EstGarantiaRepuestoIsuzuImprimirTabla{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:8px;
+}
+/*
+* HEAD
+*/
+thead.EstGarantiaRepuestoIsuzuImprimirTablaHead{
+	background-image:url(../../../imagenes/tabla_barra.png);
+	/*background-color:#333;*/
+	height:20px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+thead.EstGarantiaRepuestoIsuzuImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstGarantiaRepuestoIsuzuImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstGarantiaRepuestoIsuzuImprimirTablaBody td {
+	
+	
+	border:#333 1px solid ; 
+	
+	
+}
+
+/*
+* TEXTO BODY
+*/
+
+
+.EstGarantiaRepuestoIsuzuImprimirSubTituloFondo{
+	background-color:#000;
+	
+}
+
+.EstGarantiaRepuestoIsuzuImprimirSubTitulo{
+	color:#FFF;
+	font-weight:bold;
+}
+
+.EstGarantiaRepuestoIsuzuImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+
+.EstGarantiaRepuestoIsuzuImprimirContenido{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:10px;
+}
+
+.EstGarantiaRepuestoIsuzuImprimirModalidadIngreso{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:14px;
+	text-transform: uppercase;  
+}
+
+/*
+* TEXTO BODY OTROS
+*/
+.EstGarantiaRepuestoIsuzuImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+
+.EstGarantiaRepuestoIsuzuImprimirContenidoFecha{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstGarantiaRepuestoIsuzuDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstGarantiaRepuestoIsuzuDetalleImprimirContenido td{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstGarantiaRepuestoIsuzuImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstGarantiaRepuestoIsuzuImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstGarantiaRepuestoIsuzuImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+/*
+* CABECERAS
+*/
+.EstGarantiaRepuestoIsuzuImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstGarantiaRepuestoIsuzuImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstGarantiaRepuestoIsuzuImprimirEtiqueta2{
+	background-color:#900;
+}

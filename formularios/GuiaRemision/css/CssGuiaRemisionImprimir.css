@@ -1,0 +1,133 @@
+/* CSS Document */
+
+
+
+/*
+* Impresion
+*/
+
+
+
+table.EstGuiaRemisionImprimirTabla{
+font-family:Arial, Helvetica, sans-serif;
+
+}
+
+thead.EstGuiaRemisionImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstGuiaRemisionImprimirTablaHead th{
+padding-left:2px;
+padding-right:2px;
+/*height:25px;*/
+}
+
+
+tbody.EstGuiaRemisionImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstGuiaRemisionImprimirTablaBody td {
+background-color:#FFF;
+padding-left:2px;
+padding-right:2px;
+border:#CCC 1px solid ; 
+}
+
+
+
+
+
+
+
+
+.EstGuiaRemisionImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+color:#0066CC;
+
+}
+
+.EstGuiaRemisionImprimirContenido{
+/*font-weight:bold;*/
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:12px;
+}
+
+
+
+.EstGuiaRemisionImprimirEtiquetaCaracteristica{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#0066CC;
+	text-transform: uppercase; 
+	
+}
+
+.EstGuiaRemisionImprimirContenidoCaracteristica{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	
+}
+
+
+
+.EstGuiaRemisionImprimirContenidoEspecial{
+letter-spacing:3px;
+/*font-weight:bold;*/
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:12px;
+}
+
+
+.EstGuiaRemisionDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+color:#0066CC;
+
+}
+
+.EstGuiaRemisionDetalleImprimirContenido{
+/*font-weight:bold;*/
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:11px;
+}
+
+
+.EstGuiaRemisionImprimirEtiquetaTotal{
+font-weight:bold;
+}
+
+
+.EstGuiaRemisionImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+/*
+.EstGuiaRemisionImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstGuiaRemisionImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}*/
+
+.EstGuiaRemisionImprimirSeparacion{
+	border-top:dashed 1px #000;
+	margin:0px;
+	
+}

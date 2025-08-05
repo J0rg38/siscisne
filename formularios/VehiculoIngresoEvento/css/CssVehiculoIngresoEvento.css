@@ -1,0 +1,49 @@
+/* CSS Document */
+
+table.EstPlanMantenimientoTabla{
+	/*white-space:nowrap;*/
+}
+
+table.EstPlanMantenimientoTabla td{
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+}
+
+.EstPlanMantenimientoTareaActivo{
+	background-color:#000;
+	text-decoration:none;	
+	font-weight:normal;
+	color:#FFF;
+}
+
+.EstPlanMantenimientoTareaInactivo{
+	text-decoration:none;	
+	font-weight:normal;
+}
+
+.EstPlanMantenimientoSeccion{
+	background-color:#CCC;
+	text-decoration:none;	
+}
+.EstPlanMantenimientoKilometrajeSeleccionado{
+	background-color:#069;
+	color:#FFF;
+	text-decoration:none;	
+}
+
+
+
+
+
+.EstCapVehiculoIngresoEventoHistoriales{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:200px;
+		min-width:800px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}

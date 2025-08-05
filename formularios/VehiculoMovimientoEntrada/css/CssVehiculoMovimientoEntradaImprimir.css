@@ -1,0 +1,132 @@
+
+/*
+* IMPRESION
+*/
+table.EstVehiculoMovimientoEntradaImprimirTabla{
+font-family:Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstVehiculoMovimientoEntradaImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstVehiculoMovimientoEntradaImprimirTablaHead th{
+padding-left:2px;
+padding-right:2px;
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstVehiculoMovimientoEntradaImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstVehiculoMovimientoEntradaImprimirTablaBody td {
+background-color:#FFF;
+padding-left:2px;
+padding-right:2px;
+border:#CCC 1px solid ; 
+}
+
+/*
+* TEXTO BODY
+*/
+.EstVehiculoMovimientoEntradaImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+color:#000;
+}
+
+.EstVehiculoMovimientoEntradaImprimirContenido{
+/*font-weight:bold;*/
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+/*
+* TEXTO BODY OTROS
+*/
+.EstVehiculoMovimientoEntradaImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+.EstVehiculoMovimientoEntradaImprimirContenidoFecha{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:16px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstVehiculoMovimientoEntradaDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstVehiculoMovimientoEntradaDetalleImprimirContenido td{
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstVehiculoMovimientoEntradaImprimirEtiquetaTotal{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#000;
+}
+.EstVehiculoMovimientoEntradaImprimirContenidoTotal{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstVehiculoMovimientoEntradaImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+/*
+* CABECERAS
+*/
+.EstVehiculoMovimientoEntradaImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstVehiculoMovimientoEntradaImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstVehiculoMovimientoEntradaImprimirEtiqueta2{
+	background-color:#900;
+}
+
+
+.EstTablaListadoActivo{
+	background-color:#FFF;
+	
+}
+
+EstTablaListadoInactivo{
+	background-color:#CCC;
+}

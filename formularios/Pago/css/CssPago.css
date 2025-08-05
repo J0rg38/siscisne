@@ -1,0 +1,156 @@
+/*
+* IMPRESION
+*/
+table.EstPagoImprimirTabla{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstPagoImprimirTablaHead{
+/*background-image:url(../../../imagenes/tabla_barra.png);*/
+/*background-color:#333;*/
+height:20px;
+font-size:8px;
+color:#FFFFFF;
+}
+
+thead.EstPagoImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstPagoImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstPagoImprimirTablaBody td {
+	background-color:#FFF;
+	padding-left:2px;
+	padding-right:2px;
+/*	border:#CCC 1px solid ; */
+	padding:5px;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstPagoImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:9px;
+	color:#000;
+	text-transform: uppercase;  
+}
+
+.EstPagoImprimirContenido{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:10px;
+}
+
+
+.EstPagoImprimirTipo{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:14px;
+	text-transform: uppercase;  
+}
+
+
+.EstPagoImprimirObsequio{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:14px;
+	text-transform: uppercase;  
+}
+
+.EstPagoImprimirManoObra{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:14px;
+	
+}
+
+
+
+
+/*
+* TEXTO BODY OTROS
+*/
+.EstPagoImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:9px;
+}
+
+.EstPagoImprimirContenidoFecha{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:9px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstPagoDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstPagoDetalleImprimirContenido td{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstPagoImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstPagoImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstPagoImprimirMoneda{
+	font-weight:bold;
+	font-size:8px;
+}
+/*
+* CABECERAS
+*/
+.EstPagoImprimirCabecera{
+	font-weight:bold;
+	font-size:14px;
+}
+
+.EstPagoImprimirSubcabecera{
+	font-weight:bold;
+	font-size:10px;
+}
+
+
+
+
+
+.EstPagoImprimirEtiqueta2{
+	background-color:#900;
+}

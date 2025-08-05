@@ -1,0 +1,11 @@
+/* CSS Document */
+
+
+tbody.EstTablaListadoBody td {
+	w
+	/*background-color:#FFF;*/
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	white-space:nowrap;
+}

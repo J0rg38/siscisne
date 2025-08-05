@@ -1,0 +1,27 @@
+/*
+* IMPRESION
+*/
+	
+table.EstOrdenVentaVehiculoImprimirTabla{
+	font-family:"Times New Roman", Times, serif;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstOrdenVentaVehiculoImprimirEtiqueta{
+	font-weight:bold;
+	font-family:"Times New Roman", Times, serif;
+	font-size:14px;
+	color:#999;
+	text-transform: uppercase;  
+
+}
+
+.EstOrdenVentaVehiculoImprimirContenido{
+	font-weight:bold;
+	font-family:"Times New Roman", Times, serif;
+	color:#666;
+	font-size:14px;
+}
+

@@ -1,0 +1,70 @@
+/* CSS Document */
+
+.CapEventoTipo1{
+	
+	width:200px;
+	float:left;/*fix for  buggy browsers*/
+	display:table-column;
+	background:#F33;
+	text-align:center;
+	color:#FFF;
+	height:30px;
+	padding:2px;
+
+}
+
+.CapEventoTipo2{
+	
+	width:200px;
+	float:left;/*fix for  buggy browsers*/
+	display:table-column;
+	background:#6C9;
+	text-align:center;
+	color:#FFF;
+	height:30px;
+	padding:2px;
+	
+}
+
+.CapEventoTipo3{
+	
+	width:200px;
+	float:left;/*fix for  buggy browsers*/
+	display:table-column;
+	background:#FC3;
+	text-align:center;
+	color:#FFF;
+	height:30px;
+	padding:2px;
+	
+}
+
+
+.CapEventoEtiqueta{
+	
+	width:100px;
+	float:left;/*fix for  buggy browsers*/
+	display:table-column;
+	text-align:left;
+	height:30px;
+	padding:2px;
+}
+
+.CapEventos{
+	
+	 width:auto;
+	border:1px solid #CCC;
+	border-radius:5px;	
+	/*height:25px;
+	padding:2px;*/
+	/*margin:5px;*/
+	display:  table;
+	height:30px;
+	
+}
+
+.CapEventosFila{
+	
+	 display:table-row;
+	width:auto;
+}

@@ -1,0 +1,78 @@
+/* CSS Document */
+.EstPlantillaCabecera{
+	font-size:12px;
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+
+.EstPlantillaTitulo{
+	font-family:Arial, Helvetica, sans-serif;
+		font-weight:bold;
+	font-size:16px;
+}
+
+.EstPlantillaTituloCodigo{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:16px;
+}
+
+.EstPlantillaDatosImpresion{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+.EstPlantillaPie{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:8px;
+}
+
+
+/*
+* PLANTILLA TABLA
+*/
+
+
+table.EstPlantillaImprimirTabla{
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+/*
+* PLANTILLA HEAD
+*/
+
+thead.EstPlantillaImprimirTablaHead{
+	/*background-image:url(../imagenes/tabla_barra.png);*/
+	background-color:#069 !important;
+	height:20px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+thead.EstPlantillaImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	border:#CCC 2px solid ; 
+	/*height:25px;*/
+}
+
+/*
+* PLANTILLA BODY
+*/
+
+tbody.EstPlantillaImprimirTablaBody{
+	font-size:10px;
+}
+
+tbody.EstPlantillaImprimirTablaBody td {
+	background-color:#FFF !important;
+	border:#CCC 1px solid ; 
+	padding:2px;
+}
+
+
+.EstPlantillaLinea{
+	border:#000 2px solid;	
+}

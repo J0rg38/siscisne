@@ -1,0 +1,264 @@
+/* CSS Document */
+
+.EstPanel{
+	overflow:auto;
+	border:1px #000000 solid;
+	width:100%;
+	height:150px;
+font-family:Tahoma, Geneva, sans-serif;
+	font-size:10px;
+}
+
+
+
+
+
+
+table.EstPrincipalTabla{
+font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+}
+
+.EstPrincipalTablaTitulo{
+font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	background-color:#FFF;
+	color:#AAAAAA;
+	padding:1px;
+	font-weight:bold;
+}
+
+.EstPrincipalActividadPanel{
+	overflow:auto;
+	border:1px #000000 solid;
+	/*width:250px;*/
+	height:150px;
+font-family:Tahoma, Geneva, sans-serif;
+	font-size:10px;
+}
+
+.EstPrincipalActividadPanelTitulo{
+	color:#3B5998;
+	font-weight:bold;
+	font-size:12px;
+font-family:Tahoma, Geneva, sans-serif;
+	/*text-decoration:underline;*/
+	/*background-color:#CCCCCC;*/
+
+}
+
+/*
+*
+*/
+.EstPrincipalAvisoPanel{
+	overflow:auto;
+	border:1px #000000 solid;
+	width:100%;
+	height:150px;
+font-family:Tahoma, Geneva, sans-serif;
+	font-size:10px;
+}
+.EstPrincipalAvisoPanelTitulo{
+	font-weight:bold;
+	font-size:12px;
+	text-decoration:underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+a.EstMenuGrandeLink {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+
+color:#333;
+}
+
+a:hover.EstMenuGrandeLink {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+
+
+color:#333;
+}
+
+a:visited.EstMenuGrandeLink {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+
+color:#333;		
+}
+
+a:link.EstMenuGrandeLink {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+
+color:#333;	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+a.EstLinkUsuarioNombre {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+font-weight:bold;
+color:#3B5998;	
+}
+
+a:hover.EstLinkUsuarioNombre {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+font-weight:bold;
+color:#3B5998;	
+}
+
+a:visited.EstLinkUsuarioNombre {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+font-weight:bold;
+color:#3B5998;		
+}
+
+a:link.EstLinkUsuarioNombre {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+font-weight:bold;
+color:#3B5998;		
+}
+
+
+
+
+
+a.EstLinkVerMas {	
+font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	text-decoration:none;
+	color:#3B5998;	
+}
+
+a:hover.EstLinkVerMas {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+color:#3B5998;	
+}
+
+a:visited.EstLinkVerMas {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+
+color:#3B5998;	
+	
+}
+
+a:link.EstLinkVerMas {	
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+color:#3B5998;		
+}
+
+
+.EstTiempoTranscurrido{
+	color:#999999;	
+}
+
+.EstCapaVerMas{
+width:100%;
+	text-align:right;	
+	float:left;
+}
+
+.EstPanelNumeracion{
+	
+
+/*list-style: none;*/
+}
+
+.EstCapaItem{
+width:100%;
+float:left;
+}
+
+.EstCapaItemTiempo{
+width:100%;
+float:rigght;
+text-align:right;
+}
+
+.EstCapaItem a{
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+font-weight:bold;
+color:#3B5998;
+}
+
+
+.EstCapaItem a:visited{
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+font-weight:bold;
+color:#3B5998;
+}
+
+
+
+.EstCapaItem a:hover{
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+font-weight:bold;
+color:#3B5998;
+}
+
+
+
+.EstCapaItem a:link{
+font-family:Tahoma, Geneva, sans-serif;
+font-size:12px;
+text-decoration:none;
+font-weight:bold;
+color:#3B5998;
+}
+
+
+
+
+
+/*
+*
+*/
+
+.EstBotonPrincipal{
+	margin-bottom:10px;
+	margin-top:10px;
+	
+}

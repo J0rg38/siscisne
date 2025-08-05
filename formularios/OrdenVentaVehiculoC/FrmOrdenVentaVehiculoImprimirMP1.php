@@ -1,0 +1,644 @@
+<?php
+session_start();
+require_once('../../proyecto/ClsProyecto.php');
+require_once('../../proyecto/ClsPoo.php');
+
+$InsProyecto->Ruta = '../../';
+$InsPoo->Ruta  = '../../';
+
+////CONFIGURACIONES GENERALES
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
+
+////MENSAJES GENERALES
+require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+////FUNCIONES GENERALES
+require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+
+
+require_once($InsProyecto->MtdRutLibrerias().'class.numeroaletras.php');
+
+$GET_id = $_GET['Id'];
+$GET_M = $_GET['M'];
+$GET_Fecha = (empty($_GET['Fecha'])?date("d/m/Y"):$_GET['Fecha']);
+
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculo.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoCondicionVenta.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoObsequio.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoLlamada.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoVersionCaracteristica.php');
+
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoPropietario.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php');
+
+require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
+require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
+
+$InsPago = new ClsPago();
+$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();
+
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo->OvvId = $GET_id;
+$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(false);
+
+
+$ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,"PagFecha","ASC",NULL,NULL,NULL,$InsOrdenVentaVehiculo->OvvId,NULL,NULL);
+$ArrPagos = $ResPago['Datos'];
+
+
+$ResOrdenVentaVehiculoPropietario = $InsOrdenVentaVehiculoPropietario->MtdObtenerOrdenVentaVehiculoPropietarios(NULL,NULL,'OvpId', 'Desc',NULL,$InsOrdenVentaVehiculo->OvvId,NULL);
+$ArrOrdenVentaVehiculoPropietarios = $ResOrdenVentaVehiculoPropietario['Datos'];
+
+
+if($InsOrdenVentaVehiculo->MonId<>$EmpresaMonedaId){
+
+		$InsOrdenVentaVehiculo->OvvPrecio = round($InsOrdenVentaVehiculo->OvvPrecio / $InsOrdenVentaVehiculo->OvvTipoCambio,3);
+		$InsOrdenVentaVehiculo->OvvDescuento = round($InsOrdenVentaVehiculo->OvvDescuento / $InsOrdenVentaVehiculo->OvvTipoCambio,3);
+		
+		$InsOrdenVentaVehiculo->OvvBonoGM = round($InsOrdenVentaVehiculo->OvvBonoGM / $InsOrdenVentaVehiculo->OvvTipoCambio,3);
+		$InsOrdenVentaVehiculo->OvvBonoDealer = round($InsOrdenVentaVehiculo->OvvBonoDealer / $InsOrdenVentaVehiculo->OvvTipoCambio,3);
+		
+		$InsOrdenVentaVehiculo->OvvDescuentoGerencia = round($InsOrdenVentaVehiculo->OvvDescuentoGerencia / $InsOrdenVentaVehiculo->OvvTipoCambio,3);
+		
+		$InsOrdenVentaVehiculo->OvvTotal = round($InsOrdenVentaVehiculo->OvvTotal / $InsOrdenVentaVehiculo->OvvTipoCambio,3);
+		$InsOrdenVentaVehiculo->OvvImpuesto = round($InsOrdenVentaVehiculo->OvvImpuesto / $InsOrdenVentaVehiculo->OvvTipoCambio,3);
+		$InsOrdenVentaVehiculo->OvvSubTotal = round($InsOrdenVentaVehiculo->OvvSubTotal / $InsOrdenVentaVehiculo->OvvTipoCambio,3);
+		
+		
+		$InsOrdenVentaVehiculo->CveTotal = round($InsOrdenVentaVehiculo->CveTotal / $InsOrdenVentaVehiculo->OvvTipoCambio,3);
+			
+	}	
+	
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Declaracion Jurada No. <?php echo $InsOrdenVentaVehiculo->OvvId;?></title>
+
+<link rel="stylesheet" type="text/css" href="<?php echo $InsProyecto->MtdRutEstilos();?>CssImprimir.css">
+<link href="css/CssOrdenVentaVehiculoImprimir.css" rel="stylesheet" type="text/css" />
+<link href="css/CssOrdenVentaVehiculoImprimirMP1.css" rel="stylesheet" type="text/css" />
+
+<!--<script type="text/javascript" src="js/JsOrdenVentaVehiculoImprimir.js"></script>-->
+<!--<script type="text/javascript" src="<?php echo $InsProyecto->MtdRutLibrerias();?>jquery-1.4.3.min.js"></script>-->
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdRutLibrerias();?>jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/JsOrdenVentaVehiculoImprimirMP1.js" ></script>
+
+<!--
+Nombre: JS Calendar
+Descripcion: Libreria para generar menu de calendario.
+-->
+<link rel="stylesheet" type="text/css" media="all" href="<?php echo $InsProyecto->MtdRutLibrerias();?>jscalendar-1.0/calendar-blue.css" title="winter" />
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdRutLibrerias();?>jscalendar-1.0/calendar.js"></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdRutLibrerias();?>jscalendar-1.0/lang/calendar-es.js"></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdRutLibrerias();?>jscalendar-1.0/calendar-setup.js"></script>
+
+<script type="text/javascript">
+$().ready(function() {
+	
+<?php if($_GET['P']==1 and !empty($InsOrdenVentaVehiculo->OvvId)){?> 
+FncOrdenVentaVehiculoMP1Imprimir(); 
+<?php }?>
+
+<?php if($_GET['P']==1){?>
+setTimeout("window.close();",1500);
+<?php }?>
+	
+});
+</script>
+
+
+</head>
+<body>
+
+<!--
+<hr class="EstReporteLinea">
+-->
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="EstOrdenVentaVehiculoImprimirTabla">
+
+<tr>
+    <td valign="top"><table width="100%" border="0" cellpadding="3" cellspacing="2" class="EstOrdenVentaVehiculoImprimirTabla">
+    <tr>
+      <td colspan="4" align="left" valign="top">
+      
+      
+<?php if($_GET['P']<>1){ ?>
+
+
+<form id="FrmOrdenDia" name="FrmOrdenDia" method="get" enctype="multipart/form-data" action="#">
+
+<input type="hidden" name="Id" id="Id" value="<?php echo $GET_id;?>" />
+<input type="hidden" name="P" id="P" value="" />
+
+
+<table border="0" align="right" cellpadding="0" cellspacing="0">
+<tr>
+  <td align="right" valign="top">Fecha</td>
+  <td align="right" valign="top">:</td>
+  <td align="right" valign="top">
+    
+<input class="EstFormularioCajaFecha" name="Fecha" type="text"  id="Fecha" value="<?php if(empty($GET_Fecha)){ echo date("d/m/Y");}else{ echo $GET_Fecha; }?>" size="10" maxlength="10"/>
+
+<img src="../../imagenes/calendar.gif" alt="[Calendario]" id="BtnFecha" name="BtnFecha" width="18" height="18" align="absmiddle"  style="cursor:pointer;" />
+
+  </td>
+  <td align="right" valign="top">&nbsp;</td>
+  <td align="right" valign="top">
+    
+    
+    <a id="BtnImprimir" href="javascript:void(0);"> Imprimir <img src="../../imagenes/acciones/imprimir.gif" alt="Imprimir" width="25" height="25" border="0" align="absmiddle" title="Imprimir" /></a></td>
+</tr>
+</table>
+
+</form>
+<?php }?>
+
+
+</td>
+    </tr>
+    <tr>
+      <td height="99" colspan="4" align="center" valign="top">
+      
+		<?php
+        if($GET_M=="1"){
+        ?>
+			<!--<img src="../../imagenes/dj_cabecera.jpg" align="[Cabecera]" title="Cabecera"  />-->
+            
+            <img src="../../imagenes/membretes/cabecera_simple.png" align="[Cabecera]" title="Cabecera"  />
+            
+        <?php 
+        }
+        ?>
+      
+    
+      </td>
+      </tr>
+    <tr>
+      <td align="left" valign="top">&nbsp;</td>
+      <td colspan="2" align="right" valign="top">
+      
+          <span class="EstOrdenVentaVehiculoImprimirContenido">
+          <?php
+	//  list($Dia,$Mes,$Ano) = explode("/",$InsOrdenVentaVehiculo->OvvFecha);;
+	  list($Dia,$Mes,$Ano) = explode("/",$GET_Fecha);;
+	  ?>
+        <?php echo ucwords(strtolower($InsOrdenVentaVehiculo->SucDepartamento));?>,  <?php echo $Dia;?> de <?php echo FncConvertirMes($Mes);?> de <?php echo $Ano;?>
+          <?php //echo $InsOrdenVentaVehiculo->OvvFecha;?>
+          </span>
+          
+      
+      </td>
+      <td align="left" valign="top">&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">&nbsp;</td>
+      <td colspan="2" align="center" valign="top">
+        
+        
+        <span class="EstPlantillaTitulo">DECLARACI&Oacute;N JURADA</span><br />
+        <span class="EstPlantillaTituloCodigo"> <!--<?php echo $InsOrdenVentaVehiculo->OvvId;?>--></span>
+        
+        </td>
+      <td width="10%" align="left" valign="top">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="9%" align="left" valign="top" class="EstOrdenVentaVehiculoImprimirEtiquetaFondo">&nbsp;</td>
+      <td width="32%" align="right" valign="top" >&nbsp;</td>
+      <td width="49%" align="right" valign="top" >&nbsp;</td>
+      <td align="left" valign="top">&nbsp;</td>
+    </tr>
+    <tr class="EstOrdenVentaVehiculoImprimirTabla">
+      <td align="left" valign="top" class="EstOrdenVentaVehiculoImprimirEtiquetaFondo">&nbsp;</td>
+      <td colspan="2" align="left" valign="top" >
+      
+
+           <p align="justify">
+              <span class="EstOrdenVentaVehiculoImprimirContenido"> Señores</span><br />
+            <span class="EstOrdenVentaVehiculoImprimirEtiqueta"> SUPERINTENDENCIA NACIONAL DE LOS REGISTROS PUBLICOS</span><br />
+            <span class="EstOrdenVentaVehiculoImprimirContenido">Oficina del Registro Vehicular</span><br />
+            
+            <span class="EstOrdenVentaVehiculoImprimirContenido"> Presente.-</span><br />
+            
+           </p>
+         
+          
+        <p align="justify">
+         <span class="EstOrdenVentaVehiculoImprimirContenido"> 
+         Yo,
+         
+         <?php echo strtoupper($InsOrdenVentaVehiculo->PerNombreFirmante." ".$InsOrdenVentaVehiculo->PerApellidoPaternoFirmante." ".$InsOrdenVentaVehiculo->PerApellidoMaternoFirmante);?>
+         , identificado con  <?php echo strtoupper(($InsOrdenVentaVehiculo->TdoNombreFirmante));?>  Nº  <?php echo (($InsOrdenVentaVehiculo->PerNumeroDocumentoFirmante));?> en calidad de Gerente de Ventas de la empresa <?php echo strtoupper($EmpresaNombre);?>, inscrita en la Partida Nº 11094294 del Registro de Personas Jurídicas, en condición de vendedores y el (la) Señor (a)  : 
+          </span>
+          
+            
+            
+            
+        </td>
+      <td align="left" valign="top">&nbsp;</td>
+    </tr>
+    <tr class="EstOrdenVentaVehiculoImprimirTabla">
+      <td align="left" valign="top" class="EstOrdenVentaVehiculoImprimirEtiquetaFondo">&nbsp;</td>
+      <td colspan="2" align="left" valign="top" ><table width="100%" border="0">
+          <tr>
+            <td width="177" align="left" valign="top">
+              
+              
+              <span class="EstOrdenVentaVehiculoImprimirEtiqueta">
+                
+                <?php
+	foreach($ArrOrdenVentaVehiculoPropietarios as $DatOrdenVentaVehiculoPropietario){
+	?>
+                <?php
+	if($DatOrdenVentaVehiculoPropietario->OvpFirmaDJ=="1"){
+	?>			
+                
+                <?php echo $DatOrdenVentaVehiculoPropietario->CliNombre;?> <?php echo $DatOrdenVentaVehiculoPropietario->CliApellidoPaterno;?> <?php echo $DatOrdenVentaVehiculoPropietario->CliApellidoMaterno;?> <br />
+                
+              
+                <?php	 
+	}
+	?>
+                
+                
+                <?php
+	}
+	?>    
+                
+                
+                
+                </span>
+              
+              
+              </td>
+            <td width="177" align="left" valign="top"> 
+              <?php
+	foreach($ArrOrdenVentaVehiculoPropietarios as $DatOrdenVentaVehiculoPropietario){
+	?>
+              <?php
+	if($DatOrdenVentaVehiculoPropietario->OvpFirmaDJ=="1"){
+	?>
+           <span class="EstOrdenVentaVehiculoImprimirContenido">   Identificado(a) con <?php echo $DatOrdenVentaVehiculoPropietario->TdoNombre;?>:</span> <span class="EstOrdenVentaVehiculoImprimirEtiqueta"><?php echo $DatOrdenVentaVehiculoPropietario->CliNumeroDocumento;?></span><br />
+              <?php	 
+	}
+	?>
+              <?php
+	}
+	?></td>
+            </tr>
+          </table></td>
+      <td align="left" valign="top">&nbsp;</td>
+    </tr>
+    <tr class="EstOrdenVentaVehiculoImprimirTabla">
+      <td align="left" valign="top" class="EstOrdenVentaVehiculoImprimirEtiquetaFondo">&nbsp;</td>
+      <td colspan="2" align="left" valign="top" >
+   
+           <p align="justify">
+         <span class="EstOrdenVentaVehiculoImprimirContenido"> 
+            en condición de comprador (es), declaro (amos) bajo juramento que se ha realizado la siguiente transacción comercial de compra-venta del siguiente vehiculo:
+      </span>
+      </p>
+      </td>
+      <td align="left" valign="top">&nbsp;</td>
+    </tr>
+    <tr class="EstOrdenVentaVehiculoImprimirTabla">
+      <td align="left" valign="top" class="EstOrdenVentaVehiculoImprimirEtiquetaFondo">&nbsp;</td>
+      <td colspan="2" align="left" valign="top" >   <span class="EstOrdenVentaVehiculoImprimirSubTitulo">
+        DETALLE
+        </span></td>
+      <td align="left" valign="top">&nbsp;</td>
+    </tr>
+    <tr class="EstOrdenVentaVehiculoImprimirTabla">
+      <td width="9%" rowspan="4" align="left" valign="top" class="EstOrdenVentaVehiculoImprimirEtiquetaFondo">&nbsp;</td>
+      <td colspan="2" align="left" valign="top" >
+        
+        
+     
+        
+   
+        
+        <table width="783" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirEtiqueta"> 
+            <?php
+				switch($InsOrdenVentaVehiculo->OvvComprobanteVenta){
+						case "F":
+?>
+Factura de Venta
+<?php
+						break;
+
+						case "B":
+?>
+Boleta de Venta
+<?php						
+						break;
+						
+						default:
+	?>
+-
+<?php						
+						
+						break;
+					}
+			?>
+            </span></td>
+            <td align="center" valign="middle">:</td>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirContenido"> 
+			
+			<?php echo strtoupper($InsOrdenVentaVehiculo->OvvFacturaNumero);?> 
+            <?php echo strtoupper($InsOrdenVentaVehiculo->OvvBoletaNumero);?> 
+            </span></td>
+          </tr>
+          <tr>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirEtiqueta"> Importe</span></td>
+            <td align="center" valign="middle">:</td>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirContenido"> <?php echo $InsOrdenVentaVehiculo->MonSimbolo;?> <?php echo number_format($InsOrdenVentaVehiculo->OvvTotal,2);?> </span></td>
+          </tr>
+          <tr>
+            <td width="356" align="left" valign="middle">
+              <span class="EstOrdenVentaVehiculoImprimirEtiqueta">
+                Marca</span></td>
+            <td width="10" align="center" valign="middle">:</td>
+            <td width="403" align="left" valign="middle">
+              
+              <span class="EstOrdenVentaVehiculoImprimirContenido">
+                <?php echo strtoupper($InsOrdenVentaVehiculo->VmaNombre);?>
+                </span>
+              
+              </td>
+          </tr>
+  
+          
+          <tr>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirEtiqueta">Modelo</span></td>
+            <td align="center" valign="middle">:</td>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirContenido"><?php echo $InsOrdenVentaVehiculo->VmoNombre;?></span></td>
+            </tr>
+  
+    
+          
+          <tr>
+            <td align="left" valign="middle">
+              <span class="EstOrdenVentaVehiculoImprimirEtiqueta">
+                Clase</span></td>
+            <td align="center" valign="middle">:</td>
+            <td align="left" valign="middle">
+              <span class="EstOrdenVentaVehiculoImprimirContenido">
+                <?php echo $InsOrdenVentaVehiculo->EinCaracteristica20;?>
+                </span>
+              </td>
+            </tr>
+          <tr>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirEtiqueta">Color</span></td>
+            <td align="center" valign="middle">:</td>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirContenido"> <?php echo $InsOrdenVentaVehiculo->EinColor;?></span></td>
+          </tr>
+          <tr>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirEtiqueta">Año de Mod.</span></td>
+            <td align="center" valign="middle">:</td>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirContenido"> <?php echo $InsOrdenVentaVehiculo->EinAnoModelo;?></span></td>
+          </tr>
+          <tr>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirEtiqueta">AÑO de Fab.</span></td>
+            <td align="center" valign="middle">:</td>
+            <td align="left" valign="middle"><span class="EstOrdenVentaVehiculoImprimirContenido"> <?php echo $InsOrdenVentaVehiculo->EinAnoFabricacion;?></span></td>
+          </tr>
+       
+          <tr>
+            <td align="left" valign="middle">
+              <span class="EstOrdenVentaVehiculoImprimirEtiqueta">
+                Chasis</span></td>
+            <td align="center" valign="middle">:</td>
+            <td align="left" valign="middle">
+              <span class="EstOrdenVentaVehiculoImprimirContenido">
+                <?php echo strtoupper($InsOrdenVentaVehiculo->EinVIN);?>
+                </span>
+              </td>
+          </tr>
+          
+          
+          <tr>
+            <td align="left" valign="middle">
+              <span class="EstOrdenVentaVehiculoImprimirEtiqueta">
+                Motor</span></td>
+            <td align="center" valign="middle">:</td>
+            <td align="left" valign="middle">
+              <span class="EstOrdenVentaVehiculoImprimirContenido">
+                <?php echo $InsOrdenVentaVehiculo->EinNumeroMotor;?>
+                </span>
+              </td>
+          </tr>
+          </table>
+        
+
+      
+        
+        
+        
+        
+        </td>
+      <td rowspan="4" align="left" valign="top">&nbsp;</td>
+    </tr>
+    <tr class="EstOrdenVentaVehiculoImprimirTabla">
+      <td colspan="2" align="left" valign="top" >
+           <p align="justify">
+         <span class="EstOrdenVentaVehiculoImprimirContenido"> 
+           El comprador ha efectuado la cancelación del (los) comprobante(s) Nº
+      </span>
+       <span class="EstOrdenVentaVehiculoImprimirEtiqueta"> 
+       
+        <?php
+				switch($InsOrdenVentaVehiculo->OvvComprobanteVenta){
+						case "F":
+?>
+F/V
+<?php
+						break;
+
+						case "B":
+?>
+B/V
+<?php						
+						break;
+						
+						default:
+	?>
+-
+<?php						
+						
+						break;
+					}
+			?>
+            
+           <?php echo  $InsOrdenVentaVehiculo->OvvFacturaNumero;?>
+           <?php echo  $InsOrdenVentaVehiculo->OvvBoletaNumero;?>
+            
+       </span>
+        <span class="EstOrdenVentaVehiculoImprimirContenido"> <br />
+            con la cual adquiere el vehiculo, utilizando como medio de pago los siguientes depósitos 
+        </span>
+      </p></td>
+    </tr>
+    <tr class="EstOrdenVentaVehiculoImprimirTabla">
+      <td height="170" colspan="2" align="center" valign="top" >
+      
+         
+        <?php
+$InsPago = new ClsPago();
+$ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,"PagFecha","ASC",NULL,NULL,NULL,$InsOrdenVentaVehiculo->OvvId,NULL,NULL);
+
+$ArrPagos = $ResPago['Datos'];
+
+?>
+        <table width="92%" class="EstOrdenVentaVehiculoImprimirTabla">
+          <thead class="EstOrdenVentaVehiculoImprimirTablaHead">
+            <tr>
+              <th width="8%">Fecha</th>
+              <th width="13%">Cta. Cte Nº</th>
+              <th width="13%">N° de Operación</th>
+              <th width="17%">Moneda</th>
+              <th width="13%">Importe</th>
+              <th width="27%">Banco</th>
+              <th width="9%">Cod.
+                Operac.</th>
+              </tr>
+            </thead>
+          <tbody class="EstOrdenVentaVehiculoImprimirTablaBody"> 
+            <?php
+	  $i=1;
+	  if(!empty($ArrPagos)){
+		  foreach($ArrPagos as $DatPago){
+	?>
+            
+            <?php $DatPago->PagMonto = (($EmpresaMonedaId==$InsOrdenVentaVehiculo->MonId or empty($InsOrdenVentaVehiculo->MonId))?$DatPago->PagMonto:($DatPago->PagMonto/$DatPago->PagTipoCambio));?>
+            
+            
+            <tr>
+              <td align="center"><?php echo $DatPago->PagFechaTransaccion;?></td>
+              <td align="center"><?php echo $DatPago->CueNumero;?></td>
+              <td align="center"><?php echo $DatPago->PagNumeroTransaccion;?></td>
+              <td align="center"><?php echo $DatPago->MonSimbolo;?></td>
+              <td align="center"><?php echo number_format($DatPago->PagMonto,2);?></td>
+              <td align="center"><?php echo $DatPago->BanNombre;?></td>
+              <td align="center">001</td>
+              </tr>
+            
+            <?php
+			$i++;
+		  }
+	  }
+	  ?>  
+            </tbody>
+          </table>
+          
+          
+          </td>
+    </tr>
+    <tr class="EstOrdenVentaVehiculoImprimirTabla">
+      <td height="398" colspan="2" align="left" valign="top" ><table width="100%" align="center">
+          <tr>
+            <td width="50%" height="140" align="left" valign="top">
+              
+              
+              
+              
+              
+              <?php
+	foreach($ArrOrdenVentaVehiculoPropietarios as $DatOrdenVentaVehiculoPropietario){
+	?>
+              <?php
+	if($DatOrdenVentaVehiculoPropietario->OvpFirmaDJ=="1"){
+	?>			
+              ______________________________<br/>
+              <span class="EstOrdenVentaVehiculoImprimirFirma"> <?php echo $DatOrdenVentaVehiculoPropietario->CliNombre;?> <?php echo $DatOrdenVentaVehiculoPropietario->CliApellidoPaterno;?> <?php echo $DatOrdenVentaVehiculoPropietario->CliApellidoMaterno;?> <br />
+                
+                <?php echo $DatOrdenVentaVehiculoPropietario->TdoNombre;?>:  <?php echo $DatOrdenVentaVehiculoPropietario->CliNumeroDocumento;?><br />
+                </span>  
+              <?php	 
+	}
+	?>
+              
+              
+              <?php
+	}
+	?>  
+              
+              
+              </td>
+            
+            
+            
+            
+            <td width="50%" height="140" align="left" valign="top">
+              
+              ______________________________<br/>
+              
+              <span class="EstOrdenVentaVehiculoImprimirFirma">
+                <?php echo (($InsOrdenVentaVehiculo->PerNombreFirmante." ".$InsOrdenVentaVehiculo->PerApellidoPaternoFirmante." ".$InsOrdenVentaVehiculo->PerApellidoMaternoFirmante));?><br />
+                <?php echo (($InsOrdenVentaVehiculo->TdoNombreFirmante));?>: <?php echo (($InsOrdenVentaVehiculo->PerNumeroDocumentoFirmante));?><br />
+                REP.  LEGAL CISNE S.R.L.
+                </span>    
+              
+              </td>
+            
+            
+          </tr>
+          </table></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center" valign="top" class="EstOrdenVentaVehiculoImprimirEtiquetaFondo">
+        
+        
+        <?php
+        if($GET_M=="1"){
+        ?>
+        <img src="../../imagenes/dj_pie.jpg" alt="" align="[Pie]" title="Pie"  />
+        <?php 
+        }
+        ?>
+        
+        
+        </td>
+    </tr>
+    </table></td>
+  </tr>
+  
+<tr>
+    <td colspan="5">&nbsp;</td>
+  </tr>
+</table>
+
+
+
+
+<?php if($_GET['P']<>1){ ?>
+
+<script type="text/javascript"> 
+	Calendar.setup({ 
+	inputField : "Fecha",  // id del campo de texto 
+	ifFormat   : "%d/%m/%Y",  //  
+	button     : "BtnFecha",//,// el id del bot&oacute;n que  
+	onUpdate       :    FncOrdenVentaVehiculoCargar
+	}); 
+</script>
+<?php
+}
+?> 
+ 
+</body>
+</html>

@@ -1,0 +1,252 @@
+<?php
+session_start();
+	
+if(empty($_SESSION['MysqlDeb'])){$_SESSION['MysqlDeb'] = false;}
+if(empty($_SESSION['MysqlDeb'])){$_SESSION['MysqlDebLevel'] = 0;}
+if(!empty($_GET['d']) and !empty($_GET['v'])){if(($_GET['d']==1)){$_SESSION['MysqlDeb']=true;}else{$_SESSION['MysqlDeb']=false;}$_SESSION['MysqlDebLevel']=$_GET['v'];}
+
+
+
+////ARCHIVOS PRINCIPALES
+require_once('../../proyecto/ClsProyecto.php');
+require_once('../../proyecto/ClsPoo.php');
+
+$InsPoo->Ruta = '../../';
+$InsProyecto->Ruta = '../../';
+
+
+
+
+////CONFIGURACIONES GENERALES
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+
+////MENSAJES GENERALES
+require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+////FUNCIONES GENERALES
+require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+/*
+*Control de Lista de Acceso
+*/
+require_once($InsPoo->MtdPaqAcceso().'ClsACL.php');
+require_once($InsPoo->MtdPaqAcceso().'ClsRolZonaPrivilegio.php');
+//INSTANCIAS
+$InsSesion = new ClsSesion();
+$InsMensaje = new ClsMensaje();
+
+$InsACL = new ClsACL();
+
+/*
+*Variables GET
+*/
+$GET_mod = $_GET['Mod'];
+$GET_form = $_GET['Form'];
+
+?>
+
+<?php $PrivilegioVer = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],"CotizacionProducto","Ver"))?true:false;?>
+<?php $PrivilegioVistaPreliminar = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],"CotizacionProducto","VistaPreliminar"))?true:false;?>
+<?php $PrivilegioImprimir = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],"CotizacionProducto","Imprimir"))?true:false;?>
+
+
+
+<?php
+$GET_FinId = $_GET['FinId'];
+
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirecta.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirectaDetalle.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirectaTarea.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirectaFoto.php');
+
+
+$InsVentaDirecta = new ClsVentaDirecta();
+
+
+//MtdObtenerVentaDirectas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'VdiId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oConCotizacionRepuesto=0,$oCotizacionRepuestoEstado=NULL,$oCotizacionRepuesto=NULL,$oMoneda=NULL,$oCliente=NULL,$oConOrdenCompraReferencia=NULL,$oPedidoCompra=NULL,$oVentaConcretada=NULL,$oClienteClasificacion=NULL,$oOrigen=NULL,$oObservado=NULL,$oEstricto=false,$oOrdenCompraReferencia=NULL,$oProductoCodigoOriginal=NULL,$oOrdenCompraTipo=NULL,$oExonerar=NULL,$oFichaIngreso=NULL,$oTieneGenerarVentaConcretada=false,$oPersonal=NULL,$oConCodigoExterno=0,$oSucursal=NULL)
+$ResVentaDirecta = $InsVentaDirecta->MtdObtenerVentaDirectas(NULL,NULL,NULL,"VdiFecha","ASC","",FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),$POST_estado,0,NULL,NULL,$POST_Moneda,NULL,NULL,$POST_PedidoCompra,$POST_VentaConcretada,NULL,NULL,NULL,false,NULL,NULL,NULL,NULL,NULL,false,$POST_Personal,0,$POST_Sucursal);
+$ArrVentaDirectas = $ResVentaDirecta['Datos'];
+
+
+//MtdObtenerCotizacionProductos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'CprId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oMoneda=NULL,$oFichaIngreso=NULL)
+$ResCotizacionProducto = $InsCotizacionProducto->MtdObtenerCotizacionProductos(NULL,NULL,NULL,"CprFecha","ASC",NULL,NULL,NULL,NULL,NULL,$GET_FinId);
+$ArrCotizacionProductos = $ResCotizacionProducto['Datos'];
+?>
+
+
+<div class="EstFormularioArea"> 
+<div id="ForBuscadorProductos"  >
+  <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+    <tr>
+      <td width="1%">&nbsp;</td>
+      <td width="98%"><span class="EstFormularioSubTitulo"> Listado de COTIZACIONES de la ORDEN DE TRABAJO
+        </span></td>
+      <td width="1%">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+<?php
+if(!empty($ArrCotizacionProductos)){
+?>
+
+      <table width="100%" class="EstTablaListado">
+      <thead class="EstTablaListadoHead">
+      <tr>
+        <th width="2%" align="center">#</th>
+        <th width="11%" align="center">Cod. Cot.</th>
+        <th width="9%" align="center">Num. Doc.</th>
+        <th width="40%" align="center">Cliente</th>
+        <th width="27%" align="center">Seguro</th>
+        <th width="11%" align="center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody class="EstTablaListadoBody">
+<?php
+$i=1;
+foreach($ArrCotizacionProductos as $DatCotizacionProducto){
+?>
+
+    <tr>
+        <td align="left" valign="top"><?php echo $i;?></td>
+        <td align="left" valign="top">
+		<!--<a target="_self"  href="principal.php?Mod=CotizacionProducto&Form=Ver&Id=<?php echo $DatCotizacionProducto->CprId;?>">
+		--><?php echo $DatCotizacionProducto->CprId;?>
+       <!-- </a>-->
+        </td>
+        <td align="left" valign="top"><?php echo $DatCotizacionProducto->CprFecha;?></td>
+        <td align="left" valign="top">
+          
+          <?php echo $DatCotizacionProducto->CliNombre;?>
+          <?php echo $DatCotizacionProducto->CliApellidoPaterno;?>
+          <?php echo $DatCotizacionProducto->CliApellidoMaterno;?>
+          
+        </td>
+        <td align="left" valign="top">
+        
+  <?php
+
+if(!empty($DatCotizacionProducto->CprSeguroFoto)){
+	
+	$extension = strtolower(pathinfo($DatCotizacionProducto->CliFotoSeguro, PATHINFO_EXTENSION));
+	$nombre_base = basename($DatCotizacionProducto->CliFotoSeguro, '.'.$extension);  
+?><br />
+<img  title="<?php echo $DatCotizacionProducto->CliFotoSeguro;?>" src="subidos/cliente_fotos/<?php echo $nombre_base.".".$extension;?>" width="25" height="25" border="0" />
+<?php
+}
+?>
+
+
+         
+          <?php echo $DatCotizacionProducto->CliNombreSeguro;?>
+          <?php echo $DatCotizacionProducto->CliApellidoPaternoSeguro;?>
+          <?php echo $DatCotizacionProducto->CliApellidoMaternoSeguro;?>
+          
+			<?php
+            $InsCotizacionProductoFoto = new ClsCotizacionProductoFoto();
+            //MtdObtenerCotizacionProductoFotos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'CpfId',$oSentido = 'Desc',$oPaginacion = '0,10',$oCotizacionProducto=NULL,$oEstado=NULL,$oTipo=NULL)  
+            $ResCotizacionProductoFoto = $InsCotizacionProductoFoto->MtdObtenerCotizacionProductoFotos(NULL,NULL,'CpfId','Asc',NULL,$DatCotizacionProducto->CprId,NULL,NULL) ;
+            $ArrCotizacionProductoFotos = $ResCotizacionProductoFoto['Datos'];
+            ?>
+            
+            <?php
+            if(!empty($ArrCotizacionProductoFotos)){
+			?><br />
+            Archivos adjuntos:<br />
+            <?php
+				$c = 1;
+                foreach($ArrCotizacionProductoFotos as $DatCotizacionProductoFoto){
+            ?>
+
+
+<?php echo $c;?>.- 
+<a target="_blank" href="subidos/cotizacion_producto_fotos/<?php echo $DatCotizacionProductoFoto->CpfArchivo;?>"><?php echo substr($DatCotizacionProductoFoto->CpfArchivo,0,20);?>...
+</a><br />
+    
+    
+            <?php
+					$c++;	
+				
+                }
+			?>
+            
+            <?php
+            }else{
+			?>
+            	
+            <?php	
+			}
+            ?>
+                   
+        </td>
+        <td align="center">
+          
+          <?php
+			if($PrivilegioVer){
+			?>
+          <a target="_self"  href="principal.php?Mod=CotizacionProducto&Form=Ver&Id=<?php echo $DatCotizacionProducto->CprId;?>"><img src="imagenes/acciones/acc_ver.png" width="19" height="19" border="0" title="Ver" alt="[Ver]"   /></a>                
+          <?php
+			}
+			?>
+          
+          <?php
+			if($PrivilegioVistaPreliminar){
+			?>
+          <a href="javascript:FncPopUp('formularios/CotizacionProducto/FrmCotizacionProductoImprimir.php?Id=<?php echo $DatCotizacionProducto->CprId;?>&ImprimirCodigo=2',0,0,1,0,0,1,0,screen.height,screen.width);"><img src="imagenes/acciones/preliminar.gif" alt="[Vista Preliminar]" title="Vista preliminar" width="19" height="19" border="0" /></a>
+          <?php
+			}
+			?>
+          
+          <?php
+			if($PrivilegioImprimir){
+			?>        
+          
+          <a href="javascript:FncPopUp('formularios/CotizacionProducto/FrmCotizacionProductoImprimir.php?Id=<?php echo $DatCotizacionProducto->CprId;?>&P=1&ImprimirCodigo=',0,0,1,0,1,1,0,screen.height,screen.width);"><img src="imagenes/acciones/imprimir.png" alt="[Imprimir]" title="Imprimir" width="19" height="19" border="0" /></a>
+          <?php
+			}
+			?> 
+          
+          
+          
+        </td>
+        </tr>
+        
+<?php
+$i++;
+}
+?>
+      
+      </tbody>
+      </table>
+
+<?php
+}else{
+?>
+No se encontraron COTIZACIONES para esta ORDEN DE TRABAJO
+<?php	
+}
+?>      
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+</div>
+   </div>
+   

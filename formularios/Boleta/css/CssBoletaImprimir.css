@@ -1,0 +1,191 @@
+/*
+* Impresion
+*/
+
+
+
+/*
+* TABLA
+*/
+table.EstBoletaImprimirTabla{
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+/*
+* TABLA HEAD
+*/
+thead.EstBoletaImprimirTablaHead{
+/*	background-image:url(../../../imagenes/tabla_barra.png);*/
+	height:20px;
+	font-size:10px;
+}
+
+thead.EstBoletaImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+}
+
+/*
+* TABLA BODY
+*/
+tbody.EstBoletaImprimirTablaBody{
+	font-size:10px;
+}
+
+tbody.EstBoletaImprimirTablaBody td {
+	background-color:#FFF;
+	padding-left:2px;
+	padding-right:2px;
+	/*border:#CCC 1px solid ; */
+}
+
+/*
+* CONTENIDO
+*/
+.EstBoletaImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+.EstBoletaImprimirContenido{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+.EstBoletaImprimirContenido2{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+
+
+.EstBoletaImprimirEtiquetaCaracteristica{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#0066CC;
+	text-transform: uppercase; 
+	
+}
+
+.EstBoletaImprimirContenidoCaracteristica{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	
+}
+
+
+/*
+* CONTENIDO ESPECIAL
+*/
+.EstBoletaImprimirContenidoEspecial{
+	letter-spacing:3px;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+/*
+* CONTENIDO FECHA
+*/
+
+.EstBoletaImprimirContenidoFecha{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+/*
+* DETALLE
+*/
+.EstBoletaDetalleImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+.EstBoletaDetalleImprimirContenido{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+/*
+* TOTALES
+*/
+.EstBoletaImprimirEtiquetaTotal{
+	font-weight:bold;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+
+/*
+* MONEDA
+*/
+.EstBoletaImprimirMoneda{
+	font-weight:bold;
+	font-size:8px;
+}
+
+/*
+* CABECERAS
+*/
+.EstBoletaImprimirCabecera{
+	font-weight:bold;
+	font-size:14px;
+}
+
+.EstBoletaImprimirSubcabecera{
+	font-weight:bold;
+	font-size:10px;
+}
+
+
+/*.EstBoletaImprimirFormatoDetalle{
+	border-bottom:#000 1px solid;
+	border-top:#000 1px solid;
+	
+	border-left:#000 1px solid;
+	border-right:#000 1px solid;
+	
+}
+
+.EstBoletaImprimirFormatoCabecera{
+	border-bottom:#000 1px solid;
+	border-top:#000 1px solid;
+	
+	border-left:#000 1px solid;
+	border-right:#000 1px solid;
+	
+}
+
+
+.EstBoletaImprimirMarco{
+	border:#000 1px solid;
+}*/
+
+.EstBoletaImprimirSeparacion{
+	border-top:dashed 1px #000;
+	margin:0px;
+	
+}
+
+
+.container {
+  display: table;
+}
+.row {
+  display: table-row;
+}
+.column {
+  display: table-cell;
+  white-space: nowrap;
+}

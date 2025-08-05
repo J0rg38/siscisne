@@ -1,0 +1,1854 @@
+@charset "utf-8";
+/* CSS Document */
+
+.tooltip {
+    background-color:#000;
+    border:1px solid #fff;
+    padding:10px 15px;
+    width:200px;
+    display:none;
+    color:#fff;
+    text-align:left;
+    font-size:12px;
+ 
+    /* outline radius for mozilla/firefox only */
+    -moz-box-shadow:0 0 10px #000;
+    -webkit-box-shadow:0 0 10px #000;
+}
+
+.error {
+    width:250px;
+    height:20px;
+    height:auto;
+    position:absolute;
+    left:50%;
+    margin-left:-100px;
+    bottom:10px;
+    background-color: #383838;
+    color: #F0F0F0;
+    font-family: 'SF Pro Display';
+    font-size: 12px;
+    padding:10px;
+    text-align:center;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+}
+
+
+
+
+.EstMensajeAlerta{
+	/*text-align:justify;*/
+	text-align:left;	
+}
+
+/*
+************************************************************************
+* ESTILOS GENERAL
+************************************************************************
+*/
+
+/*
+* Moneda Simbolo
+*/
+.EstMonedaSimbolo{
+	color:#06C;
+	/*font-weight:bold;*/
+	font-size:10px;
+}
+
+/*
+* Unidad Medida
+*/
+
+.EstUnidadMedida{
+	font-size:10px;
+}
+
+
+
+
+/*
+* SUBMENU
+*/  
+  
+.EstCapMenu{	
+
+	/*border:1px solid #F00;*/
+	/*float:right;*/
+	height:55px;	
+	/*width:67px;*/
+	/*	border:1px solid #000;*/
+	/*	margin-right:10px;*/
+	/*vertical-align:bottom;*/	 
+	position:fixed; 
+	
+	top:13%; 
+	right: 1%;;
+	/*background:#FFF;*/
+	/*z-index:-1;*/
+	 z-index:9;
+}
+
+.EstCapSubMenu{	
+  
+
+	/*border:1px solid #F00;*/
+	/*float:left;*/
+	height:60px;	
+	/*width:67px;*/
+	/*	border:1px solid #000;*/
+	margin-right:10px;
+	/*vertical-align:bottom;*/	
+	position:fixed; 
+	
+	top:13%; 
+		left: 1%;;
+	background:#FFF;
+	/*z-index:-1;*/
+	
+ z-index:9;
+}
+
+
+
+/*
+* SUBMENU BOTONES
+*/
+
+
+.EstSubMenuBoton{
+	
+	
+	/*background-image: linear-gradient(to right, rgba(102,102,102,0), rgba(204,204,204,0));*/
+	background-color:#CECECE;
+	
+	
+	
+	/*background-color:#CCC;*/
+	border:#999 1px  solid;
+	 border-radius:5px;
+	font-size:12px;
+	font-weight:bold;
+	
+	text-align:center;
+	vertical-align:bottom;
+	
+	float:left;	
+	floating :left;
+	width:60px;
+	height:50px;
+	padding:2px;
+	/*margin:2px;*/
+	/*margin-left:1px;*/
+	margin-right:3px;
+	margin-bottom:5px;
+	margin-top:1px;	
+	/*box-shadow: 1px 1px 1px #888888;*/
+	
+	
+}
+
+.EstSubMenuBoton img{
+display:inline-block !important; display:block;	
+	width:35px;
+	height:35px;
+	border:0px;
+	vertical-align:bottom;
+	margin-left:5px;
+	margin-right:5px;
+/*	margin-bottom:2px;*/	
+}
+
+.EstSubMenuBoton a:hover{
+	text-decoration:none;
+color:#666;
+	margin-left:5px;
+	margin-right:1px;	
+	font-family:'SF Pro Display';
+	font-size:10px;	
+}
+
+.EstSubMenuBoton a{
+	text-decoration:none;
+color:#666;
+	margin-left:5px;
+	margin-right:1px;	
+	font-family:'SF Pro Display';
+	font-size:10px;	
+}
+
+.EstSubMenuBoton div{
+	text-decoration:none;
+color:#666;
+	margin-left:5px;
+	margin-right:1px;	
+	font-family:'SF Pro Display';
+	font-size:10px;	
+}
+
+
+
+	
+	
+
+.EstSubMenuSeparacion{	
+	vertical-align:bottom;	
+	float:left;	
+	floating :left;
+	width:3px;
+	height:50px;
+	padding:2px;
+	/*margin:2px;*/
+	/*margin-left:1px;*/
+	margin-right:1px;
+	margin-bottom:5px;
+	margin-top:1px;
+	
+}
+
+#BtnGuardar{
+	border:#999 1px outset;
+}
+
+
+
+/*
+************************************************************************
+* ESTILOS MENU SUPERIOR
+************************************************************************
+*/
+
+/*
+TABLA TIPO DE CAMBIO
+*/
+
+table.EstTablaTipoCambio{
+	font-family:'SF Pro Display';
+	font-size:12px;
+	color:#FFF;
+/*	border:#000 1px solid;*/
+}
+.EstTipoCambioEtiqueta{
+	font-weight:bold;	
+}
+
+/*
+TABLA SESION
+*/
+table.EstTablaSesion{
+	font-family:'SF Pro Display';
+	font-size:12px;
+	color:#FFF;
+}
+
+.EstTablaSesionEtiqueta{
+	font-weight:bold;
+	color:#FFF;
+}
+
+.EstTablaSesionCampo{
+
+}
+
+/*
+* SESION
+*/
+
+a.EstSesionUsuarioUsuario{
+	color:#FFF;;
+	text-decoration:none;
+}
+
+a:hover.EstSesionUsuarioUsuario{
+	color:#FFF;
+	text-decoration:underline;	
+}
+
+a:visited.EstSesionUsuarioUsuario{
+	color:#FFF;
+	text-decoration:none;
+}
+
+a:link.EstSesionUsuarioUsuario{
+	color:#FFF;
+	text-decoration:none;	
+}
+
+/*
+TABLA INFORMACIOON
+*/
+table.EstTablaInformacion{
+	font-family:'SF Pro Display';
+	font-size:12px;
+/*	border:#000 1px solid;*/
+	color:#FFF;
+}
+.EstInformacionEtiqueta{
+	font-weight:bold;	
+}
+
+
+
+
+/*
+* TABLA RELOJ
+*/
+table.EstTablaReloj{
+	font-family:'SF Pro Display';
+	font-size:10px;
+	color:#FFF;
+/*	border:#000 1px solid;*/
+}
+
+.EstRelojFecha{
+	font-weight:bold;
+	font-family:'SF Pro Display';
+	font-size:12px;
+	color:#FFF;
+}
+
+.EstRelojHora{
+	font-weight:bold;	
+	font-family:'SF Pro Display';
+	font-size:12px;	color:#FFF;
+}
+
+
+
+/*
+************************************************************************
+* ESTILOS PANEL Ref.: Leyenda en tabla listado
+************************************************************************
+*/
+
+/*
+* TABLA PANEL
+*/
+
+table.EstPanelTabla{
+	font-family:'SF Pro Display';
+	font-size:10px;
+}
+
+/*
+* PANEL TABLA LISTADO
+*/
+
+table.EstPanelTablaListado{
+	font-family:'SF Pro Display';
+	border:#999 2px solid ; 
+}
+
+/*
+* PANEL TABLA LISTADO - HEAD
+*/
+
+thead.EstPanelTablaListadoHead{
+	background-color:#333;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+thead.EstPanelTablaListadoHead th{
+	padding-left:2px;
+	padding-right:2px;
+}
+
+/*
+* PANEL TABLA LISTADO - FOOT
+*/
+
+tfoot.EstPanelTablaListadoFoot{
+	font-size:10px;
+	background-color:#333;
+	color:#FFFFFF;
+}
+tfoot.EstPanelTablaListadoFoot a{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+tfoot.EstPanelTablaListadoFoot a:linked{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+tfoot.EstPanelTablaListadoFoot a:visited{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+tfoot.EstPanelTablaListadoFoot a:hover{
+	text-decoration:none;
+	color:#FF0;
+}
+
+
+
+
+
+/*
+* PANEL TABLA LISTADO - BODY
+*/
+
+tbody.EstPanelTablaListadoBody  {
+	font-size:10px;
+}
+tbody.EstPanelTablaListadoBody td {
+	/*background-color:#FFF;*/
+	font-family:'SF Pro Display';
+	font-size:12px;
+	padding-left:10px;
+	padding-right:10px;
+	/*border:#CCC 1px solid ; */
+}
+
+tbody.EstPanelTablaListadoBody td.Total{
+	font-weight:bold;
+}
+
+tbody.EstPanelTablaListadoBody td.Total{
+	font-weight:bold;
+}
+
+
+
+
+
+/*tbody.EstPanelTablaListadoBody td.Etiqueta{
+	font-weight:bold;
+}
+*/
+
+
+.EstPanelTablaListadoTitulo{
+	font-weight:bold;
+	font-size:14px;
+}
+
+
+.EstPanelTablaListadoEtiqueta{
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstPanelTablaListadoContenido{
+	font-size:12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+************************************************************************
+* ESTILOS PAGINACION
+************************************************************************
+*/
+
+a.EstPaginacion{
+	
+}
+
+.EstPaginaActual{
+	font-weight:bold;
+	font-size:12px;
+}
+
+
+
+/*.EstBannerSuperior{
+	background-color:#BF0000;
+	height:60px;
+	
+	width:535px;;	
+}
+
+.EstBannerInferior{
+	font-family:Tahoma, Geneva, sans-serif;
+	color:#FFF;
+	font-size:10px;
+	text-align:right;
+	vertical-align:middle;
+	background-color:#BF0000;
+	height:20px;
+	font-weight:bold;
+	padding-top:5px;
+	padding-right:10px;
+	
+
+	
+}*/
+
+
+/*
+************************************************************************
+* ESTILOS ACERCA DE
+************************************************************************
+*/
+
+
+table.EstTablaAcercade{
+	font-family:'SF Pro Display';
+	font-size:12px;	
+	border:#000 1px solid;
+}
+.EstTablaAcercadeEtiqueta{
+	font-weight:bold;
+}
+
+/*
+************************************************************************
+* ESTILOS CHAT
+************************************************************************
+*/
+
+.EstTablaChat{
+	font-size:12px;
+	font-family:'SF Pro Display';
+}
+
+.EstChat{
+	background-color: #E8E8E8 ;
+	border: 1px solid #666666 ;
+	bottom: 0px ;
+	display: none ;
+	left: 0px ;
+	padding: 5px 5px 1px 5px ;
+	position: absolute ;
+	width: 350px ;
+}
+
+.EstChat a{
+	background-color: #E8E8E8 ;
+			/*border: 1px solid #FFFFFF ;*/
+			color: #000000 ;
+			display: block ;
+			margin-bottom: 4px ;
+			/*padding: 5px 0px 5px 5px ;*/
+			text-decoration: none ;
+}
+.EstChat a:hover{
+	background-color: #666666 ;
+			border-color: #000000 ;
+			color: #FFFFFF ;
+}
+
+
+/*
+************************************************************************
+* ESTILOS NOTAS
+************************************************************************
+*/
+.EstNotasTitulo{
+	font-family:'SF Pro Display';
+	font-weight:bold;
+	border:#000000 1px solid;
+	margin-bottom:3px;
+	padding:5px;
+	font-size:10px;
+}
+
+.EstNotas{
+	padding:5px;
+	/*font-style:italic;*/
+	font-family:'SF Pro Display';
+	font-size:10px;
+	border: #000000 1px solid;
+}
+.EstNotas p{
+	text-align:justify;
+}
+
+
+/*
+************************************************************************
+* ESTILOS EXTRAS
+************************************************************************
+*/
+
+#screenshot{
+	position:absolute;
+	border:1px solid #ccc;
+	background:#333;
+	padding:5px;
+	display:none;
+	color:#fff;
+	}
+	
+	
+	
+table.EstTablaLeyenda{
+	font-family:'SF Pro Display';
+	font-size:10px;
+	
+}
+
+
+
+
+/*
+************************************************************************
+* ESTILOS TOTAL Ref.: Encima tabla listado
+************************************************************************
+*/
+/*
+* TABLA TOTAL
+*/
+table.EstTablaTotal{
+font-family:'SF Pro Display';
+}
+
+/*
+* TABLA TOTAL BODY
+*/
+tbody.EstTablaTotalBody  {
+font-size:12px;
+}
+tbody.EstTablaTotalBody td {
+background-color:#FFFFFF;
+/*border:#999999 1px outset; */
+}
+
+tbody.EstTablaTotalBody td.Total{
+	font-weight:bold;
+}
+
+
+/*
+************************************************************************
+* ESTILOS TABLA LISTADO GENERAL
+************************************************************************
+*/
+
+.EstListadoContenido{
+	font-size:12px;
+	font-family:'SF Pro Display';	
+}
+.EstListadoEtiqueta{
+	font-size:12px;
+	font-weight:bold;
+	font-family:'SF Pro Display';	
+}
+.EstCapListado{
+	overflow:auto;
+	/*width:980;*/
+}
+
+.EstTablaListadoCodigo{
+	font-weight:bold;
+	font-size:13px;
+	font-family:'SF Pro Display';
+}
+
+table.EstTablaListado{
+	margin-top:10px;
+	font-family:'SF Pro Display';
+	
+}
+
+/*
+* TABLA LISTADO HEAD
+*/
+
+thead.EstTablaListadoHead{
+	font-family:'SF Pro Display';
+	/*background-color:#06C;*/
+
+	background-image:url(../imagenes/tabla_barra.png);
+	
+	
+	/*background-color:#333;*/
+	height:30px;
+	font-size:11px;
+	color:#FFFFFF;
+}
+thead.EstTablaListadoHead th{
+	padding-left:4px;
+	padding-right:4px;
+	height:30px;
+}
+
+/*
+* TABLA LISTADO HEAD - LINK
+*/
+
+thead.EstTablaListadoHead a{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+thead.EstTablaListadoHead a:linked{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+thead.EstTablaListadoHead a:visited{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+thead.EstTablaListadoHead a:hover{
+	text-decoration:none;
+	color:#FF0;
+}
+
+/*
+* TABLA LISTADO FOOT
+*/
+tfoot.EstTablaListadoFoot{
+	font-family:'SF Pro Display';
+	font-size:11px;
+	/*background-color:#333;*/
+	background-image:url(../imagenes/tabla_barra.png);
+	background-color:#06C;
+	height:30px;
+	/*background-image:url(../imagenes/tabla_barra.gif);*/
+	color:#FFFFFF;
+}
+
+/*
+* TABLA LISTADO FOOT - LINK
+*/
+tfoot.EstTablaListadoFoot a{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+tfoot.EstTablaListadoFoot a:linked{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+tfoot.EstTablaListadoFoot a:visited{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+tfoot.EstTablaListadoFoot a:hover{
+	text-decoration:none;
+	color:#FF0;
+}
+
+/*
+* TABLA LISTADO BODY
+*/
+tbody.EstTablaListadoBody  {
+	font-family:'SF Pro Display';
+	font-size:11px;
+	/*  overflow-x: hidden;*/
+}
+tbody.EstTablaListadoBody td {
+	/*background-color:#FFF;*/
+/*	padding-left:2px;
+	padding-right:2px;
+*/	border:#E8F3FF 1px solid ; 
+	padding:5px;
+
+}
+
+tbody.EstTablaListadoBody td.SubTitulo {
+	background-color:#666;
+}
+
+tbody.EstTablaListadoBody td.EtiquetaTotal {
+	background-color:#000;
+	color:#FFF;
+}
+
+
+tbody.EstTablaListadoBody td.Total{
+	font-weight:bold;
+}
+
+tbody.EstTablaListadoBody td.Importante{
+	font-weight:bold;
+	font-size:11px;
+	color:#F00;
+}
+
+tbody.EstTablaListadoBody td.EtiquetaPrincipal{
+	font-weight:bold;
+}
+
+tbody.EstTablaListadoBody td.EtiquetaSecundaria{
+	font-style:italic;
+	/*font-weight:bold;*/
+}
+
+
+
+
+
+
+tbody.EstTablaListadoBody td.Activo {
+	background-color:#CCC;
+}
+
+tbody.EstTablaListadoBody td.Inactivo {
+	background-color:#FFF;
+}
+
+
+
+
+tbody.EstTablaListadoBody .EstImportante1{
+	font-weight:bold;
+	color:#F00;
+}
+
+tbody.EstTablaListadoBody .EstImportante2{
+	font-weight:bold;
+	color:#090;
+}
+
+
+tbody.EstTablaListadoBody .EstImportante3{
+	font-weight:bold;
+	color:#000;
+}
+tbody.EstTablaListadoBody .EstImportante4{
+	font-weight:bold;
+	color:#999;
+}
+
+tbody.EstTablaListadoBody .EstImportante5{
+	font-weight:bold;
+	color:#F90;
+}
+
+/*
+* TABLA LISTADO BODY - LINK
+*/ 
+tbody.EstTablaListadoBody a{
+	text-decoration:none;
+	font-family:'SF Pro Display';
+	color:#069;
+}
+tbody.EstTablaListadoBody a:linked{
+	text-decoration:none;
+	font-family:'SF Pro Display';
+	color:#069;
+}
+
+tbody.EstTablaListadoBody a:visited{
+	text-decoration:none;
+	font-family:'SF Pro Display';
+	color:#069;
+}
+
+tbody.EstTablaListadoBody a:hover{
+	text-decoration:none;
+	font-family:'SF Pro Display';
+	color:#069;
+	/*font-weight:bold;*/
+}
+
+
+/*
+* TABLA LISTADO BODY - ADICIONALES
+*/ 
+
+
+
+.EstTablaListadoResaltar{
+	font-weight:bold;
+}
+
+.EstTablaListadoEtiqueta{
+	font-weight:bold;
+}
+
+
+.EstTablaListadoContenido{
+	
+}
+
+
+
+/*
+************************************************************************
+* ESTILOS TABLA LISTADO GENERAL
+************************************************************************
+*/
+
+/*
+* FORMULARIOS
+*/
+
+.EstFormularioCapaScroll{
+	width:100%;
+	overflow-y: scroll; 	
+}
+
+.EstFormularioCapaListado{
+
+/*	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	
+	min-height:300px;
+	width:97%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+	*/
+	
+	
+	background-color:#CECECE;
+	/*background-color:#CCC;*/
+	border:#999 1px  solid;
+	border-radius:5px;
+	/*width:97%;*/
+	overflow:auto;
+	width:95%;
+	height:420px;
+	/*max-width:1024px;
+*/
+
+
+
+
+}
+
+.EstFormularioEtiquetaFondo{
+	background-color:#CCC;
+}
+
+.EstFormularioEtiqueta{
+
+}
+
+.EstFormularioTotalEtiqueta{
+	font-size:14px;
+	color:#06C;
+
+
+}
+
+.EstFormularioTotalContenido{
+	font-size:14px;
+	font-weight:bold;
+	color:#000000;
+}
+
+
+.EstFormularioSubEtiqueta{
+	color:#999;
+	font-size:10px;		
+}
+
+.EstFormularioContenido{
+	
+}
+
+.EstFormularioCampoObligatorio{
+
+	font-weight:bold;
+	color:#F00;
+
+}
+
+
+.EstFormularioEtiquetaCaja{
+ word-wrap: break-word;
+	
+}
+
+
+
+.EstFormularioContenedor{
+	padding:4px;
+}
+
+.EstFormularioDatoRegistro{
+	font-family:'SF Pro Display';
+	/*font-style:italic;*/
+	font-size:10px;
+}
+
+.EstFormularioAccion{
+	font-family:'SF Pro Display';
+	font-size:10px;
+	/*color:#FFFFFF;*/
+	color:#000;
+	font-weight:bold;
+	/*background-color:#000000;*/
+	padding:1px;
+	text-align:left;
+}
+
+.EstFormularioBoton{
+	/*font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	border:#FFFFFF 1px solid;
+	
+	color:#FFFFFF;
+	padding:2px;*/
+	
+	margin: 0 auto;
+ font-size:12px;	
+ font-weight:bold;
+  padding-left:10px;;
+  padding-top:7px;;
+  padding-right:10px;;
+  padding-bottom:7px;;  
+ background-color:#06C;
+/*  background-color: #06C;
+  */
+ /* background-image: linear-gradient(white, blue);
+  */
+  
+  
+  border: 1px solid transparent;
+  color: #ffffff;
+ 
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  
+}
+
+.EstFormularioCajaEnfocado{
+	/*background-color:#FFC;
+	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#000;
+	border:#000000 1px solid;*/
+	
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#333 2px solid;
+}
+
+  .EstFormularioCaja{
+	/*background-color:#FFF;
+	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#000;
+	border:#000000 1px solid;*/
+	
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	
+}
+  .EstFormularioCajaEspecial{
+	/*background-color:#FFF;
+	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#000;
+	border:#000000 1px solid;*/
+	background-color:#FFF;
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	
+}
+
+  .EstFormularioCajaRevisar{
+	  background-color:#FF888B;
+	/*background-color:#FFF;
+	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#000;
+	border:#000000 1px solid;*/
+	
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	
+}
+
+
+.EstFormularioCajaAnulado{
+	background-color:#F60;
+	/*
+	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#000;
+	border:#000000 1px solid;*/
+	
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	
+}
+
+  .EstFormularioCajaError{
+	background-color:#F77;
+/*	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;*/
+	/*border:#FF4A4A 2px solid;*/
+	
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	
+}
+
+  .EstFormularioCajaSeleccionado{
+	background-color:#009;
+	color:#FFFFFF;
+	
+	
+	
+		font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+
+}
+
+.EstFormularioCajaVacia{
+	/*background-color:#FFF;
+	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#FFF;*/
+	/*border:#000000 1px solid;*/
+}
+
+.EstFormularioCajaBuscar{
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	
+		background-color:#C4E1FF;
+/*	background-color:#ECF5FF;*/
+	
+/*	background-color:#039;
+	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:14px;
+	color:#FFFFFF;*/
+	/*border:#000000 2px solid;*/
+}
+
+.EstFormularioCajaObservacion{
+	
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	
+	
+	background-color:#E7DEFE;
+	height:120px;
+	width:400px;
+	/*background-color:#FFF;
+	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#000;*/
+/*	border:#000000 1px solid;*/
+	overflow:auto;
+}
+
+.EstFormularioCajaDeshabilitada{
+	
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	
+	
+	background-color:#CCC;
+/*	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#000;*/
+	/*border:#000000 1px solid;*/
+}
+
+.EstFormularioCajaEditable{
+	font-weight:bold;
+}
+
+
+
+.EstFormularioCajaRevisar{
+	background-color:#F30;
+	padding:2px;
+	font-family:'SF Pro Display';
+	font-size:12px;
+	color:#000;
+	border:#000000 1px solid;
+}
+
+.EstFormularioCajaFecha{
+	
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	
+	
+/*	background-color:#FFF;
+	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#000;
+	border:#000000 1px solid;*/
+}
+
+.EstFormularioCajaHora{
+	
+	font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	
+/*	background-color:#FFF;
+	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#000;
+	border:#000000 1px solid;*/
+}
+
+.EstFormularioCombo{
+/*	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#000000;
+	border:#000000 1px solid;*/
+	
+	/*text-align:right;*/
+	
+		font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	word-wrap: break-word;
+	
+}
+
+.EstFormularioComboResaltado{
+/*	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#FFF;
+	border:#000000 1px solid;
+	background-color:#000;*/
+	
+	/*text-align:right;*/
+	
+	
+		font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	word-wrap: break-word;
+	background-color:#000;
+	
+}
+
+.EstFormularioComboAnulado{
+	
+/*	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#FFF;
+	border:#000000 1px solid;
+	background-color:#000;*/
+	
+	/*text-align:right;*/
+	
+	
+		font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	word-wrap: break-word;
+	background-color:#F60;
+	
+}
+
+
+.EstFormularioComboRevisar{
+	
+/*	padding:2px;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	color:#FFF;
+	border:#000000 1px solid;
+	background-color:#000;*/
+	
+	/*text-align:right;*/
+	
+	
+		font-family:'SF Pro Display';
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	word-wrap: break-word;
+	background-color:#F00;
+	
+}
+
+
+.EstFormulario{
+	font-family:'SF Pro Display';
+	font-size:12px;
+	font-weight:bold;
+}
+
+.EstFormularioNota{
+	font-size:12px;
+	font-family:'SF Pro Display';
+	color:#09C;
+}
+
+
+.EstFormularioSubIndice{
+	font-size:8px;
+	font-family:'SF Pro Display';
+	color:#09C;
+}
+
+
+.EstFormularioTitulo{
+	font-size:18px;
+	font-family:'SF Pro Display';
+	font-weight:bold;
+	/*padding-left:10px;
+	padding-right:10px;
+	padding-bottom:3px;
+	padding-top:3px;
+	background-color:#CCCCCC;
+	border:#000000 1px solid;*/
+	color:#06C;
+}
+
+
+.EstFormularioSubTitulo{
+	font-size:16px;
+	font-family:'SF Pro Display';
+	font-weight:bold;
+	text-decoration:underline;
+	color:#06C;
+	padding-bottom:10px;
+}
+
+.EstFormularioSubTitulo2{
+	font-size:14px;
+	font-family:'SF Pro Display';
+	font-weight:bold;
+	text-decoration:underline;
+	color:#333;
+	padding-bottom:10px;
+}
+
+.EstFormularioTablaListado{
+	 
+	 
+	font-size:10px;
+	font-family:'SF Pro Display';
+}
+
+.EstFormularioArea{
+	border-radius: 10px 10px 10px 10px;
+	/*background-color:#FFFFFF;*/
+	background-image:url(../imagenes/fondo_capa.png);
+	border:1px #666666 solid;
+	margin:3px;
+}
+
+.EstFormularioOpcion{
+	color:#F00;
+	font-weight:bold;	
+}
+
+.EstFormularioResaltar{
+	color:#090;	
+}
+
+
+.EstFormularioResaltarSeccion{
+	font-family:'SF Pro Display';
+	font-size:16px;
+	font-weight:bold;
+	background-color:#CCC;
+}
+
+.EstFormularioUpload {
+     margin: 0;
+	  padding: 0;
+}
+/*.EstFormularioUpload input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}*/
+
+/*
+************************************************************************
+* ESTILOS NOTIFICACIONES Ref.:
+************************************************************************
+*/
+
+	a.EstNotificacionEnlace{
+		color:#FFF;
+		text-decoration:none;
+	}
+	
+	a:hover.EstNotificacionEnlace{
+		color:#FFF;
+	}
+	
+	a:visited.EstNotificacionEnlace{
+		color:#FFF;
+		text-decoration:none;
+	}
+	
+	a:link.EstNotificacionEnlace{
+		color:#FFF;
+		text-decoration:none;
+	}
+
+
+/*
+************************************************************************
+* ESTILOS TABLA TOTALES Ref.:
+************************************************************************
+*/
+table.EstTablaTotales{
+	font-family:'SF Pro Display';
+	font-size:12px;
+}
+table.EstTablaTotales td{
+
+
+}
+
+
+table.EstTablaTotales td.EstTablaTotalesEtiqueta{
+	background-color:#E7F9FE;
+	padding:2px;
+	font-size:12px;
+	vertical-align:text-top;
+}
+
+
+table.EstTablaTotales td.EstTablaTotalesContenido{
+	border:solid #069 1px;
+	padding:2px;
+	vertical-align:bottom;
+
+}
+
+
+/*
+************************************************************************
+* ESTILOS TABLA RESULTADO Ref.:
+************************************************************************
+*/
+
+table.EstTablaNotificacion{
+	font-family:'SF Pro Display';	
+}
+
+.EstNotificacionTitulo{
+	color:#FFFFFF;	
+	font-size:12px;
+	font-weight:bold;		
+}
+
+.EstNotificacionContenido{
+	color:#FFFFFF;	
+	font-size:12px;
+	font-weight:bold;		
+}
+
+.EstNotificacionEtiqueta{
+	color:#FFFFFF;
+	font-size:12px;
+}
+
+
+table.ETablaResultadoListado{
+	font-family:'SF Pro Display';
+	font-size:12px;
+}
+
+.EResultadoError{
+	color:#FF0000;
+	font-weight:bold;
+}
+
+.EResultadoSatisfaccion{
+	color:#000000;
+	font-weight:bold;
+}
+
+
+
+
+/*
+* NOTIFICACIONES
+*/
+.EstNotificacion{
+	display: table;
+	width: 100%;
+}
+
+.EstNotificacionBody{
+	display: table-row-group;
+}
+
+
+.EstNotificacionFila{
+	display: table-row;
+}
+
+
+
+.EstNotificacionIcono{
+/*	border: 1px solid #999999;*/
+	display: table-cell;
+	padding:3px;
+	/*padding: 3px 3px;*/
+	/*width:20%;*/
+
+}
+.EstNotificacionContenido{
+/*border: 1px solid #999999;*/
+	display: table-cell;
+	color:#333;
+	padding:3px;
+	font-weight:normal;
+/*	padding: 3px 10px;*/
+	/*width:80%;*/
+	}
+
+
+.EstNotificacionBotones{
+	text-align:right;
+/*	border: 1px solid #0C3;*/
+	display: table-cell;
+		padding:3px;
+	/*padding: 3px 10px;*/
+	/*width:100%;*/
+}
+
+
+/*
+************************************************************************
+* ESTILOS IMPORTACION EXCEL
+************************************************************************
+*/
+.EstImportarRegistrarSi{
+	
+}
+
+.EstImportarRegistrarNO{
+	color:#F00;
+	font-weight:bold;	
+}
+
+
+
+
+
+
+
+
+/*******************************************************************************************/
+
+
+/*
+* Boton
+*/
+/*
+a.EstSesionBoton{
+background-color:#FFFFFF;
+border:1px #000000 solid;
+text-decoration:none;
+color:#000000;
+font-size:12px;
+padding-left:10px;
+padding-right:10px;
+padding-top:2px;
+padding-bottom:2px;
+
+font-family:Tahoma, Geneva, sans-serif;
+}
+
+a:hover.EstSesionBoton{
+background-color:#000000;
+border:1px #000000 solid;
+text-decoration:none;
+color:#FFFFFF;
+font-size:12px;
+padding-left:10px;
+padding-right:10px;
+padding-top:2px;
+padding-bottom:2px;
+font-family:Tahoma, Geneva, sans-serif;
+}
+
+a:visited.EstSesionBoton{
+background-color:#FFFFFF;
+border:1px #000000 solid;
+text-decoration:none;
+color:#000000;
+font-size:12px;
+padding-left:10px;
+padding-right:10px;
+padding-top:2px;
+padding-bottom:2px;
+
+font-family:Tahoma, Geneva, sans-serif;
+}
+
+a:link.EstSesionBoton{
+background-color:#FFFFFF;
+border:1px #000000 solid;
+text-decoration:none;
+color:#000000;
+font-size:12px;
+padding-left:10px;
+padding-right:10px;
+padding-top:2px;
+padding-bottom:2px;
+font-family:Tahoma, Geneva, sans-serif;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+/*
+* BOTONES PRINCIPALES
+*/
+a.EstBotonIcono{
+color:#000;
+text-decoration:none;
+}
+
+a:hover.EstBotonIcono{
+color:#000;
+text-decoration:none;
+}
+
+a:visited.EstBotonIcono{
+color:#000;
+text-decoration:none;
+}
+
+a:link.EstBotonIcono{
+color:#000;
+text-decoration:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+************************************************************************
+* ESTILOS SIN CLASE
+************************************************************************
+*/
+
+/*fieldset{
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+    border-radius: 8px;
+    margin: 0 5px;
+    height: 100%;
+}
+
+input[type="text"] {
+	font-family:Tahoma, Geneva, sans-serif;
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+}
+
+input[type="text"]:focus { 
+	font-family:Tahoma, Geneva, sans-serif;
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#000 2px solid;
+}
+
+input[type="password"] {
+	font-family:Tahoma, Geneva, sans-serif;
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+}
+
+input[type="password"]:focus {
+	font-family:Tahoma, Geneva, sans-serif;
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#000 2px solid;
+}*/
+
+
+/*select{
+		font-family:Tahoma, Geneva, sans-serif;
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	word-wrap: break-word;
+
+}
+
+select:focus{
+	
+	font-family:Tahoma, Geneva, sans-serif;
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#000 2px solid;
+	word-wrap: break-word;
+	
+	
+}
+*/
+/*textarea{
+	font-family:Tahoma, Geneva, sans-serif;
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#D2D2D2 2px solid;
+	word-wrap: break-word;
+}
+
+
+textarea:focus{
+	font-family:Tahoma, Geneva, sans-serif;
+	padding:3px;
+	border-radius: 5px;
+	line-height: 15px;
+	border:#000 2px solid;
+}
+*/
+
+
+
+
+
+
+
+.EstBotonCorto{
+		
+	/*background-color:#CCC;*/
+	/*border:#6CC 1px  solid;*/
+	border-radius:5px;
+	font-size:12px;
+	font-weight:bold;
+	
+	text-align:center;
+	vertical-align:bottom;
+	
+	float:left;
+	/*floating :right;*/
+	/*width:20px;*/
+	height:20px;
+	padding:2px;
+	/*margin:2px;*/
+	/*margin-left:1px;*/
+	margin-right:3px;
+	margin-bottom:5px;
+	margin-top:1px;	
+	/*box-shadow: 1px 1px 1px #888888;*/
+	
+}
+
+
+
+
+.EstTablaListadoImportante{
+	color:#F00;
+	font-weight:bold;
+	font-size:14;
+	
+}
+
+
+.EstTablaListadoNormal{	
+	color:#090;
+	font-weight:bold;
+	font-size:14;
+}

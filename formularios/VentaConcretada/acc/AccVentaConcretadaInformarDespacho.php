@@ -1,0 +1,272 @@
+<?php
+//Si se hizo click en guardar		
+if(isset($_POST['BtnEnviarCorreo_x']) or $_POST['Guardar']=="1"){	
+
+	$Resultado = '';
+	$Guardar = true;
+
+	$InsVentaConcretada->UsuId = $_SESSION['SesionId'];	
+	
+	$InsVentaConcretada->VcoId = $_POST['CmpId'];
+	$InsVentaConcretada->CliId = $_POST['CmpClienteId'];
+	$InsVentaConcretada->TopId = "TOP-10000";	
+	
+	$InsVentaConcretada->AlmId = $_POST['CmpAlmacen'];
+	$InsVentaConcretada->VcoFecha = FncCambiaFechaAMysql($_POST['CmpFecha']);
+	
+	$InsVentaConcretada->MonId = $_POST['CmpMonedaId'];
+	$InsVentaConcretada->VcoTipoCambio = $_POST['CmpTipoCambio'];
+	//$InsVentaConcretada->MonId = $EmpresaMonedaId;
+	//$InsVentaConcretada->VcoTipoCambio = NULL;
+
+	$InsVentaConcretada->VcoObservacion = addslashes($_POST['CmpObservacion']);
+	$InsVentaConcretada->VcoDescuento = eregi_replace(",","",$_POST['CmpDescuento']);
+	$InsVentaConcretada->VcoManoObra = eregi_replace(",","",$_POST['CmpManoObra']);
+	
+	if($InsVentaConcretada->MonId<>$EmpresaMonedaId ){
+		$InsVentaConcretada->VcoDescuento = $InsVentaConcretada->VcoDescuento * $InsVentaConcretada->VcoTipoCambio;
+	}
+	
+	
+	if($InsVentaConcretada->MonId<>$EmpresaMonedaId ){
+		$InsVentaConcretada->VcoManoObra = $InsVentaConcretada->VcoManoObra * $InsVentaConcretada->VcoTipoCambio;
+	}
+	
+	$InsVentaConcretada->VcoIncluyeImpuesto = $_POST['CmpIncluyeImpuesto'];
+	
+	$InsVentaConcretada->VcoEstado = $_POST['CmpEstado'];
+	$InsVentaConcretada->VcoTiempoModificacion = date("Y-m-d H:i:s");
+	
+	$InsVentaConcretada->VcoPorcentajeImpuestoVenta = $_POST['CmpPorcentajeImpuestoVenta'];	
+//	$InsVentaConcretada->VcoMargenUtilidad = $_POST['CmpClienteTipoUtilidad'];
+	$InsVentaConcretada->VcoMargenUtilidad = 0;
+	$InsVentaConcretada->LtiId = $_POST['CmpClienteTipo'];	
+		
+	$InsVentaConcretada->CliNombre = $_POST['CmpClienteNombre'];
+	$InsVentaConcretada->TdoId = $_POST['CmpClienteTipoDocumento'];	
+	$InsVentaConcretada->CliNumeroDocumento = $_POST['CmpClienteNumeroDocumento'];
+	$InsVentaConcretada->CliTelefono = $_POST['CmpClienteTelefono'];
+
+	$InsVentaConcretada->CliEmail = $_POST['CmpClienteEmail'];
+	$InsVentaConcretada->CliCelular = $_POST['CmpClienteCelular'];
+	$InsVentaConcretada->CliFax = $_POST['CmpClienteFax'];
+
+	$InsVentaConcretada->VcoDireccion = $_POST['CmpClienteDireccion'];	
+
+	$InsVentaConcretada->CliNombreSeguro = $_POST['CmpClienteNombreSeguro'];
+	$InsVentaConcretada->CliApellidoPaternoSeguro = $_POST['CmpClienteApellidoPaternoSeguro'];
+	$InsVentaConcretada->CliApellidoMaternoSeguro = $_POST['CmpClienteApellidoMaternoSeguro'];
+	
+	$InsVentaConcretada->VdiId = $_POST['CmpVentaDirectaId'];	
+	$InsVentaConcretada->CprId = $_POST['CmpCotizacionProductoId'];	
+	
+	$InsVentaConcretada->VcoEmpresaTransporte = $_POST['CmpEmpresaTransporte'];
+	$InsVentaConcretada->VcoEmpresaTransporteDocumento = $_POST['CmpEmpresaTransporteDocumento'];
+	$InsVentaConcretada->VcoEmpresaTransporteClave = $_POST['CmpEmpresaTransporteClave'];
+	$InsVentaConcretada->VcoEmpresaTransporteFecha = FncCambiaFechaAMysql($_POST['CmpEmpresaTransporteFecha'],true);
+	$InsVentaConcretada->VcoEmpresaTransporteTipoEnvio = $_POST['CmpEmpresaTransporteTipoEnvio'];
+	$InsVentaConcretada->VcoEmpresaTransporteDestino = $_POST['CmpEmpresaTransporteDestino'];
+	
+	$InsVentaConcretada->FinId = $_POST['CmpFichaIngresoId'];
+	
+	$InsVentaConcretada->VentaConcretadaDetalle = array();
+	
+	$InsVentaConcretada->VcoSubTotal = 0;
+	$InsVentaConcretada->VcoImpuesto = 0;
+	$InsVentaConcretada->VcoTotal = 0;
+
+	$Destinatarios = eregi_replace(" ","",$_POST['CmpDestinatario']);
+	
+	if(!empty($Destinatarios)){
+	
+	}else{
+		$Guardar = false;	
+	}
+	
+	if($Guardar){
+		
+		
+		if($InsVentaConcretada->MtdEditarVentaConcretadaDespacho()){	
+		
+		/*if(!empty($GET_dia)){
+		?>
+			<script type="text/javascript">
+            self.parent.tb_remove('<?php echo $GET_mod;?>');
+            </script>
+		<?php
+		}*/
+			
+				
+			if(!empty($_SESSION['SesionPersonal'])){
+
+				$InsPersonal = new ClsPersonal();
+				$InsPersonal->PerId = $_SESSION['SesionPersonal'];
+				$InsPersonal->MtdObtenerPersonal();
+				
+				$InsVentaConcretada->PerNombreEnvio = $InsPersonal->PerNombre;
+				$InsVentaConcretada->PerApellidoPaternoEnvio = $InsPersonal->PerApellidoPaterno;
+				$InsVentaConcretada->PerApellidoMaternoEnvio = $InsPersonal->PerApellidoMaterno;
+				
+				if(!empty($InsPersonal->PerEmail)){
+					
+					if(!strstr($Destinatarios,$InsVentaConcretada->PerEmail)){
+						$Destinatarios .= ",".$InsPersonal->PerEmail;
+					}
+				
+				}
+				
+			}
+			
+			$InsVentaConcretada->MtdEnviarCorreoInformarDespacho($Destinatarios,$InsVentaConcretada->VcoId,"");  
+						
+			$Registro = true;
+			FncCargarDatos();
+			$Resultado.='#SAS_VCO_106';
+			
+		} else{
+			
+			$InsVentaConcretada->VcoFecha = FncCambiaFechaANormal($InsVentaConcretada->VcoFecha);
+			$InsVentaConcretada->VcoEmpresaTransporteFecha = FncCambiaFechaANormal($InsVentaConcretada->VcoEmpresaTransporteFecha,true);
+			
+			if($InsVentaDirecta->MonId<>$EmpresaMonedaId ){
+				$InsVentaConcretada->VcoDescuento = round($InsVentaConcretada->VcoDescuento / $InsVentaConcretada->VcoTipoCambio,6);
+			}
+			
+			if($InsVentaConcretada->MonId<>$EmpresaMonedaId ){
+				$InsVentaConcretada->VcoManoObra = round($InsVentaConcretada->VcoManoObra / $InsVentaConcretada->VcoTipoCambio,6);
+			}
+			
+			$Resultado.='#ERR_VCO_102';
+		}	
+		
+		
+		
+		
+			
+	}else{
+		
+		$InsVentaConcretada->VcoFecha = FncCambiaFechaANormal($InsVentaConcretada->VcoFecha);
+		$InsVentaConcretada->VcoEmpresaTransporteFecha = FncCambiaFechaANormal($InsVentaConcretada->VcoEmpresaTransporteFecha,true);
+		
+		if($InsVentaDirecta->MonId<>$EmpresaMonedaId ){
+			$InsVentaConcretada->VcoDescuento = round($InsVentaConcretada->VcoDescuento / $InsVentaConcretada->VcoTipoCambio,6);
+		}
+		
+		if($InsVentaConcretada->MonId<>$EmpresaMonedaId ){
+			$InsVentaConcretada->VcoManoObra = round($InsVentaConcretada->VcoManoObra / $InsVentaConcretada->VcoTipoCambio,6);
+		}
+		$Resultado.='#ERR_VCO_106';
+	}
+	
+}else{
+
+	$Destinatarios = $CorreosNotificacionVentaConcretadaInformarDespacho;
+	
+	FncCargarDatos();
+	
+}
+
+function FncCargarDatos(){
+	
+	global $GET_id;
+	global $Identificador;
+	global $InsVentaConcretada;
+	global $EmpresaMonedaId;
+	global $Destinatarios;
+	
+	unset($_SESSION['InsVentaConcretadaDetalle'.$Identificador]);
+	unset($_SESSION['SesVcoFoto'.$Identificador]);
+
+	$_SESSION['InsVentaConcretadaDetalle'.$Identificador] = new ClsSesionObjeto();
+
+	$InsVentaConcretada->VcoId = $GET_id;
+	$InsVentaConcretada->MtdObtenerVentaConcretada();		
+	
+//	deb($InsVentaConcretada->PerEmail);
+	if(!empty($InsVentaConcretada->PerEmail)){
+		
+		if(!strstr($Destinatarios,$InsVentaConcretada->PerEmail)){
+			$Destinatarios .= ",".$InsVentaConcretada->PerEmail;
+		}
+
+	}
+	
+	$_SESSION['SesVcoFoto'.$Identificador] = $InsVentaConcretada->VcoFoto;
+
+	if($InsVentaConcretada->MonId<>$EmpresaMonedaId ){
+		$InsVentaConcretada->VcoDescuento = round($InsVentaConcretada->VcoDescuento / $InsVentaConcretada->VcoTipoCambio,6);
+	}
+	
+	if($InsVentaConcretada->MonId<>$EmpresaMonedaId ){
+		$InsVentaConcretada->VcoManoObra = round($InsVentaConcretada->VcoManoObra / $InsVentaConcretada->VcoTipoCambio,6);
+	}
+			
+			
+	if(!empty($InsVentaConcretada->VentaConcretadaDetalle)){
+		foreach($InsVentaConcretada->VentaConcretadaDetalle as $DatVentaConcretadaDetalle){
+
+			if($InsVentaConcretada->MonId<>$EmpresaMonedaId ){
+
+				$DatVentaConcretadaDetalle->VcdCosto = round($DatVentaConcretadaDetalle->VcdCosto / $InsVentaConcretada->VcoTipoCambio,2);
+				$DatVentaConcretadaDetalle->VcdPrecioVenta = round($DatVentaConcretadaDetalle->VcdPrecioVenta / $InsVentaConcretada->VcoTipoCambio,2);
+				$DatVentaConcretadaDetalle->VcdImporte = round($DatVentaConcretadaDetalle->VcdImporte / $InsVentaConcretada->VcoTipoCambio,2);
+
+			}
+
+//				SesionObjeto-VentaConcretadaDetalle
+//				Parametro1 = VcdId
+//				Parametro2 = ProId
+//				Parametro3 = ProNombre
+//				Parametro4 = VcdPrecio
+//				Parametro5 = VcdCantidad
+//				Parametro6 = VcdImporte
+//				Parametro7 = VcdTiempoCreacion
+//				Parametro8 = VcdTiempoModificacion
+//				Parametro9 = UmeNombre
+//				Parametro10 = UmeId
+//				Parametro11 = RtiId
+//				Parametro12 = VcdCantidadReal
+//				Parametro13 = ProCodigoOriginal,
+//				Parametro14 = ProCodigoAlternativo
+//				Parametro15 = UmeIdOrigen
+//				Parametro16 = VerificarStock
+//				Parametro17 = VcdCosto
+//				Parametro18 = VddId
+//				Parametro19 = AmdReemplazo
+//				Parametro20 = ProCodigoOriginalReemplazo
+//				Parametro21 = VcdReingreso
+//				Parametro22 = VcdCantidadRealAnterior
+
+				$_SESSION['InsVentaConcretadaDetalle'.$Identificador]->MtdAgregarSesionObjeto(1,
+				$DatVentaConcretadaDetalle->VcdId,
+				$DatVentaConcretadaDetalle->ProId,
+				$DatVentaConcretadaDetalle->ProNombre,
+				$DatVentaConcretadaDetalle->VcdPrecioVenta,
+				$DatVentaConcretadaDetalle->VcdCantidad,
+				$DatVentaConcretadaDetalle->VcdImporte,
+				($DatVentaConcretadaDetalle->VcdTiempoCreacion),
+				($DatVentaConcretadaDetalle->VcdTiempoModificacion),
+				$DatVentaConcretadaDetalle->UmeNombre,
+				$DatVentaConcretadaDetalle->UmeId,
+				$DatVentaConcretadaDetalle->RtiId,
+				$DatVentaConcretadaDetalle->VcdCantidadReal,
+				$DatVentaConcretadaDetalle->ProCodigoOriginal,
+				$DatVentaConcretadaDetalle->ProCodigoAlternativo,
+				$DatVentaConcretadaDetalle->UmeIdOrigen,
+				2,
+				$DatVentaConcretadaDetalle->VcdCosto,
+				$DatVentaConcretadaDetalle->VddId,
+				
+				$DatVentaConcretadaDetalle->AmdReemplazo,
+				$DatVentaConcretadaDetalle->ProCodigoOriginalReemplazo,
+				$DatVentaConcretadaDetalle->VcdReingreso,
+				$DatVentaConcretadaDetalle->VcdCantidadReal
+			);
+		
+		}
+	}
+	
+}
+
+
+?>

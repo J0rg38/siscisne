@@ -1,0 +1,20 @@
+.EstFacturImprimirCapaPrincipal{
+	position:relative;
+}
+
+.EstFacturImprimirObsequio{
+	position:absolute;
+	left: 197px;
+	top: 359px;
+	width: 302px;
+	height: 263px;
+	
+}
+
+
+.EstFacturImprimirSpot{
+	position: absolute;
+	left: 114px;
+	top: 704px;
+	
+}

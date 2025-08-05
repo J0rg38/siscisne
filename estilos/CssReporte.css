@@ -1,0 +1,632 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+.EstReporteDatosImpresion{
+	font-size:10px;
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+.EstReporteCabecera{
+	font-size:12px;
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+
+.EstReporteTitulo{
+	font-size:12px;
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	text-decoration:underline;
+}
+
+.EstReporteTituloCodigo{
+	font-size:14px;
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+.EstReporteLinea{
+	border:#000 2px solid;	
+}
+
+.EstReporteSubLinea{
+	border:#000 1px thin;	
+}
+
+
+/*
+* Tabla Reporte Listado
+*/
+table.EstTablaReporteListado{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+tbody.EstTablaReporteListadoBody  {
+	font-size:10px;
+}
+tbody.EstTablaReporteListadoBody td {
+	background-color:#FFF;
+	padding-left:2px;
+	padding-right:2px;
+	border:0px; 
+}
+
+/*
+Tabla ReporteAux
+*/
+
+/*
+* TABLA REPORTE
+*/
+table.EstTablaReporte{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+/*
+* TABLA REPORTE HEAD
+*/
+thead.EstTablaReporteHead{
+	background-image:url(../imagenes/tabla_barra.png);
+	/*background-color:#333;*/
+	height:30px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+thead.EstTablaReporteHead th{
+	padding-left:2px;
+	padding-right:2px;
+	/*height:25px;*/
+}
+
+thead.EstTablaReporteHead a{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+thead.EstTablaReporteHead a:linked{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+thead.EstTablaReporteHead a:visited{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+thead.EstTablaReporteHead a:hover{
+	text-decoration:none;
+	color:#FF0;
+}
+/*
+* TABLA REPORTE FOOT
+*/
+
+tfoot.EstTablaReporteFoot{
+	font-size:10px;
+	font-weight:bold;
+	height:30px;
+	/*background-color:#333;*/
+	background-image:url(../imagenes/tabla_barra.png);
+	/*background-image:url(../imagenes/tabla_barra.gif);*/
+	color:#FFFFFF;
+	
+}
+
+thead.EstTablaReporteFoot td{
+	padding-left:2px;
+	padding-right:2px;
+	/*height:25px;*/
+}
+
+
+tfoot.EstTablaReporteFoot a{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+tfoot.EstTablaReporteFoot a:linked{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+tfoot.EstTablaReporteFoot a:visited{
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+tfoot.EstTablaReporteFoot a:hover{
+	text-decoration:none;
+	color:#FF0;
+}
+/*
+* TABLA REPORTE - BODY
+*/
+tbody.EstTablaReporteBody  {
+	font-size:10px;
+}
+
+tbody.EstTablaReporteBody td {
+	/*background-color:#FFF;*/
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	/*white-space:nowrap;*/
+}
+
+
+tbody.EstTablaReporteBody td.EstTablaReporteActivo {
+	background-color:#E0E0E0;
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	/*white-space:nowrap;*/
+}
+
+tbody.EstTablaReporteBody td.EstTablaReporteInactivo {
+	background-color:#FFF;
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	/*white-space:nowrap;*/
+}
+
+
+
+tbody.EstTablaReporteBody td.EstTablaReporteCantidadPendiente {
+	background-color:#F30;
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	font-size:12px;
+	font-weight:bold;
+	/*white-space:nowrap;*/
+}
+
+
+
+tbody.EstTablaReporteBody td.EstTablaReporteCantidadParcial {
+	background-color:#FC0;
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	font-size:12px;
+	font-weight:bold;
+	/*white-space:nowrap;*/
+}
+
+
+
+tbody.EstTablaReporteBody td.EstTablaReporteCantidadRecibida {
+	background-color:#6F3;
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	font-size:12px;
+	font-weight:bold;
+	/*white-space:nowrap;*/
+}
+
+
+
+tbody.EstTablaReporteBody td.EstTablaReporteColumnaEspecial1 {
+	background-color:#CCC;
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	/*white-space:nowrap;*/
+}
+
+
+tbody.EstTablaReporteBody td.EstTablaReporteColumnaEspecial2 {
+	background-color:#FFF;
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	/*white-space:nowrap;*/
+}
+
+tbody.EstTablaReporteBody td.EstTablaReporteColumnaEspecial3 {
+	background-color:#FFFFD9;
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	/*white-space:nowrap;*/
+}
+
+tbody.EstTablaReporteBody td.EstTablaReporteColumnaEspecial4 {
+	background-color:#69F;
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	/*white-space:nowrap;*/
+}
+
+tbody.EstTablaReporteBody td.EstTablaReporteColumnaEspecial5 {
+	background-color:#F99;
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+	/*white-space:nowrap;*/
+}
+
+
+
+tbody.EstTablaReporteBody td.Suma {
+	background-color:#9C6;
+	padding-left:2px;
+	padding-right:2px;
+	border:0px; 
+}
+
+tbody.EstTablaReporteBody td.EtiquetaTotal {
+	background-color:#000;
+	color:#FFF;
+}
+
+tbody.EstTablaReporteBody td.Total{
+	font-weight:bold;
+}
+
+tbody.EstTablaReporteBody td.Importante{
+	font-weight:bold;
+	font-size:11px;
+	color:#F00;
+}
+tbody.EstTablaReporteBody td.EtiquetaPrincipal{
+	font-weight:bold;
+}
+
+tbody.EstTablaReporteBody td.EtiquetaSecundaria{
+	font-style:italic;
+	/*font-weight:bold;*/
+}
+
+tbody.EstTablaReporteBody .EstImportante1{
+	font-weight:bold;
+	
+	color:#F00;
+}
+
+tbody.EstTablaReporteBody .EstImportante2{
+	font-weight:bold;
+	
+	color:#6C0;
+}
+
+
+
+
+/*
+* TABLA REPORTE - LINKS GENERALES
+*/
+tbody.EstTablaReporteBody a{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#F00;
+	text-decoration:none;
+}
+
+tbody.EstTablaReporteBody a:hover{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+}
+
+tbody.EstTablaReporteBody a:visited{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	text-decoration:none;
+}
+
+tbody.EstTablaReporteBody a:link{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	text-decoration:none;
+}
+
+
+/*
+* TABLA REPORTE - OTROS LINKS 1
+*/
+tbody.EstTablaReporteBody a.Enlace1{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-decoration:none;
+}
+
+tbody.EstTablaReporteBody a:hover.Enlace1{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+}
+
+tbody.EstTablaReporteBody a:visited.Enlace1{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	text-decoration:none;
+}
+
+tbody.EstTablaReporteBody a:link.Enlace1{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	text-decoration:none;
+}
+
+
+/*
+* TABLA REPORTE - OTROS LINKS 2
+*/
+
+tbody.EstTablaReporteBody a.Enlace2{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#00F;
+	text-decoration:none;
+}
+
+tbody.EstTablaReporteBody a:hover.Enlace2{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+}
+
+tbody.EstTablaReporteBody a:visited.Enlace2{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	text-decoration:none;
+}
+
+tbody.EstTablaReporteBody a:link.Enlace2{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	text-decoration:none;
+}
+
+/*
+* TABLA REPORTE - OTROS LINKS 3
+*/
+
+tbody.EstTablaReporteBody a.Enlace3{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#6C0;
+	text-decoration:none;
+}
+
+tbody.EstTablaReporteBody a:hover.Enlace3{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+}
+
+tbody.EstTablaReporteBody a:visited.Enlace3{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	text-decoration:none;
+}
+
+tbody.EstTablaReporteBody a:link.Enlace3{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	text-decoration:none;
+}
+
+/*
+* TABLA REPORTE - OTROS LINKS 4
+*/
+
+tbody.EstTablaReporteBody a.Enlace4{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#F90;
+	text-decoration:none;
+}
+
+tbody.EstTablaReporteBody a:hover.Enlace4{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+}
+
+tbody.EstTablaReporteBody a:visited.Enlace4{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	text-decoration:none;
+}
+
+tbody.EstTablaReporteBody a:link.Enlace4{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	text-decoration:none;
+}
+
+
+/*
+* TABLA REPORTE OTROS
+*/
+
+.EstPorcentajePositivo{
+	color:#03C;
+	font-size:10px;
+}
+
+.EstPorcentajeNegativo{
+	color:#F00;
+	font-size:10px;
+}
+
+
+
+
+
+
+.EstTablaReporteSubtitulo {
+	font-size:12px;
+	background-color:#FFFFFF;
+	padding:2px;
+	font-weight:bold;
+}
+
+.EstTablaReporteSubtitulo2 {
+	font-style:italic;	
+	font-size:12px;
+	background-color:#FFFFFF;
+	padding:2px;
+	
+}
+
+
+
+
+
+.EstTablaReporteEtiquetaSubTotal {
+	background-color:#CCCCCC;
+	color:#000000;
+	padding:2px;
+}
+
+.EstTablaReporteSubtotal {
+	border:1px #000000 solid;
+}
+
+.EstTablaReporteEtiquetaTotal {
+	font-weight:bold;
+	font-style:italic;
+	font-size:14px;
+}
+
+.EstTablaReporteContenidoTotal {
+	font-weight:bold;
+	font-size:14px;
+}
+
+
+
+.EstTablaReporteEtiqueta {
+	font-weight:bold;
+}
+
+.EstTablaReporteContenido{
+
+}
+
+
+
+
+.EstTablaReporteTotal {
+	font-size:12px;
+}
+
+
+
+
+
+
+
+.EstMonedaSimbolo{
+	font-weight:bold;
+	font-size:10px;
+}
+
+
+
+
+
+
+
+
+
+.EstTablaReporteEspecial1{
+	color:#999;
+	font-size:10px;
+}
+
+
+
+
+/*
+* TABLA REPORTE LISTADO
+*/
+table.EstTablaReporteListado{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+
+tbody.EstTablaReporteListadoBody{
+	
+}
+
+thead.EstTablaReporteListadoHead{
+	background-image:url(../imagenes/tabla_barra.png);
+	/*background-color:#333;*/
+	height:20px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+thead.EstTablaReporteListadoHead th{
+	padding-left:2px;
+	padding-right:2px;
+	/*height:25px;*/
+}
+
+
+
+.EstReporteFrame{
+	
+	height: 100%;
+	min-height: 300px;
+	
+}
+
+
+.EstReporteCapaListado{
+
+	background-color:#CECECE;
+	/*background-color:#CCC;*/
+	border:#999 1px  solid;
+	border-radius:5px;
+	/*width:97%;*/
+	overflow:auto;
+	width:95%;
+	height:420px;
+	/*max-width:1024px;
+*/
+
+
+}
+
+
+.EstReporteCapa{
+
+	background-color:#FFFFFF;
+	/*background-color:#CCC;*/
+	border:#999 1px  solid;
+	border-radius:5px;
+	/*width:97%;*/
+	overflow:auto;
+	width:95%;
+	padding:15px;
+	 
+	/*max-width:1024px;
+*/
+
+
+}
+
+
+
+.EstTablaReporteImportante{
+	color:#F00;
+	font-weight:bold;
+	font-size:14;
+	
+}
+
+
+.EstTablaReporteNormal{	
+	color:#090;
+	font-weight:bold;
+	font-size:14;
+}

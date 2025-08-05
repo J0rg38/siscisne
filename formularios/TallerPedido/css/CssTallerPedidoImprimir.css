@@ -1,0 +1,138 @@
+
+/*
+* IMPRESION
+*/
+table.EstTallerPedidoImprimirTabla{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstTallerPedidoImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstTallerPedidoImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstTallerPedidoImprimirTablaBody{
+font-size:12px;
+}
+
+tbody.EstTallerPedidoImprimirTablaBody td {
+	background-color:#FFF;
+	/*padding-left:2px;
+	padding-right:2px;*/
+	border:#CCC 1px solid ; 
+	padding:5px;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstTallerPedidoImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#000;
+	text-transform: uppercase;  
+}
+
+.EstTallerPedidoImprimirContenido{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:12px;
+}
+/*
+* TEXTO BODY OTROS
+*/
+.EstTallerPedidoImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+.EstTallerPedidoImprimirContenidoFecha{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:16px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstTallerPedidoDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstTallerPedidoDetalleImprimirContenido td{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstTallerPedidoImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstTallerPedidoImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstTallerPedidoImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+
+/*
+* CABECERAS
+*/
+.EstTallerPedidoImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstTallerPedidoImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstTallerPedidoImprimirEtiqueta2{
+	background-color:#900;
+}
+
+/*
+FONDOS
+*/
+
+.EstTallerPedidoImprimirEtiquetaFondo{
+	background-color:#F2F2F2;
+	
+}

@@ -1,0 +1,558 @@
+<?php
+//CONTROL DE ACCESO
+if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
+?>
+<?php $PrivilegioAuditoriaVer = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],"Auditoria","Ver"))?true:false;?>
+<?php $PrivilegioVistaPreliminar = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"VistaPreliminar"))?true:false;?>
+<?php $PrivilegioImprimir = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Imprimir"))?true:false;?>
+<?php $PrivilegioEditar = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Editar"))?true:false;?>
+
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs("Cliente");?>JsClienteFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs("Transporte");?>JsTransporteFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsGuiaRemisionFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsGuiaRemisionDetalleFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsGuiaRemisionVentaFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsGuiaRemisionAlmacenMovimientoFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsGuiaRemisionAlmacenMovimientoFunciones.js" ></script>
+
+<style type="text/css">
+@import url('<?php echo $InsProyecto->MtdFormulariosCss($GET_mod);?>CssGuiaRemision.css');
+</style>
+
+<?php
+$GET_id = $_GET['Id'];
+$GET_ta = $_GET['Ta'];
+
+if(!empty($_POST['Identificador'])){
+	$Identificador = $_POST['Identificador'];
+}
+include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjGuiaRemision.php');
+include($InsProyecto->MtdFormulariosMsj("Cliente").'MsjCliente.php');
+include($InsProyecto->MtdFormulariosMsj("Proveedor").'MsjProveedor.php');
+
+require_once($InsPoo->MtdPaqContabilidad().'ClsGuiaRemision.php');
+require_once($InsPoo->MtdPaqContabilidad().'ClsGuiaRemisionDetalle.php');
+require_once($InsPoo->MtdPaqContabilidad().'ClsGuiaRemisionAlmacenMovimiento.php');
+require_once($InsPoo->MtdPaqContabilidad().'ClsGuiaRemisionTalonario.php');
+
+require_once($InsPoo->MtdPaqLogistica().'ClsCliente.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsProveedor.php');
+
+require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
+
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaConcretada.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaConcretadaDetalle.php');
+
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculo.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoCondicionVenta.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoObsequio.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoLlamada.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoPropietario.php');
+
+require_once($InsPoo->MtdPaqContabilidad().'ClsSunatCatalogo.php');
+
+
+$InsGuiaRemision = new ClsGuiaRemision();
+$InsGuiaRemisionTalonario = new ClsGuiaRemisionTalonario();
+$InsTipoDocumento = new ClsTipoDocumento();
+$InsSunatCatalogo = new ClsSunatCatalogo();
+
+if (isset($_SESSION['InsGuiaRemisionDetalle'.$Identificador])){	
+	$_SESSION['InsGuiaRemisionDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsGuiaRemisionDetalle'.$Identificador]);
+}
+	
+if (isset($_SESSION['InsGuiaRemisionAlmacenMovimiento'.$Identificador])){	
+	$_SESSION['InsGuiaRemisionAlmacenMovimiento'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsGuiaRemisionAlmacenMovimiento'.$Identificador]);
+}
+
+include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccGuiaRemisionEditar.php');
+
+$ResGuiaRemisionTalonario = $InsGuiaRemisionTalonario->MtdObtenerGuiaRemisionTalonarios(NULL,NULL,"GrtNumero","DESC",NULL,$InsGuiaRemision->SucId,true);
+$ArrGuiaRemisionTalonarios = $ResGuiaRemisionTalonario['Datos'];
+
+$RepTipoDocumento = $InsTipoDocumento->MtdObtenerTipoDocumentos(NULL,NULL,'TdoNombre',"ASC",NULL);
+$ArrTipoDocumentos = $RepTipoDocumento['Datos'];
+
+$ResSunatCatalogo = $InsSunatCatalogo->MtdObtenerSunatCatalogos(NULL,NULL,'ScaCodigo','ASC',NULL,"CATALOGO20");
+$ArrSunatCatalogos = $ResSunatCatalogo['Datos'];
+
+
+?>
+
+<script type="text/javascript">
+/*
+Configuracion Formulario
+*/
+var GuiaRemisionDetalleEditar = 2;
+var GuiaRemisionDetalleEliminar = 2;
+
+var PuntoPartidaDepartamentoHabilitado = 2;
+var PuntoPartidaProvinciaHabilitado = 2;
+var PuntoPartidaDistritoHabilitado = 2;
+
+var PuntoLlegadaDepartamentoHabilitado = 2;
+var PuntoLlegadaProvinciaHabilitado = 2;
+var PuntoLlegadaDistritoHabilitado = 2;
+
+var GuiaRemisionAlmacenMovimientoEliminar = 2;
+
+$().ready(function (){
+/*
+Configuracion carga de datos y animacion
+*/
+	FncGuiaRemisionDetalleListar();
+	
+	FncPuntoPartidaDepartamentosCargar();
+	
+	FncPuntoLlegadaDepartamentosCargar();
+
+});
+
+</script>
+
+<div class="EstCapMenu">
+<?php
+if($PrivilegioVistaPreliminar){
+?>
+	
+   
+	<div class="EstSubMenuBoton"><a href="javascript:FncImprmir("<?php echo $InsGuiaRemision->GreId;?>","<?php echo $InsGuiaRemision->GrtId;?>");"><img src="imagenes/iconos/preliminar.png" alt="[Vista Preliminar]" title="Vista preliminar" />V.P.</a></div>
+    
+    <!--<div class="EstSubMenuBoton"><a href="javascript:FncPopUp('<?php echo $InsProyecto->MtdRutFormularios();?>GuiaRemision/FrmGuiaRemisionImprimir.php?Id=<?php echo $InsGuiaRemision->GreId;?>&Ta=<?php echo $InsGuiaRemision->GrtId;?>',0,0,1,0,0,1,0,screen.height,screen.width);"><img src="imagenes/iconos/preliminar.png" alt="[Vista Preliminar]" title="Vista preliminar" />V.P.</a></div>-->
+    
+<?php
+}
+?>
+
+<?php
+if($PrivilegioImprimir){
+?>        
+
+	<div class="EstSubMenuBoton"><a href="javascript:FncVistaPreliminar("<?php echo $InsGuiaRemision->GreId;?>","<?php echo $InsGuiaRemision->GrtId;?>");"><img src="imagenes/iconos/preliminar.png" alt="[Vista Preliminar]" title="Vista preliminar" />V.P.</a></div>
+	<!--<div class="EstSubMenuBoton"><a href="javascript:FncPopUp('<?php echo $InsProyecto->MtdRutFormularios();?>GuiaRemision/FrmGuiaRemisionImprimir.php?Id=<?php echo $InsGuiaRemision->GreId;?>&Ta=<?php echo $InsGuiaRemision->GrtId;?>&P=1',0,0,1,0,1,1,0,screen.height,screen.width);"><img src="imagenes/iconos/imprimir.png" alt="[Imprimir]" title="Imprimir" />Imprimir</a></div>-->
+<?php
+}
+?>    
+
+<?php
+if($PrivilegioEditar){
+?>
+	<div class="EstSubMenuBoton"><a href="principal<?php echo (!empty($GET_dia)?'2':'');?>.php?Mod=<?php echo $GET_mod;?>&Form=Editar<?php echo (!empty($GET_dia)?'&Dia=1':'');?>&Id=<?php echo $InsGuiaRemision->GreId;?>&Ta=<?php echo $InsGuiaRemision->GrtId;?>"><img src="imagenes/iconos/editar.png" alt="[Editar]" title="Editar" />Editar</a></div>
+<?php
+}
+?>   
+
+<?php
+if($PrivilegioAuditoriaVer){
+?>
+	<div class="EstSubMenuBoton"><a href="<?php echo $InsProyecto->MtdRutFormularios();?>Auditoria/FrmAuditoriaListado.php?Id=<?php echo $InsGuiaRemision->GreId;?>&Ta=<?php echo $InsGuiaRemision->GrtId;?>&placeValuesBeforeTB_=savedValues&TB_iframe=true&height=440&width=850&modal=true" class="thickbox"  ><img src="imagenes/auditoria.png" alt="[Auditar]"  border="0" title="Auditar" />Auditar</a></div>
+<?php
+}
+?>           
+</div>
+
+<div class="EstCapContenido">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+      
+      <tr>
+        <td width="1922" height="25" colspan="2"><span class="EstFormularioTitulo">VER GUIA DE REMISION</span></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+        
+        
+                                                             
+        
+<div class="EstFormularioArea">
+         
+        <table class="EstFormulario" border="0" cellpadding="2" cellspacing="2">
+          <tr>
+            <td>Creado el:</td>
+            <td><span class="EstFormularioDatoRegistro"><?php echo $InsGuiaRemision->GreTiempoCreacion;?></span></td>
+            <td>&nbsp;</td>
+            <td>Modificado el</td>
+            <td><span class="EstFormularioDatoRegistro"><?php echo $InsGuiaRemision->GreTiempoModificacion;?></span></td>
+            <td>&nbsp;</td>
+            </tr>
+        </table>
+		</div>
+  
+        
+     <br />
+        
+        
+        
+        
+             <table width="100%" border="0" cellpadding="2" cellspacing="2">
+       
+       <tr>
+         <td colspan="2" valign="top"><div class="EstFormularioArea">
+           <table border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+             <tr>
+               <td width="1">&nbsp;</td>
+               <td colspan="3"><span class="EstFormularioSubTitulo">Datos de la Guia de Remision - Remitente</span></td>
+               <td width="1">&nbsp;</td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td colspan="3" align="right">
+                 
+                 
+                 
+                 <table border="0" cellpadding="2" cellspacing="2">
+                   <tr>
+                     <td><input type="hidden" name="Identificador" id="Identificador"  value="<?php echo $Identificador; ?>" /></td>
+                     <td>
+                       <select disabled="disabled" class="EstFormularioCombo" name="CmpTalonario" id="CmpTalonario">
+                         <?php
+				foreach($ArrGuiaRemisionTalonarios as $DatGuiaRemisionTalonario){
+				?>
+                         <option value="<?php echo $DatGuiaRemisionTalonario->GrtId;?>" <?php if($DatGuiaRemisionTalonario->GrtId==$InsGuiaRemision->GrtId){ echo 'selected="selected"';}?> ><?php echo $DatGuiaRemisionTalonario->GrtNumero;?></option>
+                         <?php
+				}
+				?>
+                         </select>  
+                       </td>
+                     <td>
+                       N&deg;.
+                       </td>
+                     <td>
+                       <input readonly="readonly" name="CmpId" type="text"  class="EstFormularioCaja" id="CmpId" value="<?php echo $InsGuiaRemision->GreId;?>" size="20" maxlength="20" />
+                       </td>
+                     </tr>
+                   </table>               </td>
+               <td>&nbsp;</td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td colspan="3"> <fieldset title="">
+                    <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                      <tr>
+                        <td colspan="3" align="left" valign="top"><span class="EstFormularioSubTitulo">DATOS DE LA GUIA DE REMISION</span></td>
+                        </tr>
+                      <tr>
+                        <td width="14%" height="60" align="left" valign="top">Fecha de Emision: <br />
+                          <span class="EstFormularioSubEtiqueta">(dd/mm/yyyy)</span></td>
+                        <td width="37%" align="left" valign="top"><input  name="CmpFechaEmision" type="text" class="EstFormularioCajaFecha" id="CmpFechaEmision" value="<?php echo $InsGuiaRemision->GreFechaEmision;?>" size="15" maxlength="10" readonly="readonly" /></td>
+                        <td width="49%" align="left" valign="top">&nbsp;</td>
+                        </tr>
+                    </table></fieldset></td>
+               <td>&nbsp;</td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td width="504"><fieldset title="">
+                 <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                   <tr>
+                     <td colspan="2" align="left" valign="top">DATOS DEL DESTINATARIO</td>
+                     </tr>
+                   <tr>
+                     <td width="18%" align="left" valign="top">Señor (es):
+                       <input type="hidden" name="CmpClienteId" id="CmpClienteId" value="<?php echo $InsGuiaRemision->CliId;?>" /></td>
+                     <td align="left" valign="top"><input name="CmpClienteNombre" type="text" class="EstFormularioCaja" id="CmpClienteNombre" value="<?php echo $InsGuiaRemision->CliNombre;?> <?php echo $InsGuiaRemision->CliApellidoPaterno;?> <?php echo $InsGuiaRemision->CliApellidoMaterno;?>" size="40" maxlength="255" readonly="readonly"  
+                       /></td>
+                     </tr>
+                   <tr>
+                     <td align="left" valign="top">Ruc Nro.: </td>
+                     <td width="82%" align="left" valign="top"><input name="CmpClienteNumeroDocumento" type="text" class="EstFormularioCaja" id="CmpClienteNumeroDocumento" value="<?php echo $InsGuiaRemision->CliNumeroDocumento;?>" size="20" maxlength="50" readonly="readonly"  /></td>
+                     </tr>
+                   </table>
+                 </fieldset></td>
+               <td width="466"><fieldset title="">
+                 <table border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                   <tr>
+                     <td colspan="2" align="left" valign="top">DATOS DEL ESTABLECIMIENTO DEL TERCERO</td>
+                     </tr>
+                   <tr>
+                     <td align="left" valign="top">Señor (es):</td>
+                     <td align="left" valign="top"><input name="CmpDestinatarioNombre" type="text" class="EstFormularioCaja" id="CmpDestinatarioNombre" value="<?php echo $InsGuiaRemision->GreDestinatarioNombre;?>" size="40" maxlength="255" readonly="readonly" /></td>
+                     </tr>
+                   <tr>
+                     <td align="left" valign="top">Ruc Nro.:</td>
+                     <td align="left" valign="top"><input name="CmpDestinatarioNumeroDocumento1" type="text" class="EstFormularioCaja" id="CmpDestinatarioNumeroDocumento1" value="<?php echo $InsGuiaRemision->GreDestinatarioNumeroDocumento1;?>" size="20" maxlength="20" readonly="readonly" /></td>
+                     </tr>
+                   </table>
+                 </fieldset></td>
+               <td width="8">&nbsp;</td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td colspan="3">
+                 
+                 
+                 <fieldset title="">
+                   <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                     <tr>
+                       <td colspan="4" align="left" valign="top">UNIDAD DE TRANSPORTE Y CONDUCTOR</td>
+                       </tr>
+                     <tr>
+                       <td align="left" valign="top">Razon Social:
+                         <input type="hidden" name="CmpProveedorId" id="CmpProveedorId" value="<?php echo $InsGuiaRemision->PrvId;?>" /></td>
+                       <td align="left" valign="top"><input name="CmpProveedorNombre" type="text" class="EstFormularioCaja" id="CmpProveedorNombre" value="<?php echo $InsGuiaRemision->PrvNombre;?>" size="40" maxlength="255" readonly="readonly" /></td>
+                       <td width="20%" align="left" valign="top">Chofer:</td>
+                       <td width="30%" align="left" valign="top"><input name="CmpChofer" type="text" class="EstFormularioCaja" id="CmpChofer" value="<?php echo $InsGuiaRemision->GreChofer;?>" size="40" maxlength="255" readonly="readonly" /></td>
+                       </tr>
+                     <tr>
+                       <td width="13%" align="left" valign="top">RUC N°: </td>
+                       <td width="37%" align="left" valign="top"><input name="CmpProveedorNumeroDocumento" type="text" class="EstFormularioCaja" id="CmpProveedorNumeroDocumento" value="<?php echo $InsGuiaRemision->PrvNumeroDocumento;?>" size="20" maxlength="20" readonly="readonly" /></td>
+                       <td align="left" valign="top">Num. Doc. Chofer:</td>
+                       <td align="left" valign="top"><input name="CmpChoferNumeroDocumento" type="text" class="EstFormularioCaja" id="CmpChoferNumeroDocumento" value="<?php echo $InsGuiaRemision->GreChoferNumeroDocumento;?>" size="20" maxlength="45" readonly="readonly" /></td>
+                       </tr>
+                     <tr>
+                       <td align="left" valign="top">Numero de Registro:</td>
+                       <td align="left" valign="top"><input name="CmpNumeroRegistro" type="text" class="EstFormularioCaja" id="CmpNumeroRegistro" value="<?php echo $InsGuiaRemision->GreNumeroRegistro;?>" size="20" maxlength="20" readonly="readonly" /></td>
+                       <td align="left" valign="top">Licencia de Conducir Nro.:</td>
+                       <td align="left" valign="top"><input name="CmpNumeroLicenciaConducir" type="text" class="EstFormularioCaja" id="CmpNumeroLicenciaConducir" value="<?php echo $InsGuiaRemision->GreNumeroLicenciaConducir;?>" size="20" maxlength="45" readonly="readonly" /></td>
+                       </tr>
+                     <tr>
+                       <td align="left" valign="top">Constancia de Inscripción Nro.:</td>
+                       <td align="left" valign="top"><input name="CmpNumeroConstanciaInscripcion" type="text" class="EstFormularioCaja" id="CmpNumeroConstanciaInscripcion" value="<?php echo $InsGuiaRemision->GreNumeroConstanciaInscripcion;?>" size="20" maxlength="20" readonly="readonly" /></td>
+                       <td align="left" valign="top">Marca Unid. Transp.:</td>
+                       <td align="left" valign="top"><input name="CmpMarca" type="text" class="EstFormularioCaja" id="CmpMarca" value="<?php echo $InsGuiaRemision->GreMarca;?>" size="20" maxlength="45" readonly="readonly" /></td>
+                       </tr>
+                     <tr>
+                       <td align="left" valign="top">&nbsp;</td>
+                       <td align="left" valign="top">&nbsp;</td>
+                       <td align="left" valign="top">Nro. de Placa</td>
+                       <td align="left" valign="top"><input name="CmpPlaca" type="text" class="EstFormularioCaja" id="CmpPlaca" value="<?php echo $InsGuiaRemision->GrePlaca;?>" size="20" maxlength="45" readonly="readonly" /></td>
+                       </tr>
+                     </table>
+                   </fieldset>
+                 
+                 </td>
+               <td>&nbsp;</td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td colspan="3">
+                 
+                 
+                 <fieldset title="">
+                   <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                     <tr>
+                       <td width="19%" align="left" valign="top">Fecha de inicio de traslado: <br />
+                         <span class="EstFormularioSubEtiqueta">(dd/mm/yyyy)</span></td>
+                       <td colspan="3" align="left" valign="top"><input  name="CmpFechaInicioTraslado" type="text" class="EstFormularioCajaFecha" id="CmpFechaInicioTraslado" value="<?php if(empty($InsGuiaRemision->GreFechaInicioTraslado)){ echo date("d/m/Y");}else{ echo $InsGuiaRemision->GreFechaInicioTraslado; }?>" size="15" maxlength="10" readonly="readonly" /></td>
+                       </tr>
+                     <tr>
+                       <td align="left" valign="top">Motivo de Traslado:</td>
+                       <td colspan="3" align="left" valign="top"><select disabled="disabled" class="EstFormularioCombo" name="GreMotivoTrasladoCodigo" id="GreMotivoTrasladoCodigo">
+                         <option value="">Escoja una opcion</option>
+                         <?php
+			  foreach($ArrSunatCatalogos as $DatSunatCatalogo){
+			  ?>
+                         <option value="<?php echo $DatSunatCatalogo->ScaCodigo?>" <?php if($InsGuiaRemision->GreMotivoTrasladoCodigo==$DatSunatCatalogo->ScaCodigo){ echo 'selected="selected"';}?> ><?php echo $DatSunatCatalogo->ScaCodigo;?> - <?php echo $DatSunatCatalogo->ScaNombre?></option>
+                         <?php
+			  }
+			  ?>
+                       </select></td>
+                     </tr>
+                     <tr>
+                       <td align="left" valign="top">Punto de Partida:</td>
+                       <td colspan="3" align="left" valign="top"><input name="CmpPuntoPartida" type="text" class="EstFormularioCaja" id="CmpPuntoPartida" value="<?php echo $InsGuiaRemision->GrePuntoPartida;?>" size="60" maxlength="255" readonly="readonly" /></td>
+                     </tr>
+                     <tr>
+                       <td align="left" valign="top">Ubigeo:</td>
+                       <td colspan="3" align="left" valign="top"><input name="CmpPuntoPartidaDepartamentoAux" type="hidden" class="EstFormularioCaja" id="CmpPuntoPartidaDepartamentoAux" value="<?php echo $InsGuiaRemision->GrePuntoPartidaDepartamento;?>" size="20" maxlength="10" readonly="readonly" />
+                         <select class="EstFormularioCombo" id="CmpPuntoPartidaDepartamento" name="CmpPuntoPartidaDepartamento">
+                           </select>
+                         <input name="CmpPuntoPartidaProvinciaAux" type="hidden" class="EstFormularioCaja" id="CmpPuntoPartidaProvinciaAux" value="<?php echo $InsGuiaRemision->GrePuntoPartidaProvincia;?>" size="20" maxlength="10" readonly="readonly" />
+                         <select class="EstFormularioCombo" id="CmpPuntoPartidaProvincia" name="CmpPuntoPartidaProvincia">
+                           </select>
+                         <input name="CmpPuntoPartidaDistritoAux" type="hidden" class="EstFormularioCaja" id="CmpPuntoPartidaDistritoAux" value="<?php echo $InsGuiaRemision->GrePuntoPartidaDistrito;?>" size="20" maxlength="10" readonly="readonly" />
+                         <select class="EstFormularioCombo" id="CmpPuntoPartidaDistrito" name="CmpPuntoPartidaDistrito">
+                           </select>
+                         <input name="CmpPuntoPartidaCodigoUbigeo" type="text" class="EstFormularioCaja" id="CmpPuntoPartidaCodigoUbigeo" value="<?php echo $InsGuiaRemision->GrePuntoPartidaCodigoUbigeo;?>" size="10" maxlength="6" readonly="readonly" /></td>
+                     </tr>
+                     <tr>
+                       <td align="left" valign="top">Punto de Llegada:</td>
+                       <td colspan="3" align="left" valign="top"><input name="CmpPuntoLlegada" type="text" class="EstFormularioCaja" id="CmpPuntoLlegada" value="<?php echo $InsGuiaRemision->GrePuntoLlegada;?>" size="60" maxlength="255" readonly="readonly" /></td>
+                     </tr>
+                     <tr>
+                       <td align="left" valign="top">Ubigeo:</td>
+                       <td colspan="3" align="left" valign="top"><input name="CmpPuntoLlegadaDepartamentoAux" type="hidden" class="EstFormularioCaja" id="CmpPuntoLlegadaDepartamentoAux" value="<?php echo $InsGuiaRemision->GrePuntoLlegadaDepartamento;?>" size="20" maxlength="10" readonly="readonly" />
+                         <select class="EstFormularioCombo" id="CmpPuntoLlegadaDepartamento" name="CmpPuntoLlegadaDepartamento">
+                         </select>
+                         <input name="CmpPuntoLlegadaProvinciaAux" type="hidden" class="EstFormularioCaja" id="CmpPuntoLlegadaProvinciaAux" value="<?php echo $InsGuiaRemision->GrePuntoLlegadaProvincia;?>" size="20" maxlength="10" readonly="readonly" />
+                         <select class="EstFormularioCombo" id="CmpPuntoLlegadaProvincia" name="CmpPuntoLlegadaProvincia">
+                         </select>
+                         <input name="CmpPuntoLlegadaDistritoAux" type="hidden" class="EstFormularioCaja" id="CmpPuntoLlegadaDistritoAux" value="<?php echo $InsGuiaRemision->GrePuntoLlegadaDistrito;?>" size="20" maxlength="10" readonly="readonly" />
+                         <select class="EstFormularioCombo" id="CmpPuntoLlegadaDistrito" name="CmpPuntoLlegadaDistrito">
+                         </select>
+                         <input name="CmpPuntoLlegadaCodigoUbigeo2" type="text" class="EstFormularioCaja" id="CmpPuntoLlegadaCodigoUbigeo2" value="<?php echo $InsGuiaRemision->GrePuntoLlegadaCodigoUbigeo;?>" size="10" maxlength="6" readonly="readonly" /></td>
+                     </tr>
+                     <tr>
+                       <td align="left" valign="top">PesoTotal: <br />
+                         <span class="EstFormularioSubEtiqueta">(KG)</span></td>
+                       <td width="31%" align="left" valign="top"><input name="CmpPesoTotal" type="text" class="EstFormularioCaja" id="CmpPesoTotal" value="<?php echo number_format($InsGuiaRemision->GrePesoTotal,2);?>" size="20" maxlength="20" readonly="readonly" /></td>
+                       <td width="22%" align="left" valign="top">Cant. Paquetes:</td>
+                       <td width="28%" align="left" valign="top"><input name="CmpTotalPaquetes" type="text" class="EstFormularioCaja" id="CmpTotalPaquetes" value="<?php echo number_format($InsGuiaRemision->GreTotalPaquetes,2);?>" size="20" maxlength="20" readonly="readonly" /></td>
+                     </tr>
+                     </table>
+                   </fieldset>
+                 </td>
+               <td>&nbsp;</td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td colspan="3" align="left" valign="top">
+                 <fieldset title="">
+                   
+                   <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                     
+                     <tr>
+                       <td colspan="3" align="left" valign="top">OBSERVACIONES Y OTRAS REFERENCIAS</td>
+                       <td colspan="5" align="left" valign="top">&nbsp;</td>
+                       </tr>
+                     <tr>
+                       <td align="left" valign="top">Orden Venta de Vehiculo:</td>
+                       <td align="left" valign="top"><input name="CmpOrdenVentaVehiculoId" type="text" class="EstFormularioCaja" id="CmpOrdenVentaVehiculoId" value="<?php echo $InsGuiaRemision->OvvId;?>" size="20" maxlength="45" /></td>
+                       <td align="left" valign="top">&nbsp;</td>
+                       <td colspan="5" align="left" valign="top">&nbsp;</td>
+                       </tr>
+                     <tr>
+                       <td align="left" valign="top">Traslado de Productos:</td>
+                       <td align="left" valign="top"><input name="CmpTrasladoProductoId" type="text" class="EstFormularioCajaDeshabilitada" id="CmpTrasladoProductoId" value="<?php echo $InsGuiaRemision->TptId;?>" size="20" maxlength="45" readonly="readonly" /></td>
+                       <td align="left" valign="top">Traslado de Vehiculos:</td>
+                       <td colspan="5" align="left" valign="top"><input name="CmpTrasladoVehiculoId" type="text" class="EstFormularioCajaDeshabilitada" id="CmpTrasladoVehiculoId" value="<?php echo $InsGuiaRemision->TveId;?>" size="20" maxlength="45" readonly="readonly" /></td>
+                     </tr>
+                     <tr>
+                       <td align="left" valign="top">Observación Interna:</td>
+                       <td align="left" valign="top"><textarea readonly="readonly" name="CmpObservacion" cols="60" rows="2" class="EstFormularioCaja" id="CmpObservacion"><?php echo $InsGuiaRemision->GreObservacion;?></textarea></td>
+                       <td align="left" valign="top">Observación Impresa:</td>
+                       <td colspan="5" align="left" valign="top"><textarea readonly="readonly" name="CmpObservacionImpresa" cols="60" rows="2" class="EstFormularioCaja" id="CmpObservacionImpresa"><?php echo $InsGuiaRemision->GreObservacionImpresa;?></textarea></td>
+                     </tr>
+                     <tr>
+                       <td align="left" valign="top">Estado:</td>
+                       <td align="left" valign="top"><?php
+			switch($InsGuiaRemision->GreEstado){
+				case 1:
+					$OpcEstado1 = 'selected="selected"';
+				break;
+
+				case 5:
+					$OpcEstado5 = 'selected="selected"';
+				break;
+				
+				case 6:
+					$OpcEstado6 = 'selected="selected"';
+				break;
+			
+			}
+			?>
+                         <select disabled="disabled" class="EstFormularioCombo" id="CmpEstado" name="CmpEstado">
+                           <option <?php echo $OpcEstado1;?> value="1">Pendiente</option>
+                           <option <?php echo $OpcEstado5;?> value="5">Entregado</option>
+                           <option <?php echo $OpcEstado6;?> value="6">Anulado</option>
+                           </select></td>
+                       <td align="left" valign="top">&nbsp;</td>
+                       <td colspan="5" align="left" valign="top">&nbsp;</td>
+                       </tr>
+                     </table>
+                   </fieldset>
+                 
+                 </td>
+               <td>&nbsp;</td>
+             </tr>
+             </table>
+         </div></td>
+       </tr>
+       <tr>
+         <td width="75%" valign="top"><div class="EstFormularioArea" >
+           <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+             <tr>
+               <td width="1%">&nbsp;</td>
+               <td colspan="2"><div class="EstFormularioAccion" id="CapGuiaRemisionDetalleAccion">Listo
+                 para registrar elementos</div></td>
+               <td width="0%">&nbsp;</td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td width="52%"><span class="EstFormularioSubTitulo"> Items
+                 que componen la guia de remision</span> </td>
+               <td width="47%" align="right">
+                 <a href="javascript:FncGuiaRemisionDetalleListar();"><img src="imagenes/acciones/listado_recargar.png" width="25" height="25" border="0" title="Recargar" alt="[Recargar]" align="absmiddle" /> Recargar</a>
+                  <input type="hidden" name="CmpGuiaRemisionDetalleAccion" id="CmpGuiaRemisionDetalleAccion" value="AccGuiaRemisionDetalleRegistrar.php" /></td>
+               <td>&nbsp;</td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td colspan="2"><div id="CapGuiaRemisionDetalles" class="EstCapGuiaRemisionDetalles" > </div></td>
+               <td><div id="CapGuiaRemisionDetallesResultado"> </div></td>
+             </tr>
+           </table>
+         </div></td>
+         <td width="25%" valign="top"><div class="EstFormularioArea" >
+           <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+             <tr>
+               <td width="1%">&nbsp;</td>
+               <td width="48%"><div class="EstFormularioAccion" id="CapGuiaRemisionAlmacenMovimientoAccion">Listo
+                 para registrar elementos</div></td>
+               <td width="50%" align="right"><a href="javascript:FncGuiaRemisionAlmacenMovimientoListar();">
+                 <input type="hidden" name="CmpGuiaRemisionAlmacenMovimientoAccion" id="CmpGuiaRemisionAlmacenMovimientoAccion" value="AccGuiaRemisionAlmacenMovimientoRegistrar.php" />
+                 <img src="imagenes/acciones/listado_recargar.png" width="25" height="25" border="0" title="Recargar" alt="[Recargar]" align="absmiddle" /> Recargar</a>
+                 <!-- <a href="javascript:FncGuiaRemisionAlmacenMovimientoEliminarTodo();">
+                                                                    
+                                                                    
+                                                                    <img  src="imagenes/eliminar_todo.png"  width="20" height="20"  border="0" title="Eliminar Todo"   alt="[Eliminar Todo]" align="absmiddle"/></a>--></td>
+               <td width="1%"><div id="CapGuiaRemisionAlmacenMovimientosResultado"> </div></td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td colspan="2"><div id="CapGuiaRemisionAlmacenMovimientos" class="EstCapGuiaRemisionAlmacenMovimientos" > </div></td>
+               <td>&nbsp;</td>
+             </tr>
+           </table>
+         </div></td>
+         </tr>
+       
+       </table>
+         
+		
+    
+             
+           
+             
+            
+           
+           
+       
+
+     
+        
+        
+        
+        
+        
+        
+          
+       
+
+           
+  
+        
+        
+        
+        
+        </td>
+      </tr>
+      
+      <tr>
+        <td colspan="2" align="center">&nbsp;</td>
+      </tr>
+    </table>
+</div>
+
+
+	
+	
+    
+
+<?php
+}else{
+	echo ERR_GEN_101;
+}
+
+//$InsMensaje->MenResultado = $Resultado;
+//$InsMensaje->MtdImprimirResultado();
+?>

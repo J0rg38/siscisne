@@ -1,0 +1,37 @@
+@media print{@page {size: landscape}}
+
+.EstCapGarantiaDetalles{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:50px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+.EstCapGarantiaOperaciones{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:50px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+.EstCapGarantiaLlamadas{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:50px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}

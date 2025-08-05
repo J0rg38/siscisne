@@ -1,0 +1,278 @@
+<?php
+session_start();
+////PRINCIPALES
+require_once('../../proyecto/ClsProyecto.php');
+require_once('../../proyecto/ClsPoo.php');
+
+$InsPoo->Ruta = '../../';
+$InsProyecto->Ruta = '../../';
+
+////CONFIGURACIONES GENERALES
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
+
+////MENSAJES GENERALES
+require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+////FUNCIONES GENERALES
+require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+
+if($_GET['P']==2){
+	header("Content-type: application/vnd.ms-excel");
+	header("Content-Disposition:  filename=\"REPORTE_ORDEN_TRABAJO_CLIENTE_".date('d-m-Y').".xls\";");
+}
+?>
+<html>
+<head>
+
+<?php
+if($_GET['P']<>2){
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo $InsProyecto->MtdRutEstilos();?>CssReporte.css">
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdRutLibrerias();?>jquery-1.7.2.min.js"></script> 
+<?php
+}
+?>
+
+</head>
+<body>
+<script type="text/javascript">
+
+$().ready(function() {
+<?php if($_GET['P']==1){?> 
+	setTimeout("window.close();",2500);	
+	window.print(); 
+
+<?php }?>
+});
+
+</script>
+<?php                    
+           
+
+$POST_finicio = isset($_POST['CmpFechaInicio'])?$_POST['CmpFechaInicio']:"01/".date("m")."/".date("Y");
+$POST_ffin = isset($_POST['CmpFechaFin'])?$_POST['CmpFechaFin']:date("d/m/Y");
+
+$POST_ord = isset($_POST['CmpOrden'])?$_POST['CmpOrden']:"CliNombre";
+$POST_sen = isset($_POST['CmpSentido'])?$_POST['CmpSentido']:"ASC";
+
+
+$POST_ClienteNombre = ($_POST['CmpClienteNombre']);
+$POST_ClienteNumeroDocumento = ($_POST['CmpClienteNumeroDocumento']);
+$POST_ClienteId = ($_POST['CmpClienteId']);
+
+
+
+require_once($InsPoo->MtdPaqReporte().'ClsReporteFichaIngreso.php');
+require_once($InsPoo->MtdPaqActividad().'ClsFichaIngresoModalidad.php');
+
+$InsReporteFichaIngreso = new ClsReporteFichaIngreso();
+
+
+if(empty($POST_ClienteId) and !empty($POST_ClienteNombre)){
+	
+	$ResCliente = $InsCliente->MtdObtenerClientes("CliNombre,CliApellidoPaterno,CliApellidoMaterno","contiene",$POST_ClienteNombre,"CliId","ASC",1,"1",NULL,NULL);
+	$ArrClientes = $ResCliente['Datos'];
+	
+	if(!empty($ArrClientes)){
+		foreach($ArrClientes as $DatCliente){
+			$POST_ClienteId = $DatCliente->CliId;
+		}
+	}
+
+}
+
+
+if(empty($POST_ClienteId) and !empty($POST_ClienteNumeroDocumento)){
+	
+	$ResCliente = $InsCliente->MtdObtenerClientes("CliNumeroDocumento","contiene",$POST_ClienteNumeroDocumento,"CliId","ASC",1,"1",NULL,NULL);
+	$ArrClientes = $ResCliente['Datos'];
+	
+	if(!empty($ArrClientes)){
+		foreach($ArrClientes as $DatCliente){
+			$POST_ClienteId = $DatCliente->CliId;
+		}
+	}
+
+}
+
+//MtdObtenerReporteFichaIngresos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FinId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oModalidadIngreso=NULL,$oAgrupar=NULL,$oCSIIncluir=NULL,$oCliente=NULL)
+$ResReporteFichaIngreso = $InsReporteFichaIngreso->MtdObtenerReporteFichaIngresos(NULL,NULL,NULL ,$POST_ord ,$POST_sen,NULL,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),"MIN-10001",NULL,0,$POST_ClienteId);
+$ArrReporteFichaIngresos = $ResReporteFichaIngreso['Datos'];
+
+?>
+
+<?php if($_GET['P']==1){?>
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+  <td colspan="3" align="left"><span class="EstReporteCabecera"><?php echo $EmpresaNombre;?> - <?php echo $EmpresaCodigo;?></span></td>
+</tr>
+<tr>
+  <td width="23%" align="left" valign="top">
+  <?php
+		if(!empty($SistemaLogo) and file_exists("../../imagenes/".$SistemaLogo)){
+		?>
+    <img src="../../imagenes/<?php echo $SistemaLogo;?>" width="271" height="92" />
+    <?php
+		}else{
+		?>
+    <img src="../../imagenes/logotipo.png" width="243" height="59" />
+    <?php	
+		}
+		?>
+  </td>
+  <td width="54%" align="center" valign="top"><span class="EstReporteTitulo">REPORTE LISTADO DE ORDENES DE TRABAJO X CLIENTE (MANTENIMIENTO) DEL
+      <?php
+  if($POST_finicio == $POST_ffin){
+?>
+      <?php echo $POST_finicio; ?>
+      <?php
+  }else{
+?>
+      <?php echo $POST_finicio; ?> AL <?php echo $POST_ffin; ?>
+      <?php  
+  }
+?>
+
+
+
+ </span></td>
+  <td width="23%" align="right" valign="top"><span class="EstReporteDatosImpresion"><?php echo date("d/m/Y");?> <?php echo date("H:i:s");?> <?php echo date("a");?></span> <br />
+
+    <span class="EstReporteDatosImpresion"><?php echo $_SESSION['SesionUsuario'];?></span></td>
+</tr>
+</table>
+<hr class="EstReporteLinea">
+
+<?php }?>
+        
+        <table class="EstTablaReporte" width="100%" border="0" cellpadding="2" cellspacing="2">
+        <thead class="EstTablaReporteHead">
+        <tr>
+          <th width="2%">#</th>
+          <th width="30%">NOMBRE/APELLIDO DEL CLIENTE</th>
+          <th width="8%">TIPO CLIENTE</th>
+          <th width="16%">DESCRIPCION DEL MODELO</th>
+          <th width="5%">O.T.</th>
+          <th width="11%">FECHA O.T.</th>
+          <th width="8%">VIN</th>
+          <th width="8%">MANT. KILOM.</th>
+          <th width="2%">&nbsp;</th>
+          <th width="10%">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody class="EstTablaReporteBody">
+        
+        
+        <?php
+		$c=1;
+        foreach($ArrReporteFichaIngresos as $DatReporteFichaIngreso){
+        ?>
+        <tr   >
+          <td class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" align="right" valign="middle"   ><?php echo $c;?></td>
+          <td align="right" valign="top" class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" >
+          <?php echo $DatReporteFichaIngreso->CliNombreCompleto;  ?>
+          
+         
+
+          </td>
+          <td align="right" valign="top" class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" ><?php echo $DatReporteFichaIngreso->LtiNombre;  ?></td>
+          <td align="right" valign="top" class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" ><?php echo ($DatReporteFichaIngreso->VmoNombre);?></td>
+          <td align="right" valign="top" class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" ><?php echo $DatReporteFichaIngreso->FinId;  ?></td>
+          <td align="right" valign="top" class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" ><?php echo ($DatReporteFichaIngreso->FinFecha);?></td>
+          <td align="right" valign="top" class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" ><?php echo ($DatReporteFichaIngreso->EinVIN);?></td>
+          <td align="right" valign="top" class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" >
+            
+            
+  <?php echo ($DatReporteFichaIngreso->FinMantenimientoKilometraje);?>
+            
+          </td>
+          <td align="center" valign="top" class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" >
+          <?php echo $DatReporteFichaIngreso->FinComprobanteVentaTipo;?>
+          
+          </td>
+          <td align="right" valign="top" class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" >
+          
+          
+	<?php
+    switch($DatReporteFichaIngreso->FinComprobanteVentaTipo){
+    case "F":
+    ?>
+    
+		<?php echo number_format($DatReporteFichaIngreso->FacTotal,2);?>
+    
+    <?php
+    break;
+    case "B":
+    ?>
+    
+		<?php echo number_format($DatReporteFichaIngreso->BolTotal,2);?>
+    
+    <?php	
+    break;
+    
+    default:
+    ?>
+
+		<?php echo number_format($DatReporteFichaIngreso->AmoTotal,2);?>
+        
+    <?php	
+    break;
+    }
+    ?>
+
+  <?php //echo number_format($DatReporteFichaIngreso->AmoTotal,2);?>
+            
+            
+          </td>
+          </tr>
+        <?php	
+		$c++;
+        }
+        ?>
+          <tr>
+            <td align="right">&nbsp;</td>
+            <td align="right">&nbsp;</td>
+            <td align="right">&nbsp;</td>
+            <td align="right">&nbsp;</td>
+            <td align="right">&nbsp;</td>
+            <td align="right">&nbsp;</td>
+            <td align="right">&nbsp;</td>
+            <td align="right">&nbsp;</td>
+            <td align="right">&nbsp;</td>
+            <td align="right">&nbsp;</td>
+          </tr>
+		</tbody>
+		<tfoot class="EstTablaReporteFoot">
+		</tfoot>
+		</table>
+
+<p class="EstTablaReporteNota">
+Del
+<?php
+  if($POST_finicio == $POST_ffin){
+?>
+      <?php echo $POST_finicio; ?>
+      <?php
+  }else{
+?>
+      <?php echo $POST_finicio; ?> al <?php echo $POST_ffin; ?>
+      <?php  
+  }
+?>
+</p>
+
+
+</body>
+</html>

@@ -1,0 +1,1496 @@
+<?php
+if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
+?>   
+
+<?php $PrivilegioVistaPreliminar = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"VistaPreliminar"))?true:false;?>
+<?php $PrivilegioImprimir = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Imprimir"))?true:false;?>
+
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs("Producto");?>JsProductoBuscarClienteFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs('Producto');?>JsListaPrecioFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs("Producto");?>JsProductoFuncionesv2.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs("Producto");?>JsProductoAutocompletarv2.js" ></script>
+
+<!--<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs("Cliente");?>JsClienteFuncionesv2.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs("Cliente");?>JsClienteAutocompletarv2.js" ></script>-->
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs("Cliente");?>JsClienteSimpleFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs("Cliente");?>JsClienteSimpleAutocompletar.js" ></script>
+
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs("Cliente");?>JsClienteNotaFunciones.js" ></script>
+
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs('Vehiculo');?>JsVehiculoIngresoSimpleFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs('Vehiculo');?>JsVehiculoIngresoSimpleAutocompletar.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs('Moneda');?>JsMonedaFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs('TipoCambio');?>JsTipoCambioFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsVentaDirectaFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsVentaDirectaDetalleFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsVentaDirectaPlanchadoFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsVentaDirectaPintadoFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsVentaDirectaCentradoFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsVentaDirectaTareaFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsVentaDirectaFotoFunciones.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsVentaDirectaTotalFunciones.js" ></script>
+
+
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs('FichaIngreso');?>JsFichaIngresoAutocompletar.js" ></script>
+<script type="text/javascript" src="<?php echo $InsProyecto->MtdComunesJs('FichaIngreso');?>JsFichaIngresoFunciones.js" ></script>
+
+
+
+
+<style type="text/css">
+@import url('<?php echo $InsProyecto->MtdFormulariosCss($GET_mod);?>CssVentaDirecta.css');
+</style>
+<?php
+
+$Registro = false;
+
+if(!empty($_POST['Identificador'])){
+	$Identificador = $_POST['Identificador'];
+}
+
+$GET_CprId = $_GET['CprId'];
+$GET_Origen = $_GET['Origen'];
+
+include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjVentaDirecta.php');
+//CLASES
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirecta.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirectaDetalle.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirectaTarea.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirectaFoto.php');
+
+require_once($InsPoo->MtdPaqLogistica().'ClsTipoOperacion.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsCliente.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsClienteTipo.php');
+
+require_once($InsPoo->MtdPaqLogistica().'ClsCotizacionProducto.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsCotizacionProductoDetalle.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsCotizacionProductoFoto.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsCotizacionProductoPlanchadoPintado.php');
+
+require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedidaConversion.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCodigoReemplazo.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsProductoVehiculoVersion.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsProductoAno.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
+//require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCosto.php');
+
+
+require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoIngreso.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoVersion.php');
+
+require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsCondicionPago.php');
+
+require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
+require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
+
+require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
+require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
+require_once($InsPoo->MtdPaqActividad().'ClsNotificacion.php');
+
+
+//INSTANCIAS
+$InsVentaDirecta = new ClsVentaDirecta();
+$InsTipoOperacion = new ClsTipoOperacion();
+$InsTipoDocumento = new ClsTipoDocumento();
+$InsClienteTipo = new ClsClienteTipo();
+$InsCotizacionProducto = new ClsCotizacionProducto();
+
+$InsProducto = new ClsProducto();
+$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+
+$InsMoneda = new ClsMoneda();
+$InsCondicionPago = new ClsCondicionPago();
+$InsPersonal = new ClsPersonal();
+
+$InsAlmacen = new ClsAlmacen();
+
+if (!isset($_SESSION['InsVentaDirectaDetalle'.$Identificador])){	
+	$_SESSION['InsVentaDirectaDetalle'.$Identificador] = new ClsSesionObjeto();
+}else{	
+	$_SESSION['InsVentaDirectaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVentaDirectaDetalle'.$Identificador]);
+}
+
+if (!isset($_SESSION['InsVentaDirectaPlanchado'.$Identificador])){	
+	$_SESSION['InsVentaDirectaPlanchado'.$Identificador] = new ClsSesionObjeto();
+}else{	
+	$_SESSION['InsVentaDirectaPlanchado'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVentaDirectaPlanchado'.$Identificador]);
+}
+
+if (!isset($_SESSION['InsVentaDirectaPintado'.$Identificador])){	
+	$_SESSION['InsVentaDirectaPintado'.$Identificador] = new ClsSesionObjeto();
+}else{	
+	$_SESSION['InsVentaDirectaPintado'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVentaDirectaPintado'.$Identificador]);
+}
+
+if (!isset($_SESSION['InsVentaDirectaCentrado'.$Identificador])){	
+	$_SESSION['InsVentaDirectaCentrado'.$Identificador] = new ClsSesionObjeto();
+}else{	
+	$_SESSION['InsVentaDirectaCentrado'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVentaDirectaCentrado'.$Identificador]);
+}
+
+if (!isset($_SESSION['InsVentaDirectaTarea'.$Identificador])){	
+	$_SESSION['InsVentaDirectaTarea'.$Identificador] = new ClsSesionObjeto();
+}else{	
+	$_SESSION['InsVentaDirectaTarea'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVentaDirectaTarea'.$Identificador]);
+}
+
+if (!isset($_SESSION['InsVentaDirectaFoto'.$Identificador])){	
+	$_SESSION['InsVentaDirectaFoto'.$Identificador] = new ClsSesionObjeto();
+}else{	
+	$_SESSION['InsVentaDirectaFoto'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVentaDirectaFoto'.$Identificador]);
+}
+
+//ACCIONES
+include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccVentaDirectaRegistrar.php');
+//DATOS
+$ResTipoOperacion = $InsTipoOperacion->MtdObtenerTipoOperaciones(NULL,NULL,"TopCodigo","ASC",NULL);
+$ArrTipoOperaciones = $ResTipoOperacion['Datos'];
+//DATOS FICHA INGRESO
+$RepTipoDocumento = $InsTipoDocumento->MtdObtenerTipoDocumentos(NULL,NULL,'TdoNombre',"ASC",NULL);
+$ArrTipoDocumentos = $RepTipoDocumento['Datos'];
+
+//MtdObtenerClienteTipos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'LtiId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVehiculoMarca=NULL,$oEstado=NULL)
+$RepClienteTipo = $InsClienteTipo->MtdObtenerClienteTipos(NULL,NULL,NULL,'VmaNombre,LtiNombre',"ASC",NULL,NULL,1);
+$ArrClienteTipos = $RepClienteTipo['Datos'];
+$ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL);
+$ArrMonedas = $ResMoneda['Datos'];
+
+$RepCondicionPago = $InsCondicionPago->MtdObtenerCondicionPagos(NULL,NULL,"NpaNombre","ASC",NULL,1);
+$ArrCondicionPagos = $RepCondicionPago['Datos'];
+
+
+////MtdObtenerPersonales($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PerId',$oSentido = 'Desc',$oPaginacion = '0,10',$oPersonalTipo=NULL,$oEstado=NULL,$oFechaNacimientoRango=NULL,$oTaller=NULL,$oRecepcion=NULL,$oVenta=NULL,$oArea=NULL,$oSucursal=NULL,$oAlmacen=NULL,$oFirmante=NULL,$oMultisucursal=false)
+$ResPersonal = $InsPersonal->MtdObtenerPersonales(NULL,NULL,NULL,"PerNombre","ASC",NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,$_SESSION['SesionSucursal'],1,NULL,true);
+$ArrPersonales = $ResPersonal['Datos'];
+
+?>
+
+<script type="text/javascript">
+/*
+Desactivando tecla ENTER
+*/
+
+FncDesactivarEnter();
+
+/*
+Configuracion carga de datos y animacion
+*/
+$(document).ready(function (){
+
+	$('#CmpClienteNombre').focus();
+	
+	FncVentaDirectaDetalleListar();
+	
+	FncVentaDirectaPlanchadoListar();
+	
+	FncVentaDirectaPintadoListar();
+	
+	FncVentaDirectaCentradoListar();
+	
+	FncVentaDirectaTareaListar();
+	
+	FncVentaDirectaFotoListar("A");
+	
+	FncVentaDirectaFotoListar("G");
+	
+});
+/*
+Configuracion Formulario
+*/
+var Formulario = "FrmRegistrar";
+
+var VentaDirectaDetalleEditar = 1;
+var VentaDirectaDetalleEliminar = 1;
+var VentaDirectaDetalleVerEstado = 2;
+
+var VentaDirectaPlanchadoEditar = 1;
+var VentaDirectaPlanchadoEliminar = 1;
+
+var VentaDirectaPintadoEditar = 1;
+var VentaDirectaPintadoEliminar = 1;
+
+var VentaDirectaCentradoEditar = 1;
+var VentaDirectaCentradoEliminar = 1;
+
+var VentaDirectaTareaEditar = 1;
+var VentaDirectaTareaEliminar = 1;
+
+var UnidadMedidaTipo = 2;
+
+
+var VentaDirectaFotoEditar = 1;
+var VentaDirectaFotoEliminar = 1;
+</script>
+
+<form id="FrmRegistrar" name="FrmRegistrar" method="post" action="#" enctype="multipart/form-data" >
+
+<div class="EstCapMenu">
+<div class="EstSubMenuBoton">
+<input name="BtnGuardar"   id="BtnGuardar" type="image" border="0" src="imagenes/acc_guardar.gif" alt="[Guardar]" title="Guardar" />
+<div>Guardar</div>
+</div>
+
+<?php
+if(!empty($GET_dia)){
+?>
+	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div>&nbsp;
+<?php	
+}
+?>
+	
+
+
+<?php
+if($Registro){
+?>
+
+	<?php
+   /* if($PrivilegioVistaPreliminar){
+    ?>
+    <div class="EstSubMenuBoton"><a href="javascript:FncVistaPreliminar('<?php echo $InsVentaDirecta->VdiId;?>');"><img src="imagenes/iconos/preliminar.png" alt="[Vista Preliminar]" title="Vista preliminar" />V.P.</a></div>
+    <?php
+    }
+    ?>
+	<?php
+    if($PrivilegioImprimir){
+    ?>
+    <div class="EstSubMenuBoton"><a href="javascript:FncImprmir('<?php echo $InsVentaDirecta->VdiId;?>');"><img src="imagenes/iconos/imprimir.png" alt="[Imprimir]" title="Imprimir"  />Imprimir</a></div>
+    <?php
+    }*/
+    ?>
+    
+<?php	
+}
+?>
+
+
+</div>
+
+<div class="EstCapContenido">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+      
+      <tr>
+        <td width="1922" height="25" colspan="2"><span class="EstFormularioTitulo">REGISTRAR
+        ORDEN DE VENTA DE REPUESTOS Y SERVICIOS</span></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          
+          
+          
+	<ul class="tabs">
+		<li><a href="#tab1">Orden de Venta  </a></li>
+        <li><a href="#tab2">Archivos de Referencia  </a></li>
+        
+        
+       
+		
+        
+	</ul>
+
+<div class="tab_container">
+    <div id="tab1" class="tab_content">
+        <!--Content-->
+
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+            
+            <tr>
+              <td width="97%" valign="top">
+                <div class="EstFormularioArea">
+                  <table class="EstFormulario" border="0" cellpadding="2" cellspacing="2">
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="4">
+                        <span class="EstFormularioSubTitulo">Datos de la Orden de Venta
+                        <input type="hidden" name="Guardar" id="Guardar"   />
+                          <input type="hidden" name="Identificador" id="Identificador"  value="<?php echo $Identificador; ?>" />
+                        </span></td>
+                      <td>&nbsp;</td>
+                      </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Codigo Interno:</td>
+                      <td align="left" valign="top"><input readonly="readonly" name="CmpId" type="text" class="EstFormularioCajaDeshabilitada" id="CmpId" value="<?php echo $InsVentaDirecta->VdiId;?>" size="15" maxlength="20" /></td>
+                      <td align="left" valign="top">Fecha de Emision:<br><span class="EstFormularioSubEtiqueta">(dd/mm/yyyy)</span></td>
+                      <td align="left" valign="top"><input class="EstFormularioCajaFecha" name="CmpFecha" type="text" id="CmpFecha" value="<?php if(empty($InsVentaDirecta->VdiFecha)){ echo date("d/m/Y");}else{ echo $InsVentaDirecta->VdiFecha; }?>" size="15" maxlength="10" />                        <img src="imagenes/acciones/calendario.png" alt="[Calendario]"  id="BtnFecha" name="BtnFecha" width="25" height="25" align="absmiddle"  style="cursor:pointer;" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="4" align="left" valign="top"><span class="EstFormularioSubTitulo">Datos del cliente</span></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Cliente: </td>
+                      <td colspan="3" align="left" valign="top">
+                        
+                        
+                        <table>
+                          <tr>
+                            <td><input type="hidden" name="CmpClienteId" id="CmpClienteId" value="<?php echo $InsVentaDirecta->CliId;?>" size="3" />
+                              <input name="CmpClienteVehiculoIngresoId" type="hidden" id="CmpClienteVehiculoIngresoId" value="<?php echo $InsVentaDirecta->EinId;?>" size="3" />
+                              <input name="CmpClienteNombre" type="hidden" id="CmpClienteNombre" value="<?php echo $InsVentaDirecta->CliNombre;?>" size="3" />
+                              <input name="CmpClienteApellidoPaterno" type="hidden" id="CmpClienteApellidoPaterno" value="<?php echo $InsVentaDirecta->CliApellidoPaterno;?>" size="3" />
+                              <input name="CmpClienteApellidoMaterno" type="hidden" id="CmpClienteApellidoMaterno" value="<?php echo $InsVentaDirecta->CliApellidoMaterno;?>" size="3" /></td>
+                            <td><select disabled="disabled" class="EstFormularioCombo" name="CmpClienteTipoDocumento" id="CmpClienteTipoDocumento"  >
+                              <option value="">Escoja una opcion</option>
+                              <?php
+	foreach($ArrTipoDocumentos as $DatTipoDocumento){
+	?>
+                              <option <?php echo $DatTipoDocumento->TdoId;?> <?php echo ($DatTipoDocumento->TdoId==$InsVentaDirecta->TdoId)?'selected="selected"':"";?> value="<?php echo $DatTipoDocumento->TdoId?>"><?php echo $DatTipoDocumento->TdoCodigo?> - <?php echo $DatTipoDocumento->TdoNombre?></option>
+                              <?php
+	}
+	?>
+                              </select></td>
+                            <td><a href="javascript:FncClienteSimpleNuevo();"><img src="imagenes/acciones/limpiar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
+                            <td><input <?php if(!empty($InsVentaDirecta->CliId)){ echo 'readonly="readonly"';} ?>  tabindex="4" class="EstFormularioCaja" name="CmpClienteNumeroDocumento" type="text" id="CmpClienteNumeroDocumento" size="20" maxlength="50" value="<?php echo $InsVentaDirecta->CliNumeroDocumento;?>"   /></td>
+                            <td><a href="javascript:FncClienteBuscar('NumeroDocumento');"><img src="imagenes/acciones/buscar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
+                            <td><input <?php if(!empty($InsVentaDirecta->CliId)){ echo 'readonly="readonly"';} ?>   tabindex="2" class="EstFormularioCaja" name="CmpClienteNombreCompleto" type="text" id="CmpClienteNombreCompleto" size="45" maxlength="255" value="<?php echo $InsVentaDirecta->CliNombre;?> <?php echo $InsVentaDirecta->CliApellidoPaterno;?> <?php echo $InsVentaDirecta->CliApellidoMaterno;?>"  /></td>
+                            <td>
+                            
+                            <a id="BtnClienteRegistrar" onclick="FncClienteSimpleCargarFormulario('Registrar');" href="javascript:void(0)" title=""> <img src="imagenes/acciones/registrar.png" alt="[Registrar]" width="25" height="25" border="0" align="absmiddle" title="Registrar" /> </a>
+                            
+                            
+                             <a id="BtnClienteEditar" onclick="FncClienteSimpleCargarFormulario('Editar');" href="javascript:void(0)"   title=""> <img src="imagenes/acciones/editar.png" alt="[Editar]" width="25" height="25" border="0" align="absmiddle" title="Editar" /> </a>  
+                            
+                            
+                           <!-- <a href="comunes/Cliente/FrmClienteBuscar.php?height=440&amp;width=850" class="thickbox" title=""><img src="imagenes/acciones/buscador.png" width="25" height="25" border="0" align="absmiddle" ></a>
+                            -->
+                            
+                            <a href="javascript:void(0);"  id="BtnCargarClienteBuscador" title=""><img src="imagenes/acciones/buscador.png" width="25" height="25" border="0" align="absmiddle" ></a>
+                             
+                            
+                            
+                            </td>
+                            <td>
+                              
+                              
+                              </td>
+                            </tr>
+                          </table>
+                        
+                        
+                      </td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Direccion:</td>
+                      <td align="left" valign="top"><input tabindex="5" class="EstFormularioCaja" name="CmpClienteDireccion" type="text" id="CmpClienteDireccion" size="60" maxlength="255" value="<?php echo $InsVentaDirecta->VdiDireccion;?>"  /></td>
+                      <td align="left" valign="top">Tipo de Cliente:</td>
+                      <td align="left" valign="top"><select   class="EstFormularioCombo" name="CmpClienteTipo" id="CmpClienteTipo">
+                        <option value="">Escoja una opcion</option>
+                        <?php
+			foreach($ArrClienteTipos as $DatClienteTipo){
+			?>
+                        <option value="<?php echo $DatClienteTipo->LtiId?>" <?php if($InsVentaDirecta->LtiId==$DatClienteTipo->LtiId){ echo 'selected="selected"';} ?> ><?php echo $DatClienteTipo->LtiNombre?></option>
+                        <?php
+			}
+			?>
+                      </select></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Celular:</td>
+                      <td align="left" valign="top"><input name="CmpClienteCelular" type="text" class="EstFormularioCaja" id="CmpClienteCelular" tabindex="5" value="<?php echo $InsVentaDirecta->CliCelular;?>" size="45" maxlength="255"  /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="4" align="left" valign="top"><span class="EstFormularioSubTitulo">Datos del vehiculo</span></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">VIN:
+                        <input name="CmpVehiculoIngresoId" type="hidden" id="CmpVehiculoIngresoId" value="<?php echo $InsVentaDirecta->EinId;?>" size="3" />
+                        <input name="CmpVehiculoIngresoClienteId" type="hidden" id="CmpVehiculoIngresoClienteId" value="<?php echo $InsVentaDirecta->CliId;?>" size="3" /></td>
+                      <td align="left" valign="top"><table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td><a href="javascript:FncVehiculoIngresoSimpleNuevo();"><img src="imagenes/acciones/limpiar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
+                          <td><input name="CmpVehiculoIngresoVIN" type="text" class="EstFormularioCaja" id="CmpVehiculoIngresoVIN"  value="<?php echo $InsVentaDirecta->EinVIN;?>" size="20" maxlength="50" /></td>
+                          <td><a href="javascript:FncVehiculoIngresoSimpleBuscar('VIN');"><img src="imagenes/acciones/buscar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
+                          <td><a id="BtnVehiculoIngresoRegistrar" onclick="FncVehiculoIngresoSimpleCargarFormulario('Registrar');" href="javascript:void(0)" title=""> <img src="imagenes/acciones/registrar.png" alt="[Registrar]" width="25" height="25" border="0" align="absmiddle" title="Registrar" /></a> <a id="BtnVehiculoIngresoEditar" onclick="FncVehiculoIngresoSimpleCargarFormulario('Editar');" href="javascript:void(0)"   title=""> <img src="imagenes/acciones/editar.png" alt="[Editar]" width="25" height="25" border="0" align="absmiddle" title="Editar" /></a></td>
+                          </tr>
+                        <tr> </tr>
+                        </table></td>
+                      <td align="left" valign="top">Marca:
+                        <input name="CmpVehiculoIngresoMarcaId" type="hidden" id="CmpVehiculoIngresoMarcaId" value="<?php echo $InsVentaDirecta->VmaId;?>" size="3" /></td>
+                      <td align="left" valign="top"><input  name="CmpVehiculoIngresoMarca" type="text"  class="EstFormularioCaja" id="CmpVehiculoIngresoMarca" value="<?php echo $InsVentaDirecta->VdiMarca;?>" size="30" maxlength="50" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Modelo:
+                        <input name="CmpVehiculoIngresoModeloId" type="hidden" id="CmpVehiculoIngresoModeloId" value="<?php echo $InsVentaDirecta->VmoId;?>" size="3" /></td>
+                      <td align="left" valign="top"><input  name="CmpVehiculoIngresoModelo" type="text"  class="EstFormularioCaja" id="CmpVehiculoIngresoModelo" value="<?php echo $InsVentaDirecta->VdiModelo;?>" size="30" maxlength="50" /></td>
+                      <td align="left" valign="top">Placa:</td>
+                      <td align="left" valign="top"><input  name="CmpVehiculoIngresoPlaca" type="text"  class="EstFormularioCaja" id="CmpVehiculoIngresoPlaca" value="<?php echo $InsVentaDirecta->VdiPlaca;?>" size="10" maxlength="10" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">A&ntilde;o:</td>
+                      <td align="left" valign="top"><input  name="CmpVehiculoIngresoAnoModelo" type="text"  class="EstFormularioCaja" id="CmpVehiculoIngresoAnoModelo" value="<?php echo $InsVentaDirecta->VdiAnoModelo;?>" size="10" maxlength="4" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="4" align="left" valign="top"><span class="EstFormularioSubTitulo">Facturacion</span></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Condicion de Pago:</td>
+                      <td align="left" valign="top"><select class="EstFormularioCombo" name="CmpCondicionPago" id="CmpCondicionPago">
+                        <option value="">Escoja una opcion</option>
+                        <?php
+			  foreach($ArrCondicionPagos as $DatCondicionPago){
+				?>
+                        <option <?php echo ($InsVentaDirecta->NpaId == $DatCondicionPago->NpaId)?'selected="selected"':''; ?> value="<?php echo $DatCondicionPago->NpaId?>"><?php echo $DatCondicionPago->NpaNombre ?></option>
+                        <?php
+			  }
+			  
+			  ?>
+                      </select></td>
+                      <td align="left" valign="top">Dias de Credito:</td>
+                      <td align="left" valign="top"><input name="CmpCreditoDias" type="text" class="EstFormularioCaja" id="CmpCreditoDias" value="<?php echo number_format($InsVentaDirecta->VdiCantidadDias,2);?>" size="10" maxlength="10" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Moneda:</td>
+                      <td align="left" valign="top"><table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td><select <?php echo ($InsVentaDirecta->VdiOrigen=="CPR")?'disabled="disabled"':'';?>   class="EstFormularioCombo" name="CmpMonedaId" id="CmpMonedaId" >
+                            <option value="">Escoja una opcion</option>
+                            <?php
+			  foreach($ArrMonedas as $DatMoneda){
+			  ?>
+                            <option value="<?php echo $DatMoneda->MonId?>" <?php if($InsVentaDirecta->MonId==$DatMoneda->MonId){ echo 'selected="selected"';}?> ><?php echo $DatMoneda->MonNombre?> ( <?php echo $DatMoneda->MonSimbolo;?>)</option>
+                            <?php
+			  }
+			  ?>
+                          </select></td>
+                          <td><div id="CapMonedaBuscar"></div></td>
+                          </tr>
+                        <tr> </tr>
+                        </table></td>
+                      <td align="left" valign="top">Tipo de Cambio: <br />
+                        <span class="EstFormularioSubEtiqueta"> (0.000)</span></td>
+                      <td align="left" valign="top"><table>
+                        <tr>
+                          <td>
+                            
+                            <input name="CmpTipoCambio" type="text"  class="EstFormularioCajaDeshabilitada" id="CmpTipoCambio" onchange="FncVentaDirectaDetalleListar();" value="<?php if (empty($InsVentaDirecta->VdiTipoCambio)){ echo "";}else{ echo $InsVentaDirecta->VdiTipoCambio; } ?>" size="10" maxlength="10" readonly="readonly" />
+                            
+                            </td>
+                          <td>
+                            
+                            <a href="javascript:FncVentaDirectaEstablecerMoneda();"><img src="imagenes/acciones/recargar.png" width="25" height="25" border="0" title="Recargar" alt="[Recargar]" align="absmiddle" /></a>
+                            
+                            
+                            </td>
+                          </tr>
+                        </table></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Margen de Utilidad: <br />
+                        <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                      <td align="left" valign="top"><input name="CmpClienteMargenUtilidad" type="text" class="EstFormularioCajaDeshabilitada" id="CmpClienteMargenUtilidad" value="<?php echo number_format($InsVentaDirecta->VdiPorcentajeMargenUtilidad,2);?>" size="10" maxlength="10" readonly="readonly" /></td>
+                      <td align="left" valign="top">Otros Costos: <br />
+                        <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                      <td align="left" valign="top"><input name="CmpPorcentajeOtroCosto" type="text" class="EstFormularioCajaDeshabilitada" id="CmpPorcentajeOtroCosto" value="<?php echo number_format($InsVentaDirecta->VdiPorcentajeOtroCosto,2);?>" size="10" maxlength="10" readonly="readonly" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Adicionales: <br />
+                        <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                      <td align="left" valign="top"><span id="sprytextfield9">
+                        <label for="CmpPorcentajeManoObra"></label>
+                        <input name="CmpPorcentajeManoObra" type="text" class="EstFormularioCajaDeshabilitada" id="CmpPorcentajeManoObra" value="<?php echo number_format($InsVentaDirecta->VdiMantenimiento,2);?>" size="10" maxlength="10" readonly="readonly" />
+                        <span class="textfieldRequiredMsg">Se necesita un valor.</span></span></td>
+                      <td align="left" valign="top">Descuento: <br />
+                        <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                      <td align="left" valign="top"><input class="EstFormularioCaja" name="CmpPorcentajeDescuento" type="text" id="CmpPorcentajeDescuento" value="<?php echo number_format($InsVentaDirecta->VdiPorcentajeDescuento,2);?>" size="10" maxlength="10" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Incluye Impuesto:</td>
+                      <td align="left" valign="top"><?php
+					switch($InsVentaDirecta->VdiIncluyeImpuesto){
+						case 1:
+							$OpcIncluyeImpuesto1 = 'selected = "selected"';
+						break;
+						
+						case 2:
+							$OpcIncluyeImpuesto2 = 'selected = "selected"';						
+						break;
+
+					}
+					?>
+                        <select  onchange="FncVentaDirectaDetalleListar();" class="EstFormularioCombo" name="CmpIncluyeImpuesto" id="CmpIncluyeImpuesto" <?php echo !empty($InsVentaDirecta->CprId)?'disabled="disabled"':'';?>  >
+                          <option <?php echo $OpcIncluyeImpuesto1;?> value="1">Si</option>
+                          <option <?php echo $OpcIncluyeImpuesto2;?> value="2">No</option>
+                          </select></td>
+                      <td align="left" valign="top">Impuesto:<br />
+                        <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                      <td align="left" valign="top"><input name="CmpPorcentajeImpuestoVenta" type="text" class="EstFormularioCajaDeshabilitada" id="CmpPorcentajeImpuestoVenta" onchange="FncVentaDirectaDetalleListar();" value="<?php echo number_format($InsVentaDirecta->VdiPorcentajeImpuestoVenta,2);?>" size="10" maxlength="5" readonly="readonly" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Mano de Obra:</td>
+                      <td align="left" valign="top"><input name="CmpManoObra" type="text" class="EstFormularioCaja" id="CmpManoObra" value="<?php echo number_format($InsVentaDirecta->VdiManoObra,2);?>" size="10" maxlength="10" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="4" align="left" valign="top"><span class="EstFormularioSubTitulo">Observaciones y otras referencias</span></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td>Asesor de Ventas:</td>
+                      <td><select  class="EstFormularioCombo" name="CmpPersonal" id="CmpPersonal" >
+                        <option value="">Escoja una opcion</option>
+                        <?php
+					foreach($ArrPersonales as $DatPersonal){
+					?>
+                        <option <?php echo ($DatPersonal->PerId==$InsVentaDirecta->PerId)?'selected="selected"':'';?>  value="<?php echo $DatPersonal->PerId;?>"><?php echo $DatPersonal->PerNombre ?> <?php echo $DatPersonal->PerApellidoPaterno; ?> <?php echo $DatPersonal->PerApellidoMaterno; ?></option>
+                        <?php
+					}
+					?>
+                      </select></td>
+                      <td align="left" valign="top">Seguro:</td>
+                      <td align="left" valign="top"><input class="EstFormularioCajaDeshabilitada" name="CmpSeguroNombre" type="text" id="CmpSeguroNombre" size="45" maxlength="255" value="<?php echo $InsVentaDirecta->CliNombreSeguro;?> <?php echo $InsVentaDirecta->CliApellidoPaternoSeguro;?> <?php echo $InsVentaDirecta->CliApellidoMaternoSeguro;?>"  /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Tipo de Venta:</td>
+                      <td align="left" valign="top"><?php
+					switch($InsVentaDirecta->VdiTipo){
+						case "MOSTRADOR":
+							$OpcTipo1 = 'selected = "selected"';
+						break;
+						
+						case "EXTERNO":
+							$OpcTipo2 = 'selected = "selected"';						
+						break;
+						
+						case "PROVINCIA":
+							$OpcTipo3 = 'selected = "selected"';						
+						break;
+						
+						
+
+					}
+					?>
+                        <select  class="EstFormularioCombo" name="CmpTipo" id="CmpTipo" >
+                          <option value="">Escoja una opcion</option>
+                          <option <?php echo $OpcTipo1;?> value="MOSTRADOR">MOSTRADOR</option>
+                          <option <?php echo $OpcTipo2;?> value="EXTERNO">EXTERNO</option>
+                          <option <?php echo $OpcTipo3;?> value="PROVINCIA">PROVINCIA</option>
+                        </select></td>
+                      <td align="left" valign="top">Tipo de Venta Final:</td>
+                      <td align="left" valign="top"><?php
+					switch($InsVentaDirecta->VdiTipoFinal){
+						
+						
+						case "COLISION":
+							$OpcTipoFinal4 = 'selected = "selected"';						
+						break;
+						
+						case "DESGASTE":
+							$OpcTipoFinal5 = 'selected = "selected"';						
+						break;
+						
+						case "MANTENIMIENTO":
+							$OpcTipoFinal6 = 'selected = "selected"';						
+						break;
+						
+
+					}
+					?>
+                        <select  class="EstFormularioCombo" name="CmpTipoFinal" id="CmpTipoFinal" >
+                          <option value="">Escoja una opcion</option>
+                          <option <?php echo $OpcTipoFinal4;?> value="COLISION">COLISION</option>
+                          <option <?php echo $OpcTipoFinal5;?> value="DESGASTE">DESGASTE</option>
+                          <option <?php echo $OpcTipoFinal6;?> value="MANTENIMIENTO">MANTENIMIENTO</option>
+                        </select></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Ord. Compra/Referencia:</td>
+                      <td align="left" valign="top">                  <input name="CmpOrdenCompraNumero" type="text" class="EstFormularioCaja" id="CmpOrdenCompraNumero"  tabindex="3" value="<?php  echo $InsVentaDirecta->VdiOrdenCompraNumero;?>" size="25" maxlength="25" />                     </td>
+                      <td align="left" valign="top">Fecha Ord. Compra/Referencia:<br />
+                        <span class="EstFormularioSubEtiqueta">(dd/mm/yyyy)</span></td>
+                      <td align="left" valign="top"><input class="EstFormularioCajaFecha" name="CmpOrdenCompraFecha" type="text" id="CmpOrdenCompraFecha" value="<?php  echo $InsVentaDirecta->VdiOrdenCompraFecha;?>" size="15" maxlength="10" />                        <img src="imagenes/acciones/calendario.png" alt="[Calendario]"  id="BtnOrdenCompraFecha" name="BtnOrdenCompraFecha" width="25" height="25" align="absmiddle"  style="cursor:pointer;" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Cotizacion:</td>
+                      <td align="left" valign="top"><input name="CmpCotizacionProductoId" type="text" class="EstFormularioCajaDeshabilitada" id="CmpCotizacionProductoId"  tabindex="3" value="<?php  echo $InsVentaDirecta->CprId;?>" size="25" maxlength="25" readonly="readonly" /></td>
+                      <td align="left" valign="top"><?php
+				//if(!empty($InsVentaDirecta->CprId)){
+				?>
+                        Orden de Trabajo:
+                        <?php	
+				//}
+				?></td>
+                      <td align="left" valign="top"><?php
+				//if(!empty($InsVentaDirecta->CprId)){
+				?>
+                        <table>
+                          <tr>
+                            <td><a href="javascript:FncFichaIngresoNuevo();"><img src="imagenes/acciones/limpiar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
+                            <td><input name="CmpFichaIngresoId" id="CmpFichaIngresoId" type="hidden"    value="<?php  echo $InsVentaDirecta->FinId;?>" size="20" maxlength="20" />
+                              <input name="CmpFichaIngreso" type="text" class="EstFormularioCaja" id="CmpFichaIngreso"  tabindex="3" value="<?php  echo $InsVentaDirecta->FinId;?>" size="25" maxlength="25" <?php echo (!empty($InsVentaDirecta->FinId)?'readonly="readonly"':'')?>  /></td>
+                            <td></td>
+                            <td><a href="javascript:FncFichaIngresoBuscar('Id');"><img src="imagenes/acciones/buscar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
+                            <td></td>
+                            </tr>
+                          </table>
+                        <?php	
+				//}
+				?></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Observacion Interna:</td>
+                      <td align="left" valign="top"><textarea name="CmpObservacion" cols="45" rows="2" class="EstFormularioCaja" id="CmpObservacion"><?php echo $InsVentaDirecta->VdiObservacion;?></textarea></td>
+                      <td align="left" valign="top">Observacion Impresa:</td>
+                      <td align="left" valign="top"><textarea name="CmpObservacionImpresa" cols="45" rows="2" class="EstFormularioCaja" id="CmpObservacionImpresa"><?php echo $InsVentaDirecta->VdiObservacionImpresa;?></textarea></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Estado: </td>
+                      <td align="left" valign="top">
+                      <?php
+					switch($InsVentaDirecta->VdiEstado){
+						case 1:
+							$OpcEstado1 = 'selected = "selected"';
+						break;
+
+						case 3:
+							$OpcEstado3 = 'selected = "selected"';						
+						break;
+					
+						case 6:
+							$OpcEstado6 = 'selected = "selected"';						
+						break;
+						
+						
+						case 7:
+							$OpcEstado7 = 'selected = "selected"';						
+						break;
+						
+						case 8:
+							$OpcEstado8 = 'selected = "selected"';						
+						break;
+					}
+					?>
+                 
+					<select  class="EstFormularioCombo" name="CmpEstado" id="CmpEstado" disabled="disabled">
+					<option <?php echo $OpcEstado1;?> value="1">Pendiente</option>
+					<option <?php echo $OpcEstado3;?> value="3">Realizado</option>
+					<option <?php echo $OpcEstado6;?> value="6">Anulado</option>
+                    
+					<option <?php echo $OpcEstado7;?> value="7">Recibido</option>
+					<option <?php echo $OpcEstado8;?> value="8">Procesado</option>
+					</select>
+                        
+                        </td>
+                      <td align="left" valign="top"><input type="hidden" name="CmpOrigen" id="CmpOrigen" value="<?php echo $InsVentaDirecta->VdiOrigen;?>" size="3" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="2" align="left" valign="top"><span class="EstFormularioSubTitulo">Opciones Adicionales</span></td>
+                      <td colspan="2" align="left" valign="top"><span class="EstFormularioSubTitulo"> Orden de Cobro</span></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="2" align="left" valign="top"><input <?php echo (($InsVentaDirecta->VdiNotificar==1)?'checked="checked"':'');?> value="1"  type="checkbox" name="CmpNotificar" id="CmpNotificar" />
+                        Notificar via email <br />
+  <input value="1" checked="checked"  type="checkbox" name="CmpRedondear" id="CmpRedondear" />
+                        Redondear los precios <br />
+  <input value="1"  type="checkbox" name="CmpGenerarVentaConcretada" id="CmpGenerarVentaConcretada" />
+  <span class="EstFormularioOpcion"> Generar Venta Concretada (Salida)</span></td>
+                      <td align="left" valign="top" bgcolor="#CCFFCC">Monto a Cobrar:</td>
+                      <td align="left" valign="top"><input class="EstFormularioCaja" name="CmpAbono" type="text" id="CmpAbono" value="<?php echo number_format($InsVentaDirecta->VdiAbono,2);?>" size="10" maxlength="10" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="4" align="center" valign="top"><input type="radio" name="CmpListaPrecio" id="CmpListaPrecio1"  value="LOCAL" />
+                        Lista de Precios Local (Se ignorara el margen ingresado)
+                        <input type="radio" name="CmpListaPrecio" id="CmpListaPrecio2" value="PROVEEDOR" checked="checked" />
+                        Lista de Precios de Proveedor </td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    </table>
+                  </div>     
+                </td>
+            </tr>
+            
+            <tr>
+              <td valign="top">
+                
+                
+                <?php
+			//if($InsVentaDirecta->VdiOrigen <> "CPR"){
+			?>
+                <div class="EstFormularioArea">
+                  
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td width="98%">
+                        
+                        
+                        
+                        
+                        <table class="EstFormulario" border="0" cellpadding="2" cellspacing="2">
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td colspan="15"><span class="EstFormularioSubTitulo">PRODUCTOS </span>
+                            
+                            
+                            
+  <input type="hidden" name="CmpProductoId"    id="CmpProductoId"   />
+  <input type="hidden" name="CmpProductoItem" id="CmpProductoItem" />
+  <input type="hidden" name="CmpProductoUnidadMedida" id="CmpProductoUnidadMedida" />
+  <input type="hidden" name="CmpProductoUnidadMedidaEquivalente"   id="CmpProductoUnidadMedidaEquivalente"  />
+  <input type="hidden" name="CmpProductoCostoAux"    id="CmpProductoCostoAux"    />
+  
+<input type="hidden" name="CmpProductoValorVenta"    id="CmpProductoValorVenta"    />
+<input type="hidden" name="CmpProductoValorTotal"    id="CmpProductoValorTotal"    />
+<input type="hidden" name="CmpProductoPrecioBruto"    id="CmpProductoPrecioBruto"    />
+
+            <input type="hidden" name="CmpProductoImporteBruto"    id="CmpProductoImporteBruto"    />                          
+                             
+                              
+                              </td>
+                            </tr>
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td><div id="CapProductoBuscar"></div></td>
+                            <td>C&oacute;digo Orig.</td>
+                            <td>&nbsp;</td>
+                            <td>C&oacute;digo Alt.</td>
+                            <td>&nbsp;</td>
+                            <td>Nombre : </td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>U.M.                              </td>
+                            <td>Pedido:</td>
+                            <td>Cantidad:</td>
+                            
+                            <td>
+                              Precio:</td>
+                            <td>
+                              Importe:</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            </tr>
+                        
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                              
+                              <?php
+							if(empty($InsVentaDirecta->CprId) or 1 == 1){
+							?>
+                              <a href="javascript:FncVentaDirectaDetalleNuevo('');"><img src="imagenes/acciones/limpiar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a>                            
+                              <?php
+							}
+							?>
+                              
+                              
+                            </td>
+                            <td><input name="CmpProductoCodigoOriginal"  type="text" class="EstFormularioCaja" id="CmpProductoCodigoOriginal" size="10" maxlength="20" /></td>
+                            <td>
+                              
+                              <?php
+							if(empty($InsVentaDirecta->CprId) or 1 == 1){
+							?>
+                              <a href="javascript:FncProductoBuscar('CodigoOriginal','');"><img src="imagenes/acciones/buscar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a>
+                              <?php
+							}
+							?>
+                              
+                              </td>
+                            <td><input name="CmpProductoCodigoAlternativo"  type="text" class="EstFormularioCaja" id="CmpProductoCodigoAlternativo" size="10" maxlength="20" /></td>
+                            <td>
+                              
+                              
+                              <?php
+							if(empty($InsVentaDirecta->CprId) or 1 == 1){
+							?>
+                              <a href="javascript:FncProductoBuscar('CodigoAlternativo','');"><img src="imagenes/acciones/buscar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a>
+                              <?php
+							}
+							?>
+                              
+                              </td>
+                            <td><input name="CmpProductoNombre" type="text" class="EstFormularioCaja" id="CmpProductoNombre" size="45" /></td>
+                            <td>
+                              
+                              <?php
+							if(empty($InsVentaDirecta->CprId) or 1 == 1){
+							?>
+                              <a id="BtnProductoRegistrar" onclick="FncProductoCargarFormulario('Registrar');"  href="javascript:void(0)" title=""> <img src="imagenes/acciones/registrar.png" alt="[Registrar]" width="25" height="25" border="0" align="absmiddle" title="Registrar" /></a> <a id="BtnProductoEditar" onclick="FncProductoCargarFormulario('Editar');" href="javascript:void(0)"   title=""> <img src="imagenes/acciones/editar.png" alt="[Editar]" width="25" height="25" border="0" align="absmiddle" title="Editar" /></a>
+                              
+                              <?php
+							}
+							?>
+                              </td>
+                            <td> <a id="BtnProductoConsulta" onclick="FncProductoCargarFormulario('Consulta');" href="javascript:void(0)"   title=""> <img src="imagenes/producto_consulta.jpg" alt="[Consulta]" width="20" height="20" border="0" align="absmiddle" title="Consulta" /> </a></td>
+                            <td>
+                              
+                              <select  class="EstFormularioCombo" name="CmpProductoUnidadMedidaConvertir" id="CmpProductoUnidadMedidaConvertir">
+                              </select></td>
+                            <td><select  class="EstFormularioCombo" name="CmpVentaDirectaDetalleTipoPedido" id="CmpVentaDirectaDetalleTipoPedido">
+                              <option value="">-</option>
+                              <option value="ALMACEN">ALMACEN</option>
+                              <option value="NORMAL">NORMAL</option>
+                              <option value="URGENTE">URGENTE +10%</option>
+                              <option value="IMPORTACION">IMPORT.</option>
+                            </select></td>
+                            <td>
+                              
+                              <input name="CmpProductoCantidad" type="text" class="EstFormularioCaja" id="CmpProductoCantidad" size="8" maxlength="10"  />                            </td>
+                            <td><input name="CmpProductoPrecio" type="text" class="EstFormularioCajaDeshabilitada" id="CmpProductoPrecio" size="8" maxlength="10"  />                            </td>
+                            <td>
+                              
+                              <input name="CmpProductoImporte" type="text" class="EstFormularioCaja" id="CmpProductoImporte" size="8" maxlength="10"  />                            </td>
+                            <td><a href="javascript:FncVentaDirectaDetalleGuardar();"><img src="imagenes/acciones/guardar.png" width="25" height="25" border="0" title="Guardar" alt="[Guardar]" align="absmiddle" /></a></td>
+                            <td>
+                              
+                              
+                              <?php
+							if(empty($InsVentaDirecta->CprId) or 1 == 1){
+							?>
+                              <a href="comunes/Producto/FrmProductoBuscar.php?height=440&amp;width=850" class="thickbox" title=""><img src="imagenes/acciones/buscador.png" width="25" height="25" border="0" align="absmiddle" ></a>
+                              <?php
+							}
+							?>
+                              
+                              </td>
+                            </tr>
+                              <tr>
+                            <td>&nbsp;</td>
+                            <td colspan="14" align="center"><table>
+                              <tr>
+                                <td align="left" valign="top" class="EstFormulario">Costo:</td>
+                                <td align="left" valign="top" class="EstFormulario"><input name="CmpProductoCosto" type="text" class="EstFormularioCajaDeshabilitada" id="CmpProductoCosto" size="5" maxlength="5" readonly="readonly"  /></td>
+                                <td align="left" valign="top" class="EstFormulario">Margen:<br />
+                                  <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                                <td align="left" valign="top" class="EstFormulario"><input name="CmpVentaDirectaDetallePorcentajeUtilidad" type="text" class="EstFormularioCajaDeshabilitada" id="CmpVentaDirectaDetallePorcentajeUtilidad" size="5" maxlength="5" readonly="readonly"  /></td>
+                                <td align="left" valign="top" class="EstFormulario">Otros Costos:<br />
+                                  <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                                <td align="left" valign="top" class="EstFormulario"><input name="CmpVentaDirectaDetallePorcentajeOtroCosto" type="text" class="EstFormularioCajaDeshabilitada" id="CmpVentaDirectaDetallePorcentajeOtroCosto" size="5" maxlength="5" readonly="readonly"  /></td>
+                                <td align="left" valign="top" class="EstFormulario">Mano de Obra:<br />
+                                  <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                                <td align="left" valign="top" class="EstFormulario"><input name="CmpVentaDirectaDetallePorcentajeManoObra" type="text" class="EstFormularioCajaDeshabilitada" id="CmpVentaDirectaDetallePorcentajeManoObra" size="5" maxlength="5" readonly="readonly"  /></td>
+                                <td align="left" valign="top" class="EstFormulario">Adicional:<br />
+                                  <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                                <td align="left" valign="top" class="EstFormulario"><input name="CmpVentaDirectaDetallePorcentajeAdicional" type="text" class="EstFormularioCajaDeshabilitada" id="CmpVentaDirectaDetallePorcentajeAdicional" size="5" maxlength="5" readonly="readonly"  /></td>
+                                <td align="left" valign="top" class="EstFormulario">Descuento:<br />
+                                  <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                                <td align="left" valign="top" class="EstFormulario"><input name="CmpVentaDirectaDetallePorcentajeDescuento" type="text" class="EstFormularioCaja" id="CmpVentaDirectaDetallePorcentajeDescuento" size="5" maxlength="5"  /></td>
+                                <td align="left" valign="top" class="EstFormulario">Pedido:<br />
+                                  <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                                <td align="left" valign="top" class="EstFormulario"><input name="CmpVentaDirectaDetallePorcentajePedido" type="text" class="EstFormularioCajaDeshabilitada" id="CmpVentaDirectaDetallePorcentajePedido" size="5" maxlength="5" readonly="readonly"  /></td>
+                                <td align="left" valign="top" class="EstFormulario">Valor: </td>
+                                <td align="left" valign="top" class="EstFormulario"><input name="CmpVentaDirectaDetalleValorVenta" type="text" class="EstFormularioCajaDeshabilitada" id="CmpVentaDirectaDetalleValorVenta" size="5" maxlength="5" readonly="readonly"  /></td>
+                              </tr>
+                            </table></td>
+                            <td>&nbsp;</td>
+                          </tr>
+                          </table>                      
+                        </td>
+                      </tr>
+                    </table>
+                  </div>             
+                
+                <?php
+			//}
+			?>
+                
+                
+                </td>
+            </tr>
+            
+            <tr>
+              <td valign="top"><div class="EstFormularioArea" >
+                <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                  <tr>
+                    <td width="1%"><input type="hidden" name="CmpVentaDirectaDetalleAccion" id="CmpVentaDirectaDetalleAccion" value="AccVentaDirectaDetalleRegistrar.php" /></td>
+                    <td width="49%"><div class="EstFormularioAccion" id="CapProductoAccion">Listo
+                      para registrar elementos</div></td>
+                    <td width="49%" align="right">
+                      
+                      <a href="javascript:FncVentaDirectaDetalleListar();"><img src="imagenes/acciones/listado_recargar.png" width="25" height="25" border="0" title="Recargar" alt="[Recargar]" align="absmiddle" /> Recargar</a>
+                      
+                      <?php
+if($InsVentaDirecta->VdiOrigen <> "CPR"){
+?>
+                      <a href="javascript:FncVentaDirectaDetalleEliminarTodo();"><img  src="imagenes/acciones/listado_eliminar_todo.png"  width="25" height="25"  border="0" title="Eliminar Todo"   alt="[Eli. Todo.]" align="absmiddle"/> Eliminar Todo</a>
+                      <?php
+}
+?>        
+                      
+                      
+                      </td>
+                    <td width="1%"><div id="CapVentaDirectaDetallesResultado"> </div></td>
+                    </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="2"><div id="CapVentaDirectaDetalles" class="EstCapVentaDirectaDetalles" > </div></td>
+                    <td>&nbsp;</td>
+                    </tr>
+                  </table>
+                </div></td>
+            </tr>
+            <tr>
+              <td valign="top"><div class="EstFormularioArea">
+                <table class="EstFormulario" border="0" cellpadding="2" cellspacing="2">
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="5"><span class="EstFormularioSubTitulo">PLANCHADO </span><span class="EstFormularioSubTitulo">
+                      <input type="hidden" name="CmpVentaDirectaPlanchadoItem" id="CmpVentaDirectaPlanchadoItem" />
+                      <input type="hidden" name="CmpVentaDirectaPlanchadoId"  class="EstFormularioCaja" id="CmpVentaDirectaPlanchadoId"  />
+                      </span></td>
+                    </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="hidden" name="CmpVentaDirectaPlanchadoAccion" id="CmpVentaDirectaPlanchadoAccion" value="AccVentaDirectaPlanchadoRegistrar.php" /></td>
+                    <td>Nombre : </td>
+                    <td> Importe:</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><a href="javascript:FncVentaDirectaPlanchadoNuevo();"><img src="imagenes/acciones/limpiar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
+                    <td><input name="CmpVentaDirectaPlanchadoDescripcion" type="text" class="EstFormularioCaja" id="CmpVentaDirectaPlanchadoDescripcion" size="60" /></td>
+                    <td><input name="CmpVentaDirectaPlanchadoImporte" type="text" class="EstFormularioCaja" id="CmpVentaDirectaPlanchadoImporte" size="10" maxlength="10"  /></td>
+                    <td><a href="javascript:FncVentaDirectaPlanchadoGuardar();"><img src="imagenes/acciones/guardar.png" width="25" height="25" border="0" title="Guardar" alt="[Guardar]" align="absmiddle" /></a></td>
+                    <td>&nbsp;</td>
+                    </tr>
+                  </table>
+                </div></td>
+            </tr>
+            <tr>
+              <td valign="top"><div class="EstFormularioArea" >
+                <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                  <tr>
+                    <td width="1%">&nbsp;</td>
+                    <td width="48%"><div class="EstFormularioAccion" id="CapVentaDirectaPlanchadoAccion">Listo
+                      para registrar elementos</div></td>
+                    <td width="50%" align="right"><a href="javascript:FncVentaDirectaPlanchadoListar();"><img src="imagenes/acciones/listado_recargar.png" width="25" height="25" border="0" title="Recargar" alt="[Recargar]" align="absmiddle" /> Recargar</a> <a href="javascript:FncVentaDirectaPlanchadoEliminarTodo();"><img  src="imagenes/acciones/listado_eliminar_todo.png"  width="25" height="25"  border="0" title="Eliminar Todo"   alt="[Eli. Todo.]" align="absmiddle"/> Eliminar Todo</a></td>
+                    <td width="1%">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="2"><div id="CapVentaDirectaPlanchados" class="EstCapVentaDirectaPlanchados" > </div></td>
+                    <td><div id="CapVentaDirectaPlanchadosResultado"> </div></td>
+                  </tr>
+                </table>
+              </div></td>
+            </tr>
+            <tr>
+              <td valign="top"><div class="EstFormularioArea">
+                <table class="EstFormulario" border="0" cellpadding="2" cellspacing="2">
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="5"><span class="EstFormularioSubTitulo">PINTADO</span>
+                      <input type="hidden" name="CmpVentaDirectaPintadoItem" id="CmpVentaDirectaPintadoItem" />
+                      <input type="hidden" name="CmpVentaDirectaPintadoId"  class="EstFormularioCaja" id="CmpVentaDirectaPintadoId"  />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="hidden" name="CmpVentaDirectaPintadoAccion" id="CmpVentaDirectaPintadoAccion" value="AccVentaDirectaPintadoRegistrar.php" /></td>
+                    <td>Nombre : </td>
+                    <td> Importe:</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><a href="javascript:FncVentaDirectaPintadoNuevo();"><img src="imagenes/acciones/limpiar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
+                    <td><input name="CmpVentaDirectaPintadoDescripcion" type="text" class="EstFormularioCaja" id="CmpVentaDirectaPintadoDescripcion" size="60" /></td>
+                    <td><input name="CmpVentaDirectaPintadoImporte" type="text" class="EstFormularioCaja" id="CmpVentaDirectaPintadoImporte" size="10" maxlength="10"  /></td>
+                    <td><a href="javascript:FncVentaDirectaPintadoGuardar();"><img src="imagenes/acciones/guardar.png" width="25" height="25" border="0" title="Guardar" alt="[Guardar]" align="absmiddle" /></a></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </table>
+              </div></td>
+            </tr>
+            <tr>
+              <td valign="top"><div class="EstFormularioArea" >
+                <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                  <tr>
+                    <td width="1%">&nbsp;</td>
+                    <td width="48%"><div class="EstFormularioAccion" id="CapVentaDirectaPintadoAccion">Listo
+                      para registrar elementos</div></td>
+                    <td width="50%" align="right"><a href="javascript:FncVentaDirectaPintadoListar();"><img src="imagenes/acciones/listado_recargar.png" width="25" height="25" border="0" title="Recargar" alt="[Recargar]" align="absmiddle" /> Recargar</a> <a href="javascript:FncVentaDirectaPintadoEliminarTodo();"><img  src="imagenes/acciones/listado_eliminar_todo.png"  width="25" height="25"  border="0" title="Eliminar Todo"   alt="[Eli. Todo.]" align="absmiddle"/> Eliminar Todo</a></td>
+                    <td width="1%">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="2"><div id="CapVentaDirectaPintados" class="EstCapVentaDirectaPintados" > </div></td>
+                    <td><div id="CapVentaDirectaPintadosResultado"> </div></td>
+                  </tr>
+                </table>
+              </div></td>
+            </tr>
+            <tr>
+              <td valign="top"><div class="EstFormularioArea">
+                <table class="EstFormulario" border="0" cellpadding="2" cellspacing="2">
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="5"><span class="EstFormularioSubTitulo">CENTRADO</span>
+                      <input type="hidden" name="CmpVentaDirectaCentradoItem" id="CmpVentaDirectaCentradoItem" />
+                      <input type="hidden" name="CmpVentaDirectaCentradoId"  class="EstFormularioCaja" id="CmpVentaDirectaCentradoId"  />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="hidden" name="CmpVentaDirectaCentradoAccion" id="CmpVentaDirectaCentradoAccion" value="AccVentaDirectaCentradoRegistrar.php" /></td>
+                    <td>Nombre : </td>
+                    <td> Importe:</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><a href="javascript:FncVentaDirectaCentradoNuevo();"><img src="imagenes/acciones/limpiar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
+                    <td><input name="CmpVentaDirectaCentradoDescripcion" type="text" class="EstFormularioCaja" id="CmpVentaDirectaCentradoDescripcion" size="60" /></td>
+                    <td><input name="CmpVentaDirectaCentradoImporte" type="text" class="EstFormularioCaja" id="CmpVentaDirectaCentradoImporte" size="10" maxlength="10"  /></td>
+                    <td><a href="javascript:FncVentaDirectaCentradoGuardar();"><img src="imagenes/acciones/guardar.png" width="25" height="25" border="0" title="Guardar" alt="[Guardar]" align="absmiddle" /></a></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </table>
+              </div></td>
+            </tr>
+            <tr>
+              <td valign="top"><div class="EstFormularioArea" >
+                <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                  <tr>
+                    <td width="1%">&nbsp;</td>
+                    <td width="48%"><div class="EstFormularioAccion" id="CapVentaDirectaCentradoAccion">Listo
+                      para registrar elementos</div></td>
+                    <td width="50%" align="right"><a href="javascript:FncVentaDirectaCentradoListar();"><img src="imagenes/acciones/listado_recargar.png" width="25" height="25" border="0" title="Recargar" alt="[Recargar]" align="absmiddle" /> Recargar</a> <a href="javascript:FncVentaDirectaCentradoEliminarTodo();"><img  src="imagenes/acciones/listado_eliminar_todo.png"  width="25" height="25"  border="0" title="Eliminar Todo"   alt="[Eli. Todo.]" align="absmiddle"/> Eliminar Todo</a></td>
+                    <td width="1%">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="2"><div id="CapVentaDirectaCentrados" class="EstCapVentaDirectaCentrados" > </div></td>
+                    <td><div id="CapVentaDirectaCentradosResultado"> </div></td>
+                  </tr>
+                </table>
+              </div></td>
+            </tr>
+            <tr>
+              <td valign="top"><div class="EstFormularioArea">
+                <table class="EstFormulario" border="0" cellpadding="2" cellspacing="2">
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="5">TAREAS<span class="EstFormularioSubTitulo">
+                      <input type="hidden" name="CmpVentaDirectaTareaItem" id="CmpVentaDirectaTareaItem" />
+                      <input type="hidden" name="CmpVentaDirectaTareaId"  class="EstFormularioCaja" id="CmpVentaDirectaTareaId"  />
+                    </span></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="hidden" name="CmpVentaDirectaTareaAccion" id="CmpVentaDirectaTareaAccion" value="AccVentaDirectaTareaRegistrar.php" /></td>
+                    <td>Nombre : </td>
+                    <td> Importe:</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><a href="javascript:FncVentaDirectaTareaNuevo();"><img src="imagenes/acciones/limpiar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
+                    <td><input name="CmpVentaDirectaTareaDescripcion" type="text" class="EstFormularioCaja" id="CmpVentaDirectaTareaDescripcion" size="60" /></td>
+                    <td><input name="CmpVentaDirectaTareaImporte" type="text" class="EstFormularioCaja" id="CmpVentaDirectaTareaImporte" size="10" maxlength="10"  /></td>
+                    <td><a href="javascript:FncVentaDirectaTareaGuardar();"><img src="imagenes/acciones/guardar.png" width="25" height="25" border="0" title="Guardar" alt="[Guardar]" align="absmiddle" /></a></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </table>
+              </div></td>
+            </tr>
+            <tr>
+              <td valign="top"><div class="EstFormularioArea" >
+                <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                  <tr>
+                    <td width="1%">&nbsp;</td>
+                    <td width="48%"><div class="EstFormularioAccion" id="CapVentaDirectaTareaAccion">Listo
+                      para registrar elementos</div></td>
+                    <td width="50%" align="right"><a href="javascript:FncVentaDirectaTareaListar();"><img src="imagenes/acciones/listado_recargar.png" width="25" height="25" border="0" title="Recargar" alt="[Recargar]" align="absmiddle" /> Recargar</a> <a href="javascript:FncVentaDirectaTareaEliminarTodo();"><img  src="imagenes/acciones/listado_eliminar_todo.png"  width="25" height="25"  border="0" title="Eliminar Todo"   alt="[Eli. Todo.]" align="absmiddle"/> Eliminar Todo</a></td>
+                    <td width="1%">&nbsp;</td>
+                    </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="2"><div id="CapVentaDirectaTareas" class="EstCapVentaDirectaTareas" > </div></td>
+                    <td><div id="CapVentaDirectaTareasResultado"> </div></td>
+                    </tr>
+                  </table>
+                </div></td>
+            </tr>
+            <tr>
+              <td valign="top"><div class="EstFormularioArea" >
+                <table width="100%" border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                  <tr>
+                    <td width="1%">&nbsp;</td>
+                    <td width="98%" colspan="2"><div id="CapVentaDirectaTotals" class="EstCapVentaDirectaTotals" > </div></td>
+                    <td width="1%"></td>
+                  </tr>
+                  </table>
+                </div></td>
+            </tr>
+            </table>
+          
+          
+    </div>
+    
+    
+    <div id="tab2" class="tab_content">
+    
+    
+    
+            <!--Content-->
+	<table width="100%" border="0" cellpadding="2" cellspacing="2">
+	<tr>
+		<td width="97%" valign="top">
+        
+                  <div class="EstFormularioArea">
+                <table class="EstFormulario" border="0" cellpadding="2" cellspacing="2">
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="4"><span class="EstFormularioSubTitulo">Archivos de Referencia</span></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="4">Archivo Ord. Compra Ref.:</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="4">
+
+
+			    <div class="EstFormularioArea" >
+                
+                <div class="EstCapVentaDirectaFotos">
+                
+                    <iframe src="formularios/VentaDirecta/acc/AccVentaDirectaSubirArchivo.php?Identificador=<?php echo $Identificador;?>" id="IfrVentaDirectaSubirArchivo" name="IfrVentaDirectaSubirArchivo" scrolling="auto"  frameborder="0" width="600" height="200"></iframe>
+                    </div>
+                    </div>
+                    
+                    </td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="4"><span class="EstFormularioSubTitulo">Archivos de Actas de Entrega</span></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="4"><div class="EstFormularioArea" >
+                       <table border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                         <tr>
+                           <td width="4" align="left" valign="top">&nbsp;</td>
+                           <td width="139" align="left" valign="top">&nbsp;</td>
+                           <td width="136" align="right" valign="top">
+                             
+                             <a href="javascript:FncVentaDirectaFotoListar('A');"><img src="imagenes/acciones/listado_recargar.png" width="25" height="25" border="0" title="Recargar" alt="[Recargar]" align="absmiddle" /> Recargar</a>
+                             
+                             </td>
+                           <td width="4" align="left" valign="top">&nbsp;</td>
+                           </tr>
+                         <tr>
+                           <td align="left" valign="top">&nbsp;</td>
+                           <td colspan="2" align="left" valign="top">
+                             <div id="fileuploaderA">Escoger Archivos</div>
+                             
+                             
+                             
+                             <script type="text/javascript">
+		$(document).ready(function(){
+
+				$("#fileuploaderA").uploadFile({
+					
+				allowedTypes:"png,gif,jpg,jpeg,pdf",
+				url:"formularios/VentaDirecta/acc/AccVentaDirectaSubirFoto.php",
+				formData: {"Identificador":"<?php echo $Identificador;?>","Tipo":"A"},
+				multiple:true,
+				autoSubmit:true,
+				fileName:"Filedata",
+				showStatusAfterSuccess:false,
+				dragDropStr: "<span><b>Arrastre y suelte aqui los archivos.</b></span>",
+				abortStr:"Abortar",
+				cancelStr:"Cancelar",
+				doneStr:"Hecho",
+				multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
+				extErrorStr:"Extension de archivo no permitido",
+				sizeErrorStr:"Tamaño no permitido",
+				uploadErrorStr:"No se pudo subir el archivo",
+				
+				dragdropWidth: 500,
+				
+				onSuccess:function(files,data,xhr){
+					FncVentaDirectaFotoListar("A");
+				}
+	
+	});
+});
+              
+            </script>
+                             
+                             
+                             
+                             
+                           </td>
+                           <td align="left" valign="top">&nbsp;</td>
+                           </tr>
+                         <tr>
+                           <td align="left" valign="top">&nbsp;</td>
+                           <td colspan="2" align="left" valign="top"><div class="EstCapVentaDirectaFotos" id="CapVentaDirectaFotosA"></div></td>
+                           <td align="left" valign="top">&nbsp;</td>
+                         </tr>
+                         <tr>
+                           <td align="left" valign="top">&nbsp;</td>
+                           <td colspan="2" align="left" valign="top">
+                             
+                             <div id="CapVentaDirectaFotosAccionA"></div>
+                             </td>
+                           <td align="left" valign="top">&nbsp;</td>
+                         </tr>
+                         </table>
+                     </div></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="4"><span class="EstFormularioSubTitulo">Archivos de Guias de Remision</span></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="4"><div class="EstFormularioArea" >
+                       <table border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
+                         <tr>
+                           <td width="4" align="left" valign="top">&nbsp;</td>
+                           <td width="139" align="left" valign="top">&nbsp;</td>
+                           <td width="136" align="right" valign="top">
+                             
+                             <a href="javascript:FncVentaDirectaFotoListar('G');"><img src="imagenes/acciones/listado_recargar.png" width="25" height="25" border="0" title="Recargar" alt="[Recargar]" align="absmiddle" /> Recargar</a>
+                             
+                             </td>
+                           <td width="4" align="left" valign="top">&nbsp;</td>
+                           </tr>
+                         <tr>
+                           <td align="left" valign="top">&nbsp;</td>
+                           <td colspan="2" align="left" valign="top">
+                             <div id="fileuploaderG">Escoger Archivos</div>
+                             
+                             
+                             
+                             <script type="text/javascript">
+		$(document).ready(function(){
+
+				$("#fileuploaderG").uploadFile({
+					
+				allowedTypes:"png,gif,jpg,jpeg,pdf",
+				url:"formularios/VentaDirecta/acc/AccVentaDirectaSubirFoto.php",
+				formData: {"Identificador":"<?php echo $Identificador;?>","Tipo":"G"},
+				multiple:true,
+				autoSubmit:true,
+				fileName:"Filedata",
+				showStatusAfterSuccess:false,
+				dragDropStr: "<span><b>Arrastre y suelte aqui los archivos.</b></span>",
+				abortStr:"Abortar",
+				cancelStr:"Cancelar",
+				doneStr:"Hecho",
+				multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
+				extErrorStr:"Extension de archivo no permitido",
+				sizeErrorStr:"Tamaño no permitido",
+				uploadErrorStr:"No se pudo subir el archivo",
+				
+				dragdropWidth: 500,
+				
+				onSuccess:function(files,data,xhr){
+					FncVentaDirectaFotoListar("G");
+				}
+	
+	});
+});
+              
+            </script>
+                             
+                             
+                             
+                             
+                           </td>
+                           <td align="left" valign="top">&nbsp;</td>
+                           </tr>
+                         <tr>
+                           <td align="left" valign="top">&nbsp;</td>
+                           <td colspan="2" align="left" valign="top"><div class="EstCapVentaDirectaFotos" id="CapVentaDirectaFotosG"></div></td>
+                           <td align="left" valign="top">&nbsp;</td>
+                         </tr>
+                         <tr>
+                           <td align="left" valign="top">&nbsp;</td>
+                           <td colspan="2" align="left" valign="top">
+                             
+                             <div id="CapVentaDirectaFotosAccionG"></div>
+                             </td>
+                           <td align="left" valign="top">&nbsp;</td>
+                         </tr>
+                         </table>
+                     </div></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  </table>
+              </div>
+              
+		</td>
+	</tr>
+	</table>
+     
+     
+     
+    
+    </div>
+    
+	
+</div>      
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <td colspan="2" align="center">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+	
+	
+	
+  
+
+
+<!--  -->
+  
+</form>
+
+<script type="text/javascript">
+Calendar.setup({ 
+	inputField : "CmpFecha",  // id del campo de texto 
+	ifFormat   : "%d/%m/%Y",  //  
+	button     : "BtnFecha"// el id del botón que  
+	});
+</script>
+
+
+<script type="text/javascript">
+Calendar.setup({ 
+	inputField : "CmpOrdenCompraFecha",  // id del campo de texto 
+	ifFormat   : "%d/%m/%Y",  //  
+	button     : "BtnOrdenCompraFecha"// el id del botón que  
+	});
+</script>
+<?php
+}else{
+	echo ERR_GEN_101;
+}
+
+
+	if(!$_SESSION['MysqlDeb']){
+		$InsMensaje->MtdRedireccionar("principal.php?Mod=".$GET_mod."&Form=Listado",$Registro,1500);
+	}
+	
+	
+
+?>

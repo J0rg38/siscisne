@@ -1,0 +1,176 @@
+
+/*
+* IMPRESION
+*/
+table.EstIngresoCajaImprimirTabla{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+/*
+* HEAD
+*/
+thead.EstIngresoCajaImprimirTablaHead{
+	background-image:url(../../../imagenes/tabla_barra.png);
+	/*background-color:#333;*/
+	height:20px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+thead.EstIngresoCajaImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	/*height:25px;*/
+}
+
+/*
+* BODY
+*/
+tbody.EstIngresoCajaImprimirTablaBody{
+	font-size:10px;
+}
+
+tbody.EstIngresoCajaImprimirTablaBody td {
+	background-color:#FFF;
+
+	border:#CCC 1px solid ; 
+	padding:2px;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstIngresoCajaImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#999;
+	text-transform: uppercase;  
+}
+
+.EstIngresoCajaImprimirContenido{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:10px;
+}
+
+.EstIngresoCajaImprimirObservacion{
+	text-align:justify;
+	
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:10px;
+}
+
+
+/*
+* TEXTO BODY OTROS
+*/
+.EstIngresoCajaImprimirContenidoEspecial{
+	letter-spacing:3px;
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+
+.EstIngresoCajaImprimirContenidoFecha{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:16px;
+}
+
+.EstIngresoCajaImprimirMoneda{
+	font-weight:bold;
+	font-size:8px;
+}
+
+.EstIngresoCajaImprimirFecha{
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstIngresoCajaImprimirCliente{
+	font-weight:bold;
+	font-size:12px;
+}
+
+.EstIngresoCajaImprimirRepresentante{
+	font-weight:bold;
+	font-size:10px;
+}
+
+/*
+* TEXTO DETALLE 
+*/
+.EstIngresoCajaDetalleImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#0066CC;
+}
+
+.EstIngresoCajaDetalleImprimirContenido td{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstIngresoCajaImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstIngresoCajaImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* CABECERAS
+*/
+.EstIngresoCajaImprimirCabecera{
+	font-weight:bold;
+	font-size:14px;
+}
+
+.EstIngresoCajaImprimirSubcabecera{
+	font-weight:bold;
+	font-size:10px;
+}
+
+
+
+.EstIngresoCajaImprimirEtiqueta2{
+	background-color:#900;
+}
+
+
+.EstIngresoCajaImprimirNota1{
+	font-size:10px;
+}
+
+.EstIngresoCajaImprimirNota2{
+	font-size:10px;
+}
+
+.EstIngresoCajaImprimirNota3{
+	font-size:10px;
+	font-weight:bold;
+}
+
+.EstIngresoCajaImprimirFirma{
+	font-size:10px;
+}
+
+
+
+.EstCapIngresoTotal{
+	border:#000 3px solid;
+}

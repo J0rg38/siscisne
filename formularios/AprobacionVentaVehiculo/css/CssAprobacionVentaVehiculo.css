@@ -1,0 +1,67 @@
+.EstCapAprobacionVentaVehiculoPropietarios{
+	background-color:#E6E6E6;
+	border:#000000 1px solid;
+	height:auto;
+	min-height:50px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+
+.EstCapAprobacionVentaVehiculoLlamadas{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:50px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+
+
+
+
+.EstCapVehiculoIngreso{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	
+	height:auto;
+	min-height:50px;
+	
+	min-width:800px;
+	width:auto;
+	
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+ 
+}
+
+
+
+
+
+
+
+.EstVehiculoListaPrecioDetallePrecioLista{
+	font-size:18px;
+}
+
+
+
+.EstVehiculoListaPrecioDetallePrecioCierre{
+	font-size:18px;
+}
+
+
+
+.EstVehiculoListaPrecioDetalleAno{
+	font-size:14px;
+}

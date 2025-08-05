@@ -1,0 +1,10 @@
+# NOTIFICAR CITAS
+
+00 07 * * * root cd /var/www/html/siscisne/tareas && sh ./TarNotificarCitasHoy.sh
+15 07 * * * root cd /var/www/html/siscisne/tareas && sh ./TarNotificarCitasHoyPA.sh
+16 07 * * * root cd /var/www/html/siscisne/tareas && sh ./TarNotificarCitasHoyAV.sh
+17 07 * * * root cd /var/www/html/siscisne/tareas && sh ./TarNotificarCitasHoyJU.sh
+18 07 * * * root cd /var/www/html/siscisne/tareas && sh ./TarNotificarCitasHoyTQ.sh
+19 07 * * * root cd /var/www/html/siscisne/tareas && sh ./TarNotificarCitasHoyPM.sh
+20 07 * * * root cd /var/www/html/siscisne/tareas && sh ./TarNotificarCitasHoyCQ.sh
+21 07 * * * root cd /var/www/html/siscisne/tareas && sh ./TarNotificarCitasHoyPI.sh

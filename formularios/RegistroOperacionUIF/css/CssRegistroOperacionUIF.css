@@ -1,0 +1,123 @@
+
+
+/*
+* IMPRESION
+*/
+table.EstRegistroOperacionUIFImprimirTabla{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstRegistroOperacionUIFImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstRegistroOperacionUIFImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstRegistroOperacionUIFImprimirTablaBody{
+font-size:12px;
+}
+
+tbody.EstRegistroOperacionUIFImprimirTablaBody td {
+	background-color:#FFF;
+	/*padding-left:2px;
+	padding-right:2px;*/
+	border:#CCC 1px solid ; 
+	padding:0px;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstRegistroOperacionUIFImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#000;
+	text-transform: uppercase;  
+}
+
+.EstRegistroOperacionUIFImprimirContenido{
+	/*font-weight:bold;*/
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:11px;
+}
+
+/*
+* TEXTO BODY OTROS
+*/
+
+
+.EstRegistroOperacionUIFImprimirFirma{
+/*	letter-spacing:3px;*/
+	/*font-weight:bold;
+*/	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+.EstRegistroOperacionUIFImprimirMensaje{
+/*	letter-spacing:3px;*/
+	/*font-weight:bold;
+*/	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+.EstRegistroOperacionUIFImprimirSeparacion{
+	border:1px dotted #333;
+	/*width:90%;*/
+
+}
+
+.EstRegistroOperacionUIFImprimirImportante{
+/*	letter-spacing:3px;*/
+	/*font-weight:bold;
+*/	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	font-weight:bold;
+
+}
+
+.EstRegistroOperacionUIFImprimirAdorno{
+	border:2px solid  #333;
+	
+}
+/*
+* TEXTO DETALLE 
+*/
+
+/*
+* TEXTO TOTAL
+*/
+
+
+/*
+* TEXTO TOTAL OTROS
+*/
+
+
+/*
+* CABECERAS
+*/
+.EstRegistroOperacionUIFImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstRegistroOperacionUIFImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+

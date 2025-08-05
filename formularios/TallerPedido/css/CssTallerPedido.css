@@ -1,0 +1,299 @@
+.EstCapTallerPedidoMantenimientos{
+/*
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	min-height:200px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;*/
+		
+}
+
+.EstCapTallerPedidoFotoVINs{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:50px;
+	width:90px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+.EstCapTallerPedidoFotoDelanteras{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:50px;
+	width:90px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+.EstCapTallerPedidoFotoCupones{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:50px;
+	width:90px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+.EstCapTallerPedidoFotoMantenimientos{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:50px;
+	width:90px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+
+
+
+
+
+.EstCapTallerPedidoMantenimientos{
+
+}
+
+
+.EstCapTallerPedidoTotales{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	min-height:100px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+
+
+.EstCapTallerPedidoDetalles{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	min-height:200px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+
+.EstCapTallerPedidoHerramientas{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:250px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+.EstCapTallerPedidoGastos{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:250px;
+	width:100%;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+.EstCapTallerPedidoHistoriales{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	min-height:200px;
+	min-width:800px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+.EstCapTallerPedidoCotizaciones{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	min-height:200px;
+	min-width:800px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+
+
+.EstCapTallerPedidoFotos{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	height:auto;
+	min-height:50px;
+	width:400px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+.EstCapTallerPedidoFichas{
+	background-color:#F4F4F4;
+	border:#CCC 1px solid;
+	min-height:100px;
+	width:800px;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:2px;
+	overflow:auto;
+}
+
+
+
+
+/*
+* IMPRESION
+*/
+table.EstTallerPedidoImprimirTabla{
+font-family:Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstTallerPedidoImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstTallerPedidoImprimirTablaHead th{
+padding-left:2px;
+padding-right:2px;
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstTallerPedidoImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstTallerPedidoImprimirTablaBody td {
+background-color:#FFF;
+padding-left:2px;
+padding-right:2px;
+border:#CCC 1px solid ; 
+}
+
+/*
+* TEXTO BODY
+*/
+.EstTallerPedidoImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+color:#FFF;;
+}
+
+.EstTallerPedidoImprimirContenido{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+/*
+* TEXTO BODY OTROS
+*/
+.EstTallerPedidoImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+.EstTallerPedidoImprimirContenidoFecha{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:16px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstTallerPedidoDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstTallerPedidoDetalleImprimirContenido td{
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstTallerPedidoImprimirEtiquetaTotal{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#FFF;;
+}
+.EstTallerPedidoImprimirContenidoTotal{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstTallerPedidoImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+/*
+* CABECERAS
+*/
+.EstTallerPedidoImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstTallerPedidoImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstTallerPedidoImprimirEtiqueta2{
+	background-color:#900;
+}
+
+
+
+
+.Anulado{
+    background-color:#F93;
+}
+.Considerar{
+    background-color:#0C3;
+}

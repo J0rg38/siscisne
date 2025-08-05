@@ -1,0 +1,122 @@
+
+
+
+/*
+* Impresion
+*/
+
+
+
+table.EstNotaDebitoImprimirTabla{
+font-family:Verdana, Geneva, sans-serif;
+}
+
+thead.EstNotaDebitoImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstNotaDebitoImprimirTablaHead th{
+padding-left:2px;
+padding-right:2px;
+/*height:25px;*/
+}
+
+
+tbody.EstNotaDebitoImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstNotaDebitoImprimirTablaBody td {
+background-color:#FFF;
+padding-left:2px;
+padding-right:2px;
+border:#CCC 1px solid ; 
+}
+
+
+
+
+
+
+
+.EstNotaDebitoImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+color:#0066CC;
+
+}
+
+.EstNotaDebitoImprimirContenido{
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:14px;
+
+}
+
+.EstNotaDebitoImprimirContenidoEspecial{
+	letter-spacing:3px;
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:14px;
+
+}
+
+/*
+* TEMPORALS
+*/
+.EstNotaDebitoImprimirContenidoDireccion{
+	font-weight:bold;
+	font-family:"Times New Roman", Times, serif;
+	font-size:12px;
+}
+
+
+.EstNotaDebitoImprimirContenidoFecha{
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:16px;
+
+}
+
+.EstNotaDebitoDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+color:#0066CC;
+
+}
+
+.EstNotaDebitoDetalleImprimirContenido{
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:14px;
+
+}
+
+
+
+
+.EstNotaDebitoImprimirEtiquetaTotal{
+font-weight:bold;
+}
+
+
+.EstNotaDebitoImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+
+.EstNotaDebitoImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstNotaDebitoImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}

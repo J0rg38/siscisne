@@ -1,0 +1,16 @@
+/* CSS Document */
+
+.EstDirectorioAnexoNumero{
+	font-family:Verdana, Geneva, sans-serif;
+	color:#06C;	
+	font-size:14px;
+	font-weight:bold;
+}
+
+.EstDirectorioAnexoPersonal{
+	font-family:Verdana, Geneva, sans-serif;
+	/*color:#06C;	*/
+	font-size:12px;
+	/*font-weight:bold;*/
+}
+

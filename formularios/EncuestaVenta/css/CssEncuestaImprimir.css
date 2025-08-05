@@ -1,0 +1,168 @@
+/*
+* Impresion
+*/
+
+/*
+* TABLA
+*/
+table.EstEncuestaImprimirTabla{
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+/*
+* TABLA HEAD
+*/
+thead.EstEncuestaImprimirTablaHead{
+/*	background-image:url(../../../imagenes/tabla_barra.png);*/
+	height:20px;
+	font-size:10px;
+}
+
+thead.EstEncuestaImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+}
+
+/*
+* TABLA BODY
+*/
+tbody.EstEncuestaImprimirTablaBody{
+	font-size:10px;
+}
+
+tbody.EstEncuestaImprimirTablaBody td {
+	background-color:#FFF;
+	padding-left:2px;
+	padding-right:2px;
+	/*border:#CCC 1px solid ; */
+}
+
+/*
+* CONTENIDO
+*/
+.EstEncuestaImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+.EstEncuestaImprimirContenido{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+
+.EstEncuestaImprimirEtiquetaCaracteristica{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+.EstEncuestaImprimirContenidoCaracteristica{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+}
+
+/*
+* CONTENIDO ESPECIAL
+*/
+.EstEncuestaImprimirContenidoEspecial{
+	letter-spacing:3px;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+/*
+* CONTENIDO FECHA
+*/
+
+.EstEncuestaImprimirContenidoFecha{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+}
+
+/*
+* DETALLE
+*/
+.EstEncuestaDetalleImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+.EstEncuestaDetalleImprimirContenido{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+/*
+* TOTALES
+*/
+.EstEncuestaImprimirEtiquetaTotal{
+	font-weight:bold;
+	color:#0066CC;
+	text-transform: uppercase; 
+}
+
+
+/*
+* MONEDA
+*/
+.EstEncuestaImprimirMoneda{
+	font-weight:bold;
+	font-size:8px;
+}
+
+/*
+* CABECERAS
+*/
+.EstEncuestaImprimirCabecera{
+	font-weight:bold;
+	font-size:14px;
+}
+
+.EstEncuestaImprimirSubcabecera{
+	font-weight:bold;
+	font-size:10px;
+}
+
+/*
+.EstFacturImprimirCapaPrincipal{
+	position:relative;
+}
+
+.EstFacturImprimirObsequio{
+	position:absolute;
+	left: 183px;
+	top: 663px;
+	width: 302px;
+	height: 263px;
+	
+}
+
+
+.EstFacturImprimirSpot{
+	position:absolute;
+	left: 116px;
+	top: 993px;
+	
+}
+*/
+
+
+
+.EstEncuestaImprimirSeparacion{
+	border-top:dashed 1px #000;
+	margin:0px;
+	
+}

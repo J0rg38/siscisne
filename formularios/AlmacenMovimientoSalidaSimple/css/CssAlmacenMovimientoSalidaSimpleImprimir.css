@@ -1,0 +1,141 @@
+
+/*
+* IMPRESION
+*/
+table.EstAlmacenMovimientoSalidaSimpleImprimirTabla{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstAlmacenMovimientoSalidaSimpleImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstAlmacenMovimientoSalidaSimpleImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstAlmacenMovimientoSalidaSimpleImprimirTablaBody{
+font-size:12px;
+}
+
+tbody.EstAlmacenMovimientoSalidaSimpleImprimirTablaBody td {
+	background-color:#FFF;
+	/*padding-left:2px;
+	padding-right:2px;*/
+	border:#CCC 1px solid ; 
+	padding:5px;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstAlmacenMovimientoSalidaSimpleImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#000;
+	text-transform: uppercase;  
+}
+
+.EstAlmacenMovimientoSalidaSimpleImprimirContenido{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:12px;
+}
+/*
+* TEXTO BODY OTROS
+*/
+.EstAlmacenMovimientoSalidaSimpleImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+.EstAlmacenMovimientoSalidaSimpleImprimirContenidoFecha{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:16px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstAlmacenMovimientoSalidaSimpleDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstAlmacenMovimientoSalidaSimpleDetalleImprimirContenido td{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstAlmacenMovimientoSalidaSimpleImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstAlmacenMovimientoSalidaSimpleImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstAlmacenMovimientoSalidaSimpleImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+
+/*
+* CABECERAS
+*/
+.EstAlmacenMovimientoSalidaSimpleImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+text-decoration:underline;
+}
+
+.EstAlmacenMovimientoSalidaSimpleImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstAlmacenMovimientoSalidaSimpleImprimirEtiqueta2{
+	background-color:#900;
+}
+
+
+
+/*
+FONDOS
+*/
+
+.EstAlmacenMovimientoSalidaSimpleImprimirEtiquetaFondo{
+	background-color:#F2F2F2;
+	
+}

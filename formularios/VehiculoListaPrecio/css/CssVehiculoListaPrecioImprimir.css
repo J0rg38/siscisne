@@ -1,0 +1,32 @@
+
+table.EstVehiculoListaPrecioImprimirTabla{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+/*
+* HEAD
+*/
+thead.EstVehiculoListaPrecioImprimirTablaHead{
+	background-image:url(../../../imagenes/tabla_barra.png);
+	height:20px;
+	color:#FFFFFF;
+}
+
+thead.EstVehiculoListaPrecioImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	font-size:12px;
+}
+/*
+* BODY
+*/
+tbody.EstVehiculoListaPrecioImprimirTablaBody{
+	font-size:12px;
+}
+
+tbody.EstVehiculoListaPrecioImprimirTablaBody td {
+	background-color:#FFF;
+	border:#CCC 1px solid ; 
+	padding:3px;
+	font-size:12px;
+}

@@ -1,0 +1,33 @@
+.EstTablaMultipleTipoDestinoCampo{
+	vertical-align:middle;
+
+	display:table-cell;
+/*	border:1px solid #000;*/
+
+}
+
+
+
+.EstTablaMultipleTipoDestinoActivo{
+	
+}
+
+
+.EstTablaMultipleTipoDestinoInactivo{
+	display:none;
+}
+
+
+
+
+
+
+
+.EstPagoProveedorComprobanteActivo{
+	
+}
+
+
+.EstPagoProveedorComprobanteInactivo{
+	display:none;
+}

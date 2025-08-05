@@ -1,0 +1,158 @@
+
+
+div.saltopagina{ 
+	display:block; 
+	page-break-before:always;
+}
+   
+   
+   
+
+/*
+* IMPRESION
+*/
+table.EstReclamoImprimirTabla{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:8px;
+}
+/*
+* HEAD
+*/
+thead.EstReclamoImprimirTablaHead{
+	background-image:url(../../../imagenes/tabla_barra.png);
+	/*background-color:#333;*/
+	height:20px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+thead.EstReclamoImprimirTablaHead th{
+	padding-left:2px;
+	padding-right:2px;
+	text-transform: uppercase;  
+	/*height:25px;*/
+}
+/*
+* BODY
+*/
+tbody.EstReclamoImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstReclamoImprimirTablaBody td {
+	
+	
+	border:#333 1px solid ; 
+	
+	
+}
+
+/*
+* TEXTO BODY
+*/
+
+
+.EstReclamoImprimirSubTituloFondo{
+	background-color:#000;
+	
+}
+
+.EstReclamoImprimirSubTitulo{
+	color:#FFF;
+	font-weight:bold;
+}
+
+.EstReclamoImprimirEtiqueta{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+
+.EstReclamoImprimirContenido{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:10px;
+}
+
+.EstReclamoImprimirModalidadIngreso{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:14px;
+	text-transform: uppercase;  
+}
+
+/*
+* TEXTO BODY OTROS
+*/
+.EstReclamoImprimirContenidoEspecial{
+letter-spacing:3px;
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+
+.EstReclamoImprimirContenidoFecha{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO DETALLE 
+*/
+.EstReclamoDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#0066CC;
+}
+
+.EstReclamoDetalleImprimirContenido td{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+}
+/*
+* TEXTO TOTAL
+*/
+.EstReclamoImprimirEtiquetaTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#000;
+	text-transform: uppercase;  
+}
+.EstReclamoImprimirContenidoTotal{
+	font-weight:bold;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+/*
+* TEXTO TOTAL OTROS
+*/
+.EstReclamoImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+/*
+* CABECERAS
+*/
+.EstReclamoImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstReclamoImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}
+
+
+
+
+
+.EstReclamoImprimirEtiqueta2{
+	background-color:#900;
+}

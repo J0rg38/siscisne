@@ -1,0 +1,118 @@
+/* CSS Document */
+
+
+/*
+* Impresion
+*/
+
+table.EstConductorImprimirTabla{
+font-family:Verdana, Geneva, sans-serif;
+}
+
+thead.EstConductorImprimirTablaHead{
+background-image:url(../../../imagenes/tabla_barra.png);
+/*background-color:#333;*/
+height:20px;
+font-size:10px;
+color:#FFFFFF;
+}
+
+thead.EstConductorImprimirTablaHead th{
+padding-left:2px;
+padding-right:2px;
+/*height:25px;*/
+}
+
+
+tbody.EstConductorImprimirTablaBody{
+font-size:10px;
+}
+
+tbody.EstConductorImprimirTablaBody td {
+background-color:#FFF;
+padding-left:2px;
+padding-right:2px;
+border:#CCC 1px solid ; 
+}
+
+
+
+
+
+
+.EstConductorImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+color:#0066CC;
+
+}
+
+.EstConductorImprimirContenido{
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:12px;
+}
+
+.EstConductorImprimirContenidoEspecial{
+letter-spacing: 3px; 
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:14px;
+}
+
+/*
+* TEMPORALS
+*/
+.EstConductorImprimirContenidoDireccion{
+	font-weight:bold;
+	font-family:"Times New Roman", Times, serif;
+	font-size:10px;
+}
+
+
+.EstConductorImprimirContenidoFecha{
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:16px;
+
+}
+
+
+.EstConductorDetalleImprimirEtiqueta{
+font-weight:bold;
+font-family:Arial, Helvetica, sans-serif;
+font-size:14px;
+color:#0066CC;
+
+}
+
+.EstConductorDetalleImprimirContenido{
+font-weight:bold;
+font-family:"Times New Roman", Times, serif;
+font-size:12px;
+
+}
+
+
+
+
+.EstConductorImprimirEtiquetaTotal{
+font-weight:bold;
+}
+
+
+.EstConductorImprimirMoneda{
+font-weight:bold;
+font-size:8px;
+}
+
+.EstConductorImprimirCabecera{
+font-weight:bold;
+font-size:14px;
+}
+
+.EstConductorImprimirSubcabecera{
+font-weight:bold;
+font-size:10px;
+}

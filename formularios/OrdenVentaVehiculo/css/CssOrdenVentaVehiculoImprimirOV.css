@@ -1,0 +1,72 @@
+/*
+* IMPRESION
+*/
+	
+table.EstOrdenVentaVehiculoImprimirTabla{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+}
+
+/*
+* TABLA HEAD
+*/
+
+thead.EstOrdenVentaVehiculoImprimirTablaHead{
+/*	//background-image:url(../../../imagenes/tabla_barra.png);*/
+	background-color:#069;!important;
+	height:20px;
+	font-size:16px;
+	color:#FFFFFF;
+}
+
+tbody.EstOrdenVentaVehiculoImprimirTablaBody{
+	font-size:14px;
+}
+
+/*
+* TEXTO BODY
+*/
+.EstOrdenVentaVehiculoImprimirEtiqueta{
+	white-space:nowrap;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	text-transform: uppercase; 
+}
+
+.EstOrdenVentaVehiculoImprimirContenido{
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:12px;
+}
+
+
+
+
+.EstOrdenVentaVehiculoImprimirSubTitulo{
+	
+	font-size:14px;
+	font-weight:bold;
+	/*text-decoration:underline;*/
+	
+	/*border:#000000 1px solid;
+		border-radius: 5px;
+	line-height: 15px;*/
+}
+
+.EstOrdenVentaVehiculoImprimirCapaSubTitulo{
+	width:92%;
+	padding:5px;
+	border:#000000 1px solid;
+	border-radius: 5px;
+	line-height: 15px;
+}
+
+.EstOrdenVentaVehiculoImprimirCasilleroMarcar{
+	width:15px;
+	height:15px;
+	padding:5px;
+	border:#000000 1px solid;
+	border-radius: 5px;
+	line-height: 15px;
+}

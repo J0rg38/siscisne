@@ -1,0 +1,155 @@
+<?php
+require_once('../../../proyecto/ClsProyecto.php');
+require_once('../../../proyecto/ClsPoo.php');
+
+$InsProyecto->Ruta = '../../../';
+$InsPoo->Ruta = '../../../';
+
+////CONFIGURACIONES GENERALES
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+////MENSAJES GENERALES
+require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
+////require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
+//require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+
+////CLASES GENERALES
+require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+////FUNCIONES GENERALES
+require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+
+require_once($InsProyecto->MtdRutLibrerias().'class.numeroaletras.php');
+require_once($InsProyecto->MtdRutLibrerias().'nusoap-0.9.5/lib/nusoap.php');
+
+$GET_Nombre = $_GET['Nombre'];
+$GET_id = $_GET['Id'];
+$GET_ta = $_GET['Ta'];
+
+
+require_once($InsPoo->MtdPaqContabilidad().'ClsNotaCredito.php');
+require_once($InsPoo->MtdPaqContabilidad().'ClsNotaCreditoDetalle.php');
+require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
+require_once($InsPoo->MtdPaqContabilidad().'ClsTipoCambio.php');
+
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoPropietario.php');
+require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoObsequio.php');
+$Respuesta = 0;
+
+$file = $GET_Nombre;
+$ruta_local = '../../../recibidos/comprobantes';
+
+$remote_file = '/FIRMA/'.$file.'.xml';
+$local_file = $ruta_local.'/'.$file.'.xml';
+
+$ftp_server = $SistemaIpFacturador;
+$ftp_user_name = "sunat";
+$ftp_user_pass = "sunat";
+
+// set up basic connection
+$conn_id = ftp_connect($ftp_server);
+
+// login with username and password
+$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+ftp_pasv($conn_id, true);
+
+// upload a file
+//$fp = fopen($local_file, 'w');
+
+if (ftp_get($conn_id, $local_file, $remote_file, FTP_BINARY)) {
+		
+		$string = file_get_contents($local_file);
+		$parser = xml_parser_create('');
+  
+		xml_parser_set_option($parser, XML_OPTION_TARGET_ENCODING, "UTF-8");
+		xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
+		xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1);
+		xml_parse_into_struct($parser, trim($string), $xml_values);
+		xml_parser_free($parser);
+
+		$InsNotaCredito = new ClsNotaCredito();
+		$InsNotaCredito->NcrId = $GET_id;
+		$InsNotaCredito->NctId = $GET_ta;
+		
+		$digestvalue = "";
+		$signaturevalue = "";
+
+		for($i=1;$i<=150;$i++){
+
+			if($xml_values[$i]['tag']=="ds:DigestValue"){
+				$digestvalue = $xml_values[$i]['value'];
+			}
+
+			if($xml_values[$i]['tag']=="ds:SignatureValue"){
+				$signaturevalue = $xml_values[$i]['value'];
+			}
+
+		}
+		
+		
+		
+	//	deb($xml_values[42]['value']);
+		//deb($xml_values[0][42]->value);
+		//deb($xml_values[0][45]->value);
+		
+		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaEnvioDigestValue",$digestvalue,$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaEnvioSignatureValue",$signaturevalue,$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+		
+//		/*
+//		31 TICKET
+//		34 FECHA
+//		35 HORA
+//		65 RESPUESTA CODIGO
+//		59 RUC /X
+//		66 RESPUESTA
+//		*/
+//		
+//		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaEnvioTicket",$xml_values[31]['value'],$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+//		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaEnvioFecha",$xml_values[34]['value'],$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+//		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaEnvioHora",$xml_values[35],$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+//		
+//		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaEnvioCodigo",$xml_values[65]['value'],$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+//		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaEnvioContenido",$xml_values[66]['value'],$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+//		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaEnvioTiempoCreacion",date("Y-m-d H:i:s"),$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+//		
+//		$Observaciones = $InsNotaCredito->NcrSunatRespuestaObservacion;
+//		$Observaciones .= date("d/m/Y h:i:s")." - ".$xml_values[66]['value'].chr(13);
+//		
+//		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaObservacion",$Observaciones,$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+//		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaTicket",(!empty($xml_values[31]['value'])?$xml_values[31]['value']:$InsNotaCredito->NcrSunatRespuestaTicket),$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+//		$InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaTicketEstado","",$InsNotaCredito->NcrId,$InsNotaCredito->NctId);
+
+	if(empty($digestvalue) or empty($signaturevalue)){
+		$Respuesta = 3;
+	}else{
+		$Respuesta = 1;	
+	}
+	
+} else {
+	$Respuesta = 2;
+}
+
+// close the connection
+ftp_close($conn_id);
+
+$respuesta['Nombre'] = $GET_Nombre;
+$respuesta['CodigoRespuesta'] = $Respuesta;
+$respuesta['ArchivoRemoto'] = $remote_file;
+$respuesta['ArchivoLocal'] = $local_file;
+
+$respuesta['DigestValue'] = $digestvalue;
+$respuesta['SignatureValue'] = $signaturevalue;
+
+
+
+//$respuesta['ArchivoEnviar'] = $local_file;
+
+echo json_encode($respuesta);
+?>

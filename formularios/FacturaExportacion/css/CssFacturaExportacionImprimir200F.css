@@ -1,0 +1,17 @@
+.EstFacturaExportacionImprimirCapaPrincipal{
+	position:relative;
+}
+
+.EstFacturaExportacionImprimirObsequio{
+	position:absolute;
+	left: 198px;
+	top: 225px;
+	width: 302px;
+	height: 263px;
+}
+
+.EstFacturaExportacionImprimirSpot{
+	position:absolute;
+	left: 136px;
+	top: 882px;
+}

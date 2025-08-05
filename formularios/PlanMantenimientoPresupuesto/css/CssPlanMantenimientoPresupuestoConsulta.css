@@ -1,0 +1,35 @@
+/* CSS Document */
+
+table.EstPlanMantenimientoTabla{
+	white-space:nowrap;
+}
+
+table.EstPlanMantenimientoTabla td{
+	padding-left:2px;
+	padding-right:2px;
+	border:#CCC 1px solid ; 
+}
+
+.EstPlanMantenimientoTareaActivo{
+	background-color:#000;
+	text-decoration:none;	
+	font-weight:normal;
+	color:#FFF;
+}
+
+.EstPlanMantenimientoTareaInactivo{
+	text-decoration:none;	
+	font-weight:normal;
+}
+
+.EstPlanMantenimientoSeccion{
+	background-color:#CCC;
+	text-decoration:none;	
+}
+.EstPlanMantenimientoKilometrajeSeleccionado{
+	background-color:#069;
+	color:#FFF;
+	text-decoration:none;	
+}
+
+

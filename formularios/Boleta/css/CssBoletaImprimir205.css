@@ -1,0 +1,40 @@
+.EstBoletaImprimirCapaPrincipal{
+	position:relative;
+}
+
+.EstBoletaImprimirObsequio{
+	position:absolute;
+	left: 192px;
+	top: 279px;
+	width: 302px;
+	height: 263px;
+}
+
+.EstBoletaImprimirSpot{
+	position:absolute;
+	left: 136px;
+	top: 882px;
+}
+
+
+
+
+
+
+
+
+.EstBoletaImprimirEtiquetaCaracteristica{
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:9px;
+	color:#0066CC;
+	text-transform: uppercase; 
+	
+}
+
+.EstBoletaImprimirContenidoCaracteristica{
+	/*font-weight:bold;*/
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:9px;
+	
+}
