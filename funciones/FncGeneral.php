@@ -1234,8 +1234,8 @@ function FncArbol(){
 
 function FncFechaHoy()
     {
-     $mes=date(n);
-     $dia=date(l);
+     $mes=date('n'); // <-- comillas simples
+     $dia=date('l'); // <-- comillas simples
      switch($mes)
         {         
          case 1:
@@ -1300,8 +1300,8 @@ function FncFechaHoy()
                break;
         }
      echo "".$dia." ";
-     echo "".date(j)." de ".$mes;
-    // echo "".date(H).":".date(i)."";   
+     echo "".date('j')." de ".$mes;
+    // echo "".date('H').":".date('i')."";   
    
 }  
 	

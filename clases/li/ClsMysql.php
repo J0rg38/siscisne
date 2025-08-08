@@ -31,8 +31,8 @@ class ClsMysql extends ClsConexion
 		parent::__construct($oDatoConexion);
 		parent::MtdConectar();
 
-		$this->Debug = isset($_SESSION['MysqlDeb']) ? $_SESSION['MysqlDeb'] : false;
-		$this->Level = isset($_SESSION['MysqlDebLevel']) ? $_SESSION['MysqlDebLevel'] : 0;
+		$this->Debug = $_SESSION['MysqlDeb'];
+		$this->Level = $_SESSION['MysqlDebLevel'];
 
 		$this->Log = false;
 		$this->LogLvl = 2;

@@ -29,10 +29,10 @@ require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
 ////FUNCIONES GENERALES
 require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 
-$POST_Usuario = $_POST['CmpUsuario'];
-$POST_Contrasena = $_POST['CmpContrasena'];
-$POST_Almacen = $_POST['CmpAlmacen'];
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Usuario   = isset($_POST['CmpUsuario'])   ? $_POST['CmpUsuario']   : null;
+$POST_Contrasena= isset($_POST['CmpContrasena'])? $_POST['CmpContrasena']: null;
+$POST_Almacen   = isset($_POST['CmpAlmacen'])   ? $_POST['CmpAlmacen']   : null;
+$POST_Sucursal  = isset($_POST['CmpSucursal'])  ? $_POST['CmpSucursal']  : null;
 
 
 require_once($InsPoo->MtdPaqAcceso().'ClsUsuario.php');

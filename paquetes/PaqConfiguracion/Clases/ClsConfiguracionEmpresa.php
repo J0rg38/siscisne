@@ -55,6 +55,11 @@ class ClsConfiguracionEmpresa {
     public $CemTiempoModificacion;
     public $CemEliminado;
     public $InsMysql;
+    public $CemPaisAbreviacion;
+    public $CemCodigoUbigeo;
+    public $CemImpuestoSelectivo;
+    public $CalId;
+    public $EmpresaXml;
 
     public function __construct(){
 		$this->InsMysql = new ClsMysql();

@@ -143,7 +143,8 @@ class ClsMysql extends ClsConexion {
 		}
 		
 		private function MtdDebug($oConsulta=NULL,$oResultado=NULL){
-?>                      
+?>               
+<br /><br /><br />       
             <div align="left">
             <b>Consulta: </b><i><?php echo $oConsulta;?></i> <br /> 
             <b>Mysql Error: </b><i><?php echo mysql_error($this->CloConexion);?></i><br />

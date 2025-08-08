@@ -25,8 +25,10 @@ set_time_limit(50000);
 //setlocale(LC_ALL,"es_ES@euro","es_ES","esp","es");
 
 //ini_set("session.gc_maxlifetime", "36000");
-ini_set("session.cookie_lifetime","108000");
-ini_set("session.gc_maxlifetime","108000");
+if (session_status() == PHP_SESSION_NONE) {
+    ini_set("session.cookie_lifetime","108000");
+    ini_set("session.gc_maxlifetime","108000");
+}
 
 class ClsProyecto{
 

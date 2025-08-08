@@ -70,7 +70,7 @@ class ClsConexion
 	public function MtdConectar()
 	{
 
-		if (isset($_SESSION['MysqlDeb']) && $_SESSION['MysqlDeb']) {
+		if ($_SESSION['MysqlDeb']) {
 			/*  
 				    echo "<b>";
 		   echo "Conectando...";

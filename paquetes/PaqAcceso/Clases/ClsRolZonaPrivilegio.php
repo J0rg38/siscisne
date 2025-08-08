@@ -76,21 +76,25 @@ class ClsRolZonaPrivilegio {
 
     public function MtdObtenerRolZonaPrivilegios($oCampo=NULL,$oFiltro=NULL,$oOrden = 'RzpId',$oSentido = 'Desc',$oPaginacion = '0,10',$oRol=NULL) {
 
-		if(!empty($oCampo) && !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
-		}
+    // Inicializar variables para evitar warnings
+    $filtrar = '';
+    $orden = '';
+    $paginacion = '';
 
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
-		}
+    if(!empty($oCampo) && !empty($oFiltro)){
+        $oFiltro = str_replace(" ","%",$oFiltro);
+        $filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
+    }
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		
-			$sql = 'SELECT
+    if(!empty($oOrden)){
+        $orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+    }
+
+    if(!empty($oPaginacion)){
+        $paginacion = ' LIMIT '.($oPaginacion);
+    }
+
+    $sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				rzp.RzpId,
 				rzp.RolId,
