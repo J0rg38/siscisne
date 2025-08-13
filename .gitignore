@@ -19,10 +19,6 @@ log/
 *.tmp
 *.temp
 
-# Ignore copy files and folders
-* - Copia/
-* - Copy/
-* - Copia
-* - Copy
-* - Copy [*]/
-* - Copy [*] 
+# Ignore copy files and folders (simplified patterns)
+*Copy*
+*Copia* 
