@@ -670,6 +670,29 @@ class ClsAlmacenMovimientoEntrada {
 
     public function MtdObtenerAlmacenMovimientoEntradas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oOrigen=NULL,$oMoneda=NULL,$oOrdenCompra=NULL,$oPedidoCompra=NULL,$oPedidoCompraDetalle=NULL,$oCliente=NULL,$oFecha="AmoFecha",$oConOrdenCompra=0,$oCancelado=0,$oProveedor=NULL,$oVentaDirecta=NULL,$oCondicionPago=NULL,$oSubTipo=NULL,$oAlmacen=NULL,$oSucursal=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$estado = '';
+		$origen = '';
+		$moneda = '';
+		$ordenCompra = '';
+		$pedidoCompra = '';
+		$pedidoCompraDetalle = '';
+		$cliente = '';
+		$fecha = '';
+		$conOrdenCompra = '';
+		$cancelado = '';
+		$proveedor = '';
+		$ventaDirecta = '';
+		$condicionPago = '';
+		$subTipo = '';
+		$almacen = '';
+		$sucursal = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -1237,8 +1260,7 @@ class ClsAlmacenMovimientoEntrada {
 								LEFT JOIN tblalmalmacen alm
 								ON amo.AlmId = alm.AlmId
 						
-				WHERE amo.AmoTipo = 1 '.$filtrar.$fecha.$tipo.$sucursal.$stipo.$estado.$origen.$moneda.$pcompra.$ocompra.$pcompradetalle.$cliente.$cocompra.$cancelado.$proveedor.$vdirecta.$cpago.$almacen.$orden.$paginacion;
-											
+				WHERE amo.AmoTipo = 1 '.$filtrar.$fecha.$tipo.$sucursal.$stipo.$estado.$origen.$moneda.$pcompra.$ocompra.$pcompradetalle.$cliente.$cocompra.$cancelado.$proveedor.$vdirecta.$cpago.$almacen.$orden.$paginacion;											
 			$resultado = $this->InsMysql->MtdConsultar($sql);            
 
 			$Respuesta['Datos'] = array();
@@ -1546,6 +1568,30 @@ class ClsAlmacenMovimientoEntrada {
 
 
     public function MtdObtenerAlmacenMovimientoEntradasValor($oFuncion="SUM",$oParametro="AmoTotal",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oOrigen=NULL,$oMoneda=NULL,$oOrdenCompra=NULL,$oPedidoCompra=NULL,$oPedidoCompraDetalle=NULL,$oCliente=NULL,$oFecha="AmoFecha",$oConOrdenCompra=0,$oCancelado=0,$oProveedor=NULL,$oVentaDirecta=NULL,$oCondicionPago=NULL,$oSubTipo=NULL,$oAlmacen=NULL) {
+
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$mes = '';
+		$ano = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$estado = '';
+		$origen = '';
+		$moneda = '';
+		$ordenCompra = '';
+		$pedidoCompra = '';
+		$pedidoCompraDetalle = '';
+		$cliente = '';
+		$fecha = '';
+		$conOrdenCompra = '';
+		$cancelado = '';
+		$proveedor = '';
+		$ventaDirecta = '';
+		$condicionPago = '';
+		$subTipo = '';
+		$almacen = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
@@ -2866,9 +2912,9 @@ class ClsAlmacenMovimientoEntrada {
 //						$InsAlmacenMovimientoEntradaDetalle->AmdCantidadReal = $DatAlmacenMovimientoEntradaDetalle->AmdCantidadReal;
 //
 //						$InsAlmacenMovimientoEntradaDetalle->AmdImporte = $DatAlmacenMovimientoEntradaDetalle->AmdImporte;
-//						$InsAlmacenMovimientoEntradaDetalle->AmdEstado = $this->AmoEstado;		
+//						$InsAlmacenMovimientoEntradaDetalle->AmdEstado = $this->AmoEstado;									
 //						$InsAlmacenMovimientoEntradaDetalle->AmdTiempoCreacion = $DatAlmacenMovimientoEntradaDetalle->AmdTiempoCreacion;
-//						$InsAlmacenMovimientoEntradaDetalle->AmdTiempoModificacion = $DatAlmacenMovimientoEntradaDetalle->AmdTiempoModificacion;
+//						$InsAlmacenMovimientoEntradaDetalle->AmdTiempoModificacion = $DatAlmacenMovimientoEntradaDetalle->AmdTiempoModificacion;						
 //						$InsAlmacenMovimientoEntradaDetalle->AmdEliminado = $DatAlmacenMovimientoEntradaDetalle->AmdEliminado;
 //						
 //						if(empty($InsAlmacenMovimientoEntradaDetalle->AmdId)){

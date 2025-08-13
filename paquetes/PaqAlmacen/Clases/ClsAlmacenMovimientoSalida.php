@@ -298,6 +298,25 @@ class ClsAlmacenMovimientoSalida {
 
     public function MtdObtenerAlmacenMovimientoSalidas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oFichaAccion=NULL,$oFichaIngreso=NULL,$oConFactura=0,$oConFicha=0,$oFichaIngresoEstado=NULL,$oConBoleta=NULL,$oPorFacturar=false,$oModalidad=NULL,$oSubTipo=NULL,$oSucursal=NULL,$oSucursalDestino=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$estado = '';
+		$fichaAccion = '';
+		$fichaIngreso = '';
+		$conFactura = '';
+		$conFicha = '';
+		$fichaIngresoEstado = '';
+		$conBoleta = '';
+		$porFacturar = '';
+		$modalidad = '';
+		$subTipo = '';
+		$sucursal = '';
+		$sucursalDestino = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -416,7 +435,6 @@ class ClsAlmacenMovimientoSalida {
 			
 					
 			
-	
 		}
 
 
@@ -872,6 +890,25 @@ class ClsAlmacenMovimientoSalida {
 
    public function MtdObtenerAlmacenMovimientoSalidasValor($oFuncion="SUM",$oParametro="AmoTotal",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oFichaAccion=NULL,$oFichaIngreso=NULL,$oConFactura=0,$oConFicha=0,$oFichaIngresoEstado=NULL,$oConBoleta=NULL,$oPorFacturar=false,$oModalidad=NULL,$oSubTipo=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$mes = '';
+		$ano = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$estado = '';
+		$fichaAccion = '';
+		$fichaIngreso = '';
+		$conFactura = '';
+		$conFicha = '';
+		$fichaIngresoEstado = '';
+		$conBoleta = '';
+		$porFacturar = '';
+		$modalidad = '';
+		$subTipo = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -990,7 +1027,6 @@ class ClsAlmacenMovimientoSalida {
 			
 					
 			
-	
 		}
 
 

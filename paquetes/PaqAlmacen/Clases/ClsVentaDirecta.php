@@ -840,9 +840,37 @@ vdi.VdiTipoFinal,
 //MtdObtenerVentaDirectas
     public function MtdObtenerVentaDirectas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'VdiId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oConCotizacionRepuesto=0,$oCotizacionRepuestoEstado=NULL,$oCotizacionRepuesto=NULL,$oMoneda=NULL,$oCliente=NULL,$oConOrdenCompraReferencia=NULL,$oPedidoCompra=NULL,$oVentaConcretada=NULL,$oClienteClasificacion=NULL,$oOrigen=NULL,$oObservado=NULL,$oEstricto=false,$oOrdenCompraReferencia=NULL,$oProductoCodigoOriginal=NULL,$oOrdenCompraTipo=NULL,$oExonerar=NULL,$oFichaIngreso=NULL,$oTieneGenerarVentaConcretada=false,$oPersonal=NULL,$oConCodigoExterno=0,$oSucursal=NULL,$oTipo=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$estado = '';
+		$conCotizacionRepuesto = '';
+		$cotizacionRepuestoEstado = '';
+		$cotizacionRepuesto = '';
+		$moneda = '';
+		$cliente = '';
+		$conOrdenCompraReferencia = '';
+		$pedidoCompra = '';
+		$ventaConcretada = '';
+		$clienteClasificacion = '';
+		$origen = '';
+		$observado = '';
+		$estricto = '';
+		$ordenCompraReferencia = '';
+		$productoCodigoOriginal = '';
+		$ordenCompraTipo = '';
+		$exonerar = '';
+		$fichaIngreso = '';
+		$tieneGenerarVentaConcretada = '';
+		$personal = '';
+		$conCodigoExterno = '';
+		$sucursal = '';
+		$tipo = '';
 
 //$oOrdenCompraTipo
-
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			

@@ -406,6 +406,23 @@ class ClsVentaConcretada {
 
     public function MtdObtenerVentaConcretadas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oConFactura=0,$oConBoleta=0,$oConGuiaRemision=0,$oVentaDirectaId=NULL,$oMoneda=NULL,$oIgnorarTotalVacio=false,$oGenerarFactura=false,$oFacturable=NULL,$oSucursal=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$estado = '';
+		$conFactura = '';
+		$conBoleta = '';
+		$conGuiaRemision = '';
+		$ventaDirectaId = '';
+		$moneda = '';
+		$ignorarTotalVacio = '';
+		$generarFactura = '';
+		$facturable = '';
+		$sucursal = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			$oFiltro = str_replace(" ","%",$oFiltro);

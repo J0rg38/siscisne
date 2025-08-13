@@ -48,6 +48,19 @@ class ClsKardex {
 		
     public function MtdObtenerKardexs2($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oProducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oUso=NULL,$oMoneda=NULL,$oFechaTipo="AmoFecha",$oAlmacen=NULL,$oSucursal=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$producto = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$uso = '';
+		$moneda = '';
+		$fechaTipo = '';
+		$almacen = '';
+		$sucursal = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 
 			$oFiltro = str_replace(" ","%",$oFiltro);			

@@ -997,6 +997,32 @@ $this->OvvBoletaSucursal = $fila['OvvBoletaSucursal'];
 
     public function MtdObtenerVehiculoIngresos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'EinId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oTipo=NULL,$oCliente=NULL,$oEstadoVehicular=NULL,$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oVehiculoVersion=NULL,$oAnoModelo=NULL,$oAnoFabricacion=NULL,$oColor=NULL,$oConProforma=NULL,$oFecha="EinFechaRecepcion",$oFechaInicio=NULL,$oFechaFin=NULL,$oSucursal=NULL,$oConcesionario=NULL,$oOrdenAno=NULL,$oOrdenMes=NULL,$oObservado=NULL,$oFacturaAno=NULL,$oFacturaMes=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$estado = '';
+		$tipo = '';
+		$cliente = '';
+		$estadoVehicular = '';
+		$vehiculoMarca = '';
+		$vehiculoModelo = '';
+		$vehiculoVersion = '';
+		$anoModelo = '';
+		$anoFabricacion = '';
+		$color = '';
+		$conProforma = '';
+		$fecha = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$sucursal = '';
+		$concesionario = '';
+		$ordenAno = '';
+		$ordenMes = '';
+		$observado = '';
+		$facturaAno = '';
+		$facturaMes = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			//$oFiltro = str_replace("*","%",$oFiltro);
