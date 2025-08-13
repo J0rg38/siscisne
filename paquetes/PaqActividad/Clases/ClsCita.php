@@ -272,7 +272,19 @@ cit.CitEstado,
 
     public function MtdObtenerCitas($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'CitId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oCliente=NULL,$oPersonal=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oFecha="CitFecha",$oSinFichaIngreso=false,$oVehiculoIngresoId=NULL,$oPersonalMecanico=NULL,$oHora=NULL,$oSucursal=NULL) {
 
-
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$estado = '';
+		$cliente = '';
+		$vingreso = '';
+		$hora = '';
+		$sfichaingreso = '';
+		$sucursal = '';
+		$pmecanico = '';
+		$personal = '';
+		$fecha = '';
+		$orden = '';
+		$paginacion = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
