@@ -107,6 +107,12 @@ class ClsBanco {
 
     public function MtdObtenerBancos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'BanId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10') {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$sucursal = '';
+		$orden = '';
+		$paginacion = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
