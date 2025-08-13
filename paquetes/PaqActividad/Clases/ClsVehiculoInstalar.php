@@ -15,6 +15,9 @@ class ClsVehiculoInstalar {
     public $VisId;
 	public $PrvId;
 	public $EinId;
+	public $SucId;
+	public $PerId;
+	public $CliId;
 	
 	public $VisFecha;
     public $VisFechaProgramada;
@@ -24,11 +27,28 @@ class ClsVehiculoInstalar {
 	public $VisObservacionInterna;
 	public $VisObservacionImpresa;
 	public $VisKilometrajeMantenimiento;
+	public $VisReferencia;
+	public $VisTipoCambio;
 	
 	public $VisEstado;	
     public $VisTiempoCreacion;
     public $VisTiempoModificacion;
     public $VisEliminado;
+	
+	public $EinVIN;
+	public $EinPlaca;
+	public $EinColor;
+	public $EinAnoFabricacion;
+	public $EinAnoModelo;
+	public $VveId;
+	public $VmoId;
+	public $VmaId;
+	public $VmaNombre;
+	public $VmoNombre;
+	public $VveNombre;
+	public $VehiculoInstalarDetalle;
+	public $VisEstadoDescripcion;
+	public $VisEstadoIcono;
 
 	public $InsMysql;
 
@@ -220,7 +240,19 @@ class ClsVehiculoInstalar {
 
     public function MtdObtenerVehiculoInstalars($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'VisId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oPersonal=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oVehiculoIngresoId=NULL,$oSucursal=NULL) {
 
-
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$estado = '';
+		$cliente = '';
+		$personal = '';
+		$fecha = '';
+		$vingreso = '';
+		$hora = '';
+		$sfichaingreso = '';
+		$pmecanico = '';
+		$sucursal = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			

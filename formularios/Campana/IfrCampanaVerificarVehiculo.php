@@ -59,8 +59,8 @@ $().ready(function() {
 </script>
 <?php
 
-$POST_cam = ($_POST['Cam']);
-$POST_fil = ($_POST['Fil']);
+$POST_cam = ($_POST['Cam'] ?? '');
+$POST_fil = ($_POST['Fil'] ?? '');
 
 $POST_VehiculoIngresoVIN = $_POST['CmpVehiculoIngresoVIN'];
 

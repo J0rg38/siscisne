@@ -401,6 +401,13 @@ class ClsTipoCambio {
 	
     public function MtdObtenerTipoCambios($oCampo=NULL,$oFiltro=NULL,$oOrden = 'TcaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oMoneda = NULL,$oFechaInicio=NULL,$oFechaFin=NULL) {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$moneda = '';
+		$fecha = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
@@ -495,6 +502,9 @@ class ClsTipoCambio {
 	//Accion eliminar	 
 	
 	public function MtdEliminarTipoCambio($oElementos) {
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 		

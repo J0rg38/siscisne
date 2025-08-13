@@ -53,8 +53,20 @@ class ClsInformeTecnico {
 	public $EinVIN;
 	public $FinVehiculoKilometraje;
 	public $IteModelo;		
+	public $IteFechaVenta;
 			
 	public $VmaId;
+	public $VmaNombre;
+	public $VmoNombre;
+	public $VveNombre;
+	public $PerNombre;
+	public $PerApellidoPaterno;
+	public $PerApellidoMaterno;
+	public $InformeTecnicoOperacion;
+	public $InformeTecnicoProducto;
+	public $FapId;
+	public $UsuId;
+	public $SucId;
 	
     public $InsMysql;
 	
@@ -237,6 +249,14 @@ class ClsInformeTecnico {
     }
 
     public function MtdObtenerInformeTecnicos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'IteId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oVehiculoMarca=NULL) {
+
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fecha = '';
+		$estado = '';
+		$vmarca = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			

@@ -47,6 +47,24 @@ class ClsRegistroOperacionUIF {
     public $RouTiempoCreacion;
     public $RouTiempoModificacion;
     public $RouEliminado;
+	
+	public $PerNombre;
+	public $PerApellidoPaterno;
+	public $PerApellidoMaterno;
+	public $CliNombre;
+	public $CliNumeroDocumento;
+	public $CliApellidoPaterno;
+	public $CliApellidoMaterno;
+	public $CliDireccion;
+	public $CliDistrito;
+	public $CliDepartamento;
+	public $CliProvincia;
+	public $TdoId;
+	public $CliTelefono;
+	public $CliCelular;
+	public $CliPais;
+	public $MonNombre;
+	public $MonSimbolo;
 
 	public $InsMysql;
 
@@ -243,6 +261,15 @@ class ClsRegistroOperacionUIF {
     }
 
     public function MtdObtenerRegistroOperacionUIFs($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'RouId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oMoneda=NULL) {
+
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$estado = '';
+		$fecha = '';
+		$moneda = '';
+		$tipo = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -471,6 +498,9 @@ class ClsRegistroOperacionUIF {
 	//Accion eliminar	 
 	
 	public function MtdEliminarRegistroOperacionUIF($oElementos) {
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 			$i=1;

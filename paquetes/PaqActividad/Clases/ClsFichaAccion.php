@@ -47,14 +47,21 @@ class ClsFichaAccion {
 	public $VmaNombre;
 	public $VmoNombre;
 	public $VveNombre;
+	public $VmaAbreviatura;
 
-				
-				
-				
 	public $MinSigla;
 	public $MinNombre;
 	public $CliNumeroDocumento;
 	public $CliNombre;
+	public $CliId;
+	public $PerId;
+	public $MinId;
+	public $EinId;
+	public $FinMantenimientoKilometraje;
+	public $FinFotoVIN;
+	public $FinFotoFrontal;
+	public $FinFotoCupon;
+	public $FinFotoMantenimiento;
 
 public $AmoId;
 	
@@ -358,6 +365,20 @@ public $AmoId;
 	 }
 	 
     public function MtdObtenerFichaAcciones($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FccId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngresoModalidad=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oFichaIngresoEstado=NULL,$oPorFacturar=false,$oPorGenerarGarantia=false,$oFichaIngresoModalidadIngreso=NULL,$oIgnorarTotalVacio=false,$oFacturable=NULL,$oGenerarFactura=false,$oTipoFecha="fcc.FccFecha") {
+
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fecha = '';
+		$estado = '';
+		$fingresoestado = '';
+		$porfacturar = '';
+		$porgenerargarantia = '';
+		$fingresomodalidadingreso = '';
+		$ignorartotalvacio = '';
+		$facturable = '';
+		$generarfactura = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
@@ -1339,8 +1360,6 @@ public $AmoId;
 														LEFT JOIN tblvmavehiculomarca vma
 														ON vmo.Vmaid = vma.VmaId	
 														
-														
-									
 										LEFT JOIN tblclicliente cli
 										ON fin.CliId = cli.CliId
 										

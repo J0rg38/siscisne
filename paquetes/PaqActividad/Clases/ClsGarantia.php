@@ -85,16 +85,30 @@ class ClsGarantia {
 	
 	public $VmaNombre;
 	public $VmoNombre;
+	public $VmaAbreviatura;
 	
 	public $FinId;
 	public $MinId;
+	public $MinNombre;
 	
 	public $LtiNombre;
+	public $PerNombre;
+	public $PerApellidoPaterno;
+	public $PerApellidoMaterno;
+	public $MonNombre;
+	public $MonSimbolo;
 
 	public $FinFecha;
 	public $FinTiempoTrabajoTerminado;
+	public $FinFotoVIN;
+	public $FinFotoFrontal;
+	public $FinFotoCupon;
+	public $FinFotoMantenimiento;
 				
-	public $FccCausa;				
+	public $FccCausa;
+	public $CamBoletinCodigo;
+	public $AmoId;
+	public $GarEstadoDescripcion;
 				
 	public $GarantiaDetalle;
 	public $GarantiaOperacion;
@@ -512,6 +526,16 @@ class ClsGarantia {
 
     public function MtdObtenerGarantias($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'GarId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oMoneda=NULL,$oFichaIngreso=NULL,$oFichaAccion=NULL) {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fecha = '';
+		$estado = '';
+		$moneda = '';
+		$fingreso = '';
+		$faccion = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -805,8 +829,7 @@ class ClsGarantia {
 									LEFT JOIN tblcamcampana cam
 									ON fin.CamId = cam.CamId
 										
-				WHERE 1 = 1 '.$filtrar.$fecha.$estado.$moneda.$fingreso.$faccion.$orden.$paginacion;
-											
+				WHERE 1 = 1 '.$filtrar.$fecha.$estado.$moneda.$fingreso.$faccion.$orden.$paginacion;											
 			$resultado = $this->InsMysql->MtdConsultar($sql);            
 
 			$Respuesta['Datos'] = array();
@@ -1755,9 +1778,7 @@ class ClsGarantia {
 																		$this->GarantiaDetalle[] = $InsGarantiaDetalle1;		
 																		//$this->GarSubTotalRepuestoStock += $InsGarantiaDetalle1->GdeCostoMargen;	
 																		$this->GarSubTotalRepuestoStock += $InsGarantiaDetalle1->GdeCostoTotal;	
-																		
-																		
-		
+						
 																	}
 																}
 									

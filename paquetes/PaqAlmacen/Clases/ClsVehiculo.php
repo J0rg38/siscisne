@@ -34,6 +34,9 @@ class ClsVehiculo {
 	public $VtiNombre;
 	
 	public $VveNombre;
+	public $VehCodigoIdentificador;
+	public $UmeId;
+	public $VehTipo;
 
 	
     public $InsMysql;
@@ -174,6 +177,16 @@ class ClsVehiculo {
 	
 	
 	public function MtdObtenerVehiculos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'VehId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oVehiculoVersion=NULL,$oVehiculoTipo=NULL,$oEstado=NULL) {
+
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$vmarca = '';
+		$vmodelo = '';
+		$vversion = '';
+		$vtipo = '';
+		$estado = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
@@ -405,6 +418,9 @@ class ClsVehiculo {
 	//Accion eliminar	 
 	
 	public function MtdEliminarVehiculo($oElementos) {
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 		

@@ -14,6 +14,7 @@ class ClsPreEntrega {
 
 	public $PenId;
 	public $PenFecha;
+	public $PenAno;
 	
 	public $CamId;
 	public $CliId;
@@ -23,6 +24,35 @@ class ClsPreEntrega {
 	public $PenEstado;
 	public $PenTiempoCreacion;
 	public $PenTiempoModificacion;
+	
+	public $TdoId;
+	public $CliNumeroDocumento;
+	public $CliNombre;
+	public $CliNombreCompleto;
+	public $CliApellidoPaterno;
+	public $CliApellidoMaterno;
+	public $TdoNombre;
+	public $LtiId;
+	public $LtiUtilidad;
+	public $LtiNombre;
+	public $LtiAbreviatura;
+	public $EinVIN;
+	public $VmaId;
+	public $VmoId;
+	public $VveId;
+	public $EinAnoFabricacion;
+	public $EinPlaca;
+	public $EinColor;
+	public $VmaNombre;
+	public $VmoNombre;
+	public $VveNombre;
+	public $PerNombre;
+	public $PerApellidoPaterno;
+	public $PerApellidoMaterno;
+	public $PerNombreAsesor;
+	public $PerApellidoPaternoAsesor;
+	public $PerApellidoMaternoAsesor;
+	public $Ruta;
 
     public $InsMysql;
 
@@ -326,6 +356,20 @@ class ClsPreEntrega {
 	
 	
     public function MtdObtenerPreEntregas( $oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'PenId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaPen=NULL,$oEstado=NULL,$oPrioridad=NULL,$oModalidadIngreso=NULL,$oVIN=NULL,$oClienteId=NULL,$oPersonalId=NULL,$oCampana=NULL,$oClienteTipo=NULL ) {
+
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fecha = '';
+		$estado = '';
+		$prioridad = '';
+		$mingreso = '';
+		$vin = '';
+		$cliente = '';
+		$personal = '';
+		$campana = '';
+		$cltipo = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
@@ -1484,7 +1528,6 @@ $InsPreEntregaModalidad = new ClsPreEntregaModalidad();
 									}
 								}
 																
-								
 								
 								
 								

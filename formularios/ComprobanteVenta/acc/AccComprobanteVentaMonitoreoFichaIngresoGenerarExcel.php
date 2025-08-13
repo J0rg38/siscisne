@@ -44,8 +44,8 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 
 
 
-$POST_cam = ($_POST['Cam']);
-$POST_fil = ($_POST['Fil']);
+$POST_cam = ($_POST['Cam'] ?? '');
+$POST_fil = ($_POST['Fil'] ?? '');
 
 if($_POST){
    $_SESSION[$GET_mod."Filtro"] = $POST_fil;
@@ -53,11 +53,11 @@ if($_POST){
 	$POST_fil = (empty($_GET['Fil'])?$_SESSION[$GET_mod."Filtro"]:$_GET['Fil']);
 }
 
-$POST_ord = ($_POST['Ord']);
-$POST_sen = ($_POST['Sen']);
-$POST_pag = ($_POST['Pag']);
-$POST_p = ($_POST['P']);
-$POST_num = ($_POST['Num']);
+$POST_ord = ($_POST['Ord'] ?? '');
+$POST_sen = $_POST['Sen'] ?? '';
+$POST_pag = ($_POST['Pag'] ?? '');
+$POST_p = ($_POST['P'] ?? '');
+$POST_num = $_POST['Num'] ?? '';
 
 $POST_Facturable = ($_POST['Facturable']);
 
@@ -69,8 +69,8 @@ if($_POST){
 	//$POST_Facturable = 1;
 }
 
-$POST_seleccionados = $_POST['cmp_seleccionados'];
-$POST_acc = $_POST['Acc'];
+$POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';
+$POST_acc = $_POST['Acc'] ?? '';
 
 
 

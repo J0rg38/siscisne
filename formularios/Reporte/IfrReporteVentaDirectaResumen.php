@@ -82,7 +82,7 @@ $POST_OrdenCompraNumero = $_POST['CmpOrdenCompraNumero'];
 $POST_ProductoCodigoOriginal = $_POST['CmpProductoCodigoOriginal'];
 $POST_OrdenCompraPedido = $_POST['CmpOrdenCompraPedido'];
 $POST_Estado = $_POST['CmpEstado'];
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 
 require_once($InsPoo->MtdPaqLogistica().'ClsPedidoCompra.php');
 

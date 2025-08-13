@@ -20,8 +20,8 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],"MensajeTexto",$GET_form)){
 //deb($_GET);
 $GET_CmtId = $_GET['CmtId'];
 
-$POST_cam = ($_POST['Cam']);
-$POST_fil = ($_POST['Fil']);
+$POST_cam = ($_POST['Cam'] ?? '');
+$POST_fil = ($_POST['Fil'] ?? '');
 
    if($_POST){
 	   $_SESSION[$GET_mod."Filtro"] = $POST_fil;
@@ -30,11 +30,11 @@ $POST_fil = ($_POST['Fil']);
    }
 
 
-$POST_ord = ($_POST['Ord']);
-$POST_sen = ($_POST['Sen']);
+$POST_ord = ($_POST['Ord'] ?? '');
+$POST_sen = $_POST['Sen'] ?? '';
 $POST_pag = ($_POST['Mte']);
-$POST_p = ($_POST['P']);
-$POST_num = ($_POST['Num']);
+$POST_p = ($_POST['P'] ?? '');
+$POST_num = $_POST['Num'] ?? '';
 
 if($_POST){
 	$_SESSION[$GET_mod."Num"] = $POST_num;
@@ -42,8 +42,8 @@ if($_POST){
 	$POST_num =  $_SESSION[$GET_mod."Num"];	
 }
 
-$POST_seleccionados = $_POST['cmp_seleccionados'];
-$POST_acc = $_POST['Acc'];
+$POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';
+$POST_acc = $_POST['Acc'] ?? '';
 $POST_CondicionMensajeTexto = $_POST['CmpCondicionMensajeTexto'];
 $POST_Cliente = $_POST['CmpCliente'];
 $POST_Estado = $_POST['Estado'];

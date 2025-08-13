@@ -27,10 +27,16 @@ class ClsPlanMantenimiento {
 	public $VmaNombre;
 	public $VmoNombre;
 	public $VveNombre;
+	public $VmoNombreComercial;
 	
     public $InsMysql;
 	
 	public $PmaChevroletKilometrajes;
+	public $PmaChevroletKilometrajesResumen;
+	public $PmaIsuzuKilometrajes;
+	public $PmaIsuzuKilometrajesResumen;
+	public $PmaChevroletKilometrajesNuevo;
+	public $PmaIsuzuKilometrajesNuevo;
 	
     public function __construct(){
 		$this->InsMysql = new ClsMysql();
@@ -754,7 +760,15 @@ class ClsPlanMantenimiento {
 
     public function MtdObtenerPlanMantenimientos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PmaId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oVehiculoVersion=NULL,$oVehiculoModelo=NULL,$oVehiculoMarca=NULL) {
 
-if(!empty($oCampo) and !empty($oFiltro)){
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$vversion = '';
+		$vmodelo = '';
+		$vmarca = '';
+
+		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			//$oFiltro = str_replace("*","%",$oFiltro);
 			$oFiltro = str_replace(" ","%",$oFiltro);

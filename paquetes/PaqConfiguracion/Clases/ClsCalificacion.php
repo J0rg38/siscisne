@@ -21,6 +21,7 @@ class ClsCalificacion {
 	public $CalRango;
 	public $CalRangoInicio;
 	public $CalRangoFin;
+	public $CalDescripcion;
 
     public $CalTiempoCreacion;
     public $CalTiempoModificacion;
@@ -109,6 +110,12 @@ class ClsCalificacion {
 
     public function MtdObtenerCalificaciones($oCampo=NULL,$oFiltro=NULL,$oOrden = 'CalId',$oSentido = 'Desc',$oPaginacion = '0,10',$oMoneda=NULL) {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$moneda = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
@@ -181,6 +188,9 @@ class ClsCalificacion {
 	//Accion eliminar	 
 	
 	public function MtdEliminarCalificacion($oElementos) {
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 		

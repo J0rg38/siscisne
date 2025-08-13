@@ -154,6 +154,17 @@ public function MtdVerificarAlmacenCierre($oFecha){
 
     public function MtdObtenerAlmacenCierres($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'AciId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oFechaComparar=NULL) {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$moneda = '';
+		$tipo = '';
+		$estado = '';
+		$fcomprar = '';
+		$banco = '';
+		$tarjeta = '';
+		$orden = '';
+		$paginacion = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			//$oFiltro = str_replace("*","%",$oFiltro);

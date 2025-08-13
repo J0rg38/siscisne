@@ -24,7 +24,11 @@ class ClsVehiculoModelo {
     public $VmoTiempoCreacion;
     public $VmoTiempoModificacion;
     public $VmoEliminado;
-
+	
+	public $VmoFoto;
+	public $VmoFotoCaracteristica;
+	public $VmaNombre;
+	public $VtiNombre;
 	
 	public $VehiculoModeloCaracteristica;
 	
@@ -131,7 +135,7 @@ class ClsVehiculoModelo {
 	
 	public function MtdIdentificarVehiculoModelo($oFiltro){
 	
-		$this->MtdObtenerVehiculoModelos("VehModelo",$oFiltro,'VmoId','Desc','1',NULL,NULL);
+		$ResVehiculoModelo = $this->MtdObtenerVehiculoModelos("VehModelo",$oFiltro,'VmoId','Desc','1',NULL,NULL);
 		$ArrVehiculoModelos = $ResVehiculoModelo['Datos'];
 		
 		$VehiculoModeloId = "";
@@ -148,6 +152,14 @@ class ClsVehiculoModelo {
 	}
 
     public function MtdObtenerVehiculoModelos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVehiculoMarca=NULL,$oVigenciaVenta=NULL,$oEstado=NULL) {
+
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$vmarca = '';
+		$vventa = '';
+		$estado = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -255,6 +267,9 @@ class ClsVehiculoModelo {
 	//Accion eliminar	 
 	
 	public function MtdEliminarVehiculoModelo($oElementos) {
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 		

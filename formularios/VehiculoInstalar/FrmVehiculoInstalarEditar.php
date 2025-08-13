@@ -33,7 +33,7 @@ if(!empty($_POST['Identificador'])){
 //VARIABLES
 $GET_id = $_GET['Id'];
 $Registro = false;
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 
 //MENSAJES
 include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjVehiculoInstalar.php');
