@@ -83,6 +83,28 @@ class ClsCliente {
 
 	public $InsMysql;
 	
+	// Propiedades adicionales que se usan en el código
+	public $ClienteGenerarCodigo;
+	public $TrfId;
+	public $PerId;
+	public $CliNombreCompleto;
+	public $CliAbreviatura;
+	public $CliEstadoCivil;
+	public $CliSexo;
+	public $MonId;
+	public $CliTipoCambioFecha;
+	public $CliTipoCambio;
+	public $CliUso;
+	public $CliBloquear;
+	public $CliObservacion;
+	public $CliEmailFacturacion;
+	public $CliClaveElectronica;
+	public $LtiPorcentajeOtroCosto;
+	public $LtiPorcentajeManoObra;
+	public $PerNombre;
+	public $PerApellidoPaterno;
+	public $PerApellidoMaterno;
+	
     public function __construct(){
 		$this->InsMysql = new ClsMysql();
 		$this->ClienteGenerarCodigo = true;		
@@ -360,6 +382,16 @@ $this->CliEstado = $fila['CliEstado'];
 
     public function MtdObtenerClientes($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'CliId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oEstado=NULL,$oUso=NULL,$oClienteTipo=NULL,$oClasificacion=NULL,$oTipoReferido=NULL) {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$tipo = '';
+		$treferido = '';
+		$estado = '';
+		$uso = '';
+		$ctipo = '';
+		$clasificacion = '';
+		$orden = '';
+		$paginacion = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
