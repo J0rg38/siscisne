@@ -97,6 +97,13 @@ class ClsTipoGasto {
 
     public function MtdObtenerTipoGastos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'TgaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oUso=NULL,$oEstado=NULL) {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$uso = '';
+		$estado = '';
+		$orden = '';
+		$paginacion = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';

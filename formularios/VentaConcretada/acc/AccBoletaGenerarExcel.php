@@ -31,8 +31,8 @@ require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
 require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 
 
-$POST_cam = ($_POST['Cam']);
-$POST_fil = ($_POST['Fil']);
+$POST_cam = ($_POST['Cam'] ?? '');
+$POST_fil = ($_POST['Fil'] ?? '');
 
    if($_POST){
 	   $_SESSION[$GET_mod."Filtro"] = $POST_fil;
@@ -41,10 +41,10 @@ $POST_fil = ($_POST['Fil']);
    }
 
 
-$POST_ord = ($_POST['Ord']);
+$POST_ord = ($_POST['Ord'] ?? '');
 $POST_sen = ($_POST['Sen']);
-$POST_pag = ($_POST['Pag']);
-$POST_p = ($_POST['P']);
+$POST_pag = ($_POST['Pag'] ?? '');
+$POST_p = ($_POST['P'] ?? '');
 $POST_num = ($_POST['Num']);
 
 if($_POST){
@@ -53,13 +53,13 @@ if($_POST){
 	$POST_num =  $_SESSION[$GET_mod."Num"];	
 }
 
-$POST_seleccionados = $_POST['cmp_seleccionados'];
-$POST_acc = $_POST['Acc'];
+$POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';
+$POST_acc = $_POST['Acc'] ?? '';
 
 /*
 Otras variables
 */
-$POST_est = $_POST['Estado'];
+$POST_Estado = $_POST['Estado'] ?? '';
 $POST_finicio = $_POST['FechaInicio'];
 $POST_ffin = $_POST['FechaFin'];
 $POST_con = $_POST['Con'];

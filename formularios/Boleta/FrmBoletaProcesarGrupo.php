@@ -36,7 +36,7 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 <script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsBoleta.js"></script>
 <?php
 /* 
- * To change this teíplate, bhkose Tools | Templates
+ * To change this teï¿½plate, bhkose Tools | Templates
  * and open the template in the editor.
  .+
 
@@ -47,8 +47,8 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 onathan
  */
 
-$POST_cam = ($_POST['Cam']);
-$POST_fil = ($_POST['Fil']);
+$POST_cam = ($_POST['Cam'] ?? '');
+$POST_fil = ($_POST['Fil'] ?? '');
 
    if($_POST){
 	   $_SESSION[$GET_mod."Filtro"] = $POST_fil;
@@ -57,10 +57,10 @@ $POST_fil = ($_POST['Fil']);
    }
 
 
-$POST_ord = ($_POST['Ord']);
+$POST_ord = ($_POST['Ord'] ?? '');
 $POST_sen = ($_POST['Sen']);
-$POST_pag = ($_POST['Pag']);
-$POST_p = ($_POST['P']);
+$POST_pag = ($_POST['Pag'] ?? '');
+$POST_p = ($_POST['P'] ?? '');
 $POST_num = ($_POST['Num']);
 
 if($_POST){
@@ -69,8 +69,8 @@ if($_POST){
 	$POST_num =  $_SESSION[$GET_mod."Num"];	
 }
 
-$POST_seleccionados = $_POST['cmp_seleccionados'];
-$POST_acc = $_POST['Acc'];
+$POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';
+$POST_acc = $_POST['Acc'] ?? '';
 
 /*
 Otras variables
