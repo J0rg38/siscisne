@@ -243,6 +243,21 @@ class ClsPersonal {
 	
     public function MtdObtenerPersonales($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PerId',$oSentido = 'Desc',$oPaginacion = '0,10',$oPersonalTipo=NULL,$oEstado=NULL,$oFechaNacimientoRango=NULL,$oTaller=NULL,$oRecepcion=NULL,$oVenta=NULL,$oArea=NULL,$oSucursal=NULL,$oAlmacen=NULL,$oFirmante=NULL,$oMultisucursal=false) {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$sucursal = '';
+		$ptipo = '';
+		$firmante = '';
+		$estado = '';
+		$almacen = '';
+		$area = '';
+		$nacimiento = '';
+		$taller = '';
+		$recepcion = '';
+		$venta = '';
+		$orden = '';
+		$paginacion = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			//$oFiltro = str_replace("*","%",$oFiltro);
