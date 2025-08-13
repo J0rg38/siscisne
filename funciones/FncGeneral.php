@@ -489,16 +489,16 @@ function FncConvertirNumeroALetraExcel($oNumero){
 
 function FncLimpiarCaracteresEspeciales($s) {
 	
-	$s = ereg_replace("[áàâãª]","a",$s);
-	$s = ereg_replace("[ÁÀÂÃ]","A",$s);
-	$s = ereg_replace("[éèê]","e",$s);
-	$s = ereg_replace("[ÉÈÊ]","E",$s);
-	$s = ereg_replace("[íìî]","i",$s);
-	$s = ereg_replace("[ÍÌÎ]","I",$s);
-	$s = ereg_replace("[óòôõº]","o",$s);
-	$s = ereg_replace("[ÓÒÔÕ]","O",$s);
-	$s = ereg_replace("[úùû]","u",$s);
-	$s = ereg_replace("[ÚÙÛ]","U",$s);
+	$s = preg_replace("/[áàâãª]/","a",$s);
+	$s = preg_replace("/[ÁÀÂÃ]/","A",$s);
+	$s = preg_replace("/[éèê]/","e",$s);
+	$s = preg_replace("/[ÉÈÊ]/","E",$s);
+	$s = preg_replace("/[íìî]/","i",$s);
+	$s = preg_replace("/[ÍÌÎ]/","I",$s);
+	$s = preg_replace("/[óòôõº]/","o",$s);
+	$s = preg_replace("/[ÓÒÔÕ]/","O",$s);
+	$s = preg_replace("/[úùû]/","u",$s);
+	$s = preg_replace("/[ÚÙÛ]/","U",$s);
 	$s = str_replace(" ","-",$s);
 	$s = str_replace("ñ","n",$s);
 	$s = str_replace("Ñ","N",$s);
@@ -1435,8 +1435,7 @@ function FncCambiaFechaANormal($oFecha,$oVacio=false){
 		}
 
 
-		ereg( "([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})", $fecha, $mifecha);
-		//preg_match("/([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})/", $fecha, $mifecha);
+		preg_match("/([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})/", $fecha, $mifecha);
 		
 		if(empty($hora)){
 		    $lafecha=$mifecha[3]."/".$mifecha[2]."/".$mifecha[1];
@@ -1486,8 +1485,7 @@ function FncCambiaFechaAImpresion($oFecha){
 			$hora = "";
 		}
 	
-		ereg( "([0-9]{1,2})/([0-9]{1,2})/([0-9]{2,4})", $fecha, $mifecha);	
-		//preg_match("/([0-9]{1,2})/([0-9]{1,2})/([0-9]{2,4})/",$fecha, $mifecha);	
+		preg_match("/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/",$fecha, $mifecha);	
 		
 		if(empty($hora)){			
 			$lafecha=$mifecha[1]." ".FncConvertirMes($mifecha[2])." ".$mifecha[3];			
@@ -1518,8 +1516,7 @@ function FncCambiaFechaAMysql($oFecha,$oVacio=false){
 			$hora = "";
 		}
 	
-		ereg( "([0-9]{1,2})/([0-9]{1,2})/([0-9]{2,4})", $fecha, $mifecha);		
-		//preg_match("/([0-9]{1,2})/([0-9]{1,2})/([0-9]{2,4})/", $fecha, $mifecha);
+		preg_match("/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/", $fecha, $mifecha);
 	//
 	
 		/*
@@ -1670,8 +1667,8 @@ function FncMostrarImagen($oRuta=NULL,$oImagen,$ancho_fijo=NULL,$altura_fijo=NUL
 				
 				$resolucion = getimagesize($Imagen['path']);	
 				$res = explode(' ',$resolucion[3]);	
-				$Imagen['ancho']=eregi_replace("[width,=,\"]",'',$res[0]);
-				$Imagen['altura']=eregi_replace("[height,=,\"]",'',$res[1]);
+				$Imagen['ancho']=preg_replace("/[width,=,\"]/i",'',$res[0]);
+				$Imagen['altura']=preg_replace("/[height,=,\"]/i",'',$res[1]);
 				
 				$dif=$Imagen['ancho']-$Imagen['altura'];	
 				

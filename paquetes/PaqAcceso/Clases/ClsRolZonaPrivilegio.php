@@ -10,91 +10,90 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsRolZonaPrivilegio {
+class ClsRolZonaPrivilegio
+{
 
-    public $RzpId;
+	public $RzpId;
 	public $RolId;
 	public $ZprId;
 
 	public $ZonNombre;
 	public $PriNombre;
 	public $PriAlias;
-	
-    public $InsMysql;
 
-    public function __construct(){
+	public $InsMysql;
+
+	public function __construct()
+	{
 		$this->InsMysql = new ClsMysql();
-    }
-	
-	public function __destruct(){
-
 	}
 
-	private function MtdGenerarRolZonaPrivilegioId() {
+	public function __destruct() {}
 
-			
-			$sql = 'SELECT	
+	private function MtdGenerarRolZonaPrivilegioId()
+	{
+
+
+		$sql = 'SELECT	
 			MAX(CONVERT(SUBSTR(RzpId,5),unsigned)) AS "MAXIMO"
 			FROM tblrzprolzonaprivilegio';
-			
-			
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			if(empty($fila['MAXIMO'])){			
-				$this->RzpId = "RZP-10000";
 
-			}else{
-				$fila['MAXIMO']++;
-				$this->RzpId = "RZP-".$fila['MAXIMO'];					
-			}
-				
-						
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
+			$this->RzpId = "RZP-10000";
+		} else {
+			$fila['MAXIMO']++;
+			$this->RzpId = "RZP-" . $fila['MAXIMO'];
 		}
-		
-//    public function MtdObtenerRolZonaPrivilegio(){
-//
-//        $sql = 'SELECT 
-//        RzpId,
-//		RolId,
-//		ZprId
-//        FROM tblrzprolzonaprivilegio
-//        WHERE RzpId = '.$this->RzpId.';';
-//		
-//        $resultado = $this->InsMysql->MtdConsultar($sql);
-//
-//        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
-//        {
-//			$this->RzpId = $fila['RzpId'];
-//			$this->RolId = $fila['RolId'];	
-//			$this->ZprId = $fila['ZprId'];	
-//		}
-//        
-//		return $this;
-//
-//    }
+	}
 
-    public function MtdObtenerRolZonaPrivilegios($oCampo=NULL,$oFiltro=NULL,$oOrden = 'RzpId',$oSentido = 'Desc',$oPaginacion = '0,10',$oRol=NULL) {
+	//    public function MtdObtenerRolZonaPrivilegio(){
+	//
+	//        $sql = 'SELECT 
+	//        RzpId,
+	//		RolId,
+	//		ZprId
+	//        FROM tblrzprolzonaprivilegio
+	//        WHERE RzpId = '.$this->RzpId.';';
+	//		
+	//        $resultado = $this->InsMysql->MtdConsultar($sql);
+	//
+	//        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
+	//        {
+	//			$this->RzpId = $fila['RzpId'];
+	//			$this->RolId = $fila['RolId'];	
+	//			$this->ZprId = $fila['ZprId'];	
+	//		}
+	//        
+	//		return $this;
+	//
+	//    }
 
-    // Inicializar variables para evitar warnings
-    $filtrar = '';
-    $orden = '';
-    $paginacion = '';
+	public function MtdObtenerRolZonaPrivilegios($oCampo = NULL, $oFiltro = NULL, $oOrden = 'RzpId', $oSentido = 'Desc', $oPaginacion = '0,10', $oRol = NULL)
+	{
 
-    if(!empty($oCampo) && !empty($oFiltro)){
-        $oFiltro = str_replace(" ","%",$oFiltro);
-        $filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
-    }
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
 
-    if(!empty($oOrden)){
-        $orden = ' ORDER BY '.($oOrden).' '.($oSentido);
-    }
+		if (!empty($oCampo) && !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$filtrar = ' AND ' . ($oCampo) . ' LIKE "%' . ($oFiltro) . '%"';
+		}
 
-    if(!empty($oPaginacion)){
-        $paginacion = ' LIMIT '.($oPaginacion);
-    }
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
+		}
 
-    $sql = 'SELECT
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				rzp.RzpId,
 				rzp.RolId,
@@ -114,137 +113,133 @@ class ClsRolZonaPrivilegio {
 				LEFT JOIN tblpriprivilegio pri
 				ON zpr.PriId = pri.PriId
 				
-				WHERE RolId = "'.$oRol.'" '.$filtrar.$orden.$paginacion;
-											
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+				WHERE RolId = "' . $oRol . '" ' . $filtrar . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			$Respuesta['Ids'] = '';
-			
-            $InsRolZonaPrivilegio = get_class($this);
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-					$RolZonaPrivilegio = new $InsRolZonaPrivilegio();
-                    $RolZonaPrivilegio->RzpId = $fila['RzpId'];
-                 	$RolZonaPrivilegio->RolId= $fila['RolId'];		
-					$RolZonaPrivilegio->ZprId= $fila['ZprId'];
-					
-					$RolZonaPrivilegio->ZonNombre = $fila['ZonNombre'];
-					$RolZonaPrivilegio->PriNombre= $fila['PriNombre'];
-					
-					$RolZonaPrivilegio->PriAlias= $fila['PriAlias'];
-                   
-                    $RolZonaPrivilegio->InsMysql = NULL;     
-					   
-					$Respuesta['Ids'].= "#".$RolZonaPrivilegio->RzpId;        
-					$Respuesta['Datos'][]= $RolZonaPrivilegio;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		$Respuesta['Datos'] = array();
+		$Respuesta['Ids'] = '';
+
+		$InsRolZonaPrivilegio = get_class($this);
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+			$RolZonaPrivilegio = new $InsRolZonaPrivilegio();
+			$RolZonaPrivilegio->RzpId = $fila['RzpId'];
+			$RolZonaPrivilegio->RolId = $fila['RolId'];
+			$RolZonaPrivilegio->ZprId = $fila['ZprId'];
+
+			$RolZonaPrivilegio->ZonNombre = $fila['ZonNombre'];
+			$RolZonaPrivilegio->PriNombre = $fila['PriNombre'];
+
+			$RolZonaPrivilegio->PriAlias = $fila['PriAlias'];
+
+			$RolZonaPrivilegio->InsMysql = NULL;
+
+			$Respuesta['Ids'] .= "#" . $RolZonaPrivilegio->RzpId;
+			$Respuesta['Datos'][] = $RolZonaPrivilegio;
 		}
-				
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
+
+
 
 	//Accion eliminar	 
-	
-	public function MtdEliminarRolZonaPrivilegio($oElementos) {
-		
-		$elementos = explode("#",$oElementos);
-		
-		if(!count($elementos)){
-			$eliminar .= ' RzpId = "'.($oElementos).'"';
-		}else{
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){
-				
-					if($i==count($elementos)){						
-						$eliminar .= '  (RzpId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (RzpId = "'.($elemento).'")  OR';	
-					}	
+
+	public function MtdEliminarRolZonaPrivilegio($oElementos)
+	{
+
+		$elementos = explode("#", $oElementos);
+
+		if (!count($elementos)) {
+			$eliminar .= ' RzpId = "' . ($oElementos) . '"';
+		} else {
+			$i = 1;
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+
+					if ($i == count($elementos)) {
+						$eliminar .= '  (RzpId = "' . ($elemento) . '")';
+					} else {
+						$eliminar .= '  (RzpId = "' . ($elemento) . '")  OR';
+					}
 				}
-			$i++;
-	
+				$i++;
 			}
 		}
-		
-			$sql = 'DELETE from tblrzprolzonaprivilegio WHERE '.$eliminar;
-		
-			$error = false;
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);     //OJO transaccion false   
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+		$sql = 'DELETE from tblrzprolzonaprivilegio WHERE ' . $eliminar;
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);     //OJO transaccion false   
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	
-	public function MtdRegistrarRolZonaPrivilegio() {
-	
-			$this->MtdGenerarRolZonaPrivilegioId();
-		
-			$sql = 'INSERT INTO tblrzprolzonaprivilegio (
+
+
+	public function MtdRegistrarRolZonaPrivilegio()
+	{
+
+		$this->MtdGenerarRolZonaPrivilegioId();
+
+		$sql = 'INSERT INTO tblrzprolzonaprivilegio (
 			RzpId,			
 			RolId,
 			ZprId) 
 			VALUES (
-			"'.($this->RzpId).'", 
-			"'.($this->RolId).'", 			
-			"'.($this->ZprId).'");';					
+			"' . ($this->RzpId) . '", 
+			"' . ($this->RolId) . '", 			
+			"' . ($this->ZprId) . '");';
 
-			$error = false;
+		$error = false;
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);   //OJO transaccion false     
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);   //OJO transaccion false     
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	public function MtdEditarRolZonaPrivilegio() {
-		
-			$sql = 'UPDATE tblrzprolzonaprivilegio SET 			
-			 ZprId = '.($this->ZprId).'			
-			 WHERE RzpId = '.($this->RzpId);
-			
-		
-			$error = false;
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}						
-				
-		}	
-		
+	public function MtdEditarRolZonaPrivilegio()
+	{
 
-	
+		$sql = 'UPDATE tblrzprolzonaprivilegio SET 			
+			 ZprId = ' . ($this->ZprId) . '			
+			 WHERE RzpId = ' . ($this->RzpId);
+
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
-?>

@@ -86,6 +86,11 @@ class ClsVehiculoTipo {
 
     public function MtdObtenerVehiculoTipos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VtiId',$oSentido = 'Desc',$oPaginacion = '0,10') {
 
+		// Initialize variables with default values to avoid undefined variable warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
@@ -145,6 +150,7 @@ class ClsVehiculoTipo {
 	public function MtdEliminarVehiculoTipo($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
+		$eliminar = ''; // Initialize variable to avoid undefined variable warning
 		
 		if(!count($elementos)){
 			$eliminar .= ' VtiId = "'.($oElementos).'"';

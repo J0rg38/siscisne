@@ -124,6 +124,12 @@ class ClsMoneda {
 		
 		
 
+		// Initialize variables with default values to avoid undefined variable warnings
+		$estado = '';
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		
 		if(!empty($oOrden)){
 			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
 		}
@@ -182,6 +188,7 @@ class ClsMoneda {
 	public function MtdEliminarMoneda($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
+		$eliminar = ''; // Initialize variable to avoid undefined variable warning
 		
 		if(!count($elementos)){
 			$eliminar .= ' MonId = "'.($oElementos).'"';

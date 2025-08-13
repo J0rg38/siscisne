@@ -368,7 +368,7 @@ class ClsVehiculo {
 					$Vehiculo->VehEspecificacion = $fila['VehEspecificacion'];
 					$Vehiculo->VehInformacion = $fila['VehInformacion'];
                     $Vehiculo->VehFoto = $fila['VehFoto'];	
-					$Vehiculo->VehTipo = $fila['VehTipo'];	
+					$Vehiculo->VehTipo = $fila['VehTipo'] ?? '';	
 					
 					
 					$Vehiculo->UmeId = $fila['UmeId'];	

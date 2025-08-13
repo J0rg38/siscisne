@@ -59,44 +59,44 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
  * @author Ing. Jonathan Blanco Alave
  */
 
-$POST_cam = ($_POST['Cam']);
-$POST_fil = ($_POST['Fil']);
+$POST_cam = $_POST['Cam'] ?? '';
+$POST_fil = $_POST['Fil'] ?? '';
 
    if($_POST){
 	   $_SESSION[$GET_mod."Filtro"] = $POST_fil;
    }else{
-		$POST_fil = (empty($_GET['Fil'])?$_SESSION[$GET_mod."Filtro"]:$_GET['Fil']);
+		$POST_fil = (empty($_GET['Fil'] ?? '') ? ($_SESSION[$GET_mod."Filtro"] ?? '') : ($_GET['Fil'] ?? ''));
    }
 
 
-$POST_ord = ($_POST['Ord']);
-$POST_sen = ($_POST['Sen']);
-$POST_pag = ($_POST['Pag']);
-$POST_p = ($_POST['P']);
-$POST_num = ($_POST['Num']);
+$POST_ord = $_POST['Ord'] ?? '';
+$POST_sen = $_POST['Sen'] ?? '';
+$POST_pag = $_POST['Pag'] ?? '';
+$POST_p = $_POST['P'] ?? '';
+$POST_num = $_POST['Num'] ?? '';
 
 if($_POST){
 	$_SESSION[$GET_mod."Num"] = $POST_num;
 }else{
-	$POST_num =  $_SESSION[$GET_mod."Num"];	
+	$POST_num = $_SESSION[$GET_mod."Num"] ?? '';	
 }
 
-$POST_seleccionados = $_POST['cmp_seleccionados'];
-$POST_acc = $_POST['Acc'];
+$POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';
+$POST_acc = $_POST['Acc'] ?? '';
 
 /*
 * Otras variables
 */
-$POST_estado = $_POST['Estado'];
-$POST_finicio = $_POST['FechaInicio'];
-$POST_ffin = $_POST['FechaFin'];
-$POST_con = $_POST['Con'];
-$POST_tal = $_POST['Talonario'];
-$POST_Moneda = $_POST['Moneda'];
-$POST_npago = $_POST['CondicionPago'];
-$POST_Sucursal = $_POST['CmpSucursal'];
-$POST_ChkMostrarNoProcesados = $_POST['ChkMostrarNoProcesados'];
-$POST_Cancelado = $_POST['Cancelado'];
+$POST_estado = $_POST['Estado'] ?? '';
+$POST_finicio = $_POST['FechaInicio'] ?? '';
+$POST_ffin = $_POST['FechaFin'] ?? '';
+$POST_con = $_POST['Con'] ?? '';
+$POST_tal = $_POST['Talonario'] ?? '';
+$POST_Moneda = $_POST['Moneda'] ?? '';
+$POST_npago = $_POST['CondicionPago'] ?? '';
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
+$POST_ChkMostrarNoProcesados = $_POST['ChkMostrarNoProcesados'] ?? '';
+$POST_Cancelado = $_POST['Cancelado'] ?? '';
 
 
 if(empty($POST_p)){
@@ -143,7 +143,7 @@ if(empty($POST_con)){
 //}
 
 if(!$_POST){
-	$POST_Sucursal = $_SESSION['SesionSucursal'];
+	$POST_Sucursal = $_SESSION['SesionSucursal'] ?? '';
 }
 
 
@@ -209,8 +209,8 @@ $InsCondicionPago = new ClsCondicionPago();
 $InsMoneda = new ClsMoneda();
 $InsSucursal = new ClsSucursal();
 
-$InsFactura->SucId = $_SESSION['SesionSucursal'];
-$InsFactura->UsuId = $_SESSION['SesionId'];
+$InsFactura->SucId = $_SESSION['SesionSucursal'] ?? '';
+$InsFactura->UsuId = $_SESSION['SesionId'] ?? '';
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccFactura.php');
 

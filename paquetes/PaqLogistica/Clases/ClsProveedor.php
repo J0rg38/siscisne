@@ -220,7 +220,12 @@ class ClsProveedor {
 
     public function MtdObtenerProveedores($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PrvId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oUso=NULL) {
 
-
+		// Initialize variables with default values to avoid undefined variable warnings
+		$filtrar = '';
+		$estado = '';
+		$uso = '';
+		$orden = '';
+		$paginacion = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
@@ -502,6 +507,7 @@ class ClsProveedor {
 	public function MtdEliminarProveedor($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
+		$eliminar = ''; // Initialize variable to avoid undefined variable warning
 			$i=1;
 			foreach($elementos as $elemento){
 				if(!empty($elemento)){

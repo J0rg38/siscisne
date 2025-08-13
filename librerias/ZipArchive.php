@@ -81,14 +81,26 @@ class ZipArchiveJBA  {
 	
 	
 	public static function setup(){
-		if( defined(ZIP_MODULE_IMPLEMENTATION_PATH) ){
-			$possible_zip_locations = explode(":", ZIP_MODULE_IMPLEMENTATION_PATH);
+		// Check if the constant is defined, if not use default system paths
+		if( defined('ZIP_MODULE_IMPLEMENTATION_PATH') ){
+			$possible_zip_locations = explode(":", constant('ZIP_MODULE_IMPLEMENTATION_PATH'));
 			//try to find zip executable
 			foreach($possible_zip_locations as $loc){
 				if( is_executable($loc.DIRECTORY_SEPARATOR."zip") ){
 					self::$zip_exec = $loc.DIRECTORY_SEPARATOR."zip";
 				}else if( is_executable($loc.DIRECTORY_SEPARATOR."unzip") ){
 					self::$unzip_exec = $loc.DIRECTORY_SEPARATOR."unzip";
+				}
+			}
+		} else {
+			// Try to find zip/unzip in common system locations
+			$common_paths = array('/usr/bin', '/usr/local/bin', '/bin', '/usr/sbin', '/usr/local/sbin');
+			foreach($common_paths as $path) {
+				if( is_executable($path.DIRECTORY_SEPARATOR."zip") ){
+					self::$zip_exec = $path.DIRECTORY_SEPARATOR."zip";
+				}
+				if( is_executable($path.DIRECTORY_SEPARATOR."unzip") ){
+					self::$unzip_exec = $path.DIRECTORY_SEPARATOR."unzip";
 				}
 			}
 		}
@@ -486,15 +498,11 @@ class ZipArchiveJBA  {
 		$noCase =  ($flags & self::FL_NOCASE) ? true:false;
 		
 		$loopFile = ($noDir) ? basename($name) : $name ;
-		if($noCase){
-			$search = strtolower($search);
-		}
+		$searchLower = ($noCase) ? strtolower($name) : $name;
 		foreach($this->fileIndex as $ind => $fileRelPath){
 			$loopFile = ($noDir) ? basename($fileRelPath) : $fileRelPath ;
-			if($noCase){
-				$loopFile = strtolower($loopFile);
-			}
-			if( $loopFile == $search ){
+			$loopFileLower = ($noCase) ? strtolower($loopFile) : $loopFile;
+			if( $loopFileLower == $searchLower ){
 				return $ind;
 			}
 		}
@@ -512,7 +520,7 @@ class ZipArchiveJBA  {
 		if(!$this->zip_is_open){
 			return false;
 		}
-		if(! is_set($this->fileIndex[$index]) ){
+		if(! isset($this->fileIndex[$index]) ){
 			return false;
 		}
 		return $this->fileIndex[$index];

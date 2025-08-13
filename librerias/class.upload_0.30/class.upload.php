@@ -2078,7 +2078,7 @@ class upload {
 
         $val = trim(ini_get('upload_max_filesize'));
         $this->file_max_size_raw = $val;
-        $last = strtolower($val{strlen($val)-1});
+    $last = strtolower($val[strlen($val)-1]);
         switch($last) {
             case 'g':
                 $val *= 1024;

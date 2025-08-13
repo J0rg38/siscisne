@@ -673,31 +673,31 @@ cli.PerId,
 					$Cliente->CliRepresentanteActividadEconomica = $fila['CliRepresentanteActividadEconomica'];
 			
 					$Cliente->MonId = $fila['MonId'];
-					$Cliente->CliTipoCambioFecha = $fila['CliTipoCambioFecha'];
-					$Cliente->CliTipoCambio = $fila['CliTipoCambio'];
-					$Cliente->CliLineaCredito = $fila['CliLineaCredito'];
+					$Cliente->CliTipoCambioFecha = $fila['NCliTipoCambioFecha'] ?? '';
+					$Cliente->CliTipoCambio = $fila['CliTipoCambio'] ?? '';
+					$Cliente->CliLineaCredito = $fila['CliLineaCredito'] ?? '';
 					
-					$Cliente->CliArchivo = $fila['CliArchivo'];
-					$Cliente->CliClasificacion = $fila['CliClasificacion'];		
+					$Cliente->CliArchivo = $fila['CliArchivo'] ?? '';
+					$Cliente->CliClasificacion = $fila['CliClasificacion'] ?? '';		
 					
-					$Cliente->CliCSIExcluirMotivo = $fila['CliCSIExcluirMotivo'];
-					$Cliente->CliCSIIncluir = $fila['CliCSIIncluir'];
-					$Cliente->CliCSIExcluirFecha = $fila['NCliCSIExcluirFecha'];
+					$Cliente->CliCSIExcluirMotivo = $fila['CliCSIExcluirMotivo'] ?? '';
+					$Cliente->CliCSIIncluir = $fila['CliCSIIncluir'] ?? '';
+					$Cliente->CliCSIExcluirFecha = $fila['NCliCSIExcluirFecha'] ?? '';
 					
 				
-					$Cliente->CliBloquear = $fila['CliBloquear'];	
-					$Cliente->CliEmailFacturacion = $fila['CliEmailFacturacion'];							
-					$Cliente->CliClaveElectronica = $fila['CliClaveElectronica'];							
-					$Cliente->CliEstado = $fila['CliEstado'];					
-                    $Cliente->CliTiempoCreacion = $fila['NCliTiempoCreacion'];
-                    $Cliente->CliTiempoModificacion = $fila['NCliTiempoModificacion'];    
+					$Cliente->CliBloquear = $fila['CliBloquear'] ?? '';	
+					$Cliente->CliEmailFacturacion = $fila['CliEmailFacturacion'] ?? '';							
+					$Cliente->CliClaveElectronica = $fila['CliClaveElectronica'] ?? '';							
+					$Cliente->CliEstado = $fila['CliEstado'] ?? '';					
+                    $Cliente->CliTiempoCreacion = $fila['NCliTiempoCreacion'] ?? '';
+                    $Cliente->CliTiempoModificacion = $fila['NCliTiempoModificacion'] ?? '';    
 
-					$Cliente->TdoNombre = $fila['TdoNombre'];    
+					$Cliente->CliTdoNombre = $fila['TdoNombre'] ?? '';    
 					
-					$Cliente->LtiNombre = $fila['LtiNombre'];    
-					$Cliente->LtiAbreviatura = $fila['LtiAbreviatura'];    					
-					$Cliente->LtiUtilidad = $fila['LtiUtilidad'];
-					$Cliente->LtiPorcentajeMargenUtilidad = $fila['LtiPorcentajeMargenUtilidad'];    
+					$Cliente->CliLtiNombre = $fila['LtiNombre'] ?? '';    
+					$Cliente->CliLtiAbreviatura = $fila['LtiAbreviatura'] ?? '';    					
+					$Cliente->CliLtiUtilidad = $fila['LtiUtilidad'] ?? '';
+					$Cliente->CliLtiPorcentajeMargenUtilidad = $fila['LtiPorcentajeMargenUtilidad'] ?? '';    
 					
                     $Cliente->InsMysql = NULL;                    
 					$Respuesta['Datos'][]= $Cliente;

@@ -46,9 +46,9 @@ $InsACL = new ClsACL();
 */
 $GET_mod = $_GET['Mod'];
 $GET_form = $_GET['Form'];
-$GET_NMod = $_GET['NMod'];
-$GET_NfnId = $_GET['NfnId'];
-$GET_Leido = $_GET['Leido'];
+$GET_NMod = $_GET['NMod'] ?? null;
+$GET_NfnId = $_GET['NfnId'] ?? null;
+$GET_Leido = $_GET['Leido'] ?? null;
 //CONFIGURACION DE EMPRESA
 require_once($InsPoo->MtdPaqConfiguracion().'ClsConfiguracionEmpresa.php');
 
@@ -694,8 +694,11 @@ var ArrTipoCambios = (<?php echo json_encode($ArrTipoCambios);?>);
             if(file_exists('formularios/'.$GET_mod.'/Frm'.$GET_mod.$GET_form.'.php')){
                 include('formularios/'.$GET_mod.'/Frm'.$GET_mod.$GET_form.'.php');
                 
-                $InsMensaje->MenResultado = $Resultado;
-                $InsMensaje->MtdImprimirResultado();
+                // Check if $Resultado is defined before using it
+                if(isset($Resultado)){
+                    $InsMensaje->MenResultado = $Resultado;
+                    $InsMensaje->MtdImprimirResultado();
+                }
     
             }else{
                 //include('default.php');	
@@ -744,9 +747,12 @@ $().ready(function() {
 <div class='error' style='display:none'></div>
 
 <?php
-$InsMensaje->MenResultado = $_SESSION['SesAviso'];
-$InsMensaje->MtdImprimirResultado();
-unset($_SESSION['SesAviso']);
+// Check if SesAviso session variable exists before using it
+if(isset($_SESSION['SesAviso'])){
+    $InsMensaje->MenResultado = $_SESSION['SesAviso'];
+    $InsMensaje->MtdImprimirResultado();
+    unset($_SESSION['SesAviso']);
+}
 ?>
 
 <!--<script>
@@ -766,7 +772,11 @@ unset($_SESSION['SesAviso']);
 }
 
 }else{
-	$_SESSION['SesAviso'].="#ERR_GEN_207";
+	// Initialize SesAviso if it doesn't exist, then append the error
+	if(!isset($_SESSION['SesAviso'])){
+		$_SESSION['SesAviso'] = '';
+	}
+	$_SESSION['SesAviso'] .= "#ERR_GEN_207";
 	header("Location: login.php");
 }
 ?>
