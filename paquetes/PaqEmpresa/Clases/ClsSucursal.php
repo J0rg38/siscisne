@@ -184,7 +184,7 @@ class ClsSucursal
 			';
 		}
 
-	echo	$sql = 'SELECT
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				suc.SucId,
 				suc.SucNombre,

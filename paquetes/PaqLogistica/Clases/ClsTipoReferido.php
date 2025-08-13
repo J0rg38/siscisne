@@ -113,6 +113,13 @@ class ClsTipoReferido {
 
     public function MtdObtenerTipoReferidos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'TrfId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL) {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$uso = '';
+		$estado = '';
+		$orden = '';
+		$paginacion = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';

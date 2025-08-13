@@ -24,17 +24,17 @@ if(!empty($_POST['Identificador'])){
 	$Identificador = $_POST['Identificador'];
 }
 
-$GET_ClienteNombre = $_GET['ClienteNombre'];
-$GET_TipoDocumentoId = $_GET['TipoDocumentoId'];
-$GET_ClienteNumeroDocumento = $_GET['ClienteNumeroDocumento'];
-$GET_ClienteDireccion = $_GET['ClienteDireccion'];
-$GET_ClienteCelular = $_GET['ClienteCelular'];
-$GET_ClienteTelefono = $_GET['ClienteTelefono'];
+$GET_ClienteNombre = $_GET['ClienteNombre'] ?? '';
+$GET_TipoDocumentoId = $_GET['TipoDocumentoId'] ?? '';
+$GET_ClienteNumeroDocumento = $_GET['ClienteNumeroDocumento'] ?? '';
+$GET_ClienteDireccion = $_GET['ClienteDireccion'] ?? '';
+$GET_ClienteCelular = $_GET['ClienteCelular'] ?? '';
+$GET_ClienteTelefono = $_GET['ClienteTelefono'] ?? '';
 
-$GET_ClienteEmail = $_GET['ClienteEmail'];
-$GET_ClienteTipoId = $_GET['ClienteTipoId'];
+$GET_ClienteEmail = $_GET['ClienteEmail'] ?? '';
+$GET_ClienteTipoId = $_GET['ClienteTipoId'] ?? '';
 
-$GET_Tipo = $_GET['Tipo'];
+$GET_Tipo = $_GET['Tipo'] ?? '';
 
 
 //MENSAJES

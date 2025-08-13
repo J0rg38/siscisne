@@ -1,10 +1,15 @@
 
 <?php
 //Si se hizo click en guardar			
-if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){	
+if(isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guardar']=="1")){	
 
 	$Guardar = true;
 	$Resultado = '';
+	
+	// Asegurar que $Identificador esté definida
+	if(!isset($Identificador)) {
+		$Identificador = '';
+	}
 	
 	$InsCliente->UsuId = $_SESSION['SesionId'];	
 	
@@ -179,7 +184,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 //deb($Registro);
 }else{
 
-	FncNuevo();
+	FncNuevo($Identificador ?? '');
 		
 	$InsCliente->CliNombre = $GET_ClienteNombre;
 	$InsCliente->TdoId = empty($GET_TipoDocumentoId)?"TDO-10001":$GET_TipoDocumentoId;
@@ -196,7 +201,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 }
 
 
-function FncNuevo(){
+function FncNuevo($Identificador = ''){
 	
 	global $InsCliente;
 	
