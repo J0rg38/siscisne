@@ -103,6 +103,13 @@ class ClsObsequio {
 
     public function MtdObtenerObsequios($oCampo=NULL,$oFiltro=NULL,$oOrden = 'ObsId',$oSentido = 'Desc',$oPaginacion = '0,10',$oUso=NULL,$oEstado=NULL) {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$uso = '';
+		$estado = '';
+		$orden = '';
+		$paginacion = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
