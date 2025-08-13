@@ -65,7 +65,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
 
 	$POST_Estado = $_POST['Estado'] ?? '';
 
-	$POST_con = $_POST['Con'];
+	$POST_con = $_POST['Con'] ?? '';
 
 	if (empty($POST_p)) {
 		$POST_p = '1';

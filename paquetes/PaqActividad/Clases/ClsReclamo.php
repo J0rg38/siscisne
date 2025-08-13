@@ -53,6 +53,12 @@ class ClsReclamo {
 	
 	public $ReclamoDetalle;
 	public $ReclamoFoto;
+	public $PrvNombreCompleto;
+	public $MonNombre;
+	public $MonSimbolo;
+	public $RecEstadoDescripcion;
+	public $UsuId;
+	public $SucId;
 
     public $InsMysql;
 
@@ -256,6 +262,15 @@ class ClsReclamo {
     }
 
     public function MtdObtenerReclamos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'RecId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oMoneda=NULL,$oCodigoReclamo=NULL) {
+
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fecha = '';
+		$estado = '';
+		$moneda = '';
+		$creclamo = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			

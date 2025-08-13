@@ -15,6 +15,7 @@ class ClsVehiculoIngresoPredictivo {
     public $VipId;
 	public $CliId;
 	public $EinId;
+	public $SucId;
 	
 	public $VipFichaIngresoFechaPredecida;
     public $VipFichaIngresoFechaUltimo;
@@ -24,11 +25,41 @@ class ClsVehiculoIngresoPredictivo {
 	public $VipEmail;
 	public $VipDescripcion;
 	public $VipKilometrajeMantenimiento;
+	public $VipReferencia;
+	public $VipObservacionImpresa;
+	public $VipObservacionInterna;
 	
 	public $VipEstado;	
     public $VipTiempoCreacion;
     public $VipTiempoModificacion;
     public $VipEliminado;
+	
+	public $LtiId;
+	public $CliNombreCompleto;
+	public $CliNombre;
+	public $CliApellidoPaterno;
+	public $CliApellidoMaterno;
+	public $CliNumeroDocumento;
+	public $TdoId;
+	public $CliCelular;
+	public $CliContactoCelular1;
+	public $CliContactoCelular2;
+	public $CliContactoCelular3;
+	public $CliTelefono;
+	public $CliDireccion;
+	public $EinVIN;
+	public $EinPlaca;
+	public $EinColor;
+	public $EinAnoFabricacion;
+	public $EinAnoModelo;
+	public $VveId;
+	public $VmoId;
+	public $VmaId;
+	public $VmaNombre;
+	public $VmoNombre;
+	public $VveNombre;
+	public $VipEstadoDescripcion;
+	public $VipEstadoIcono;
 
 	public $InsMysql;
 
@@ -246,7 +277,15 @@ class ClsVehiculoIngresoPredictivo {
 
     public function MtdObtenerVehiculoIngresoPredictivos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'VipId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oCliente=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oFecha="VipFichaIngresoFechaPredecida",$oVehiculoIngresoId=NULL,$oSucursal=NULL) {
 
-
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$estado = '';
+		$cliente = '';
+		$fecha = '';
+		$vingreso = '';
+		$sucursal = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
