@@ -85,9 +85,9 @@
 	define("ERR_FIN_233", "No se pudo eliminar una de las DETALLES DE MANO DE OBRA la O.T..");	
 	
 		
-	define("ERR_FIN_231", "No se pudo registrar una de las COMPRAS DE REPUESTOS de la O.T..");
-	define("ERR_FIN_232", "No se pudo editar una de las COMPRAS DE REPUESTOS de la O.T..");
-	define("ERR_FIN_233", "No se pudo eliminar una de las COMPRAS DE REPUESTOS la O.T..");	
+	define("ERR_FIN_234", "No se pudo registrar una de las COMPRAS DE REPUESTOS de la O.T..");
+	define("ERR_FIN_235", "No se pudo editar una de las COMPRAS DE REPUESTOS de la O.T..");
+	define("ERR_FIN_236", "No se pudo eliminar una de las COMPRAS DE REPUESTOS la O.T..");	
 
 
 

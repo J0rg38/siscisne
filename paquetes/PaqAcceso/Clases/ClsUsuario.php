@@ -10,63 +10,64 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsUsuario {
+class ClsUsuario
+{
 
-    public $UsuId;
+	public $UsuId;
 	public $RolId;
 	public $UsuUsuario;
-    public $UsuContrasena;
+	public $UsuContrasena;
 	public $UsuFoto;
 	public $UsuEstado;
 	public $UsuUltimaSesion;
-    public $UsuTiempoCreacion;
-    public $UsuTiempoModificacion;
-    public $UsuEliminado;
-	
+	public $UsuTiempoCreacion;
+	public $UsuTiempoModificacion;
+	public $UsuEliminado;
+
 	public $SucId;
-	
+
 	public $RolNombre;
-	
-	public $PerId;	
+
+	public $PerId;
 	public $PerNombre;
 	public $PerApellidoPaterno;
 	public $PerApellidoMaterno;
-		
+
 	public $RolZonaPrivilegio;
 
-    public $InsMysql;
+	public $InsMysql;
 
-    public function __construct(){
+	public function __construct()
+	{
 		$this->InsMysql = new ClsMysql();
-    }
-	
-	public function __destruct(){
-
 	}
 
-	public function MtdGenerarUsuarioId() {
-			
-		
-			$sql = 'SELECT	
-			MAX(CONVERT(SUBSTR(UsuId,5),unsigned)) AS "MAXIMO"
-			FROM tblusuusuario';
-			
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			if(empty($fila['MAXIMO'])){			
-				$this->UsuId = "USU-10000";
+	public function __destruct() {}
 
-			}else{
-				$fila['MAXIMO']++;
-				$this->UsuId = "USU-".$fila['MAXIMO'];					
-			}
-					
+	public function MtdGenerarUsuarioId()
+	{
+
+
+		$sql = 'SELECT	
+		MAX(CONVERT(SUBSTR(UsuId,5),unsigned)) AS "MAXIMO"
+		FROM tblusuusuario';
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
+			$this->UsuId = "USU-10000";
+		} else {
+			$fila['MAXIMO']++;
+			$this->UsuId = "USU-" . $fila['MAXIMO'];
 		}
-		
-    public function MtdObtenerUsuario(){
+	}
 
-        $sql = 'SELECT 
+	public function MtdObtenerUsuario()
+	{
+
+
+		$sql = 'SELECT 
         UsuId,
 		RolId,	
 		UsuUsuario,
@@ -77,27 +78,25 @@ class ClsUsuario {
 		DATE_FORMAT(UsuTiempoCreacion, "%d/%m/%Y %H:%i:%s") AS "NUsuTiempoCreacion",
         DATE_FORMAT(UsuTiempoModificacion, "%d/%m/%Y %H:%i:%s") AS "NUsuTiempoModificacion"
         FROM tblusuusuario
-        WHERE UsuId = "'.$this->UsuId.'";';
-		
-        $resultado = $this->InsMysql->MtdConsultar($sql);
+        WHERE UsuId = "' . $this->UsuId . '";';
 
-		if($this->InsMysql->MtdObtenerDatosTotal($resultado)>0){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
-        {
-		
-			$this->UsuId = $fila['UsuId'];
-            $this->RolId = $fila['RolId'];		
-			$this->UsuUsuario = (($fila['UsuUsuario']));
-            $this->UsuContrasena = $fila['UsuContrasena'];
-			$this->UsuFoto = $fila['UsuFoto'];
-            $this->UsuEstado = $fila['UsuEstado'];
-            $this->UsuUltimaSesion = $fila['NUsuUltimaSesion'];						
-			$this->UsuTiempoCreacion = $fila['NUsuTiempoCreacion'];
-			$this->UsuTiempoModificacion = $fila['NUsuTiempoModificacion']; 
-			
-			
-		}
+		if ($this->InsMysql->MtdObtenerDatosTotal($resultado) > 0) {
+
+			while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+
+
+				$this->UsuId = $fila['UsuId'];
+				$this->RolId = $fila['RolId'];
+				$this->UsuUsuario = (($fila['UsuUsuario']));
+				$this->UsuContrasena = $fila['UsuContrasena'];
+				$this->UsuFoto = $fila['UsuFoto'];
+				$this->UsuEstado = $fila['UsuEstado'];
+				$this->UsuUltimaSesion = $fila['NUsuUltimaSesion'];
+				$this->UsuTiempoCreacion = $fila['NUsuTiempoCreacion'];
+				$this->UsuTiempoModificacion = $fila['NUsuTiempoModificacion'];
+			}
         
 			$Respuesta =  $this;
 			

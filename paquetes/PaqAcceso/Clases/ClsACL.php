@@ -10,76 +10,75 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsACL {
-	
-    public $InsMysql;
+class ClsACL
+{
+
+	public $InsMysql;
 
 
-    public function __construct(){
+	public function __construct()
+	{
 		$this->InsMysql = new ClsMysql();
-    }
-	
-	public function __destruct(){
-
 	}
-	
-	
-	public function MtdVerificarACL($oRol=NULL,$oZona=NULL,$oPrivilegio=NULL){
-			
+
+	public function __destruct() {}
+
+
+	public function MtdVerificarACL($oRol = NULL, $oZona = NULL, $oPrivilegio = NULL)
+	{
+
 		$Permiso = false;
-		
-		
+
+
 		//echo $_SESSION['SesionRol'];
-		
+
 		//echo "<br>";
-		
-		if(!empty($_SESSION['SesionRol'])){
+
+		if (!empty($_SESSION['SesionRol'])) {
 
 			$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio();
-			$ResRolZonaPrivilegio = $InsRolZonaPrivilegio->MtdObtenerRolZonaPrivilegios(NULL,NULL,'RzpId','Desc',NULL,$_SESSION['SesionRol']);
+			$ResRolZonaPrivilegio = $InsRolZonaPrivilegio->MtdObtenerRolZonaPrivilegios(NULL, NULL, 'RzpId', 'Desc', NULL, $_SESSION['SesionRol']);
 			$ArrRolZonaPrivilegios = $ResRolZonaPrivilegio['Datos'];
-			
-			foreach($ArrRolZonaPrivilegios as $DatRolZonaPrivilegio){
-				
-				if($DatRolZonaPrivilegio->RolId == $oRol and $DatRolZonaPrivilegio->ZonNombre == $oZona and $DatRolZonaPrivilegio->PriNombre == $oPrivilegio ){		
-					
+
+			foreach ($ArrRolZonaPrivilegios as $DatRolZonaPrivilegio) {
+
+				if ($DatRolZonaPrivilegio->RolId == $oRol and $DatRolZonaPrivilegio->ZonNombre == $oZona and $DatRolZonaPrivilegio->PriNombre == $oPrivilegio) {
+
 					$Permiso = true;
 					break;
 				}
-				
 			}
-			
 		}
-		
-		
-//		if (isset($_SESSION['InsRolZonaPrivilegio'])){	
-//			$_SESSION['InsRolZonaPrivilegio'] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsRolZonaPrivilegio']);
-//		}
-//
-//
-//
-//		$Permiso = false;
-//
-//		$RepSesionObjetos = $_SESSION['InsRolZonaPrivilegio']->MtdObtenerSesionObjetos();
-//
-//		foreach($RepSesionObjetos['Datos'] as $DatSesionObjeto){
-//
-//				
-//			if($DatSesionObjeto->Parametro2 == $oRol and $DatSesionObjeto->Parametro4 == $oZona and $DatSesionObjeto->Parametro5 == $oPrivilegio ){		
-//					
-//					//echo " xd";
-//					$Permiso = true;
-//					break;
-//			}
-//				
-//		}
 
 
-//echo "<hr>";
+		//		if (isset($_SESSION['InsRolZonaPrivilegio'])){	
+		//			$_SESSION['InsRolZonaPrivilegio'] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsRolZonaPrivilegio']);
+		//		}
+		//
+		//
+		//
+		//		$Permiso = false;
+		//
+		//		$RepSesionObjetos = $_SESSION['InsRolZonaPrivilegio']->MtdObtenerSesionObjetos();
+		//
+		//		foreach($RepSesionObjetos['Datos'] as $DatSesionObjeto){
+		//
+		//				
+		//			if($DatSesionObjeto->Parametro2 == $oRol and $DatSesionObjeto->Parametro4 == $oZona and $DatSesionObjeto->Parametro5 == $oPrivilegio ){		
+		//					
+		//					//echo " xd";
+		//					$Permiso = true;
+		//					break;
+		//			}
+		//				
+		//		}
+
+
+		//echo "<hr>";
 
 		//echo ".- <i>".$oTipo."</i> -> <b>".$oFormulario."</b> => <b>".$oAccion."</b>";
-		
-		
+
+
 		/*$sql = 'SELECT ZprId FROM tblrzprolzonaprivilegio WHERE RolId = "'.$oRol.'";';
 			
         $resultado = $this->InsMysql->MtdConsultar($sql);
@@ -115,16 +114,8 @@ class ClsACL {
 				
 			}
         */
-		
-	//	$i++;
-	return $Permiso;	
-	
+
+		//	$i++;
+		return $Permiso;
 	}
-	
-	
-	
-	
 }
-
-
-?>

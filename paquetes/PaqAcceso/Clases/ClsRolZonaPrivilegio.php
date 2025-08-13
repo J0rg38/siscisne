@@ -154,7 +154,9 @@ class ClsRolZonaPrivilegio
 	public function MtdEliminarRolZonaPrivilegio($oElementos)
 	{
 
+
 		$elementos = explode("#", $oElementos);
+		$eliminar = ''; // Initialize variable to avoid undefined variable warning
 
 		if (!count($elementos)) {
 			$eliminar .= ' RzpId = "' . ($oElementos) . '"';

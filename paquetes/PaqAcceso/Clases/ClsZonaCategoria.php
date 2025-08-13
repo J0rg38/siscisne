@@ -10,217 +10,226 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsZonaCategoria {
+class ClsZonaCategoria
+{
 
-    public $ZcaId;
+	public $ZcaId;
 	public $ZcaNombre;
 	public $ZcaAlias;
 
-    public $InsMysql;
+	public $InsMysql;
 
-    public function __construct(){
+	public function __construct()
+	{
 		$this->InsMysql = new ClsMysql();
-    }
-	
-	public function __destruct(){
-
 	}
 
-//	private function MtdGenerarZonaCategoriaId() {
-//
-//			$sql = 'SELECT	
-//			MAX(CONVERT(SUBSTR(ZcaId,5),unsigned)) AS "MAXIMO"
-//			FROM tblzcazonacategoria';
-//			
-//			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-//			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-//			
-//			if(empty($fila['MAXIMO'])){			
-//				$this->ZcaId = "ZCA-10000";
-//
-//			}else{
-//				$fila['MAXIMO']++;
-//				$this->ZcaId = "ZCA-".$fila['MAXIMO'];					
-//			}			
-//		}
+	public function __destruct() {}
+
+	private function MtdGenerarZonaCategoriaId()
+	{
+
+
+		$sql = 'SELECT	
+		MAX(CONVERT(SUBSTR(ZcaId,5),unsigned)) AS "MAXIMO"
+		FROM tblzcazonacategoria';
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
+			$this->ZcaId = "ZCA-10000";
+		} else {
+			$fila['MAXIMO']++;
+			$this->ZcaId = "ZCA-" . $fila['MAXIMO'];
+		}
+	}
 		
-//    public function MtdObtenerZonaCategoria(){
-//
-//        $sql = 'SELECT 
-//        ZcaId,
-//		ZcaNombre,
-//		ZcaAlias
-//        FROM tblzcazonacategoria
-//        WHERE ZcaId = "'.$this->ZcaId.'";';
-//		
-//        $resultado = $this->InsMysql->MtdConsultar($sql);
-//
-//		if($this->InsMysql->MtdObtenerDatosTotal($resultado)>0){
-//		
-//        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
-//        {
-//			$this->ZcaId = $fila['ZcaId'];
-//			$this->ZcaNombre = $fila['ZcaNombre'];
-//				$this->ZcaAlias = $fila['ZcaAlias'];
-//		}
-//        
-//			$Respuesta =  $this;
-//			
-//		}else{
-//			$Respuesta =   NULL;
-//		}
-//		
-//        
-//		return $Respuesta;
-//
-//    }
+	//    public function MtdObtenerZonaCategoria(){
+	//
+	//        $sql = 'SELECT 
+	//        ZcaId,
+	//		ZcaNombre,
+	//		ZcaAlias
+	//        FROM tblzcazonacategoria
+	//        WHERE ZcaId = "'.$this->ZcaId.'";';
+	//		
+	//        $resultado = $this->InsMysql->MtdConsultar($sql);
+	//
+	//		if($this->InsMysql->MtdObtenerDatosTotal($resultado)>0){
+	//		
+	//        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
+	//        {
+	//			$this->ZcaId = $fila['ZcaId'];
+	//			$this->ZcaNombre = $fila['ZcaNombre'];
+	//				$this->ZcaAlias = $fila['ZcaAlias'];
+	//		}
+	//        
+	//			$Respuesta =  $this;
+	//			
+	//		}else{
+	//			$Respuesta =   NULL;
+	//		}
+	//		
+	//        
+	//		return $Respuesta;
+	//
+	//    }
 
-    public function MtdObtenerZonaCategorias($oCampo=NULL,$oFiltro=NULL,$oOrden = 'ZcaId',$oSentido = 'Desc',$oPaginacion = '0,10') {
+	public function MtdObtenerZonaCategorias($oCampo = NULL, $oFiltro = NULL, $oOrden = 'ZcaId', $oSentido = 'Desc', $oPaginacion = '0,10')
+	{
 
-		if(!empty($oCampo) && !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
+
+		// Initialize variables with default values to avoid undefined variable warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+
+		if (!empty($oCampo) && !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$filtrar = ' AND ' . ($oCampo) . ' LIKE "%' . ($oFiltro) . '%"';
 		}
 
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		
-			$sql = 'SELECT
-				SQL_CALC_FOUND_ROWS 
-				ZcaId,
-				ZcaNombre,
-				ZcaAlias					
-				FROM tblzcazonacategoria
-				WHERE 1 = 1 '.$filtrar.$orden.$paginacion;
-											
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
 
-			$Respuesta['Datos'] = array();
-			
-            $InsZonaCategoria = get_class($this);
 
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-					$ZonaCategoria = new $InsZonaCategoria();
-                    $ZonaCategoria->ZcaId = $fila['ZcaId'];
-                 	$ZonaCategoria->ZcaNombre= $fila['ZcaNombre'];	
-                 	$ZonaCategoria->ZcaAlias= $fila['ZcaAlias'];								
-                   
-					$ZonaCategoria->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $ZonaCategoria;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		$sql = 'SELECT
+			SQL_CALC_FOUND_ROWS 
+			ZcaId,
+			ZcaNombre,
+			ZcaAlias					
+			FROM tblzcazonacategoria
+			WHERE 1 = 1 ' . $filtrar . $orden . $paginacion;
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+
+		$Respuesta['Datos'] = array();
+
+		$InsZonaCategoria = get_class($this);
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+			$ZonaCategoria = new $InsZonaCategoria();
+			$ZonaCategoria->ZcaId = $fila['ZcaId'];
+			$ZonaCategoria->ZcaNombre = $fila['ZcaNombre'];
+			$ZonaCategoria->ZcaAlias = $fila['ZcaAlias'];
+
+			$ZonaCategoria->InsMysql = NULL;
+			$Respuesta['Datos'][] = $ZonaCategoria;
 		}
-				
-		
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
+
+
 	//Accion eliminar	 
-	
-//	public function MtdEliminarZonaCategoria($oElementos) {
-//		
-//		$elementos = explode("#",$oElementos);
-//		
-//		if(!count($elementos)){
-//			$eliminar .= ' ZcaId = "'.($oElementos).'"';
-//		}else{
-//			$i=1;
-//			foreach($elementos as $elemento){
-//				if(!empty($elemento)){
-//				
-//					if($i==count($elementos)){						
-//						$eliminar .= '  (ZcaId = "'.($elemento).'")';	
-//					}else{
-//						$eliminar .= '  (ZcaId = "'.($elemento).'")  OR';	
-//					}	
-//				}
-//			$i++;
-//	
-//			}
-//		}
-//		
-//			$sql = 'DELETE from tblzcazonacategoria WHERE '.$eliminar;
-//		
-//			$error = false;
-//
-//			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-//			
-//			if(!$resultado) {						
-//				$error = true;
-//			} 		
-//			
-//			if($error) {						
-//				return false;
-//			} else {				
-//				return true;
-//			}							
-//	}
-	
-	
-	public function MtdRegistrarZonaCategoria() {
-	
-			$this->MtdGenerarZonaCategoriaId();
-		
-			$sql = 'INSERT INTO tblzcazonacategoria (
+
+	//	public function MtdEliminarZonaCategoria($oElementos) {
+	//		
+	//		$elementos = explode("#",$oElementos);
+	//		
+	//		if(!count($elementos)){
+	//			$eliminar .= ' ZcaId = "'.($oElementos).'"';
+	//		}else{
+	//			$i=1;
+	//			foreach($elementos as $elemento){
+	//				if(!empty($elemento)){
+	//				
+	//					if($i==count($elementos)){						
+	//						$eliminar .= '  (ZcaId = "'.($elemento).'")';	
+	//					}else{
+	//						$eliminar .= '  (ZcaId = "'.($elemento).'")  OR';	
+	//					}	
+	//				}
+	//			$i++;
+	//	
+	//			}
+	//		}
+	//		
+	//			$sql = 'DELETE from tblzcazonacategoria WHERE '.$eliminar;
+	//		
+	//			$error = false;
+	//
+	//			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
+	//			
+	//			if(!$resultado) {						
+	//				$error = true;
+	//			} 		
+	//			
+	//			if($error) {						
+	//				return false;
+	//			} else {				
+	//				return true;
+	//			}							
+	//	}
+
+
+	public function MtdRegistrarZonaCategoria()
+	{
+
+
+		$this->MtdGenerarZonaCategoriaId();
+
+		$sql = 'INSERT INTO tblzcazonacategoria (
 			ZcaId,			
 			ZcaNombre,
 			ZcaAlias) 
 
 			VALUES (
-			"'.($this->ZcaId).'", 
-			"'.($this->ZcaNombre).'", 			
-			"'.($this->ZcaAlias).'");';					
+			"' . ($this->ZcaId) . '", 
+			"' . ($this->ZcaNombre) . '", 			
+			"' . ($this->ZcaAlias) . '");';
 
-			$error = false;
+		$error = false;
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
+
 	//public function MtdEditarZonaCategoria() {
-//		
-//			$sql = 'UPDATE tblzcazonacategoria SET 			
-//			 ZcaNombre = "'.($this->ZcaNombre).'",	
-//			 ZcaAlias = "'.($this->ZcaAlias).'"			
-//			 WHERE ZcaId = "'.($this->ZcaId).'";';
-//			
-//		
-//			$error = false;
-//
-//			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-//			
-//			if(!$resultado) {						
-//				$error = true;
-//			} 		
-//			
-//			if($error) {						
-//				return false;
-//			} else {				
-//				return true;
-//			}						
-//				
-//		}	
-//		
-	
+	//
+	//			$sql = 'UPDATE tblzcazonacategoria SET 			
+	//			 ZcaNombre = "'.($this->ZcaNombre).'",	
+	//			 ZcaAlias = "'.($this->ZcaAlias).'"			
+	//			 WHERE ZcaId = "'.($this->ZcaId).'";';
+	//			
+	//
+	//			$error = false;
+	//
+	//			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
+	//			
+	//			if(!$resultado) {						
+	//				$error = true;
+	//			} 		
+	//			
+	//			if($error) {						
+	//				return false;
+	//			} else {				
+	//				return true;
+	//			}						
+	//				
+	//		}	
+	//		
+
+
 }
 ?>
