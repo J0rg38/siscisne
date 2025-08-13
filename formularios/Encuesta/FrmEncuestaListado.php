@@ -34,10 +34,10 @@ $POST_fil = ($_POST['Fil'] ?? '');
 
 
 $POST_ord = ($_POST['Ord'] ?? '');
-$POST_sen = ($_POST['Sen']);
+$POST_sen = $_POST['Sen'] ?? '';
 $POST_pag = ($_POST['Pag'] ?? '');
 $POST_p = ($_POST['P'] ?? '');
-$POST_num = ($_POST['Num']);
+$POST_num = $_POST['Num'] ?? '';
 $POST_Tipo = ($_REQUEST['Tipo']);
 
 if($_POST){
@@ -50,7 +50,7 @@ $POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';
 $POST_acc = $_POST['Acc'] ?? '';
 $POST_finicio = $_POST['FechaInicio'];
 $POST_ffin = $_POST['FechaFin'];
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 
 
 

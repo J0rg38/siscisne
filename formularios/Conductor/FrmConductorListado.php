@@ -48,7 +48,7 @@ $POST_Orden = ($_POST['Ord']);
 $POST_Sentido = ($_POST['Sen']);
 $POST_Paginacion = ($_POST['Pag']);
 $POST_p = ($_POST['P'] ?? '');
-$POST_num = ($_POST['Num']);
+$POST_num = $_POST['Num'] ?? '';
 $POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';
 $POST_acc = $_POST['Acc'] ?? '';
 

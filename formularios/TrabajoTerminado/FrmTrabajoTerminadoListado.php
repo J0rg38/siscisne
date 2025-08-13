@@ -75,7 +75,7 @@ $POST_Prioridad = $_POST['Prioridad'];
 $POST_Modalidad = $_POST['Modalidad'];
 $POST_Personal = $_POST['CmpPersonal'];
 $POST_VehiculoMarca = $_POST['CmpVehiculoMarca'];
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 
 if(empty($POST_p)){
 	$POST_p = '1';

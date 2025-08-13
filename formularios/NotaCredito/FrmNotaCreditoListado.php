@@ -68,7 +68,7 @@ $POST_con = $_POST['Con'];
 $POST_tal = $_POST['Talonario'];
 $POST_npago = $_POST['CondicionPago'];
 $POST_Moneda = $_POST['Moneda'];
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 $POST_ChkMostrarNoProcesados = $_POST['ChkMostrarNoProcesados'];
 
 if(empty($POST_p)){

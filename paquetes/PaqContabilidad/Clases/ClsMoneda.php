@@ -86,6 +86,11 @@ class ClsMoneda {
 
     public function MtdObtenerMonedas($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'MonId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL) {
 		
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$estado = '';
 		
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -121,14 +126,6 @@ class ClsMoneda {
 			}
 			
 		}
-		
-		
-
-		// Initialize variables with default values to avoid undefined variable warnings
-		$estado = '';
-		$filtrar = '';
-		$orden = '';
-		$paginacion = '';
 		
 		if(!empty($oOrden)){
 			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);

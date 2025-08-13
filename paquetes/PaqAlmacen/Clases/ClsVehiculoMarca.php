@@ -96,7 +96,7 @@ class ClsVehiculoMarca {
 	
 	public function MtdIdentificarVehiculoMarca($oFiltro){
 	
-		$this->MtdObtenerVehiculoMarcas("VehMarca",$oFiltro,'VmaId','Desc','1',NULL,NULL);
+		$ResVehiculoMarca = $this->MtdObtenerVehiculoMarcas("VehMarca",$oFiltro,'VmaId','Desc','1',NULL,NULL);
 		$ArrVehiculoMarcas = $ResVehiculoMarca['Datos'];
 		
 		$VehiculoMarcaId = "";
@@ -113,6 +113,13 @@ class ClsVehiculoMarca {
 	}
 
     public function MtdObtenerVehiculoMarcas($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VmaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVigenciaVenta=NULL,$oEstado=NULL) {
+
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$vventa = '';
+		$estado = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -186,6 +193,9 @@ class ClsVehiculoMarca {
 	//Accion eliminar	 
 	
 	public function MtdEliminarVehiculoMarca($oElementos) {
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 		

@@ -70,7 +70,7 @@ $POST_estado = $_POST['Estado'];
 $POST_finicio = $_POST['FechaInicio'];
 $POST_ffin = $_POST['FechaFin'];
 $POST_con = $_POST['Con'];
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 $POST_ActaEntrega = $_POST['CmpActaEntrega'];
 $POST_Moneda = $_POST['Moneda'];	
 

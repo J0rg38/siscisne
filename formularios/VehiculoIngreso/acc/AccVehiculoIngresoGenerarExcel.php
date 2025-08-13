@@ -52,10 +52,10 @@ if($_POST){
 
 
 $POST_ord = ($_POST['Ord'] ?? '');
-$POST_sen = ($_POST['Sen']);
+$POST_sen = $_POST['Sen'] ?? '';
 $POST_pag = ($_POST['Pag'] ?? '');
 $POST_p = ($_POST['P'] ?? '');
-$POST_num = ($_POST['Num']);
+$POST_num = $_POST['Num'] ?? '';
 
 if($_POST){
 	$_SESSION[$GET_mod."Num"] = $POST_num;
@@ -76,7 +76,7 @@ $POST_ConProforma = $_POST['ConProforma'];
 $POST_VehiculoMarcaId = $_POST['VehiculoMarca'];
 $POST_VehiculoModeloId = $_POST['VehiculoModelo'];
 $POST_VehiculoVersionId = $_POST['VehiculoVersion'];
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 $POST_EstadoVehicular = $_POST['EstadoVehicular'];
 
 if(!$_POST){

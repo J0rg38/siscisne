@@ -40,10 +40,10 @@ $POST_fil = ($_POST['Fil'] ?? '');
 
 
 $POST_ord = ($_POST['Ord'] ?? '');
-$POST_sen = ($_POST['Sen']);
+$POST_sen = $_POST['Sen'] ?? '';
 $POST_pag = ($_POST['Pag'] ?? '');
 $POST_p = ($_POST['P'] ?? '');
-$POST_num = ($_POST['Num']);
+$POST_num = $_POST['Num'] ?? '';
 
 if($_POST){
 	$_SESSION[$GET_mod."Num"] = $POST_num;
@@ -62,7 +62,7 @@ $POST_finicio = $_POST['FechaInicio'];
 $POST_ffin = $_POST['FechaFin'];
 $POST_con = $_POST['Con'];
 $POST_Moneda = $_POST['Moneda'];
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 
 if(!$_POST){
 //	$POST_Moneda = "MON-10001";

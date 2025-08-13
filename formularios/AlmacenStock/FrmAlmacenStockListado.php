@@ -39,10 +39,10 @@ $POST_fil = ($_POST['Fil'] ?? '');
 
 
 $POST_ord = ($_POST['Ord'] ?? '');
-$POST_sen = ($_POST['Sen']);
+$POST_sen = $_POST['Sen'] ?? '';
 $POST_pag = ($_POST['Pag'] ?? '');
 $POST_p = ($_POST['P'] ?? '');
-$POST_num = ($_POST['Num']);
+$POST_num = $_POST['Num'] ?? '';
 
 
 if($_POST){
@@ -65,7 +65,7 @@ $POST_est = "";
 $POST_con = $_POST['Con'];
 $POST_Referencia = $_POST['Referencia'];
 $POST_IncluirReemplazo = $_POST['CmpIncluirReemplazo'];
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 $POST_Almacen = ($_POST['CmpAlmacen']);
 //$POST_Ano = $_POST['CmpAno'];
 $POST_Ano = 1900;

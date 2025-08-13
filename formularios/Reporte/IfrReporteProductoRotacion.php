@@ -68,7 +68,7 @@ $POST_ord = isset($_POST['CmpOrden'])?$_POST['CmpOrden']:"RprStock";
 $POST_sen = isset($_POST['CmpSentido'])?$_POST['CmpSentido']:"DESC";
 $POST_Ano = isset($_POST['CmpAno'])?$_POST['CmpAno']:date("Y");
 
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 
 list($Dia,$Mes,$Ano) = explode("/",$POST_finicio);
 

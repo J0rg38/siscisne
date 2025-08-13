@@ -71,7 +71,7 @@ $POST_VehiculoMarca = $_POST['CmpVehiculoMarca'];
 $POST_VehiculoModelo = $_POST['CmpVehiculoModelo'];
 $POST_ModalidadIngreso = $_POST['CmpModalidadIngreso'];
 
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 $POST_FichaIngresoTipo = $_POST['CmpFichaIngresoTipo'];
 
 if(!empty($POST_VehiculoMarca)){

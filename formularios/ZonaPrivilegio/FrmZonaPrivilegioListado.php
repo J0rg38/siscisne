@@ -23,10 +23,10 @@ $POST_fil = ($_POST['Fil'] ?? '');
 
 
 $POST_ord = ($_POST['Ord'] ?? '');
-$POST_sen = ($_POST['Sen']);
+$POST_sen = $_POST['Sen'] ?? '';
 $POST_pag = ($_POST['Pag'] ?? '');
 $POST_p = ($_POST['P'] ?? '');
-$POST_num = ($_POST['Num']);
+$POST_num = $_POST['Num'] ?? '';
 
 if($_POST){
 	$_SESSION[$GET_mod."Num"] = $POST_num;

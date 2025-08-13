@@ -44,7 +44,7 @@ if($_POST){
 
 $POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';
 $POST_acc = $_POST['Acc'] ?? '';
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 
 
 if(empty($POST_p)){

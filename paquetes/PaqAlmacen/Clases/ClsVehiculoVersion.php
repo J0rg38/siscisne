@@ -46,6 +46,13 @@ class ClsVehiculoVersion {
     public $VveEliminado;
 
 	public $VmoNombre;
+	public $VveFotoLateral;
+	public $VveFotoPosterior;
+	public $VveFotoAdicional;
+	public $VveFotoCaracteristica;
+	public $VveArchivo;
+	public $VmaId;
+	public $VmaNombre;
 
 	public $InsMysql;
 	
@@ -208,7 +215,7 @@ class ClsVehiculoVersion {
 	
 	public function MtdIdentificarVehiculoVersion($oFiltro){
 	
-		$this->MtdObtenerVehiculoVersions("VehVersion",$oFiltro,'VveId','Desc','1',NULL,NULL);
+		$ResVehiculoVersion = $this->MtdObtenerVehiculoVersiones("VehVersion",$oFiltro,'VveId','Desc','1',NULL,NULL,NULL);
 		$ArrVehiculoVersions = $ResVehiculoVersion['Datos'];
 		
 		$VehiculoVersionId = "";
@@ -225,6 +232,15 @@ class ClsVehiculoVersion {
 	}
 
     public function MtdObtenerVehiculoVersiones($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VveId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oVigenciaVenta=NULL,$oEstado=NULL) {
+
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$vmarca = '';
+		$vmodelo = '';
+		$vventa = '';
+		$estado = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -378,6 +394,9 @@ class ClsVehiculoVersion {
 	//Accion eliminar	 
 	
 	public function MtdEliminarVehiculoVersion($oElementos) {
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 		

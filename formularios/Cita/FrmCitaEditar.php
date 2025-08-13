@@ -22,7 +22,7 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 //VARIABLES
 $GET_id = $_GET['Id'];
 $Registro = false;
-$POST_Sucursal = $_POST['CmpSucursal'];
+$POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 
 //MENSAJES
 include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjCita.php');
