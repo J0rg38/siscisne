@@ -90,6 +90,12 @@ class ClsPersonalTipo {
 
     public function MtdObtenerPersonalTipos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PtiId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL) {
 
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$estado = '';
+		$orden = '';
+		$paginacion = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
