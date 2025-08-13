@@ -1,6 +1,10 @@
 # Ignore ARECURSOS folder
 ARECURSOS/
 
+# Ignore configuraciones and imagenes folders
+configuraciones/
+imagenes/
+
 # Common system files
 .DS_Store
 Thumbs.db
