@@ -113,6 +113,12 @@ class ClsAlmacen {
 
     public function MtdObtenerAlmacenes($oCampo=NULL,$oFiltro=NULL,$oOrden = 'AlmId',$oSentido = 'Desc',$oPaginacion = '0,10',$oSucursal=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$sucursal = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
@@ -203,6 +209,9 @@ class ClsAlmacen {
 	//Accion eliminar	 
 	
 	public function MtdEliminarAlmacen($oElementos) {
+		
+		// Inicializar variable
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 

@@ -60,6 +60,26 @@ class ClsReporteFichaIngreso {
 
     public function MtdObtenerReporteFichaIngresos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FinId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oModalidadIngreso=NULL,$oAgrupar=NULL,$oCSIIncluir=NULL,$oCliente=NULL,$oUnicos=false,$oVehiculoMarca=NULL,$oModalidadIngresoUnico=false,$oSucursal=NULL,$oFecha="FinTiempoTrabajoTerminado",$oComprobanteFechaInicio=NULL,$oComprobanteFechaFin=NULL,$oPersonal=NULL,$oVehiculoModelo=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$modalidadIngreso = '';
+		$agrupar = '';
+		$csiIncluir = '';
+		$cliente = '';
+		$unicos = '';
+		$vehiculoMarca = '';
+		$modalidadIngresoUnico = '';
+		$sucursal = '';
+		$fecha = '';
+		$comprobanteFechaInicio = '';
+		$comprobanteFechaFin = '';
+		$personal = '';
+		$vehiculoModelo = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -1913,7 +1933,6 @@ $ReporteFichaIngreso->SucNombre = $fila['SucNombre'];
 									
 							
 							
-										
 										
 										
                     $ReporteFichaIngreso->InsMysql = NULL;                    

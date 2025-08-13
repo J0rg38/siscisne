@@ -631,6 +631,1224 @@ CprNivelInteres,
 
     public function MtdObtenerCotizacionProductos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'CprId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oMoneda=NULL,$oFichaIngreso=NULL,$oVehiculoIngreso=NULL,$oPersonal=NULL,$oCliente=NULL,$oTieneFichaIngreso=NULL,$oSucursal=NULL,$oVentaPerdida=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$estado = '';
+		$moneda = '';
+		$fichaIngreso = '';
+		$vehiculoIngreso = '';
+		$personal = '';
+		$cliente = '';
+		$tieneFichaIngreso = '';
+		$sucursal = '';
+		$ventaPerdida = '';
+
+		if(!empty($oCampo) and !empty($oFiltro)){
+			
+			$oFiltro = str_replace(" ","%",$oFiltro);
+			
+			$elementos = explode(",",$oCampo);
+
+				$i=1;
+				$filtrar .= '  AND (';
+				foreach($elementos as $elemento){
+					if(!empty($elemento)){				
+						if($i==count($elementos)){	
+
+						$filtrar .= ' (';
+							switch($oCondicion){
+					
+								case "esigual":
+									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+								break;
+				
+								case "noesigual":
+									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+								break;
+								
+								case "comienza":
+									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+								break;
+								
+								case "termina":
+									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+								break;
+								
+								case "contiene":
+									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+								break;
+								
+								case "nocontiene":
+									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+								break;
+								
+								default:
+									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+								break;
+							
+							}
+							
+							$filtrar .= ' )';
+							
+						}else{
+							
+							
+							$filtrar .= ' (';
+							switch($oCondicion){
+					
+								case "esigual":
+									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+								break;
+				
+								case "noesigual":
+									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+								break;
+								
+								case "comienza":
+									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+								break;
+								
+								case "termina":
+									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+								break;
+								
+								case "contiene":
+									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+								break;
+								
+								case "nocontiene":
+									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+								break;
+								
+								default:
+									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+								break;
+							
+							}
+							
+							$filtrar .= ' ) OR';
+							
+						}
+					}
+				$i++;
+		
+				}
+				
+				$filtrar .= '  OR EXISTS( 
+					
+					SELECT 
+					crd.CrdId
+					FROM tblcrdcotizacionproductodetalle crd
+						LEFT JOIN tblproproducto pro
+						ON crd.ProId = pro.ProId
+						
+					WHERE 
+						crd.CprId = cpr.CprId AND
+						(
+						crd.CrdDescripcion LIKE "%'.$oFiltro.'%" OR
+						pro.ProNombre LIKE "%'.$oFiltro.'%" OR
+						crd.CrdCodigo  LIKE "%'.$oFiltro.'%" OR
+						pro.ProCodigoOriginal  LIKE "%'.$oFiltro.'%" OR
+						pro.ProCodigoAlternativo  LIKE "%'.$oFiltro.'%" 
+						
+						)
+						
+					) ';
+					
+					
+				$filtrar .= '  ) ';
+
+			
+				
+	
+		}
+
+
+		
+
+		if(!empty($oOrden)){
+			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+		}
+
+		if(!empty($oPaginacion)){
+			$paginacion = ' LIMIT '.($oPaginacion);
+		}
+		
+		
+		
+		if(!empty($oFechaInicio)){
+			
+			if(!empty($oFechaFin)){
+				$fecha = ' AND DATE(cpr.CprFecha)>="'.$oFechaInicio.'" AND DATE(cpr.CprFecha)<="'.$oFechaFin.'"';
+			}else{
+				$fecha = ' AND DATE(cpr.CprFecha)>="'.$oFechaInicio.'"';
+			}
+			
+		}else{
+			if(!empty($oFechaFin)){
+				$fecha = ' AND DATE(cpr.CprFecha)<="'.$oFechaFin.'"';		
+			}			
+		}
+
+
+		if(!empty($oEstado)){
+			$estado = ' AND cpr.CprEstado = '.$oEstado;
+		}
+		
+		if(!empty($oMoneda)){
+			$moneda = ' AND cpr.MonId = "'.$oMoneda.'"';
+		}
+		
+		if(!empty($oFichaIngreso)){
+			$fingreso = ' AND cpr.FinId = "'.$oFichaIngreso.'"';
+		}
+		if(!empty($oVehiculoIngreso)){
+			$vingreso = ' AND cpr.EinId = "'.$oVehiculoIngreso.'"';
+		}
+		
+		if(!empty($oPersonal)){
+			$personal = ' AND cpr.PerId = "'.$oPersonal.'"';
+		}
+		
+		if(!empty($oCliente)){
+			$cliente = ' AND cpr.CliId = "'.$oCliente.'"';
+		}
+				
+		if($oTieneFichaIngreso){
+			switch($oTieneFichaIngreso){
+				case "FichaIngresoSi":
+					$tfingreso = ' AND cpr.FinId IS NOT NULL ';
+				break;
+				
+				case "FichaIngresoNo":
+					$tfingreso = ' AND cpr.FinId IS  NULL ';
+				break;
+				
+				default:
+					$tfingreso = ' ';
+				break;
+			}
+		}
+		
+		if(!empty($oSucursal)){
+			$sucursal = ' AND cpr.SucId = "'.$oSucursal.'"';
+		}
+		
+		
+		if(!empty($oVentaPerdida)){
+			$vperdida = ' AND cpr.CprVentaPerdida = "'.$oVentaPerdida.'"';
+		}
+		
+		
+		
+			$sql = 'SELECT
+				SQL_CALC_FOUND_ROWS 
+				cpr.CprId,
+cpr.SucId,	
+				
+				cpr.CliId,
+				cpr.LtiId,
+				
+				cpr.CliIdSeguro,
+				
+				DATE_FORMAT(cpr.CprFecha, "%d/%m/%Y") AS "NCprFecha",
+				DATE_FORMAT(cpr.CprHora, "%H:%i") AS "NCprHora",
+				
+				cpr.EinId,
+				cpr.PerId,
+				cpr.FinId,
+				
+				
+				cpr.CprVIN,
+				cpr.CprMarca,
+				cpr.CprModelo,
+				cpr.CprPlaca,
+				cpr.CprAnoModelo,
+				
+				cpr.MonId,
+				cpr.CprTipoCambio,
+				
+				cpr.CprIncluyeImpuesto,
+				cpr.CprPorcentajeImpuestoVenta,
+				cpr.CprPorcentajeMargenUtilidad,
+			  	cpr.CprPorcentajeManoObra,
+				cpr.CprPorcentajeOtroCosto,
+			  
+				cpr.CprObservacion,
+cpr.CprObservacionImpresa,
+
+				cpr.CprTelefono,
+				cpr.CprDireccion,
+				cpr.CprEmail,
+				cpr.CprRepresentante,
+				cpr.CprAsegurado,
+				
+				cpr.CprManoObra,
+				cpr.CprPorcentajeDescuento,
+				cpr.CprVigencia,
+				cpr.CprTiempoEntrega,
+				DATE_FORMAT(adddate(cpr.CprFecha,cpr.CprTiempoEntrega), "%d/%m/%Y") AS CprFechaEntrega,
+			
+			cpr.CprPlanchadoTotal,
+			cpr.CprPintadoTotal,
+			cpr.CprProductoTotal,
+					
+				cpr.CprDescuento,
+				cpr.CprSubTotal,
+				cpr.CprImpuesto,				
+				cpr.CprTotal,
+				
+				cpr.CprFirmaDigital,
+				cpr.CprVerificar,
+				
+				cpr.CprNotificar,
+				
+					cpr.CprVentaPerdida,
+		cpr.CprVentaPerdidaMotivo,
+				cpr.CprEstado,
+CprNivelInteres,
+				DATE_FORMAT(cpr.CprTiempoCreacion, "%d/%m/%Y %H:%i:%s") AS "NCprTiempoCreacion",
+	        	DATE_FORMAT(cpr.CprTiempoModificacion, "%d/%m/%Y %H:%i:%s") AS "NCprTiempoModificacion",
+				
+				
+
+				
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					crd.CrdId 
+					FROM tblcrdcotizacionproductodetalle crd
+					WHERE crd.CprId = cpr.CprId LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprRepuesto,
+				
+				
+						CASE
+					WHEN EXISTS (
+						SELECT 
+						crd.CrdId 
+						FROM tblcrdcotizacionproductodetalle crd
+						WHERE crd.CprId = cpr.CprId 
+						AND crd.CrdEstado = 1
+						LIMIT 1
+					) THEN "Si"
+					ELSE "No"
+					END AS CprRepuestoVerificado,
+					
+				
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					cpp.CppId 
+					FROM tblcppcotizacionproductoplanchadopintado cpp 
+					WHERE cpp.CprId = cpr.CprId AND cpp.CppTipo = "L" LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprPlanchado,
+				
+						CASE
+					WHEN EXISTS (
+						SELECT 
+						cpp.CppId 
+						FROM tblcppcotizacionproductoplanchadopintado cpp 
+						WHERE cpp.CprId = cpr.CprId 
+						AND cpp.CppTipo = "L" 
+						AND cpp.CppEstado = 1
+						LIMIT 1
+					) THEN "Si"
+					ELSE "No"
+					END AS CprPlanchadoVerificado,
+				
+				
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					cpp.CppId 
+					FROM tblcppcotizacionproductoplanchadopintado cpp 
+					WHERE cpp.CprId = cpr.CprId AND cpp.CppTipo = "I" LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprPintado,
+				
+				
+						
+					CASE
+					WHEN EXISTS (
+						SELECT 
+						cpp.CppId 
+						FROM tblcppcotizacionproductoplanchadopintado cpp 
+						WHERE cpp.CprId = cpr.CprId 
+						AND cpp.CppTipo = "I" 
+						AND cpp.CppEstado = 1
+						LIMIT 1
+					) THEN "Si"
+					ELSE "No"
+					END AS CprPintadoVerificado,
+				
+				
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					cpp.CppId 
+					FROM tblcppcotizacionproductoplanchadopintado cpp 
+					WHERE cpp.CprId = cpr.CprId AND cpp.CppTipo = "C" LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprCentrado,
+				
+				
+							CASE
+					WHEN EXISTS (
+						SELECT 
+						cpp.CppId 
+						FROM tblcppcotizacionproductoplanchadopintado cpp 
+						WHERE cpp.CprId = cpr.CprId 
+						AND cpp.CppTipo = "C" 
+						AND cpp.CppEstado = 1
+						LIMIT 1
+					) THEN "Si"
+					ELSE "No"
+					END AS CprCentradoVerificado,
+					
+					
+					
+					
+					
+					
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					cpp.CppId 
+					FROM tblcppcotizacionproductoplanchadopintado cpp 
+					WHERE cpp.CprId = cpr.CprId AND cpp.CppTipo = "Z" LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprTarea,
+				
+				
+							CASE
+					WHEN EXISTS (
+						SELECT 
+						cpp.CppId 
+						FROM tblcppcotizacionproductoplanchadopintado cpp 
+						WHERE cpp.CprId = cpr.CprId 
+						AND cpp.CppTipo = "Z" 
+						AND cpp.CppEstado = 1
+						LIMIT 1
+					) THEN "Si"
+					ELSE "No"
+					END AS CprTareaVerificado,
+					
+					
+					
+
+
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					vdi.VdiId
+					FROM tblvdiventadirecta vdi
+					WHERE vdi.CprId = cpr.CprId LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprVentaDirecta,
+				
+				
+		cli.TdoId,
+		
+		CONCAT(IFNULL(cli.CliNombre,"")," ",IFNULL(cli.CliApellidoPaterno,"")," ",IFNULL(cli.CliApellidoMaterno,"")) AS CliNombre,
+		
+		cli.CliNumeroDocumento,
+		tdo.TdoNombre,
+		lti.LtiNombre,
+		
+		mon.MonNombre,
+		mon.MonSimbolo,
+		
+		ein.EinVIN,
+		ein.EinPlaca,
+		
+		ein.VmaId,
+		vma.VmaNombre,
+
+		ein.VmoId,
+		vmo.VmoNombre,
+		
+		vmo.VtiId,
+		vti.VtiNombre,
+
+		ein.VveId,		
+		vve.VveNombre,
+		
+		per.PerNombre,
+		per.PerApellidoPaterno,
+		per.PerApellidoMaterno,
+		per.PerFirma,
+		per.PerEmail,
+		per.PerCelular,
+		per.PerTelefono,
+		
+		seg.CliNombre AS CliNombreSeguro,
+		seg.CliApellidoPaterno AS CliApellidoPaternoSeguro,
+		seg.CliApellidoMaterno AS CliApellidoMaternoSeguro
+		
+        FROM tblcprcotizacionproducto cpr
+			LEFT JOIN tblclicliente cli
+			ON cpr.CliId = cli.CliId
+				LEFT JOIN tbltdotipodocumento tdo
+				ON cli.TdoId = tdo.TdoId
+					LEFT JOIN tbllticlientetipo lti
+					ON cpr.LtiId = lti.LtiId
+					
+						LEFT JOIN tblclicliente seg
+						ON cpr.CliIdSeguro = seg.CliId
+						
+						LEFT JOIN tblmonmoneda mon
+						ON cpr.MonId = mon.MonId
+							LEFT JOIN tbleinvehiculoingreso ein
+							ON cpr.EinId = ein.EinId
+						
+				LEFT JOIN tblvvevehiculoversion vve
+				ON ein.VveId = vve.VveId
+						LEFT JOIN tblvmovehiculomodelo vmo
+						ON ein.VmoId = vmo.VmoId
+							LEFT JOIN tblvtivehiculotipo vti
+							ON vmo.VtiId = vti.VtiId					
+								LEFT JOIN tblvmavehiculomarca vma
+								ON ein.VmaId = vma.VmaId
+
+									LEFT JOIN tblperpersonal per
+									ON cpr.PerId = per.PerId
+									
+        WHERE cpr.CprId = "'.$this->CprId.'"';
+		
+        $resultado = $this->InsMysql->MtdConsultar($sql);
+
+		if($this->InsMysql->MtdObtenerDatosTotal($resultado)>0){
+
+        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
+        {
+			
+			$this->CprId = $fila['CprId'];
+			$this->SucId = $fila['SucId'];
+
+			$this->CliId = $fila['CliId'];		
+			$this->LtiId = $fila['LtiId'];
+			$this->CprFecha = $fila['NCprFecha'];
+			$this->CprHora = $fila['NCprHora'];
+			
+			$this->CliIdSeguro = $fila['CliIdSeguro'];
+			
+			$this->EinId = $fila['EinId'];
+			$this->PerId = $fila['PerId'];
+			$this->FinId = $fila['FinId'];
+			
+			
+			$this->CprVIN = $fila['CprVIN'];
+			$this->CprMarca = $fila['CprMarca'];
+			$this->CprModelo = $fila['CprModelo'];
+			$this->CprPlaca = $fila['CprPlaca'];
+			$this->CprAnoModelo = $fila['CprAnoModelo'];
+
+			$this->MonId = $fila['MonId'];
+			$this->CprTipoCambio = $fila['CprTipoCambio'];
+
+			$this->CprIncluyeImpuesto = $fila['CprIncluyeImpuesto'];
+			$this->CprPorcentajeImpuestoVenta = $fila['CprPorcentajeImpuestoVenta'];
+
+			$this->CprPorcentajeMargenUtilidad = $fila['CprPorcentajeMargenUtilidad'];
+			$this->CprPorcentajeOtroCosto = $fila['CprPorcentajeOtroCosto'];
+			$this->CprPorcentajeManoObra = $fila['CprPorcentajeManoObra'];
+			
+			$this->CprObservacion = $fila['CprObservacion'];
+			$this->CprObservacionImpresa = $fila['CprObservacionImpresa'];
+			
+			$this->CprTelefono = $fila['CprTelefono'];
+			$this->CprDireccion = $fila['CprDireccion'];
+			$this->CprEmail = $fila['CprEmail'];
+			$this->CprRepresentante = $fila['CprRepresentante'];
+			$this->CprAsegurado = $fila['CprAsegurado'];
+
+
+
+			$this->CprManoObra = $fila['CprManoObra'];
+			$this->CprPorcentajeDescuento = $fila['CprPorcentajeDescuento'];
+			$this->CprVigencia = $fila['CprVigencia'];
+			$this->CprTiempoEntrega = $fila['CprTiempoEntrega'];
+			$this->CprFechaEntrega = $fila['CprFechaEntrega'];
+
+
+
+			$this->CprPlanchadoTotal = $fila['CprPlanchadoTotal'];
+			$this->CprPintadoTotal = $fila['CprPintadoTotal'];
+			$this->CprProductoTotal = $fila['CprProductoTotal'];
+			
+			$this->CprDescuento = $fila['CprDescuento'];
+			$this->CprSubTotal = $fila['CprSubTotal'];
+			$this->CprImpuesto = $fila['CprImpuesto'];
+			$this->CprTotal = $fila['CprTotal'];
+
+			$this->CprVerificar = $fila['CprVerificar'];
+			$this->CprFirmaDigital = $fila['CprFirmaDigital'];
+			
+			$this->CprNotificar = $fila['CprNotificar'];
+			
+			
+			$this->CprVentaPerdida = $fila['CprVentaPerdida'];
+			$this->CprVentaPerdidaMotivo = $fila['CprVentaPerdidaMotivo'];
+			
+			$this->CprNivelInteres = $fila['CprNivelInteres'];
+			
+			$this->CprEstado = $fila['CprEstado'];
+			$this->CprTiempoCreacion = $fila['NCprTiempoCreacion']; 
+			$this->CprTiempoModificacion = $fila['NCprTiempoModificacion']; 
+			
+			$this->CprRepuesto = $fila['CprRepuesto'];
+			$this->CprRepuestoVerificado = $fila['CprRepuestoVerificado'];
+			$this->CprPlanchado = $fila['CprPlanchado'];
+			$this->CprPlanchadoVerificado = $fila['CprPlanchadoVerificado'];
+			$this->CprPintado = $fila['CprPintado'];
+			$this->CprPintadoVerificado = $fila['CprPintadoVerificado'];
+			$this->CprCentrado = $fila['CprCentrado'];
+			$this->CprCentradoVerificado = $fila['CprCentradoVerificado'];
+			$this->CprTarea = $fila['CprTarea'];
+			$this->CprTareaVerificado = $fila['CprTareaVerificado'];
+			
+			$this->CprVentaDirecta = $fila['CprVentaDirecta'];	
+			
+			$this->TdoId = $fila['TdoId']; 	
+			
+			
+			$this->CliNombre = $fila['CliNombre']; 	
+			$this->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+			$this->TdoNombre = $fila['TdoNombre'];
+			$this->LtiNombre = $fila['LtiNombre'];
+			
+			$this->MonNombre = $fila['MonNombre'];
+			$this->MonSimbolo = $fila['MonSimbolo'];
+
+
+			$this->EinVIN = $fila['EinVIN'];
+			$this->EinPlaca = $fila['EinPlaca'];
+
+			$this->VmaId = $fila['VmaId'];
+			$this->VmaNombre = $fila['VmaNombre'];
+
+			$this->VmoId = $fila['VmoId'];
+			$this->VmoNombre = $fila['VmoNombre'];
+
+			$this->VtiId = $fila['VtiId'];
+			$this->VtiNombre = $fila['VtiNombre'];
+
+			$this->VveId = $fila['VveId'];
+			$this->VveNombre = $fila['VveNombre'];
+			
+			$this->PerNombre = $fila['PerNombre'];
+			$this->PerApellidoPaterno = $fila['PerApellidoPaterno'];
+			$this->PerApellidoMaterno = $fila['PerApellidoMaterno'];
+			$this->PerFirma = $fila['PerFirma'];
+			
+			$this->PerEmail = $fila['PerEmail'];
+			$this->PerCelular = $fila['PerCelular'];
+			$this->PerTelefono = $fila['PerTelefono'];
+			
+			$this->CliNombreSeguro = $fila['CliNombreSeguro'];
+			$this->CliApellidoPaternoSeguro = $fila['CliApellidoPaternoSeguro'];
+			$this->CliApellidoMaternoSeguro = $fila['CliApellidoMaternoSeguro'];
+
+	
+		
+			if($oCompleto){
+				
+			
+				$InsCotizacionProductoDetalle = new ClsCotizacionProductoDetalle();
+				$ResCotizacionProductoDetalle =  $InsCotizacionProductoDetalle->MtdObtenerCotizacionProductoDetalles(NULL,NULL,NULL,NULL,NULL,$this->CprId);
+				
+				$this->CotizacionProductoDetalle = 	$ResCotizacionProductoDetalle['Datos'];	
+	
+				$InsCotizacionProductoPlanchadoPintado = new ClsCotizacionProductoPlanchadoPintado();
+				$ResCotizacionProductoPlanchado =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL,NULL,NULL,NULL,NULL,$this->CprId,NULL,"L");			
+				$this->CotizacionProductoPlanchado = 	$ResCotizacionProductoPlanchado['Datos'];	
+	
+				$ResCotizacionProductoPintado =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL,NULL,NULL,NULL,NULL,$this->CprId,NULL,"I");			
+				$this->CotizacionProductoPintado = 	$ResCotizacionProductoPintado['Datos'];	
+				
+				$ResCotizacionProductoCentrado =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL,NULL,NULL,NULL,NULL,$this->CprId,NULL,"C");			
+				$this->CotizacionProductoCentrado = 	$ResCotizacionProductoCentrado['Datos'];	
+				
+				$ResCotizacionProductoTarea =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL,NULL,NULL,NULL,NULL,$this->CprId,NULL,"Z");			
+				$this->CotizacionProductoTarea = 	$ResCotizacionProductoTarea['Datos'];	
+				
+				$InsCotizacionProductoFoto = new ClsCotizacionProductoFoto();
+				//MtdObtenerCotizacionProductoFotos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VdfId',$oSentido = 'Desc',$oPaginacion = '0,10',$oCotizacionProducto=NULL,$oEstado=NULL,$oTipo=NULL) {
+				$ResCotizacionProductoFoto =  $InsCotizacionProductoFoto->MtdObtenerCotizacionProductoFotos(NULL,NULL,NULL,NULL,NULL,$this->CprId,NULL,NULL);
+				$this->CotizacionProductoFoto = 	$ResCotizacionProductoFoto['Datos'];
+							
+			}
+			switch($this->CprEstado){
+			
+			  case 1:
+				  $Estado = "Emitido";
+			  break;
+			
+			  case 2:
+				  $Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Enviado]";
+			  break;
+			
+			  case 3:
+				  $Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Revisando]";
+			  break;	
+			
+			  case 4:
+				  $Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Por Facturar]";
+			  break;
+			
+			  case 5:
+				  $Estado = "<img src='imagenes/iconos/contabilidad.png' alt='CONTABILIDAD' border='0' width='20' height='20' title='CONTABILIDAD' > [Facturado]";
+			  break;
+			  
+			  
+			  case 6:
+				  $Estado = "<img src='imagenes/iconos/anulado.png' alt='ANULADO' border='0' width='20' height='20' title='ANULADO' > [Anulado]";
+			  break;
+			
+			  default:
+				  $Estado = "";
+			  break;					
+			
+			}
+			
+			$this->CprEstadoDescripcion = $Estado;
+			
+
+		}
+        
+		$Respuesta =  $this;
+			
+		}else{
+			$Respuesta =   NULL;
+		}
+		
+        
+		return $Respuesta;
+
+    }
+
+    public function MtdObtenerCotizacionProducto($oCompleto=true){
+
+        $sql = 'SELECT 
+        cpr.CprId,
+cpr.SucId,
+				
+		cpr.CliId,
+		cpr.LtiId,
+
+		DATE_FORMAT(cpr.CprFecha, "%d/%m/%Y") AS "NCprFecha",
+		DATE_FORMAT(cpr.CprHora, "%H:%i") AS "NCprHora",
+		cpr.CliIdSeguro,
+		
+		cpr.EinId,
+		cpr.PerId,
+		cpr.FinId,
+		
+		
+		cpr.CprVIN,
+		cpr.CprMarca,
+		cpr.CprModelo,
+		cpr.CprPlaca,
+		cpr.CprAnoModelo,
+	
+		cpr.MonId,
+		cpr.CprTipoCambio,
+		
+		cpr.CprIncluyeImpuesto,
+		cpr.CprPorcentajeImpuestoVenta,
+		cpr.CprPorcentajeMargenUtilidad,
+		cpr.CprPorcentajeOtroCosto,
+		cpr.CprPorcentajeManoObra,
+		
+		cpr.CprObservacion,
+cpr.CprObservacionImpresa,
+
+		cpr.CprTelefono,
+		cpr.CprDireccion,
+		cpr.CprEmail,
+		cpr.CprRepresentante,
+		cpr.CprAsegurado,
+	
+		cpr.CprManoObra,
+		cpr.CprPorcentajeDescuento,
+		cpr.CprVigencia,
+		cpr.CprTiempoEntrega,
+		DATE_FORMAT(adddate(cpr.CprFecha,cpr.CprTiempoEntrega), "%d/%m/%Y") AS CprFechaEntrega,
+	
+		cpr.CprPlanchadoTotal,
+		cpr.CprPintadoTotal,
+		cpr.CprProductoTotal,
+		
+		cpr.CprDescuento,
+		cpr.CprSubTotal,
+		cpr.CprImpuesto,
+		cpr.CprTotal,
+
+		cpr.CprVerificar,
+		cpr.CprFirmaDigital,
+		cpr.CprNotificar,
+		
+		cpr.CprVentaPerdida,
+		cpr.CprVentaPerdidaMotivo,
+		
+		
+		cpr.CprNivelInteres,
+		cpr.CprEstado,
+CprNivelInteres,
+		DATE_FORMAT(cpr.CprTiempoCreacion, "%d/%m/%Y %H:%i:%s") AS "NCprTiempoCreacion",
+        DATE_FORMAT(cpr.CprTiempoModificacion, "%d/%m/%Y %H:%i:%s") AS "NCprTiempoModificacion",
+
+
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					crd.CrdId 
+					FROM tblcrdcotizacionproductodetalle crd
+					WHERE crd.CprId = cpr.CprId LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprRepuesto,
+				
+				
+						CASE
+					WHEN EXISTS (
+						SELECT 
+						crd.CrdId 
+						FROM tblcrdcotizacionproductodetalle crd
+						WHERE crd.CprId = cpr.CprId 
+						AND crd.CrdEstado = 1
+						LIMIT 1
+					) THEN "Si"
+					ELSE "No"
+					END AS CprRepuestoVerificado,
+					
+				
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					cpp.CppId 
+					FROM tblcppcotizacionproductoplanchadopintado cpp 
+					WHERE cpp.CprId = cpr.CprId AND cpp.CppTipo = "L" LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprPlanchado,
+				
+						CASE
+					WHEN EXISTS (
+						SELECT 
+						cpp.CppId 
+						FROM tblcppcotizacionproductoplanchadopintado cpp 
+						WHERE cpp.CprId = cpr.CprId 
+						AND cpp.CppTipo = "L" 
+						AND cpp.CppEstado = 1
+						LIMIT 1
+					) THEN "Si"
+					ELSE "No"
+					END AS CprPlanchadoVerificado,
+				
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					cpp.CppId 
+					FROM tblcppcotizacionproductoplanchadopintado cpp 
+					WHERE cpp.CprId = cpr.CprId AND cpp.CppTipo = "I" LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprPintado,
+
+				CASE
+					WHEN EXISTS (
+						SELECT 
+						cpp.CppId 
+						FROM tblcppcotizacionproductoplanchadopintado cpp 
+						WHERE cpp.CprId = cpr.CprId 
+						AND cpp.CppTipo = "I" 
+						AND cpp.CppEstado = 1
+						LIMIT 1
+					) THEN "Si"
+					ELSE "No"
+					END AS CprPintadoVerificado,
+				
+				
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					cpp.CppId 
+					FROM tblcppcotizacionproductoplanchadopintado cpp 
+					WHERE cpp.CprId = cpr.CprId AND cpp.CppTipo = "C" LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprCentrado,
+				
+				
+							CASE
+					WHEN EXISTS (
+						SELECT 
+						cpp.CppId 
+						FROM tblcppcotizacionproductoplanchadopintado cpp 
+						WHERE cpp.CprId = cpr.CprId 
+						AND cpp.CppTipo = "C" 
+						AND cpp.CppEstado = 1
+						LIMIT 1
+					) THEN "Si"
+					ELSE "No"
+					END AS CprCentradoVerificado,
+					
+					
+					
+					
+					
+
+
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					cpp.CppId 
+					FROM tblcppcotizacionproductoplanchadopintado cpp 
+					WHERE cpp.CprId = cpr.CprId AND cpp.CppTipo = "Z" LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprTarea,
+				
+				
+							CASE
+					WHEN EXISTS (
+						SELECT 
+						cpp.CppId 
+						FROM tblcppcotizacionproductoplanchadopintado cpp 
+						WHERE cpp.CprId = cpr.CprId 
+						AND cpp.CppTipo = "Z" 
+						AND cpp.CppEstado = 1
+						LIMIT 1
+					) THEN "Si"
+					ELSE "No"
+					END AS CprTareaVerificado,
+					
+					
+					
+
+
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					vdi.VdiId
+					FROM tblvdiventadirecta vdi
+					WHERE vdi.CprId = cpr.CprId LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS CprVentaDirecta,
+				
+				
+		cli.TdoId,
+		
+		CONCAT(IFNULL(cli.CliNombre,"")," ",IFNULL(cli.CliApellidoPaterno,"")," ",IFNULL(cli.CliApellidoMaterno,"")) AS CliNombre,
+		
+		cli.CliNumeroDocumento,
+		tdo.TdoNombre,
+		lti.LtiNombre,
+		
+		mon.MonNombre,
+		mon.MonSimbolo,
+		
+		ein.EinVIN,
+		ein.EinPlaca,
+		
+		ein.VmaId,
+		vma.VmaNombre,
+
+		ein.VmoId,
+		vmo.VmoNombre,
+		
+		vmo.VtiId,
+		vti.VtiNombre,
+
+		ein.VveId,		
+		vve.VveNombre,
+		
+		per.PerNombre,
+		per.PerApellidoPaterno,
+		per.PerApellidoMaterno,
+		per.PerFirma,
+		per.PerEmail,
+		per.PerCelular,
+		per.PerTelefono,
+		
+		seg.CliNombre AS CliNombreSeguro,
+		seg.CliApellidoPaterno AS CliApellidoPaternoSeguro,
+		seg.CliApellidoMaterno AS CliApellidoMaternoSeguro
+		
+        FROM tblcprcotizacionproducto cpr
+			LEFT JOIN tblclicliente cli
+			ON cpr.CliId = cli.CliId
+				LEFT JOIN tbltdotipodocumento tdo
+				ON cli.TdoId = tdo.TdoId
+					LEFT JOIN tbllticlientetipo lti
+					ON cpr.LtiId = lti.LtiId
+					
+						LEFT JOIN tblclicliente seg
+						ON cpr.CliIdSeguro = seg.CliId
+						
+						LEFT JOIN tblmonmoneda mon
+						ON cpr.MonId = mon.MonId
+							LEFT JOIN tbleinvehiculoingreso ein
+							ON cpr.EinId = ein.EinId
+						
+				LEFT JOIN tblvvevehiculoversion vve
+				ON ein.VveId = vve.VveId
+						LEFT JOIN tblvmovehiculomodelo vmo
+						ON ein.VmoId = vmo.VmoId
+							LEFT JOIN tblvtivehiculotipo vti
+							ON vmo.VtiId = vti.VtiId					
+								LEFT JOIN tblvmavehiculomarca vma
+								ON ein.VmaId = vma.VmaId
+
+									LEFT JOIN tblperpersonal per
+									ON cpr.PerId = per.PerId
+									
+        WHERE cpr.CprId = "'.$this->CprId.'"';
+		
+        $resultado = $this->InsMysql->MtdConsultar($sql);
+
+		if($this->InsMysql->MtdObtenerDatosTotal($resultado)>0){
+
+        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
+        {
+			
+			$this->CprId = $fila['CprId'];
+			$this->SucId = $fila['SucId'];
+
+			$this->CliId = $fila['CliId'];		
+			$this->LtiId = $fila['LtiId'];
+			$this->CprFecha = $fila['NCprFecha'];
+			$this->CprHora = $fila['NCprHora'];
+			
+			$this->CliIdSeguro = $fila['CliIdSeguro'];
+			
+			$this->EinId = $fila['EinId'];
+			$this->PerId = $fila['PerId'];
+			$this->FinId = $fila['FinId'];
+			
+			
+			$this->CprVIN = $fila['CprVIN'];
+			$this->CprMarca = $fila['CprMarca'];
+			$this->CprModelo = $fila['CprModelo'];
+			$this->CprPlaca = $fila['CprPlaca'];
+			$this->CprAnoModelo = $fila['CprAnoModelo'];
+
+			$this->MonId = $fila['MonId'];
+			$this->CprTipoCambio = $fila['CprTipoCambio'];
+
+			$this->CprIncluyeImpuesto = $fila['CprIncluyeImpuesto'];
+			$this->CprPorcentajeImpuestoVenta = $fila['CprPorcentajeImpuestoVenta'];
+
+			$this->CprPorcentajeMargenUtilidad = $fila['CprPorcentajeMargenUtilidad'];
+			$this->CprPorcentajeOtroCosto = $fila['CprPorcentajeOtroCosto'];
+			$this->CprPorcentajeManoObra = $fila['CprPorcentajeManoObra'];
+			
+			$this->CprObservacion = $fila['CprObservacion'];
+			$this->CprObservacionImpresa = $fila['CprObservacionImpresa'];
+			
+			$this->CprTelefono = $fila['CprTelefono'];
+			$this->CprDireccion = $fila['CprDireccion'];
+			$this->CprEmail = $fila['CprEmail'];
+			$this->CprRepresentante = $fila['CprRepresentante'];
+			$this->CprAsegurado = $fila['CprAsegurado'];
+
+
+
+			$this->CprManoObra = $fila['CprManoObra'];
+			$this->CprPorcentajeDescuento = $fila['CprPorcentajeDescuento'];
+			$this->CprVigencia = $fila['CprVigencia'];
+			$this->CprTiempoEntrega = $fila['CprTiempoEntrega'];
+			$this->CprFechaEntrega = $fila['CprFechaEntrega'];
+
+
+
+			$this->CprPlanchadoTotal = $fila['CprPlanchadoTotal'];
+			$this->CprPintadoTotal = $fila['CprPintadoTotal'];
+			$this->CprProductoTotal = $fila['CprProductoTotal'];
+			
+			$this->CprDescuento = $fila['CprDescuento'];
+			$this->CprSubTotal = $fila['CprSubTotal'];
+			$this->CprImpuesto = $fila['CprImpuesto'];
+			$this->CprTotal = $fila['CprTotal'];
+
+			$this->CprVerificar = $fila['CprVerificar'];
+			$this->CprFirmaDigital = $fila['CprFirmaDigital'];
+			
+			$this->CprNotificar = $fila['CprNotificar'];
+			
+			
+			$this->CprVentaPerdida = $fila['CprVentaPerdida'];
+			$this->CprVentaPerdidaMotivo = $fila['CprVentaPerdidaMotivo'];
+			
+			$this->CprNivelInteres = $fila['CprNivelInteres'];
+			
+			$this->CprEstado = $fila['CprEstado'];
+			$this->CprTiempoCreacion = $fila['NCprTiempoCreacion']; 
+			$this->CprTiempoModificacion = $fila['NCprTiempoModificacion']; 
+			
+			$this->CprRepuesto = $fila['CprRepuesto'];
+			$this->CprRepuestoVerificado = $fila['CprRepuestoVerificado'];
+			$this->CprPlanchado = $fila['CprPlanchado'];
+			$this->CprPlanchadoVerificado = $fila['CprPlanchadoVerificado'];
+			$this->CprPintado = $fila['CprPintado'];
+			$this->CprPintadoVerificado = $fila['CprPintadoVerificado'];
+			$this->CprCentrado = $fila['CprCentrado'];
+			$this->CprCentradoVerificado = $fila['CprCentradoVerificado'];
+			$this->CprTarea = $fila['CprTarea'];
+			$this->CprTareaVerificado = $fila['CprTareaVerificado'];
+			
+			$this->CprVentaDirecta = $fila['CprVentaDirecta'];	
+			
+			$this->TdoId = $fila['TdoId']; 	
+			
+			
+			$this->CliNombre = $fila['CliNombre']; 	
+			$this->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+			$this->TdoNombre = $fila['TdoNombre'];
+			$this->LtiNombre = $fila['LtiNombre'];
+			
+			$this->MonNombre = $fila['MonNombre'];
+			$this->MonSimbolo = $fila['MonSimbolo'];
+
+
+			$this->EinVIN = $fila['EinVIN'];
+			$this->EinPlaca = $fila['EinPlaca'];
+
+			$this->VmaId = $fila['VmaId'];
+			$this->VmaNombre = $fila['VmaNombre'];
+
+			$this->VmoId = $fila['VmoId'];
+			$this->VmoNombre = $fila['VmoNombre'];
+
+			$this->VtiId = $fila['VtiId'];
+			$this->VtiNombre = $fila['VtiNombre'];
+
+			$this->VveId = $fila['VveId'];
+			$this->VveNombre = $fila['VveNombre'];
+			
+			$this->PerNombre = $fila['PerNombre'];
+			$this->PerApellidoPaterno = $fila['PerApellidoPaterno'];
+			$this->PerApellidoMaterno = $fila['PerApellidoMaterno'];
+			$this->PerFirma = $fila['PerFirma'];
+			
+			$this->PerEmail = $fila['PerEmail'];
+			$this->PerCelular = $fila['PerCelular'];
+			$this->PerTelefono = $fila['PerTelefono'];
+			
+			$this->CliNombreSeguro = $fila['CliNombreSeguro'];
+			$this->CliApellidoPaternoSeguro = $fila['CliApellidoPaternoSeguro'];
+			$this->CliApellidoMaternoSeguro = $fila['CliApellidoMaternoSeguro'];
+
+	
+		
+			if($oCompleto){
+				
+			
+				$InsCotizacionProductoDetalle = new ClsCotizacionProductoDetalle();
+				$ResCotizacionProductoDetalle =  $InsCotizacionProductoDetalle->MtdObtenerCotizacionProductoDetalles(NULL,NULL,NULL,NULL,NULL,$this->CprId);
+				
+				$this->CotizacionProductoDetalle = 	$ResCotizacionProductoDetalle['Datos'];	
+	
+				$InsCotizacionProductoPlanchadoPintado = new ClsCotizacionProductoPlanchadoPintado();
+				$ResCotizacionProductoPlanchado =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL,NULL,NULL,NULL,NULL,$this->CprId,NULL,"L");			
+				$this->CotizacionProductoPlanchado = 	$ResCotizacionProductoPlanchado['Datos'];	
+	
+				$ResCotizacionProductoPintado =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL,NULL,NULL,NULL,NULL,$this->CprId,NULL,"I");			
+				$this->CotizacionProductoPintado = 	$ResCotizacionProductoPintado['Datos'];	
+				
+				$ResCotizacionProductoCentrado =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL,NULL,NULL,NULL,NULL,$this->CprId,NULL,"C");			
+				$this->CotizacionProductoCentrado = 	$ResCotizacionProductoCentrado['Datos'];	
+				
+				$ResCotizacionProductoTarea =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL,NULL,NULL,NULL,NULL,$this->CprId,NULL,"Z");			
+				$this->CotizacionProductoTarea = 	$ResCotizacionProductoTarea['Datos'];	
+				
+				$InsCotizacionProductoFoto = new ClsCotizacionProductoFoto();
+				//MtdObtenerCotizacionProductoFotos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VdfId',$oSentido = 'Desc',$oPaginacion = '0,10',$oCotizacionProducto=NULL,$oEstado=NULL,$oTipo=NULL) {
+				$ResCotizacionProductoFoto =  $InsCotizacionProductoFoto->MtdObtenerCotizacionProductoFotos(NULL,NULL,NULL,NULL,NULL,$this->CprId,NULL,NULL);
+				$this->CotizacionProductoFoto = 	$ResCotizacionProductoFoto['Datos'];
+							
+			}
+			switch($this->CprEstado){
+			
+			  case 1:
+				  $Estado = "Emitido";
+			  break;
+			
+			  case 2:
+				  $Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Enviado]";
+			  break;
+			
+			  case 3:
+				  $Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Revisando]";
+			  break;	
+			
+			  case 4:
+				  $Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Por Facturar]";
+			  break;
+			
+			  case 5:
+				  $Estado = "<img src='imagenes/iconos/contabilidad.png' alt='CONTABILIDAD' border='0' width='20' height='20' title='CONTABILIDAD' > [Facturado]";
+			  break;
+			  
+			  
+			  case 6:
+				  $Estado = "<img src='imagenes/iconos/anulado.png' alt='ANULADO' border='0' width='20' height='20' title='ANULADO' > [Anulado]";
+			  break;
+			
+			  default:
+				  $Estado = "";
+			  break;					
+			
+			}
+			
+			$this->CprEstadoDescripcion = $Estado;
+			
+
+		}
+        
+		$Respuesta =  $this;
+			
+		}else{
+			$Respuesta =   NULL;
+		}
+		
+        
+		return $Respuesta;
+
+    }
+
+    public function MtdObtenerCotizacionProductos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'CprId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oMoneda=NULL,$oFichaIngreso=NULL,$oVehiculoIngreso=NULL,$oPersonal=NULL,$oCliente=NULL,$oTieneFichaIngreso=NULL,$oSucursal=NULL,$oVentaPerdida=NULL) {
+
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$estado = '';
+		$moneda = '';
+		$fichaIngreso = '';
+		$vehiculoIngreso = '';
+		$personal = '';
+		$cliente = '';
+		$tieneFichaIngreso = '';
+		$sucursal = '';
+		$ventaPerdida = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -1138,8 +2356,7 @@ CprNivelInteres,
 													LEFT JOIN tblperpersonal per
 									ON cpr.PerId = per.PerId
 									
-				WHERE 1 = 1 '.$filtrar.$fecha.$tipo.$sucursal.$stipo.$estado.$moneda.$fingreso.$vingreso.$cliente .$tfingreso .$personal.$orden.$paginacion;
-											
+				WHERE 1 = 1 '.$filtrar.$fecha.$tipo.$sucursal.$stipo.$estado.$moneda.$fingreso.$vingreso.$cliente .$tfingreso .$personal.$orden.$paginacion;											
 			$resultado = $this->InsMysql->MtdConsultar($sql);            
 
 			$Respuesta['Datos'] = array();

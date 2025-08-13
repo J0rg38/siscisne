@@ -25,6 +25,14 @@ class ClsReporteVentaDirecta {
 
     public function MtdObtenerReporteVentaDirectas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'ProId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFecha=NULL,$oCliente=NULL,$oPedidoCompra=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fecha = '';
+		$cliente = '';
+		$pedidoCompra = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -213,6 +221,16 @@ class ClsReporteVentaDirecta {
 		
 		
 		    public function MtdObtenerReporteVentaDirectaDespachos2($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'ProId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oProductoTipo=NULL,$oConVentaDirecta=0,$oConFichaIngreso=0) {
+
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$productoTipo = '';
+		$conVentaDirecta = '';
+		$conFichaIngreso = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			

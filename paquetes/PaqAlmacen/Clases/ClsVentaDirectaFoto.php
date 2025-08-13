@@ -95,7 +95,14 @@ class ClsVentaDirectaFoto {
     }
 	
 	
-    public function MtdObtenerVentaDirectaFotos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VdfId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVentaDirecta=NULL,$oEstado=NULL,$oTipo=NULL) {
+    public function MtdObtenerVentaDirectaFotos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VdfId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVentaDirecta=NULL,$oEstado=NULL) {
+
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$ventadirecta = '';
+		$estado = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 
@@ -202,7 +209,7 @@ class ClsVentaDirectaFoto {
 		}
 		
 		if(!empty($oVentaDirecta)){
-			$cproducto = ' AND vdf.VdiId = "'.$oVentaDirecta.'"';
+			$ventadirecta = ' AND vdf.VdiId = "'.$oVentaDirecta.'"';
 		}
 
 		if(!empty($oEstado)){
@@ -225,7 +232,7 @@ class ClsVentaDirectaFoto {
 			DATE_FORMAT(vdf.VdfTiempoCreacion, "%d/%m/%Y %H:%i:%s") AS "NVdfTiempoCreacion",
 	        DATE_FORMAT(vdf.VdfTiempoModificacion, "%d/%m/%Y %H:%i:%s") AS "NVdfTiempoModificacion"
 			FROM tblvdfventadirectafoto vdf
-			WHERE  1 = 1 '.$cproducto.$estado.$producto.$filtrar.$tipo.$orden.$paginacion;	
+			WHERE  1 = 1 '.$ventadirecta.$estado.$producto.$filtrar.$tipo.$orden.$paginacion;	
 		
 			$resultado = $this->InsMysql->MtdConsultar($sql);            
 
@@ -267,6 +274,9 @@ class ClsVentaDirectaFoto {
 		
 
 		$error = false;
+		
+		// Inicializar variable
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 	

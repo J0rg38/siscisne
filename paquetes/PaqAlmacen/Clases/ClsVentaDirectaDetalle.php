@@ -550,6 +550,22 @@ $this->VdiTipoPedido = (($fila['VdiTipoPedido']));
 	
     public function MtdObtenerVentaDirectaDetalles($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'VddId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVentaDirecta=NULL,$oEstado=NULL,$oProducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oMoneda=NULL,$oCliente=NULL,$oConOrdenCompraReferencia=NULL,$oConDespacho=NULL,$oConPendiente=false,$oPersonal=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$ventadirecta = '';
+		$estado = '';
+		$producto = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$moneda = '';
+		$cliente = '';
+		$conordencomprareferencia = '';
+		$condespacho = '';
+		$conpendiente = '';
+		$personal = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 
 			$oFiltro = str_replace(" ","%",$oFiltro);			
@@ -1156,22 +1172,9 @@ $this->VdiTipoPedido = (($fila['VdiTipoPedido']));
 					$VentaDirectaDetalle->VddCodigoExterno = $fila['VddCodigoExterno'];
 
 					$VentaDirectaDetalle->VddCantidadPedir = $fila['VddCantidadPedir'];  
-					$VentaDirectaDetalle->VddCantidadPedirFecha = $fila['NVddCantidadPedirFecha']; 
-					
-					
-					$VentaDirectaDetalle->VddPorcentajeUtilidad = $fila['VddPorcentajeUtilidad'];  
-					$VentaDirectaDetalle->VddPorcentajeOtroCosto = $fila['VddPorcentajeOtroCosto']; 
-					$VentaDirectaDetalle->VddPorcentajeManoObra = $fila['VddPorcentajeManoObra'];  
-					$VentaDirectaDetalle->VddPorcentajePedido = $fila['VddPorcentajePedido']; 
-					$VentaDirectaDetalle->VddPorcentajeAdicional = $fila['VddPorcentajeAdicional'];  
-					$VentaDirectaDetalle->VddPorcentajeDescuento = $fila['VddPorcentajeDescuento']; 
-					$VentaDirectaDetalle->VddImporteBruto = $fila['VddImporteBruto'];  
-					$VentaDirectaDetalle->VddDescuentoUnitario = $fila['VddDescuentoUnitario'];  
-					$VentaDirectaDetalle->VddAdicional = $fila['VddAdicional'];  
+					$VentaDirectaDetalle->VddCantidadPedirFecha = $fila['NVddCantidadPedirFecha'];  
 
-			
-					$VentaDirectaDetalle->VddTipoPedido = $fila['VddTipoPedido'];  
-					$VentaDirectaDetalle->VddNota = $fila['VddNota'];  
+
 					$VentaDirectaDetalle->VddEstado = $fila['VddEstado'];  
 					$VentaDirectaDetalle->VddTiempoCreacion = $fila['NVddTiempoCreacion'];  
 					$VentaDirectaDetalle->VddTiempoModificacion = $fila['NVddTiempoModificacion']; 					
@@ -1188,11 +1191,16 @@ $this->VdiTipoPedido = (($fila['VdiTipoPedido']));
 					
 					$VentaDirectaDetalle->VveId = (($fila['VveId']));
 					
+					
+					
+					
 					$VentaDirectaDetalle->PcdId = (($fila['PcdId']));
 					
 					$VentaDirectaDetalle->PcdBOEstado = (($fila['PcdBOEstado']));
 					$VentaDirectaDetalle->PcdBOFecha = (($fila['PcdBOFecha']));
 
+			
+			
 					$VentaDirectaDetalle->PcdCantidad = (($fila['PcdCantidad']));
 					
 					$VentaDirectaDetalle->ProIdPedido = (($fila['ProIdPedido']));
@@ -1200,7 +1208,6 @@ $this->VdiTipoPedido = (($fila['VdiTipoPedido']));
 					$VentaDirectaDetalle->VddReemplazo = (($fila['VddReemplazo']));
 					//deb($VentaDirectaDetalle->VddReemplazo);
 
-			
 					$VentaDirectaDetalle->AmdId = (($fila['AmdId']));
 					$VentaDirectaDetalle->AmdCantidad = (($fila['AmdCantidad']));
 					$VentaDirectaDetalle->AmdCantidadEntrada = (($fila['AmdCantidadEntrada']));
@@ -1972,20 +1979,21 @@ $VentaDirectaDetalle->VdiTipoPedido = (($fila['VdiTipoPedido']));
 
 					$VentaDirectaDetalle->AmdId = (($fila['AmdId']));
 					$VentaDirectaDetalle->AmdCantidad = (($fila['AmdCantidad']));
-					$VentaDirectaDetalle->AmdEstado = (($fila['AmdEstado']));
+					$VentaDirectaDetalle->AmdCantidadEntrada = (($fila['AmdCantidadEntrada']));
+					
 					
 					$VentaDirectaDetalle->VddCantidadPendiente = (($fila['VddCantidadPendiente']));
 					$VentaDirectaDetalle->VddCantidadPendiente2 = (($fila['VddCantidadPendiente2']));
-					$VentaDirectaDetalle->VddCantidadConcretar = (($fila['VddCantidadConcretar']));
-					
-					$VentaDirectaDetalle->AmoEstado = (($fila['AmoEstado']));
-					
+					//$VentaDirectaDetalle->VddCantidadConcretar = (($fila['VddCantidadConcretar']));
+					$VentaDirectaDetalle->AmdEstado = (($fila['AmdEstado']));
 					
 					$VentaDirectaDetalle->VddCantidadLlegada = (($fila['VddCantidadLlegada']));
 					$VentaDirectaDetalle->VddCantidadPorLlegar = (($fila['VddCantidadPorLlegar']));
+					$VentaDirectaDetalle->VddCantidadPorLlegarReal = (($fila['VddCantidadPorLlegarReal']));
+
 					$VentaDirectaDetalle->VddFechaPorLlegar = (($fila['VddFechaPorLlegar']));
-					
-					
+					$VentaDirectaDetalle->AmdEstado = (($fila['AmdEstado']));
+
 					$VentaDirectaDetalle->CliNombreCompleto = (($fila['CliNombreCompleto']));
 					$VentaDirectaDetalle->CliNombre = (($fila['CliNombre']));
 					$VentaDirectaDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));

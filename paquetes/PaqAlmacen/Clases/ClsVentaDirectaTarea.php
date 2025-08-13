@@ -102,6 +102,15 @@ class ClsVentaDirectaTarea {
 	
     public function MtdObtenerVentaDirectaTareas($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VdtId',$oSentido = 'Desc',$oPaginacion = '0,10',$oCotizacionProducto=NULL,$oEstado=NULL,$oTipo=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$cproducto = '';
+		$estado = '';
+		$tipo = '';
+		$producto = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 
 			$oFiltro = str_replace(" ","%",$oFiltro);			
@@ -275,6 +284,9 @@ class ClsVentaDirectaTarea {
 		
 
 		$error = false;
+		
+		// Inicializar variable
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 	

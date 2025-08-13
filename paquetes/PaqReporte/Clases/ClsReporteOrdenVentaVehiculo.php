@@ -110,6 +110,19 @@ class ClsReporteOrdenVentaVehiculo {
 	
 	public function MtdObtenerReporteOrdenVentaVehiculoClientes($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'OvvId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oVehiculoMarca=NULL,$oSucursal=NULL,$oIncluirCSI=NULL,$oDiasTranscurridosTipo="Mayor",$oDiasTranscurridos=0,$oFecha="IFNULL(ovv.OvvActaEntregaFecha,ovv.OvvActaEntregaFechaPDS)") {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$vehiculoMarca = '';
+		$sucursal = '';
+		$incluirCSI = '';
+		$diasTranscurridosTipo = '';
+		$diasTranscurridos = '';
+		$fecha = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -2260,6 +2273,7 @@ DATE_FORMAT(ovv.OvvActaEntregaHora, "%H:%i") AS "NOvvActaEntregaHora",
 							AND ncr.NcrMotivoCodigo<> "05"
 							AND ncr.NcrMotivoCodigo<> "09"
 						)
+						
 					LIMIT 1
 				) AS OvvBoletaNumero,	
 				
@@ -2296,7 +2310,7 @@ DATE_FORMAT(ovv.OvvActaEntregaHora, "%H:%i") AS "NOvvActaEntregaHora",
 						LEFT JOIN tblbtaboletatalonario bta
 						ON bol.BtaId = bta.BtaId
 					WHERE bol.OvvId = ovv.OvvId
-					AND bol.BolEstado <> 6 
+					AND bol.BolEstado <> 6
 					AND NOT EXISTS(
 							SELECT 	
 							ncr.NcrId
@@ -2307,7 +2321,8 @@ DATE_FORMAT(ovv.OvvActaEntregaHora, "%H:%i") AS "NOvvActaEntregaHora",
 							AND ncr.NcrMotivoCodigo<> "05"
 							AND ncr.NcrMotivoCodigo<> "09"
 						)
-					LIMIT 1
+						
+					 LIMIT 1
 				) AS OvvBoletaFecha,	
 				
 
@@ -2354,7 +2369,8 @@ DATE_FORMAT(ovv.OvvActaEntregaHora, "%H:%i") AS "NOvvActaEntregaHora",
 							AND ncr.NcrMotivoCodigo<> "05"
 							AND ncr.NcrMotivoCodigo<> "09"
 						)
-					LIMIT 1
+						
+					 LIMIT 1
 				) AS OvvBoletaTipoCambio,
 				
 				
@@ -2400,6 +2416,7 @@ DATE_FORMAT(ovv.OvvActaEntregaHora, "%H:%i") AS "NOvvActaEntregaHora",
 							AND ncr.NcrMotivoCodigo<> "05"
 							AND ncr.NcrMotivoCodigo<> "09"
 						)
+						
 					LIMIT 1
 				) AS OvvBoletaTotal,
 				
@@ -2424,6 +2441,7 @@ DATE_FORMAT(ovv.OvvActaEntregaHora, "%H:%i") AS "NOvvActaEntregaHora",
 									AND ncr.NcrMotivoCodigo<> "09"
 									
 								) 
+					
 					 LIMIT 1
 				)  AS OvvFacturaEstado,
 
@@ -3377,8 +3395,7 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 									AND ncr.NcrMotivoCodigo<> "09"
 									
 								) 
-								
-					 LIMIT 1
+					LIMIT 1
 				)  AS OvvFacturaFecha,
 				
 		
@@ -3427,8 +3444,7 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 									AND ncr.NcrMotivoCodigo<> "09"
 									
 								) 
-								
-					 LIMIT 1
+					LIMIT 1
 				)  AS OvvFacturaTipoCambio,
 
 				(
@@ -3438,7 +3454,7 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 						LEFT JOIN tblbtaboletatalonario bta
 						ON bol.BtaId = bta.BtaId
 					WHERE bol.OvvId = ovv.OvvId
-					AND bol.BolEstado <> 6
+					AND bol.BolEstado <> 6 
 					AND NOT EXISTS(
 							SELECT 	
 							ncr.NcrId
@@ -3449,8 +3465,7 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 							AND ncr.NcrMotivoCodigo<> "05"
 							AND ncr.NcrMotivoCodigo<> "09"
 						)
-						
-					 LIMIT 1
+					LIMIT 1
 				) AS OvvBoletaTipoCambio,
 				
 				
@@ -3498,7 +3513,6 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 							AND ncr.NcrMotivoCodigo<> "05"
 							AND ncr.NcrMotivoCodigo<> "09"
 						)
-						
 					LIMIT 1
 				) AS OvvBoletaTotal,
 				
@@ -3583,6 +3597,9 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 				cli.CliRepresentanteNacionalidad,
 				cli.CliRepresentanteActividadEconomica,
 				
+				cli.CliSexo,
+				cli.CliEstadoCivil,
+				
 				
 				(
 					SELECT 
@@ -3606,11 +3623,88 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 				pac.PacId
 				FROM tblpacpagocomprobante pac
 					WHERE pac.PagId = pag.PagId
-					AND pac.Ovvid = ovv.Ovvid
+					AND pac.OvvId = ovv.OvvId
+					AND pag.PagEstado = 3
+					
 			)
 			
 		ORDER BY pag.PagId ASC LIMIT 1
 		) AS OvvAbonoInicial,
+		
+		
+		(
+			IF(IFNULL((SELECT 			
+			SUM(pag.PagMonto)			
+			FROM tblpagpago pag
+			WHERE 
+				
+				EXISTS(
+					SELECT
+					pac.PacId
+					FROM tblpacpagocomprobante pac
+						WHERE pac.PagId = pag.PagId
+						AND pac.OvvId = ovv.OvvId
+						AND pag.PagEstado = 3
+				)
+				
+			ORDER BY pag.PagId ASC LIMIT 1
+			),0)>=ovv.OvvTotal,"Si","No")
+			
+		) AS OvvCancelado,
+		
+		
+		
+		(
+					IF(
+					
+					IFNULL((SELECT 
+					
+					SUM(pag.PagMonto)
+					
+					FROM tblpagpago pag
+					WHERE 
+						
+						EXISTS(
+							SELECT
+							pac.PacId
+							FROM tblpacpagocomprobante pac
+								WHERE pac.PagId = pag.PagId
+								AND pac.OvvId = ovv.OvvId
+								AND pag.PagEstado = 3
+								
+						)
+						
+					ORDER BY pag.PagId ASC LIMIT 1
+					),0) 
+					
+					+
+					
+					IFNULL(
+					(
+					SELECT
+					SUM(fac.FacTotal)
+					FROM tblfacfactura fac
+					WHERE fac.OvvId = ovv.OvvId
+					AND fac.FacEstado <>  6
+					)
+					,0)
+					
+					+
+					
+					IFNULL(
+					(
+					SELECT
+					SUM(bol.BolTotal)
+					FROM tblbolboleta bol
+					WHERE bol.OvvId = ovv.OvvId
+					AND bol.BolEstado <>  6
+					)
+					,0)
+					
+					 >=  ovv.OvvTotal,"Si","No")
+					
+				) AS OvvCancelado2,
+				
 		
 		
 		
@@ -3627,7 +3721,7 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 				pac.PacId
 				FROM tblpacpagocomprobante pac
 					WHERE pac.PagId = pag.PagId
-					AND pac.Ovvid = ovv.Ovvid
+					AND pac.OvvId = ovv.OvvId
 			)
 			
 		ORDER BY pag.PagId ASC LIMIT 1
@@ -3648,12 +3742,28 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 				pac.PacId
 				FROM tblpacpagocomprobante pac
 					WHERE pac.PagId = pag.PagId
-					AND pac.Ovvid = ovv.Ovvid
+					AND pac.OvvId = ovv.OvvId
 			)
 			
 		ORDER BY pag.PagId ASC LIMIT 1
 		) AS FpaAbreviatura,
 		
+		
+				CASE
+				WHEN EXISTS (
+					SELECT 
+					pac.PacId
+					FROM tblpacpagocomprobante pac 
+						LEFT JOIN tblpagpago pag
+						ON pac.PagId = pag.PagId
+					
+					WHERE pac.OvvId = ovv.OvvId LIMIT 1
+				
+				) THEN "Si"
+				ELSE "No"
+				END AS OvvPago,
+				
+					
 				
 				tdo.TdoNombre,
 				
@@ -3676,10 +3786,9 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 				lti.LtiNombre,
 				
 				ein.EinVIN,
-				ein.EinColor,
-				ein.EinPlaca,
 				
-				per.PerNumeroDocumento,
+				
+				per.PerAbreviatura,
 				per.PerNombre,
 				per.PerApellidoPaterno,
 				per.PerApellidoMaterno,
@@ -3688,42 +3797,12 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 				mpa.MpaAbreviatura,
 				
 				suc.SucNombre,
-				suc.SucDistrito,
-				suc.SucDepartamento,
 				
+				ein.EinNumeroMotor,
+				ein.EinAnoFabricacion,
+				ein.EinAnoModelo,
+				ein.EinColor
 				
-				(
-				SELECT 
-	
-				fin.FinId
-	
-				FROM tblfinfichaingreso fin
-					WHERE fin.EinId = ein.EinId
-				AND fin.FinEstado <> 777
-				AND fin.FinTipo = 1
-				ORDER BY 	fin.FinFecha ASC
-						
-				LIMIT 1
-				) AS FinIdPrimera,
-				
-				(
-				SELECT 
-	
-				
-	DATE_FORMAT(fin.FinFecha, "%d/%m/%Y")
-				FROM tblfinfichaingreso fin
-					WHERE fin.EinId = ein.EinId
-				AND fin.FinEstado <> 777
-					AND fin.FinTipo = 1
-				ORDER BY 	fin.FinFecha ASC
-						
-				LIMIT 1
-				) AS FinFechaPrimera
-				
-				
-				
-				
-		
 				FROM tblovvordenventavehiculo ovv
 				
 					LEFT JOIN tblmpamodalidadpago mpa
@@ -3752,197 +3831,240 @@ public function MtdObtenerReporteOrdenVentaVehiculoEntregas($oCampo=NULL,$oCondi
 							ON vmo.VtiId = vti.VtiId	
 									LEFT JOIN tblvmavehiculomarca vma
 									ON vmo.VmaId = vma.VmaId
-
+									
+									
 									LEFT JOIN tblperpersonal per
 									ON ovv.PerId = per.PerId
-										LEFT JOIN tblsucsucursal suc
-										ON ovv.SucId = suc.SucId
-												
-				WHERE ovv.OvvEstado <> 6  '.$filtrar.$icsi.$dtranscurrido.$fecha.$vmarca.$sucursal.$mingreso.$agrupar." ".$orden.$paginacion;
-
-//ovv.OvvAprobacion1 = 1
+									
+									LEFT JOIN tblsucsucursal suc
+									ON ovv.SucId = suc.SucId
+									
+				WHERE 1 = 1 '.$filtrar.$fecha.$tipo.$sucursal.$taentrega.$ttrasncurrido.$tcomprobante.$aprobacion1.$aprobacion2.$aprobacion3.$stipo.$estado.$moneda.$personal.$cliente.$cvehiculo.$ccotizacion.$vingreso.$estado.$facturable.$orden.$paginacion;
+											
 			$resultado = $this->InsMysql->MtdConsultar($sql);            
 
-//IF(IFNULL(fac.AmoId
-//				,IFNULL(bol.AmoId,"F")) AS OvvComprobanteVentaTipo,
-				
-				
 			$Respuesta['Datos'] = array();
-
-            $InsReporteOrdenVentaVehiculo = get_class($this);
-
+			
+            $InsOrdenVentaVehiculo = get_class($this);
+				
 				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
 
-					$ReporteOrdenVentaVehiculo = new $InsReporteOrdenVentaVehiculo();
+					$OrdenVentaVehiculo = new $InsOrdenVentaVehiculo();
+                    $OrdenVentaVehiculo->OvvId = $fila['OvvId'];
+					$OrdenVentaVehiculo->SucId = $fila['SucId'];
+					
+					
+					$OrdenVentaVehiculo->PerId = $fila['PerId'];	
+					$OrdenVentaVehiculo->PerIdFirmante = $fila['PerIdFirmante'];	
+					
+					
+					$OrdenVentaVehiculo->CliId = $fila['CliId'];
+					$OrdenVentaVehiculo->NpaId = $fila['NpaId'];
+					$OrdenVentaVehiculo->OvvFecha = $fila['NOvvFecha'];
+					$OrdenVentaVehiculo->OvvFechaEntrega = $fila['NOvvFechaEntrega'];
+					$OrdenVentaVehiculo->OvvFechaDiaTranscurrido = $fila['OvvFechaDiaTranscurrido'];
+					$OrdenVentaVehiculo->OvvFechaDiaTranscurridoFacturacion = $fila['OvvFechaDiaTranscurridoFacturacion'];
+					
+					
+					$OrdenVentaVehiculo->CveId = $fila['CveId'];
+					
+					$OrdenVentaVehiculo->MonId = $fila['MonId'];
+					$OrdenVentaVehiculo->OvvTipoCambio = $fila['OvvTipoCambio'];
+					
+					$OrdenVentaVehiculo->MpaId = $fila['MpaId'];
+					
+					$OrdenVentaVehiculo->OvvIncluyeImpuesto = $fila['OvvIncluyeImpuesto'];
+					$OrdenVentaVehiculo->OvvPorcentajeImpuestoVenta = $fila['OvvPorcentajeImpuestoVenta'];					
+					$OrdenVentaVehiculo->OvvObservacion = $fila['OvvObservacion'];
+					
+					$OrdenVentaVehiculo->OvvTelefono = $fila['OvvTelefono'];
+					$OrdenVentaVehiculo->OvvCelular = $fila['OvvCelular'];
+					$OrdenVentaVehiculo->OvvDireccion = $fila['OvvDireccion'];
+					$OrdenVentaVehiculo->OvvEmail = $fila['OvvEmail'];
+					
+					
+					
+					$OrdenVentaVehiculo->CliDireccion = $fila['CliDireccion'];
+					$OrdenVentaVehiculo->CliDepartamento = $fila['CliDepartamento'];
+					$OrdenVentaVehiculo->CliProvincia = $fila['CliProvincia'];
+					$OrdenVentaVehiculo->CliDistrito = $fila['CliDistrito'];
+					$OrdenVentaVehiculo->CliPais = $fila['CliPais'];
+					$OrdenVentaVehiculo->CliActividadEconomica = $fila['CliActividadEconomica'];
+					
+					$OrdenVentaVehiculo->CliSexo = $fila['CliSexo'];
+					$OrdenVentaVehiculo->CliEstadoCivil = $fila['CliEstadoCivil'];
+					
+				
+					$OrdenVentaVehiculo->CliRepresentanteNombre = $fila['CliRepresentanteNombre'];
+					$OrdenVentaVehiculo->CliRepresentanteNumeroDocumento = $fila['CliRepresentanteNumeroDocumento'];
+					$OrdenVentaVehiculo->CliRepresentanteNacionalidad = $fila['CliRepresentanteNacionalidad'];
+					$OrdenVentaVehiculo->CliRepresentanteActividadEconomica = $fila['CliRepresentanteActividadEconomica'];
 
-                    $ReporteOrdenVentaVehiculo->OvvId = $fila['OvvId'];
-					
-					$ReporteOrdenVentaVehiculo->PerId = $fila['PerId'];	
-					$ReporteOrdenVentaVehiculo->CliId = $fila['CliId'];	
-					$ReporteOrdenVentaVehiculo->OvvFecha = $fila['NOvvFecha'];
-					$ReporteOrdenVentaVehiculo->OvvFechaEntrega = $fila['NOvvFechaEntrega'];
-					$ReporteOrdenVentaVehiculo->OvvDiaTranscurridoEntrega = $fila['OvvDiaTranscurridoEntrega'];
-					
-					$ReporteOrdenVentaVehiculo->CveId = $fila['CveId'];
-					
-					$ReporteOrdenVentaVehiculo->MonId = $fila['MonId'];
-					$ReporteOrdenVentaVehiculo->OvvTipoCambio = $fila['OvvTipoCambio'];
-					
-					$ReporteOrdenVentaVehiculo->MpaId = $fila['MpaId'];
-					
-					$ReporteOrdenVentaVehiculo->OvvIncluyeImpuesto = $fila['OvvIncluyeImpuesto'];
-					$ReporteOrdenVentaVehiculo->OvvPorcentajeImpuestoVenta = $fila['OvvPorcentajeImpuestoVenta'];					
-					$ReporteOrdenVentaVehiculo->OvvObservacion = $fila['OvvObservacion'];
-					
-					$ReporteOrdenVentaVehiculo->OvvTelefono = $fila['OvvTelefono'];
-					$ReporteOrdenVentaVehiculo->OvvCelular = $fila['OvvCelular'];
-					$ReporteOrdenVentaVehiculo->OvvDireccion = $fila['OvvDireccion'];
-					$ReporteOrdenVentaVehiculo->OvvEmail = $fila['OvvEmail'];
-					
-					$ReporteOrdenVentaVehiculo->CliContactoEmail1 = $fila['CliContactoEmail1'];
-					$ReporteOrdenVentaVehiculo->CliContactoEmail2 = $fila['CliContactoEmail2'];
-					$ReporteOrdenVentaVehiculo->CliContactoEmail3 = $fila['CliContactoEmail3'];
-					
-					$ReporteOrdenVentaVehiculo->CliEmailFacturacion = $fila['CliEmailFacturacion'];
+				
+				
+				
+					$OrdenVentaVehiculo->VveId = $fila['VveId'];
+					$OrdenVentaVehiculo->OvvAnoModelo = $fila['OvvAnoModelo'];	
+					$OrdenVentaVehiculo->OvvAnoFabricacion = $fila['OvvAnoFabricacion'];
 					
 					
-					$ReporteOrdenVentaVehiculo->CliDireccion = $fila['CliDireccion'];
-					$ReporteOrdenVentaVehiculo->CliDepartamento = $fila['CliDepartamento'];
-					$ReporteOrdenVentaVehiculo->CliProvincia = $fila['CliProvincia'];
-					$ReporteOrdenVentaVehiculo->CliDistrito = $fila['CliDistrito'];
-					$ReporteOrdenVentaVehiculo->CliPais = $fila['CliPais'];
-					$ReporteOrdenVentaVehiculo->CliActividadEconomica = $fila['CliActividadEconomica'];
+					$OrdenVentaVehiculo->OvvColor = $fila['OvvColor'];	
+					
+					$OrdenVentaVehiculo->OvvVehiculoMarca = $fila['OvvVehiculoMarca'];	
+					$OrdenVentaVehiculo->OvvVehiculoModelo = $fila['OvvVehiculoModelo'];	
+					$OrdenVentaVehiculo->OvvVehiculoVersion = $fila['OvvVehiculoVersion'];	
+					$OrdenVentaVehiculo->OvvGLP = $fila['OvvGLP'];	
 					
 					
-					$ReporteOrdenVentaVehiculo->CliRepresentanteNombre = $fila['CliRepresentanteNombre'];
-					$ReporteOrdenVentaVehiculo->CliRepresentanteNumeroDocumento = $fila['CliRepresentanteNumeroDocumento'];
-					$ReporteOrdenVentaVehiculo->CliRepresentanteNacionalidad = $fila['CliRepresentanteNacionalidad'];
-					$ReporteOrdenVentaVehiculo->CliRepresentanteActividadEconomica = $fila['CliRepresentanteActividadEconomica'];
+					$OrdenVentaVehiculo->EinId = $fila['EinId'];			
 
+					$OrdenVentaVehiculo->OvvPrecio = $fila['OvvPrecio'];			
+					$OrdenVentaVehiculo->OvvDescuento = $fila['OvvDescuento'];			
+					$OrdenVentaVehiculo->OvvDescuentoGerencia = $fila['OvvDescuentoGerencia'];	
 				
 				
-				
-					$ReporteOrdenVentaVehiculo->VveId = $fila['VveId'];
-					$ReporteOrdenVentaVehiculo->OvvAnoModelo = $fila['OvvAnoModelo'];	
-					$ReporteOrdenVentaVehiculo->OvvAnoFabricacion = $fila['OvvAnoFabricacion'];
+					$OrdenVentaVehiculo->OvvSubTotal = $fila['OvvSubTotal'];			
+					$OrdenVentaVehiculo->OvvImpuesto = $fila['OvvImpuesto'];
+					$OrdenVentaVehiculo->OvvTotal = $fila['OvvTotal'];
 					
+					$OrdenVentaVehiculo->OvvCondicionVentaOtro = $fila['OvvCondicionVentaOtro'];
+					$OrdenVentaVehiculo->OvvObsequioOtro = $fila['OvvObsequioOtro'];
+										
+					$OrdenVentaVehiculo->OvvComprobanteVenta = $fila['OvvComprobanteVenta'];
+										
+					$OrdenVentaVehiculo->OvvFactura = $fila['OvvFactura'];
+					$OrdenVentaVehiculo->OvvBoleta = $fila['OvvBoleta'];
 					
-					$ReporteOrdenVentaVehiculo->OvvColor = $fila['OvvColor'];	
-					$ReporteOrdenVentaVehiculo->EinId = $fila['EinId'];			
+					$OrdenVentaVehiculo->FacId = $fila['FacId'];
+					$OrdenVentaVehiculo->FtaId = $fila['FtaId'];
+					
+					$OrdenVentaVehiculo->BolId = $fila['BolId'];
+					$OrdenVentaVehiculo->BtaId = $fila['BtaId'];
+					
+					$OrdenVentaVehiculo->OvvBoleta = $fila['OvvBoleta'];
+					$OrdenVentaVehiculo->OvvBoleta = $fila['OvvBoleta'];
+					
+					$OrdenVentaVehiculo->OvvFacturaNumero = $fila['OvvFacturaNumero'];
+					$OrdenVentaVehiculo->OvvBoletaNumero = $fila['OvvBoletaNumero'];
+					
+					$OrdenVentaVehiculo->OvvFacturaFecha = $fila['OvvFacturaFecha'];
+					$OrdenVentaVehiculo->OvvBoletaFecha = $fila['OvvBoletaFecha'];
 
-					$ReporteOrdenVentaVehiculo->OvvPrecio = $fila['OvvPrecio'];			
-					$ReporteOrdenVentaVehiculo->OvvDescuento = $fila['OvvDescuento'];			
-					$ReporteOrdenVentaVehiculo->OvvDescuentoGerencia = $fila['OvvDescuentoGerencia'];	
+					$OrdenVentaVehiculo->OvvFacturaTotal = $fila['OvvFacturaTotal'];
+					$OrdenVentaVehiculo->OvvBoletaTotal = $fila['OvvBoletaTotal'];
+					
+					$OrdenVentaVehiculo->OvvFacturaEstado = $fila['OvvFacturaEstado'];
+					$OrdenVentaVehiculo->OvvBoletaEstado = $fila['OvvBoletaEstado'];	
+					
 				
 				
-					$ReporteOrdenVentaVehiculo->OvvSubTotal = $fila['OvvSubTotal'];			
-					$ReporteOrdenVentaVehiculo->OvvImpuesto = $fila['OvvImpuesto'];
-					$ReporteOrdenVentaVehiculo->OvvTotal = $fila['OvvTotal'];
+				
+					$OrdenVentaVehiculo->OvvFacturaTipoCambio = $fila['OvvFacturaTipoCambio'];
+					$OrdenVentaVehiculo->OvvBoletaTipoCambio = $fila['OvvBoletaTipoCambio'];				
 					
-					$ReporteOrdenVentaVehiculo->OvvCondicionVentaOtro = $fila['OvvCondicionVentaOtro'];
-					$ReporteOrdenVentaVehiculo->OvvObsequioOtro = $fila['OvvObsequioOtro'];
 					
-					$ReporteOrdenVentaVehiculo->OvvComprobanteVenta = $fila['OvvComprobanteVenta'];
+					$OrdenVentaVehiculo->OvvNota = $fila['OvvNota'];
+					$OrdenVentaVehiculo->OvvPlaca = $fila['OvvPlaca'];
+					$OrdenVentaVehiculo->OvvTarjeta = $fila['OvvTarjeta'];
 					
-					$ReporteOrdenVentaVehiculo->OvvFactura = $fila['OvvFactura'];
-					$ReporteOrdenVentaVehiculo->OvvBoleta = $fila['OvvBoleta'];
+					$OrdenVentaVehiculo->OvvAprobacion1 = $fila['OvvAprobacion1'];
+					$OrdenVentaVehiculo->OvvAprobacion2 = $fila['OvvAprobacion2'];
+					$OrdenVentaVehiculo->OvvAprobacion3 = $fila['OvvAprobacion3'];
 					
-					$ReporteOrdenVentaVehiculo->OvvFacturaNumero = $fila['OvvFacturaNumero'];
-					$ReporteOrdenVentaVehiculo->OvvBoletaNumero = $fila['OvvBoletaNumero'];
+					$OrdenVentaVehiculo->OvvReferencia = $fila['OvvReferencia'];
+					$OrdenVentaVehiculo->OvvTipoPlaca = $fila['OvvTipoPlaca'];
+					$OrdenVentaVehiculo->OvvGLPModeloTanque = $fila['OvvGLPModeloTanque'];
 					
-					$ReporteOrdenVentaVehiculo->OvvFacturaFecha = $fila['OvvFacturaFecha'];
-					$ReporteOrdenVentaVehiculo->OvvBoletaFecha = $fila['OvvBoletaFecha'];
+				
+					$OrdenVentaVehiculo->OvvInmediata = $fila['OvvInmediata'];
+					$OrdenVentaVehiculo->OvvEstado = $fila['OvvEstado'];
+			
+					
+					$OrdenVentaVehiculo->OvvTiempoSolicitudEnvio = $fila['NOvvTiempoSolicitudEnvio']; 
+					$OrdenVentaVehiculo->OvvTiempoAprobacion1Envio = $fila['NOvvTiempoAprobacion1Envio'];
+					$OrdenVentaVehiculo->OvvTiempoAprobacion2Envio = $fila['NOvvTiempoAprobacion2Envio'];
+					$OrdenVentaVehiculo->OvvTiempoEmitido = $fila['NOvvTiempoEmitido'];
+					$OrdenVentaVehiculo->OvvTiempoAnulado = $fila['NOvvTiempoAnulado'];
+					$OrdenVentaVehiculo->OvvTiempoPorFacturar = $fila['NOvvTiempoPorFacturar'];
+					$OrdenVentaVehiculo->OvvTiempoFacturado = $fila['NOvvTiempoFacturado'];
+					
+					$OrdenVentaVehiculo->OvvObservacionAsignacion = $fila['OvvObservacionAsignacion'];
+					
+					$OrdenVentaVehiculo->OvvTiempoCreacion = $fila['NOvvTiempoCreacion'];  
+					$OrdenVentaVehiculo->OvvTiempoModificacion = $fila['NOvvTiempoModificacion']; 
+					
+					$OrdenVentaVehiculo->OvvActaEntregaFecha = $fila['NOvvActaEntregaFecha']; 
+					$OrdenVentaVehiculo->OvvActaEntregaHora = $fila['NOvvActaEntregaHora']; 
+				
+					$OrdenVentaVehiculo->OvvActaEntregaDescripcion = $fila['OvvActaEntregaDescripcion']; 
+					$OrdenVentaVehiculo->OvvFotoActaEntrega = $fila['OvvFotoActaEntrega']; 
+					
+					$OrdenVentaVehiculo->TdoId = $fila['TdoId']; 
+					$OrdenVentaVehiculo->CliNombreCompleto = $fila['CliNombreCompleto']; 
+					$OrdenVentaVehiculo->CliNombre = $fila['CliNombre']; 
+					$OrdenVentaVehiculo->CliApellidoPaterno = $fila['CliApellidoPaterno']; 
+					$OrdenVentaVehiculo->CliApellidoMaterno = $fila['CliApellidoMaterno']; 
+					$OrdenVentaVehiculo->CliNumeroDocumento = $fila['CliNumeroDocumento']; 
+					
+					$OrdenVentaVehiculo->CliTelefono = $fila['CliTelefono']; 
+					$OrdenVentaVehiculo->CliCelular = $fila['CliCelular']; 
+					$OrdenVentaVehiculo->CliEmail = $fila['CliEmail']; 
 
-					$ReporteOrdenVentaVehiculo->OvvFacturaTotal = $fila['OvvFacturaTotal'];
-					$ReporteOrdenVentaVehiculo->OvvBoletaTotal = $fila['OvvBoletaTotal'];
+					$OrdenVentaVehiculo->OvvPropietarioCantidad = $fila['OvvPropietarioCantidad']; 
 					
-					$ReporteOrdenVentaVehiculo->OvvFacturaEstado = $fila['OvvFacturaEstado'];
-					$ReporteOrdenVentaVehiculo->OvvBoletaEstado = $fila['OvvBoletaEstado'];	
+					$OrdenVentaVehiculo->OvvAbonoInicial = $fila['OvvAbonoInicial'];
+					$OrdenVentaVehiculo->OvvCancelado = $fila['OvvCancelado'];
+					$OrdenVentaVehiculo->OvvCancelado2 = $fila['OvvCancelado2'];
 					
+					
+					$OrdenVentaVehiculo->FpaId = $fila['FpaId']; 
+					$OrdenVentaVehiculo->FpaAbreviatura = $fila['FpaAbreviatura']; 
+					$OrdenVentaVehiculo->OvvPago = $fila['OvvPago']; 
 				
-					$ReporteOrdenVentaVehiculo->OvvFacturaTipoCambio = $fila['OvvFacturaTipoCambio'];
-					$ReporteOrdenVentaVehiculo->OvvBoletaTipoCambio = $fila['OvvBoletaTipoCambio'];				
+					$OrdenVentaVehiculo->TdoNombre = $fila['TdoNombre']; 
 					
-					
-					$ReporteOrdenVentaVehiculo->OvvNota = $fila['OvvNota'];
-					$ReporteOrdenVentaVehiculo->OvvPlaca = $fila['OvvPlaca'];
-					$ReporteOrdenVentaVehiculo->OvvEstado = $fila['OvvEstado'];
-					$ReporteOrdenVentaVehiculo->OvvTiempoCreacion = $fila['NOvvTiempoCreacion'];  
-					$ReporteOrdenVentaVehiculo->OvvTiempoModificacion = $fila['NOvvTiempoModificacion']; 
-					
-					
-					$ReporteOrdenVentaVehiculo->OvvActaEntregaFecha = $fila['NOvvActaEntregaFecha']; 
-					$ReporteOrdenVentaVehiculo->OvvActaEntregaDescripcion = $fila['OvvActaEntregaDescripcion']; 
-					$ReporteOrdenVentaVehiculo->OvvActaEntregaFechaPDS = $fila['NOvvActaEntregaFechaPDS']; 
-					
+					$OrdenVentaVehiculo->MonNombre = $fila['MonNombre']; 
+					$OrdenVentaVehiculo->MonSimbolo = $fila['MonSimbolo']; 
+				
 		
-					$ReporteOrdenVentaVehiculo->TdoId = $fila['TdoId']; 
-					$ReporteOrdenVentaVehiculo->CliNombreCompleto = $fila['CliNombreCompleto']; 
-					$ReporteOrdenVentaVehiculo->CliNombre = $fila['CliNombre']; 
-					$ReporteOrdenVentaVehiculo->CliApellidoPaterno = $fila['CliApellidoPaterno']; 
-					$ReporteOrdenVentaVehiculo->CliApellidoMaterno = $fila['CliApellidoMaterno']; 
-					$ReporteOrdenVentaVehiculo->CliNumeroDocumento = $fila['CliNumeroDocumento']; 
+					$OrdenVentaVehiculo->VmaId = $fila['VmaId'];
+					$OrdenVentaVehiculo->VmaNombre = $fila['VmaNombre'];
 					
-					$ReporteOrdenVentaVehiculo->CliTelefono = $fila['CliTelefono']; 
-					$ReporteOrdenVentaVehiculo->CliCelular = $fila['CliCelular']; 
-					$ReporteOrdenVentaVehiculo->CliEmail = $fila['CliEmail']; 
+					$OrdenVentaVehiculo->VmoId = $fila['VmoId'];
+					$OrdenVentaVehiculo->VmoNombre = $fila['VmoNombre'];
+					
+					$OrdenVentaVehiculo->VveId = $fila['VveId'];
+					$OrdenVentaVehiculo->VveNombre = $fila['VveNombre'];
+					
+					$OrdenVentaVehiculo->VveFoto = $fila['VveFoto'];
+					
+					$OrdenVentaVehiculo->LtiNombre = $fila['LtiNombre'];
+					
+					$OrdenVentaVehiculo->EinVIN = $fila['EinVIN'];
+					
+					$OrdenVentaVehiculo->PerAbreviatura = $fila['PerAbreviatura'];
+					$OrdenVentaVehiculo->PerNombre = $fila['PerNombre'];
+					$OrdenVentaVehiculo->PerApellidoPaterno = $fila['PerApellidoPaterno'];
+					$OrdenVentaVehiculo->PerApellidoMaterno = $fila['PerApellidoMaterno'];
 
-					$ReporteOrdenVentaVehiculo->OvvPropietarioCantidad = $fila['OvvPropietarioCantidad']; 
-					
-					$ReporteOrdenVentaVehiculo->OvvAbonoInicial = $fila['OvvAbonoInicial'];
-					$ReporteOrdenVentaVehiculo->FpaId = $fila['FpaId']; 
-					$ReporteOrdenVentaVehiculo->FpaAbreviatura = $fila['FpaAbreviatura']; 
-				
-					$ReporteOrdenVentaVehiculo->TdoNombre = $fila['TdoNombre']; 
-					
-					$ReporteOrdenVentaVehiculo->MonNombre = $fila['MonNombre']; 
-					$ReporteOrdenVentaVehiculo->MonSimbolo = $fila['MonSimbolo']; 
-				
-		
-					$ReporteOrdenVentaVehiculo->VmaId = $fila['VmaId'];
-					$ReporteOrdenVentaVehiculo->VmaNombre = $fila['VmaNombre'];
-					
-					$ReporteOrdenVentaVehiculo->VmoId = $fila['VmoId'];
-					$ReporteOrdenVentaVehiculo->VmoNombre = $fila['VmoNombre'];
-					
-					$ReporteOrdenVentaVehiculo->VveId = $fila['VveId'];
-					$ReporteOrdenVentaVehiculo->VveNombre = $fila['VveNombre'];
-					
-					$ReporteOrdenVentaVehiculo->VveFoto = $fila['VveFoto'];
-					
-					$ReporteOrdenVentaVehiculo->LtiNombre = $fila['LtiNombre'];
-					
-					$ReporteOrdenVentaVehiculo->EinVIN = $fila['EinVIN'];
-					$ReporteOrdenVentaVehiculo->EinColor = $fila['EinColor'];
-					$ReporteOrdenVentaVehiculo->EinPlaca = $fila['EinPlaca'];
-					
-					
-					$ReporteOrdenVentaVehiculo->PerNumeroDocumento = $fila['PerNumeroDocumento'];
-					$ReporteOrdenVentaVehiculo->PerNombre = $fila['PerNombre'];
-					$ReporteOrdenVentaVehiculo->PerApellidoPaterno = $fila['PerApellidoPaterno'];
-					$ReporteOrdenVentaVehiculo->PerApellidoMaterno = $fila['PerApellidoMaterno'];
+					$OrdenVentaVehiculo->MpaNombre = $fila['MpaNombre'];
+					$OrdenVentaVehiculo->MpaAbreviatura = $fila['MpaAbreviatura'];					
 
-					$ReporteOrdenVentaVehiculo->MpaNombre = $fila['MpaNombre'];
-					$ReporteOrdenVentaVehiculo->MpaAbreviatura = $fila['MpaAbreviatura'];		
+					$OrdenVentaVehiculo->SucNombre = $fila['SucNombre'];
 					
-					$ReporteOrdenVentaVehiculo->SucNombre = $fila['SucNombre'];					
-					$ReporteOrdenVentaVehiculo->SucDistrito = $fila['SucDistrito'];		
-					$ReporteOrdenVentaVehiculo->SucDepartamento = $fila['SucDepartamento'];		
+					$OrdenVentaVehiculo->EinNumeroMotor = $fila['EinNumeroMotor'];
+					$OrdenVentaVehiculo->EinAnoFabricacion = $fila['EinAnoFabricacion'];
+					$OrdenVentaVehiculo->EinAnoModelo = $fila['EinAnoModelo'];
+					$OrdenVentaVehiculo->EinColor = $fila['EinColor'];
 
-$ReporteOrdenVentaVehiculo->FinIdPrimera = $fila['FinIdPrimera'];		
-					$ReporteOrdenVentaVehiculo->FinFechaPrimera = $fila['FinFechaPrimera'];		
-
-
-
-
-					switch($ReporteOrdenVentaVehiculo->OvvEstado){
+					switch($OrdenVentaVehiculo->OvvEstado){
 					
 					  case 1:
 						  $Estado = "Pendiente";
 					  break;
 					
 					  case 3:
-						  $Estado = "Emitido";
+						  $Estado = "Listo";
 					  break;	
 						
 					case 4:
@@ -3950,22 +4072,54 @@ $ReporteOrdenVentaVehiculo->FinIdPrimera = $fila['FinIdPrimera'];
 					break;
 					
 					 case 5:
-						  $Estado = "Facturado";			  	
+				 		 $Estado = "Facturado";			  	
 					  break;
 					
 					 case 6:
 						  $Estado = "Anulado";			  	
 					  break;
-			
+					
 					  default:
 						  $Estado = "";
 					  break;					
 					
 					}
 					
-					$ReporteOrdenVentaVehiculo->OvvEstadoDescripcion = $Estado;           
+			switch($OrdenVentaVehiculo->OvvEstado){
+				
+				case 1:
+					$OrdenVentaVehiculo->OvvEstadoIcono = '<img width="15" height="15" alt="[Pendiente]" title="Pendiente" src="imagenes/estado/pendiente.gif" />';
+				break;
+				
+				case 3:
+					$OrdenVentaVehiculo->OvvEstadoIcono = '<img width="15" height="15" alt="[Emitido]" title="Emitido" src="imagenes/estado/realizado.gif" />';
+				break;	
+				
+				case 4:
+					$OrdenVentaVehiculo->OvvEstadoIcono = '<img width="15" height="15" alt="[Emitido]" title="Emitido" src="imagenes/estado/por_facturar.png" />';
+				break;	
+				
+				case 5:
+					$OrdenVentaVehiculo->OvvEstadoIcono = '<img width="15" height="15" alt="[Facturado]" title="Facturado" src="imagenes/estado/facturado.png" />';
+				break;
+				
+				case 6:
+					$OrdenVentaVehiculo->OvvEstadoIcono = '<img width="15" height="15" alt="[Anulado]" title="Anulado" src="imagenes/estado/anulado.png" />';
+				break;
 
-					$Respuesta['Datos'][]= $ReporteOrdenVentaVehiculo;
+				default:
+					$OrdenVentaVehiculo->OvvEstadoIcono = "";
+				break;
+				
+			}
+			
+			
+			
+					
+					$OrdenVentaVehiculo->OvvEstadoDescripcion = $Estado;
+			
+                    $OrdenVentaVehiculo->InsMysql = NULL;                    
+					$Respuesta['Datos'][]= $OrdenVentaVehiculo;
                 }
 			
 			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 

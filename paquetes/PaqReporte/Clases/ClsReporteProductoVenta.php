@@ -143,6 +143,17 @@ public function MtdObtenerReporteProductoHistoriaPrecios($oProducto=NULL,$oFecha
 		
     public function MtdObtenerReporteProductoVentas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'ProId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oProductoTipo=NULL,$oConVentaDirecta=0,$oConFichaIngreso=0,$oCliente=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$productoTipo = '';
+		$conVentaDirecta = '';
+		$conFichaIngreso = '';
+		$cliente = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -579,6 +590,24 @@ public function MtdObtenerReporteProductoHistoriaPrecios($oProducto=NULL,$oFecha
 		*/
 		
 	 public function MtdObtenerReporteProductoVentaPendienteEntregas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'VddId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVentaDirecta=NULL,$oEstado=NULL,$oProducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oMoneda=NULL,$oCliente=NULL,$oConOrdenCompraReferencia=NULL,$oConDespacho=NULL,$oConPendiente=false,$oPersonal=NULL,$oSucursal=NULL,$oTieneAbono=NULL) {
+
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$ventaDirecta = '';
+		$estado = '';
+		$producto = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$moneda = '';
+		$cliente = '';
+		$conOrdenCompraReferencia = '';
+		$conDespacho = '';
+		$conPendiente = '';
+		$personal = '';
+		$sucursal = '';
+		$tieneAbono = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 

@@ -137,6 +137,16 @@ class ClsAlmacenCierre {
 
     public function MtdObtenerAlmacenCierres($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'AciId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL) {
 
+		// Inicializar variables
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$estado = '';
+		$moneda = '';
+		$tipo = '';
+		$banco = '';
+		$tarjeta = '';
+
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
 			//$oFiltro = str_replace("*","%",$oFiltro);
@@ -455,6 +465,9 @@ class ClsAlmacenCierre {
 	//Accion eliminar	 
 	
 	public function MtdEliminarAlmacenCierre($oElementos) {
+		
+		// Inicializar variable
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 			$i=1;
