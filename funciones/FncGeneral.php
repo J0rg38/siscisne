@@ -1424,7 +1424,16 @@ function deb($dato,$alin="i"){
 
 function FncCambiaFechaANormal($oFecha,$oVacio=false){
 	
-		$Afecha = explode(" ",$oFecha);
+		// Validar que la fecha no sea NULL o vacía
+		if (empty($oFecha)) {
+			if ($oVacio) {
+				return "";
+			} else {
+				return "00/00/0000";
+			}
+		}
+		
+		$AFecha = explode(" ",$oFecha);
 		
 		if(count($AFecha)>1){
 			$fecha = $AFecha[0];
@@ -1474,6 +1483,10 @@ function FncCambiaFechaANormal($oFecha,$oVacio=false){
 
 function FncCambiaFechaAImpresion($oFecha){
 
+		// Validar que la fecha no sea NULL o vacía
+		if (empty($oFecha)) {
+			return "";
+		}
 		
 		$AFecha = explode(" ",$oFecha);
 		
@@ -1505,6 +1518,14 @@ function FncCambiaFechaAImpresion($oFecha){
 
 function FncCambiaFechaAMysql($oFecha,$oVacio=false){
 
+		// Validar que la fecha no sea NULL o vacía
+		if (empty($oFecha)) {
+			if ($oVacio) {
+				return "";
+			} else {
+				return "0000-00-00";
+			}
+		}
 		
 		$AFecha = explode(" ",$oFecha);
 		

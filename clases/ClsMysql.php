@@ -24,6 +24,8 @@ class ClsMysql extends ClsConexion
 	private $Log;
 	private $LogLvl;
 
+	private $inTransaction = false;
+
 	function __construct($oDatoConexion = 'local')
 	{
 
@@ -31,8 +33,9 @@ class ClsMysql extends ClsConexion
 		parent::__construct($oDatoConexion);
 		parent::MtdConectar();
 
+		// Verificar si $_SESSION existe y tiene los valores necesarios
 		$this->Debug = isset($_SESSION['MysqlDeb']) ? $_SESSION['MysqlDeb'] : false;
-		$this->Level = isset($_SESSION['MysqlDebLevel']) ? $_SESSION['MysqlDebLevel'] : 0;
+		$this->Level = isset($_SESSION['MysqlDebLevel']) ? $_SESSION['MysqlDebLevel'] : 1;
 
 		$this->Log = false;
 		$this->LogLvl = 2;
@@ -47,30 +50,24 @@ class ClsMysql extends ClsConexion
 	function __destruct()
 	{
 		//	mysqli_close($this->Conexion);
+
+		$this->MtdDesconectar();
 	}
+
 
 	public function MtdConsultar($oConsulta = NULL, $oObtener = false)
 	{
 
-
 		if ($this->CloConectado) {
 
-			$resultado = mysqli_query($this->CloConexion, $oConsulta);
-
-			//var_dump($resultado);
-
-			//var_dump($this->CloConexion->errno);
-			//var_dump($this->CloConexion->error);
-			//var_dump(mysqli_errno($this->CloConexion));
-			//var_dump(mysqli_error($this->CloConexion));
+			$resultado = $this->CloConexion->query($oConsulta);
 
 			if (mysqli_errno($this->CloConexion) > 0) {
 				echo mysqli_error($this->CloConexion);
 			}
 
-
 			if ($this->Log and $this->LogLvl == 2) {
-				$this->MtdMysqlConsultaLog($oConsulta, mysqli_error($this->CloConexion));
+				$this->MtdMysqlConsultaLog($oConsulta, $this->CloConexion->error);
 			}
 
 			if (!empty($resultado) and $oObtener) {
@@ -87,42 +84,48 @@ class ClsMysql extends ClsConexion
 		return $resultado;
 	}
 
-	private function MtdMysqlConsultaLog($oConsulta = NULL, $oError = NULL)
-	{
-		global $SistemaAliasSesion;
-
-		@mkdir('log/' . date("d-m-Y"), 0777, true);
-		$ddf = @fopen('log/' . date("d-m-Y") . '/' . $_SESSION[$SistemaAliasSesion . 'SisSucId'] . '-' . date("d_m_Y_H") . '-error.txt', 'a');
-		$oConsulta = preg_replace('/\t\t+/', '', $oConsulta);
-		@fwrite($ddf, "[" . date("d-m-Y H:i:s") . "][" . $_SESSION[$SistemaAliasSesion . 'SesionId'] . "][" . $_SESSION[$SistemaAliasSesion . 'SesionUsuario'] . "] \n Consulta: \n \t\t" . $oConsulta . "\n Resultado: \n \t\t" . $oError . "\n\n");
-		@fclose($ddf);
-	}
-
-	/*private function MtdMysqlConsultaLog($oConsulta=NULL,$oError=NULL){
-		$ddf = @fopen(date("d_m_Y_H").'-error.txt','a');
-			
-		$oConsulta = preg_replace('/\t\t+/', '', $oConsulta);
-//			$oConsulta = preg_replace('/\s+/', '', $oConsulta);
-//			$oConsulta = preg_replace('/\n\n+/', '', $oConsulta);
-				
-		@fwrite($ddf,"[".date("d-m-Y H:i:s")."][".$_SESSION[$SistemaAliasSesion.'SesionId']."][".$_SESSION[$SistemaAliasSesion.'SesionUsuario']."] \n Consulta: \n \t\t".$oConsulta."\n Resultado: \n \t\t".$oError."\n\n");
-		@fclose($ddf);
-	}*/
-
 
 	public function MtdTransaccionIniciar()
 	{
-		mysqli_query($this->CloConexion, "START TRANSACTION");
+		if ($this->inTransaction) {
+			throw new Exception("Ya hay una transacción activa");
+		}
+
+		if (!$this->CloConexion->begin_transaction()) {
+			throw new Exception("Error al iniciar transacción: " . $this->CloConexion->error);
+		}
+
+		$this->inTransaction = true;
+		return true;
 	}
 
 	public function MtdTransaccionHacer()
 	{
-		mysqli_query($this->CloConexion, "COMMIT");
+		if (!$this->inTransaction) {
+			throw new Exception("No hay transacción activa para confirmar");
+		}
+
+		if (!$this->CloConexion->commit()) {
+			throw new Exception("Error al confirmar transacción: " . $this->CloConexion->error);
+		}
+
+		$this->inTransaction = false;
+		return true;
 	}
+
 
 	public function MtdTransaccionDeshacer()
 	{
-		mysqli_query($this->CloConexion, "ROLLBACK");
+		if (!$this->inTransaction) {
+			throw new Exception("No hay transacción activa para revertir");
+		}
+
+		if (!$this->CloConexion->rollback()) {
+			throw new Exception("Error al revertir transacción: " . $this->CloConexion->error);
+		}
+
+		$this->inTransaction = false;
+		return true;
 	}
 
 	public function MtdEjecutar($oConsulta = NULL, $oTransaccion = false)
@@ -133,33 +136,32 @@ class ClsMysql extends ClsConexion
 		if ($this->CloConectado) {
 
 			if ($oTransaccion) {
-				//mysqli_query("START TRANSACTION",$this->CloConexion);
+
 				$this->MtdTransaccionIniciar();
 
-				mysqli_query($this->CloConexion, $oConsulta);
-				//					$er = mysqli_error($this->CloConexion);
+				$result = $this->CloConexion->query($oConsulta);
 
 				if ($this->Log) {
-					//					if($this->Log and !empty($er)){						
-					$this->MtdMysqlConsultaLog($oConsulta, mysqli_error($this->CloConexion));
+					$this->MtdMysqlConsultaLog($oConsulta, $this->CloConexion->error);
 				}
 
-				if (mysqli_error($this->CloConexion)) {
-					//mysqli_query("ROLLBACK",$this->CloConexion);
+				if (!$result) {
+					//throw new Exception("Error en consulta: " . $this->CloConexion->error);
 					$this->MtdTransaccionDeshacer();
 					$resultado =  false;
 				} else {
 					$this->MtdTransaccionHacer();
-					//mysqli_query("COMMIT",$this->CloConexion);
 				}
 			} else {
-				mysqli_query($this->CloConexion, $oConsulta);
+
+				$result = $this->CloConexion->query($oConsulta);
 
 				if ($this->Log) {
-					$this->MtdMysqlConsultaLog($oConsulta, mysqli_error($this->CloConexion));
+					$this->MtdMysqlConsultaLog($oConsulta, $this->CloConexion->error);
 				}
 
-				if (mysqli_error($this->CloConexion)) {
+				if (!$result) {
+					//throw new Exception("Error en consulta: " . $this->CloConexion->error);
 					$resultado =  false;
 				}
 			}
@@ -177,12 +179,88 @@ class ClsMysql extends ClsConexion
 	{
 
 		if ($this->CloConectado) {
-			$id = mysqli_insert_id($this->CloConexion);
+			$id = $this->CloConexion->insert_id;
 		} else {
 			$id = -1;
 		}
 
 		return $id;
+	}
+
+	public function MtdObtenerError()
+	{
+
+		if ($this->CloConectado) {
+			$error = mysqli_error($this->CloConexion);
+		} else {
+			$error = NULL;
+		}
+
+		return $error;
+	}
+
+	public function MtdObtenerErrorCodigo()
+	{
+		if ($this->CloConectado) {
+			return $this->CloConexion ? $this->CloConexion->errno : 0;
+		} else {
+			return NULL;
+		}
+	}
+
+	public function MtdObtenerDatos($oCursor = NULL)
+	{
+		if ($this->CloConectado) {
+			if ($oCursor) {
+				$datos = $oCursor->fetch_assoc();
+			} else {
+				$datos = NULL;
+			}
+		} else {
+			$datos = NULL;
+		}
+
+		return $datos;
+	}
+
+	public function MtdObtenerDatosTotal($oCursor = NULL)
+	{
+		if ($oCursor instanceof mysqli_result) {
+			return $oCursor->num_rows;
+		}
+		return 0;
+	}
+
+	public function MtdLimpiarDato($oDato)
+	{
+		if ($this->CloConectado) {
+			return $this->CloConexion->real_escape_string($oDato);
+		} else {
+			return NULL;
+		}
+	}
+
+
+	/*
+	public function MtdDesconectar()
+	{
+		if ($this->CloConectado) {
+			mysqli_close($this->CloConexion);
+		}
+	}
+*/
+
+
+
+	private function MtdMysqlConsultaLog($oConsulta = NULL, $oError = NULL)
+	{
+		global $SistemaAliasSesion;
+
+		@mkdir('log/' . date("d-m-Y"), 0777, true);
+		$ddf = @fopen('log/' . date("d-m-Y") . '/' . $_SESSION[$SistemaAliasSesion . 'SisSucId'] . '-' . date("d_m_Y_H") . '-error.txt', 'a');
+		$oConsulta = preg_replace('/\t\t+/', '', $oConsulta);
+		@fwrite($ddf, "[" . date("d-m-Y H:i:s") . "][" . $_SESSION[$SistemaAliasSesion . 'SesionId'] . "][" . $_SESSION[$SistemaAliasSesion . 'SesionUsuario'] . "] \n Consulta: \n \t\t" . $oConsulta . "\n Resultado: \n \t\t" . $oError . "\n\n");
+		@fclose($ddf);
 	}
 
 
@@ -198,114 +276,5 @@ class ClsMysql extends ClsConexion
 		</div>
 <?php
 	}
-
-	public function MtdObtenerError()
-	{
-
-		if ($this->CloConectado) {
-			$error = mysqli_error($this->CloConexion);
-		} else {
-			$error = NULL;
-		}
-
-		return $error;
-	}
-
-	public function MtdObtenerErrorCodigo() //revisar 16/03/24
-	{
-
-		if ($this->CloConectado) {
-			$errno = mysqli_errno($this->CloConexion);
-		} else {
-			$errno = NULL;
-		}
-
-		return $errno;
-	}
-
-	public function MtdObtenerDatos($oCursor = NULL)
-	{
-
-		if ($this->CloConectado) {
-			if ($oCursor) {
-				$datos = mysqli_fetch_assoc($oCursor);
-				//mysqli_free_result($this->CloConexion);
-			} else {
-				$datos = NULL;
-			}
-		} else {
-			$datos = NULL;
-		}
-
-		return $datos;
-	}
-
-	public function MtdObtenerDatosTotal($oCursor = NULL)
-	{
-
-		if ($this->CloConectado) {
-
-			if ($oCursor) {
-				$filas = mysqli_num_rows($oCursor);
-			} else {
-				$filas = NULL;
-			}
-		} else {
-			$filas = NULL;
-		}
-
-		return $filas;
-	}
-
-	public function MtdLimpiarDato($oDato)
-	{
-		if ($this->CloConectado) {
-			$dato = mysqli_real_escape_string($this->CloConexion, $oDato);
-		} else {
-			$dato = NULL;
-		}
-		return $dato;
-	}
-
-
-	/*  public static function Instanciar(){
-            if(!self::$CloConexionInstancia){
-                self::$CloConexionInstancia = new self();
-            }
-            return self::$CloConexionInstancia;
-        }*/
-
-	/*public function MtdConectar(){
-           
-          $this->CloConectado = true;
-
-            $this->CloConexion = mysql_connect($this->CloHost, $this->CloBdUsuario, $this->CloBdContrasena);
-
-            if (!$this->CloConexion) {
-			   $this->CloConectado = false;
-              
-			} else {
-				if(!mysql_select_db($this->CloBdNombre, $this->CloConexion)){                   
-					$this->CloConectado = false;
-				}
-			}
-			            
-			return $this->CloConectado;
-		}*/
-
-	public function MtdDesconectar()
-	{
-		if ($this->CloConectado) {
-			mysqli_close($this->CloConexion);
-		}
-	}
-
-
-
-
-
-	/*public function MtdObtenerConexion(){
-			return $this->CloConexion;
-		}*/
 }
 ?>

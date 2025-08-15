@@ -48,63 +48,16 @@ class ClsGasto {
 
     public $InsMysql;
 
-    public function __construct(){
-		
-		$this->InsMysql = new ClsMysql();
-		
-		$this->GasId = "";
-		$this->PrvId = "";		
-		$this->CtiId = "";
-		$this->TopId = "";	
-		
-		$this->NpaId  = "";
-		$this->GasCantidadDia = 0;
-		
-		$this->GasFecha = "";
-		
-		$this->GasComprobanteNumero = "";
-		$this->GasComprobanteNumeroSerie = "";
-		$this->GasComprobanteNumeroNumero = "";
-		$this->GasComprobanteFecha = "";
-		
-		$this->MonId = "";
-		$this->GasTipoCambio = NULL;
-		
-		$this->GasIncluyeImpuesto = 0;
-		$this->GasPorcentajeImpuestoVenta = 0;
-		
-		$this->GasFoto = "";
-		
-		
-		$this->GasConcepto = "";
-		$this->GasObservacion = "";
-		
-		$this->GasSubTotal = 0;
-		$this->GasImpuesto = 0;
-		$this->GasTotal = 0;
-		
-		$this->GasValorTotal = 0;
-		
-		$this->GasCancelado = 0;
-		$this->GasRevisado = 0;
-		$this->GasEstado = 0;
-		$this->GasTiempoCreacion = "";
-		$this->GasTiempoModificacion = ""; 	
-		
-		$this->CtiNombre = "";
-		
-		$this->PrvNombreCompleto = "";
-		$this->PrvNombre = "";
-		$this->PrvApellidoPaterno = "";
-		$this->PrvApellidoMaterno = "";	
-		
-		$this->PrvNumeroDocumento = "";
-		$this->TdoId = "";	
-		$this->TdoNombre = "";
-		
-		$this->MonSimbolo = "";
-			
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -1121,7 +1074,7 @@ class ClsGasto {
 
 		private function MtdAuditarGasto($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->GasId;
 
 			$InsAuditoria->UsuId = $this->UsuId;

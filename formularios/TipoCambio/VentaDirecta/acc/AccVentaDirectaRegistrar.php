@@ -47,10 +47,10 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsVentaDirecta->VdiResultado = addslashes($_POST['CmpResultado']);
 	$InsVentaDirecta->VdiOrigen =  $_POST['CmpOrigen'];
 	
-	$InsVentaDirecta->VdiAbono = eregi_replace(",","",(empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
-	$InsVentaDirecta->VdiManoObra = eregi_replace(",","",(empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
-	$InsVentaDirecta->VdiPorcentajeDescuento = eregi_replace(",","",(empty($_POST['CmpPorcentajeDescuento'])?0:$_POST['CmpPorcentajeDescuento']));
-//	$InsVentaDirecta->VdiDescuento = eregi_replace(",","",(empty($_POST['CmpDescuento'])?0:$_POST['CmpDescuento']));
+	$InsVentaDirecta->VdiAbono = preg_replace("/,/", "", (empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
+	$InsVentaDirecta->VdiManoObra = preg_replace("/,/", "", (empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
+	$InsVentaDirecta->VdiPorcentajeDescuento = preg_replace("/,/", "", (empty($_POST['CmpPorcentajeDescuento'])?0:$_POST['CmpPorcentajeDescuento']));
+//	$InsVentaDirecta->VdiDescuento = preg_replace("/,/", "", (empty($_POST['CmpDescuento'])?0:$_POST['CmpDescuento']));
 	//deb($InsVentaDirecta->VdiAbono);
 	
 	$InsVentaDirecta->VdiIncluyeImpuesto = $_POST['CmpIncluyeImpuesto'];
@@ -59,15 +59,15 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsVentaDirecta->VdiArchivo = $_SESSION['SesVdiArchivo'.$Identificador];
 	$InsVentaDirecta->VdiArchivoEntrega = $_SESSION['SesVdiArchivoEntrega'.$Identificador];
 	$InsVentaDirecta->VdiArchivoEntrega2 = $_SESSION['SesVdiArchivoEntrega2'.$Identificador];
-	$InsVentaDirecta->VdiCantidadDias = eregi_replace(",","",(empty($_POST['CmpCreditoDias'])?0:$_POST['CmpCreditoDias']));
+	$InsVentaDirecta->VdiCantidadDias = preg_replace("/,/", "", (empty($_POST['CmpCreditoDias'])?0:$_POST['CmpCreditoDias']));
 	
 	$InsVentaDirecta->VdiEstado = $_POST['CmpEstado'];
 	$InsVentaDirecta->VdiTiempoCreacion = date("Y-m-d H:i:s");
 	$InsVentaDirecta->VdiTiempoModificacion = date("Y-m-d H:i:s");
 
 	$InsVentaDirecta->VdiPorcentajeImpuestoVenta = $_POST['CmpPorcentajeImpuestoVenta'];	
-	$InsVentaDirecta->VdiMargenUtilidad = eregi_replace(",","",(empty($_POST['CmpClienteMargenUtilidad'])?0:$_POST['CmpClienteMargenUtilidad']));	//$InsVentaDirecta->VdiMargenUtilidad = $_POST['CmpClienteTipoUtilidad'];
-	$InsVentaDirecta->VdiFlete = eregi_replace(",","",(empty($_POST['CmpFletePorcentaje'])?0:$_POST['CmpFletePorcentaje']));
+	$InsVentaDirecta->VdiMargenUtilidad = preg_replace("/,/", "", (empty($_POST['CmpClienteMargenUtilidad'])?0:$_POST['CmpClienteMargenUtilidad']));	//$InsVentaDirecta->VdiMargenUtilidad = $_POST['CmpClienteTipoUtilidad'];
+	$InsVentaDirecta->VdiFlete = preg_replace("/,/", "", (empty($_POST['CmpFletePorcentaje'])?0:$_POST['CmpFletePorcentaje']));
 	//$InsVentaDirecta->VdiMargenUtilidad = $_POST['CmpClienteTipoUtilidad'];
 	//$InsVentaDirecta->VdiMargenUtilidad = 0;
 	$InsVentaDirecta->LtiId = $_POST['CmpClienteTipo'];	
@@ -662,7 +662,7 @@ Parametro7 = CrdTiempoModificacion
 					
 					$InsPago->MonId = $InsVentaDirecta->MonId;
 					$InsPago->PagTipoCambio = $InsVentaDirecta->PagTipoCambio;
-					$InsPago->PagMonto = eregi_replace(",","",(empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
+					$InsPago->PagMonto = preg_replace("/,/", "", (empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
 
 					$InsPago->PagObservacion = date("d/m/Y H:i:s")." - Orden de Cobro Generada de Ord. Ven.:".$InsVentaDirecta->VdiId;;
 					$InsPago->PagObservacion .= $InsVentaDirecta->VdiObservacion;;

@@ -76,9 +76,16 @@ class ClsCotizacionVehiculo {
 
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -1757,7 +1764,7 @@ cve.CveEstado,
 		if(empty($this->CliId)){
 
 				/*
-				$InsCliente = new ClsCliente();	
+				$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->LtiId = $this->LtiId;		
@@ -1785,28 +1792,28 @@ cve.CveEstado,
 			}else{
 			
 //				if(!empty($this->CveDireccion)){
-//					$InsCliente = new ClsCliente();
+//					$InsCliente = new ClsCliente($this->InsMysql);
 //					$InsCliente->MtdEditarClienteDato("CliDireccion",$this->CveDireccion,$this->CliId);
 //				}
 				
 				if(!empty($this->CveTelefono)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliTelefono",$this->CveTelefono,$this->CliId);
 				}
 				
 				if(!empty($this->CveCelular)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliCelular",$this->CveCelular,$this->CliId);
 				}
 
 				if(!empty($this->CveEmail)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliEmail",$this->CveEmail,$this->CliId);
 				}
 
 		}
 //			if(empty($this->CliId)){
-//				$InsCliente = new ClsCliente();
+//				$InsCliente = new ClsCliente($this->InsMysql);
 //				$InsCliente->CliNombre;
 //				$InsCliente->CliNumeroDocumento;
 //				$InsCliente->MtdVerificarExisteCliente();
@@ -2099,7 +2106,7 @@ cve.CveEstado,
 		if(empty($this->CliId)){
 			
 			/*	
-				$InsCliente = new ClsCliente();	
+				$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->LtiId = $this->LtiId;		
@@ -2127,22 +2134,22 @@ cve.CveEstado,
 			}else{
 			
 				//if(!empty($this->CveDireccion)){
-//					$InsCliente = new ClsCliente();
+//					$InsCliente = new ClsCliente($this->InsMysql);
 //					$InsCliente->MtdEditarClienteDato("CliDireccion",$this->CveDireccion,$this->CliId);
 //				}
 				
 				if(!empty($this->CveTelefono)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliTelefono",$this->CveTelefono,$this->CliId);
 				}
 				
 				if(!empty($this->CveCelular)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliCelular",$this->CveCelular,$this->CliId);
 				}
 
 				if(!empty($this->CveEmail)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliEmail",$this->CveEmail,$this->CliId);
 				}
 
@@ -2428,7 +2435,7 @@ cve.CveEstado,
 
 		private function MtdAuditarCotizacionVehiculo($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->CveId;
 
 			$InsAuditoria->UsuId = $this->UsuId;

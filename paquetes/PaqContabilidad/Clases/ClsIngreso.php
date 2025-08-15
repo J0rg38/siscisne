@@ -68,9 +68,16 @@ class ClsIngreso {
 	
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __ingtruct(){
 
@@ -1328,7 +1335,7 @@ class ClsIngreso {
 		
 		private function MtdAuditarIngreso($oAccion,$oIngcripcion,$oDatos){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->IngId;
 			$InsAuditoria->AudCodigoExtra = "";
 			$InsAuditoria->UsuId = $this->UsuId;

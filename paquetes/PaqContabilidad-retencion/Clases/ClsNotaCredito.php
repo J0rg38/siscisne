@@ -65,9 +65,16 @@ class ClsNotaCredito {
 	
     public $InsMysql;	
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -550,13 +557,13 @@ ncr.NcrDatoAdicional28,
 			
 			if($oCompleto){
 				
-				$InsNotaCreditoDetalle = new ClsNotaCreditoDetalle();
+				$InsNotaCreditoDetalle = new ClsNotaCreditoDetalle($this->InsMysql);
 				$ResNotaCreditoDetalle =  $InsNotaCreditoDetalle->MtdObtenerNotaCreditoDetalles(NULL,NULL,NULL,NULL,1,NULL,$this->NcrId,$this->NctId);
 				
 				$this->NotaCreditoDetalle = $ResNotaCreditoDetalle['Datos'];
 				if(!empty($this->OvvId)){
 				  
-				  $InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();
+				  $InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario($this->InsMysql);
 				  $ResOrdenVentaVehiculoPropietario = $InsOrdenVentaVehiculoPropietario->MtdObtenerOrdenVentaVehiculoPropietarios(NULL,NULL,'OvpId','ASC',NULL,$this->OvvId);
 				  $this->OrdenVentaVehiculoPropietario = $ResOrdenVentaVehiculoPropietario['Datos'];
 				  
@@ -1608,7 +1615,7 @@ ncr.NcrDatoAdicional28,
 					if (!empty($this->NotaCreditoDetalle)){		
 							
 						$validar = 0;				
-						$InsNotaCreditoDetalle = new ClsNotaCreditoDetalle();		
+						$InsNotaCreditoDetalle = new ClsNotaCreditoDetalle($this->InsMysql);		
 								
 						foreach ($this->NotaCreditoDetalle as $DatNotaCreditoDetalle){
 						
@@ -1779,7 +1786,7 @@ ncr.NcrDatoAdicional28,
 					if (!empty($this->NotaCreditoDetalle)){		
 							
 						$validar = 0;				
-						$InsNotaCreditoDetalle = new ClsNotaCreditoDetalle();		
+						$InsNotaCreditoDetalle = new ClsNotaCreditoDetalle($this->InsMysql);		
 								
 						foreach ($this->NotaCreditoDetalle as $DatNotaCreditoDetalle){
 											
@@ -1896,7 +1903,7 @@ ncr.NcrDatoAdicional28,
 	
 		private function MtdAuditarNotaCredito($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->NcrId;
 			$InsAuditoria->AudCodigoExtra = $this->NctId;
 			$InsAuditoria->UsuId = $this->UsuId;

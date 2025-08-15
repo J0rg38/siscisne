@@ -43,10 +43,10 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 
 
 
-	$InsEntregaVentaVehiculo->OvvPrecio = (empty($_POST['CmpPrecio'])?0:eregi_replace(",","",$_POST['CmpPrecio']));
-	$InsEntregaVentaVehiculo->OvvDescuento = (empty($_POST['CmpOrdenVentaVehiculoDescuento'])?0:eregi_replace(",","",$_POST['CmpOrdenVentaVehiculoDescuentoGerencia']));
-	$InsEntregaVentaVehiculo->OvvDescuentoGerencia = (empty($_POST['CmpOrdenVentaVehiculoDescuentoGerencia'])?0:eregi_replace(",","",$_POST['CmpOrdenVentaVehiculoDescuentoGerencia']));
-	$InsEntregaVentaVehiculo->OvvTotal = (empty($_POST['CmpOrdenVentaVehiculoTotal'])?0:eregi_replace(",","",$_POST['CmpOrdenVentaVehiculoDescuentoGerencia']));
+	$InsEntregaVentaVehiculo->OvvPrecio = (empty($_POST['CmpPrecio'])?0:preg_replace("/,/", "", $_POST['CmpPrecio']));
+	$InsEntregaVentaVehiculo->OvvDescuento = (empty($_POST['CmpOrdenVentaVehiculoDescuento'])?0:preg_replace("/,/", "", $_POST['CmpOrdenVentaVehiculoDescuentoGerencia']));
+	$InsEntregaVentaVehiculo->OvvDescuentoGerencia = (empty($_POST['CmpOrdenVentaVehiculoDescuentoGerencia'])?0:preg_replace("/,/", "", $_POST['CmpOrdenVentaVehiculoDescuentoGerencia']));
+	$InsEntregaVentaVehiculo->OvvTotal = (empty($_POST['CmpOrdenVentaVehiculoTotal'])?0:preg_replace("/,/", "", $_POST['CmpOrdenVentaVehiculoDescuentoGerencia']));
 	
 	
 	$InsEntregaVentaVehiculo->OvvTotal = round($InsEntregaVentaVehiculo->OvvTotal,6);

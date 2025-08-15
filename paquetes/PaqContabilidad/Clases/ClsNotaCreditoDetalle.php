@@ -24,11 +24,32 @@ class ClsNotaCreditoDetalle {
 	public $NcdTiempoModificacion;
     public $NcdEliminado;
 
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $NcdCodigo;
+	public $NcdUnidadMedida;
+	public $NcdValorVenta;
+	public $NcdImpuesto;
+	public $NcdDescuento;
+	public $NcdGratuito;
+	public $NcdExonerado;
+	public $NcdValorVentaUnitario;
+	public $NcdTiempoCreacionFormateado;
+	public $NcdTiempoModificacionFormateado;
+	public $NcdEstadoDescripcion;
+	public $NcdEstadoIcono;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -54,6 +75,12 @@ class ClsNotaCreditoDetalle {
 		}
 		
     public function MtdObtenerNotaCreditoDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'NcdId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oNotaCredito=NULL,$oTalonario=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$ncredito = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -149,6 +176,9 @@ class ClsNotaCreditoDetalle {
 	public function MtdEliminarNotaCreditoDetalle($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		if(!count($elementos)){
 			$eliminar .= ' NcdId = "'.($oElementos).'"';

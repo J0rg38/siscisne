@@ -35,9 +35,16 @@ class ClsFichaIngresoMantenimiento {
 
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -63,6 +70,16 @@ class ClsFichaIngresoMantenimiento {
 		
 
     public function MtdObtenerFichaIngresoMantenimientos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FiaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngreso=NULL,$oEstado=NULL,$oNivel=NULL,$oSevero=false,$oAccion=NULL) {
+		
+		// Inicializar variables para evitar warnings
+		$faccion = '';
+		$estado = '';
+		$nivel = '';
+		$severo = '';
+		$accion = '';
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 

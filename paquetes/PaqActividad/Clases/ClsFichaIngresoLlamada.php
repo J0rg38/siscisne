@@ -24,9 +24,16 @@ class ClsFichaIngresoLlamada {
 	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 
 	public function __destruct(){
 
@@ -51,6 +58,15 @@ class ClsFichaIngresoLlamada {
 	}
 
     public function MtdObtenerFichaIngresoLlamadas($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FllId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngreso=NULL,$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oAsesor=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$garantia = '';
+		$estado = '';
+		$fecha = '';
+		$asesor = '';
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 

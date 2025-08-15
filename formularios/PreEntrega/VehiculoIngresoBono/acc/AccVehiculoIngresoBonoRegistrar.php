@@ -28,7 +28,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	$InsVehiculoIngresoBono->MonId = $_POST['CmpMonedaId'];
 	$InsVehiculoIngresoBono->VibTipoCambio = $_POST['CmpTipoCambio'];
-	$InsVehiculoIngresoBono->VibTotal = eregi_replace(",","",(empty($_POST['CmpTotal'])?0:$_POST['CmpTotal']));
+	$InsVehiculoIngresoBono->VibTotal = preg_replace("/,/", "", (empty($_POST['CmpTotal'])?0:$_POST['CmpTotal']));
 	
 	$InsVehiculoIngresoBono->VibEstado = $_POST['CmpEstado'];
 	$InsVehiculoIngresoBono->VibDescripcion = addslashes($_POST['CmpDescripcion']);

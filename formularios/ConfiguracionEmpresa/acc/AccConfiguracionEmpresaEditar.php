@@ -28,9 +28,9 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsConfiguracionEmpresa->CemLogo = $_POST['CmpLogo'];
 	$InsConfiguracionEmpresa->MonId = $_POST['CmpMoneda'];
 
-	$InsConfiguracionEmpresa->CemImpuestoVenta = eregi_replace(",","",(empty($_POST['CmpImpuestoVenta'])?0:$_POST['CmpImpuestoVenta']));
-	$InsConfiguracionEmpresa->CemImpuestoSelectivo = eregi_replace(",","",(empty($_POST['CmpImpuestoSelectivo'])?0:$_POST['CmpImpuestoSelectivo']));
-	$InsConfiguracionEmpresa->CemImpuestoRenta = eregi_replace(",","",(empty($_POST['CmpImpuestoRenta'])?0:$_POST['CmpImpuestoRenta']));
+	$InsConfiguracionEmpresa->CemImpuestoVenta = preg_replace("/,/", "", (empty($_POST['CmpImpuestoVenta'])?0:$_POST['CmpImpuestoVenta']));
+	$InsConfiguracionEmpresa->CemImpuestoSelectivo = preg_replace("/,/", "", (empty($_POST['CmpImpuestoSelectivo'])?0:$_POST['CmpImpuestoSelectivo']));
+	$InsConfiguracionEmpresa->CemImpuestoRenta = preg_replace("/,/", "", (empty($_POST['CmpImpuestoRenta'])?0:$_POST['CmpImpuestoRenta']));
 
 	$InsConfiguracionEmpresa->CalId = $_POST['CmpCalificacion'];
 
@@ -43,10 +43,10 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsConfiguracionEmpresa->EmpresaMonedaNombre = $InsMoneda->MonNombre;
 	
 	$InsConfiguracionEmpresa->AlmId = $_POST['CmpAlmacen'];
-	$InsConfiguracionEmpresa->CemMantenimientoPorcentajeManoObra = eregi_replace(",","",(empty($_POST['CmpMantenimientoPorcentajeManoObra'])?0:$_POST['CmpMantenimientoPorcentajeManoObra']));
+	$InsConfiguracionEmpresa->CemMantenimientoPorcentajeManoObra = preg_replace("/,/", "", (empty($_POST['CmpMantenimientoPorcentajeManoObra'])?0:$_POST['CmpMantenimientoPorcentajeManoObra']));
 	
-	$InsConfiguracionEmpresa->CemRepuestoMargenUtilidad = eregi_replace(",","",(empty($_POST['CmpRepuestoMargenUtilidad'])?0:$_POST['CmpRepuestoMargenUtilidad']));
-	$InsConfiguracionEmpresa->CemRepuestoFlete = eregi_replace(",","",(empty($_POST['CemRepuestoFlete'])?0:$_POST['CemRepuestoFlete']));
+	$InsConfiguracionEmpresa->CemRepuestoMargenUtilidad = preg_replace("/,/", "", (empty($_POST['CmpRepuestoMargenUtilidad'])?0:$_POST['CmpRepuestoMargenUtilidad']));
+	$InsConfiguracionEmpresa->CemRepuestoFlete = preg_replace("/,/", "", (empty($_POST['CemRepuestoFlete'])?0:$_POST['CemRepuestoFlete']));
 	
 	$InsConfiguracionEmpresa->CemTiempoModificacion = date("Y-m-d H:i:s");
 	

@@ -22,8 +22,8 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	$InsAlmacenStock->AstUbicacion = $_POST['CmpProductoUbicacion'];
 	
-	$InsAlmacenStock->AstStockMinimo = eregi_replace(",","",(empty($_POST['CmpStockMinimo'])?0:$_POST['CmpStockMinimo']));
-	$InsAlmacenStock->AstStockMaximo = eregi_replace(",","",(empty($_POST['CmpStockMaximo'])?0:$_POST['CmpStockMaximo']));
+	$InsAlmacenStock->AstStockMinimo = preg_replace("/,/", "", (empty($_POST['CmpStockMinimo'])?0:$_POST['CmpStockMinimo']));
+	$InsAlmacenStock->AstStockMaximo = preg_replace("/,/", "", (empty($_POST['CmpStockMaximo'])?0:$_POST['CmpStockMaximo']));
 	
 	$InsAlmacenStock->AstObservacion = addslashes($_POST['CmpObservacion']);
 	

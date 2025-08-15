@@ -27,9 +27,16 @@ class ClsPreEntregaDetalle {
 	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -55,6 +62,16 @@ class ClsPreEntregaDetalle {
 		
 
     public function MtdObtenerPreEntregaDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'RedId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngreso=NULL,$oAccion=NULL) {
+		
+		// Inicializar variables para evitar warnings
+		$faccion = '';
+		$estado = '';
+		$nivel = '';
+		$severo = '';
+		$accion = '';
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 

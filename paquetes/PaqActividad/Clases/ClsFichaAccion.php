@@ -80,10 +80,16 @@ public $AmoId;
 	
 	public $Transaccion;
 	
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-		$this->Transaccion = false;
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -288,15 +294,15 @@ public $AmoId;
 				
 			if($oCompleto){
 
-				$InsFichaAccionSalidaExterna = new ClsFichaAccionSalidaExterna();
-				$InsFichaAccionTarea = new ClsFichaAccionTarea();
-				$InsFichaAccionTempario = new ClsFichaAccionTempario();
-				$InsFichaAccionProducto = new ClsFichaAccionProducto();
-				$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento();
-				$InsFichaAccionSuministro = new ClsFichaAccionSuministro();
-				$InsFichaAccionFoto = new ClsFichaAccionFoto();
+				$InsFichaAccionSalidaExterna = new ClsFichaAccionSalidaExterna($this->InsMysql);
+				$InsFichaAccionTarea = new ClsFichaAccionTarea($this->InsMysql);
+				$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
+				$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
+				$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento($this->InsMysql);
+				$InsFichaAccionSuministro = new ClsFichaAccionSuministro($this->InsMysql);
+				$InsFichaAccionFoto = new ClsFichaAccionFoto($this->InsMysql);
 				
-				$InsTallerPedido = new ClsTallerPedido();
+				$InsTallerPedido = new ClsTallerPedido($this->InsMysql);
 			
 			
 				$ResFichaAccionSalidaExterna = $InsFichaAccionSalidaExterna->MtdObtenerFichaAccionSalidaExternas(NULL,NULL,'FsxId','Desc',NULL,$this->FccId,NULL);
@@ -379,6 +385,13 @@ public $AmoId;
 		$ignorartotalvacio = '';
 		$facturable = '';
 		$generarfactura = '';
+		$fimodalidad = '';
+		$festado = '';
+		$pfacturar = '';
+		$pgarantia = '';
+		$mingreso = '';
+		$gfactura = '';
+		$itvacio = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
@@ -1695,7 +1708,7 @@ public $AmoId;
 	public function MtdEliminarFichaAccion($oElementos) {
 
 		//$this->InsMysql->MtdTransaccionIniciar();
-		//$InsFichaAccionTarea = new ClsFichaAccionTarea();
+		//$InsFichaAccionTarea = new ClsFichaAccionTarea($this->InsMysql);
 		$InsAlmacenMovimientoSalida = new ClsAlmacenMovimientoSalida();
 		$InsAlmacenMovimientoSalidaDetalle = new ClsAlmacenMovimientoSalidaDetalle();
 	
@@ -1858,7 +1871,7 @@ public $AmoId;
 		}
 			
 			
-			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad();
+			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad($this->InsMysql);
 			$InsFichaIngresoModalidad->FimId = $this->FimId;
 			$InsFichaIngresoModalidad->MtdObtenerFichaIngresoModalidad();
 			
@@ -1923,7 +1936,7 @@ public $AmoId;
 					
 					$validar = 0;	
 					$item = 1;
-					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento();
+					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento($this->InsMysql);
 							
 					foreach ($this->FichaAccionMantenimiento as $DatFichaAccionMantenimiento){
 										
@@ -1987,7 +2000,7 @@ public $AmoId;
 					
 					$validar = 0;	
 					$item = 1;
-					$InsFichaAccionTarea = new ClsFichaAccionTarea();		
+					$InsFichaAccionTarea = new ClsFichaAccionTarea($this->InsMysql);		
 					
 					foreach ($this->FichaAccionTarea as $DatFichaAccionTarea){
 						
@@ -2047,7 +2060,7 @@ public $AmoId;
 					
 					$validar = 0;	
 					$item = 1;
-					$InsFichaAccionSalidaExterna = new ClsFichaAccionSalidaExterna();		
+					$InsFichaAccionSalidaExterna = new ClsFichaAccionSalidaExterna($this->InsMysql);		
 					
 					foreach ($this->FichaAccionSalidaExterna as $DatFichaAccionSalidaExterna){
 						
@@ -2084,7 +2097,7 @@ public $AmoId;
 						
 					$validar = 0;	
 					$item = 1;
-					$InsFichaAccionProducto = new ClsFichaAccionProducto();
+					$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
 							
 					foreach ($this->FichaAccionProducto as $DatFichaAccionProducto){
 						
@@ -2142,7 +2155,7 @@ public $AmoId;
 						
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionSuministro = new ClsFichaAccionSuministro();
+					$InsFichaAccionSuministro = new ClsFichaAccionSuministro($this->InsMysql);
 							
 					foreach ($this->FichaAccionSuministro as $DatFichaAccionSuministro){
 
@@ -2197,7 +2210,7 @@ public $AmoId;
 
 					$validar = 0;	
 					$item = 1;
-					$InsFichaAccionFoto = new ClsFichaAccionFoto();		
+					$InsFichaAccionFoto = new ClsFichaAccionFoto($this->InsMysql);		
 					
 					foreach ($this->FichaAccionFoto as $DatFichaAccionFoto){
 						
@@ -2233,7 +2246,7 @@ public $AmoId;
 						
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionTempario = new ClsFichaAccionTempario();
+					$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 							
 					foreach ($this->FichaAccionTempario as $DatFichaAccionTempario){
 										
@@ -2291,7 +2304,7 @@ public $AmoId;
 		global $Resultado;
 		$error = false;
 
-			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad();
+			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad($this->InsMysql);
 			$InsFichaIngresoModalidad->FimId = $this->FimId;
 			$InsFichaIngresoModalidad->MtdObtenerFichaIngresoModalidad();
 			
@@ -2339,7 +2352,7 @@ public $AmoId;
 					
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionTarea = new ClsFichaAccionTarea();
+					$InsFichaAccionTarea = new ClsFichaAccionTarea($this->InsMysql);
 							
 					foreach ($this->FichaAccionTarea as $DatFichaAccionTarea){
 										
@@ -2409,7 +2422,7 @@ public $AmoId;
 						
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento();
+					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento($this->InsMysql);
 							
 					foreach ($this->FichaAccionMantenimiento as $DatFichaAccionMantenimiento){
 										
@@ -2494,7 +2507,7 @@ public $AmoId;
 					
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionSalidaExterna = new ClsFichaAccionSalidaExterna();
+					$InsFichaAccionSalidaExterna = new ClsFichaAccionSalidaExterna($this->InsMysql);
 							
 					foreach ($this->FichaAccionSalidaExterna as $DatFichaAccionSalidaExterna){
 										
@@ -2557,7 +2570,7 @@ public $AmoId;
 						
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionTempario = new ClsFichaAccionTempario();
+					$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 							
 					foreach ($this->FichaAccionTempario as $DatFichaAccionTempario){
 										
@@ -2619,7 +2632,7 @@ public $AmoId;
 
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionProducto = new ClsFichaAccionProducto();
+					$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
 							
 					foreach ($this->FichaAccionProducto as $DatFichaAccionProducto){
 										
@@ -2809,7 +2822,7 @@ public $AmoId;
 
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionSuministro = new ClsFichaAccionSuministro();
+					$InsFichaAccionSuministro = new ClsFichaAccionSuministro($this->InsMysql);
 							
 					foreach ($this->FichaAccionSuministro as $DatFichaAccionSuministro){
 										
@@ -2967,7 +2980,7 @@ public $AmoId;
 					
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionFoto = new ClsFichaAccionFoto();
+					$InsFichaAccionFoto = new ClsFichaAccionFoto($this->InsMysql);
 							
 					foreach ($this->FichaAccionFoto as $DatFichaAccionFoto){
 										
@@ -3065,7 +3078,7 @@ public $AmoId;
 		global $Resultado;
 		$error = false;
 
-			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad();
+			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad($this->InsMysql);
 			$InsFichaIngresoModalidad->FimId = $this->FimId;
 			$InsFichaIngresoModalidad->MtdObtenerFichaIngresoModalidad();
 			
@@ -3125,7 +3138,7 @@ public $AmoId;
 		global $Resultado;
 		$error = false;
 
-			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad();
+			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad($this->InsMysql);
 			$InsFichaIngresoModalidad->FimId = $this->FimId;
 			$InsFichaIngresoModalidad->MtdObtenerFichaIngresoModalidad();
 			
@@ -3182,7 +3195,7 @@ public $AmoId;
 		
 		$error = false;
   
-			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad();
+			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad($this->InsMysql);
 			$InsFichaIngresoModalidad->FimId = $this->FimId;
 			$InsFichaIngresoModalidad->MtdObtenerFichaIngresoModalidad();
 			
@@ -3227,7 +3240,7 @@ public $AmoId;
 						
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionSalidaExterna = new ClsFichaAccionSalidaExterna();
+					$InsFichaAccionSalidaExterna = new ClsFichaAccionSalidaExterna($this->InsMysql);
 							
 					foreach ($this->FichaAccionSalidaExterna as $DatFichaAccionSalidaExterna){
 										
@@ -3290,7 +3303,7 @@ public $AmoId;
 						
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionTarea = new ClsFichaAccionTarea();
+					$InsFichaAccionTarea = new ClsFichaAccionTarea($this->InsMysql);
 							
 					foreach ($this->FichaAccionTarea as $DatFichaAccionTarea){
 										
@@ -3360,7 +3373,7 @@ public $AmoId;
 						
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionTempario = new ClsFichaAccionTempario();
+					$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 							
 					foreach ($this->FichaAccionTempario as $DatFichaAccionTempario){
 										
@@ -3423,7 +3436,7 @@ public $AmoId;
 
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionProducto = new ClsFichaAccionProducto();
+					$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
 							
 					foreach ($this->FichaAccionProducto as $DatFichaAccionProducto){
 										
@@ -3548,7 +3561,7 @@ public $AmoId;
 						
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento();
+					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento($this->InsMysql);
 							
 					foreach ($this->FichaAccionMantenimiento as $DatFichaAccionMantenimiento){
 										
@@ -3636,7 +3649,7 @@ public $AmoId;
 					//$Resultado2.='#Modalidad de Ingreso: '.($InsModalidadIngreso->MinNombre);
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionFoto = new ClsFichaAccionFoto();
+					$InsFichaAccionFoto = new ClsFichaAccionFoto($this->InsMysql);
 							
 					foreach ($this->FichaAccionFoto as $DatFichaAccionFoto){
 										
@@ -3719,7 +3732,7 @@ public $AmoId;
 		
 		$error = false;
   
-			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad();
+			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad($this->InsMysql);
 			$InsFichaIngresoModalidad->FimId = $this->FimId;
 			$InsFichaIngresoModalidad->MtdObtenerFichaIngresoModalidad();
 			
@@ -3739,7 +3752,7 @@ public $AmoId;
 						
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento();
+					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento($this->InsMysql);
 							
 					foreach ($this->FichaAccionMantenimiento as $DatFichaAccionMantenimiento){
 										
@@ -3873,7 +3886,7 @@ public $AmoId;
 		
 		private function MtdAuditarFichaAccion($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-//			$InsAuditoria = new ClsAuditoria();
+//			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 //			$InsAuditoria->AudCodigo = $this->FccId;
 //
 //			$InsAuditoria->UsuId = $this->UsuId;
@@ -4028,7 +4041,7 @@ public $AmoId;
 					
 					$MostrarSeccion = false;
 					
-					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento();
+					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento($this->InsMysql);
 					$ResFichaAccionMantenimiento = $InsFichaAccionMantenimiento->MtdObtenerFichaAccionMantenimientos(NULL,NULL,'PmtOrden','ASC',NULL,$this->FccId,NULL,NULL,false,NULL,$DatPlanMantenimientoSeccion->PmsId);
 					$ArrFichaAccionMantenimientos = $ResFichaAccionMantenimiento['Datos'];
 					
@@ -4125,14 +4138,14 @@ public $AmoId;
 			$this->FccId = $oFichaAccionId;
 			$this->MtdObtenerFichaAccion();
 
-			$InsTallerPedido = new ClsTallerPedido();
+			$InsTallerPedido = new ClsTallerPedido($this->InsMysql);
 			$TallerPedidoId = $InsTallerPedido->MtdVerificarExisteTallerPedido("FccId",$oFichaAccionId);
 			//deb($TallerPedidoId);
 			if(empty($TallerPedidoId)){
 		
 		
 		//deb(":3");
-				$InsTallerPedido = new ClsTallerPedido();
+				$InsTallerPedido = new ClsTallerPedido($this->InsMysql);
 				$InsTallerPedido->UsuId = $_SESSION['SesionId'];
 				$InsTallerPedido->AmoId = NULL;
 				$InsTallerPedido->SucId = $this->SucId;
@@ -4208,7 +4221,7 @@ public $AmoId;
 								}
 								
 								
-								$InsTallerPedidoDetalle1 = new ClsTallerPedidoDetalle();
+								$InsTallerPedidoDetalle1 = new ClsTallerPedidoDetalle($this->InsMysql);
 								
 								$InsTallerPedidoDetalle1->FapId = $DatFichaAccionProducto->FapId;//AGREGADO 16-04-14
 								
@@ -4314,7 +4327,7 @@ public $AmoId;
 						foreach($InsFichaAccion->FichaAccionSuministro as $DatFichaAccionSuministro){					
 		
 		
-								$InsTallerPedidoDetalle1 = new ClsTallerPedidoDetalle();
+								$InsTallerPedidoDetalle1 = new ClsTallerPedidoDetalle($this->InsMysql);
 		
 								$InsTallerPedidoDetalle1->FapId = $DatFichaAccionSuministro->FapId;//AÑADIDO 21-09-15
 		
@@ -4413,7 +4426,7 @@ public $AmoId;
 									!empty($DatFichaAccionMantenimiento->UmeId) and 
 									($DatFichaAccionMantenimiento->FaaAccion=="C" || $DatFichaAccionMantenimiento->FaaAccion=="R") ){
 										
-										$InsTallerPedidoDetalle1 = new ClsTallerPedidoDetalle();
+										$InsTallerPedidoDetalle1 = new ClsTallerPedidoDetalle($this->InsMysql);
 										
 										////deb($DatFichaAccionMantenimiento->UmeId);
 										$InsTallerPedidoDetalle1->AmdUtilidad = 0;
@@ -4542,7 +4555,7 @@ public $AmoId;
 		}
 			
 			
-			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad();
+			$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad($this->InsMysql);
 			$InsFichaIngresoModalidad->FimId = $this->FimId;
 			$InsFichaIngresoModalidad->MtdObtenerFichaIngresoModalidad();
 			
@@ -4559,7 +4572,7 @@ public $AmoId;
 					
 					$validar = 0;	
 					$item = 1;
-					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento();
+					$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento($this->InsMysql);
 							
 					foreach ($this->FichaAccionMantenimiento as $DatFichaAccionMantenimiento){
 										

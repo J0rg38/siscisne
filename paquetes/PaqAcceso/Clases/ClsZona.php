@@ -24,9 +24,13 @@ class ClsZona
 
 	public $InsMysql;
 
-	public function __construct()
+	public function __construct($oInsMysql = NULL)
 	{
-		$this->InsMysql = new ClsMysql();
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
 	}
 
 	public function __destruct() {}
@@ -187,7 +191,7 @@ class ClsZona
 			if (!empty($this->ZonaPrivilegio)) {
 
 				$validar = 0;
-				$InsZonaPrivilegio = new ClsZonaPrivilegio();
+				$InsZonaPrivilegio = new ClsZonaPrivilegio($this->InsMysql);
 
 				foreach ($this->ZonaPrivilegio as $DatZonaPrivilegio) {
 
@@ -268,7 +272,7 @@ class ClsZona
 			if (!empty($this->ZonaPrivilegio)) {
 
 				$validar = 0;
-				$InsZonaPrivilegio = new ClsZonaPrivilegio();
+				$InsZonaPrivilegio = new ClsZonaPrivilegio($this->InsMysql);
 
 				foreach ($this->ZonaPrivilegio as $DatZonaPrivilegio) {
 
@@ -322,4 +326,3 @@ class ClsZona
 		}
 	}
 }
-?>

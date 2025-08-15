@@ -48,7 +48,7 @@ if($DatUsuario->UsuId==$_SESSION['SesionId']){
 }else{
 
 $username = $DatUsuario->UsuUsuario." ".$DatUsuario->PerNombre." ".$DatUsuario->PerApellidoPaterno." ".$DatUsuario->PerApellidoMaterno;
-$username = eregi_replace(' ','_',$username);
+$username = preg_replace("/ /", "_", $username);
 ?>
 	  
   <a href="javascript:chatWith('<?php echo $username;?>');">

@@ -25,7 +25,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsIngreso->IngReferencia = ($_POST['CmpReferencia']);
 
 	$InsIngreso->IngTipoCambio = ($_POST['CmpTipoCambio']);
-	$InsIngreso->IngMonto = eregi_replace(",","",(empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
+	$InsIngreso->IngMonto = preg_replace("/,/", "", (empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
 	
 	$InsIngreso->IngTipoDestino = ($_POST['CmpTipoDestino']);
 	$InsIngreso->IngTipo = $_POST['CmpTipo'];	

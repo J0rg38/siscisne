@@ -10,20 +10,21 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsListaPrecio {
+class ClsListaPrecio
+{
 
-    public $LprId;
+	public $LprId;
 	public $ProId;
 	public $LtiId;
 	public $UmeId;
-	
+
 	public $LprCosto;
 	public $LprPorcentajeUtilidad;
 	public $LprPorcentajeOtroCosto;
 	public $LprPorcentajeAdicional;
 	public $LprPorcentajeDescuento;
 
-	public $LprOtroCosto;	
+	public $LprOtroCosto;
 	public $LprUtilidad;
 	public $LprAdicional;
 	public $LprValorVenta;
@@ -31,42 +32,78 @@ class ClsListaPrecio {
 	public $LprDescuento;
 	public $LprPrecio;
 
-    public $LprTiempoCreacion;
-    public $LprTiempoModificacion;
-    public $LprEliminado;
+	public $LprTiempoCreacion;
+	public $LprTiempoModificacion;
+	public $LprEliminado;
+
+	// Propiedades adicionales para evitar warnings
+	public $SucId;
+	public $LprPorcentajeManoObra;
+	public $LprManoObra;
+	public $MonId;
+	public $ProTipoCambio;
 
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
-	
-	public function __destruct(){
+	// Propiedades adicionales para evitar warnings
+	public $LprEstado;
+	public $LprEstadoDescripcion;
+	public $LprEstadoIcono;
+	public $LprTiempoCreacionFormateado;
+	public $LprTiempoModificacionFormateado;
+	public $ProNombre;
+	public $ProCodigo;
+	public $ProDescripcion;
+	public $LtiNombre;
+	public $UmeNombre;
+	public $UmeCodigo;
+	public $MonNombre;
+	public $MonSimbolo;
+	public $MonSigla;
+	public $MonCodigo;
+	public $SucNombre;
+	public $SucDireccion;
+	public $SucDistrito;
+	public $SucProvincia;
+	public $SucDepartamento;
+	public $SucCodigoUbigeo;
+
+	public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
 
 	}
-	
 
-	public function MtdGenerarListaPrecioId() {
+	public function __destruct() {}
 
-			$sql = 'SELECT	
+
+	public function MtdGenerarListaPrecioId()
+	{
+
+		$sql = 'SELECT	
 			MAX(CONVERT(SUBSTR(LprId,5),unsigned)) AS "MAXIMO"
 			FROM tbllprlistaprecio';
-			
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			if(empty($fila['MAXIMO'])){			
-				$this->LprId ="LPR-10000";
-			}else{
-				$fila['MAXIMO']++;
-				$this->LprId = "LPR-".$fila['MAXIMO'];					
-			}		
-					
-		}
-		
-    public function MtdObtenerListaPrecio(){
 
-        $sql = 'SELECT 
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
+			$this->LprId = "LPR-10000";
+		} else {
+			$fila['MAXIMO']++;
+			$this->LprId = "LPR-" . $fila['MAXIMO'];
+		}
+	}
+
+	public function MtdObtenerListaPrecio()
+	{
+
+		$sql = 'SELECT 
         lpr.LprId,
 		lpr.SucId,
 		
@@ -103,190 +140,189 @@ class ClsListaPrecio {
 			LEFT JOIN tblproproducto pro
 			ON lpr.ProId = pro.ProId
 			
-        WHERE lpr.LprId = "'.$this->LprId.'";';
-		
-        $resultado = $this->InsMysql->MtdConsultar($sql);
+        WHERE lpr.LprId = "' . $this->LprId . '";';
 
-		if($this->InsMysql->MtdObtenerDatosTotal($resultado)>0){
-		
-        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
-        {
-			$this->LprId = $fila['LprId'];
-			$this->SucId = $fila['SucId'];
-			
-			
-			$this->ProId = $fila['ProId'];
-			$this->LtiId = $fila['LtiId'];
-			$this->UmeId = $fila['UmeId'];
-			
-			$this->LprCosto = $fila['LprCosto'];
-			$this->LprPorcentajeOtroCosto = $fila['LprPorcentajeOtroCosto'];
-			$this->LprPorcentajeUtilidad = $fila['LprPorcentajeUtilidad'];
-			$this->LprPorcentajeManoObra= $fila['LprPorcentajeManoObra'];
-			$this->LprPorcentajeAdicional = $fila['LprPorcentajeAdicional'];
-			$this->LprPorcentajeDescuento = $fila['LprPorcentajeDescuento'];
-			
-			$this->LprOtroCosto = $fila['LprOtroCosto'];
-			$this->LprUtilidad = $fila['LprUtilidad'];
-			$this->LprManoObra = $fila['LprManoObra'];
-			$this->LprAdicional = $fila['LprAdicional'];
-			
-			$this->LprValorVenta = $fila['LprValorVenta'];
-			$this->LprImpuesto = $fila['LprImpuesto'];
-			$this->LprDescuento = $fila['LprDescuento'];
-			$this->LprPrecio = $fila['LprPrecio'];
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-			$this->LprTiempoCreacion = $fila['NLprTiempoCreacion'];
-			$this->LprTiempoModificacion = $fila['NLprTiempoModificacion']; 
-			
-			$this->MonId = $fila['MonId']; 
-			$this->ProTipoCambio = $fila['ProTipoCambio']; 
-			
-		}
-        
+		if ($this->InsMysql->MtdObtenerDatosTotal($resultado) > 0) {
+
+			while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+				$this->LprId = $fila['LprId'];
+				$this->SucId = $fila['SucId'];
+
+
+				$this->ProId = $fila['ProId'];
+				$this->LtiId = $fila['LtiId'];
+				$this->UmeId = $fila['UmeId'];
+
+				$this->LprCosto = $fila['LprCosto'];
+				$this->LprPorcentajeOtroCosto = $fila['LprPorcentajeOtroCosto'];
+				$this->LprPorcentajeUtilidad = $fila['LprPorcentajeUtilidad'];
+				$this->LprPorcentajeManoObra = $fila['LprPorcentajeManoObra'];
+				$this->LprPorcentajeAdicional = $fila['LprPorcentajeAdicional'];
+				$this->LprPorcentajeDescuento = $fila['LprPorcentajeDescuento'];
+
+				$this->LprOtroCosto = $fila['LprOtroCosto'];
+				$this->LprUtilidad = $fila['LprUtilidad'];
+				$this->LprManoObra = $fila['LprManoObra'];
+				$this->LprAdicional = $fila['LprAdicional'];
+
+				$this->LprValorVenta = $fila['LprValorVenta'];
+				$this->LprImpuesto = $fila['LprImpuesto'];
+				$this->LprDescuento = $fila['LprDescuento'];
+				$this->LprPrecio = $fila['LprPrecio'];
+
+				$this->LprTiempoCreacion = $fila['NLprTiempoCreacion'];
+				$this->LprTiempoModificacion = $fila['NLprTiempoModificacion'];
+
+				$this->MonId = $fila['MonId'];
+				$this->ProTipoCambio = $fila['ProTipoCambio'];
+			}
+
 			$Respuesta =  $this;
-			
-		}else{
+		} else {
 			$Respuesta =   NULL;
 		}
-		
-        
+
+
 		return $Respuesta;
+	}
 
-    }
+	public function MtdObtenerListaPrecios($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'LprId', $oSentido = 'Desc', $oPaginacion = '0,10', $oProducto = NULL, $oClienteTipo = NULL, $oUnidadMedida = NULL, $oSucursal = NULL)
+	{
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$producto = '';
+		$clienteTipo = '';
+		$unidadMedida = '';
+		$sucursal = '';
+		$ctipo = '';
+		$umedida = '';
 
-    public function MtdObtenerListaPrecios($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'LprId',$oSentido = 'Desc',$oPaginacion = '0,10',$oProducto=NULL,$oClienteTipo=NULL,$oUnidadMedida=NULL,$oSucursal=NULL) {
+		//		if(!empty($oCampo) && !empty($oFiltro)){
+		//			$oFiltro = str_replace(" ","%",$oFiltro);
+		//			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
+		//		}
+		if (!empty($oCampo) and !empty($oFiltro)) {
 
-//		if(!empty($oCampo) && !empty($oFiltro)){
-//			$oFiltro = str_replace(" ","%",$oFiltro);
-//			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
-//		}
-		if(!empty($oCampo) and !empty($oFiltro)){
-			
 			//$oFiltro = str_replace("*","%",$oFiltro);
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			
-			$elementos = explode(",",$oCampo);
+			$oFiltro = str_replace(" ", "%", $oFiltro);
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-			
-	
+			$filtrar .= '  ) ';
 		}
 
 
 
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		
-		if(!empty($oProducto)){
-			$producto = ' AND lpr.ProId = "'.($oProducto).'"';
-		}
-		
-		
-		if(!empty($oClienteTipo)){
-			$ctipo = ' AND lpr.LtiId = "'.($oClienteTipo).'"';
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
 
-		if(!empty($oUnidadMedida)){
-			$umedida = ' AND lpr.UmeId = "'.($oUnidadMedida).'"';
+
+		if (!empty($oProducto)) {
+			$producto = ' AND lpr.ProId = "' . ($oProducto) . '"';
 		}
 
-		if(!empty($oSucursal)){
-			$sucursal = ' AND lpr.SucId = "'.($oSucursal).'"';
+
+		if (!empty($oClienteTipo)) {
+			$ctipo = ' AND lpr.LtiId = "' . ($oClienteTipo) . '"';
 		}
-		
+
+		if (!empty($oUnidadMedida)) {
+			$umedida = ' AND lpr.UmeId = "' . ($oUnidadMedida) . '"';
+		}
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND lpr.SucId = "' . ($oSucursal) . '"';
+		}
+
 		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				lpr.LprId,
@@ -329,119 +365,122 @@ class ClsListaPrecio {
 					LEFT JOIN tblproproducto pro
 					ON lpr.ProId = pro.ProId
 					
-				WHERE  1 = 1 '.$filtrar.$producto.$sucursal.$ctipo.$umedida.$orden.$paginacion;
+				WHERE  1 = 1 ' . $filtrar . $producto . $sucursal . $ctipo . $umedida . $orden . $paginacion;
 
-//echo "<br>";	
-//echo "<br>";	
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+		//echo "<br>";	
+		//echo "<br>";	
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-			$Respuesta['Datos'] = array();
-			
-            $InsListaPrecio = get_class($this);
+		$Respuesta['Datos'] = array();
 
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-					$ListaPrecio = new $InsListaPrecio();
-                    $ListaPrecio->LprId = $fila['LprId'];
-					$ListaPrecio->SucId = $fila['SucId'];
-					
-					
-					$ListaPrecio->ProId = $fila['ProId'];
-					$ListaPrecio->LtiId = $fila['LtiId'];
-					$ListaPrecio->UmeId = $fila['UmeId'];
+		$InsListaPrecio = get_class($this);
 
-					$ListaPrecio->LprEquivalente = $fila['LprEquivalente'];	
-                    $ListaPrecio->LprCosto = $fila['LprCosto'];	
-					
-					$ListaPrecio->LprPorcentajeOtroCosto = $fila['LprPorcentajeOtroCosto'];				
-                    $ListaPrecio->LprPorcentajeUtilidad = $fila['LprPorcentajeUtilidad'];
-					$ListaPrecio->LprPorcentajeManoObra = $fila['LprPorcentajeManoObra'];
-					 $ListaPrecio->LprPorcentajeAdicional = $fila['LprPorcentajeAdicional'];
-					  $ListaPrecio->LprPorcentajeDescuento = $fila['LprPorcentajeDescuento'];
-					
-					$ListaPrecio->LprOtroCosto = $fila['LprOtroCosto'];
-					$ListaPrecio->LprUtilidad = $fila['LprUtilidad'];
-					$ListaPrecio->LprManoObra = $fila['LprManoObra'];
-					$ListaPrecio->LprAdicional = $fila['LprAdicional'];
-					
-					$ListaPrecio->LprValorVenta = $fila['LprValorVenta'];
-					$ListaPrecio->LprImpuesto = $fila['LprImpuesto'];
-					$ListaPrecio->LprDescuento = $fila['LprDescuento'];
-					$ListaPrecio->LprPrecio = $fila['LprPrecio'];
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+			$ListaPrecio = new $InsListaPrecio();
+			$ListaPrecio->LprId = $fila['LprId'];
+			$ListaPrecio->SucId = $fila['SucId'];
 
-                    $ListaPrecio->LprTiempoCreacion = $fila['NLprTiempoCreacion'];
-                    $ListaPrecio->LprTiempoModificacion = $fila['NLprTiempoModificacion'];
-					
-					//$ListaPrecio->MonId = $fila['MonId'];
-					//$ListaPrecio->ProTipoCambio = $fila['ProTipoCambio'];
 
-					$ListaPrecio->InsMysql = NULL;      
-					$Respuesta['Datos'][]= $ListaPrecio;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
+			$ListaPrecio->ProId = $fila['ProId'];
+			$ListaPrecio->LtiId = $fila['LtiId'];
+			$ListaPrecio->UmeId = $fila['UmeId'];
 
-			
-			return $Respuesta;			
+			$ListaPrecio->LprEquivalente = $fila['LprEquivalente'];
+			$ListaPrecio->LprCosto = $fila['LprCosto'];
+
+			$ListaPrecio->LprPorcentajeOtroCosto = $fila['LprPorcentajeOtroCosto'];
+			$ListaPrecio->LprPorcentajeUtilidad = $fila['LprPorcentajeUtilidad'];
+			$ListaPrecio->LprPorcentajeManoObra = $fila['LprPorcentajeManoObra'];
+			$ListaPrecio->LprPorcentajeAdicional = $fila['LprPorcentajeAdicional'];
+			$ListaPrecio->LprPorcentajeDescuento = $fila['LprPorcentajeDescuento'];
+
+			$ListaPrecio->LprOtroCosto = $fila['LprOtroCosto'];
+			$ListaPrecio->LprUtilidad = $fila['LprUtilidad'];
+			$ListaPrecio->LprManoObra = $fila['LprManoObra'];
+			$ListaPrecio->LprAdicional = $fila['LprAdicional'];
+
+			$ListaPrecio->LprValorVenta = $fila['LprValorVenta'];
+			$ListaPrecio->LprImpuesto = $fila['LprImpuesto'];
+			$ListaPrecio->LprDescuento = $fila['LprDescuento'];
+			$ListaPrecio->LprPrecio = $fila['LprPrecio'];
+
+			$ListaPrecio->LprTiempoCreacion = $fila['NLprTiempoCreacion'];
+			$ListaPrecio->LprTiempoModificacion = $fila['NLprTiempoModificacion'];
+
+			//$ListaPrecio->MonId = $fila['MonId'];
+			//$ListaPrecio->ProTipoCambio = $fila['ProTipoCambio'];
+
+			$ListaPrecio->InsMysql = NULL;
+			$Respuesta['Datos'][] = $ListaPrecio;
 		}
-		
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal ? $filaTotal['TOTAL'] : 0;
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 
 
-	
+
+		return $Respuesta;
+	}
+
+
+
+
+
 	//Accion eliminar	 
-	
-	public function MtdEliminarListaPrecio($oElementos) {
-		
-		$elementos = explode("#",$oElementos);
-		
-		if(!count($elementos)){
-			$eliminar .= ' LprId = "'.($oElementos).'"';
-		}else{
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){
-				
-					if($i==count($elementos)){						
-						$eliminar .= '  (LprId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (LprId = "'.($elemento).'")  OR';	
-					}	
+
+	public function MtdEliminarListaPrecio($oElementos)
+	{
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
+
+		$elementos = explode("#", $oElementos);
+
+		if (!count($elementos)) {
+			$eliminar .= ' LprId = "' . ($oElementos) . '"';
+		} else {
+			$i = 1;
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+
+					if ($i == count($elementos)) {
+						$eliminar .= '  (LprId = "' . ($elemento) . '")';
+					} else {
+						$eliminar .= '  (LprId = "' . ($elemento) . '")  OR';
+					}
 				}
-			$i++;
-	
+				$i++;
 			}
 		}
-		
-			$sql = 'DELETE FROM tbllprlistaprecio WHERE '.$eliminar;
-			
-		
-			
-			$error = false;
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,true);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+		$sql = 'DELETE FROM tbllprlistaprecio WHERE ' . $eliminar;
+
+
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, true);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	
-	public function MtdRegistrarListaPrecio() {
-	
+
+
+	public function MtdRegistrarListaPrecio()
+	{
+
 
 		$this->MtdGenerarListaPrecioId();
-			
-			$sql = 'INSERT INTO tbllprlistaprecio (
+
+		$sql = 'INSERT INTO tbllprlistaprecio (
 				LprId,
 				SucId,
 				
@@ -472,98 +511,91 @@ class ClsListaPrecio {
 				LprTiempoCreacion,
 				LprTiempoModificacion) 
 				VALUES (
-				"'.($this->LprId).'", 
-				"'.($this->SucId).'", 
+				"' . ($this->LprId) . '", 
+				"' . ($this->SucId) . '", 
 				
-				"'.($this->ProId).'", 
-				"'.($this->LtiId).'", 
-				"'.($this->UmeId).'", 
+				"' . ($this->ProId) . '", 
+				"' . ($this->LtiId) . '", 
+				"' . ($this->UmeId) . '", 
 				
-				'.($this->LprCosto).',
+				' . ($this->LprCosto) . ',
 				
-				'.($this->LprPorcentajeOtroCosto).',
-				'.($this->LprPorcentajeUtilidad).',
-				'.($this->LprPorcentajeManoObra).',
-				'.($this->LprPorcentajeAdicional).',
-				'.($this->LprPorcentajeDescuento).',
+				' . ($this->LprPorcentajeOtroCosto) . ',
+				' . ($this->LprPorcentajeUtilidad) . ',
+				' . ($this->LprPorcentajeManoObra) . ',
+				' . ($this->LprPorcentajeAdicional) . ',
+				' . ($this->LprPorcentajeDescuento) . ',
 				
-				'.($this->LprOtroCosto).',
-				'.($this->LprUtilidad).',
-				'.($this->LprManoObra).',
+				' . ($this->LprOtroCosto) . ',
+				' . ($this->LprUtilidad) . ',
+				' . ($this->LprManoObra) . ',
 				
-				'.($this->LprAdicional).',
+				' . ($this->LprAdicional) . ',
 				
-				'.($this->LprValorVenta).',
-				'.($this->LprImpuesto).',
-				'.($this->LprDescuento).',
-				'.($this->LprPrecio).',
+				' . ($this->LprValorVenta) . ',
+				' . ($this->LprImpuesto) . ',
+				' . ($this->LprDescuento) . ',
+				' . ($this->LprPrecio) . ',
 
-				"'.($this->LprTiempoCreacion).'", 
-				"'.($this->LprTiempoModificacion).'");';	
-				
-				//echo $sql;
-				
-			$error = false;
+				"' . ($this->LprTiempoCreacion) . '", 
+				"' . ($this->LprTiempoModificacion) . '");';
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
+		//echo $sql;
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	public function MtdEditarListaPrecio() {
-		
-			$sql = 'UPDATE tbllprlistaprecio SET 
-				LprCosto = '.($this->LprCosto).',
-				
-				LprPorcentajeOtroCosto = '.($this->LprPorcentajeOtroCosto).',
-				LprPorcentajeUtilidad = '.($this->LprPorcentajeUtilidad).',
-				LprPorcentajeManoObra = '.($this->LprPorcentajeManoObra).',
-				
-				LprPorcentajeAdicional = '.($this->LprPorcentajeAdicional).',
-				LprPorcentajeDescuento = '.($this->LprPorcentajeDescuento).',
-				
-				LprOtroCosto = '.($this->LprOtroCosto).',
-				LprUtilidad = '.($this->LprUtilidad).',
-				LprManoObra = '.($this->LprManoObra).',
-				
-				LprAdicional = '.($this->LprAdicional).',
-				
-				LprValorVenta = '.($this->LprValorVenta).',
-				LprImpuesto = '.($this->LprImpuesto).',
-				LprDescuento = '.($this->LprDescuento).',
-				LprPrecio = '.($this->LprPrecio).',
-				
-				LprTiempoModificacion = "'.($this->LprTiempoModificacion).'"
-				WHERE LprId = "'.($this->LprId).'";';
 
-			$error = false;
+	public function MtdEditarListaPrecio()
+	{
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}						
+		$sql = 'UPDATE tbllprlistaprecio SET 
+				LprCosto = ' . ($this->LprCosto) . ',
 				
-		}	
-		
-	
-	
-	
-	
+				LprPorcentajeOtroCosto = ' . ($this->LprPorcentajeOtroCosto) . ',
+				LprPorcentajeUtilidad = ' . ($this->LprPorcentajeUtilidad) . ',
+				LprPorcentajeManoObra = ' . ($this->LprPorcentajeManoObra) . ',
+				
+				LprPorcentajeAdicional = ' . ($this->LprPorcentajeAdicional) . ',
+				LprPorcentajeDescuento = ' . ($this->LprPorcentajeDescuento) . ',
+				
+				LprOtroCosto = ' . ($this->LprOtroCosto) . ',
+				LprUtilidad = ' . ($this->LprUtilidad) . ',
+				LprManoObra = ' . ($this->LprManoObra) . ',
+				
+				LprAdicional = ' . ($this->LprAdicional) . ',
+				
+				LprValorVenta = ' . ($this->LprValorVenta) . ',
+				LprImpuesto = ' . ($this->LprImpuesto) . ',
+				LprDescuento = ' . ($this->LprDescuento) . ',
+				LprPrecio = ' . ($this->LprPrecio) . ',
+				
+				LprTiempoModificacion = "' . ($this->LprTiempoModificacion) . '"
+				WHERE LprId = "' . ($this->LprId) . '";';
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
-?>

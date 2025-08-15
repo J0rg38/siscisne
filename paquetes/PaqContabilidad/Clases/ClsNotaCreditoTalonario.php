@@ -18,11 +18,33 @@ class ClsNotaCreditoTalonario {
     public $NctTiempoCreacion;
     public $NctTiempoModificacion;
     public $NctEliminado;
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $SucId;
+	public $NctDescripcion;
+	public $NctEstado;
+	public $NctEstadoDescripcion;
+	public $NctEstadoIcono;
+	public $NctMultisucursal;
+	public $NctSucursal;
+	public $NctSucursalNombre;
+	public $NctSucursalDireccion;
+	public $NctSucursalDistrito;
+	public $NctSucursalProvincia;
+	public $NctSucursalDepartamento;
+	public $NctSucursalCodigoUbigeo;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -91,7 +113,13 @@ class ClsNotaCreditoTalonario {
 
     }
 
-    public function MtdObtenerNotaCreditoTalonarios($oCampo=NULL,$oFiltro=NULL,$oOrden = 'NctId',$oSentido = 'Desc',$oPaginacion = '0,10',$oSucursal=NULL,$oMultisucursal=false) {
+    	public function MtdObtenerNotaCreditoTalonarios($oCampo=NULL,$oFiltro=NULL,$oOrden = 'NctId',$oSentido = 'Desc',$oPaginacion = '0,10',$oSucursal=NULL,$oMultisucursal=false) {
+		
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$sucursal = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -181,6 +209,9 @@ class ClsNotaCreditoTalonario {
 	public function MtdEliminarNotaCreditoTalonario($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		if(!count($elementos)){
 			$eliminar .= ' NctId = "'.($oElementos).'"';

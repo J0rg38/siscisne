@@ -13,13 +13,13 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	$InsAlmacenMovimientoSalida->TopId = $_POST['CmpTipoOperacion'];
 	$InsAlmacenMovimientoSalida->AlmId = $_POST['CmpAlmacen'];
-	$InsAlmacenMovimientoSalida->AmoTipoCambio = eregi_replace(",","",$_POST['CmpTipoCambio']);
+	$InsAlmacenMovimientoSalida->AmoTipoCambio = preg_replace("/,/", "", $_POST['CmpTipoCambio']);
 	
 	$InsAlmacenMovimientoSalida->MonId = $_POST['CmpMonedaId'];
 		
 	$InsAlmacenMovimientoSalida->AmoFecha = FncCambiaFechaAMysql($_POST['CmpFecha']);
 	$InsAlmacenMovimientoSalida->AmoObservacion = addslashes($_POST['CmpObservacion']);	
-	$InsAlmacenMovimientoSalida->AmoDescuento = eregi_replace(",","",$_POST['CmpDescuento']);
+	$InsAlmacenMovimientoSalida->AmoDescuento = preg_replace("/,/", "", $_POST['CmpDescuento']);
 	
 	$InsAlmacenMovimientoSalida->AmoPorcentajeImpuestoVenta = $_POST['CmpPorcentajeImpuestoVenta'];
 	$InsAlmacenMovimientoSalida->AmoIncluyeImpuesto = $_POST['CmpPorcentajeImpuestoVenta'];

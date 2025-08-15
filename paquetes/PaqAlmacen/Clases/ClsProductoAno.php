@@ -21,9 +21,16 @@ class ClsProductoAno {
 
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -85,6 +92,12 @@ class ClsProductoAno {
     }
 
     public function MtdObtenerProductoAnos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PanId',$oSentido = 'Desc',$oPaginacion = '0,10',$oProducto=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$producto = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);

@@ -41,9 +41,9 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsVentaDirecta->VdiObservacionImpresa = addslashes($_POST['CmpObservacionImpresa']);
 	$InsVentaDirecta->VdiResultado = addslashes($_POST['CmpResultado']);
 	
-	$InsVentaDirecta->VdiAbono = eregi_replace(",","",(empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
-	$InsVentaDirecta->VdiManoObra = eregi_replace(",","",(empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
-	$InsVentaDirecta->VdiDescuento = eregi_replace(",","",(empty($_POST['CmpDescuento'])?0:$_POST['CmpDescuento']));
+	$InsVentaDirecta->VdiAbono = preg_replace("/,/", "", (empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
+	$InsVentaDirecta->VdiManoObra = preg_replace("/,/", "", (empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
+	$InsVentaDirecta->VdiDescuento = preg_replace("/,/", "", (empty($_POST['CmpDescuento'])?0:$_POST['CmpDescuento']));
 	
 	$InsVentaDirecta->VdiIncluyeImpuesto = $_POST['CmpIncluyeImpuesto'];
 	$InsVentaDirecta->VdiNotificar = (empty($_POST['CmpNotificar'])?2:$_POST['CmpNotificar']);

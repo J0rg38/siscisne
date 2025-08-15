@@ -117,7 +117,7 @@ $InsFichaIngreso->FinNota = addslashes($_POST['CmpNota']);
 			$InsFichaAccion = new ClsFichaAccion();
 			$InsFichaAccion->FccId = $_POST['CmpFichaAccionId_'.$DatFichaIngresoModalidad->MinSigla];
 			$InsFichaAccion->FimId = $DatFichaIngresoModalidad->FimId;
-			$InsFichaAccion->FccManoObra = eregi_replace(",","",(empty($_POST['CmpFichaAccionManoObra_'.$DatFichaIngresoModalidad->MinSigla])?0:$_POST['CmpFichaAccionManoObra_'.$DatFichaIngresoModalidad->MinSigla]));
+			$InsFichaAccion->FccManoObra = preg_replace("/,/", "", (empty($_POST['CmpFichaAccionManoObra_'.$DatFichaIngresoModalidad->MinSigla])?0:$_POST['CmpFichaAccionManoObra_'.$DatFichaIngresoModalidad->MinSigla]));
 			
 			$InsFichaAccion->FccManoObraDetalle = addslashes($_POST['CmpFichaAccionManoObraDetalle_'.$DatFichaIngresoModalidad->MinSigla]);
 			$InsFichaAccion->PerId = ($_POST['CmpPersonal_'.$DatFichaIngresoModalidad->MinSigla]);
@@ -453,7 +453,7 @@ if($InsTallerPedidoDetalle1->AmdEliminado == 1){
 	
 									$InsTallerPedidoDetalle1->AmdCosto = $DatSesionObjeto->Parametro17;								
 									$InsTallerPedidoDetalle1->AmdCostoExtraTotal = 0;								
-									$InsTallerPedidoDetalle1->AmdCantidad = eregi_replace(",","",$_POST['Cmp'.$DatSesionObjeto->Parametro21.'ProductoCantidad']);
+									$InsTallerPedidoDetalle1->AmdCantidad = preg_replace("/,/", "", $_POST['Cmp'.$DatSesionObjeto->Parametro21.'ProductoCantidad']);
 									//$InsTallerPedidoDetalle1->AmdImporte = $InsTallerPedidoDetalle1->AmdPrecioVenta * $InsTallerPedidoDetalle1->AmdCantidad ;
 									
 									//OBTENIENDO UNIDAD DE MEDIDA
@@ -483,7 +483,7 @@ if($InsTallerPedidoDetalle1->AmdEliminado == 1){
 								
 
 
-									$InsTallerPedidoDetalle1->AmdImporte = eregi_replace(",","",$_POST['Cmp'.$DatSesionObjeto->Parametro21.'ProductoImporte']);								
+									$InsTallerPedidoDetalle1->AmdImporte = preg_replace("/,/", "", $_POST['Cmp'.$DatSesionObjeto->Parametro21.'ProductoImporte']);								
 									$InsTallerPedidoDetalle1->AmdPrecioVenta =  $InsTallerPedidoDetalle1->AmdImporte / $InsTallerPedidoDetalle1->AmdCantidad;
 									
 									
@@ -719,7 +719,7 @@ if($InsTallerPedidoDetalle1->AmdEliminado == 1){
 
 							  $InsTallerPedidoDetalle1->AmdCosto = $InsProducto->ProCosto;
 							  $InsTallerPedidoDetalle1->AmdCostoExtraTotal = 0;
-							  $InsTallerPedidoDetalle1->AmdCantidad = eregi_replace(",","",$_POST['Cmp'.$DatSesionObjeto->Parametro21.'ProductoCantidad']);
+							  $InsTallerPedidoDetalle1->AmdCantidad = preg_replace("/,/", "", $_POST['Cmp'.$DatSesionObjeto->Parametro21.'ProductoCantidad']);
 							  //$InsTallerPedidoDetalle1->AmdImporte = $InsTallerPedidoDetalle1->AmdPrecioVenta * $InsTallerPedidoDetalle1->AmdCantidad ;
 					  
 							//OBTENIENDO UNIDAD DE MEDIDA
@@ -753,7 +753,7 @@ if($InsTallerPedidoDetalle1->AmdEliminado == 1){
 							$InsTallerPedidoDetalle1->AmdCompraOrigen = "X";
 							$InsTallerPedidoDetalle1->AmdEstado = (empty($_POST['Cmp'.$DatSesionObjeto->Parametro21.'TallerPedidoDetalleEstado'])?1:3);
 
-							$InsTallerPedidoDetalle1->AmdImporte = eregi_replace(",","",$_POST['Cmp'.$DatSesionObjeto->Parametro21.'ProductoImporte']);								
+							$InsTallerPedidoDetalle1->AmdImporte = preg_replace("/,/", "", $_POST['Cmp'.$DatSesionObjeto->Parametro21.'ProductoImporte']);								
 							$InsTallerPedidoDetalle1->AmdPrecioVenta =  $InsTallerPedidoDetalle1->AmdImporte / $InsTallerPedidoDetalle1->AmdCantidad;
 
 							if($InsTallerPedido->MonId<>$EmpresaMonedaId ){

@@ -18,7 +18,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsOrdenCobro->NpaId = $_POST['CmpCondicionPago'];
 	$InsOrdenCobro->MonId = $_POST['CmpMonedaId'];
 	$InsOrdenCobro->OcbTipoCambio = $_POST['CmpTipoCambio'];
-	$InsOrdenCobro->OcbMonto = eregi_replace(",","",(empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
+	$InsOrdenCobro->OcbMonto = preg_replace("/,/", "", (empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
 	$InsOrdenCobro->OcbObservacion = addslashes($_POST['CmpObservacion']);
 	$InsOrdenCobro->OcbConcepto = addslashes($_POST['CmpConcepto']);
 	$InsOrdenCobro->OcbTipo = "VDI";

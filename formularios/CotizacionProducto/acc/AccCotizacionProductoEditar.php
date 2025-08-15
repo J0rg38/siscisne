@@ -40,10 +40,10 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsCotizacionProducto->CprTipoCambio = $_POST['CmpTipoCambio'];
 		
 	$InsCotizacionProducto->CprPorcentajeImpuestoVenta = $_POST['CmpPorcentajeImpuestoVenta'];
-	$InsCotizacionProducto->CprPorcentajeMargenUtilidad = eregi_replace(",","",(empty($_POST['CmpClienteMargenUtilidad'])?0:$_POST['CmpClienteMargenUtilidad']));
+	$InsCotizacionProducto->CprPorcentajeMargenUtilidad = preg_replace("/,/", "", (empty($_POST['CmpClienteMargenUtilidad'])?0:$_POST['CmpClienteMargenUtilidad']));
 
-	$InsCotizacionProducto->CprPorcentajeOtroCosto = eregi_replace(",","",(empty($_POST['CmpPorcentajeOtroCosto'])?0:$_POST['CmpPorcentajeOtroCosto']));
-	$InsCotizacionProducto->CprPorcentajeManoObra = eregi_replace(",","",(empty($_POST['CmpPorcentajeManoObra'])?0:$_POST['CmpPorcentajeManoObra']));
+	$InsCotizacionProducto->CprPorcentajeOtroCosto = preg_replace("/,/", "", (empty($_POST['CmpPorcentajeOtroCosto'])?0:$_POST['CmpPorcentajeOtroCosto']));
+	$InsCotizacionProducto->CprPorcentajeManoObra = preg_replace("/,/", "", (empty($_POST['CmpPorcentajeManoObra'])?0:$_POST['CmpPorcentajeManoObra']));
 
 	$InsCotizacionProducto->CprFecha = FncCambiaFechaAMysql($_POST['CmpFecha']);
 	$InsCotizacionProducto->CprHora = ($_POST['CmpHora']);
@@ -62,14 +62,14 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	//$InsCotizacionProducto->CprIncluyeImpuesto = 2;
 	
-	$InsCotizacionProducto->CprManoObra = eregi_replace(",","",(empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
-	$InsCotizacionProducto->CprPorcentajeDescuento = eregi_replace(",","",(empty($_POST['CmpPorcentajeDescuento'])?0:$_POST['CmpPorcentajeDescuento']));
+	$InsCotizacionProducto->CprManoObra = preg_replace("/,/", "", (empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
+	$InsCotizacionProducto->CprPorcentajeDescuento = preg_replace("/,/", "", (empty($_POST['CmpPorcentajeDescuento'])?0:$_POST['CmpPorcentajeDescuento']));
 
-	$InsCotizacionProducto->CprVigencia = eregi_replace(",","",(empty($_POST['CmpVigencia'])?0:$_POST['CmpVigencia']));
-	$InsCotizacionProducto->CprTiempoEntrega = eregi_replace(",","",(empty($_POST['CmpTiempoEntrega'])?0:$_POST['CmpTiempoEntrega']));
+	$InsCotizacionProducto->CprVigencia = preg_replace("/,/", "", (empty($_POST['CmpVigencia'])?0:$_POST['CmpVigencia']));
+	$InsCotizacionProducto->CprTiempoEntrega = preg_replace("/,/", "", (empty($_POST['CmpTiempoEntrega'])?0:$_POST['CmpTiempoEntrega']));
 	
 	
-//	$InsCotizacionProducto->CprManoObra = eregi_replace(",","",$_POST['CmpManoObra']);
+//	$InsCotizacionProducto->CprManoObra = preg_replace("/,/", "", $_POST['CmpManoObra']);
 //	$InsCotizacionProducto->CprVigencia = (empty($_POST['CmpVigencia'])?0:$_POST['CmpVigencia']);
 //	$InsCotizacionProducto->CprTiempoEntrega = (empty($_POST['CmpTiempoEntrega'])?0:$_POST['CmpTiempoEntrega']);
 	

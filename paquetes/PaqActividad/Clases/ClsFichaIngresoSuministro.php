@@ -28,9 +28,16 @@ class ClsFichaIngresoSuministro {
 	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -56,6 +63,12 @@ class ClsFichaIngresoSuministro {
 	
 
     public function MtdObtenerFichaIngresoSuministros($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FisId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngreso=NULL,$oEstado=NULL) {
+		// Inicializar variables para evitar warnings
+		$fingreso = '';
+		$estado = '';
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 

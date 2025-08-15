@@ -80,7 +80,7 @@ if($emails) {
 		$mensaje_original = $mensaje;
 		
 		$mensaje = strtoupper($mensaje);
-		$mensaje = eregi_replace(" ","",$mensaje);
+		$mensaje = preg_replace("/ /", "", $mensaje);
 		
 		$asunto = $overview[0]->subject;
 		
@@ -93,13 +93,13 @@ if($emails) {
 		echo "MENSAJE: ".$mensaje_original;
 		echo "<br>";
 
-		//$asunto = eregi_replace(" ","",$asunto);
-//		$asunto = eregi_replace(":","",$asunto);		
-//		$asunto = eregi_replace("RE","",$asunto);
-//		$asunto = eregi_replace("PEDIDO","",$asunto);
-//		$asunto = eregi_replace("SUSPECTED SPAM","",$asunto);
-//		$asunto = eregi_replace("]","",$asunto);
-//		$asunto = eregi_replace("[","",$asunto);
+		//$asunto = preg_replace("/ /", "", $asunto);
+//		$asunto = preg_replace("/:/", "", $asunto);		
+//		$asunto = preg_replace("/RE/", "", $asunto);
+//		$asunto = preg_replace("/PEDIDO/", "", $asunto);
+//		$asunto = preg_replace("/SUSPECTED SPAM/", "", $asunto);
+//		$asunto = preg_replace("/]/", "", $asunto);
+//		$asunto = preg_replace("/[/", "", $asunto);
 		$asunto = str_replace(" ","",$asunto);
 		$asunto = str_replace(":","",$asunto);		
 		$asunto = str_replace("RE","",$asunto);

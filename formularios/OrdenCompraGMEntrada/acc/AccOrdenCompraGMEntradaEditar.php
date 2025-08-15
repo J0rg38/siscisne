@@ -96,7 +96,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 			$InsOrdenCompraEntradaDetalle1->OedPrecio = $InsOrdenCompraEntradaDetalle1->OedPrecio;
 		}
 		
-		$InsOrdenCompraEntradaDetalle1->OedCantidad = eregi_replace(",","",$_POST['CmpProductoEntrada_'.$DatSesionObjeto->Parametro16]);					
+		$InsOrdenCompraEntradaDetalle1->OedCantidad = preg_replace("/,/", "", $_POST['CmpProductoEntrada_'.$DatSesionObjeto->Parametro16]);					
 	
 		$InsOrdenCompraEntradaDetalle1->OedImporte = $InsOrdenCompraEntradaDetalle1->OedCantidad * $InsOrdenCompraEntradaDetalle1->OedPrecio;
 				 

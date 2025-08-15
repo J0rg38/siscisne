@@ -12,7 +12,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsServicio->SerNombre = $_POST['CmpNombre'];
 	$InsServicio->SerDescripcion = $_POST['CmpDescripcion'];
 	$InsServicio->MonId = $_POST['CmpMonedaId'];
-	$InsServicio->SerImporte = eregi_replace(",","",(empty($_POST['CmpImporte'])?0:$_POST['CmpImporte']));
+	$InsServicio->SerImporte = preg_replace("/,/", "", (empty($_POST['CmpImporte'])?0:$_POST['CmpImporte']));
 
 	$InsServicio->SerEstado = $_POST['CmpEstado'];	
 	$InsServicio->SerTiempoCreacion = date("Y-m-d H:i:s");

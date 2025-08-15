@@ -24,9 +24,16 @@ class ClsVehiculoMarca {
 
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -178,7 +185,7 @@ class ClsVehiculoMarca {
 			
 			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
 			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
+			$Respuesta['Total'] = $filaTotal ? $filaTotal['TOTAL'] : 0;
 			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 			
 

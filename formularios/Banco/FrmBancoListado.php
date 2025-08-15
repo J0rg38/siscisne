@@ -1,4 +1,8 @@
 <?php
+// Definir variables que pueden no estar definidas
+$GET_mod = $GET_mod ?? 'Banco';
+$GET_form = $GET_form ?? 'Listado';
+
 if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 ?>
 
@@ -24,7 +28,7 @@ $POST_fil = ($_POST['Fil'] ?? '');
    if($_POST){
 	   $_SESSION[$GET_mod."Filtro"] = $POST_fil;
    }else{
-		$POST_fil = (empty($_GET['Fil'] ?? '')?$_SESSION[$GET_mod."Filtro"]:($_GET['Fil'] ?? ''));
+		$POST_fil = (empty($_GET['Fil'] ?? '')?($_SESSION[$GET_mod."Filtro"] ?? ''):($_GET['Fil'] ?? ''));
    }
 
 
@@ -37,7 +41,7 @@ $POST_num = ($_POST['Num'] ?? '');
 if($_POST){
 	$_SESSION[$GET_mod."Num"] = $POST_num;
 }else{
-	$POST_num =  $_SESSION[$GET_mod."Num"];	
+	$POST_num =  $_SESSION[$GET_mod."Num"] ?? '10';	
 }
 
 $POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';

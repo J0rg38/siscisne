@@ -62,7 +62,7 @@ $POST_fil = ($_POST['Fil'] ?? '');
    if($_POST){
 	   $_SESSION[$GET_mod."Filtro"] = $POST_fil;
    }else{
-		$POST_fil = (empty($_GET['Fil'])?$_SESSION[$GET_mod."Filtro"]:$_GET['Fil']);
+		$POST_fil = (empty($_GET['Fil'])?($_SESSION[$GET_mod."Filtro"] ?? ''):$_GET['Fil']);
    }
 
 
@@ -75,7 +75,7 @@ $POST_num = $_POST['Num'] ?? '';
 if($_POST){
 	$_SESSION[$GET_mod."Num"] = $POST_num;
 }else{
-	$POST_num =  $_SESSION[$GET_mod."Num"];	
+	$POST_num =  $_SESSION[$GET_mod."Num"] ?? '';	
 }
 
 $POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';
@@ -84,16 +84,17 @@ $POST_acc = $_POST['Acc'] ?? '';
 /*
 Otras variables
 */
-$POST_estado = $_POST['Estado'];
-$POST_finicio = $_POST['FechaInicio'];
-$POST_ffin = $_POST['FechaFin'];
-$POST_con = $_POST['Con'];
-$POST_tal = $_POST['Talonario'];
-$POST_Moneda = $_POST['Moneda'];
-$POST_npago = $_POST['CondicionPago'];
+$POST_estado = $_POST['Estado'] ?? '';
+$POST_finicio = $_POST['FechaInicio'] ?? '';
+$POST_ffin = $_POST['FechaFin'] ?? '';
+$POST_con = $_POST['Con'] ?? '';
+$POST_tal = $_POST['Talonario'] ?? '';
+$POST_Moneda = $_POST['Moneda'] ?? '';
+$POST_npago = $_POST['CondicionPago'] ?? '';
 $POST_Sucursal = $_POST['CmpSucursal'] ?? '';
-$POST_ChkMostrarNoProcesados = $_POST['ChkMostrarNoProcesados'];
-$POST_Cancelado = $_POST['Cancelado'];
+$POST_ChkMostrarNoProcesados = $_POST['ChkMostrarNoProcesados'] ?? '';
+$POST_Cancelado = $_POST['Cancelado'] ?? '';
+$POST_BoletaNum = $_POST['BoletaNum'] ?? '';
 
 
 
@@ -967,6 +968,11 @@ Fecha Inicio:
 
 								$pagina = explode(",",$POST_pag);
 								$f=$pagina[0]+1;
+
+								// Inicializar variables para evitar warnings
+								$SubTotal = 0;
+								$Total = 0;
+								$Impuesto = 0;
 
 								foreach($ArrBoletas as $dat){
 

@@ -10,55 +10,62 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsVehiculoPromocion20k {
+class ClsVehiculoPromocion20k
+{
 
-    public $P20Id;
-    public $P20Nombre;
+	public $P20Id;
+	public $P20Nombre;
 	public $P20NombreComercial;
 	public $P20Foto;
 	public $P20VigenciaVenta;
 	public $P20Estado;
-    public $P20TiempoCreacion;
-    public $P20TiempoModificacion;
-    public $P20Eliminado;
+	public $P20TiempoCreacion;
+	public $P20TiempoModificacion;
+	public $P20Eliminado;
 
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
-	
-	public function __destruct(){
+	public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
 
 	}
-	
+
+	public function __destruct() {}
 
 
-    public function MtdObtenerVehiculoPromocion20ks($oCampo=NULL,$oFiltro=NULL,$oOrden = 'P20Id',$oSentido = 'Desc',$oPaginacion = '0,10',$oVehiculoIngresoId=NULL) {
 
-		if(!empty($oCampo) && !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
-		}
+	public function MtdObtenerVehiculoPromocion20ks($oCampo = NULL, $oFiltro = NULL, $oOrden = 'P20Id', $oSentido = 'Desc', $oPaginacion = '0,10', $oVehiculoIngresoId = NULL)
+	{
 
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+		if (!empty($oCampo) && !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$filtrar = ' AND ' . ($oCampo) . ' LIKE "%' . ($oFiltro) . '%"';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-		if(!empty($oVigenciaVenta)){
-			$vventa = ' AND P20VigenciaVenta = '.$oVigenciaVenta;
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		
-		if(!empty($oVehiculoIngresoId)){
-			$vingreso = ' AND EinId = "'.$oVehiculoIngresoId.'"';
+
+		if (!empty($oVigenciaVenta)) {
+			$vventa = ' AND P20VigenciaVenta = ' . $oVigenciaVenta;
 		}
-		
-			$sql = 'SELECT
+
+
+		if (!empty($oVehiculoIngresoId)) {
+			$vingreso = ' AND EinId = "' . $oVehiculoIngresoId . '"';
+		}
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				OvvId,
 				DATE_FORMAT(OvvFecha, "%d/%m/%Y") AS "NOvvFecha",
@@ -89,57 +96,55 @@ class ClsVehiculoPromocion20k {
 				DATE_FORMAT(FinFecha20000, "%d/%m/%Y") AS "NFinFecha20000"
 				
 				FROM visp20promocion20k
-				WHERE  1 = 1'.$filtrar.$vingreso.$estado.$orden.$paginacion;
-	
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+				WHERE  1 = 1' . $filtrar . $vingreso .   $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsVehiculoPromocion20k = get_class($this);
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-					$VehiculoPromocion20k = new $InsVehiculoPromocion20k();
-                    $VehiculoPromocion20k->OvvId = $fila['OvvId'];
-                    $VehiculoPromocion20k->OvvFecha = $fila['NOvvFecha'];
-					$VehiculoPromocion20k->CliNombre = $fila['CliNombre'];
-					$VehiculoPromocion20k->CliApellidoPaterno = $fila['CliApellidoPaterno'];					
-					$VehiculoPromocion20k->CliApellidoMaterno = $fila['CliApellidoMaterno'];
-					
-					$VehiculoPromocion20k->VmaNombre = $fila['VmaNombre'];
-                    $VehiculoPromocion20k->VmoNombre = $fila['VmoNombre'];
-                    $VehiculoPromocion20k->VveNombre = $fila['VveNombre'];
-					
-					$VehiculoPromocion20k->EinVIN = $fila['EinVIN'];
-					$VehiculoPromocion20k->EinPlaca = $fila['EinPlaca'];
-					
-					$VehiculoPromocion20k->FinId1000 = $fila['FinId1000'];
-					$VehiculoPromocion20k->FinFecha1000 = $fila['NFinFecha1000'];
-					
-					$VehiculoPromocion20k->FinId5000 = $fila['FinId5000'];
-					$VehiculoPromocion20k->FinFecha5000 = $fila['NFinFecha5000'];
-					
-					$VehiculoPromocion20k->FinId10000 = $fila['FinId10000'];
-					$VehiculoPromocion20k->FinFecha10000 = $fila['NFinFecha10000'];
-					
-					$VehiculoPromocion20k->FinId15000 = $fila['FinId15000'];
-					$VehiculoPromocion20k->FinFecha15000 = $fila['NFinFecha15000'];
-					
-					$VehiculoPromocion20k->FinId20000 = $fila['FinId20000'];
-					$VehiculoPromocion20k->FinFecha20000 = $fila['NFinFecha20000'];
-					
-					$VehiculoPromocion20k->InsMysql = NULL;      
-					$Respuesta['Datos'][]= $VehiculoPromocion20k;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
+		$Respuesta['Datos'] = array();
 
-			
-			return $Respuesta;			
+		$InsVehiculoPromocion20k = get_class($this);
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+			$VehiculoPromocion20k = new $InsVehiculoPromocion20k();
+			$VehiculoPromocion20k->OvvId = $fila['OvvId'];
+			$VehiculoPromocion20k->OvvFecha = $fila['NOvvFecha'];
+			$VehiculoPromocion20k->CliNombre = $fila['CliNombre'];
+			$VehiculoPromocion20k->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+			$VehiculoPromocion20k->CliApellidoMaterno = $fila['CliApellidoMaterno'];
+
+			$VehiculoPromocion20k->VmaNombre = $fila['VmaNombre'];
+			$VehiculoPromocion20k->VmoNombre = $fila['VmoNombre'];
+			$VehiculoPromocion20k->VveNombre = $fila['VveNombre'];
+
+			$VehiculoPromocion20k->EinVIN = $fila['EinVIN'];
+			$VehiculoPromocion20k->EinPlaca = $fila['EinPlaca'];
+
+			$VehiculoPromocion20k->FinId1000 = $fila['FinId1000'];
+			$VehiculoPromocion20k->FinFecha1000 = $fila['NFinFecha1000'];
+
+			$VehiculoPromocion20k->FinId5000 = $fila['FinId5000'];
+			$VehiculoPromocion20k->FinFecha5000 = $fila['NFinFecha5000'];
+
+			$VehiculoPromocion20k->FinId10000 = $fila['FinId10000'];
+			$VehiculoPromocion20k->FinFecha10000 = $fila['NFinFecha10000'];
+
+			$VehiculoPromocion20k->FinId15000 = $fila['FinId15000'];
+			$VehiculoPromocion20k->FinFecha15000 = $fila['NFinFecha15000'];
+
+			$VehiculoPromocion20k->FinId20000 = $fila['FinId20000'];
+			$VehiculoPromocion20k->FinFecha20000 = $fila['NFinFecha20000'];
+
+			$VehiculoPromocion20k->InsMysql = NULL;
+			$Respuesta['Datos'][] = $VehiculoPromocion20k;
 		}
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+
+
+		return $Respuesta;
+	}
 }
-?>

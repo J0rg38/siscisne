@@ -23,9 +23,16 @@ class ClsModalidadPago {
     public $MpaEliminado;
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -89,7 +96,12 @@ class ClsModalidadPago {
 
     }
 
-    public function MtdObtenerModalidadPagos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'MpaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oUso=NULL) {
+    	public function MtdObtenerModalidadPagos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'MpaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oUso=NULL) {
+		
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);

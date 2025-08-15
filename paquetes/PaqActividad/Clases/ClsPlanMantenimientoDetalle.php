@@ -23,9 +23,16 @@ class ClsPlanMantenimientoDetalle {
 	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -134,10 +141,16 @@ class ClsPlanMantenimientoDetalle {
 			$resultado = $this->InsMysql->MtdConsultar($sql);                       
 			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
 
-		return  strtoupper($fila['PmdAccion']);
+		return  $fila ? strtoupper($fila['PmdAccion']) : '';
 	}
 	
 	public function MtObtenerPlanMantenimientoDetalleId($oPlanMantenimiento=NULL,$oKilometraje=NULL,$oSeccion=NULL,$oTarea=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$pmantenimiento = '';
+		$kilometraje = '';
+		$seccion = '';
+		$tarea = '';
 
 		if(!empty($oPlanMantenimiento)){
 			$pmantenimiento = ' AND pmd.PmaId = "'.$oPlanMantenimiento.'"';
@@ -171,11 +184,20 @@ class ClsPlanMantenimientoDetalle {
 			$resultado = $this->InsMysql->MtdConsultar($sql);                       
 			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
 
-		return  ($fila['PmdId']);
+		return  $fila ? $fila['PmdId'] : null;
 	}
 		
 		
-    public function MtdObtenerPlanMantenimientoDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oPlanMantenimiento=NULL,$oKilometraje=NULL,$oSeccion=NULL,$oTarea=NULL) {
+    public function MtdObtenerPlanMantenimientoDetalles($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oPlanMantenimiento=NULL,$oKilometraje=NULL,$oSeccion=NULL,$oTarea=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$pmantenimiento = '';
+		$kilometraje = '';
+		$seccion = '';
+		$tarea = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 
@@ -350,6 +372,9 @@ class ClsPlanMantenimientoDetalle {
 		$error = false;
 		
 		$elementos = explode("#",$oElementos);
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 	
 			$i=1;
 			foreach($elementos as $elemento){

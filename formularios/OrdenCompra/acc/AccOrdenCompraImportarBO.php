@@ -632,7 +632,7 @@ if (!empty($_FILES)) {
 							
 						}
 						
-						$PedidoDealer = eregi_replace("-AC","",$PedidoDealer);
+						$PedidoDealer = preg_replace("/-AC/", "", $PedidoDealer);
 			
 						echo '[Fila '.$fila.']> ';					
 						echo "<br>";

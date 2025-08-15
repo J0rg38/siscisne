@@ -59,14 +59,14 @@ $POST_acc = $_POST['Acc'] ?? '';
 /*
 * Otras variables
 */
-$POST_estado = $_POST['Estado'];
-$POST_finicio = $_POST['FechaInicio'];
-$POST_ffin = $_POST['FechaFin'];
-$POST_con = $_POST['Con'];
-$POST_origen = $_POST['Origen'];
-$POST_TipoFecha = $_POST['TipoFecha'];
-$POST_Moneda = $_POST['Moneda'];
-$POST_Almacen = $_POST['CmpAlmacen'];
+$POST_estado = $_POST['Estado'] ?? '';
+$POST_finicio = $_POST['FechaInicio'] ?? '';
+$POST_ffin = $_POST['FechaFin'] ?? '';
+$POST_con = $_POST['Con'] ?? '';
+$POST_origen = $_POST['Origen'] ?? '';
+$POST_TipoFecha = $_POST['TipoFecha'] ?? '';
+$POST_Moneda = $_POST['Moneda'] ?? '';
+$POST_Almacen = $_POST['CmpAlmacen'] ?? '';
 $POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 
 if(empty($POST_p)){$POST_p = '1';}

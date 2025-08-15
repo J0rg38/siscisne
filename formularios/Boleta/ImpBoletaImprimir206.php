@@ -666,27 +666,27 @@ if(!empty($InsBoleta->EinVIN)){
 		
 		<?php
 		
-//		$InsBoleta->OrdenVentaVehiculoVmoNombre = eregi_replace("SEDAN","",$InsBoleta->OrdenVentaVehiculoVmoNombre);
+//		$InsBoleta->OrdenVentaVehiculoVmoNombre = preg_replace("/SEDAN/", "", $InsBoleta->OrdenVentaVehiculoVmoNombre);
 //		
-//		$InsBoleta->OrdenVentaVehiculoVmoNombre = eregi_replace("HATCHBACK","",$InsBoleta->OrdenVentaVehiculoVmoNombre);
-//		$InsBoleta->OrdenVentaVehiculoVmoNombre = eregi_replace("GT","",$InsBoleta->OrdenVentaVehiculoVmoNombre);
+//		$InsBoleta->OrdenVentaVehiculoVmoNombre = preg_replace("/HATCHBACK/", "", $InsBoleta->OrdenVentaVehiculoVmoNombre);
+//		$InsBoleta->OrdenVentaVehiculoVmoNombre = preg_replace("/GT/", "", $InsBoleta->OrdenVentaVehiculoVmoNombre);
 //		
 //		
 
 
 		
-		$InsBoleta->OrdenVentaVehiculoVmoNombre = eregi_replace("SEDAN","",$InsBoleta->OrdenVentaVehiculoVmoNombre);
+		$InsBoleta->OrdenVentaVehiculoVmoNombre = preg_replace("/SEDAN/", "", $InsBoleta->OrdenVentaVehiculoVmoNombre);
 		
-		$InsBoleta->OrdenVentaVehiculoVmoNombre = eregi_replace("HATCHBACK","",$InsBoleta->OrdenVentaVehiculoVmoNombre);
+		$InsBoleta->OrdenVentaVehiculoVmoNombre = preg_replace("/HATCHBACK/", "", $InsBoleta->OrdenVentaVehiculoVmoNombre);
 		
-		$InsBoleta->OrdenVentaVehiculoVmoNombre = eregi_replace("GT","",$InsBoleta->OrdenVentaVehiculoVmoNombre);
+		$InsBoleta->OrdenVentaVehiculoVmoNombre = preg_replace("/GT/", "", $InsBoleta->OrdenVentaVehiculoVmoNombre);
 		
 		
-		$InsBoleta->OrdenVentaVehiculoVmoNombre = eregi_replace("MAX","",$InsBoleta->OrdenVentaVehiculoVmoNombre);
-		$InsBoleta->OrdenVentaVehiculoVmoNombre = eregi_replace("MOVE","",$InsBoleta->OrdenVentaVehiculoVmoNombre);
-		$InsBoleta->OrdenVentaVehiculoVmoNombre = eregi_replace("CARGO","",$InsBoleta->OrdenVentaVehiculoVmoNombre);
+		$InsBoleta->OrdenVentaVehiculoVmoNombre = preg_replace("/MAX/", "", $InsBoleta->OrdenVentaVehiculoVmoNombre);
+		$InsBoleta->OrdenVentaVehiculoVmoNombre = preg_replace("/MOVE/", "", $InsBoleta->OrdenVentaVehiculoVmoNombre);
+		$InsBoleta->OrdenVentaVehiculoVmoNombre = preg_replace("/CARGO/", "", $InsBoleta->OrdenVentaVehiculoVmoNombre);
 		
-		$InsBoleta->OrdenVentaVehiculoVmoNombre = eregi_replace("WORK","",$InsBoleta->OrdenVentaVehiculoVmoNombre);
+		$InsBoleta->OrdenVentaVehiculoVmoNombre = preg_replace("/WORK/", "", $InsBoleta->OrdenVentaVehiculoVmoNombre);
 		
 		
 		?>

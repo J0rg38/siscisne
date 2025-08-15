@@ -27,7 +27,7 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 
 
 $Identificador = $_POST['Identificador'];
-$POST_Descuento = (empty($_POST['Descuento'])?0:eregi_replace(",","",$_POST['Descuento']));
+$POST_Descuento = (empty($_POST['Descuento'])?0:preg_replace("/,/", "", $_POST['Descuento']));
 $POST_AlmacenId = $_POST['AlmacenId'];
 
 session_start();

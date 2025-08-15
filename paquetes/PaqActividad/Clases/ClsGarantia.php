@@ -115,9 +115,16 @@ class ClsGarantia {
 
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -125,7 +132,7 @@ class ClsGarantia {
 
 	public function MtdGenerarGarantiaId() {
 
-		$InsFichaAccion = new ClsFichaAccion();
+		$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 		$InsFichaAccion->FccId = $this->FccId;
 		$InsFichaAccion->MtdObtenerFichaAccion();
 		
@@ -500,7 +507,7 @@ class ClsGarantia {
 				$ResGarantiaOperacion =  $InsGarantiaOperacion->MtdObtenerGarantiaOperaciones(NULL,NULL,"GopId","ASC",NULL,$this->GarId,NULL);
 				$this->GarantiaOperacion = 	$ResGarantiaOperacion['Datos'];	
 				
-				$InsFichaAccionFoto = new ClsFichaAccionFoto();
+				$InsFichaAccionFoto = new ClsFichaAccionFoto($this->InsMysql);
 				$ResFichaAccionFoto = $InsFichaAccionFoto->MtdObtenerFichaAccionFotos(NULL,NULL,'FafId','Desc',NULL,$this->FccId,NULL);
 				$this->FichaAccionFoto = $ResFichaAccionFoto['Datos'];
 				
@@ -1284,7 +1291,7 @@ class ClsGarantia {
 														$this->GarTotal = 0;
 														
 														
-														$InsTallerPedido = new ClsTallerPedido();
+														$InsTallerPedido = new ClsTallerPedido($this->InsMysql);
 														
 														$ResTallerPedido = $InsTallerPedido->MtdObtenerTallerPedidos(NULL,NULL,NULL,'AmoTiempoCreacion','DESC','',NULL,NULL,NULL,$InsFichaAccion->FccId,NULL,0,0,NULL,NULL,false,NULL);
 														$ArrTallerPedidos = $ResTallerPedido['Datos'];
@@ -1647,7 +1654,7 @@ class ClsGarantia {
 							
 														
 														
-														$InsTallerPedido = new ClsTallerPedido();
+														$InsTallerPedido = new ClsTallerPedido($this->InsMysql);
 														
 														$ResTallerPedido = $InsTallerPedido->MtdObtenerTallerPedidos(NULL,NULL,NULL,'AmoTiempoCreacion','DESC','',NULL,NULL,NULL,$InsFichaAccion->FccId,NULL,0,0,NULL,NULL,false,NULL);
 														$ArrTallerPedidos = $ResTallerPedido['Datos'];
@@ -1928,7 +1935,7 @@ class ClsGarantia {
 
 			if(!empty($this->GarFechaVenta)){
 				
-				$InsFichaAccion = new ClsFichaAccion();
+				$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 				$InsFichaAccion->FccId = $this->FccId;
 				$InsFichaAccion->MtdObtenerFichaAccion();
 				
@@ -2119,7 +2126,7 @@ class ClsGarantia {
 							
 							if(empty($InsGarantiaOperacion->FaeId)){
 											
-								//$InsFichaAccionTempario = new ClsFichaAccionTempario();
+								//$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 //								$InsFichaAccionTempario->FaeCodigo = 	$InsGarantiaOperacion->GopNumero;
 //								$InsFichaAccionTempario->FaeTiempo = $InsGarantiaOperacion->GopTiempo;
 //								$InsFichaAccionTempario->FaeEstado = 3;
@@ -2129,13 +2136,13 @@ class ClsGarantia {
 
 $FichaAccionTemparioId = "";
 											
-											$InsFichaAccionTempario = new ClsFichaAccionTempario();
+											$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 
 											$FichaAccionTemparioId = $InsFichaAccionTempario->MtdVerificarExisteFichaAccionTemparios("FaeCodigo",$InsGarantiaOperacion->GopNumero,$this->FccId);
 											
 											if(empty($FichaAccionTemparioId)){
 												
-												$InsFichaAccionTempario = new ClsFichaAccionTempario();
+												$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 												$InsFichaAccionTempario->FccId = $this->FccId;
 												$InsFichaAccionTempario->FaeCodigo = 	$InsGarantiaOperacion->GopNumero;
 												$InsFichaAccionTempario->FaeTiempo = $InsGarantiaOperacion->GopTiempo;
@@ -2199,7 +2206,7 @@ $FichaAccionTemparioId = "";
 	
 			if(!empty($this->GarFechaVenta)){
 				
-				$InsFichaAccion = new ClsFichaAccion();
+				$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 				$InsFichaAccion->FccId = $this->FccId;
 				$InsFichaAccion->MtdObtenerFichaAccion();
 				
@@ -2371,13 +2378,13 @@ $FichaAccionTemparioId = "";
 											
 											$FichaAccionTemparioId = "";
 											
-											$InsFichaAccionTempario = new ClsFichaAccionTempario();
+											$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 
 											$FichaAccionTemparioId = $InsFichaAccionTempario->MtdVerificarExisteFichaAccionTemparios("FaeCodigo",$InsGarantiaOperacion->GopNumero,$this->FccId);
 											
 											if(empty($FichaAccionTemparioId)){
 												
-												$InsFichaAccionTempario = new ClsFichaAccionTempario();
+												$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 												$InsFichaAccionTempario->FccId = $this->FccId;
 												$InsFichaAccionTempario->FaeCodigo = 	$InsGarantiaOperacion->GopNumero;
 												$InsFichaAccionTempario->FaeTiempo = $InsGarantiaOperacion->GopTiempo;
@@ -2413,7 +2420,7 @@ $FichaAccionTemparioId = "";
 									
 									if(!empty($InsGarantiaOperacion->FaeId)){
 									
-										$InsFichaAccionTempario = new ClsFichaAccionTempario();
+										$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 										$InsFichaAccionTempario->MtdEliminarFichaAccionTempario($InsGarantiaOperacion->FaeId);
 									
 									}
@@ -2430,7 +2437,7 @@ $FichaAccionTemparioId = "";
 									
 										if(!empty($InsGarantiaOperacion->FaeId)){
 											
-											$InsFichaAccionTempario = new ClsFichaAccionTempario();
+											$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 											$InsFichaAccionTempario->FaeId = $InsGarantiaOperacion->FaeId;
 											$InsFichaAccionTempario->FaeCodigo = $InsGarantiaOperacion->GopNumero;
 											$InsFichaAccionTempario->FaeTiempo = $InsGarantiaOperacion->GopTiempo;
@@ -2443,13 +2450,13 @@ $FichaAccionTemparioId = "";
 											
 											$FichaAccionTemparioId = "";
 											
-											$InsFichaAccionTempario = new ClsFichaAccionTempario();
+											$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 
 											$FichaAccionTemparioId = $InsFichaAccionTempario->MtdVerificarExisteFichaAccionTemparios("FaeCodigo",$InsGarantiaOperacion->GopNumero,$this->FccId);
 											
 											if(empty($FichaAccionTemparioId)){
 												
-												$InsFichaAccionTempario = new ClsFichaAccionTempario();
+												$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 												$InsFichaAccionTempario->FccId = $this->FccId;
 												$InsFichaAccionTempario->FaeCodigo = 	$InsGarantiaOperacion->GopNumero;
 												$InsFichaAccionTempario->FaeTiempo = $InsGarantiaOperacion->GopTiempo;
@@ -2467,7 +2474,7 @@ $FichaAccionTemparioId = "";
 											}
 											
 											
-										//	$InsFichaAccionTempario = new ClsFichaAccionTempario();
+										//	$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 //											$InsFichaAccionTempario->FccId = $this->FccId;
 //											$InsFichaAccionTempario->FaeCodigo = 	$InsGarantiaOperacion->GopNumero;
 //											$InsFichaAccionTempario->FaeTiempo = $InsGarantiaOperacion->GopTiempo;
@@ -2520,7 +2527,7 @@ $FichaAccionTemparioId = "";
 	
 		private function MtdAuditarGarantia($oAccion,$oDescripcion,$oDatos){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->GarId;
 
 			$InsAuditoria->UsuId = $this->UsuId;

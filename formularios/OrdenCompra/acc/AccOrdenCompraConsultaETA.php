@@ -42,7 +42,7 @@ if(isset($_POST['BtnEnviarCorreo_x']) or $_POST['Guardar']=="1"){
 	
 	$InsOrdenCompra->OcoTotal = 0;
 
-	$Destinatario = eregi_replace(" ","",$_POST['CmpDestinatario']);
+	$Destinatario = preg_replace("/ /", "", $_POST['CmpDestinatario']);
 	
 	if(!empty($Destinatario)){
 		

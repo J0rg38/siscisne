@@ -56,9 +56,16 @@ class ClsPreEntrega {
 
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -252,16 +259,16 @@ class ClsPreEntrega {
 			$InsPreEntregaSuministro = new ClsPreEntregaSuministro();
 			$InsPreEntregaMantenimiento = new ClsPreEntregaMantenimiento();
 			
-			$InsFichaAccion = new ClsFichaAccion();
+			$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 			
-			$InsFichaAccionTarea = new ClsFichaAccionTarea();
-			$InsFichaAccionTempario = new ClsFichaAccionTempario();
-			$InsFichaAccionProducto = new ClsFichaAccionProducto();
-			$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento();
-			$InsFichaAccionSuministro = new ClsFichaAccionSuministro();
+			$InsFichaAccionTarea = new ClsFichaAccionTarea($this->InsMysql);
+			$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
+			$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
+			$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento($this->InsMysql);
+			$InsFichaAccionSuministro = new ClsFichaAccionSuministro($this->InsMysql);
 			
-			$InsTallerPedido = new ClsTallerPedido();
-			$InsTallerPedidoDetalle = new ClsTallerPedidoDetalle();
+			$InsTallerPedido = new ClsTallerPedido($this->InsMysql);
+			$InsTallerPedidoDetalle = new ClsTallerPedidoDetalle($this->InsMysql);
 			
 			//echo "<h1>".count($ArrPreEntregaModalidades )."</h1>";
 			
@@ -1371,8 +1378,8 @@ class ClsPreEntrega {
 
 			
 											$InsPreEntregaModalidad = new ClsPreEntregaModalidad();
-											$InsFichaAccion = new ClsFichaAccion();
-											$InsFichaAccionProducto = new ClsFichaAccionProducto();
+											$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
+											$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
 											
 											$ResPreEntregaModalidad = $InsPreEntregaModalidad->MtdObtenerPreEntregaModalidades(NULL,NULL,'PemId','ASC',NULL,$this->PenId,NULL);
 											$ArrPreEntregaModalidades = $ResPreEntregaModalidad['Datos'];
@@ -1483,8 +1490,8 @@ class ClsPreEntrega {
 
 
 $InsPreEntregaModalidad = new ClsPreEntregaModalidad();
-								$InsFichaAccion = new ClsFichaAccion();
-								$InsFichaAccionProducto = new ClsFichaAccionProducto();
+								$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
+								$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
 								
 								$ResPreEntregaModalidad = $InsPreEntregaModalidad->MtdObtenerPreEntregaModalidades(NULL,NULL,'PemId','ASC',NULL,$this->PenId,NULL);
 								$ArrPreEntregaModalidades = $ResPreEntregaModalidad['Datos'];
@@ -1570,8 +1577,8 @@ $InsPreEntregaModalidad = new ClsPreEntregaModalidad();
 									if($this->PenEstado == 3){
 
 										$InsPreEntregaModalidad = new ClsPreEntregaModalidad();
-										$InsFichaAccion = new ClsFichaAccion();
-										$InsFichaAccionProducto = new ClsFichaAccionProducto();
+										$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
+										$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
 										
 										$ResPreEntregaModalidad = $InsPreEntregaModalidad->MtdObtenerPreEntregaModalidades(NULL,NULL,'PemId','ASC',NULL,$this->PenId,NULL);
 										$ArrPreEntregaModalidades = $ResPreEntregaModalidad['Datos'];
@@ -1618,7 +1625,7 @@ $InsPreEntregaModalidad = new ClsPreEntregaModalidad();
 										
 									}else{
 										
-										$InsTallerPedido = new ClsTallerPedido();
+										$InsTallerPedido = new ClsTallerPedido($this->InsMysql);
 										
 										$ResTallerPedido = $InsTallerPedido->MtdObtenerTallerPedidos(NULL,NULL,NULL,'AmoId','ASC',NULL,NULL,NULL,NULL,NULL,$this->PenId);
 										$ArrTallerPedidos = $ResTallerPedido['Datos'];				
@@ -1742,7 +1749,7 @@ $InsPreEntregaModalidad = new ClsPreEntregaModalidad();
 									
 
 									
-									$InsTallerPedido = new ClsTallerPedido();
+									$InsTallerPedido = new ClsTallerPedido($this->InsMysql);
 									
 									$ResTallerPedido = $InsTallerPedido->MtdObtenerTallerPedidos(NULL,NULL,NULL,'AmoId','ASC',NULL,NULL,NULL,NULL,NULL,$this->PenId);
 									$ArrTallerPedidos = $ResTallerPedido['Datos'];				
@@ -1837,8 +1844,8 @@ $InsPreEntregaModalidad = new ClsPreEntregaModalidad();
 									$ActualizarEstado = true;
 	
 									$InsPreEntregaModalidad = new ClsPreEntregaModalidad();
-									$InsFichaAccion = new ClsFichaAccion();
-									$InsFichaAccionProducto = new ClsFichaAccionProducto();
+									$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
+									$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
 	
 									$ResPreEntregaModalidad = $InsPreEntregaModalidad->MtdObtenerPreEntregaModalidades(NULL,NULL,'PemId','ASC',NULL,$this->PenId,NULL);
 									$ArrPreEntregaModalidades = $ResPreEntregaModalidad['Datos'];
@@ -1949,8 +1956,8 @@ $InsPreEntregaModalidad = new ClsPreEntregaModalidad();
 								if($this->PenEstado <> 71 ){
 								
 									$InsPreEntregaModalidad = new ClsPreEntregaModalidad();
-									$InsFichaAccion = new ClsFichaAccion();
-									$InsFichaAccionProducto = new ClsFichaAccionProducto();
+									$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
+									$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
 									
 									$ResPreEntregaModalidad = $InsPreEntregaModalidad->MtdObtenerPreEntregaModalidades(NULL,NULL,'PemId','ASC',NULL,$this->PenId,NULL);
 									$ArrPreEntregaModalidades = $ResPreEntregaModalidad['Datos'];
@@ -2185,7 +2192,7 @@ $InsPreEntregaModalidad = new ClsPreEntregaModalidad();
 //
 //											if(!empty($DatPreEntregaModalidad->FichaAccion->FccId)){
 //
-//												$InsFichaAccion = new ClsFichaAccion();
+//												$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 //	
 //												if(!$InsFichaAccion->MtdEliminarFichaAccion($DatPreEntregaModalidad->FichaAccion->FccId)){
 //													$error = true;
@@ -2197,7 +2204,7 @@ $InsPreEntregaModalidad = new ClsPreEntregaModalidad();
 ////											foreach($DatPreEntregaModalidad->FichaAccion as $DatFichaAccion){
 ////												deb($DatFichaAccion);
 ////												echo "<hr>";
-////												$InsFichaAccion = new ClsFichaAccion();
+////												$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 ////												//$InsFichaAccion->FccId = $DatFichaAccion->FccId;
 ////												if(!$InsFichaAccion->MtdEliminarFichaAccion($DatFichaAccion->FccId)){
 ////													$error = true;
@@ -3413,7 +3420,7 @@ public function MtdCorregirPreEntrega() {
 	
 	private function MtdAuditarPreEntrega($oAccion,$oDescripcion,$oDatos){
 		
-		$InsAuditoria = new ClsAuditoria();
+		$InsAuditoria = new ClsAuditoria($this->InsMysql);
 		$InsAuditoria->AudCodigo = $this->PenId;
 	
 		$InsAuditoria->UsuId = $this->UsuId;

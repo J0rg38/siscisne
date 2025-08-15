@@ -1,7 +1,7 @@
 <?php
 //Si se hizo click en guardar	
 
-if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){	
+if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){	
 
 	$Resultado = '';
 	$Guardar = true;
@@ -41,7 +41,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsFactura->FacIncluyeImpuesto = $_POST['CmpIncluyeImpuesto'];
 	$InsFactura->FacConcepto = addslashes($_POST['CmpConcepto']);
 	
-	$InsFactura->FacAbono = eregi_replace(",","",(empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
+	$InsFactura->FacAbono = preg_replace("/,/", "", (empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
 	
 	
 //	$InsFactura->FacTipo = $_POST['CmpTipo'];
@@ -98,9 +98,9 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsFactura->RegId = $_POST['CmpRegimenId'];	
 	$InsFactura->RegAplicacion = $_POST['CmpRegimenAplicacion'];	
 	$InsFactura->FacRegimenPorcentaje = $_POST['CmpRegimenPorcentaje'];
-	$InsFactura->FacRegimenMonto = eregi_replace(",","",$_POST['CmpRegimenMonto']);
+	$InsFactura->FacRegimenMonto = preg_replace("/,/", "", $_POST['CmpRegimenMonto']);
 
-	$InsFactura->FacTotalDescuento = eregi_replace(",","",$_POST['CmpTotalDescuento']);
+	$InsFactura->FacTotalDescuento = preg_replace("/,/", "", $_POST['CmpTotalDescuento']);
 
 	if($InsFactura->MonId<>$EmpresaMonedaId and !empty($InsFactura->FacTipoCambio)){
 		$InsFactura->FacRegimenMonto = $InsFactura->FacRegimenMonto * $InsFactura->FacTipoCambio;
@@ -370,7 +370,7 @@ Parametro17 = OvvId
 	}
 	
 //	if($InsFactura->FacTipo == "2"){
-//		$InsFactura->FacTotalBruto = eregi_replace(",","",$_POST['CmpTotal']);
+//		$InsFactura->FacTotalBruto = preg_replace("/,/", "", $_POST['CmpTotal']);
 //	}
 	
 	//if($InsFactura->FacPorcentajeDescuento>0){
@@ -607,7 +607,7 @@ Parametro17 = OvvId
 //					
 //					$InsPago->MonId = $InsFactura->MonId;
 //					$InsPago->PagTipoCambio = $InsFactura->FacTipoCambio;
-//					$InsPago->PagMonto = eregi_replace(",","",(empty($InsFactura->FacAbono)?0:$InsFactura->FacAbono));
+//					$InsPago->PagMonto = preg_replace("/,/", "", (empty($InsFactura->FacAbono)?0:$InsFactura->FacAbono));
 //
 //					$InsPago->PagObservacion = date("d/m/Y H:i:s")." - Abono Generada de Factura: ".$InsFactura->FtaNumero."-".$InsFactura->FacId;
 //					$InsPago->PagObservacion .= $InsVentaDirecta->VdiObservacion;;

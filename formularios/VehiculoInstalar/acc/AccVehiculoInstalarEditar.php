@@ -32,7 +32,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	$InsVehiculoInstalar->MonId = $_POST['CmpMonedaId'];
 	$InsVehiculoInstalar->VisTipoCambio = $_POST['CmpTipoCambio'];
-	$InsVehiculoInstalar->VisTotal = eregi_replace(",","",(empty($_POST['CmpTotal'])?0:$_POST['CmpTotal']));
+	$InsVehiculoInstalar->VisTotal = preg_replace("/,/", "", (empty($_POST['CmpTotal'])?0:$_POST['CmpTotal']));
 	
 	$InsVehiculoInstalar->VisEstado = $_POST['CmpEstado'];
 	$InsVehiculoInstalar->VisTiempoModificacion = date("Y-m-d H:i:s");

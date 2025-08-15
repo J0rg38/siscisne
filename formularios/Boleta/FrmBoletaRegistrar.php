@@ -41,21 +41,19 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 
 $Registro = false;
 
-if(!empty($_POST['Identificador'])){
-	$Identificador = $_POST['Identificador'];
-}
+$Identificador = $_POST['Identificador'] ?? '';
 
 
-$GET_ori = $_GET['Ori'];
-$GET_AmoId = $_GET['AmoId'];
-$GET_FccId = $_GET['FccId'];
-$GET_VcoId = $_GET['VcoId'];
+$GET_ori = $_GET['Ori'] ?? '';
+$GET_AmoId = $_GET['AmoId'] ?? '';
+$GET_FccId = $_GET['FccId'] ?? '';
+$GET_VcoId = $_GET['VcoId'] ?? '';
 
-$GET_OvvId = $_GET['OvvId'];
-$GET_VmvId = $_GET['VmvId'];
-$GET_PagId = $_GET['PagId'];
+$GET_OvvId = $_GET['OvvId'] ?? '';
+$GET_VmvId = $_GET['VmvId'] ?? '';
+$GET_PagId = $_GET['PagId'] ?? '';
 
-$POST_Seleccionados = $_POST['cmp_seleccionados'];
+$POST_Seleccionados = $_POST['cmp_seleccionados'] ?? '';
 
 //$GET_ori = $_GET['Ori'];
 //$POST_id = $_POST['CmpId'];
@@ -214,9 +212,9 @@ Configuracion carga de datos y animacion
 		FncBoletaPagoListar();
 		
 	<?php
-	if(!empty($_SESSION['SisBtaId']) and empty($POST_id) or !empty($POST_do)){ 
+	if(!empty($_SESSION['SisBtaId'] ?? '') and empty($POST_id) or !empty($POST_do)){ 
 	?>
-		FncGenerarBoletaId('<?php echo $_SESSION['SisBtaId'];?>');
+		FncGenerarBoletaId('<?php echo $_SESSION['SisBtaId'] ?? '';?>');
 	<?php
 	}
 	?>
@@ -453,7 +451,7 @@ if(!empty($GET_dia)){
 			  ?>
                              <option
                   
-				  <?php if(!empty($InsBoleta->BtaId)){ if($InsBoleta->BtaId==$DatBoletaTalonario->BtaId){ echo 'selected="selected"';}}elseif($_SESSION['SisBtaId']==$DatBoletaTalonario->BtaId){ 	echo 'selected="selected"';}?> value="<?php echo $DatBoletaTalonario->BtaId;?>" ><?php echo $DatBoletaTalonario->BtaNumero;?>  (<?php echo $DatBoletaTalonario->BtaDescripcion;?>)</option>
+				  <?php if(!empty($InsBoleta->BtaId)){ if($InsBoleta->BtaId==$DatBoletaTalonario->BtaId){ echo 'selected="selected"';}}elseif(($_SESSION['SisBtaId'] ?? '')==$DatBoletaTalonario->BtaId){ 	echo 'selected="selected"';}?> value="<?php echo $DatBoletaTalonario->BtaId;?>" ><?php echo $DatBoletaTalonario->BtaNumero;?>  (<?php echo $DatBoletaTalonario->BtaDescripcion;?>)</option>
                              <?php
 			  }
 			  ?>
@@ -588,6 +586,10 @@ if(!empty($InsOrdenVentaVehiculo->OrdenVentaVehiculoPropietario)){
                <td align="left" valign="top">&nbsp;</td>
                <td align="left" valign="top">Observado:</td>
                <td colspan="2" align="left" valign="top"><?php
+			// Inicializar variables para evitar warnings
+			$OpcObservado1 = '';
+			$OpcObservado2 = '';
+			
 			switch($InsBoleta->BolObservado){
 				case 1:
 					$OpcObservado1 = 'selected="selected"';
@@ -672,6 +674,10 @@ if(!empty($InsOrdenVentaVehiculo->OrdenVentaVehiculoPropietario)){
                <td>&nbsp;</td>
                <td>Cancelado:</td>
                <td><?php
+			// Inicializar variables para evitar warnings
+			$OpcCancelado1 = '';
+			$OpcCancelado2 = '';
+			
 			switch($InsBoleta->BolCancelado){
 				case 1:
 					$OpcCancelado1 = 'selected="selected"';
@@ -691,6 +697,10 @@ if(!empty($InsOrdenVentaVehiculo->OrdenVentaVehiculoPropietario)){
                <td align="left" valign="top"></td>
                <td align="left" valign="top">Obsequio:</td>
                <td colspan="2" align="left" valign="top"><?php
+			// Inicializar variables para evitar warnings
+			$OpcObsequio1 = '';
+			$OpcObsequio2 = '';
+			
 			switch($InsBoleta->BolObsequio){
 				case 1:
 					$OpcObsequio1 = 'selected="selected"';
@@ -721,6 +731,12 @@ if(!empty($InsOrdenVentaVehiculo->OrdenVentaVehiculoPropietario)){
                  <tr>                   </tr>
                </table>
                  <?php
+			// Inicializar variables de opciones de estado para evitar warnings
+			$OpcEstado1 = '';
+			$OpcEstado5 = '';
+			$OpcEstado6 = '';
+			$OpcEstado7 = '';
+			
 			switch($InsBoleta->BolEstado){
 				case 1:
 					$OpcEstado1 = 'selected="selected"';

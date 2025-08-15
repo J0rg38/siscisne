@@ -29,9 +29,15 @@ class ClsSucursal
 
 	public $InsMysql;
 
-	public function __construct()
+	public function __construct($oInsMysql=NULL)
 	{
-		$this->InsMysql = new ClsMysql();
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
 	}
 
 	public function __destruct() {}
@@ -234,7 +240,7 @@ class ClsSucursal
 
 		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
 
-		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['Total'] = $filaTotal ? $filaTotal['TOTAL'] : 0;
 		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 
 
@@ -252,6 +258,9 @@ class ClsSucursal
 	{
 
 		$elementos = explode("#", $oElementos);
+
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 
 		$i = 1;
 		foreach ($elementos as $elemento) {

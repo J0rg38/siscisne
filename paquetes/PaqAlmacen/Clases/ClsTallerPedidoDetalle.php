@@ -54,9 +54,16 @@ class ClsTallerPedidoDetalle {
 					
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -1299,7 +1306,7 @@ AND ncr.NcrMotivoCodigo<> "04"
 			//'.(empty($this->FapId)?'FapId = NULL, ':'FapId = "'.$this->FapId.'",').'
 //			if(!empty($this->FichaAccionMantenimiento)){
 //				
-//				$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento();
+//				$InsFichaAccionMantenimiento = new ClsFichaAccionMantenimiento($this->InsMysql);
 //				$InsFichaAccionMantenimiento->FaaId = $this->FichaAccionMantenimiento->FaaId;
 //				$InsFichaAccionMantenimiento->FaaVerificar2 = $this->FichaAccionMantenimiento->FaaVerificar2;
 //				$InsFichaAccionMantenimiento->FaaAccion = $this->FichaAccionMantenimiento->FaaAccion;

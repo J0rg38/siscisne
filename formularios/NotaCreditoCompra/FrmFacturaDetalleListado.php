@@ -160,18 +160,18 @@ foreach($ArrSesionObjetos as $DatSesionObjeto){
 		
 
 		
-		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = eregi_replace("SEDAN","",$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
+		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = preg_replace("/SEDAN/", "", $InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
 		
-		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = eregi_replace("HATCHBACK","",$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
+		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = preg_replace("/HATCHBACK/", "", $InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
 		
-		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = eregi_replace("GT","",$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
+		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = preg_replace("/GT/", "", $InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
 		
 		
-		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = eregi_replace("MAX","",$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
-		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = eregi_replace("MOVE","",$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
-		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = eregi_replace("CARGO","",$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
+		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = preg_replace("/MAX/", "", $InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
+		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = preg_replace("/MOVE/", "", $InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
+		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = preg_replace("/CARGO/", "", $InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
 		
-		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = eregi_replace("WORK","",$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
+		$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = preg_replace("/WORK/", "", $InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
 		
 		
 		

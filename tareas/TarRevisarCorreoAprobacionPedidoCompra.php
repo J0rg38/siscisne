@@ -112,7 +112,7 @@ $InsPedidoCompra = new ClsPedidoCompra();
 			//$mensaje = get_part($inbox, $email_number, "TEXT/PLAIN"); 
 			//$mensaje_original = $mensaje;
 			//$mensaje = strtoupper($mensaje);
-			//$mensaje = eregi_replace(" ","",$mensaje);
+			//$mensaje = preg_replace("/ /", "", $mensaje);
 		
 			echo "<h1>CORREO ".$count."</h1>";
 			echo "<br>";

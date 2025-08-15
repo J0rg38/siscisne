@@ -38,11 +38,46 @@ class ClsBoletaDetalle {
 	public $BolTipoCambio;
 	public $BolIncluyeImpuesto;
 	
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $BdeCodigo;
+	public $BdeValorVenta;
+	public $BdeImpuesto;
+	public $BdeImpuestoSelectivo;
+	public $BdeDescuento;
+	public $BdeGratuito;
+	public $BdeExonerado;
+	public $BdeValorVentaUnitario;
+	public $BdeValorVentaBruto;
+	public $BdePorcentajeDescuento;
+	public $BdeUnidadMedidaCodigo;
+	public $VcdReingreso;
+	public $AmdCompraOrigen;
+	public $VmdId;
+	public $VddId;
+	public $UmeId;
+	public $BdeTiempoCreacionFormateado;
+	public $BdeTiempoModificacionFormateado;
+	public $BolFechaEmisionFormateada;
+	public $BtaNumero;
+	public $BdeEstadoDescripcion;
+	public $BdeEstadoIcono;
+	
+	// Propiedades adicionales para evitar warnings
+	public $FatId;
+	public $BdeIncluyeSelectivo;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -70,6 +105,15 @@ class ClsBoletaDetalle {
 		
 
     public function MtdObtenerBoletaDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'BdeId',$oSentido = 'Desc',$oPaginacion = '0,10',$oBoleta=NULL,$oTalonario=NULL,$oAlmacenMovimientoDetalleId=NULL,$oBoletaEstado=NULL,$oVentaDirectaDetalleId=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$boleta = '';
+		$amdetalle = '';
+		$bestado = '';
+		$vddetale = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -262,8 +306,11 @@ class ClsBoletaDetalle {
 	public function MtdEliminarBoletaDetalle($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
-
-			$i=1;
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
+		
+		$i=1;
 			foreach($elementos as $elemento){
 				if(!empty($elemento)){
 				

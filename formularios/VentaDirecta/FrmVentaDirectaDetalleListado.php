@@ -36,8 +36,8 @@ $POST_TipoCambio = $_POST['TipoCambio'];
 $POST_IncluyeImpuesto = $_POST['IncluyeImpuesto'];
 $POST_VerEstado = $_POST['VerEstado'];
 $POST_Confirmar = $_POST['Confirmar'];
-$POST_PorcentajeDescuento = eregi_replace(",","",$_POST['PorcentajeDescuento']);
-$POST_ManoObra = eregi_replace(",","",$_POST['ManoObra']);
+$POST_PorcentajeDescuento = preg_replace("/,/", "", $_POST['PorcentajeDescuento']);
+$POST_ManoObra = preg_replace("/,/", "", $_POST['ManoObra']);
 $POST_AlmacenId = $_POST['AlmacenId'];
 
 session_start();

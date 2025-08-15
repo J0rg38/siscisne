@@ -68,21 +68,22 @@ include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccProductoEditar.php');
 $RepProductoTipo = $InsProductoTipo->MtdObtenerProductoTipos(NULL,NULL,'RtiNombre',"ASC",NULL);
 $ArrProductoTipos = $RepProductoTipo['Datos'];
 
-$RepVehiculoMarca = $InsVehiculoMarca->MtdObtenerVehiculoMarcas(NULL,NULL,"VmaOrden","ASC",NULL);
-$ArrVehiculoMarcas = $RepVehiculoMarca['Datos'];
-
-
-//MtdObtenerProductoCategorias($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PcaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL) 
-$RepProductoCategoria = $InsProductoCategoria->MtdObtenerProductoCategorias(NULL,NULL,"PcaNombre","ASC",NULL,NULL);
-$ArrProductoCategorias = $RepProductoCategoria['Datos'];
-
-
-//MtdObtenerClienteTipos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'LtiId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVehiculoMarca=NULL,$oEstado=NULL
-$RepClienteTipo = $InsClienteTipo->MtdObtenerClienteTipos(NULL,NULL,NULL,'VmaNombre,LtiNombre',"ASC",NULL,NULL,2);
-$ArrClienteTipos = $RepClienteTipo['Datos'];
-
 $RepVehiculoMarca = $InsVehiculoMarca->MtdObtenerVehiculoMarcas(NULL,NULL,"VmaNombre","ASC",NULL,NULL,NULL);
 $ArrVehiculoMarcas = $RepVehiculoMarca['Datos'];
+
+// Inicializar variables de opciones para evitar warnings
+$OpcValidarStock1 = '';
+$OpcValidarStock2 = '';
+$critico1 = '';
+$critico2 = '';
+$descontinuado1 = '';
+$descontinuado2 = '';
+$OpcEstado1 = '';
+$OpcEstado2 = '';
+$OpCalcularPrecio1 = '';
+$OpcCalcularPrecio2 = '';
+$OpcTienePromocion1 = '';
+$OpcTienePromocion2 = '';
 
 ?>
 

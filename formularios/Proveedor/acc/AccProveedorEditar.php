@@ -40,8 +40,8 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsProveedor->MonId = $_POST['CmpMonedaId'];
 	$InsProveedor->PrvTipoCambioFecha = FncCambiaFechaAMysql($_POST['CmpTipoCambioFecha'],true);
 	$InsProveedor->PrvTipoCambio = $_POST['CmpTipoCambio'];
-	$InsProveedor->PrvLineaCredito = eregi_replace(",","",(empty($_POST['CmpLineaCredito'])?0:$_POST['CmpLineaCredito']));
-	$InsProveedor->PrvLineaCreditoActual = eregi_replace(",","",(empty($_POST['CmpLineaCreditoActual'])?0:$_POST['CmpLineaCreditoActual']));
+	$InsProveedor->PrvLineaCredito = preg_replace("/,/", "", (empty($_POST['CmpLineaCredito'])?0:$_POST['CmpLineaCredito']));
+	$InsProveedor->PrvLineaCreditoActual = preg_replace("/,/", "", (empty($_POST['CmpLineaCreditoActual'])?0:$_POST['CmpLineaCreditoActual']));
 
 	$InsProveedor->PrvEstado = $_POST['CmpEstado'];
 	$InsProveedor->PrvTiempoModificacion = date("Y-m-d H:i:s");

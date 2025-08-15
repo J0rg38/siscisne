@@ -22,7 +22,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsDesembolso->DesNumeroCheque = ($_POST['CmpNumeroCheque']);
 
 	$InsDesembolso->DesTipoCambio = ($_POST['CmpTipoCambio']);
-	$InsDesembolso->DesMonto = eregi_replace(",","",(empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
+	$InsDesembolso->DesMonto = preg_replace("/,/", "", (empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
 	
 	$InsDesembolso->DesTipoDestino = ($_POST['CmpTipoDestino']);	
 	$InsDesembolso->DesEstado = $_POST['CmpEstado'];

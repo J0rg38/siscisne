@@ -60,8 +60,8 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 		
 	$InsProducto->ProCalcularPrecio = (empty($_POST['CmpCalcularPrecio'])?2:$_POST['CmpCalcularPrecio']);
 	$InsProducto->ProTienePromocion = (empty($_POST['CmpTienePromocion'])?2:$_POST['CmpTienePromocion']);
-	$InsProducto->ProPorcentajeAdicional = eregi_replace(",","",(empty($_POST['CmpPorcentajeAdicional'])?0:$_POST['CmpPorcentajeAdicional']));
-	$InsProducto->ProPorcentajeDescuento = eregi_replace(",","",(empty($_POST['CmpPorcentajeDescuento'])?0:$_POST['CmpPorcentajeDescuento']));
+	$InsProducto->ProPorcentajeAdicional = preg_replace("/,/", "", (empty($_POST['CmpPorcentajeAdicional'])?0:$_POST['CmpPorcentajeAdicional']));
+	$InsProducto->ProPorcentajeDescuento = preg_replace("/,/", "", (empty($_POST['CmpPorcentajeDescuento'])?0:$_POST['CmpPorcentajeDescuento']));
 	$InsProducto->ProEstado = $_POST['CmpEstado'];	
 
 	$InsProducto->ProTiempoModificacion = date("Y-m-d H:i:s");

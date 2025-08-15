@@ -23,7 +23,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsBoleta->MonId = $_POST['CmpMonedaId'];
 	$InsBoleta->BolTipoCambio = $_POST['CmpTipoCambio'];
 	
-	$InsBoleta->BolAbono = eregi_replace(",","",(empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
+	$InsBoleta->BolAbono = preg_replace("/,/", "", (empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
 	
 	$InsBoleta->BolObsequio = $_POST['CmpObsequio'];
 	$InsBoleta->BolEstado = $_POST['CmpEstado'];			
@@ -68,7 +68,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsBoleta->RegId = $_POST['CmpRegimenId'];	
 	$InsBoleta->RegAplicacion = $_POST['CmpRegimenAplicacion'];	
 	$InsBoleta->BolRegimenPorcentaje = $_POST['CmpRegimenPorcentaje'];
-	$InsBoleta->BolRegimenMonto = eregi_replace(",","",$_POST['CmpRegimenMonto']);
+	$InsBoleta->BolRegimenMonto = preg_replace("/,/", "", $_POST['CmpRegimenMonto']);
 	
 	if($InsBoleta->MonId<>$EmpresaMonedaId and !empty($InsBoleta->BolTipoCambio)){
 		$InsBoleta->BolRegimenMonto = $InsBoleta->BolRegimenMonto * $InsBoleta->BolTipoCambio;

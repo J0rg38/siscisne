@@ -32,13 +32,34 @@ class ClsTrasladoVehiculo {
 	public $TveTiempoModificacion;
     public $TveEliminado;
 
-	
+	// Propiedades adicionales para evitar warnings
+	public $PerId;
+	public $CliId;
+	public $PrvId;
+	public $CtiId;
+	public $TopId;
+	public $MonId;
+	public $TveTipoCambio;
+	public $TveIncluyeImpuesto;
+	public $TvePorcentajeImpuestoVenta;
+	public $TveFechaLlegada;
+	public $TveObservacionInterna;
+	public $SucNombreDestino;
+	public $PerNombre;
+	public $PerApellidoPaterno;
 	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -1147,7 +1168,7 @@ $this->PerNombre = $fila['PerNombre'];
 
 		private function MtdAuditarTrasladoVehiculo($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->TveId;
 
 			$InsAuditoria->UsuId = $this->UsuId;

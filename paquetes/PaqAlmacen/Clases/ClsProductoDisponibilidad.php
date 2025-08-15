@@ -24,9 +24,16 @@ class ClsProductoDisponibilidad {
 		
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -94,6 +101,13 @@ class ClsProductoDisponibilidad {
     }
 
 	public function MtdObtenerProductoDisponibilidades($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PdiId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oDisponible=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$disponible = '';
+		$estado = '';
+		$orden = '';
+		$paginacion = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
@@ -254,6 +268,9 @@ class ClsProductoDisponibilidad {
 	//Accion eliminar	 
 	
 	public function MtdEliminarProductoDisponibilidad($oElementos) {
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 		

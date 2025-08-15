@@ -46,7 +46,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsFacturaExportacion->RegId = $_POST['CmpRegimenId'];	
 	$InsFacturaExportacion->RegAplicacion = $_POST['CmpRegimenAplicacion'];	
 	$InsFacturaExportacion->FexRegimenPorcentaje = $_POST['CmpRegimenPorcentaje'];
-	$InsFacturaExportacion->FexRegimenMonto = eregi_replace(",","",$_POST['CmpRegimenMonto']);
+	$InsFacturaExportacion->FexRegimenMonto = preg_replace("/,/", "", $_POST['CmpRegimenMonto']);
 	
 	if($InsFacturaExportacion->MonId<>$EmpresaMonedaId and !empty($InsFacturaExportacion->FexTipoCambio)){
 		$InsFacturaExportacion->FexRegimenMonto = $InsFacturaExportacion->FexRegimenMonto * $InsFacturaExportacion->FexTipoCambio;

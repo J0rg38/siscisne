@@ -1,4 +1,9 @@
 <?php
+// Verificar que las variables de sesiÃ³n estÃ©n disponibles
+if (!isset($_SESSION['SesionRol']) || !isset($_SESSION['SesionId'])) {
+    die('Error: SesiÃ³n no vÃ¡lida. Por favor, inicie sesiÃ³n nuevamente.');
+}
+
 if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 ?>   
 
@@ -78,12 +83,12 @@ if(!empty($_POST['Identificador'])){
 	$Identificador = $_POST['Identificador'];
 }
 
-$GET_FinId = $_GET['FinId'];
-$GET_EinId = $_GET['EinId'];
-$GET_Origen = $_GET['Origen'];
+$GET_FinId = $_GET['FinId'] ?? '';
+$GET_EinId = $_GET['EinId'] ?? '';
+$GET_Origen = $_GET['Origen'] ?? '';
 
-$GET_CprId = $_GET['CprId'];
-$GET_ProId = $_GET['ProId'];
+$GET_CprId = $_GET['CprId'] ?? '';
+$GET_ProId = $_GET['ProId'] ?? '';
 
 include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjCotizacionProducto.php');
 include($InsProyecto->MtdFormulariosMsj('Cliente').'MsjCliente.php');
@@ -199,7 +204,7 @@ $RepClienteTipo = $InsClienteTipo->MtdObtenerClienteTipos(NULL,NULL,NULL,'VmaNom
 $ArrClienteTipos = $RepClienteTipo['Datos'];
 
 //MtdObtenerPersonales($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PerId',$oSentido = 'Desc',$oPaginacion = '0,10',$oPersonalTipo=NULL,$oEstado=NULL,$oFechaNacimientoRango=NULL,$oTaller=NULL,$oRecepcion=NULL,$oVenta=NULL,$oArea=NULL,$oSucursal=NULL,$oAlmacen=NULL) {
-$ResPersonal = $InsPersonal->MtdObtenerPersonales(NULL,NULL,NULL,"PerNombre","ASC",NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,$_SESSION['SesionSucursal'],1,NULL,true);
+$ResPersonal = $InsPersonal->MtdObtenerPersonales(NULL,NULL,NULL,"PerNombre","ASC",NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,($_SESSION['SesionSucursal'] ?? ''),1,NULL,true);
 $ArrPersonales = $ResPersonal['Datos'];
 
 
@@ -229,7 +234,7 @@ $(document).ready(function (){
 
 	FncCotizacionProductoFotoListar('A');
 
-/*	dhtmlx.confirm("¿Es una cotizacion de mantenimiento?. Se recargara "+EmpresaMantenimientoPorcentajeManoObra+" %", function(result){
+/*	dhtmlx.confirm("ï¿½Es una cotizacion de mantenimiento?. Se recargara "+EmpresaMantenimientoPorcentajeManoObra+" %", function(result){
 		if(result==false){
 			$("#CmpPorcentajeManoObra").val("0");
 		}else{
@@ -382,6 +387,12 @@ if(!empty($GET_dia)){
                       <td>&nbsp;</td>
                       <td align="left" valign="top">Nivel de Interes:</td>
                       <td align="left" valign="top"><?php
+					// Inicializar variables para evitar warnings
+					$OpcNivelInteres1 = '';
+					$OpcNivelInteres2 = '';
+					$OpcNivelInteres3 = '';
+					$OpcNivelInteres4 = '';
+					
 					switch($InsCotizacionProducto->CprNivelInteres){
 						case 1:
 							$OpcNivelInteres1 = 'selected = "selected"';
@@ -1343,7 +1354,7 @@ Lista de Precios de Proveedor </td>
 				doneStr:"Hecho",
 				multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
 				extErrorStr:"Extension de archivo no permitido",
-				sizeErrorStr:"Tamaño no permitido",
+				sizeErrorStr:"Tamaï¿½o no permitido",
 				uploadErrorStr:"No se pudo subir el archivo",
 				
 				dragdropWidth: 500,
@@ -1450,7 +1461,7 @@ Lista de Precios de Proveedor </td>
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 <?php

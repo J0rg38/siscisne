@@ -33,9 +33,9 @@ $POST_MonedaId = $_POST['MonedaId'];
 $POST_TipoCambio = $_POST['TipoCambio'];
 $POST_Editar = $_POST['Editar'];
 $POST_Eliminar = $_POST['Eliminar'];
-$POST_ManoObra = eregi_replace(",","",$_POST['ManoObra']);
+$POST_ManoObra = preg_replace("/,/", "", $_POST['ManoObra']);
 $POST_IncluyeImpuesto = $_POST['IncluyeImpuesto'];
-$POST_PorcentajeDescuento = eregi_replace(",","",$_POST['DescuentoPorcentaje']);
+$POST_PorcentajeDescuento = preg_replace("/,/", "", $_POST['DescuentoPorcentaje']);
 
 
 session_start();

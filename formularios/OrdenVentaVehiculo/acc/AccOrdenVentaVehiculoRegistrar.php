@@ -1,6 +1,6 @@
 <?php
 //Si se hizo click en guardar			
-if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){	
+if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){	
 	
 	$Guardar = true;
 	$Resultado = '';
@@ -85,22 +85,22 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	$InsOrdenVentaVehiculo->OvvTotalBruto = 0;
 	
-	$InsOrdenVentaVehiculo->OvvPrecio = eregi_replace(",","",$_POST['CmpPrecio']);
-	$InsOrdenVentaVehiculo->OvvDescuento = eregi_replace(",","",$_POST['CmpDescuento']);
+	$InsOrdenVentaVehiculo->OvvPrecio = preg_replace("/,/", "", $_POST['CmpPrecio']);
+	$InsOrdenVentaVehiculo->OvvDescuento = preg_replace("/,/", "", $_POST['CmpDescuento']);
 	$InsOrdenVentaVehiculo->OvvDescuento = (empty($InsOrdenVentaVehiculo->OvvDescuento)?0:$InsOrdenVentaVehiculo->OvvDescuento);
 	
-	$InsOrdenVentaVehiculo->OvvBonoGM = eregi_replace(",","",$_POST['CmpBonoGM']);
-	$InsOrdenVentaVehiculo->OvvBonoDealer = eregi_replace(",","",$_POST['CmpBonoDealer']);
-	$InsOrdenVentaVehiculo->OvvDescuentoGerencia = eregi_replace(",","",$_POST['CmpDescuentoGerencia']);
+	$InsOrdenVentaVehiculo->OvvBonoGM = preg_replace("/,/", "", $_POST['CmpBonoGM']);
+	$InsOrdenVentaVehiculo->OvvBonoDealer = preg_replace("/,/", "", $_POST['CmpBonoDealer']);
+	$InsOrdenVentaVehiculo->OvvDescuentoGerencia = preg_replace("/,/", "", $_POST['CmpDescuentoGerencia']);
 	$InsOrdenVentaVehiculo->OvvDescuentoGerencia = (empty($InsOrdenVentaVehiculo->OvvDescuentoGerencia)?0:$InsOrdenVentaVehiculo->OvvDescuentoGerencia);
 	
-//	$InsOrdenVentaVehiculo->OvvTotal = eregi_replace(",","",$_POST['CmpTotal']);
+//	$InsOrdenVentaVehiculo->OvvTotal = preg_replace("/,/", "", $_POST['CmpTotal']);
 //	
 //	$InsOrdenVentaVehiculo->OvvImpuesto = round($InsOrdenVentaVehiculo->OvvTotal * ($InsOrdenVentaVehiculo->OvvPorcentajeImpuestoVenta/100),3);
 //	$InsOrdenVentaVehiculo->OvvSubTotal = round($InsOrdenVentaVehiculo->OvvTotal - $InsOrdenVentaVehiculo->OvvImpuesto,3);
 //	
 	
-		$InsOrdenVentaVehiculo->OvvTotal = eregi_replace(",","",$_POST['CmpTotal']);
+		$InsOrdenVentaVehiculo->OvvTotal = preg_replace("/,/", "", $_POST['CmpTotal']);
 	$InsOrdenVentaVehiculo->OvvTotal = round($InsOrdenVentaVehiculo->OvvTotal,6);
 	
 
@@ -112,7 +112,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	
 
-	$InsOrdenVentaVehiculo->CveTotal = eregi_replace(",","",$_POST['CmpCotizacionVehiculoTotal']);
+	$InsOrdenVentaVehiculo->CveTotal = preg_replace("/,/", "", $_POST['CmpCotizacionVehiculoTotal']);
 	
 	$InsOrdenVentaVehiculo->EinVIN = $_POST['CmpVehiculoIngresoVIN'];
 	

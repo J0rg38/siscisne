@@ -20,7 +20,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsCampana->CamArchivo3 = utf8_encode($_SESSION['CampanaArchivo3'.$Identificador]);
 
 	$InsCampana->CamOperacionCodigo = $_POST['CmpOperacionCodigo'];
-	$InsCampana->CamOperacionTiempo = eregi_replace(",","",(empty($_POST['CmpOperacionTiempo'])?0:$_POST['CmpOperacionTiempo']));
+	$InsCampana->CamOperacionTiempo = preg_replace("/,/", "", (empty($_POST['CmpOperacionTiempo'])?0:$_POST['CmpOperacionTiempo']));
 	
 	$InsCampana->CamBoletinCodigo = $_POST['CmpBoletinCodigo'];
 	$InsCampana->CamBoletin =utf8_encode( $_SESSION['CampanaBoletin'.$Identificador]);

@@ -20,8 +20,8 @@ if(isset($_POST['BtnEnviarCorreo_x']) or $_POST['Guardar']=="1"){
 	//$InsVentaConcretada->VcoTipoCambio = NULL;
 
 	$InsVentaConcretada->VcoObservacion = addslashes($_POST['CmpObservacion']);
-	$InsVentaConcretada->VcoDescuento = eregi_replace(",","",$_POST['CmpDescuento']);
-	$InsVentaConcretada->VcoManoObra = eregi_replace(",","",$_POST['CmpManoObra']);
+	$InsVentaConcretada->VcoDescuento = preg_replace("/,/", "", $_POST['CmpDescuento']);
+	$InsVentaConcretada->VcoManoObra = preg_replace("/,/", "", $_POST['CmpManoObra']);
 	
 	if($InsVentaConcretada->MonId<>$EmpresaMonedaId ){
 		$InsVentaConcretada->VcoDescuento = $InsVentaConcretada->VcoDescuento * $InsVentaConcretada->VcoTipoCambio;
@@ -75,7 +75,7 @@ if(isset($_POST['BtnEnviarCorreo_x']) or $_POST['Guardar']=="1"){
 	$InsVentaConcretada->VcoImpuesto = 0;
 	$InsVentaConcretada->VcoTotal = 0;
 
-	$Destinatario = eregi_replace(" ","",$_POST['CmpDestinatario']);
+	$Destinatario = preg_replace("/ /", "", $_POST['CmpDestinatario']);
 	
 	if(!empty($Destinatario)){
 		

@@ -335,10 +335,10 @@ $OrdenCompraNumero = "";
 							if($columna == 3){
 								
 								$Factura = trim(( (!empty($r[$columna])) ? $r[$columna] : '' ));								
-								$Factura = eregi_replace("FT","",$Factura);
-								$Factura = eregi_replace("F","",$Factura);
-								$Factura = eregi_replace("T","",$Factura);
-								$Factura = eregi_replace(" ","",$Factura);
+								$Factura = preg_replace("/FT/", "", $Factura);
+								$Factura = preg_replace("/F/", "", $Factura);
+								$Factura = preg_replace("/T/", "", $Factura);
+								$Factura = preg_replace("/ /", "", $Factura);
 								
 								list($FacturaTalonario,$FacturaNumero) = explode("-",$Factura);;
 								
@@ -409,7 +409,7 @@ Tareas realizdas:
 								
 								$InsPago->MonId = $POST_MonedaId;
 								$InsPago->PagTipoCambio = $InsFactura->FacTipoCambio;
-								$InsPago->PagMonto = eregi_replace(",","",(empty($Monto)?0:$Monto));
+								$InsPago->PagMonto = preg_replace("/,/", "", (empty($Monto)?0:$Monto));
 								$InsPago->PagObservacion = "Pago importado de excel ".date("d/m/Y H:i:s");
 								
 								$InsPago->PagTipo = "FAC";		

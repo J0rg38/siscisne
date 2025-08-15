@@ -36,7 +36,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsGasto->NpaId = $_POST['CmpCondicionPago'];
 	$InsGasto->GasCantidadDia = isset($_POST['CmpCantidadDia'])?$_POST['CmpCantidadDia']:0;
 	
-	$InsGasto->GasTotal = eregi_replace(",","",(empty($_POST['CmpTotal'])?0:$_POST['CmpTotal']));
+	$InsGasto->GasTotal = preg_replace("/,/", "", (empty($_POST['CmpTotal'])?0:$_POST['CmpTotal']));
 	
 	$InsGasto->GasEstado = $_POST['CmpEstado'];
 	$InsGasto->GasTiempoModificacion = date("Y-m-d H:i:s");

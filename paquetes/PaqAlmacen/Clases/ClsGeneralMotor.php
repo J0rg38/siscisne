@@ -12,12 +12,34 @@
 
 class ClsGeneralMotor {
 
+	// Propiedades adicionales para evitar warnings
+	public $GmoId;
+	public $VveId;
+	public $GmoNombre;
+	public $GmoColor;
+	public $GmoEspecificacion;
+	public $GmoInformacion;
+	public $GmoFoto;
+	public $GmoEstado;
+	public $GmoTiempoCreacion;
+	public $GmoTiempoModificacion;
+	public $VmoId;
+	public $PdiId;
+	public $PreId;
+	public $Pos;
     
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 

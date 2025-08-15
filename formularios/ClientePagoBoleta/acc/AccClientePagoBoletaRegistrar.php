@@ -21,7 +21,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 
 	$InsClientePago->CpaTipoCambio = $_POST['CmpTipoCambio'];
 	
-	$InsClientePago->CpaMonto = eregi_replace(",","",(empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
+	$InsClientePago->CpaMonto = preg_replace("/,/", "", (empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
 	
 	$InsClientePago->CpaObservacion = $_POST['CmpObservacion'];
 	

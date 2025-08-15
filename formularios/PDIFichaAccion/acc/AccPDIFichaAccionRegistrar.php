@@ -766,7 +766,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 															$InsFichaAccionProducto1->FapVerificar1 = $InsFichaAccionMantenimiento1->FaaVerificar1;
 															$InsFichaAccionProducto1->FapVerificar2 = $InsFichaAccionMantenimiento1->FaaVerificar2;
 								
-															$InsFichaAccionProducto1->FapCantidad = eregi_replace(",","",$_POST['Cmp'.$DatSesionObjeto->Parametro3.'ProductoCantidad']);
+															$InsFichaAccionProducto1->FapCantidad = preg_replace("/,/", "", $_POST['Cmp'.$DatSesionObjeto->Parametro3.'ProductoCantidad']);
 															$InsFichaAccionProducto1->UmeId = $_POST['Cmp'.$DatSesionObjeto->Parametro3.'ProductoUnidadMedidaConvertir'];	
 															
 															$InsFichaAccionProducto1->FaaId = $InsFichaAccionMantenimiento1->FaaId;
@@ -913,7 +913,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 															$InsFichaAccionProducto1->FapVerificar1 = $InsFichaAccionMantenimiento1->FaaVerificar1;
 															$InsFichaAccionProducto1->FapVerificar2 = $InsFichaAccionMantenimiento1->FaaVerificar2;
 								
-															$InsFichaAccionProducto1->FapCantidad = eregi_replace(",","",$_POST['Cmp'.$DatSesionObjeto->Parametro3.'ProductoCantidad']);
+															$InsFichaAccionProducto1->FapCantidad = preg_replace("/,/", "", $_POST['Cmp'.$DatSesionObjeto->Parametro3.'ProductoCantidad']);
 															$InsFichaAccionProducto1->UmeId = $_POST['Cmp'.$DatSesionObjeto->Parametro3.'ProductoUnidadMedidaConvertir'];	
 															
 															$InsFichaAccionProducto1->FaaId = $InsFichaAccionMantenimiento1->FaaId;

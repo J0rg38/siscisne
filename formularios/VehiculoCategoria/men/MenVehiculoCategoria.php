@@ -18,9 +18,9 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Listado") and empty
 
 
 <?php
-if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],eregi_replace("Categoria","",$GET_mod),"Listado")){
+if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],preg_replace("/Categoria/", "", $GET_mod),"Listado")){
 ?> 
-<div class="EstSubMenuBoton"><a href="principal.php?Mod=<?php echo eregi_replace("Categoria","",$GET_mod);?>&Form=Listado"><img src="imagenes/iconos/elementos.png" alt="[Elementos]" title="Ir a formulario de elementos de categorias"  />Elementos</a></div>
+<div class="EstSubMenuBoton"><a href="principal.php?Mod=<?php echo preg_replace("/Categoria/", "", $GET_mod);?>&Form=Listado"><img src="imagenes/iconos/elementos.png" alt="[Elementos]" title="Ir a formulario de elementos de categorias"  />Elementos</a></div>
 
 <?php
 }

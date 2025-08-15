@@ -10,49 +10,62 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsPersonalTipo {
+class ClsPersonalTipo
+{
 
-    public $PtiId;
-    public $PtiNombre;
+	public $PtiId;
+	public $PtiNombre;
 	public $PtiDescripcion;
 	public $PtiEstado;
-    public $PtiTiempoCreacion;
-    public $PtiTiempoModificacion;
-    public $PtiEliminado;
-    public $InsMysql;
+	public $PtiTiempoCreacion;
+	public $PtiTiempoModificacion;
+	public $PtiEliminado;
+	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
-	
-	public function __destruct(){
+	// Propiedades adicionales para evitar warnings
+	public $PtiEstadoDescripcion;
+	public $PtiEstadoIcono;
+	public $PtiTiempoCreacionFormateado;
+	public $PtiTiempoModificacionFormateado;
+	public $PtiNombreFormateado;
+	public $PtiDescripcionFormateada;
+
+	public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
 
 	}
-	
-	
-	public function MtdGenerarPersonalTipoId() {
-			
-			$sql = 'SELECT	
+
+	public function __destruct() {}
+
+
+	public function MtdGenerarPersonalTipoId()
+	{
+
+		$sql = 'SELECT	
 			MAX(CONVERT(SUBSTR(PtiId,5),unsigned)) AS "MAXIMO"
 			FROM tblptipersonaltipo';
-			
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			if(empty($fila['MAXIMO'])){			
-				$this->PtiId = "PTI-10000";
 
-			}else{
-				$fila['MAXIMO']++;
-				$this->PtiId = "PTI-".$fila['MAXIMO'];					
-			}	
-			
-				
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
+			$this->PtiId = "PTI-10000";
+		} else {
+			$fila['MAXIMO']++;
+			$this->PtiId = "PTI-" . $fila['MAXIMO'];
 		}
-		
-    public function MtdObtenerPersonalTipo(){
+	}
 
-        $sql = 'SELECT 
+	public function MtdObtenerPersonalTipo()
+	{
+
+		$sql = 'SELECT 
         PtiId,
         PtiNombre,
 		PtiDescripcion,
@@ -60,35 +73,32 @@ class ClsPersonalTipo {
 		DATE_FORMAT(PtiTiempoCreacion, "%d/%m/%Y %H:%i:%s") AS "NPtiTiempoCreacion",
         DATE_FORMAT(PtiTiempoModificacion, "%d/%m/%Y %H:%i:%s") AS "NPtiTiempoModificacion"
         FROM tblptipersonaltipo
-        WHERE PtiId = "'.$this->PtiId.'";';
-		
-        $resultado = $this->InsMysql->MtdConsultar($sql);
-		
-		if($this->InsMysql->MtdObtenerDatosTotal($resultado)>0){
-		
-        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
-        {
-			$this->PtiId = $fila['PtiId'];
-			$this->PtiNombre = $fila['PtiNombre'];
-			$this->PtiDescripcion = $fila['PtiDescripcion'];
-			$this->PtiEstado = $fila['PtiEstado'];
-			$this->PtiTiempoCreacion = $fila['NPtiTiempoCreacion'];
-			$this->PtiTiempoModificacion = $fila['NPtiTiempoModificacion']; 
-			
-		}
-        
+        WHERE PtiId = "' . $this->PtiId . '";';
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+
+		if ($this->InsMysql->MtdObtenerDatosTotal($resultado) > 0) {
+
+			while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+				$this->PtiId = $fila['PtiId'];
+				$this->PtiNombre = $fila['PtiNombre'];
+				$this->PtiDescripcion = $fila['PtiDescripcion'];
+				$this->PtiEstado = $fila['PtiEstado'];
+				$this->PtiTiempoCreacion = $fila['NPtiTiempoCreacion'];
+				$this->PtiTiempoModificacion = $fila['NPtiTiempoModificacion'];
+			}
+
 			$Respuesta =  $this;
-			
-		}else{
+		} else {
 			$Respuesta =   NULL;
 		}
-		
-        
+
+
 		return $Respuesta;
+	}
 
-    }
-
-    public function MtdObtenerPersonalTipos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PtiId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL) {
+	public function MtdObtenerPersonalTipos($oCampo = NULL, $oFiltro = NULL, $oOrden = 'PtiId', $oSentido = 'Desc', $oPaginacion = '0,10', $oEstado = NULL)
+	{
 
 		// Inicializar variables de filtro para evitar warnings
 		$filtrar = '';
@@ -96,24 +106,24 @@ class ClsPersonalTipo {
 		$orden = '';
 		$paginacion = '';
 
-		if(!empty($oCampo) && !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
+		if (!empty($oCampo) && !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$filtrar = ' AND ' . ($oCampo) . ' LIKE "%' . ($oFiltro) . '%"';
 		}
 
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oEstado)){
-			$estado = ' pti.PtiEstado = '.($oEstado);
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
 
-			$sql = 'SELECT
+		if (!empty($oEstado)) {
+			$estado = ' pti.PtiEstado = ' . ($oEstado);
+		}
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				pti.PtiId,
 				pti.PtiNombre,
@@ -122,82 +132,85 @@ class ClsPersonalTipo {
 				DATE_FORMAT(pti.PtiTiempoCreacion, "%d/%m/%Y %H:%i:%s") AS "NPtiTiempoCreacion",
                 DATE_FORMAT(pti.PtiTiempoModificacion, "%d/%m/%Y %H:%i:%s") AS "NPtiTiempoModificacion"				
 				FROM tblptipersonaltipo pti
-				WHERE 1 = 1 '.$filtrar.$estado.$orden.$paginacion;
-											
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+				WHERE 1 = 1 ' . $filtrar . $estado . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsPersonalTipo = get_class($this);
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-					$PersonalTipo = new $InsPersonalTipo();
-                    $PersonalTipo->PtiId = $fila['PtiId'];
-					$PersonalTipo->PtiNombre= $fila['PtiNombre'];
-					$PersonalTipo->PtiDescripcion= $fila['PtiDescripcion'];
-					$PersonalTipo->PtiEstado= $fila['PtiEstado'];
-                    $PersonalTipo->PtiTiempoCreacion = $fila['NPtiTiempoCreacion'];
-                    $PersonalTipo->PtiTiempoModificacion = $fila['NPtiTiempoModificacion'];                    
-                    $PersonalTipo->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $PersonalTipo;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		$Respuesta['Datos'] = array();
+
+		$InsPersonalTipo = get_class($this);
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+			$PersonalTipo = new $InsPersonalTipo();
+			$PersonalTipo->PtiId = $fila['PtiId'];
+			$PersonalTipo->PtiNombre = $fila['PtiNombre'];
+			$PersonalTipo->PtiDescripcion = $fila['PtiDescripcion'];
+			$PersonalTipo->PtiEstado = $fila['PtiEstado'];
+			$PersonalTipo->PtiTiempoCreacion = $fila['NPtiTiempoCreacion'];
+			$PersonalTipo->PtiTiempoModificacion = $fila['NPtiTiempoModificacion'];
+			$PersonalTipo->InsMysql = NULL;
+			$Respuesta['Datos'][] = $PersonalTipo;
 		}
-				
-		
 
-	
-	//Accion eliminar	 
-	
-	public function MtdEliminarPersonalTipo($oElementos) {
-		
-		$elementos = explode("#",$oElementos);
-		
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
 
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){
-				
-					if($i==count($elementos)){						
-						$eliminar .= '  (PtiId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (PtiId = "'.($elemento).'")  OR';	
-					}	
-				}
-			$i++;
-	
-			}
+		$Respuesta['Total'] = $filaTotal ? $filaTotal['TOTAL'] : 0;
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 
-		
-			$sql = 'DELETE FROM tblptipersonaltipo WHERE '.$eliminar;
-
-			$error = false;
-
-			$resultado = $this->InsMysql->MtdEjecutar($sql,true);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+		return $Respuesta;
 	}
-	
-	
-	public function MtdRegistrarPersonalTipo() {
-	
-			$this->MtdGenerarPersonalTipoId();
-		
-			$sql = 'INSERT INTO tblptipersonaltipo (
+
+
+
+
+	//Accion eliminar	 
+
+	public function MtdEliminarPersonalTipo($oElementos)
+	{
+
+		$elementos = explode("#", $oElementos);
+
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+
+				if ($i == count($elementos)) {
+					$eliminar .= '  (PtiId = "' . ($elemento) . '")';
+				} else {
+					$eliminar .= '  (PtiId = "' . ($elemento) . '")  OR';
+				}
+			}
+			$i++;
+		}
+
+
+		$sql = 'DELETE FROM tblptipersonaltipo WHERE ' . $eliminar;
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, true);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+	public function MtdRegistrarPersonalTipo()
+	{
+
+		$this->MtdGenerarPersonalTipoId();
+
+		$sql = 'INSERT INTO tblptipersonaltipo (
 			PtiId,
 			PtiNombre, 
 			PtiDescripcion,
@@ -206,54 +219,51 @@ class ClsPersonalTipo {
 			PtiTiempoModificacion
 			) 
 			VALUES (
-			"'.($this->PtiId).'", 
-			"'.($this->PtiNombre).'", 
-			"'.($this->PtiDescripcion).'",
-			'.($this->PtiEstado).',
-			"'.($this->PtiTiempoCreacion).'", 
-			"'.($this->PtiTiempoModificacion).'");';
+			"' . ($this->PtiId) . '", 
+			"' . ($this->PtiNombre) . '", 
+			"' . ($this->PtiDescripcion) . '",
+			' . ($this->PtiEstado) . ',
+			"' . ($this->PtiTiempoCreacion) . '", 
+			"' . ($this->PtiTiempoModificacion) . '");';
 
-			$error = false;
-
-			$resultado = $this->InsMysql->MtdEjecutar($sql,true);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
-	}
-	
-	public function MtdEditarPersonalTipo() {
-		
-		$sql = 'UPDATE tblptipersonaltipo SET 
-		 PtiNombre = "'.($this->PtiNombre).'",
-		 PtiDescripcion = "'.($this->PtiDescripcion).'",
-		 PtiEstado = '.($this->PtiEstado).',
-		 PtiTiempoModificacion = "'.($this->PtiTiempoModificacion).'"
-		 WHERE PtiId = "'.($this->PtiId).'";';
-		
-		
 		$error = false;
-		
-		$resultado = $this->InsMysql->MtdEjecutar($sql,true);        
-		
-		if(!$resultado) {						
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, true);
+
+		if (!$resultado) {
 			$error = true;
-		} 		
-		
-		if($error) {						
+		}
+
+		if ($error) {
 			return false;
-		} else {				
+		} else {
 			return true;
-		}						
-				
+		}
 	}
-	
+
+	public function MtdEditarPersonalTipo()
+	{
+
+		$sql = 'UPDATE tblptipersonaltipo SET 
+		 PtiNombre = "' . ($this->PtiNombre) . '",
+		 PtiDescripcion = "' . ($this->PtiDescripcion) . '",
+		 PtiEstado = ' . ($this->PtiEstado) . ',
+		 PtiTiempoModificacion = "' . ($this->PtiTiempoModificacion) . '"
+		 WHERE PtiId = "' . ($this->PtiId) . '";';
+
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, true);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
-?>

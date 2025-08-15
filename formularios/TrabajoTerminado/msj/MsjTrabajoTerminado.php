@@ -57,6 +57,6 @@
 	
 	define("ERR_TTE_706", "No se puede editar la O.T., solo se puede EDITAR las O.T. en estado: - Taller [Trabajo Terminado] - RECEPCION [Revisando]");
 	
-	define("ERR_TTE_706", "No se puede adicionar la O.T., solo se puede adicionar las O.T. en estado: - RECEPCION [Conforme/Por Facturar] - CONTABILIDAD [Facturado]");
+	define("ERR_TTE_707", "No se puede adicionar la O.T., solo se puede adicionar las O.T. en estado: - RECEPCION [Conforme/Por Facturar] - CONTABILIDAD [Facturado]");
 	
 ?>

@@ -52,9 +52,9 @@ $ArrSesionObjetos = $RepSesionObjetos['Datos'];
 $SesionObjetosTotal = $RepSesionObjetos['Total'];
 $SesionObjetosTotalSeleccionado = $RepSesionObjetos['TotalSeleccionado'];
 
-$POST_TotalRecargo = eregi_replace(",","",$_POST['TotalRecargo']);
-$POST_TotalFlete = eregi_replace(",","",$_POST['TotalFlete']);
-$POST_TotalOtroCosto = eregi_replace(",","",$_POST['TotalOtroCosto']);
+$POST_TotalRecargo = preg_replace("/,/", "", $_POST['TotalRecargo']);
+$POST_TotalFlete = preg_replace("/,/", "", $_POST['TotalFlete']);
+$POST_TotalOtroCosto = preg_replace("/,/", "", $_POST['TotalOtroCosto']);
 
 //$POST_TotalRecargo = $_POST['TotalRecargo'];
 //$POST_TotalFlete = $_POST['TotalFlete'];

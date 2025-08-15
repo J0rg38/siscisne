@@ -28,8 +28,8 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 
 $Identificador = $_POST['Identificador'];
 $POST_PorcentajeImpuestoVenta = $_POST['PorcentajeImpuestoVenta'];
-$POST_Descuento = eregi_replace(",","",$_POST['Descuento']);
-$POST_ManoObra = eregi_replace(",","",$_POST['ManoObra']);
+$POST_Descuento = preg_replace("/,/", "", $_POST['Descuento']);
+$POST_ManoObra = preg_replace("/,/", "", $_POST['ManoObra']);
 
 $POST_Editar = $_POST['Editar'];
 $POST_Eliminar = $_POST['Eliminar'];

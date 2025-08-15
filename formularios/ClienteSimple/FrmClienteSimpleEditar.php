@@ -21,9 +21,9 @@ if(!empty($_POST['Identificador'])){
 	$Identificador = $_POST['Identificador'];
 }
 
-$GET_id = $_GET['Id'];
+$GET_id = $_GET['Id'] ?? '';
 
-$GET_Tipo = $_GET['Tipo'];
+$GET_Tipo = $_GET['Tipo'] ?? '';
 //MENSAJES
 include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjClienteSimple.php');
 //CLASES

@@ -83,9 +83,16 @@ class ClsTrasladoAlmacenSalida {
 		
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -1741,7 +1748,7 @@ class ClsTrasladoAlmacenSalida {
 	
 		private function MtdAuditarTrasladoAlmacenSalida($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->TasId;
 
 			$InsAuditoria->UsuId = $this->UsuId;

@@ -62,7 +62,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 
 	$InsClientePago->CpaFoto = $_SESSION['SesCpaFoto'.$Identificador];
 	
-	$InsClientePago->CpaMonto = eregi_replace(",","",$_POST['CmpMonto']);
+	$InsClientePago->CpaMonto = preg_replace("/,/", "", $_POST['CmpMonto']);
 
 	if($InsClientePago->MonId<>$EmpresaMonedaId and !empty($InsClientePago->CpaTipoCambio)){
 		$InsClientePago->CpaMonto = $InsClientePago->CpaMonto * $InsClientePago->CpaTipoCambio;

@@ -136,8 +136,8 @@ if(!empty($ArrAlmacenes)){
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $objPHPExcel->setActiveSheetIndex(0);
 
-$GET_FechaInicio = eregi_replace("/","_",$GET_FechaFin);
-$GET_FechaFin = eregi_replace("/","_",$GET_FechaFin);
+$GET_FechaInicio = preg_replace("///", "_", $GET_FechaFin);
+$GET_FechaFin = preg_replace("///", "_", $GET_FechaFin);
 
 $NombreArchivo = $GET_FechaInicio."_".$GET_FechaFin;
 

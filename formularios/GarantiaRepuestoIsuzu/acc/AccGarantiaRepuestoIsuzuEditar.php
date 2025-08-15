@@ -49,7 +49,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 
 	$InsGarantiaRepuestoIsuzu->GriObservacion = addslashes($_POST['CmpObservacion']);
 	$InsGarantiaRepuestoIsuzu->GriObservacionImpresa = addslashes($_POST['CmpObservacionImpresa']);
-	$InsGarantiaRepuestoIsuzu->GriTarifaAutorizada = eregi_replace(",","",$_POST['CmpTarifaAutorizada']);
+	$InsGarantiaRepuestoIsuzu->GriTarifaAutorizada = preg_replace("/,/", "", $_POST['CmpTarifaAutorizada']);
 	
 	$InsGarantiaRepuestoIsuzu->GriEstado = $_POST['CmpEstado'];
 	$InsGarantiaRepuestoIsuzu->GriTiempoCreacion = date("Y-m-d H:i:s");

@@ -31,9 +31,14 @@ class ClsAuditoria
 	public $InsMysql;
 
 
-	public function __construct()
+	public function __construct($oInsMysql = NULL)
 	{
-		$this->InsMysql = new ClsMysql();
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
 	}
 
 	public function __destruct() {}
@@ -172,21 +177,14 @@ class ClsAuditoria
 	public function MtdAuditoriaRegistrar($oTablaTipo = NULL)
 	{
 
-		///	$this->AudDatos->InsMysql = NULL;
-		//deb($this->AudDatos);
 
-
-		//$json = new Services_JSON();
-		//$var = $json->encode($this->AudDatos);
-		///echo $var;
-
-
+		/*
 		$json = new JSON;
 		$var = $json->serialize($this->AudDatos);
 		$json->unserialize($var);
-		$this->AudDatos = $var;
+		$this->AudDatos = $var;*/
 
-		//$this->AudDatos = json_encode($this->AudDatos);
+		$this->AudDatos = json_encode($this->AudDatos);
 
 		$this->MtdGenerarAuditoriaId($oTablaTipo);
 

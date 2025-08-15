@@ -73,12 +73,31 @@ class ClsTallerPedido {
 	public $FichaAccionMantenimiento;
 	
 	public $Transaccion;
+	
+	// Propiedades adicionales para evitar warnings
+	public $SucId;
+	public $AlmId;
+	public $LtiId;
+	public $AmoIncluyeImpuesto;
+	public $MonId;
+	public $AmoTipoCambio;
+	public $AmoBoleta;
+	public $AmoGuiaRemision;
+	public $AmoCierre;
+	public $MonNombre;
+	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-		$this->Transaccion = true;
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -336,7 +355,7 @@ class ClsTallerPedido {
 			
 			$this->FimObsequio = $fila['FimObsequio'];
 
-			$InsTallerPedidoDetalle = new ClsTallerPedidoDetalle();
+			$InsTallerPedidoDetalle = new ClsTallerPedidoDetalle($this->InsMysql);
 			//$ResTallerPedidoDetalle =  $InsTallerPedidoDetalle->MtdObtenerTallerPedidoDetalles(NULL,NULL,NULL,NULL,NULL,$this->AmoId);
 			$ResTallerPedidoDetalle =  $InsTallerPedidoDetalle->MtdObtenerTallerPedidoDetalles(NULL,NULL,NULL,"PmtOrden ASC,AmdFecha ASC","",NULL,$this->AmoId);
 			
@@ -356,6 +375,23 @@ class ClsTallerPedido {
     }
 
     public function MtdObtenerTallerPedidos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oFichaAccion=NULL,$oFichaIngreso=NULL,$oConFactura=0,$oConFicha=0,$oFichaIngresoEstado=NULL,$oConBoleta=NULL,$oPorFacturar=false,$oModalidad=NULL,$oSubTipo=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechainicio = '';
+		$fechafin = '';
+		$estado = '';
+		$fichaaccion = '';
+		$fichaIngreso = '';
+		$conFactura = '';
+		$conFicha = '';
+		$fichaIngresoEstado = '';
+		$conBoleta = '';
+		$porFacturar = '';
+		$modalidad = '';
+		$subTipo = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
@@ -475,7 +511,6 @@ class ClsTallerPedido {
 			
 					
 			
-	
 		}
 
 
@@ -954,7 +989,25 @@ amo.AmoSubTipo = 0 OR
 		}
 		
 
-   public function MtdObtenerTallerPedidosValor($oFuncion="SUM",$oParametro="AmoTotal",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oFichaAccion=NULL,$oFichaIngreso=NULL,$oConFactura=0,$oConFicha=0,$oFichaIngresoEstado=NULL,$oConBoleta=NULL,$oPorFacturar=false,$oModalidad=NULL,$oPersonal=NULL,$oSucursal=NULL) {
+   public function MtdObtenerTallerPedidosValor($oFuncion="SUM",$oParametro="AmoTotal",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oFichaAccion=NULL,$oFichaIngreso=NULL,$oConFactura=0,$oConFicha=0,$oFichaIngresoEstado=NULL,$oConBoleta=NULL,$oPorFacturar=false,$oModalidad=NULL,$oPersonal=NULL,$oSucursal=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fechaInicio = '';
+		$fechaFin = '';
+		$estado = '';
+		$fichaAccion = '';
+		$fichaIngreso = '';
+		$conFactura = '';
+		$conFicha = '';
+		$fichaIngresoEstado = '';
+		$conBoleta = '';
+		$porFacturar = '';
+		$modalidad = '';
+		$personal = '';
+		$sucursal = '';
 
 //echo "test";
 		if(!empty($oCampo) and !empty($oFiltro)){
@@ -1264,7 +1317,7 @@ amo.AmoSubTipo = 0 OR
 			$this->InsMysql->MtdTransaccionIniciar();	
 		}
 		
-		$InsTallerPedidoDetalle = new ClsTallerPedidoDetalle();
+		$InsTallerPedidoDetalle = new ClsTallerPedidoDetalle($this->InsMysql);
 
 		$error = false;
 		
@@ -1355,8 +1408,8 @@ amo.AmoSubTipo = 0 OR
 	
 		$elementos = explode("#",$oElementos);
 
-		$InsTallerPedido = new ClsTallerPedido();
-		$InsTallerPedidoDetalles = new ClsTallerPedidoDetalle();
+		$InsTallerPedido = new ClsTallerPedido($this->InsMysql);
+		$InsTallerPedidoDetalles = new ClsTallerPedidoDetalle($this->InsMysql);
 
 			$i=1;
 			foreach($elementos as $elemento){
@@ -1522,7 +1575,7 @@ amo.AmoSubTipo = 0 OR
 				if (!empty($this->TallerPedidoDetalle)){		
 						
 					$validar = 0;				
-					$InsTallerPedidoDetalle = new ClsTallerPedidoDetalle();		
+					$InsTallerPedidoDetalle = new ClsTallerPedidoDetalle($this->InsMysql);		
 					
 					foreach ($this->TallerPedidoDetalle as $DatTallerPedidoDetalle){
 						
@@ -1669,11 +1722,11 @@ amo.AmoSubTipo = 0 OR
 		
 		$InsAlmacenStock = new ClsAlmacenStock();
 		
-		$InsFichaAccion = new ClsFichaAccion();
+		$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 		$InsFichaAccion->FccId = $this->FccId;
 		$InsFichaAccion->MtdObtenerFichaAccion();
 
-		$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad();
+		$InsFichaIngresoModalidad = new ClsFichaIngresoModalidad($this->InsMysql);
 		$InsFichaIngresoModalidad->FimId = $InsFichaAccion->FimId;
 		$InsFichaIngresoModalidad->MtdObtenerFichaIngresoModalidad();
 
@@ -1736,7 +1789,7 @@ amo.AmoSubTipo = 0 OR
 						$InsProducto->ProId = $DatTallerPedidoDetalle->ProId;
 						$InsProducto->MtdObtenerProducto(false);
 						
-//							$InsFichaAccionProducto1 = new ClsFichaAccionProducto();
+//							$InsFichaAccionProducto1 = new ClsFichaAccionProducto($this->InsMysql);
 //							$InsFichaAccionProducto1->FapId = $DatTallerPedidoDetalle->FapId;
 //							$InsFichaAccionProducto1->FccId = $this->FccId;
 //							$InsFichaAccionProducto1->ProId = $DatTallerPedidoDetalle->ProId;
@@ -1765,7 +1818,7 @@ amo.AmoSubTipo = 0 OR
 //								
 //							}
 							
-						$InsTallerPedidoDetalle = new ClsTallerPedidoDetalle();
+						$InsTallerPedidoDetalle = new ClsTallerPedidoDetalle($this->InsMysql);
 						$InsTallerPedidoDetalle->AmdId = $DatTallerPedidoDetalle->AmdId;
 						$InsTallerPedidoDetalle->AmoId = $this->AmoId;
 						$InsTallerPedidoDetalle->ProId = $DatTallerPedidoDetalle->ProId;
@@ -1905,7 +1958,7 @@ amo.AmoSubTipo = 0 OR
 									
 									if(!empty($DatTallerPedidoDetalle->FapId)){
 										
-										$InsFichaAccionProducto1 = new ClsFichaAccionProducto();
+										$InsFichaAccionProducto1 = new ClsFichaAccionProducto($this->InsMysql);
 										$InsFichaAccionProducto1->MtdEliminarFichaAccionProducto($DatTallerPedidoDetalle->FapId);	
 
 									}
@@ -2035,7 +2088,7 @@ amo.AmoSubTipo = 0 OR
 
 					$validar = 0;	
 					$item = 1;			
-					$InsFichaAccionProducto = new ClsFichaAccionProducto();
+					$InsFichaAccionProducto = new ClsFichaAccionProducto($this->InsMysql);
 							
 					foreach ($this->FichaAccionProducto as $DatFichaAccionProducto){
 										
@@ -2216,7 +2269,7 @@ amo.AmoSubTipo = 0 OR
 	
 		private function MtdAuditarTallerPedido($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->AmoId;
 
 			$InsAuditoria->UsuId = $this->UsuId;

@@ -66,16 +66,16 @@ $POST_acc = $_POST['Acc'] ?? '';
 * Otras variables
 */
 
-$POST_finicio = $_POST['FechaInicio'];
-$POST_ffin = $_POST['FechaFin'];
-$POST_con = $_POST['Con'];
-$POST_Prioridad = $_POST['Prioridad'];
-$POST_Modalidad = $_POST['Modalidad'];
-$POST_ConCampana = $_POST['ConCampana'];
-$POST_Tipo = $_POST['Tipo'];
-$POST_Personal = $_POST['Personal'];
-$POST_ChkIgnorarFacturados = $_POST['ChkIgnorarFacturados'];
-$POST_CodigoOriginal = $_POST['CodigoOriginal'];
+$POST_finicio = $_POST['FechaInicio'] ?? '';
+$POST_ffin = $_POST['FechaFin'] ?? '';
+$POST_con = $_POST['Con'] ?? '';
+$POST_Prioridad = $_POST['Prioridad'] ?? '';
+$POST_Modalidad = $_POST['Modalidad'] ?? '';
+$POST_ConCampana = $_POST['ConCampana'] ?? '';
+$POST_Tipo = $_POST['Tipo'] ?? '';
+$POST_Personal = $_POST['Personal'] ?? '';
+$POST_ChkIgnorarFacturados = $_POST['ChkIgnorarFacturados'] ?? '';
+$POST_CodigoOriginal = $_POST['CodigoOriginal'] ?? '';
 //$POST_Sucursal = $_SESSION['SesionSucursal'];
 $POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 

@@ -130,7 +130,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 //					$InsOrdenCompraDetalle1->PcdId = $DatSesionObjeto->Parametro16;
 //					
 //					$InsOrdenCompraDetalle1->OcdCodigoOtro = $_POST['CmpProductoCodigoOtro_'.$DatSesionObjeto->Parametro16];
-//					$InsOrdenCompraDetalle1->OcdPrecio = eregi_replace(",","",$_POST['CmpProductoPrecio_'.$DatSesionObjeto->Parametro16]);
+//					$InsOrdenCompraDetalle1->OcdPrecio = preg_replace("/,/", "", $_POST['CmpProductoPrecio_'.$DatSesionObjeto->Parametro16]);
 //	
 //					if($InsOrdenCompra->MonId<>$EmpresaMonedaId and !empty($InsOrdenCompra->OcoTipoCambio)){
 //						$InsOrdenCompraDetalle1->OcdPrecio = $InsOrdenCompraDetalle1->OcdPrecio * $InsOrdenCompra->OcoTipoCambio;

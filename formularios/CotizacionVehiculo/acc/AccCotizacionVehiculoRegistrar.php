@@ -88,12 +88,12 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	$InsCotizacionVehiculo->CveTotalBruto = 0;
 	
-	$InsCotizacionVehiculo->CveCantidad =  eregi_replace(",","",(empty($_POST['CmpCantidad'])?0:$_POST['CmpCantidad']));
+	$InsCotizacionVehiculo->CveCantidad =  preg_replace("/,/", "", (empty($_POST['CmpCantidad'])?0:$_POST['CmpCantidad']));
 	
-	$InsCotizacionVehiculo->CvePrecio = eregi_replace(",","",$_POST['CmpPrecio']);
-	$InsCotizacionVehiculo->CveDescuento = eregi_replace(",","",$_POST['CmpDescuento']);
+	$InsCotizacionVehiculo->CvePrecio = preg_replace("/,/", "", $_POST['CmpPrecio']);
+	$InsCotizacionVehiculo->CveDescuento = preg_replace("/,/", "", $_POST['CmpDescuento']);
 	
-	$InsCotizacionVehiculo->CveTotal = eregi_replace(",","",$_POST['CmpTotal']);
+	$InsCotizacionVehiculo->CveTotal = preg_replace("/,/", "", $_POST['CmpTotal']);
 	$InsCotizacionVehiculo->CveImpuesto = round($InsCotizacionVehiculo->CveTotal * ($InsCotizacionVehiculo->CvePorcentajeImpuestoVenta/100),3);
 	$InsCotizacionVehiculo->CveSubTotal = round($InsCotizacionVehiculo->CveTotal - $InsCotizacionVehiculo->CveImpuesto,3);
 	
@@ -121,12 +121,12 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 
 	$InsCotizacionVehiculo->CveTotalBruto2 = 0;
 	
-	$InsCotizacionVehiculo->CveCantidad2 =  eregi_replace(",","",(empty($_POST['CmpCantidad2'])?0:$_POST['CmpCantidad2']));
+	$InsCotizacionVehiculo->CveCantidad2 =  preg_replace("/,/", "", (empty($_POST['CmpCantidad2'])?0:$_POST['CmpCantidad2']));
 	
-	$InsCotizacionVehiculo->CvePrecio2 = eregi_replace(",","",$_POST['CmpPrecio2']);
-	$InsCotizacionVehiculo->CveDescuento2 = eregi_replace(",","",$_POST['CmpDescuento2']);
+	$InsCotizacionVehiculo->CvePrecio2 = preg_replace("/,/", "", $_POST['CmpPrecio2']);
+	$InsCotizacionVehiculo->CveDescuento2 = preg_replace("/,/", "", $_POST['CmpDescuento2']);
 	
-	$InsCotizacionVehiculo->CveTotal2 = eregi_replace(",","",$_POST['CmpTotal2']);
+	$InsCotizacionVehiculo->CveTotal2 = preg_replace("/,/", "", $_POST['CmpTotal2']);
 	$InsCotizacionVehiculo->CveImpuesto2 = round($InsCotizacionVehiculo->CveTotal2 * ($InsCotizacionVehiculo->CvePorcentajeImpuestoVenta/100),3);
 	$InsCotizacionVehiculo->CveSubTotal2 = round($InsCotizacionVehiculo->CveTotal2 - $InsCotizacionVehiculo->CveImpuesto2,3);
 	
@@ -154,12 +154,12 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 
 	$InsCotizacionVehiculo->CveTotalBruto2 = 0;
 	
-	$InsCotizacionVehiculo->CveCantidad2 =  eregi_replace(",","",(empty($_POST['CmpCantidad2'])?0:$_POST['CmpCantidad2']));
+	$InsCotizacionVehiculo->CveCantidad2 =  preg_replace("/,/", "", (empty($_POST['CmpCantidad2'])?0:$_POST['CmpCantidad2']));
 	
-	$InsCotizacionVehiculo->CvePrecio2 = eregi_replace(",","",$_POST['CmpPrecio2']);
-	$InsCotizacionVehiculo->CveDescuento2 = eregi_replace(",","",$_POST['CmpDescuento2']);
+	$InsCotizacionVehiculo->CvePrecio2 = preg_replace("/,/", "", $_POST['CmpPrecio2']);
+	$InsCotizacionVehiculo->CveDescuento2 = preg_replace("/,/", "", $_POST['CmpDescuento2']);
 	
-	$InsCotizacionVehiculo->CveTotal2 = eregi_replace(",","",$_POST['CmpTotal2']);
+	$InsCotizacionVehiculo->CveTotal2 = preg_replace("/,/", "", $_POST['CmpTotal2']);
 	$InsCotizacionVehiculo->CveImpuesto2 = round($InsCotizacionVehiculo->CveTotal2 * ($InsCotizacionVehiculo->CvePorcentajeImpuestoVenta/100),3);
 	$InsCotizacionVehiculo->CveSubTotal2 = round($InsCotizacionVehiculo->CveTotal2 - $InsCotizacionVehiculo->CveImpuesto2,3);
 	
@@ -190,12 +190,12 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 
 	$InsCotizacionVehiculo->CveTotalBruto3 = 0;
 	
-	$InsCotizacionVehiculo->CveCantidad3 =  eregi_replace(",","",(empty($_POST['CmpCantidad3'])?0:$_POST['CmpCantidad3']));
+	$InsCotizacionVehiculo->CveCantidad3 =  preg_replace("/,/", "", (empty($_POST['CmpCantidad3'])?0:$_POST['CmpCantidad3']));
 	
-	$InsCotizacionVehiculo->CvePrecio3 = eregi_replace(",","",$_POST['CmpPrecio3']);
-	$InsCotizacionVehiculo->CveDescuento3 = eregi_replace(",","",$_POST['CmpDescuento3']);
+	$InsCotizacionVehiculo->CvePrecio3 = preg_replace("/,/", "", $_POST['CmpPrecio3']);
+	$InsCotizacionVehiculo->CveDescuento3 = preg_replace("/,/", "", $_POST['CmpDescuento3']);
 	
-	$InsCotizacionVehiculo->CveTotal3 = eregi_replace(",","",$_POST['CmpTotal3']);
+	$InsCotizacionVehiculo->CveTotal3 = preg_replace("/,/", "", $_POST['CmpTotal3']);
 	$InsCotizacionVehiculo->CveImpuesto3 = round($InsCotizacionVehiculo->CveTotal3 * ($InsCotizacionVehiculo->CvePorcentajeImpuestoVenta/100),3);
 	$InsCotizacionVehiculo->CveSubTotal3 = round($InsCotizacionVehiculo->CveTotal3 - $InsCotizacionVehiculo->CveImpuesto3,3);
 	

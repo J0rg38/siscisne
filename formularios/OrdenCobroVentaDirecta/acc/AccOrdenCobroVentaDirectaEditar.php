@@ -14,7 +14,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsPago->NpaId = $_POST['CmpCondicionPago'];
 	$InsPago->MonId = $_POST['CmpMonedaId'];
 	$InsPago->PagTipoCambio = $_POST['CmpTipoCambio'];
-	$InsPago->PagMonto = eregi_replace(",","",(empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
+	$InsPago->PagMonto = preg_replace("/,/", "", (empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
 	$InsPago->PagObservacion = addslashes($_POST['CmpObservacion']);
 	$InsPago->PagConcepto = addslashes($_POST['CmpConcepto']);
 	$InsPago->PagTipo = "VDI";
@@ -30,7 +30,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsPago->TdoId = $_POST['CmpClienteTipoDocumento'];
 	$InsPago->CliNumeroDocumento = $_POST['CmpClienteNumeroDocumento'];
 	
-	$InsPago->VdiTotal = eregi_replace(",","",(empty($_POST['CmpVentaDirectaTotal'])?0:$_POST['CmpVentaDirectaTotal']));
+	$InsPago->VdiTotal = preg_replace("/,/", "", (empty($_POST['CmpVentaDirectaTotal'])?0:$_POST['CmpVentaDirectaTotal']));
 	
 	$InsPago->PagoComprobante = array();
 

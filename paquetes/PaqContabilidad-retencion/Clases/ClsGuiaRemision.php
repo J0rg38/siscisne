@@ -66,10 +66,16 @@ class ClsGuiaRemision {
     public $InsMysql;
 	public $Transaccion;	
 	
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-		$this->Transaccion = true;
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -562,14 +568,14 @@ class ClsGuiaRemision {
 	
 	
                          
-			$InsGuiaRemisionDetalle = new ClsGuiaRemisionDetalle();
+			$InsGuiaRemisionDetalle = new ClsGuiaRemisionDetalle($this->InsMysql);
 			$ResGuiaRemisionDetalle =  $InsGuiaRemisionDetalle->MtdObtenerGuiaRemisionDetalles(NULL,NULL,"GrdId","ASC",NULL,$this->GreId,$this->GrtId);
 			$this->GuiaRemisionDetalle = $ResGuiaRemisionDetalle['Datos'];
 			
 			
 			//MtdObtenerGuiaRemisionAlmacenMovimientos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'GamId',$oSentido = 'Desc',$oPaginacion = '0,10',$oGuiaRemision=NULL,$oTalonario=NULL) 
 			
-			$InsGuiaRemisionAlmacenMovimiento = new ClsGuiaRemisionAlmacenMovimiento();
+			$InsGuiaRemisionAlmacenMovimiento = new ClsGuiaRemisionAlmacenMovimiento($this->InsMysql);
 			$ResGuiaRemisionAlmacenMovimiento =  $InsGuiaRemisionAlmacenMovimiento->MtdObtenerGuiaRemisionAlmacenMovimientos(NULL,NULL,"GamId","ASC",NULL,$this->GreId,$this->GrtId);
 			$this->GuiaRemisionAlmacenMovimiento = $ResGuiaRemisionAlmacenMovimiento['Datos'];
 			
@@ -1185,7 +1191,7 @@ class ClsGuiaRemision {
 			}
 
 /*
-				$InsCliente = new ClsCliente();	
+				$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->TdoId = "TDO-10003";
@@ -1357,7 +1363,7 @@ class ClsGuiaRemision {
 					if (!empty($this->GuiaRemisionDetalle)){		
 							
 						$validar = 0;				
-						$InsGuiaRemisionDetalle = new ClsGuiaRemisionDetalle();		
+						$InsGuiaRemisionDetalle = new ClsGuiaRemisionDetalle($this->InsMysql);		
 								
 						foreach ($this->GuiaRemisionDetalle as $DatGuiaRemisionDetalle){
 							$InsGuiaRemisionDetalle->GreId = $this->GreId;
@@ -1397,7 +1403,7 @@ class ClsGuiaRemision {
 					if (!empty($this->GuiaRemisionAlmacenMovimiento)){		
 							
 						$validar = 0;				
-						$InsGuiaRemisionAlmacenMovimiento = new ClsGuiaRemisionAlmacenMovimiento();		
+						$InsGuiaRemisionAlmacenMovimiento = new ClsGuiaRemisionAlmacenMovimiento($this->InsMysql);		
 								
 						foreach ($this->GuiaRemisionAlmacenMovimiento as $DatGuiaRemisionAlmacenMovimiento){
 							
@@ -1521,7 +1527,7 @@ class ClsGuiaRemision {
 							
 							
 						$validar = 0;				
-						$InsGuiaRemisionDetalle = new ClsGuiaRemisionDetalle();		
+						$InsGuiaRemisionDetalle = new ClsGuiaRemisionDetalle($this->InsMysql);		
 								
 						foreach ($this->GuiaRemisionDetalle as $DatGuiaRemisionDetalle){
 																
@@ -1584,7 +1590,7 @@ if(!$error){
 							
 							
 						$validar = 0;				
-						$InsGuiaRemisionAlmacenMovimiento = new ClsGuiaRemisionAlmacenMovimiento();		
+						$InsGuiaRemisionAlmacenMovimiento = new ClsGuiaRemisionAlmacenMovimiento($this->InsMysql);		
 								
 						foreach ($this->GuiaRemisionAlmacenMovimiento as $DatGuiaRemisionAlmacenMovimiento){
 																
@@ -1688,7 +1694,7 @@ if(!$error){
 		
 		private function MtdAuditarGuiaRemision($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->GreId;
 			$InsAuditoria->AudCodigoExtra = $this->GrtId;
 			$InsAuditoria->UsuId = $this->UsuId;

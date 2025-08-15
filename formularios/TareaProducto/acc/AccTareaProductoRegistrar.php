@@ -45,7 +45,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 												$InsTareaProducto->TprId = $DatTareaProducto->TprId;
 												$InsTareaProducto->ProId = $_POST['CmpProductoId'];
 												$InsTareaProducto->UmeId = $_POST['CmpProductoUnidadMedidaConvertir'];
-												$InsTareaProducto->TprCantidad = eregi_replace(",","",(empty($_POST['CmpTareaProductoCantidad'])?0:$_POST['CmpTareaProductoCantidad']));
+												$InsTareaProducto->TprCantidad = preg_replace("/,/", "", (empty($_POST['CmpTareaProductoCantidad'])?0:$_POST['CmpTareaProductoCantidad']));
 												$InsTareaProducto->TprKilometraje = $DatTareaProducto->TprKilometraje;
 												
 												$InsTareaProducto->PmtId =$DatTareaProducto->PmtId;
@@ -84,7 +84,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 											$InsTareaProducto->TprId = $DatTareaProducto->TprId;
 											$InsTareaProducto->ProId = $_POST['CmpProductoId'];
 											$InsTareaProducto->UmeId = $_POST['CmpProductoUnidadMedidaConvertir'];
-											$InsTareaProducto->TprCantidad = eregi_replace(",","",(empty($_POST['CmpTareaProductoCantidad'])?0:$_POST['CmpTareaProductoCantidad']));
+											$InsTareaProducto->TprCantidad = preg_replace("/,/", "", (empty($_POST['CmpTareaProductoCantidad'])?0:$_POST['CmpTareaProductoCantidad']));
 											
 											$InsTareaProducto->TprKilometraje = $DatKilometro['km'];
 											$InsTareaProducto->PmtId = $_POST['CmpPlanMantenimientoTareaId'];
@@ -126,7 +126,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 												$InsTareaProducto->TprId = $DatTareaProducto->TprId;
 												$InsTareaProducto->ProId = $_POST['CmpProductoId'];
 												$InsTareaProducto->UmeId = $_POST['CmpProductoUnidadMedidaConvertir'];
-												$InsTareaProducto->TprCantidad = eregi_replace(",","",(empty($_POST['CmpTareaProductoCantidad'])?0:$_POST['CmpTareaProductoCantidad']));
+												$InsTareaProducto->TprCantidad = preg_replace("/,/", "", (empty($_POST['CmpTareaProductoCantidad'])?0:$_POST['CmpTareaProductoCantidad']));
 												$InsTareaProducto->TprKilometraje = $DatTareaProducto->TprKilometraje;
 												
 												$InsTareaProducto->PmtId =$DatTareaProducto->PmtId;
@@ -162,7 +162,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 											$InsTareaProducto->TprId = $DatTareaProducto->TprId;
 											$InsTareaProducto->ProId = $_POST['CmpProductoId'];
 											$InsTareaProducto->UmeId = $_POST['CmpProductoUnidadMedidaConvertir'];
-											$InsTareaProducto->TprCantidad = eregi_replace(",","",(empty($_POST['CmpTareaProductoCantidad'])?0:$_POST['CmpTareaProductoCantidad']));
+											$InsTareaProducto->TprCantidad = preg_replace("/,/", "", (empty($_POST['CmpTareaProductoCantidad'])?0:$_POST['CmpTareaProductoCantidad']));
 											$InsTareaProducto->TprKilometraje = $DatKilometro['km'];
 											
 											$InsTareaProducto->PmtId = $_POST['CmpPlanMantenimientoTareaId'];
@@ -214,7 +214,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 			$InsTareaProducto->ProNombre = $_POST['CmpProductoNombre'];
 			$InsTareaProducto->UmeId = $_POST['CmpProductoUnidadMedidaConvertir'];
 			
-			$InsTareaProducto->TprCantidad = eregi_replace(",","",(empty($_POST['CmpTareaProductoCantidad'])?0:$_POST['CmpTareaProductoCantidad']));
+			$InsTareaProducto->TprCantidad = preg_replace("/,/", "", (empty($_POST['CmpTareaProductoCantidad'])?0:$_POST['CmpTareaProductoCantidad']));
 			$InsTareaProducto->TprKilometraje = $_POST['CmpTareaProductoKilometraje'];
 			
 			$InsTareaProducto->PmtId = $_POST['CmpPlanMantenimientoTareaId'];

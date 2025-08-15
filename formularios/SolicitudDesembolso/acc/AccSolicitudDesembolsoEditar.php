@@ -27,7 +27,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	$InsSolicitudDesembolso->SdsAsunto = addslashes($_POST['CmpAsunto']);
 	$InsSolicitudDesembolso->SdsDescripcion = addslashes($_POST['CmpDescripcion']);
-	$InsSolicitudDesembolso->SdsMonto = eregi_replace(",","",(empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
+	$InsSolicitudDesembolso->SdsMonto = preg_replace("/,/", "", (empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
 
 	$InsSolicitudDesembolso->SdsObservacion = addslashes($_POST['CmpObservacion']);
 	$InsSolicitudDesembolso->SdsObservacionImpresa = addslashes($_POST['CmpObservacionImpresa']);

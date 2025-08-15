@@ -45,11 +45,12 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 //VARIABLES
 $Registro = false;
 
-$GET_EinId = $_GET['EinId'];
-$GET_CprId = $_GET['CprId'];
-$GET_CitId = $_GET['CitId'];
+$GET_EinId = $_GET['EinId'] ?? '';
+$GET_CprId = $_GET['CprId'] ?? '';
+$GET_CitId = $_GET['CitId'] ?? '';
+$GET_ClienteTipoId = $_GET['ClienteTipoId'] ?? '';
 
-$GET_Origen = $_GET['Origen'];
+$GET_Origen = $_GET['Origen'] ?? '';
 
 
 if(!empty($_POST['Identificador'])){
@@ -694,7 +695,7 @@ if($Registro){
                 }
             }				
             ?>
-                        <input etiqueta="modalidad" <?php echo $aux;?> type="checkbox" value="<?php echo $DatModalidadIngreso->MinId?>" name="CmpModalidadId_<?php echo $DatModalidadIngreso->MinSigla?>" id="CmpModalidadId_<?php echo $DatModalidadIngreso->MinSigla?>" sigla="<?php echo $DatModalidadIngreso->MinSigla;?>" />
+                        <input etiqueta="modalidad" <?php echo ($aux ?? '');?> type="checkbox" value="<?php echo $DatModalidadIngreso->MinId?>" name="CmpModalidadId_<?php echo $DatModalidadIngreso->MinSigla?>" id="CmpModalidadId_<?php echo $DatModalidadIngreso->MinSigla?>" sigla="<?php echo $DatModalidadIngreso->MinSigla;?>" />
                         <?php echo $DatModalidadIngreso->MinNombre?><br />
                         <?php	
 		}
@@ -776,6 +777,10 @@ if($Registro){
                       <td align="left" valign="top">&nbsp;</td>
                       <td align="left" valign="top">Prioridad:</td>
                       <td align="left" valign="top"><?php
+					// Inicializar variables para evitar warnings
+					$OpcPrioridad1 = '';
+					$OpcPrioridad2 = '';
+					
 					switch($InsFichaIngreso->FinPrioridad){
 						case 1:
 							$OpcPrioridad1 = 'selected = "selected"';
@@ -796,6 +801,12 @@ if($Registro){
                         
                         
                         <?php
+					// Inicializar variables para evitar warnings
+					$OpcEstado1 = '';
+					$OpcEstado2 = '';
+					$OpcEstado3 = '';
+					$OpcEstado4 = '';
+					
 					switch($InsFichaIngreso->FinEstado){
 						case 1:
 							$OpcEstado1 = 'selected = "selected"';
@@ -850,6 +861,11 @@ if($Registro){
                       <td align="left" valign="top">
 					  
 					  <?php
+					// Inicializar variables para evitar warnings
+					$OpcCita1 = '';
+					$OpcCita2 = '';
+					$OpcCita3 = '';
+					
 					switch($InsFichaIngreso->FinCita){
 						case "1":
 							$OpcCita1 = 'selected = "selected"';

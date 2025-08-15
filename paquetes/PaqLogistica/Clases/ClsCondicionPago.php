@@ -21,9 +21,16 @@ class ClsCondicionPago {
 	
 	public $InsMysql;
 	
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -64,6 +71,12 @@ class ClsCondicionPago {
     }
 
     public function MtdObtenerCondicionPagos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'NpaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oUso=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$uso = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -125,7 +138,7 @@ class ClsCondicionPago {
 			
 			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
 			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
+			$Respuesta['Total'] = $filaTotal ? $filaTotal['TOTAL'] : 0;
 			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 			
 			return $Respuesta;			

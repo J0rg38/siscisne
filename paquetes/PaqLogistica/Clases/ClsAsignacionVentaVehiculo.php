@@ -41,9 +41,16 @@ class ClsAsignacionVentaVehiculo {
 	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -266,7 +273,7 @@ class ClsAsignacionVentaVehiculo {
 
 			if($oCompleto){
 	
-				$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();
+				$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario($this->InsMysql);
 				$ResOrdenVentaVehiculoPropietario = $InsOrdenVentaVehiculoPropietario->MtdObtenerOrdenVentaVehiculoPropietarios(NULL,NULL,'OvpId','ASC',NULL,$this->OvvId);
 			$this->AsignacionVentaVehiculoPropietario = $ResOrdenVentaVehiculoPropietario['Datos'];
 	
@@ -1288,7 +1295,7 @@ class ClsAsignacionVentaVehiculo {
 						
 						//if(!$error){
 //						
-//							$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+//							$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 //							$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("OvvAprobacion1",3,$this->OvvId);
 //							
 //							$InsVehiculoIngreso = new ClsVehiculoIngreso();
@@ -1355,29 +1362,29 @@ class ClsAsignacionVentaVehiculo {
 					
 						//if($oEstado == 6){
 //							
-//							$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+//							$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 //							$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("OvvAprobacion1",3,$this->OvvId);
 //							
 //						}else if($oEstado == 1){
 //	
-//							$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+//							$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 //							$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("OvvAprobacion1",3,$this->OvvId);
 //							
 //						}else if($oEstado == 3){
 //							
 //							if($this->AvvAprobacion == 1){
 //								
-//								$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+//								$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 //								$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("OvvAprobacion1",1,$this->OvvId);
 //								
 //							}else if($this->AvvAprobacion == 2){
 //								
-//								$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+//								$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 //								$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("OvvAprobacion1",2,$this->OvvId);
 //								
 //							}else{
 //							
-//								$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+//								$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 //								$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("OvvAprobacion1",3,$this->OvvId);
 //								
 //							}
@@ -1581,7 +1588,7 @@ class ClsAsignacionVentaVehiculo {
 	
 		private function MtdAuditarAsignacionVentaVehiculo($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->AvvId;
 
 			$InsAuditoria->UsuId = $this->UsuId;
@@ -1790,7 +1797,7 @@ $InsAuditoria->AudUsuario = $oUsuario;
 				
 				if(!empty($elemento)){
 				
-					$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+					$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 					//$InsOrdenVentaVehiculo->OvvId = $elemento;
 					
 					$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("EinId",NULL,$elemento);

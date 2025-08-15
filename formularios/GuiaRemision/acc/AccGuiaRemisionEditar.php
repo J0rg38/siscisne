@@ -59,8 +59,8 @@ $InsGuiaRemision->GreId = $_POST['CmpId'];
 	$InsGuiaRemision->GreObservacion = $_POST['CmpObservacion'];
 	$InsGuiaRemision->GreObservacionImpresa = $_POST['CmpObservacionImpresa'];
 	
-	$InsGuiaRemision->GrePesoTotal = eregi_replace(",","",(empty($_POST['CmpPesoTotal'])?0:$_POST['CmpPesoTotal']));
-	$InsGuiaRemision->GreTotalPaquetes = eregi_replace(",","",(empty($_POST['CmpTotalPaquetes'])?0:$_POST['CmpTotalPaquetes']));
+	$InsGuiaRemision->GrePesoTotal = preg_replace("/,/", "", (empty($_POST['CmpPesoTotal'])?0:$_POST['CmpPesoTotal']));
+	$InsGuiaRemision->GreTotalPaquetes = preg_replace("/,/", "", (empty($_POST['CmpTotalPaquetes'])?0:$_POST['CmpTotalPaquetes']));
 	
 	$InsGuiaRemision->GreEstado = $_POST['CmpEstado'];
 	$InsGuiaRemision->GreCierre = 1;

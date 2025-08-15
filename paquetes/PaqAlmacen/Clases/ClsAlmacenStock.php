@@ -39,11 +39,31 @@ class ClsAlmacenStock {
 	public $AstStockCalculado;
 	public $AstCostoCalculado;
 
+	// Propiedades adicionales para evitar warnings
+	public $AstId;
+	public $AstStockIngresado;
+	public $AstStockRealIngresado;
+	public $ProReferencia;
+	public $ProPromedioMensual;
+	public $ProPromedioDiario;
+	public $ProDiasInmovilizado;
+	public $ProFechaUltimaSalida;
+	public $AstStockMaximo;
+	public $AstObservacion;
+	public $AlmId;
+
 	public $InsMysql;
 	
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -143,6 +163,21 @@ class ClsAlmacenStock {
 
 //    public function MtdObtenerProductos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'ProId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oTipo=NULL,$oValidarStock=1,$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oVehiculoVersion=NULL,$oVehiculoAno=NULL,$oTieneIngreso=false,$oReferencia=NULL)
 	  public function MtdObtenerAlmacenStocks($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'AstNombre',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oProductoTipo=NULL,$oVehiculoMarca=NULL,$oReferencia=NULL,$oProducto=NULL,$oProductoCategoria=NULL,$oAlmacen=NULL,$oTieneMovimiento=false,$oSucursal=NULL,$oAno) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$estado = '';
+		$fecha = '';
+		$ptipo = '';
+		$vmarca = '';
+		$referencia = '';
+		$producto = '';
+		$pcategoria = '';
+		$almacen = '';
+		$tmovimiento = '';
+		$sucursal = '';
 
 		//		if(!empty($oCampo) && !empty($oFiltro)){
 //			$oFiltro = str_replace(" ","%",$oFiltro);

@@ -149,7 +149,7 @@ if($error){
 	//Uso: Chat
 	//Descripcion:
 	//$_SESSION['username'] = $InsUsuario->UsuUsuario."_".$InsUsuario->PerNombre."_".$InsUsuario->PerApellidoPaterno."_".$InsUsuario->PerApellidoMaterno;
-	//$_SESSION['username'] = eregi_replace(' ','_',$_SESSION['username']);
+	//$_SESSION['username'] = preg_replace("/ /", "_", $_SESSION['username']);
 	//Uso: Menu Flotante
 	//Descripcion:
 	//$_SESSION['SisBarraActivo'] = "si";

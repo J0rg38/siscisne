@@ -29,7 +29,7 @@ require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
 ////FUNCIONES GENERALES
 require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 
-if($_GET['P']==2){
+if(($_GET['P'] ?? '')==2){
 	header("Content-type: application/vnd.ms-excel");
 	header("Content-Disposition:  filename=\"CONSULTA_PLAN_MANTENIMIENTO_PRESUPUESTO_".date('d-m-Y').".xls\";");
 }
@@ -40,7 +40,7 @@ if($_GET['P']==2){
 </head>
 <body>
 
-<?php if($_GET['P']==1){?> 
+<?php if(($_GET['P'] ?? '')==1){?>
 <script type="text/javascript">
 
 $().ready(function() {
@@ -135,7 +135,7 @@ deb($POST_MantenimientoKilometraje);
 
 ?>
 
-<?php if($_GET['P']==1){?>
+<?php if(($_GET['P'] ?? '')==1){?>
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
 <tr>
   <td colspan="3" align="left"><span class="EstReporteCabecera"><?php echo $EmpresaNombre;?> - <?php echo $EmpresaCodigo;?></span></td>

@@ -21,9 +21,16 @@ class ClsProductoVehiculoVersion {
 
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -85,6 +92,13 @@ class ClsProductoVehiculoVersion {
     }
 
     public function MtdObtenerProductoVehiculoVersiones($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PvvId',$oSentido = 'Desc',$oPaginacion = '0,10',$oProducto=NULL,$oVehiculoVersion=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$producto = '';
+		$vversion = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -173,6 +187,9 @@ class ClsProductoVehiculoVersion {
 	public function MtdEliminarProductoVehiculoVersion($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		if(!count($elementos)){
 			$eliminar .= ' PvvId = "'.($oElementos).'"';

@@ -49,7 +49,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 
 	$InsGarantia->GarObservacion = addslashes($_POST['CmpObservacion']);
 	$InsGarantia->GarObservacionImpresa = addslashes($_POST['CmpObservacionImpresa']);
-	$InsGarantia->GarTarifaAutorizada = eregi_replace(",","",$_POST['CmpTarifaAutorizada']);
+	$InsGarantia->GarTarifaAutorizada = preg_replace("/,/", "", $_POST['CmpTarifaAutorizada']);
 	
 	$InsGarantia->GarEstado = $_POST['CmpEstado'];
 	$InsGarantia->GarTiempoCreacion = date("Y-m-d H:i:s");

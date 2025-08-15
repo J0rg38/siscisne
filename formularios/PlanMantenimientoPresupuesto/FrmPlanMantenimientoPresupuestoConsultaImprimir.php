@@ -74,10 +74,10 @@ $POST_ClienteId = $_POST['CmpClienteId'];
 //$POST_ManoObra = $_POST['CmpManoObra'];
 //$POST_PresupuestoTotal = $_POST['CmpPresupuestoTotal'];
 
-$POST_AdicionalTotal = eregi_replace(",","",(empty($_POST['CmpAdicionalTotal'])?0:$_POST['CmpAdicionalTotal']));
-$POST_MantenimientoTotal = eregi_replace(",","",(empty($_POST['CmpMantenimientoTotal'])?0:$_POST['CmpMantenimientoTotal']));
-$POST_ManoObra = eregi_replace(",","",(empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
-$POST_PresupuestoTotal = eregi_replace(",","",(empty($_POST['CmpPresupuestoTotal'])?0:$_POST['CmpPresupuestoTotal']));
+$POST_AdicionalTotal = preg_replace("/,/", "", (empty($_POST['CmpAdicionalTotal'])?0:$_POST['CmpAdicionalTotal']));
+$POST_MantenimientoTotal = preg_replace("/,/", "", (empty($_POST['CmpMantenimientoTotal'])?0:$_POST['CmpMantenimientoTotal']));
+$POST_ManoObra = preg_replace("/,/", "", (empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
+$POST_PresupuestoTotal = preg_replace("/,/", "", (empty($_POST['CmpPresupuestoTotal'])?0:$_POST['CmpPresupuestoTotal']));
 
 //CLASES
 require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimiento.php');

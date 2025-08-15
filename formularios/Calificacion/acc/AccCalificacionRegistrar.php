@@ -9,8 +9,8 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsCalificacion->CalNombre = $_POST['CmpNombre'];
 	$InsCalificacion->MonId = $_POST['CmpMonedaId'];
 	$InsCalificacion->CalTipoCambio = $_POST['CmpTipoCambio'];
-	$InsCalificacion->CalCosto = eregi_replace(",","",(empty($_POST['CmpCosto'])?0:$_POST['CmpCosto']));
-	$InsCalificacion->CalMargen = eregi_replace(",","",(empty($_POST['CmpMargen'])?0:$_POST['CmpMargen']));
+	$InsCalificacion->CalCosto = preg_replace("/,/", "", (empty($_POST['CmpCosto'])?0:$_POST['CmpCosto']));
+	$InsCalificacion->CalMargen = preg_replace("/,/", "", (empty($_POST['CmpMargen'])?0:$_POST['CmpMargen']));
 	$InsCalificacion->CalRango = $_POST['CmpRango'];
 	$InsCalificacion->CalTiempoCreacion = date("Y-m-d H:i:s");
 	$InsCalificacion->CalTiempoModificacion = date("Y-m-d H:i:s");

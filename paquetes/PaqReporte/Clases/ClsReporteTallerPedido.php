@@ -14,15 +14,39 @@ class ClsReporteTallerPedido {
 
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
 	}
 
 public function MtdObtenerTallerPedidoDetallesValor($oFuncion="SUM",$oParametro="AmoTotal",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oTallerPedido=NULL,$oEstado=NULL,$oProducto=NULL,$oTallerPedidoEstado=NULL,$oVehiculoMarca=NULL,$oProductoTipo=NULL,$oModalidadIngreso=NULL,$oPersonal=NULL,$oSucursal=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oConComprobante=true) {
+
+	// Inicializar variables para evitar warnings
+	$filtrar = '';
+	$orden = '';
+	$paginacion = '';
+	$tallerPedido = '';
+	$estado = '';
+	$producto = '';
+	$tallerPedidoEstado = '';
+	$vehiculoMarca = '';
+	$productoTipo = '';
+	$modalidadIngreso = '';
+	$personal = '';
+	$sucursal = '';
+	$fechaInicio = '';
+	$fechaFin = '';
+	$conComprobante = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 

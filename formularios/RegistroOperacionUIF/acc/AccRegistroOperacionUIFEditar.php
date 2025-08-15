@@ -20,7 +20,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	$InsRegistroOperacionUIF->MonId = $_POST['CmpMonedaId'];
 	$InsRegistroOperacionUIF->RouTipoCambio = $_POST['CmpTipoCambio'];
-	$InsRegistroOperacionUIF->RouImporte = eregi_replace(",","",(empty($_POST['CmpImporte'])?0:$_POST['CmpImporte']));
+	$InsRegistroOperacionUIF->RouImporte = preg_replace("/,/", "", (empty($_POST['CmpImporte'])?0:$_POST['CmpImporte']));
 
 	$InsRegistroOperacionUIF->RouOrdenanteNombre = ($_POST['CmpOrdenanteNombre']);
 	$InsRegistroOperacionUIF->RouOrdenanteNumeroDocumento = ($_POST['CmpOrdenanteNumeroDocumento']);

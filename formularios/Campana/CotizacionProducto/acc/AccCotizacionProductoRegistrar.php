@@ -40,8 +40,8 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 
 
 	$InsCotizacionProducto->CprPorcentajeImpuestoVenta = $_POST['CmpPorcentajeImpuestoVenta'];
-	$InsCotizacionProducto->CprMargenUtilidad = eregi_replace(",","",(empty($_POST['CmpClienteMargenUtilidad'])?0:$_POST['CmpClienteMargenUtilidad']));
-	$InsCotizacionProducto->CprFlete = eregi_replace(",","",(empty($_POST['CmpFlete'])?0:$_POST['CmpFlete']));
+	$InsCotizacionProducto->CprMargenUtilidad = preg_replace("/,/", "", (empty($_POST['CmpClienteMargenUtilidad'])?0:$_POST['CmpClienteMargenUtilidad']));
+	$InsCotizacionProducto->CprFlete = preg_replace("/,/", "", (empty($_POST['CmpFlete'])?0:$_POST['CmpFlete']));
 	
 	$InsCotizacionProducto->CprFecha = FncCambiaFechaAMysql($_POST['CmpFecha']);
 	
@@ -57,11 +57,11 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 
 	//$InsCotizacionProducto->CprIncluyeImpuesto = 2;
 
-	$InsCotizacionProducto->CprManoObra = eregi_replace(",","",(empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
-	$InsCotizacionProducto->CprPorcentajeDescuento = eregi_replace(",","",(empty($_POST['CmpPorcentajeDescuento'])?0:$_POST['CmpPorcentajeDescuento']));
+	$InsCotizacionProducto->CprManoObra = preg_replace("/,/", "", (empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
+	$InsCotizacionProducto->CprPorcentajeDescuento = preg_replace("/,/", "", (empty($_POST['CmpPorcentajeDescuento'])?0:$_POST['CmpPorcentajeDescuento']));
 	
-	$InsCotizacionProducto->CprVigencia = eregi_replace(",","",(empty($_POST['CmpVigencia'])?0:$_POST['CmpVigencia']));
-	$InsCotizacionProducto->CprTiempoEntrega = eregi_replace(",","",(empty($_POST['CmpTiempoEntrega'])?0:$_POST['CmpTiempoEntrega']));
+	$InsCotizacionProducto->CprVigencia = preg_replace("/,/", "", (empty($_POST['CmpVigencia'])?0:$_POST['CmpVigencia']));
+	$InsCotizacionProducto->CprTiempoEntrega = preg_replace("/,/", "", (empty($_POST['CmpTiempoEntrega'])?0:$_POST['CmpTiempoEntrega']));
 	
 	//$InsCotizacionProducto->CprVigencia = (empty($_POST['CmpVigencia'])?0:$_POST['CmpVigencia']);
 	//$InsCotizacionProducto->CprTiempoEntrega = (empty($_POST['CmpTiempoEntrega'])?0:$_POST['CmpTiempoEntrega']);

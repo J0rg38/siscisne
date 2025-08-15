@@ -146,7 +146,7 @@ $InsFichaIngreso->FinExteriorDelantero1 = $_POST['CmpExteriorDelantero1'];
 	$InsFichaIngreso->FinMantenimientoKilometraje = (empty($_POST['CmpMantenimientoKilometraje'])?0:$_POST['CmpMantenimientoKilometraje']);	
 
 	$InsFichaIngreso->FinPrecioEstimado = 0;
-	$InsFichaIngreso->FinMontoPresupuesto = eregi_replace(",","",(empty($_POST['CmpMontoPresupuesto'])?0:$_POST['CmpMontoPresupuesto']));
+	$InsFichaIngreso->FinMontoPresupuesto = preg_replace("/,/", "", (empty($_POST['CmpMontoPresupuesto'])?0:$_POST['CmpMontoPresupuesto']));
 	
 	$InsFichaIngreso->FinPrioridad = $_POST['CmpPrioridad'];
 	$InsFichaIngreso->FinCita = $_POST['CmpCita'];

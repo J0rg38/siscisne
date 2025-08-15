@@ -37,9 +37,16 @@ class ClsAlmacenCierre {
 	public $InsMysql;
 
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -491,6 +498,10 @@ public function MtdVerificarAlmacenCierre($oFecha){
 	public function MtdEliminarAlmacenCierre($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
+		
 			$i=1;
 			foreach($elementos as $elemento){
 				if(!empty($elemento)){

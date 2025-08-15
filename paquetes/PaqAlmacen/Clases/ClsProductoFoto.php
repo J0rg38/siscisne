@@ -24,9 +24,16 @@ class ClsProductoFoto {
 	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -93,6 +100,15 @@ class ClsProductoFoto {
 	
 	
     public function MtdObtenerProductoFotos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PfoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oProducto=NULL,$oEstado=NULL,$oTipo=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$cproducto = '';
+		$estado = '';
+		$tipo = '';
+		$producto = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 

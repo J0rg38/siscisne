@@ -127,9 +127,9 @@ if(!empty($POST_OvvId)){
 			  
 			  <?php
 	
-	$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = eregi_replace("SEDAN","",$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
+	$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = preg_replace("/SEDAN/", "", $InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
 	
-	$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = eregi_replace("HATCHBACK","",$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
+	$InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre = preg_replace("/HATCHBACK/", "", $InsOrdenVentaVehiculo->OrdenVentaVehiculoVmoNombre);
 	?>
 	
 	

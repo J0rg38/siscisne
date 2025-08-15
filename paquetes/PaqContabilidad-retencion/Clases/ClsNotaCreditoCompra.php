@@ -64,9 +64,16 @@ class ClsNotaCreditoCompra {
     public $InsMysql;
 	
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -1178,7 +1185,7 @@ public function MtdObtenerNotaCreditoComprasValor($oFuncion="SUM",$oParametro="N
 		
 	private function MtdAuditarNotaCreditoCompra($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 		
-		$InsAuditoria = new ClsAuditoria();
+		$InsAuditoria = new ClsAuditoria($this->InsMysql);
 		$InsAuditoria->AudCodigo = $this->NccId;
 		$InsAuditoria->AudCodigoExtra = $this->BtaId;
 		$InsAuditoria->PerId = $this->PerId;

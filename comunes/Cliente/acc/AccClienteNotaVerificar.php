@@ -30,9 +30,9 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 require_once($InsProyecto->MtdRutLibrerias().'JSON.php');
 require_once($InsProyecto->MtdRutLibrerias().'JSON2.php');
 
-$POST_Limite = $_POST['Limite'];
-$POST_ClienteId = $_POST['ClienteId'];
-$POST_ClienteNumeroDocumento = $_POST['ClienteNumeroDocumento'];
+$POST_Limite = $_POST['Limite'] ?? '';
+$POST_ClienteId = $_POST['ClienteId'] ?? '';
+$POST_ClienteNumeroDocumento = $_POST['ClienteNumeroDocumento'] ?? '';
 
 require_once($InsPoo->MtdPaqLogistica().'ClsCliente.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsClienteNota.php');

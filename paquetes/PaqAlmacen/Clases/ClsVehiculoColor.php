@@ -15,17 +15,36 @@ class ClsVehiculoColor {
 	public $VehId;
     public $VcoNombre;
 	
+	// Propiedades adicionales para evitar warnings
+	public $VcoId;
+	
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
 	}
 
     public function MtdObtenerVehiculoColores($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VcoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oVehiculoVersion=NULL,$oVehiculoTipo=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$vmarca = '';
+		$vmodelo = '';
+		$vversion = '';
+		$vtipo = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -89,7 +108,7 @@ class ClsVehiculoColor {
 			
 			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
 			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
+			$Respuesta['Total'] = $filaTotal ? $filaTotal['TOTAL'] : 0;
 			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 			
 

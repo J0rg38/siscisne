@@ -190,11 +190,34 @@ class ClsAlmacenMovimientoEntrada {
 	public $AlmacenMovimientoEntradaExtorno;
 	public $OrdenCompraPedido;
 	
+	// Propiedades adicionales para evitar warnings
+	public $SucId;
+	public $AmoTipoCambioComercial;
+	public $TdoIdNacional1;
+	public $AmoValidarStock;
+	public $PrvNombreCompleto;
+	public $PrvApellidoPaterno;
+	public $PrvApellidoMaterno;
+	public $AmoEstadoDescripcion;
+	public $AmoEstadoIcono;
+	
+	// Propiedades adicionales para evitar warnings
+	public $AmdValorTotal;
+	public $PcdId;
+	public $AmdFecha;
+	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -692,6 +715,14 @@ class ClsAlmacenMovimientoEntrada {
 		$subTipo = '';
 		$almacen = '';
 		$sucursal = '';
+		$tipo = '';
+		$stipo = '';
+		$ocompra = '';
+		$pcompra = '';
+		$pcompradetalle = '';
+		$cocompra = '';
+		$vdirecta = '';
+		$cpago = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
@@ -855,7 +886,7 @@ class ClsAlmacenMovimientoEntrada {
 			$elementos = explode(",",$oSubTipo);
 
 				$i=1;
-				$stipo .= ' AND (';
+				$stipo = ' AND (';
 				$elementos = array_filter($elementos);
 				foreach($elementos as $elemento){
 						$stipo .= '  (amo.AmoSubTipo = "'.($elemento).'")';	
@@ -1558,7 +1589,7 @@ class ClsAlmacenMovimientoEntrada {
 			
 			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
 			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
+			$Respuesta['Total'] = $filaTotal ? $filaTotal['TOTAL'] : 0;
 			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 			
 			return $Respuesta;			
@@ -1592,6 +1623,14 @@ class ClsAlmacenMovimientoEntrada {
 		$condicionPago = '';
 		$subTipo = '';
 		$almacen = '';
+		$tipo = '';
+		$stipo = '';
+		$ocompra = '';
+		$pcompra = '';
+		$pcompradetalle = '';
+		$cocompra = '';
+		$vdirecta = '';
+		$cpago = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 			
@@ -1755,7 +1794,7 @@ class ClsAlmacenMovimientoEntrada {
 			$elementos = explode(",",$oSubTipo);
 
 				$i=1;
-				$stipo .= ' AND (';
+				$stipo = ' AND (';
 				$elementos = array_filter($elementos);
 				foreach($elementos as $elemento){
 						$stipo .= '  (amo.AmoSubTipo = "'.($elemento).'")';	
@@ -2022,7 +2061,7 @@ class ClsAlmacenMovimientoEntrada {
 								$InsOrdenCompra->MtdActualizarEstadoOrdenCompra($this->OcoId,3);
 							}
 							//MtdAuditarAlmacenMovimientoEntrada($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL)
-							$this->MtdAuditarAlmacenMovimientoEntrada(3,"Se elimino el Movimiento de Almacen",$aux,$elemento,$_SESSION['SesionId'],$_SESSION['SesionPersonal']);		
+							$this->MtdAuditarAlmacenMovimientoEntrada(3,"Se elimino el Movimiento de Almacen",$elemento,$elemento,$_SESSION['SesionId'],$_SESSION['SesionPersonal']);		
 						}
 					}
 					
@@ -3310,7 +3349,7 @@ class ClsAlmacenMovimientoEntrada {
 
 		private function MtdAuditarAlmacenMovimientoEntrada($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL,$oSucursal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			//$InsAuditoria->AudCodigo = $this->AmoId;
 			$InsAuditoria->AudCodigo = $oCodigo;
 			//$InsAuditoria->UsuId = $this->UsuId;

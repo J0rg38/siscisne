@@ -44,9 +44,15 @@ class ClsCampana
 
 	public $InsMysql;
 
-	public function __construct()
+	public function __construct($oInsMysql=NULL)
 	{
-		$this->InsMysql = new ClsMysql();
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
 	}
 
 	public function __destruct() {}
@@ -744,7 +750,7 @@ class ClsCampana
 	private function MtdAuditarCampana($oAccion, $oDescripcion, $oDatos, $oCodigo = NULL, $oUsuario = NULL, $oPersonal = NULL)
 	{
 
-		$InsAuditoria = new ClsAuditoria();
+		$InsAuditoria = new ClsAuditoria($this->InsMysql);
 		$InsAuditoria->AudCodigo = $this->CamId;
 
 		$InsAuditoria->UsuId = $this->UsuId;

@@ -1,5 +1,6 @@
 <?php
-
+// Definir variables que pueden no estar definidas
+$GET_mod = $GET_mod ?? 'Proveedor';
 
 $POST_cam = ($_POST['Cam'] ?? '');
 $POST_fil = ($_POST['Fil'] ?? '');
@@ -7,7 +8,7 @@ $POST_fil = ($_POST['Fil'] ?? '');
    if($_POST){
 	   $_SESSION[$GET_mod."Filtro"] = $POST_fil;
    }else{
-		$POST_fil = (empty($_GET['Fil'])?$_SESSION[$GET_mod."Filtro"]:$_GET['Fil']);
+		$POST_fil = (empty($_GET['Fil'])?($_SESSION[$GET_mod."Filtro"] ?? ''):$_GET['Fil']);
    }
 
 
@@ -33,7 +34,7 @@ $POST_acc = $_POST['Acc'] ?? '';
 
 $POST_Estado = $_POST['Estado'] ?? '';
 
-$POST_con = $_POST['Con'];
+$POST_con = $_POST['Con'] ?? '';
 
 if(empty($POST_p)){
 	$POST_p = '1';

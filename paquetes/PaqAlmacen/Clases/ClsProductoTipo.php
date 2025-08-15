@@ -20,9 +20,16 @@ class ClsProductoTipo {
 
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -83,6 +90,11 @@ class ClsProductoTipo {
     }
 
     public function MtdObtenerProductoTipos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'RtiId',$oSentido = 'Desc',$oPaginacion = '0,10') {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);

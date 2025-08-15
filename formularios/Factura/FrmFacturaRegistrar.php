@@ -34,19 +34,17 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 
 $Registro = false;
 
-if(!empty($_POST['Identificador'])){
-	$Identificador = $_POST['Identificador'];
-}
+$Identificador = $_POST['Identificador'] ?? '';
 
-$GET_ori = $_GET['Ori'];
-$GET_FccId = $_GET['FccId'];
-$GET_AmoId = $_GET['AmoId'];
-$GET_VcoId = $_GET['VcoId'];
-$GET_VmvId = $_GET['VmvId'];
-$GET_PagId = $_GET['PagId'];
+$GET_ori = $_GET['Ori'] ?? '';
+$GET_FccId = $_GET['FccId'] ?? '';
+$GET_AmoId = $_GET['AmoId'] ?? '';
+$GET_VcoId = $_GET['VcoId'] ?? '';
+$GET_VmvId = $_GET['VmvId'] ?? '';
+$GET_PagId = $_GET['PagId'] ?? '';
 
-$GET_OvvId = $_GET['OvvId'];
-$POST_Seleccionados = $_POST['cmp_seleccionados'];
+$GET_OvvId = $_GET['OvvId'] ?? '';
+$POST_Seleccionados = $_POST['cmp_seleccionados'] ?? '';
 
 
 //$POST_id = $_POST['CmpId'];
@@ -452,7 +450,7 @@ if(!empty($GET_dia)){
                          <?php
 			  foreach($ArrFacturaTalonarios as $DatFacturaTalonario){
 			  ?>
-                         <option <?php if(!empty($InsFactura->FtaId)){ if($InsFactura->FtaId==$DatFacturaTalonario->FtaId){ echo 'selected="selected"';}}elseif($_SESSION['SisFtaId']==$DatFacturaTalonario->FtaId){ 	echo 'selected="selected"';}?> 			  value="<?php echo $DatFacturaTalonario->FtaId;?>" ><?php echo $DatFacturaTalonario->FtaNumero;?> (<?php echo $DatFacturaTalonario->FtaDescripcion;?>)</option>
+                         <option <?php if(!empty($InsFactura->FtaId)){ if($InsFactura->FtaId==$DatFacturaTalonario->FtaId){ echo 'selected="selected"';}}elseif(($_SESSION['SisFtaId'] ?? '')==$DatFacturaTalonario->FtaId){ 	echo 'selected="selected"';}?> 			  value="<?php echo $DatFacturaTalonario->FtaId;?>" ><?php echo $DatFacturaTalonario->FtaNumero;?> (<?php echo $DatFacturaTalonario->FtaDescripcion;?>)</option>
                          <?php
 			  }
 			  ?>
@@ -704,6 +702,12 @@ switch($InsFactura->FacIncluyeImpuesto){
                  <td align="left" valign="top">&nbsp;</td>
                  <td align="left" valign="top">Estado:</td>
                  <td align="left" valign="top"><?php
+			// Inicializar variables de opciones de estado para evitar warnings
+			$OpcEstado1 = '';
+			$OpcEstado5 = '';
+			$OpcEstado6 = '';
+			$OpcEstado7 = '';
+			
 			switch($InsFactura->FacEstado){
 				case 1:
 					$OpcEstado1 = 'selected="selected"';

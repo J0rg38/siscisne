@@ -23,9 +23,16 @@ class ClsTipoReparacion {
 
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -91,6 +98,13 @@ class ClsTipoReparacion {
 
     public function MtdObtenerTipoReparaciones($oCampo=NULL,$oFiltro=NULL,$oOrden = 'TreId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL) {
 
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$estado = '';
+		$uso = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
@@ -145,7 +159,7 @@ class ClsTipoReparacion {
 			
 			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
 			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
+			$Respuesta['Total'] = $filaTotal ? $filaTotal['TOTAL'] : 0;
 			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 			
 			return $Respuesta;			
@@ -160,6 +174,8 @@ class ClsTipoReparacion {
 		
 		$elementos = explode("#",$oElementos);
 		
+		// Inicializar variable para evitar warnings
+		$elitrear = '';
 
 			$i=1;
 			foreach($elementos as $elemento){

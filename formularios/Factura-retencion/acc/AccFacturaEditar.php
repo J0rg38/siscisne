@@ -40,7 +40,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsFactura->FacConcepto = addslashes($_POST['CmpConcepto']);
 	
 
-	$InsFactura->FacAbono = eregi_replace(",","",(empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
+	$InsFactura->FacAbono = preg_replace("/,/", "", (empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
 	
 	
 	//$InsFactura->FacTipo = $_POST['CmpTipo'];
@@ -105,9 +105,9 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsFactura->RegId = $_POST['CmpRegimenId'];	
 	$InsFactura->RegAplicacion = $_POST['CmpRegimenAplicacion'];	
 	$InsFactura->FacRegimenPorcentaje = $_POST['CmpRegimenPorcentaje'];
-	$InsFactura->FacRegimenMonto = eregi_replace(",","",$_POST['CmpRegimenMonto']);
+	$InsFactura->FacRegimenMonto = preg_replace("/,/", "", $_POST['CmpRegimenMonto']);
 
-	$InsFactura->FacTotalDescuento = eregi_replace(",","",$_POST['CmpTotalDescuento']);
+	$InsFactura->FacTotalDescuento = preg_replace("/,/", "", $_POST['CmpTotalDescuento']);
 	
 	if($InsFactura->MonId<>$EmpresaMonedaId){
 		$InsFactura->FacRegimenMonto = $InsFactura->FacRegimenMonto * $InsFactura->FacTipoCambio;
@@ -384,7 +384,7 @@ Parametro25 = FdeImpuestoSelectivo
 	}
 	
 	//if($InsFactura->FacTipo == "2"){
-//		$InsFactura->FacTotalBruto = eregi_replace(",","",$_POST['CmpTotal']);
+//		$InsFactura->FacTotalBruto = preg_replace("/,/", "", $_POST['CmpTotal']);
 //	}
 	
 //	if($InsFactura->FacPorcentajeDescuento>0){

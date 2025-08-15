@@ -35,11 +35,20 @@ class ClsUsuario
 
 	public $RolZonaPrivilegio;
 
+	// Propiedades adicionales para evitar warnings
+	public $UsuUltimaActividad;
+
 	public $InsMysql;
 
-	public function __construct()
+	public function __construct($oInsMysql=NULL)
 	{
-		$this->InsMysql = new ClsMysql();
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
 	}
 
 	public function __destruct() {}
@@ -97,140 +106,142 @@ class ClsUsuario
 				$this->UsuTiempoCreacion = $fila['NUsuTiempoCreacion'];
 				$this->UsuTiempoModificacion = $fila['NUsuTiempoModificacion'];
 			}
-        
+
 			$Respuesta =  $this;
-			
-		}else{
+		} else {
 			$Respuesta =   NULL;
 		}
-		
-        
+
+
 		return $Respuesta;
-
-    }
-
-		
-		
-  public function MtdObtenerUsuarios($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'UsuId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oEstado=NULL,$oRol=NULL,$oNoPersonal=false) {
-
-//		if(!empty($oCampo) && !empty($oFiltro)){
-//			$oFiltro = str_replace(" ","%",$oFiltro);
-//			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
-//		}
+	}
 
 
 
-	if(!empty($oCampo) and !empty($oFiltro)){
-			
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			
-			$elementos = explode(",",$oCampo);
+	public function MtdObtenerUsuarios($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'UsuId', $oSentido = 'Desc', $oEliminado = 1, $oPaginacion = '0,10', $oEstado = NULL, $oRol = NULL, $oNoPersonal = false)
+	{
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$estado = '';
+		$rol = '';
+		$nopersonal = '';
+		$eliminado = '';
+
+		//		if(!empty($oCampo) && !empty($oFiltro)){
+		//			$oFiltro = str_replace(" ","%",$oFiltro);
+		//			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
+		//		}
+
+
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-							
-				$filtrar .= '  ) ';
-	
-		}
-		
-		
-		
+				$i++;
+			}
 
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		if(!empty($oRol)){
-			$rol = ' AND usu.RolId = "'.$oRol.'"';
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
 
-		if(($oNoPersonal)){
+		if (!empty($oRol)) {
+			$rol = ' AND usu.RolId = "' . $oRol . '"';
+		}
+
+		if (($oNoPersonal)) {
 			$npersonal = ' AND NOT EXISTS (
 				SELECT 
 				per.PerId 
@@ -239,7 +250,7 @@ class ClsUsuario
 				) ';
 		}
 
-			$sql = 'SELECT
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				usu.UsuId,
 				usu.RolId,
@@ -271,97 +282,100 @@ class ClsUsuario
 				LEFT JOIN tblperpersonal per
 				ON usu.UsuId = per.UsuId
 				
-				WHERE 1 = 1 '.$filtrar.$rol.$npersonal.$orden.$paginacion;
-											
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+				WHERE 1 = 1 ' . $filtrar . $rol . $npersonal . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-            $InsUsuario = get_class($this);
+		$Respuesta['Datos'] = array();
 
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-					$Usuario = new $InsUsuario();
-                    $Usuario->UsuId = $fila['UsuId'];
-                    $Usuario->RolId= $fila['RolId'];		
-					$Usuario->UsuUsuario= $fila['UsuUsuario'];			
-                    $Usuario->UsuContrasena= $fila['UsuContrasena'];
-                    $Usuario->UsuFoto= $fila['UsuFoto'];					
-					
-                    $Usuario->UsuEstado= $fila['UsuEstado'];	
-					$Usuario->UsuConectado= $fila['UsuConectado'];
-						
-					$Usuario->UsuUltimaSesion= $fila['NUsuUltimaSesion'];	
-					$Usuario->UsuUltimaActividad= $fila['NUsuUltimaActividad'];	
-                    $Usuario->UsuTiempoCreacion = $fila['NUsuTiempoCreacion'];
-                    $Usuario->UsuTiempoModificacion = $fila['NUsuTiempoModificacion'];   
+		$InsUsuario = get_class($this);
 
-					$Usuario->RolNombre =  $fila['RolNombre'];   
-					
-					$Usuario->PerNombre =  $fila['PerNombre'];   
-					$Usuario->PerApellidoPaterno =  $fila['PerApellidoPaterno'];   
-					$Usuario->PerApellidoMaterno =  $fila['PerApellidoMaterno'];   
-					
-                    $Usuario->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $Usuario;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+			$Usuario = new $InsUsuario();
+			$Usuario->UsuId = $fila['UsuId'];
+			$Usuario->RolId = $fila['RolId'];
+			$Usuario->UsuUsuario = $fila['UsuUsuario'];
+			$Usuario->UsuContrasena = $fila['UsuContrasena'];
+			$Usuario->UsuFoto = $fila['UsuFoto'];
+
+			$Usuario->UsuEstado = $fila['UsuEstado'];
+			$Usuario->UsuConectado = $fila['UsuConectado'];
+
+			$Usuario->UsuUltimaSesion = $fila['NUsuUltimaSesion'];
+			$Usuario->UsuUltimaActividad = $fila['NUsuUltimaActividad'];
+			$Usuario->UsuTiempoCreacion = $fila['NUsuTiempoCreacion'];
+			$Usuario->UsuTiempoModificacion = $fila['NUsuTiempoModificacion'];
+
+			$Usuario->RolNombre =  $fila['RolNombre'];
+
+			$Usuario->PerNombre =  $fila['PerNombre'];
+			$Usuario->PerApellidoPaterno =  $fila['PerApellidoPaterno'];
+			$Usuario->PerApellidoMaterno =  $fila['PerApellidoMaterno'];
+
+			$Usuario->InsMysql = NULL;
+			$Respuesta['Datos'][] = $Usuario;
 		}
-		
-		
-		
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
+
+
+
+
 
 	//Accion eliminar	 
-	
-	public function MtdEliminarUsuario($oElementos) {
-		
-		$elementos = explode("#",$oElementos);
-		
 
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){
-				
-					if($i==count($elementos)){						
-						$eliminar .= '  (UsuId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (UsuId = "'.($elemento).'")  OR';	
-					}	
+	public function MtdEliminarUsuario($oElementos)
+	{
+
+		$elementos = explode("#", $oElementos);
+
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+
+				if ($i == count($elementos)) {
+					$eliminar .= '  (UsuId = "' . ($elemento) . '")';
+				} else {
+					$eliminar .= '  (UsuId = "' . ($elemento) . '")  OR';
 				}
-			$i++;
-	
 			}
-	
-			$sql = 'DELETE FROM tblusuusuario WHERE '.$eliminar;
-			
-					
-			$error = false;
+			$i++;
+		}
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,true);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+		$sql = 'DELETE FROM tblusuusuario WHERE ' . $eliminar;
+
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, true);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	
-	public function MtdRegistrarUsuario() {
-	
-			$this->MtdGenerarUsuarioId();
-		
-			$sql = 'INSERT INTO tblusuusuario (
+
+
+	public function MtdRegistrarUsuario()
+	{
+
+		$this->MtdGenerarUsuarioId();
+
+		$sql = 'INSERT INTO tblusuusuario (
 			UsuId,
 			RolId,
 			UsuUsuario,
@@ -372,89 +386,80 @@ class ClsUsuario
 			UsuTiempoModificacion,
 			UsuEliminado) 
 			VALUES (
-			"'.($this->UsuId).'", 
-			"'.($this->RolId).'", 			
-			"'.($this->UsuUsuario).'",
-			"'.($this->UsuContrasena).'", 
-			"'.($this->UsuFoto).'", 
-			'.($this->UsuEstado).', 			
-			"'.($this->UsuTiempoCreacion).'", 
-			"'.($this->UsuTiempoModificacion).'", 				
-			'.($this->UsuEliminado).');';					
-		
-		
-		
+			"' . ($this->UsuId) . '", 
+			"' . ($this->RolId) . '", 			
+			"' . ($this->UsuUsuario) . '",
+			"' . ($this->UsuContrasena) . '", 
+			"' . ($this->UsuFoto) . '", 
+			' . ($this->UsuEstado) . ', 			
+			"' . ($this->UsuTiempoCreacion) . '", 
+			"' . ($this->UsuTiempoModificacion) . '", 				
+			' . ($this->UsuEliminado) . ');';
+
+
+
 		$error = false;
 
-			$this->InsMysql->MtdTransaccionIniciar();
-		
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {							
-				$error = true;
-			} 
-			
-			
-			if($error) {	
-				
-				$this->InsMysql->MtdTransaccionDeshacer();			
-				return false;
-			} else {				
-				
-				$this->InsMysql->MtdTransaccionHacer();					
-				return true;
-			}			
-			
-			
-			
-			
-		
-			
+		$this->InsMysql->MtdTransaccionIniciar();
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+
+		if ($error) {
+
+			$this->InsMysql->MtdTransaccionDeshacer();
+			return false;
+		} else {
+
+			$this->InsMysql->MtdTransaccionHacer();
+			return true;
+		}
 	}
-	
-	public function MtdEditarUsuario() {
-		
-			$sql = 'UPDATE tblusuusuario SET 
-			RolId = "'.($this->RolId).'",
-			 UsuUsuario = "'.($this->UsuUsuario).'",
-			 UsuContrasena = "'.($this->UsuContrasena).'",
-			 UsuFoto = "'.($this->UsuFoto).'",
-			 UsuEstado = '.($this->UsuEstado).',			 
-			 UsuTiempoModificacion = "'.($this->UsuTiempoModificacion).'"
-			 WHERE UsuId = "'.($this->UsuId).'"';
-			
-			$error = false;
 
-			$this->InsMysql->MtdTransaccionIniciar();
-		
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {							
-				$error = true;
-			} 
-			
-		
-			if($error) {	
-				
-				$this->InsMysql->MtdTransaccionDeshacer();			
-				return false;
-			} else {				
-				
-				$this->InsMysql->MtdTransaccionHacer();					
-				return true;
-			}			
-			
-			
-			
-				
-				
-		}	
-		
-	
-	
-	public function MtdEntrarUsuario(){
+	public function MtdEditarUsuario()
+	{
 
-       $sql = 'SELECT 
+		$sql = 'UPDATE tblusuusuario SET 
+			RolId = "' . ($this->RolId) . '",
+			 UsuUsuario = "' . ($this->UsuUsuario) . '",
+			 UsuContrasena = "' . ($this->UsuContrasena) . '",
+			 UsuFoto = "' . ($this->UsuFoto) . '",
+			 UsuEstado = ' . ($this->UsuEstado) . ',			 
+			 UsuTiempoModificacion = "' . ($this->UsuTiempoModificacion) . '"
+			 WHERE UsuId = "' . ($this->UsuId) . '"';
+
+		$error = false;
+
+		$this->InsMysql->MtdTransaccionIniciar();
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+
+		if ($error) {
+
+			$this->InsMysql->MtdTransaccionDeshacer();
+			return false;
+		} else {
+
+			$this->InsMysql->MtdTransaccionHacer();
+			return true;
+		}
+	}
+
+
+
+	public function MtdEntrarUsuario()
+	{
+
+		$sql = 'SELECT 
         usu.UsuId,
 		usu.RolId,	
 		usu.UsuUsuario,
@@ -473,81 +478,78 @@ class ClsUsuario
 		ON per.UsuId = usu.UsuId
 		
         WHERE 
-		usu.UsuUsuario = "'.$this->InsMysql->MtdLimpiarDato($this->UsuUsuario).'"  
-		AND MD5(usu.UsuContrasena) = "'.$this->InsMysql->MtdLimpiarDato($this->UsuContrasena).'";';
+		usu.UsuUsuario = "' . $this->InsMysql->MtdLimpiarDato($this->UsuUsuario) . '"  
+		AND MD5(usu.UsuContrasena) = "' . $this->InsMysql->MtdLimpiarDato($this->UsuContrasena) . '";';
 
-        $resultado = $this->InsMysql->MtdConsultar($sql);
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-		
-		
-        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
-        {
-			
+
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+
 			$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio();
-			$ResRolZonaPrivilegio = $InsRolZonaPrivilegio->MtdObtenerRolZonaPrivilegios(NULL,NULL,'RzpId','Desc',NULL,$fila['RolId']);	
-			
+			$ResRolZonaPrivilegio = $InsRolZonaPrivilegio->MtdObtenerRolZonaPrivilegios(NULL, NULL, 'RzpId', 'Desc', NULL, $fila['RolId']);
+
 			$this->UsuId = $fila['UsuId'];
-            $this->RolId = $fila['RolId'];		
-			$this->UsuUsuario = $fila['UsuUsuario'];	
-            $this->UsuContrasena = $fila['UsuContrasena'];
-            $this->UsuFoto = $fila['UsuFoto'];	
-		    $this->UsuEstado = $fila['UsuEstado'];			
-			$this->UsuUltimaSesion = $fila['NUsuUltimaSesion'];		
+			$this->RolId = $fila['RolId'];
+			$this->UsuUsuario = $fila['UsuUsuario'];
+			$this->UsuContrasena = $fila['UsuContrasena'];
+			$this->UsuFoto = $fila['UsuFoto'];
+			$this->UsuEstado = $fila['UsuEstado'];
+			$this->UsuUltimaSesion = $fila['NUsuUltimaSesion'];
 			$this->PerId = $fila['PerId'];
-			$this->PerNombre = $fila['PerNombre'];		
+			$this->PerNombre = $fila['PerNombre'];
 			$this->PerApellidoPaterno = $fila['PerApellidoPaterno'];
-			$this->PerApellidoMaterno = $fila['PerApellidoMaterno'];		
-			
+			$this->PerApellidoMaterno = $fila['PerApellidoMaterno'];
+
 			$this->RolZonaPrivilegio = $ResRolZonaPrivilegio['Datos'];
-			
 		}
-        
+
 		return $this;
-
-    }
-	
-	public function MtdActualizarUltimaSesionUsuario(){
-	
-		$sql = 'UPDATE tblusuusuario SET 			 
-			 UsuUltimaSesion = "'.($this->UsuUltimaSesion).'"
-			 WHERE UsuId = "'.($this->UsuId).'";';		
-		
-			$error = false;
-
-			$resultado = $this->InsMysql->MtdEjecutar($sql,true);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}		
 	}
-	
-	
-	public function MtdActualizarUltimaActividadUsuario(){
-	
-		$sql = 'UPDATE tblusuusuario SET 			 
-			 UsuUltimaActividad = "'.($this->UsuUltimaActividad).'"
-			 WHERE UsuId = "'.($this->UsuId).'";';		
-		
-			$error = false;
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,true);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}		
+	public function MtdActualizarUltimaSesionUsuario()
+	{
+
+		$sql = 'UPDATE tblusuusuario SET 			 
+			 UsuUltimaSesion = "' . ($this->UsuUltimaSesion) . '"
+			 WHERE UsuId = "' . ($this->UsuId) . '";';
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, true);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
+
+
+	public function MtdActualizarUltimaActividadUsuario()
+	{
+
+		$sql = 'UPDATE tblusuusuario SET 			 
+			 UsuUltimaActividad = "' . ($this->UsuUltimaActividad) . '"
+			 WHERE UsuId = "' . ($this->UsuId) . '";';
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, true);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
-?>

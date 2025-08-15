@@ -22,7 +22,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsPago->PerId = $_POST['CmpPersonal'];
 	
 	$InsPago->PagTipoCambio = $_POST['CmpTipoCambio'];
-	$InsPago->PagMonto = eregi_replace(",","",(empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
+	$InsPago->PagMonto = preg_replace("/,/", "", (empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
 	$InsPago->PagObservacion = addslashes($_POST['CmpObservacion']);
 	$InsPago->PagObservacionImpresa = addslashes($_POST['CmpObservacionImpresa']);
 	$InsPago->PagConcepto = addslashes($_POST['CmpConcepto']);
@@ -45,7 +45,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsPago->TdoId = $_POST['CmpClienteTipoDocumento'];
 	$InsPago->CliNumeroDocumento = $_POST['CmpClienteNumeroDocumento'];
 		
-	$InsPago->OvvTotal = eregi_replace(",","",(empty($_POST['CmpOrdenVentaVehiculoTotal'])?0:$_POST['CmpOrdenVentaVehiculoTotal']));
+	$InsPago->OvvTotal = preg_replace("/,/", "", (empty($_POST['CmpOrdenVentaVehiculoTotal'])?0:$_POST['CmpOrdenVentaVehiculoTotal']));
 	
 	$InsPago->PagMonto = $InsPago->OvvTotal;
 		

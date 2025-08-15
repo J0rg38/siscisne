@@ -24,11 +24,34 @@ class ClsNotaDebitoDetalle {
 	public $NddTiempoModificacion;
     public $NddEliminado;
 
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $NddCodigo;
+	public $NddUnidadMedida;
+	public $NddValorVenta;
+	public $NddImpuesto;
+	public $NddImpuestoSelectivo;
+	public $NddDescuento;
+	public $NddGratuito;
+	public $NddExonerado;
+	public $NddIncluyeSelectivo;
+	public $NddValorVentaUnitario;
+	public $NddTiempoCreacionFormateado;
+	public $NddTiempoModificacionFormateado;
+	public $NddEstadoDescripcion;
+	public $NddEstadoIcono;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 

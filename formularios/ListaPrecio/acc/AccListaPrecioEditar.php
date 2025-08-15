@@ -11,18 +11,18 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsProducto->ProCodigoOriginal = $_POST['CmpCodigoOriginal'];
 	$InsProducto->ProNombre = $_POST['CmpNombre'];
 
-	//$InsProducto->ProPrecioMercado = eregi_replace(",","",$_POST['CmpPrecioMercado']);
+	//$InsProducto->ProPrecioMercado = preg_replace("/,/", "", $_POST['CmpPrecioMercado']);
 	$InsProducto->ProPrecioMercado = 0;
 	
 	$InsProducto->UmeId = $_POST['CmpUnidadMedidaBase'];
 	$InsProducto->UmeIdIngreso = $_POST['CmpUnidadMedidaIngreso'];
 
 	$InsProducto->RtiId = $_POST['CmpTipo'];	
-	$InsProducto->ProCosto = eregi_replace(",","",$_POST['CmpCosto']);
-	$InsProducto->ProCostoIngreso = eregi_replace(",","",$_POST['CmpCostoIngreso']);
+	$InsProducto->ProCosto = preg_replace("/,/", "", $_POST['CmpCosto']);
+	$InsProducto->ProCostoIngreso = preg_replace("/,/", "", $_POST['CmpCostoIngreso']);
 	
 	$InsProducto->ProEstado = $_POST['CmpEstado'];	
-	$InsProducto->ProPorcentajeImpuestoVenta = eregi_replace(",","",$_POST['CmpPorcentajeImpuestoVenta']);
+	$InsProducto->ProPorcentajeImpuestoVenta = preg_replace("/,/", "", $_POST['CmpPorcentajeImpuestoVenta']);
 
 	$InsProducto->ProTiempoModificacion = date("Y-m-d H:i:s");
 
@@ -73,25 +73,25 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 					$InsListaPrecio->LtiId = $DatClienteTipo->LtiId;
 					$InsListaPrecio->UmeId = $DatProductoTipoUnidadMedidaSalida->UmeId;
 					
-					$InsListaPrecio->LprCosto = eregi_replace(",","",$_POST['CmpListaPrecioCosto_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
+					$InsListaPrecio->LprCosto = preg_replace("/,/", "", $_POST['CmpListaPrecioCosto_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
 
-					$InsListaPrecio->LprUtilidad = eregi_replace(",","",$_POST['CmpListaPrecioUtilidad_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
-					$InsListaPrecio->LprOtroCosto = (eregi_replace(",","",$_POST['CmpListaPrecioOtroCosto_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])*1);				
-					$InsListaPrecio->LprManoObra = (eregi_replace(",","",$_POST['CmpListaPrecioManoObra_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])*1);				
+					$InsListaPrecio->LprUtilidad = preg_replace("/,/", "", $_POST['CmpListaPrecioUtilidad_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
+					$InsListaPrecio->LprOtroCosto = (preg_replace("/,/", "", $_POST['CmpListaPrecioOtroCosto_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])*1);				
+					$InsListaPrecio->LprManoObra = (preg_replace("/,/", "", $_POST['CmpListaPrecioManoObra_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])*1);				
 
-					$InsListaPrecio->LprAdicional = eregi_replace(",","",((empty($_POST['CmpListaPrecioAdicional_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])?0:$_POST['CmpListaPrecioAdicional_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])));
-					$InsListaPrecio->LprDescuento = eregi_replace(",","",((empty($_POST['CmpListaPrecioDescuento_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])?0:$_POST['CmpListaPrecioDescuento_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])));
+					$InsListaPrecio->LprAdicional = preg_replace("/,/", "", ((empty($_POST['CmpListaPrecioAdicional_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])?0:$_POST['CmpListaPrecioAdicional_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])));
+					$InsListaPrecio->LprDescuento = preg_replace("/,/", "", ((empty($_POST['CmpListaPrecioDescuento_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])?0:$_POST['CmpListaPrecioDescuento_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])));
 
-					$InsListaPrecio->LprPorcentajeUtilidad = eregi_replace(",","",((empty($_POST['CmpListaPrecioPorcentajeUtilidad_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])?0:$_POST['CmpListaPrecioPorcentajeUtilidad_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])));
-					$InsListaPrecio->LprPorcentajeOtroCosto = (eregi_replace(",","",$_POST['CmpListaPrecioPorcentajeOtroCosto_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])*1);
-					$InsListaPrecio->LprPorcentajeManoObra = (eregi_replace(",","",$_POST['CmpListaPrecioPorcentajeManoObra_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])*1);
+					$InsListaPrecio->LprPorcentajeUtilidad = preg_replace("/,/", "", ((empty($_POST['CmpListaPrecioPorcentajeUtilidad_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])?0:$_POST['CmpListaPrecioPorcentajeUtilidad_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])));
+					$InsListaPrecio->LprPorcentajeOtroCosto = (preg_replace("/,/", "", $_POST['CmpListaPrecioPorcentajeOtroCosto_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])*1);
+					$InsListaPrecio->LprPorcentajeManoObra = (preg_replace("/,/", "", $_POST['CmpListaPrecioPorcentajeManoObra_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])*1);
 
-					$InsListaPrecio->LprPorcentajeDescuento = eregi_replace(",","",((empty($_POST['CmpListaPrecioPorcentajeDescuento_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])?0:$_POST['CmpListaPrecioPorcentajeDescuento_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])));
-					$InsListaPrecio->LprPorcentajeAdicional = eregi_replace(",","",((empty($_POST['CmpListaPrecioPorcentajeAdicional_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])?0:$_POST['CmpListaPrecioPorcentajeAdicional_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])));
+					$InsListaPrecio->LprPorcentajeDescuento = preg_replace("/,/", "", ((empty($_POST['CmpListaPrecioPorcentajeDescuento_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])?0:$_POST['CmpListaPrecioPorcentajeDescuento_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])));
+					$InsListaPrecio->LprPorcentajeAdicional = preg_replace("/,/", "", ((empty($_POST['CmpListaPrecioPorcentajeAdicional_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])?0:$_POST['CmpListaPrecioPorcentajeAdicional_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId])));
 					
-					$InsListaPrecio->LprValorVenta = eregi_replace(",","",$_POST['CmpListaPrecioValorVenta_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
-					$InsListaPrecio->LprImpuesto = eregi_replace(",","",$_POST['CmpListaPrecioImpuesto_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
-					$InsListaPrecio->LprPrecio = eregi_replace(",","",$_POST['CmpListaPrecioPrecio_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
+					$InsListaPrecio->LprValorVenta = preg_replace("/,/", "", $_POST['CmpListaPrecioValorVenta_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
+					$InsListaPrecio->LprImpuesto = preg_replace("/,/", "", $_POST['CmpListaPrecioImpuesto_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
+					$InsListaPrecio->LprPrecio = preg_replace("/,/", "", $_POST['CmpListaPrecioPrecio_'.$DatClienteTipo->LtiId.'_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
 	
 					$InsListaPrecio->LprTiempoCreacion = date("Y-m-d H:i:s");
 					$InsListaPrecio->LprTiempoModificacion = date("Y-m-d H:i:s");
@@ -143,7 +143,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 //				$InsProductoCosto->RcoId = $_POST['CmpProductoCostoId_'.$DatProductoTipoUnidadMedidaSalida->UmeId];			
 //				$InsProductoCosto->UmeId = $DatProductoTipoUnidadMedidaSalida->UmeId;
 //				$InsProductoCosto->UmeIdIngreso = $InsProducto->UmeIdIngreso;
-//				$InsProductoCosto->RcoCosto = eregi_replace(",","",$_POST['CmpProductoCostoCosto_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
+//				$InsProductoCosto->RcoCosto = preg_replace("/,/", "", $_POST['CmpProductoCostoCosto_'.$DatProductoTipoUnidadMedidaSalida->UmeId]);
 //				$InsProductoCosto->RcoTiempoCreacion = date("Y-m-d H:i:s");
 //				$InsProductoCosto->RcoTiempoModificacion = date("Y-m-d H:i:s");
 //				$InsProductoCosto->RcoEliminado = 1;

@@ -221,7 +221,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 				$InsFichaAccion->UsuId = $_SESSION['SesionId'];
 				$InsFichaAccion->FccId = $_POST['CmpId_'.$DatFichaIngresoModalidad->MinSigla];
 				$InsFichaAccion->FccFecha = FncCambiaFechaAMysql($_POST['CmpFecha_'.$DatFichaIngresoModalidad->MinSigla]);
-				$InsFichaAccion->FccManoObra = eregi_replace(",","",$_POST['CmpFichaAccionManoObra_'.$DatFichaIngresoModalidad->MinSigla]);
+				$InsFichaAccion->FccManoObra = preg_replace("/,/", "", $_POST['CmpFichaAccionManoObra_'.$DatFichaIngresoModalidad->MinSigla]);
 				
 				$InsFichaAccion->FccObservacion = addslashes($_POST['CmpObservacion_'.$DatFichaIngresoModalidad->MinSigla]);
 				$InsFichaAccion->FccTiempoModificacion = date("Y-m-d H:i:s");

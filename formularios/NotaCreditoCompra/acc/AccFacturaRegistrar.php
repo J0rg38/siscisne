@@ -71,7 +71,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsFactura->RegId = $_POST['CmpRegimenId'];	
 	$InsFactura->RegAplicacion = $_POST['CmpRegimenAplicacion'];	
 	$InsFactura->FacRegimenPorcentaje = $_POST['CmpRegimenPorcentaje'];
-	$InsFactura->FacRegimenMonto = eregi_replace(",","",$_POST['CmpRegimenMonto']);
+	$InsFactura->FacRegimenMonto = preg_replace("/,/", "", $_POST['CmpRegimenMonto']);
 	
 	if($InsFactura->MonId<>$EmpresaMonedaId and !empty($InsFactura->FacTipoCambio)){
 		$InsFactura->FacRegimenMonto = $InsFactura->FacRegimenMonto * $InsFactura->FacTipoCambio;

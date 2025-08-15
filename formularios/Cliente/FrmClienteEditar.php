@@ -21,13 +21,13 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 //VARIABLES
 $Edito = false;
 
-if(!empty($_POST['Identificador'])){
+if(isset($_POST['Identificador']) && !empty($_POST['Identificador'])){
 	$Identificador = $_POST['Identificador'];
 }
 
-$GET_id = $_GET['Id'];
+$GET_id = isset($_GET['Id']) ? $_GET['Id'] : '';
 
-$GET_Tipo = $_GET['Tipo'];
+$GET_Tipo = isset($_GET['Tipo']) ? $_GET['Tipo'] : '';
 //MENSAJES
 include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjCliente.php');
 //CLASES
@@ -50,6 +50,12 @@ $InsTipoDocumento = new ClsTipoDocumento();
 $InsMoneda = new ClsMoneda();
 $InsTipoReferido = new ClsTipoReferido();
 $InsPersonal = new ClsPersonal();
+
+// Cargar datos del cliente si se está editando
+if (!empty($GET_id)) {
+    $InsCliente->CliId = $GET_id;
+    $InsCliente->MtdObtenerCliente();
+}
 
 
 if (!isset($_SESSION['InsClienteVehiculoIngreso'.$Identificador])){	
@@ -285,6 +291,12 @@ if(!empty($GET_dia)){
                   <td>&nbsp;</td>
                   <td align="left" valign="top">Estado Civil:</td>
                   <td align="left" valign="top"><?php
+			// Inicializar variables para evitar warnings de variables indefinidas
+			$OpcEstadoCivil1 = '';
+			$OpcEstadoCivil2 = '';
+			$OpcEstadoCivil3 = '';
+			$OpcEstadoCivil4 = '';
+			
 			switch($InsCliente->CliEstadoCivil){
 				case "Soltero":
 					$OpcEstadoCivil1 = 'selected="selected"';
@@ -319,6 +331,10 @@ if(!empty($GET_dia)){
                   <td>&nbsp;</td>
                   <td align="left" valign="top">Sexo:</td>
                   <td align="left" valign="top"><?php
+			// Inicializar variables para evitar warnings de variables indefinidas
+			$OpcSexo1 = '';
+			$OpcSexo2 = '';
+			
 			switch($InsCliente->CliSexo){
 				case "Hombre":
 					$OpcSexo1 = 'selected="selected"';
@@ -508,6 +524,10 @@ if(!empty($GET_dia)){
                   <td>&nbsp;</td>
                   <td align="left" valign="top">Estado:</td>
                   <td align="left" valign="top"><?php
+			// Inicializar variables para evitar warnings de variables indefinidas
+			$OpcEstado1 = '';
+			$OpcEstado2 = '';
+			
 			switch($InsCliente->CliEstado){
 				case 1:
 					$OpcEstado1 = 'selected="selected"';
@@ -607,6 +627,10 @@ if(!empty($GET_dia)){
                   <td>&nbsp;</td>
                   <td>Incluir CSI Post Venta:</td>
                   <td><?php
+					// Inicializar variables para evitar warnings de variables indefinidas
+					$OpcCSIIncluir1 = '';
+					$OpcCSIIncluir2 = '';
+					
 					switch($InsCliente->CliCSIIncluir){
 
 						case 1:
@@ -641,6 +665,10 @@ if(!empty($GET_dia)){
                   <td>&nbsp;</td>
                   <td>Incluir CSI Venta:</td>
                   <td><?php
+					// Inicializar variables para evitar warnings de variables indefinidas
+					$OpcCSIVentaIncluir1 = '';
+					$OpcCSIVentaIncluir2 = '';
+					
 					switch($InsCliente->CliCSIVentaIncluir){
 
 						case 1:

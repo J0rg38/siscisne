@@ -99,13 +99,13 @@ if(!empty($VehiculoIngresoId)){
 			
 			){
 				
-				$InsVehiculoModelo->VmoNombre = eregi_replace("SEDAN","",$InsVehiculoModelo->VmoNombre);
-				$InsVehiculoModelo->VmoNombre = eregi_replace("HATCHBACK","",$InsVehiculoModelo->VmoNombre);
-				$InsVehiculoModelo->VmoNombre = eregi_replace("GT","",$InsVehiculoModelo->VmoNombre);
-				$InsVehiculoModelo->VmoNombre = eregi_replace("MAX","",$InsVehiculoModelo->VmoNombre);
-				$InsVehiculoModelo->VmoNombre = eregi_replace("MOVE","",$InsVehiculoModelo->VmoNombre);
-				$InsVehiculoModelo->VmoNombre = eregi_replace("CARGO","",$InsVehiculoModelo->VmoNombre);
-				$InsVehiculoModelo->VmoNombre = eregi_replace("WORK","",$InsVehiculoModelo->VmoNombre);
+				$InsVehiculoModelo->VmoNombre = preg_replace("/SEDAN/", "", $InsVehiculoModelo->VmoNombre);
+				$InsVehiculoModelo->VmoNombre = preg_replace("/HATCHBACK/", "", $InsVehiculoModelo->VmoNombre);
+				$InsVehiculoModelo->VmoNombre = preg_replace("/GT/", "", $InsVehiculoModelo->VmoNombre);
+				$InsVehiculoModelo->VmoNombre = preg_replace("/MAX/", "", $InsVehiculoModelo->VmoNombre);
+				$InsVehiculoModelo->VmoNombre = preg_replace("/MOVE/", "", $InsVehiculoModelo->VmoNombre);
+				$InsVehiculoModelo->VmoNombre = preg_replace("/CARGO/", "", $InsVehiculoModelo->VmoNombre);
+				$InsVehiculoModelo->VmoNombre = preg_replace("/WORK/", "", $InsVehiculoModelo->VmoNombre);
 				
 				$InsVehiculoIngreso->EinNombre = $InsVehiculoModelo->VmoNombre;
 			

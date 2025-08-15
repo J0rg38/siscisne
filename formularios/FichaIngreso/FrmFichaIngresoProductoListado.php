@@ -51,10 +51,31 @@ Parametro10 = FipCantidad
 Parametro11 = UmeNombre
 */
 		
-$RepSesionObjetos = $_SESSION['InsFichaIngresoProducto'.$ModalidadIngreso.$Identificador]->MtdObtenerSesionObjetos(true);
-$ArrSesionObjetos = $RepSesionObjetos['Datos'];
-$SesionObjetosTotal = $RepSesionObjetos['Total'];
-$SesionObjetosTotalSeleccionado = $RepSesionObjetos['TotalSeleccionado'];
+// Verificar que la clase esté disponible antes de deserializar
+if (!class_exists('ClsSesionObjeto')) {
+    require_once('../../clases/ClsSesionObjeto.php');
+}
+
+// Verificar que el objeto de sesión sea válido
+if (isset($_SESSION['InsFichaIngresoProducto'.$ModalidadIngreso.$Identificador]) && 
+    is_object($_SESSION['InsFichaIngresoProducto'.$ModalidadIngreso.$Identificador])) {
+    
+    try {
+        $RepSesionObjetos = $_SESSION['InsFichaIngresoProducto'.$ModalidadIngreso.$Identificador]->MtdObtenerSesionObjetos(true);
+        $ArrSesionObjetos = $RepSesionObjetos['Datos'] ?? [];
+        $SesionObjetosTotal = $RepSesionObjetos['Total'] ?? 0;
+        $SesionObjetosTotalSeleccionado = $RepSesionObjetos['TotalSeleccionado'] ?? 0;
+    } catch (Exception $e) {
+        error_log("Error al obtener sesión objetos: " . $e->getMessage());
+        $ArrSesionObjetos = [];
+        $SesionObjetosTotal = 0;
+        $SesionObjetosTotalSeleccionado = 0;
+    }
+} else {
+    $ArrSesionObjetos = [];
+    $SesionObjetosTotal = 0;
+    $SesionObjetosTotalSeleccionado = 0;
+}
 
 
 ?>

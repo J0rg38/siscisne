@@ -102,9 +102,16 @@ class ClsGarantiaRepuestoIsuzu {
 
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -430,7 +437,7 @@ class ClsGarantiaRepuestoIsuzu {
 				$ResGarantiaRepuestoIsuzuManoObra =  $InsGarantiaRepuestoIsuzuManoObra->MtdObtenerGarantiaRepuestoIsuzuManoObraes(NULL,NULL,"GopId","ASC",NULL,$this->GriId,NULL);
 				$this->GarantiaRepuestoIsuzuManoObra = 	$ResGarantiaRepuestoIsuzuManoObra['Datos'];	
 				
-				$InsFichaAccionFoto = new ClsFichaAccionFoto();
+				$InsFichaAccionFoto = new ClsFichaAccionFoto($this->InsMysql);
 				$ResFichaAccionFoto = $InsFichaAccionFoto->MtdObtenerFichaAccionFotos(NULL,NULL,'FafId','Desc',NULL,$this->FccId,NULL);
 				$this->FichaAccionFoto = $ResFichaAccionFoto['Datos'];
 								
@@ -1129,7 +1136,7 @@ class ClsGarantiaRepuestoIsuzu {
 								  $this->GriImpuesto = 0;
 								  $this->GriTotal = 0;
 									  
-									  $InsTallerPedido = new ClsTallerPedido();
+									  $InsTallerPedido = new ClsTallerPedido($this->InsMysql);
 									  
 									  $ResTallerPedido = $InsTallerPedido->MtdObtenerTallerPedidos(NULL,NULL,NULL,'AmoTiempoCreacion','DESC','',NULL,NULL,NULL,$InsFichaAccion->FccId,NULL,0,0,NULL,NULL,false,NULL);
 									  $ArrTallerPedidos = $ResTallerPedido['Datos'];
@@ -1454,7 +1461,7 @@ class ClsGarantiaRepuestoIsuzu {
 		  
 									  
 									  
-									  $InsTallerPedido = new ClsTallerPedido();
+									  $InsTallerPedido = new ClsTallerPedido($this->InsMysql);
 									  
 									  $ResTallerPedido = $InsTallerPedido->MtdObtenerTallerPedidos(NULL,NULL,NULL,'AmoTiempoCreacion','DESC','',NULL,NULL,NULL,$InsFichaAccion->FccId,NULL,0,0,NULL,NULL,false,NULL);
 									  $ArrTallerPedidos = $ResTallerPedido['Datos'];
@@ -1700,7 +1707,7 @@ class ClsGarantiaRepuestoIsuzu {
 		}
 
 //			if(!empty($this->GriFechaSalida)){
-//				$InsFichaAccion = new ClsFichaAccion();
+//				$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 //				$InsFichaAccion->FccId = $this->FccId;
 //				$InsFichaAccion->MtdObtenerFichaAccion();
 //				
@@ -1885,13 +1892,13 @@ class ClsGarantiaRepuestoIsuzu {
 //
 //											$FichaAccionTemparioId = "";
 //											
-//											$InsFichaAccionTempario = new ClsFichaAccionTempario();
+//											$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 //
 //											$FichaAccionTemparioId = $InsFichaAccionTempario->MtdVerificarExisteFichaAccionTemparios("FaeCodigo",$InsGarantiaRepuestoIsuzuManoObra->GdmOperacion,$this->FccId);
 //											
 //											if(empty($FichaAccionTemparioId)){
 //												
-//												$InsFichaAccionTempario = new ClsFichaAccionTempario();
+//												$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 //												$InsFichaAccionTempario->FccId = $this->FccId;
 //												$InsFichaAccionTempario->FaeCodigo = 	$InsGarantiaRepuestoIsuzuManoObra->GdmOperacion;
 //												$InsFichaAccionTempario->FaeTiempo = $InsGarantiaRepuestoIsuzuManoObra->GdmCodigo;
@@ -1953,7 +1960,7 @@ class ClsGarantiaRepuestoIsuzu {
 			
 //			if(!empty($this->GriFechaSalida)){
 //				
-//				$InsFichaAccion = new ClsFichaAccion();
+//				$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 //				$InsFichaAccion->FccId = $this->FccId;
 //				$InsFichaAccion->MtdObtenerFichaAccion();
 //				
@@ -2115,13 +2122,13 @@ class ClsGarantiaRepuestoIsuzu {
 //											
 //											$FichaAccionTemparioId = "";
 //											
-//											$InsFichaAccionTempario = new ClsFichaAccionTempario();
+//											$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 //
 //											$FichaAccionTemparioId = $InsFichaAccionTempario->MtdVerificarExisteFichaAccionTemparios("FaeCodigo",$InsGarantiaRepuestoIsuzuManoObra->GdmOperacion,$this->FccId);
 //											
 //											if(empty($FichaAccionTemparioId)){
 //												
-//												$InsFichaAccionTempario = new ClsFichaAccionTempario();
+//												$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 //												$InsFichaAccionTempario->FccId = $this->FccId;
 //												$InsFichaAccionTempario->FaeCodigo = 	$InsGarantiaRepuestoIsuzuManoObra->GdmOperacion;
 //												$InsFichaAccionTempario->FaeTiempo = $InsGarantiaRepuestoIsuzuManoObra->GdmCodigo;
@@ -2156,7 +2163,7 @@ class ClsGarantiaRepuestoIsuzu {
 									
 									//if(!empty($InsGarantiaRepuestoIsuzuManoObra->FaeId)){
 //									
-//										$InsFichaAccionTempario = new ClsFichaAccionTempario();
+//										$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 //										$InsFichaAccionTempario->MtdEliminarFichaAccionTempario($InsGarantiaRepuestoIsuzuManoObra->FaeId);
 //									
 //									}
@@ -2173,7 +2180,7 @@ class ClsGarantiaRepuestoIsuzu {
 									
 										//if(!empty($InsGarantiaRepuestoIsuzuManoObra->FaeId)){
 //											
-//											$InsFichaAccionTempario = new ClsFichaAccionTempario();
+//											$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 //											$InsFichaAccionTempario->FaeId = $InsGarantiaRepuestoIsuzuManoObra->FaeId;
 //											$InsFichaAccionTempario->FaeCodigo = $InsGarantiaRepuestoIsuzuManoObra->GdmOperacion;
 //											$InsFichaAccionTempario->FaeTiempo = $InsGarantiaRepuestoIsuzuManoObra->GdmCodigo;
@@ -2186,13 +2193,13 @@ class ClsGarantiaRepuestoIsuzu {
 //											
 //											$FichaAccionTemparioId = "";
 //											
-//											$InsFichaAccionTempario = new ClsFichaAccionTempario();
+//											$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 //
 //											$FichaAccionTemparioId = $InsFichaAccionTempario->MtdVerificarExisteFichaAccionTemparios("FaeCodigo",$InsGarantiaRepuestoIsuzuManoObra->GdmOperacion,$this->FccId);
 //											
 //											if(empty($FichaAccionTemparioId)){
 //												
-//												$InsFichaAccionTempario = new ClsFichaAccionTempario();
+//												$InsFichaAccionTempario = new ClsFichaAccionTempario($this->InsMysql);
 //												$InsFichaAccionTempario->FccId = $this->FccId;
 //												$InsFichaAccionTempario->FaeCodigo = 	$InsGarantiaRepuestoIsuzuManoObra->GdmOperacion;
 //												$InsFichaAccionTempario->FaeTiempo = $InsGarantiaRepuestoIsuzuManoObra->GdmCodigo;
@@ -2254,7 +2261,7 @@ class ClsGarantiaRepuestoIsuzu {
 	
 		private function MtdAuditarGarantiaRepuestoIsuzu($oAccion,$oDescripcion,$oDatos){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->GriId;
 
 			$InsAuditoria->UsuId = $this->UsuId;

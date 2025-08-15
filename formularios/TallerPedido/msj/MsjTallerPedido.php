@@ -36,7 +36,7 @@
 	
 	define("ERR_TPE_101", "No se pudo registrar el pedido de taller");	
 	define("ERR_TPE_102", "No se pudo editar el pedido de taller");		
-	define("ERR_TPE_106", "No se pudieron enviar las O.T. a Facturacion.");
+	define("ERR_TPE_104", "No se pudieron enviar las O.T. a Facturacion.");
 	define("ERR_TPE_105", "No se pudieron eliminar los pedidos de taller");
 
 	define("ERR_TPE_106", "No se pudieron enviar los pedidos de taller");

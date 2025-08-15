@@ -41,7 +41,7 @@ if(isset($_POST['BtnEnviarCorreo_x']) or $_POST['Guardar']=="1"){
 	$InsOrdenCodificacion->OciDestinatarios = $_POST['CmpDestinatario'];
 	
 	
-	$Destinatario = eregi_replace(" ","",$_POST['CmpDestinatario']);
+	$Destinatario = preg_replace("/ /", "", $_POST['CmpDestinatario']);
 	
 	if(!empty($Destinatario)){
 		

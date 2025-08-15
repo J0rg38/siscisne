@@ -1,4 +1,9 @@
 <?php
+// Verificar que las variables de sesión estén disponibles
+if (!isset($_SESSION['SesionRol']) || !isset($_SESSION['SesionId'])) {
+    die('Error: Sesión no válida. Por favor, inicie sesión nuevamente.');
+}
+
 if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Listado") and empty($GET_dia)){
 ?>
 
@@ -9,6 +14,8 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Listado") and empty
 <?php $PrivilegioMultisucursal = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Multisucursal"))?true:false;?>
 
 <?php $PrivilegioInformeTecnicoATS3Registrar = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],"InformeTecnico","Registrar"))?true:false;?>
+<?php $PrivilegioClienteEditar = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],"Cliente","Editar"))?true:false;?>
+<?php $PrivilegioClienteVer = ($InsACL->MtdVerificarACL($_SESSION['SesionRol'],"Cliente","Ver"))?true:false;?>
 
 <script type="text/javascript" src="<?php echo $InsProyecto->MtdFormulariosJs($GET_mod);?>JsFichaAccion.js" ></script>
 
@@ -29,7 +36,7 @@ $POST_fil = ($_POST['Fil'] ?? '');
    if($_POST){
 	   $_SESSION[$GET_mod."Filtro"] = $POST_fil;
    }else{
-		$POST_fil = (empty($_GET['Fil'])?$_SESSION[$GET_mod."Filtro"]:$_GET['Fil']);
+		$POST_fil = (empty($_GET['Fil']) ? (isset($_SESSION[$GET_mod."Filtro"]) ? $_SESSION[$GET_mod."Filtro"] : '') : $_GET['Fil']);
    }
 
 
@@ -59,13 +66,14 @@ $POST_acc = $_POST['Acc'] ?? '';
 * Otras variables
 */
 
-$POST_finicio = $_POST['FechaInicio'];
-$POST_ffin = $_POST['FechaFin'];
-$POST_con = $_POST['Con'];
-$POST_Prioridad = $_POST['Prioridad'];
-$POST_Modalidad = $_POST['Modalidad'];
-$POST_ConCampana = $_POST['ConCampana'];
-$POST_Tipo = $_POST['Tipo'];
+$POST_finicio = $_POST['FechaInicio'] ?? '';
+$POST_ffin = $_POST['FechaFin'] ?? '';
+$POST_con = $_POST['Con'] ?? '';
+$POST_Prioridad = $_POST['Prioridad'] ?? '';
+$POST_Modalidad = $_POST['Modalidad'] ?? '';
+$POST_ConCampana = $_POST['ConCampana'] ?? '';
+$POST_Tipo = $_POST['Tipo'] ?? '';
+$POST_estado = $_POST['Estado'] ?? '';
 $POST_Sucursal = $_POST['CmpSucursal'] ?? '';
 
 

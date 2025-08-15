@@ -65,9 +65,16 @@ class ClsNotaDebito {
 	
     public $InsMysql;	
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -538,13 +545,13 @@ DATE_FORMAT(ndb.NdbTiempoCreacion, "%H:%i:%s") AS "NdbHoraEmision",
 			
 			if($oCompleto){
 				
-				$InsNotaDebitoDetalle = new ClsNotaDebitoDetalle();
+				$InsNotaDebitoDetalle = new ClsNotaDebitoDetalle($this->InsMysql);
 				$ResNotaDebitoDetalle =  $InsNotaDebitoDetalle->MtdObtenerNotaDebitoDetalles(NULL,NULL,NULL,NULL,1,NULL,$this->NdbId,$this->NdtId);
 				
 				$this->NotaDebitoDetalle = $ResNotaDebitoDetalle['Datos'];
 				if(!empty($this->OvvId)){
 				  
-				  $InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();
+				  $InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario($this->InsMysql);
 				  $ResOrdenVentaVehiculoPropietario = $InsOrdenVentaVehiculoPropietario->MtdObtenerOrdenVentaVehiculoPropietarios(NULL,NULL,'OvpId','ASC',NULL,$this->OvvId);
 				  $this->OrdenVentaVehiculoPropietario = $ResOrdenVentaVehiculoPropietario['Datos'];
 				  
@@ -1534,7 +1541,7 @@ $NotaDebito->TdoNombre = $fila['TdoNombre'];
 					if (!empty($this->NotaDebitoDetalle)){		
 							
 						$validar = 0;				
-						$InsNotaDebitoDetalle = new ClsNotaDebitoDetalle();		
+						$InsNotaDebitoDetalle = new ClsNotaDebitoDetalle($this->InsMysql);		
 								
 						foreach ($this->NotaDebitoDetalle as $DatNotaDebitoDetalle){
 						
@@ -1705,7 +1712,7 @@ $NotaDebito->TdoNombre = $fila['TdoNombre'];
 					if (!empty($this->NotaDebitoDetalle)){		
 							
 						$validar = 0;				
-						$InsNotaDebitoDetalle = new ClsNotaDebitoDetalle();		
+						$InsNotaDebitoDetalle = new ClsNotaDebitoDetalle($this->InsMysql);		
 								
 						foreach ($this->NotaDebitoDetalle as $DatNotaDebitoDetalle){
 											
@@ -1821,7 +1828,7 @@ $NotaDebito->TdoNombre = $fila['TdoNombre'];
 	
 		private function MtdAuditarNotaDebito($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->NdbId;
 			$InsAuditoria->AudCodigoExtra = $this->NdtId;
 			$InsAuditoria->UsuId = $this->UsuId;

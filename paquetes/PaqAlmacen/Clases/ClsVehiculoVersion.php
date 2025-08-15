@@ -58,9 +58,20 @@ class ClsVehiculoVersion {
 	
 	public $VehiculoVersionCaracteristica;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+	// Propiedades adicionales para evitar warnings
+	public $VtiId;
+	public $VtiNombre;
+
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -443,6 +454,7 @@ class ClsVehiculoVersion {
 	public function MtdRegistrarVehiculoVersion() {
 	
 		$error = false;
+		$Resultado = '';
 		
 		$this->InsMysql->MtdTransaccionIniciar();
 	
@@ -582,6 +594,7 @@ class ClsVehiculoVersion {
 	public function MtdEditarVehiculoVersion() {
 
 		$error = false;
+		$Resultado = '';
 		
 		$this->InsMysql->MtdTransaccionIniciar();
 		

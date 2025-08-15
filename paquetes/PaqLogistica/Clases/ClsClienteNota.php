@@ -25,9 +25,16 @@ class ClsClienteNota {
 
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -136,6 +143,16 @@ class ClsClienteNota {
     }
 
     public function MtdObtenerClienteNotas($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'CnoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oClienteId=NULL,$oFechaInicio=NULL,$oFechaFin=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$tipo = '';
+		$estado = '';
+		$fecha = '';
+		$categoria = '';
+		$orden = '';
+		$paginacion = '';
+		$cliente = '';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 
@@ -349,6 +366,9 @@ class ClsClienteNota {
 	//Accion eliminar	 
 	
 	public function MtdEliminarClienteNota($oElementos) {
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		$elementos = explode("#",$oElementos);
 			$i=1;

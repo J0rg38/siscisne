@@ -66,7 +66,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsPagoVehiculoIngreso->PrvNombreCompleto = $_POST['CmpProveedorNombreCompleto'];
 	$InsPagoVehiculoIngreso->PrvNumeroDocumento = $_POST['CmpProveedorNumeroDocumento'];
 	
-	$InsPagoVehiculoIngreso->PviTotal = eregi_replace(",","",(empty($_POST['CmpTotal'])?0:$_POST['CmpTotal']));
+	$InsPagoVehiculoIngreso->PviTotal = preg_replace("/,/", "", (empty($_POST['CmpTotal'])?0:$_POST['CmpTotal']));
 	
 	$InsPagoVehiculoIngreso->PviFoto = $_SESSION['SesPviFoto'.$Identificador];
 

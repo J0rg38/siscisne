@@ -37,12 +37,25 @@ class ClsServicio {
 	public $UmeNombre;
 	public $UmeAbreviacion;
 	
+	// Propiedades adicionales para evitar warnings
+	public $MonId;
+	public $SerDescripcion;
+	public $MonNombre;
+	public $MonSimbolo;
+	public $MonSigla;
 	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 

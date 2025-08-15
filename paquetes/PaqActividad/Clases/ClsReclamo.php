@@ -62,9 +62,16 @@ class ClsReclamo {
 
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -1043,7 +1050,7 @@ class ClsReclamo {
 	
 		private function MtdAuditarReclamo($oAccion,$oDescripcion,$oDatos){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->RecId;
 
 			$InsAuditoria->UsuId = $this->UsuId;

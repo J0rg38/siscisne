@@ -46,7 +46,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsVehiculoIngreso->VprAno = $_POST['CmpProformaAno'];
 	$InsVehiculoIngreso->VprMes = $_POST['CmpProformaMes'];
 	
-	$InsVehiculoIngreso->VpdCosto = eregi_replace(",","",(empty($_POST['CmpProformaDetalleCosto'])?0:$_POST['CmpProformaDetalleCosto']));
+	$InsVehiculoIngreso->VpdCosto = preg_replace("/,/", "", (empty($_POST['CmpProformaDetalleCosto'])?0:$_POST['CmpProformaDetalleCosto']));
 	$InsVehiculoIngreso->VehiculoProformaMonId = $_POST['CmpProformaMonedaId'];
 	$InsVehiculoIngreso->VprTipoCambio = $_POST['CmpProformaTipoCambio'];
 	
@@ -89,7 +89,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsVehiculoIngreso->EinTipo = $_POST['CmpOrigen'];
 	$InsVehiculoIngreso->EinNumeroProforma = $_POST['CmpNumeroProforma'];
 	$InsVehiculoIngreso->EinNotaPedido = $_POST['CmpNotaPedido'];
-	$InsVehiculoIngreso->EinFacturaValor = eregi_replace(",","",(empty($_POST['CmpFacturaValor'])?0:$_POST['CmpFacturaValor']));
+	$InsVehiculoIngreso->EinFacturaValor = preg_replace("/,/", "", (empty($_POST['CmpFacturaValor'])?0:$_POST['CmpFacturaValor']));
 		
 
 //	$InsVehiculoIngreso->EinCaracteristicaMarca = addslashes($_POST['CmpVehiculoVersionCaracteristicaMarca']);
@@ -123,13 +123,13 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 			$InsVehiculoModelo->VmoNombre == "AVEO HATCHBACK"
 		){
 			
-			$InsVehiculoModelo->VmoNombre = eregi_replace("SEDAN","",$InsVehiculoModelo->VmoNombre);
-			$InsVehiculoModelo->VmoNombre = eregi_replace("HATCHBACK","",$InsVehiculoModelo->VmoNombre);
-			//$InsVehiculoModelo->VmoNombre = eregi_replace("GT","",$InsVehiculoModelo->VmoNombre);
-			$InsVehiculoModelo->VmoNombre = eregi_replace("MAX","",$InsVehiculoModelo->VmoNombre);
-			$InsVehiculoModelo->VmoNombre = eregi_replace("MOVE","",$InsVehiculoModelo->VmoNombre);
-			$InsVehiculoModelo->VmoNombre = eregi_replace("CARGO","",$InsVehiculoModelo->VmoNombre);
-			$InsVehiculoModelo->VmoNombre = eregi_replace("WORK","",$InsVehiculoModelo->VmoNombre);	
+			$InsVehiculoModelo->VmoNombre = preg_replace("/SEDAN/", "", $InsVehiculoModelo->VmoNombre);
+			$InsVehiculoModelo->VmoNombre = preg_replace("/HATCHBACK/", "", $InsVehiculoModelo->VmoNombre);
+			//$InsVehiculoModelo->VmoNombre = preg_replace("/GT/", "", $InsVehiculoModelo->VmoNombre);
+			$InsVehiculoModelo->VmoNombre = preg_replace("/MAX/", "", $InsVehiculoModelo->VmoNombre);
+			$InsVehiculoModelo->VmoNombre = preg_replace("/MOVE/", "", $InsVehiculoModelo->VmoNombre);
+			$InsVehiculoModelo->VmoNombre = preg_replace("/CARGO/", "", $InsVehiculoModelo->VmoNombre);
+			$InsVehiculoModelo->VmoNombre = preg_replace("/WORK/", "", $InsVehiculoModelo->VmoNombre);	
 			$InsVehiculoIngreso->EinNombre = $InsVehiculoModelo->VmoNombre;
 				
 		}
@@ -184,7 +184,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	$InsVehiculoIngreso->MonId = $_POST['CmpMonedaId'];	
 	$InsVehiculoIngreso->EinTipoCambio = $_POST['CmpTipoCambio'];	
-	$InsVehiculoIngreso->EinDescuentoGerencia = eregi_replace(",","",(empty($_POST['CmpDescuentoGerencia'])?0:$_POST['CmpDescuentoGerencia']));
+	$InsVehiculoIngreso->EinDescuentoGerencia = preg_replace("/,/", "", (empty($_POST['CmpDescuentoGerencia'])?0:$_POST['CmpDescuentoGerencia']));
 
 	if($InsVehiculoIngreso->MonId<>$EmpresaMonedaId ){
 		$InsVehiculoIngreso->EinDescuentoGerencia = round($InsVehiculoIngreso->EinDescuentoGerencia * $InsVehiculoIngreso->EinTipoCambio,3);

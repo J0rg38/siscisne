@@ -13,17 +13,39 @@
 class ClsBoletaTalonario {
 
     public $BtaId;
+	public $SucId;
 
     public $BtaNumero;
 	public $BtaInicio;
+	public $BtaDescripcion;
     public $BtaTiempoCreacion;
     public $BtaTiempoModificacion;
     public $BtaEliminado;
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $BtaEstado;
+	public $BtaEstadoDescripcion;
+	public $BtaEstadoIcono;
+	public $BtaMultisucursal;
+	public $BtaSucursal;
+	public $BtaSucursalNombre;
+	public $BtaSucursalDireccion;
+	public $BtaSucursalDistrito;
+	public $BtaSucursalProvincia;
+	public $BtaSucursalDepartamento;
+	public $BtaSucursalCodigoUbigeo;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -92,6 +114,12 @@ class ClsBoletaTalonario {
     }
 
     public function MtdObtenerBoletaTalonarios($oCampo=NULL,$oFiltro=NULL,$oOrden = 'BtaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oSucursal=NULL,$oMultisucursal=false) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$sucursal = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -170,7 +198,7 @@ class ClsBoletaTalonario {
 			
 			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
 			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
+			$Respuesta['Total'] = $filaTotal ? $filaTotal['TOTAL'] : 0;
 			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 			
 			return $Respuesta;			
@@ -184,6 +212,9 @@ class ClsBoletaTalonario {
 	public function MtdEliminarBoletaTalonario($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
+
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 
 			$i=1;
 			foreach($elementos as $elemento){

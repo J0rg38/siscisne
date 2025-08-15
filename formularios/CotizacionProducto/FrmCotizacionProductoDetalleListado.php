@@ -33,9 +33,9 @@ $POST_MonedaId = $_POST['MonedaId'];
 $POST_TipoCambio = $_POST['TipoCambio'];
 $POST_Editar = $_POST['Editar'];
 $POST_Eliminar = $_POST['Eliminar'];
-$POST_ManoObra = eregi_replace(",","",$_POST['ManoObra']);
+$POST_ManoObra = preg_replace("/,/", "", $_POST['ManoObra']);
 $POST_IncluyeImpuesto = $_POST['IncluyeImpuesto'];
-$POST_DescuentoPorcentaje = eregi_replace(",","",$_POST['DescuentoPorcentaje']);
+$POST_DescuentoPorcentaje = preg_replace("/,/", "", $_POST['DescuentoPorcentaje']);
 
 
 session_start();
@@ -93,23 +93,51 @@ $InsMoneda = new ClsMoneda();
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 
-$RepSesionObjetos = $_SESSION['InsCotizacionProductoDetalle'.$Identificador]->MtdObtenerSesionObjetos(true);
-$ArrCotizacionProductoDetalles = $RepSesionObjetos['Datos'];
+// Asegurar que la clase esté disponible antes de acceder a los objetos de sesión
+if (!class_exists('ClsSesionObjeto')) {
+    require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
+}
 
+// Verificar que los objetos de sesión sean válidos antes de usarlos
+if (isset($_SESSION['InsCotizacionProductoDetalle'.$Identificador]) && 
+    $_SESSION['InsCotizacionProductoDetalle'.$Identificador] instanceof ClsSesionObjeto) {
+    $RepSesionObjetos = $_SESSION['InsCotizacionProductoDetalle'.$Identificador]->MtdObtenerSesionObjetos(true);
+    $ArrCotizacionProductoDetalles = $RepSesionObjetos['Datos'];
+} else {
+    $ArrCotizacionProductoDetalles = array();
+}
 
+if (isset($_SESSION['InsCotizacionProductoPlanchado'.$Identificador]) && 
+    $_SESSION['InsCotizacionProductoPlanchado'.$Identificador] instanceof ClsSesionObjeto) {
+    $RepSesionObjetos = $_SESSION['InsCotizacionProductoPlanchado'.$Identificador]->MtdObtenerSesionObjetos(true);
+    $ArrCotizacionProductoPlanchados = $RepSesionObjetos['Datos'];
+} else {
+    $ArrCotizacionProductoPlanchados = array();
+}
 
+if (isset($_SESSION['InsCotizacionProductoPintado'.$Identificador]) && 
+    $_SESSION['InsCotizacionProductoPintado'.$Identificador] instanceof ClsSesionObjeto) {
+    $RepSesionObjetos = $_SESSION['InsCotizacionProductoPintado'.$Identificador]->MtdObtenerSesionObjetos(true);
+    $ArrCotizacionProductoPintados = $RepSesionObjetos['Datos'];
+} else {
+    $ArrCotizacionProductoPintados = array();
+}
 
-$RepSesionObjetos = $_SESSION['InsCotizacionProductoPlanchado'.$Identificador]->MtdObtenerSesionObjetos(true);
-$ArrCotizacionProductoPlanchados = $RepSesionObjetos['Datos'];
+if (isset($_SESSION['InsCotizacionProductoCentrado'.$Identificador]) && 
+    $_SESSION['InsCotizacionProductoCentrado'.$Identificador] instanceof ClsSesionObjeto) {
+    $RepSesionObjetos = $_SESSION['InsCotizacionProductoCentrado'.$Identificador]->MtdObtenerSesionObjetos(true);
+    $ArrCotizacionProductoCentrados = $RepSesionObjetos['Datos'];
+} else {
+    $ArrCotizacionProductoCentrados = array();
+}
 
-$RepSesionObjetos = $_SESSION['InsCotizacionProductoPintado'.$Identificador]->MtdObtenerSesionObjetos(true);
-$ArrCotizacionProductoPintados = $RepSesionObjetos['Datos'];
-
-$RepSesionObjetos = $_SESSION['InsCotizacionProductoCentrado'.$Identificador]->MtdObtenerSesionObjetos(true);
-$ArrCotizacionProductoCentrados = $RepSesionObjetos['Datos'];
-
-$RepSesionObjetos = $_SESSION['InsCotizacionProductoTarea'.$Identificador]->MtdObtenerSesionObjetos(true);
-$ArrCotizacionProductoTareas = $RepSesionObjetos['Datos'];
+if (isset($_SESSION['InsCotizacionProductoTarea'.$Identificador]) && 
+    $_SESSION['InsCotizacionProductoTarea'.$Identificador] instanceof ClsSesionObjeto) {
+    $RepSesionObjetos = $_SESSION['InsCotizacionProductoTarea'.$Identificador]->MtdObtenerSesionObjetos(true);
+    $ArrCotizacionProductoTareas = $RepSesionObjetos['Datos'];
+} else {
+    $ArrCotizacionProductoTareas = array();
+}
 
 
 

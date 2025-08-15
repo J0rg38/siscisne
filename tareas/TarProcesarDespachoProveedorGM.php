@@ -65,13 +65,13 @@ if($emails) {
 		$mensaje_original = $mensaje;
 		
 		$mensaje = strtoupper($mensaje);
-		$mensaje = eregi_replace(" ","",$mensaje);
+		$mensaje = preg_replace("/ /", "", $mensaje);
 		
 		$asunto = $overview[0]->subject;
-		$asunto = eregi_replace(" ","",$asunto);
-		$asunto = eregi_replace(":","",$asunto);		
-		$asunto = eregi_replace("RE","",$asunto);
-		$asunto = eregi_replace("PEDIDO","",$asunto);
+		$asunto = preg_replace("/ /", "", $asunto);
+		$asunto = preg_replace("/:/", "", $asunto);		
+		$asunto = preg_replace("/RE/", "", $asunto);
+		$asunto = preg_replace("/PEDIDO/", "", $asunto);
 //
 //$cadena_de_texto = 'Esta es la frase donde haremos la búsqueda';
 //$cadena_buscada   = 'la';

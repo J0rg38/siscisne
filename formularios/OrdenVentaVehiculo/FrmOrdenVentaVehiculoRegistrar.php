@@ -41,7 +41,7 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 <?php
 $Registro = false;
 $GET_CveId = $_GET['CveId'];
-$GET_Origen = $_GET['Origen'];
+$GET_Origen = $_GET['Origen'] ?? '';
 
 if(!empty($_POST['Identificador'])){
 	$Identificador = $_POST['Identificador'];
@@ -120,6 +120,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsCondicionPago.php');
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsCotizacionVehiculo = new ClsCotizacionVehiculo();
 $InsMoneda = new ClsMoneda();
 $InsTipoDocumento = new ClsTipoDocumento();
 $InsVehiculoMarca = new ClsVehiculoMarca();
@@ -711,6 +712,10 @@ foreach($InsPlanMantenimiento->PmaIsuzuKilometrajesResumen as $DatKilometroEtiqu
                     <td>&nbsp;</td>
                     <td align="left" valign="top">Tipo de Placa:</td>
                     <td align="left" valign="top"><?php
+					// Inicializar variables para evitar warnings
+					$OpcTipoPlaca1 = '';
+					$OpcTipoPlaca3 = '';
+					
 					switch($InsOrdenVentaVehiculo->OvvTipoPlaca){
 						case "PARTICULAR":
 							$OpcTipoPlaca1 = 'selected = "selected"';
@@ -735,6 +740,13 @@ foreach($InsPlanMantenimiento->PmaIsuzuKilometrajesResumen as $DatKilometroEtiqu
                     <td>&nbsp;</td>
                     <td align="left" valign="top">Estado: </td>
                     <td align="left" valign="top"><?php
+					// Inicializar variables para evitar warnings
+					$OpcEstado1 = '';
+					$OpcEstado3 = '';
+					$OpcEstado4 = '';
+					$OpcEstado5 = '';
+					$OpcEstado6 = '';
+					
 					switch($InsOrdenVentaVehiculo->OvvEstado){
 						case 1:
 							$OpcEstado1 = 'selected = "selected"';
@@ -1250,21 +1262,21 @@ tinymce.init({
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 
 Calendar.setup({ 
 	inputField : "CmpFechaEntrega",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaEntrega"// el id del botón que  
+	button     : "BtnFechaEntrega"// el id del botï¿½n que  
 	});
 
 
 Calendar.setup({ 
 	inputField : "CmpActaEntregaFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnActaEntregaFecha"// el id del botón que  
+	button     : "BtnActaEntregaFecha"// el id del botï¿½n que  
 	});
 
 

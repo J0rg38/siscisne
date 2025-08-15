@@ -31,7 +31,7 @@ require_once($InsProyecto->MtdRutLibrerias().'JSON2.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsCliente.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoIngresoCliente.php');
 
-$POST_VehiculoIngresoId = $_POST['VehiculoIngresoId'];
+$POST_VehiculoIngresoId = $_POST['VehiculoIngresoId'] ?? '';
 
 $InsCliente = new ClsCliente();
 $InsVehiculoIngresoCliente = new ClsVehiculoIngresoCliente();
@@ -39,11 +39,18 @@ $InsVehiculoIngresoCliente = new ClsVehiculoIngresoCliente();
 $ResCliente = $InsCliente->MtdObtenerClientes("Cli".$_POST['Campo'],"comienza",$_POST['Dato'],"Cli".$_POST['Campo'],"ASC",1,NULL,NULL,NULL);
 $ArrClientes = $ResCliente['Datos'];
 
+// Verificar que se encontraron clientes antes de procesar
+if (!empty($ArrClientes) && isset($ArrClientes[0]->CliId)) {
+	$InsCliente->CliId = $ArrClientes[0]->CliId;
+	unset($ArrClientes);
 
-$InsCliente->CliId = $ArrClientes[0]->CliId;
-unset($ArrClientes);
-
-$InsCliente->MtdObtenerCliente();
+	$InsCliente->MtdObtenerCliente();
+} else {
+	// Si no hay clientes, devolver respuesta vacía
+	$json = new Services_JSON();
+	echo $json->encode(null);
+	exit;
+}
 
 
 $VehiculoIngresoId = "";

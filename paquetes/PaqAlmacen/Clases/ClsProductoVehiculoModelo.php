@@ -19,11 +19,26 @@ class ClsProductoVehiculoModelo {
     public $PvmTiempoModificacion;
     public $PvmEliminado;
 
+	// Propiedades adicionales para evitar warnings
+	public $PvvId;
+	public $VmaId;
+	public $VmoId;
+	public $VmaNombre;
+	public $VmoNombre;
+	public $VveNombre;
+
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -31,6 +46,12 @@ class ClsProductoVehiculoModelo {
 	
 
     public function MtdObtenerProductoVehiculoModelos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PvmId',$oSentido = 'Desc',$oPaginacion = '0,10',$oProducto=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$producto = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);

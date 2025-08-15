@@ -20,8 +20,8 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	//$InsVentaConcretada->VcoTipoCambio = NULL;
 
 	$InsVentaConcretada->VcoObservacion = addslashes($_POST['CmpObservacion']);
-	$InsVentaConcretada->VcoDescuento = eregi_replace(",","",(empty($_POST['CmpDescuento'])?0:$_POST['CmpDescuento']));
-	$InsVentaConcretada->VcoManoObra = eregi_replace(",","",(empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
+	$InsVentaConcretada->VcoDescuento = preg_replace("/,/", "", (empty($_POST['CmpDescuento'])?0:$_POST['CmpDescuento']));
+	$InsVentaConcretada->VcoManoObra = preg_replace("/,/", "", (empty($_POST['CmpManoObra'])?0:$_POST['CmpManoObra']));
 	
 	if($InsVentaConcretada->MonId<>$EmpresaMonedaId ){
 		$InsVentaConcretada->VcoDescuento = $InsVentaConcretada->VcoDescuento * $InsVentaConcretada->VcoTipoCambio;

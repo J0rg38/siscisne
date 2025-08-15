@@ -39,11 +39,41 @@ class ClsFacturaDetalle {
 	public $FacFechaEmision;
 	public $FacTipoCambio;
 	public $FacIncluyeImpuesto;
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $FdeCodigo;
+	public $FdeValorVenta;
+	public $FdeImpuesto;
+	public $FdeDescuento;
+	public $FdeGratuito;
+	public $FdeExonerado;
+	public $FdeValorVentaUnitario;
+	public $FdeValorVentaBruto;
+	public $FdePorcentajeDescuento;
+	public $FdeUnidadMedidaCodigo;
+	public $VcdReingreso;
+	public $AmdCompraOrigen;
+	public $VmdId;
+	public $VddId;
+	public $UmeId;
+	public $FdeTiempoCreacionFormateado;
+	public $FdeTiempoModificacionFormateado;
+	public $FacFechaEmisionFormateada;
+	public $FtaNumero;
+	public $FdeEstadoDescripcion;
+	public $FdeEstadoIcono;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -71,6 +101,15 @@ class ClsFacturaDetalle {
 		}
 		
     public function MtdObtenerFacturaDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FdeId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFactura=NULL,$oTalonario=NULL,$oAlmacenMovimientoDetalleId=NULL,$oFacturaEstado=NULL,$oVentaDirectaDetalleId=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$factura = '';
+		$amdetalle = '';
+		$festado = '';
+		$vddetale = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -251,8 +290,10 @@ class ClsFacturaDetalle {
 		
 		$elementos = explode("#",$oElementos);
 		
-
-			$i=1;
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
+		
+		$i=1;
 			foreach($elementos as $elemento){
 				if(!empty($elemento)){
 				

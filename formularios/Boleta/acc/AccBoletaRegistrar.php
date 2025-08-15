@@ -2,7 +2,7 @@
 //Si se hizo click en guardar	
 
 	
-if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){	
+if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){	
 	
 	$Resultado = '';
 	$Guardar = true;
@@ -22,11 +22,11 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsBoleta->MonId = $_POST['CmpMonedaId'];
 	$InsBoleta->BolTipoCambio = $_POST['CmpTipoCambio'];
 	
-	$InsBoleta->BolAbono = eregi_replace(",","",(empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
+	$InsBoleta->BolAbono = preg_replace("/,/", "", (empty($_POST['CmpAbono'])?0:$_POST['CmpAbono']));
 	$InsBoleta->BolObsequio = $_POST['CmpObsequio'];
 	
 	$InsBoleta->BolIncluyeImpuesto = $_POST['CmpIncluyeImpuesto'];
-	$InsBoleta->BolAbono = eregi_replace(",","",$_POST['CmpAbono']);
+	$InsBoleta->BolAbono = preg_replace("/,/", "", $_POST['CmpAbono']);
 		
 	$InsBoleta->BolEstado = $_POST['CmpEstado'];
 	$InsBoleta->BolFechaEmision = FncCambiaFechaAMysql($_POST['CmpFechaEmision']);
@@ -72,7 +72,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsBoleta->RegId = $_POST['CmpRegimenId'];	
 	$InsBoleta->RegAplicacion = $_POST['CmpRegimenAplicacion'];	
 	$InsBoleta->BolRegimenPorcentaje = $_POST['CmpRegimenPorcentaje'];
-	$InsBoleta->BolRegimenMonto = eregi_replace(",","",$_POST['CmpRegimenMonto']);
+	$InsBoleta->BolRegimenMonto = preg_replace("/,/", "", $_POST['CmpRegimenMonto']);
 	
 	if($InsBoleta->MonId<>$EmpresaMonedaId and !empty($InsBoleta->BolTipoCambio)){
 		$InsBoleta->BolRegimenMonto = $InsBoleta->BolRegimenMonto * $InsBoleta->BolTipoCambio;
@@ -553,7 +553,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 //					
 //					$InsPago->MonId = $InsBoleta->MonId;
 //					$InsPago->PagTipoCambio = $InsBoleta->BolTipoCambio;
-//					$InsPago->PagMonto = eregi_replace(",","",(empty($InsBoleta->BolAbono)?0:$InsBoleta->BolAbono));
+//					$InsPago->PagMonto = preg_replace("/,/", "", (empty($InsBoleta->BolAbono)?0:$InsBoleta->BolAbono));
 //
 //					$InsPago->PagObservacion = date("d/m/Y H:i:s")." - Abono Generada de Boleta: ".$InsBoleta->BtaNumero."-".$InsBoleta->BolId;
 //					$InsPago->PagObservacion .= $InsVentaDirecta->VdiObservacion;;

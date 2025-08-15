@@ -31,9 +31,16 @@ class ClsAlmacenMovimientoEntradaExtorno {
 	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -58,6 +65,10 @@ class ClsAlmacenMovimientoEntradaExtorno {
 	}
 
     public function MtdObtenerAlmacenMovimientoEntradaExtornos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'AmeId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oAlmacenMovimientoEntrada=NULL,$oEstado=NULL,$oProducto=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$oCondicion = 'contiene';
 
 		if(!empty($oCampo) and !empty($oFiltro)){
 

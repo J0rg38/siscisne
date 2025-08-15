@@ -20,9 +20,16 @@ class ClsVehiculoCaracteristicaSeccion {
 	
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -80,6 +87,12 @@ class ClsVehiculoCaracteristicaSeccion {
     }
 
     public function MtdObtenerVehiculoCaracteristicaSecciones($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VcsId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$estado = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -141,6 +154,9 @@ class ClsVehiculoCaracteristicaSeccion {
 	public function MtdEliminarVehiculoCaracteristicaSeccion($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 			$i=1;
 			foreach($elementos as $elemento){

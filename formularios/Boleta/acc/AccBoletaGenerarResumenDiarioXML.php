@@ -53,7 +53,7 @@ $InsMoneda = new ClsMoneda();
 $InsRegimen = new ClsRegimen();
 
 $ArrBoletas = explode("@",$GET_Seleccionados);
-$Boletas = eregi_replace("@",",",$GET_Seleccionados);
+$Boletas = preg_replace("/@/", ",", $GET_Seleccionados);
 
 $Fecha = "";
 $MonedaSigla = "";

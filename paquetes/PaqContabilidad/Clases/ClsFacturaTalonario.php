@@ -21,11 +21,32 @@ class ClsFacturaTalonario {
     public $FtaTiempoCreacion;
     public $FtaTiempoModificacion;
     public $FtaEliminado;
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $SucId;
+	public $FtaEstado;
+	public $FtaEstadoDescripcion;
+	public $FtaEstadoIcono;
+	public $FtaMultisucursal;
+	public $FtaSucursal;
+	public $FtaSucursalNombre;
+	public $FtaSucursalDireccion;
+	public $FtaSucursalDistrito;
+	public $FtaSucursalProvincia;
+	public $FtaSucursalDepartamento;
+	public $FtaSucursalCodigoUbigeo;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -95,6 +116,12 @@ class ClsFacturaTalonario {
     }
 
     public function MtdObtenerFacturaTalonarios($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FtaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oSucursal=NULL,$oMultisucursal=false) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$sucursal = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
@@ -185,6 +212,8 @@ class ClsFacturaTalonario {
 		
 		$elementos = explode("#",$oElementos);
 		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 
 			$i=1;
 			foreach($elementos as $elemento){

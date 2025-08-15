@@ -87,7 +87,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsAlmacenMovimientoEntrada->AmoTotal = 0;
 	
 	$InsAlmacenMovimientoEntrada->AmoValorTotal = 0;
-	//$InsAlmacenMovimientoEntrada->AmoValorTotal = eregi_replace(",","",$_POST['CmpValorTotal']);
+	//$InsAlmacenMovimientoEntrada->AmoValorTotal = preg_replace("/,/", "", $_POST['CmpValorTotal']);
 	
 	//if($InsAlmacenMovimientoEntrada->MonId<>$EmpresaMonedaId and !empty($InsAlmacenMovimientoEntrada->AmoTipoCambio)){
 //		$InsAlmacenMovimientoEntrada->AmoValorTotal = round($InsAlmacenMovimientoEntrada->AmoValorTotal * $InsAlmacenMovimientoEntrada->AmoTipoCambio,3);

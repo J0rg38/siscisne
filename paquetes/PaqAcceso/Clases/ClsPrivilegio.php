@@ -19,9 +19,15 @@ class ClsPrivilegio
 
 	public $InsMysql;
 
-	public function __construct()
+	public function __construct($oInsMysql=NULL)
 	{
-		$this->InsMysql = new ClsMysql();
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
 	}
 
 	public function __destruct() {}

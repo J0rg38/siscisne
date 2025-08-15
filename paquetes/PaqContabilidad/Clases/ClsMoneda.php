@@ -19,11 +19,30 @@ class ClsMoneda {
     public $MonSimbolo;
 	public $MonEstado;
     public $MonEliminado;
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $MonCodigo;
+	public $MonEstadoDescripcion;
+	public $MonEstadoIcono;
+	public $MonTipoCambio;
+	public $MonTipoCambioFecha;
+	public $MonTipoCambioHora;
+	public $MonTipoCambioUsuario;
+	public $MonTipoCambioTiempoCreacion;
+	public $MonTipoCambioTiempoModificacion;
+	public $MonTipoCambioEliminado;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -158,20 +177,22 @@ class ClsMoneda {
             $InsMoneda = get_class($this);
 
 				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-					$Moneda = new $InsMoneda();
-                    $Moneda->MonId = $fila['MonId'];
-                    $Moneda->MonSigla = $fila['MonSigla'];
-					
-					$Moneda->MonAbreviacion = $fila['MonAbreviacion'];
-					$Moneda->MonNombre= $fila['MonNombre'];			
-                    $Moneda->MonSimbolo= $fila['MonSimbolo'];
-                    $Moneda->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $Moneda;
+					if ($fila) {
+						$Moneda = new $InsMoneda();
+						$Moneda->MonId = $fila['MonId'];
+						$Moneda->MonSigla = $fila['MonSigla'];
+						
+						$Moneda->MonAbreviacion = $fila['MonAbreviacion'];
+						$Moneda->MonNombre= $fila['MonNombre'];			
+						$Moneda->MonSimbolo= $fila['MonSimbolo'];
+						$Moneda->InsMysql = NULL;                    
+						$Respuesta['Datos'][]= $Moneda;
+					}
                 }
 			
 			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
 			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
+			$Respuesta['Total'] = $filaTotal ? $filaTotal['TOTAL'] : 0;
 			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 			
 			return $Respuesta;			

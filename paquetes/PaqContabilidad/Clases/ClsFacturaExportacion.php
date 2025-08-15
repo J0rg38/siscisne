@@ -10,54 +10,55 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsFacturaExportacion {
+class ClsFacturaExportacion
+{
 
-    public $FexId;
+	public $FexId;
 	public $FetId;
-    public $UsuId;	
+	public $UsuId;
 
-	public $CliId;	
+	public $CliId;
 
 	public $NpaId;
-	
+
 	public $AmoId;
 
-	
+
 	public $MonId;
 	public $FexTipoCambio;
-	
+
 	public $FexCancelado;
-	
+
 	public $FexCantidadDia;
 	public $FexObsequio;
 	public $FexEstado;
 	public $FexFechaEmision;
 	public $FexPorcentajeImpuestoVenta;
 	public $FexDireccion;
-	
+
 	public $FexTotalBruto;
 	public $FexDescuento;
-	public $FexTotal;	
-	public $FexTotalReal;	
-	
+	public $FexTotal;
+	public $FexTotalReal;
+
 	public $FexObservacion;
 	public $FexObservacionImpresa;
 	public $FexCierre;
-	
 
-	
-    public $FexTiempoCreacion;
-    public $FexTiempoModificacion;
-    public $FexEliminado;
-	
+
+
+	public $FexTiempoCreacion;
+	public $FexTiempoModificacion;
+	public $FexEliminado;
+
 	public $FexTotalItems;
 	public $FacturaExportacionDetalle;
 
-		
+
 	public $NpaNombre;
-	
+
 	public $FetNumero;
-	
+
 
 	public $CliNombre;
 	public $TdoId;
@@ -66,20 +67,20 @@ class ClsFacturaExportacion {
 	public $CliEmail;
 	public $CliCelular;
 	public $CliFax;
-	
+
 	public $FinVehiculoKilometraje;
 
 	public $CliDepartamento;
 	public $CliProvincia;
 	public $CliDistrito;
-	
+
 	public $MonNombre;
 	public $MonSimbolo;
-	
+
 	public $FinId;
 	public $CprId;
-	
-	
+
+
 	public $EinVIN;
 	public $VmaId;
 	public $VmoId;
@@ -87,23 +88,28 @@ class ClsFacturaExportacion {
 	public $EinAnoFabricacion;
 	public $EinPlaca;
 	public $VehColor;
-	
+
 	public $VmaNombre;
 	public $VmoNombre;
 	public $VveNombre;
-			
-    public $InsMysql;
-	
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
-	
-	public function __destruct(){
+	public $InsMysql;
 
+
+	public function __construct($oInsMysql = NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
 	}
 
-	public function MtdGenerarFacturaExportacionId() {
+	public function __destruct() {}
+
+	public function MtdGenerarFacturaExportacionId()
+	{
 
 		$sql = 'SELECT	
 		MAX(CONVERT(SUBSTR(fex.FexId,5),unsigned)) AS "MAXIMO",
@@ -111,25 +117,25 @@ class ClsFacturaExportacion {
 		FROM tblfexfacturaexportacion fex 
 		LEFT JOIN tblfetfacturaexportaciontalonario fet
 		ON fex.FetId = fet.FetId 
-		WHERE fet.FetId = "'.$this->FetId.'"';			
+		WHERE fet.FetId = "' . $this->FetId . '"';
 
-		$resultado = $this->InsMysql->MtdConsultar($sql);                       
-		$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-		
-		if(empty($fila['MAXIMO'])){	
-			if(empty($fila['FetInicio'])){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
+			if (empty($fila['FetInicio'])) {
 				$this->FexId = "0000001";
-			}else{
+			} else {
 				$this->FexId = str_pad($fila['FetInicio'], 7, "0", STR_PAD_LEFT);
 			}
-		}else{
+		} else {
 			$fila['MAXIMO']++;
-			$this->FexId = str_pad($fila['MAXIMO'], 7, "0", STR_PAD_LEFT);	
+			$this->FexId = str_pad($fila['MAXIMO'], 7, "0", STR_PAD_LEFT);
 		}
-
 	}
-		
-    public function MtdObtenerFacturaExportacion($oCompleto=true){
+
+	public function MtdObtenerFacturaExportacion($oCompleto = true)
+	{
 
 
 		$sql = 'SELECT 
@@ -288,274 +294,262 @@ class ClsFacturaExportacion {
 											
 																						
 											
-				WHERE fex.FexId = "'.$this->FexId.'" AND fex.FetId = "'.$this->FetId.'";';
-		
-        $resultado = $this->InsMysql->MtdConsultar($sql);
-		
-		if($this->InsMysql->MtdObtenerDatosTotal($resultado)>0){
-		
-        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
-        {
-		
-			$this->FexId = $fila['FexId'];
-			$this->FetId = $fila['FetId'];
-            $this->UsuId = $fila['UsuId'];
-			
-			$this->CliId = $fila['CliId'];
+				WHERE fex.FexId = "' . $this->FexId . '" AND fex.FetId = "' . $this->FetId . '";';
 
-			$this->NpaId = $fila['NpaId'];
-			
-			$this->AmoId = $fila['AmoId'];
-			
-			$this->FexAlmacenMovimiento = $fila['FexAlmacenMovimiento'];
-			
-			$this->FexFechaEmision = $fila['NFexFechaEmision'];
-			$this->FexPorcentajeImpuestoVenta = $fila['FexPorcentajeImpuestoVenta'];
-			$this->FexDireccion = $fila['FexDireccion'];
-			
-			$this->FexTotal = $fila['FexTotal']; 
-			$this->FexTotalReal = $fila['FexTotalReal'];
-			
-			list($this->FexObservacion,$this->FexObservacionImpresa) = explode("###",$fila['FexObservacion']);	
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-			$this->FexCancelado = $fila['FexCancelado'];
-			$this->FexCantidadDia = $fila['FexCantidadDia']; 	
-			
-			$this->MonId = $fila['MonId'];
-			$this->FexTipoCambio = $fila['FexTipoCambio'];	
-			
-			$this->FexObsequio = $fila['FexObsequio'];	
-			$this->FexEstado = $fila['FexEstado'];
+		if ($this->InsMysql->MtdObtenerDatosTotal($resultado) > 0) {
 
-			$this->FexCierre = $fila['FexCierre']; 						
+			while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-			$this->FexTiempoCreacion = $fila['NFexTiempoCreacion'];
-			$this->FexTiempoModificacion = $fila['NFexTiempoModificacion']; 		
+				$this->FexId = $fila['FexId'];
+				$this->FetId = $fila['FetId'];
+				$this->UsuId = $fila['UsuId'];
 
-			$this->FexAbonado = $fila['FexAbonado'];
-			$this->FexSaldo = $fila['FexSaldo'];
-			
-			
-			$this->FetNumero = $fila['FetNumero'];
-			
-		
-			$this->CliNombreCompleto = $fila['CliNombreCompleto']; 
-			$this->CliNombre = $fila['CliNombre']; 
-			$this->CliApellidoPaterno = $fila['CliApellidoPaterno']; 
-			$this->CliApellidoMaterno = $fila['CliApellidoMaterno']; 
-			
-			
-			$this->TdoId = $fila['TdoId']; 
-			$this->CliNumeroDocumento = $fila['CliNumeroDocumento']; 
-			$this->CliTelefono = $fila['CliTelefono']; 
-			$this->CliEmail = $fila['CliEmail']; 
-			$this->CliCelular = $fila['CliCelular']; 
-			$this->CliFax = $fila['CliFax']; 
+				$this->CliId = $fila['CliId'];
+
+				$this->NpaId = $fila['NpaId'];
+
+				$this->AmoId = $fila['AmoId'];
+
+				$this->FexAlmacenMovimiento = $fila['FexAlmacenMovimiento'];
+
+				$this->FexFechaEmision = $fila['NFexFechaEmision'];
+				$this->FexPorcentajeImpuestoVenta = $fila['FexPorcentajeImpuestoVenta'];
+				$this->FexDireccion = $fila['FexDireccion'];
+
+				$this->FexTotal = $fila['FexTotal'];
+				$this->FexTotalReal = $fila['FexTotalReal'];
+
+				list($this->FexObservacion, $this->FexObservacionImpresa) = explode("###", $fila['FexObservacion']);
+
+				$this->FexCancelado = $fila['FexCancelado'];
+				$this->FexCantidadDia = $fila['FexCantidadDia'];
+
+				$this->MonId = $fila['MonId'];
+				$this->FexTipoCambio = $fila['FexTipoCambio'];
+
+				$this->FexObsequio = $fila['FexObsequio'];
+				$this->FexEstado = $fila['FexEstado'];
+
+				$this->FexCierre = $fila['FexCierre'];
+
+				$this->FexTiempoCreacion = $fila['NFexTiempoCreacion'];
+				$this->FexTiempoModificacion = $fila['NFexTiempoModificacion'];
+
+				$this->FexAbonado = $fila['FexAbonado'];
+				$this->FexSaldo = $fila['FexSaldo'];
 
 
-				
-			$this->CliDepartamento = $fila['CliDepartamento']; 
-			$this->CliProvincia = $fila['CliProvincia']; 
-			$this->CliDistrito = $fila['CliDistrito'];
+				$this->FetNumero = $fila['FetNumero'];
 
 
-			$this->FinVehiculoKilometraje = $fila['FinVehiculoKilometraje']; 
-				
-			$this->MonNombre = $fila['MonNombre']; 
-			$this->MonSimbolo = $fila['MonSimbolo']; 
-			
-			$this->FinId = $fila['FinId']; 
-			$this->CprId = $fila['CprId']; 
-			
-			
-			$this->EinVIN = $fila['EinVIN'];
-			$this->VmaId = $fila['VmaId'];
-			$this->VmoId = $fila['VmoId'];
-			$this->VveId = $fila['VveId'];
-			$this->EinAnoFabricacion = $fila['EinAnoFabricacion'];
-			$this->EinPlaca = $fila['EinPlaca'];
-			$this->VehColor = $fila['VehColor'];
-			$this->EinNombre = $fila['EinNombre'];
-			
-			$this->VmaNombre = $fila['VmaNombre'];
-			$this->VmoNombre = $fila['VmoNombre'];
-			$this->VveNombre = $fila['VveNombre'];
-			
-			
-			$this->FexMontoAmortizado = $fila['FexMontoAmortizado'];
-			$this->FexMontoPendiente = $fila['FexMontoPendiente'];
-			$this->FexCancelado = $fila['NFexCancelado'];
-			
-			$this->VdiId = $fila['VdiId'];
-			$this->VdiArchivo = $fila['VdiArchivo'];
-			
-			
-				
-				
-				
-			if($oCompleto){
-				
-				$InsFacturaExportacionDetalle = new ClsFacturaExportacionDetalle();
-				$ResFacturaExportacionDetalle =  $InsFacturaExportacionDetalle->MtdObtenerFacturaExportacionDetalles(NULL,NULL,NULL,NULL,NULL,$this->FexId,$this->FetId);
-				$this->FacturaExportacionDetalle = $ResFacturaExportacionDetalle['Datos'];
+				$this->CliNombreCompleto = $fila['CliNombreCompleto'];
+				$this->CliNombre = $fila['CliNombre'];
+				$this->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+				$this->CliApellidoMaterno = $fila['CliApellidoMaterno'];
 
-// MtdObtenerFacturaExportacionAlmacenMovimientos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'BamId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFacturaExportacion=NULL,$oFacturaExportacionTalonario=NULL,$oAlmacenMovimiento=NULL,$oAnulado=true,$oTipo=NULL)
-				$InsFacturaExportacionAlmacenMovimiento = new ClsFacturaExportacionAlmacenMovimiento();
-				$ResFacturaExportacionAlmacenMovimiento =  $InsFacturaExportacionAlmacenMovimiento->MtdObtenerFacturaExportacionAlmacenMovimientos(NULL,NULL,NULL,NULL,NULL,$this->FexId,$this->FetId);
-				$this->FacturaExportacionAlmacenMovimiento = $ResFacturaExportacionAlmacenMovimiento['Datos'];
 
-			}
-			
+				$this->TdoId = $fila['TdoId'];
+				$this->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+				$this->CliTelefono = $fila['CliTelefono'];
+				$this->CliEmail = $fila['CliEmail'];
+				$this->CliCelular = $fila['CliCelular'];
+				$this->CliFax = $fila['CliFax'];
 
-				switch($this->FexEstado){
+
+
+				$this->CliDepartamento = $fila['CliDepartamento'];
+				$this->CliProvincia = $fila['CliProvincia'];
+				$this->CliDistrito = $fila['CliDistrito'];
+
+
+				$this->FinVehiculoKilometraje = $fila['FinVehiculoKilometraje'];
+
+				$this->MonNombre = $fila['MonNombre'];
+				$this->MonSimbolo = $fila['MonSimbolo'];
+
+				$this->FinId = $fila['FinId'];
+				$this->CprId = $fila['CprId'];
+
+
+				$this->EinVIN = $fila['EinVIN'];
+				$this->VmaId = $fila['VmaId'];
+				$this->VmoId = $fila['VmoId'];
+				$this->VveId = $fila['VveId'];
+				$this->EinAnoFabricacion = $fila['EinAnoFabricacion'];
+				$this->EinPlaca = $fila['EinPlaca'];
+				$this->VehColor = $fila['VehColor'];
+				$this->EinNombre = $fila['EinNombre'];
+
+				$this->VmaNombre = $fila['VmaNombre'];
+				$this->VmoNombre = $fila['VmoNombre'];
+				$this->VveNombre = $fila['VveNombre'];
+
+
+				$this->FexMontoAmortizado = $fila['FexMontoAmortizado'];
+				$this->FexMontoPendiente = $fila['FexMontoPendiente'];
+				$this->FexCancelado = $fila['NFexCancelado'];
+
+				$this->VdiId = $fila['VdiId'];
+				$this->VdiArchivo = $fila['VdiArchivo'];
+
+
+
+
+
+				if ($oCompleto) {
+
+					$InsFacturaExportacionDetalle = new ClsFacturaExportacionDetalle();
+					$ResFacturaExportacionDetalle =  $InsFacturaExportacionDetalle->MtdObtenerFacturaExportacionDetalles(NULL, NULL, NULL, NULL, NULL, $this->FexId, $this->FetId);
+					$this->FacturaExportacionDetalle = $ResFacturaExportacionDetalle['Datos'];
+
+					// MtdObtenerFacturaExportacionAlmacenMovimientos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'BamId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFacturaExportacion=NULL,$oFacturaExportacionTalonario=NULL,$oAlmacenMovimiento=NULL,$oAnulado=true,$oTipo=NULL)
+					$InsFacturaExportacionAlmacenMovimiento = new ClsFacturaExportacionAlmacenMovimiento();
+					$ResFacturaExportacionAlmacenMovimiento =  $InsFacturaExportacionAlmacenMovimiento->MtdObtenerFacturaExportacionAlmacenMovimientos(NULL, NULL, NULL, NULL, NULL, $this->FexId, $this->FetId);
+					$this->FacturaExportacionAlmacenMovimiento = $ResFacturaExportacionAlmacenMovimiento['Datos'];
+				}
+
+
+				switch ($this->FexEstado) {
 					case 1:
 						$this->FexEstadoDescripcion = "Pendiente";
-					break;
-										
+						break;
+
 					case 5:
 						$this->FexEstadoDescripcion = "Entregado";
-					break;
-					
+						break;
+
 					case 6:
 						$this->FexEstadoDescripcion = "Anulado";
-				
-					break;
-					
+
+						break;
+
 					case 7:
 						$this->FexEstadoDescripcion = "Reservado";
-					break;
-					
-					
+						break;
 				}
-				
-				
-				switch($this->FexEstado){
+
+
+				switch ($this->FexEstado) {
 					case 1:
 						$this->FexEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
-					break;
-										
+						break;
+
 					case 5:
 						$this->FexEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
-					break;
-					
+						break;
+
 					case 6:
 						$this->FexEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
-				
-					break;
-					
+
+						break;
+
 					case 7:
 						$this->FexEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
-					break;
-					
+						break;
 				}
-				
-		}
-        
+			}
+
 			$Respuesta =  $this;
-			
-		}else{
+		} else {
 			$Respuesta =   NULL;
 		}
-		
-        
+
+
 		return $Respuesta;
+	}
 
-    }
-
-    public function MtdObtenerFacturaExportaciones($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'FexId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oAlmacenMovimiento=NULL,$oCliente=NULL,$oOrdenVentaVehiculo=NULL,$oVentaDirecta=NULL) {
-	
+	public function MtdObtenerFacturaExportaciones($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'FexId', $oSentido = 'Desc', $oPaginacion = '0,10', $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oCondicionPago = NULL, $oMoneda = NULL, $oAlmacenMovimiento = NULL, $oCliente = NULL, $oOrdenVentaVehiculo = NULL, $oVentaDirecta = NULL)
+	{
 
 
-		if(!empty($oCampo) and !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$elementos = explode(",",$oCampo);
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+		if (!empty($oCampo) and !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				
-				$filtrar .= '  OR EXISTS( 
+				$i++;
+			}
+
+
+			$filtrar .= '  OR EXISTS( 
 					
 					SELECT 
 					bde.FedId
@@ -566,90 +560,86 @@ class ClsFacturaExportacion {
 						bde.FetId = fex.FetId AND
 						
 						(
-						bde.FedDescripcion LIKE "%'.$oFiltro.'%" 
+						bde.FedDescripcion LIKE "%' . $oFiltro . '%" 
 						
 						)
 						
 					) ';
-					
-					
-				$filtrar .= '  ) ';
 
 
-		}
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-			
-		if(!empty($oEstado)){
 
-			$elementos = explode(",",$oEstado);
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
 
-				$i=1;
-				$estado .= ' AND (';
-				$elementos = array_filter($elementos);
-				foreach($elementos as $elemento){
-						$estado .= '  (fex.FexEstado = "'.($elemento).'")';	
-						if($i<>count($elementos)){						
-							$estado .= ' OR ';	
-						}
-				$i++;		
+		if (!empty($oEstado)) {
+
+			$elementos = explode(",", $oEstado);
+
+			$i = 1;
+			$estado .= ' AND (';
+			$elementos = array_filter($elementos);
+			foreach ($elementos as $elemento) {
+				$estado .= '  (fex.FexEstado = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$estado .= ' OR ';
 				}
-				
-				$estado .= ' ) ';
-
-		}
-						
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(fex.FexFechaEmision)>="'.$oFechaInicio.'" AND DATE(fex.FexFechaEmision)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(fex.FexFechaEmision)>="'.$oFechaInicio.'"';
+				$i++;
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(fex.FexFechaEmision)<="'.$oFechaFin.'"';		
-			}			
-		}
-		
-		if(!empty($oTalonario)){
-			$talonario = ' AND fex.FetId = "'.$oTalonario.'"';
-		}
-		
-		if(!empty($oCondicionPago)){
-			$npago = ' AND fex.NpaId = "'.$oCondicionPago.'"';
-		}
-		
-		if(!empty($oMoneda)){
-			$moneda = ' AND fex.MonId = "'.$oMoneda.'"';
-		}
-			
 
-		if(!empty($oAlmacenMovimiento)){
-			$amovimiento = ' AND fex.AmoId = "'.$oAlmacenMovimiento.'"';
-		}
-		
-		
-		if(!empty($oCliente)){
-			$cliente = ' AND fex.CliId = "'.$oCliente.'"';
+			$estado .= ' ) ';
 		}
 
-		
+		if (!empty($oFechaInicio)) {
 
-		if(!empty($oVentaDirecta)){
-			$vdirecta = ' AND amo.VdiId = "'.$oVentaDirecta.'"';
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(fex.FexFechaEmision)>="' . $oFechaInicio . '" AND DATE(fex.FexFechaEmision)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(fex.FexFechaEmision)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(fex.FexFechaEmision)<="' . $oFechaFin . '"';
+			}
 		}
-		
 
-			$sql = 'SELECT
+		if (!empty($oTalonario)) {
+			$talonario = ' AND fex.FetId = "' . $oTalonario . '"';
+		}
+
+		if (!empty($oCondicionPago)) {
+			$npago = ' AND fex.NpaId = "' . $oCondicionPago . '"';
+		}
+
+		if (!empty($oMoneda)) {
+			$moneda = ' AND fex.MonId = "' . $oMoneda . '"';
+		}
+
+
+		if (!empty($oAlmacenMovimiento)) {
+			$amovimiento = ' AND fex.AmoId = "' . $oAlmacenMovimiento . '"';
+		}
+
+
+		if (!empty($oCliente)) {
+			$cliente = ' AND fex.CliId = "' . $oCliente . '"';
+		}
+
+
+
+		if (!empty($oVentaDirecta)) {
+			$vdirecta = ' AND amo.VdiId = "' . $oVentaDirecta . '"';
+		}
+
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				fex.FexId,
 				fex.FetId,
@@ -761,256 +751,249 @@ class ClsFacturaExportacion {
 												LEFT JOIN tblfimfichaingresomodalidad fim
 												ON fcc.FimId = fim.FimId
 												
-				WHERE 1 = 1 '.$filtrar.$sucursal.$estado.$fecha.$talonario.$credito.$regimen.$npago.$moneda.$amovimiento.$cliente.$ovvehiculo.$vdirecta.$orden.$paginacion;
-									
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+				WHERE 1 = 1 ' . $filtrar . $sucursal . $estado . $fecha . $talonario . $credito . $regimen . $npago . $moneda . $amovimiento . $cliente . $ovvehiculo . $vdirecta . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsFacturaExportacion = get_class($this);
-	
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-					$FacturaExportacion = new $InsFacturaExportacion();
-                    $FacturaExportacion->FexId = $fila['FexId'];
-					$FacturaExportacion->FetId = $fila['FetId'];
-                    $FacturaExportacion->UsuId= $fila['UsuId'];
-					$FacturaExportacion->CliId= $fila['CliId'];
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$FacturaExportacion->NpaId= $fila['NpaId'];
-					$FacturaExportacion->AmoId= $fila['AmoId'];
-					
-					$FacturaExportacion->FexFechaEmision = $fila['NFexFechaEmision'];
-					$FacturaExportacion->FexPorcentajeImpuestoVenta = $fila['FexPorcentajeImpuestoVenta'];
-					$FacturaExportacion->FexDireccion = $fila['FexDireccion'];
+		$Respuesta['Datos'] = array();
 
-					$FacturaExportacion->FexSubTotal = $fila['FexSubTotal']; 
-					$FacturaExportacion->FexImpuesto = $fila['FexImpuesto']; 					
-					$FacturaExportacion->FexTotal = $fila['FexTotal']; 
-					$FacturaExportacion->FexTotalReal = $fila['FexTotalReal']; 
-					
-					list($FacturaExportacion->FexObservacion,$FacturaExportacion->FexObservacionImpresa) = explode("###",$fila['FexObservacion']);	
+		$InsFacturaExportacion = get_class($this);
 
-					$FacturaExportacion->FexCancelado = $fila['FexCancelado'];
-					$FacturaExportacion->FexCantidadDia = $fila['FexCantidadDia'];
-					
-					$FacturaExportacion->MonId = $fila['MonId'];
-					$FacturaExportacion->FexTipoCambio = $fila['FexTipoCambio'];
-					$FacturaExportacion->FexObsequio = $fila['FexObsequio'];
-					$FacturaExportacion->FexEstado = $fila['FexEstado'];
-					$FacturaExportacion->FexCierre = $fila['FexCierre'];	
-					
-                    $FacturaExportacion->FexTiempoCreacion = $fila['NFexTiempoCreacion'];
-                    $FacturaExportacion->FexTiempoModificacion = $fila['NFexTiempoModificacion'];
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+			$FacturaExportacion = new $InsFacturaExportacion();
+			$FacturaExportacion->FexId = $fila['FexId'];
+			$FacturaExportacion->FetId = $fila['FetId'];
+			$FacturaExportacion->UsuId = $fila['UsuId'];
+			$FacturaExportacion->CliId = $fila['CliId'];
 
-                    $FacturaExportacion->FexTotalItems = $fila['FexTotalItems'];					
+			$FacturaExportacion->NpaId = $fila['NpaId'];
+			$FacturaExportacion->AmoId = $fila['AmoId'];
 
-					$FacturaExportacion->NpaNombre = $fila['NpaNombre'];
-					
-					$FacturaExportacion->FetNumero = $fila['FetNumero'];
-					
-					
-					$FacturaExportacion->CliNombreCompleto = $fila['CliNombreCompleto'];
-					$FacturaExportacion->CliNombre = $fila['CliNombre'];
-					$FacturaExportacion->CliApellidoPaterno = $fila['CliApellidoPaterno'];
-					$FacturaExportacion->CliApellidoMaterno = $fila['CliApellidoMaterno'];
-					
-					$FacturaExportacion->TdoId = $fila['TdoId'];
-					$FacturaExportacion->CliNumeroDocumento = $fila['NCliNumeroDocumento'];
-					$FacturaExportacion->CliTelefono = $fila['CliTelefono'];
-					$FacturaExportacion->CliEmail = $fila['CliTelefono'];
-					$FacturaExportacion->CliCelular = $fila['CliCelular'];
-					$FacturaExportacion->CliFax = $fila['CliFax'];
-					
-					$FacturaExportacion->MonNombre = $fila['MonNombre'];
-					$FacturaExportacion->MonSimbolo = $fila['MonSimbolo'];
-					
-					$FacturaExportacion->FinId = $fila['FinId'];
-					$FacturaExportacion->CprId = $fila['CprId'];
-					
-					
-					$FacturaExportacion->FexMontoAmortizado = $fila['FexMontoAmortizado'];
-					$FacturaExportacion->FexMontoPendiente = $fila['FexMontoPendiente'];
-					$FacturaExportacion->FexCancelado = $fila['NFexCancelado'];
-					
-					$FacturaExportacion->VdiId = $fila['VdiId'];
-					$FacturaExportacion->VdiOrdenCompraNumero = $fila['VdiOrdenCompraNumero'];
-					$FacturaExportacion->VdiArchivo = $fila['VdiArchivo'];		
-					
-				switch($FacturaExportacion->FexEstado){
-					case 1:
-						$FacturaExportacion->FexEstadoDescripcion = "Pendiente";
+			$FacturaExportacion->FexFechaEmision = $fila['NFexFechaEmision'];
+			$FacturaExportacion->FexPorcentajeImpuestoVenta = $fila['FexPorcentajeImpuestoVenta'];
+			$FacturaExportacion->FexDireccion = $fila['FexDireccion'];
+
+			$FacturaExportacion->FexSubTotal = $fila['FexSubTotal'];
+			$FacturaExportacion->FexImpuesto = $fila['FexImpuesto'];
+			$FacturaExportacion->FexTotal = $fila['FexTotal'];
+			$FacturaExportacion->FexTotalReal = $fila['FexTotalReal'];
+
+			list($FacturaExportacion->FexObservacion, $FacturaExportacion->FexObservacionImpresa) = explode("###", $fila['FexObservacion']);
+
+			$FacturaExportacion->FexCancelado = $fila['FexCancelado'];
+			$FacturaExportacion->FexCantidadDia = $fila['FexCantidadDia'];
+
+			$FacturaExportacion->MonId = $fila['MonId'];
+			$FacturaExportacion->FexTipoCambio = $fila['FexTipoCambio'];
+			$FacturaExportacion->FexObsequio = $fila['FexObsequio'];
+			$FacturaExportacion->FexEstado = $fila['FexEstado'];
+			$FacturaExportacion->FexCierre = $fila['FexCierre'];
+
+			$FacturaExportacion->FexTiempoCreacion = $fila['NFexTiempoCreacion'];
+			$FacturaExportacion->FexTiempoModificacion = $fila['NFexTiempoModificacion'];
+
+			$FacturaExportacion->FexTotalItems = $fila['FexTotalItems'];
+
+			$FacturaExportacion->NpaNombre = $fila['NpaNombre'];
+
+			$FacturaExportacion->FetNumero = $fila['FetNumero'];
+
+
+			$FacturaExportacion->CliNombreCompleto = $fila['CliNombreCompleto'];
+			$FacturaExportacion->CliNombre = $fila['CliNombre'];
+			$FacturaExportacion->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+			$FacturaExportacion->CliApellidoMaterno = $fila['CliApellidoMaterno'];
+
+			$FacturaExportacion->TdoId = $fila['TdoId'];
+			$FacturaExportacion->CliNumeroDocumento = $fila['NCliNumeroDocumento'];
+			$FacturaExportacion->CliTelefono = $fila['CliTelefono'];
+			$FacturaExportacion->CliEmail = $fila['CliTelefono'];
+			$FacturaExportacion->CliCelular = $fila['CliCelular'];
+			$FacturaExportacion->CliFax = $fila['CliFax'];
+
+			$FacturaExportacion->MonNombre = $fila['MonNombre'];
+			$FacturaExportacion->MonSimbolo = $fila['MonSimbolo'];
+
+			$FacturaExportacion->FinId = $fila['FinId'];
+			$FacturaExportacion->CprId = $fila['CprId'];
+
+
+			$FacturaExportacion->FexMontoAmortizado = $fila['FexMontoAmortizado'];
+			$FacturaExportacion->FexMontoPendiente = $fila['FexMontoPendiente'];
+			$FacturaExportacion->FexCancelado = $fila['NFexCancelado'];
+
+			$FacturaExportacion->VdiId = $fila['VdiId'];
+			$FacturaExportacion->VdiOrdenCompraNumero = $fila['VdiOrdenCompraNumero'];
+			$FacturaExportacion->VdiArchivo = $fila['VdiArchivo'];
+
+			switch ($FacturaExportacion->FexEstado) {
+				case 1:
+					$FacturaExportacion->FexEstadoDescripcion = "Pendiente";
 					break;
-										
-					case 5:
-						$FacturaExportacion->FexEstadoDescripcion = "Entregado";
+
+				case 5:
+					$FacturaExportacion->FexEstadoDescripcion = "Entregado";
 					break;
-					
-					case 6:
-						$FacturaExportacion->FexEstadoDescripcion = "Anulado";
-				
+
+				case 6:
+					$FacturaExportacion->FexEstadoDescripcion = "Anulado";
+
 					break;
-					
-					case 7:
-						$FacturaExportacion->FexEstadoDescripcion = "Reservado";
+
+				case 7:
+					$FacturaExportacion->FexEstadoDescripcion = "Reservado";
 					break;
-					
-					
-				}
-				
-				
-								switch($FacturaExportacion->FexEstado){
-					case 1:
-						$FacturaExportacion->FexEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
+			}
+
+
+			switch ($FacturaExportacion->FexEstado) {
+				case 1:
+					$FacturaExportacion->FexEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
 					break;
-										
-					case 5:
-						$FacturaExportacion->FexEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
+
+				case 5:
+					$FacturaExportacion->FexEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
 					break;
-					
-					case 6:
-						$FacturaExportacion->FexEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
-				
+
+				case 6:
+					$FacturaExportacion->FexEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
+
 					break;
-					
-					case 7:
-						$FacturaExportacion->FexEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
+
+				case 7:
+					$FacturaExportacion->FexEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
 					break;
-					
-				}
-				
-				
-					$FacturaExportacion->InsMysql = NULL;     
-					               
-					$Respuesta['Datos'][]= $FacturaExportacion;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+			}
+
+
+			$FacturaExportacion->InsMysql = NULL;
+
+			$Respuesta['Datos'][] = $FacturaExportacion;
 		}
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
 
 
-  public function MtdObtenerFacturaExportacionesValor($oFuncion="SUM",$oParametro="FexId",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'FexId',$oSentido = 'Desc',$oPaginacion = '0,10',$oSucursal=NULL,$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oRegimen=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oAlmacenMovimiento=NULL,$oCliente=NULL,$oClienteClasificacion=NULL,$oFichaIngresoMantenimientoKilometraje=NULL,$oModalidadIngreso=NULL,$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oClienteTipo=NULL,$oTecnico=NULL) {
 
-		if(!empty($oCampo) && !empty($oFiltro)){
-			$oFiltro = str_replace("*","%",$oFiltro);
-			switch($oCondicion){
+	public function MtdObtenerFacturaExportacionesValor($oFuncion = "SUM", $oParametro = "FexId", $oMes = NULL, $oAno = NULL, $oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'FexId', $oSentido = 'Desc', $oPaginacion = '0,10', $oSucursal = NULL, $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oRegimen = NULL, $oCondicionPago = NULL, $oMoneda = NULL, $oAlmacenMovimiento = NULL, $oCliente = NULL, $oClienteClasificacion = NULL, $oFichaIngresoMantenimientoKilometraje = NULL, $oModalidadIngreso = NULL, $oVehiculoMarca = NULL, $oVehiculoModelo = NULL, $oClienteTipo = NULL, $oTecnico = NULL)
+	{
+
+		if (!empty($oCampo) && !empty($oFiltro)) {
+			$oFiltro = str_replace("*", "%", $oFiltro);
+			switch ($oCondicion) {
 				case "esigual":
-					$filtrar = ' AND '.($oCampo).' LIKE "'.($oFiltro).'"';	
-				break;
+					$filtrar = ' AND ' . ($oCampo) . ' LIKE "' . ($oFiltro) . '"';
+					break;
 
 				case "noesigual":
-					$filtrar = ' AND '.($oCampo).' <> "'.($oFiltro).'"';
-				break;
-				
+					$filtrar = ' AND ' . ($oCampo) . ' <> "' . ($oFiltro) . '"';
+					break;
+
 				case "comienza":
-					$filtrar = ' AND '.($oCampo).' LIKE "'.($oFiltro).'%"';
-				break;
-				
+					$filtrar = ' AND ' . ($oCampo) . ' LIKE "' . ($oFiltro) . '%"';
+					break;
+
 				case "termina":
-					$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'"';
-				break;
-				
+					$filtrar = ' AND ' . ($oCampo) . ' LIKE "%' . ($oFiltro) . '"';
+					break;
+
 				case "contiene":
-					$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
-				break;
-				
+					$filtrar = ' AND ' . ($oCampo) . ' LIKE "%' . ($oFiltro) . '%"';
+					break;
+
 				case "nocontiene":
-					$filtrar = ' AND '.($oCampo).' NOT LIKE "%'.($oFiltro).'%"';
-				break;
-				
+					$filtrar = ' AND ' . ($oCampo) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+					break;
+
 				default:
-					$filtrar = ' AND '.($oCampo).' LIKE "'.($oFiltro).'%"';
-				break;
-				
+					$filtrar = ' AND ' . ($oCampo) . ' LIKE "' . ($oFiltro) . '%"';
+					break;
 			}
-			
-
-		}
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		
-		if(!empty($oSucursal)){
-			$sucursal = ' AND fet.SucId = "'.$oSucursal.'"';
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-				
-		if(!empty($oEstado)){
 
-			$elementos = explode(",",$oEstado);
 
-				$i=1;
-				$estado .= ' AND (';
-				$elementos = array_filter($elementos);
-				foreach($elementos as $elemento){
-						$estado .= '  (fex.FexEstado = "'.($elemento).'")';	
-						if($i<>count($elementos)){						
-							$estado .= ' OR ';	
-						}
-				$i++;		
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND fet.SucId = "' . $oSucursal . '"';
+		}
+
+		if (!empty($oEstado)) {
+
+			$elementos = explode(",", $oEstado);
+
+			$i = 1;
+			$estado .= ' AND (';
+			$elementos = array_filter($elementos);
+			foreach ($elementos as $elemento) {
+				$estado .= '  (fex.FexEstado = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$estado .= ' OR ';
 				}
-				
-				$estado .= ' ) ';
-
-		}
-		
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(fex.FexFechaEmision)>="'.$oFechaInicio.'" AND DATE(fex.FexFechaEmision)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(fex.FexFechaEmision)>="'.$oFechaInicio.'"';
+				$i++;
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(fex.FexFechaEmision)<="'.$oFechaFin.'"';		
-			}			
+
+			$estado .= ' ) ';
 		}
 
-				
-		if(!empty($oTalonario)){
-			$talonario = ' AND fex.FetId = "'.$oTalonario.'"';
-		}
-		
+		if (!empty($oFechaInicio)) {
 
-		
-		if(!empty($oCondicionPago)){
-			$npago = ' AND fex.NpaId = "'.$oCondicionPago.'"';
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(fex.FexFechaEmision)>="' . $oFechaInicio . '" AND DATE(fex.FexFechaEmision)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(fex.FexFechaEmision)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(fex.FexFechaEmision)<="' . $oFechaFin . '"';
+			}
 		}
-		
-		if(!empty($oMoneda)){
-			$moneda = ' AND fex.MonId = "'.$oMoneda.'"';
-		}
-		
-		if(!empty($oAlmacenMovimiento)){
-			$amovimiento = ' AND fex.AmoId = "'.$oAlmacenMovimiento.'"';
-		}	
-		
-		if(!empty($oCliente)){
-			$cliente = ' AND fex.CliId = "'.$oCliente.'"';
-		}	
-		
-				
-		if(!empty($oClienteClasificacion)){
-			$clasificacion = ' AND cli.CliClasificacion = '.$oClienteClasificacion.' ';
+
+
+		if (!empty($oTalonario)) {
+			$talonario = ' AND fex.FetId = "' . $oTalonario . '"';
 		}
 
 
 
-		if(!empty($oModalidadIngreso)){
+		if (!empty($oCondicionPago)) {
+			$npago = ' AND fex.NpaId = "' . $oCondicionPago . '"';
+		}
+
+		if (!empty($oMoneda)) {
+			$moneda = ' AND fex.MonId = "' . $oMoneda . '"';
+		}
+
+		if (!empty($oAlmacenMovimiento)) {
+			$amovimiento = ' AND fex.AmoId = "' . $oAlmacenMovimiento . '"';
+		}
+
+		if (!empty($oCliente)) {
+			$cliente = ' AND fex.CliId = "' . $oCliente . '"';
+		}
+
+
+		if (!empty($oClienteClasificacion)) {
+			$clasificacion = ' AND cli.CliClasificacion = ' . $oClienteClasificacion . ' ';
+		}
+
+
+
+		if (!empty($oModalidadIngreso)) {
 			$mingreso = ' 
 			AND 
 			
@@ -1027,7 +1010,7 @@ class ClsFacturaExportacion {
 								LEFT JOIN tblbamfexetaalmacenmovimiento bam
 								ON bam.AmoId = amo.AmoId
 					WHERE fex.FexId = bam.FexId AND fex.FetId = bam.FetId
-					AND fim.MinId = "'.$oModalidadIngreso.'"
+					AND fim.MinId = "' . $oModalidadIngreso . '"
 					
 				)
 			
@@ -1046,7 +1029,7 @@ class ClsFacturaExportacion {
 								ON fex2.AmoId = amo.AmoId
 								
 					WHERE fex.FexId = fex2.FexId AND fex.FetId = fex2.FetId
-					AND fim.MinId = "'.$oModalidadIngreso.'"
+					AND fim.MinId = "' . $oModalidadIngreso . '"
 					
 				)	
 						
@@ -1056,7 +1039,7 @@ class ClsFacturaExportacion {
 
 
 
-		if(!empty($oFichaIngresoMantenimientoKilometraje)){
+		if (!empty($oFichaIngresoMantenimientoKilometraje)) {
 
 			$mkilometraje = ' 
 			AND 
@@ -1074,7 +1057,7 @@ class ClsFacturaExportacion {
 								LEFT JOIN tblbamfexetaalmacenmovimiento bam
 								ON bam.AmoId = amo.AmoId
 					WHERE fex.FexId = bam.FexId AND fex.FetId = bam.FetId
-					AND fin.FinMantenimientoKilometraje = "'.$oFichaIngresoMantenimientoKilometraje.'"
+					AND fin.FinMantenimientoKilometraje = "' . $oFichaIngresoMantenimientoKilometraje . '"
 					
 				)
 				
@@ -1092,15 +1075,15 @@ class ClsFacturaExportacion {
 								ON fex2.AmoId = amo.AmoId
 								
 					WHERE fex.FexId = fex2.FexId AND fex.FetId = fex2.FetId
-					AND fin.FinMantenimientoKilometraje = "'.$oFichaIngresoMantenimientoKilometraje.'"
+					AND fin.FinMantenimientoKilometraje = "' . $oFichaIngresoMantenimientoKilometraje . '"
 					
 				)
 							
 			)
 			';
 		}
-		
-		if(!empty($oVehiculoMarca)){
+
+		if (!empty($oVehiculoMarca)) {
 
 			$vmarca = ' 
 			AND 
@@ -1124,7 +1107,7 @@ class ClsFacturaExportacion {
 											ON vve.VmoId = vmo.VmoId
 											
 					WHERE fex.FexId = bam.FexId AND fex.FetId = bam.FetId
-					AND vmo.VmaId = "'.$oVehiculoMarca.'"
+					AND vmo.VmaId = "' . $oVehiculoMarca . '"
 					
 				)
 				
@@ -1149,15 +1132,15 @@ class ClsFacturaExportacion {
 											ON vve.VmoId = vmo.VmoId
 											
 					WHERE fex.FexId = fex2.FexId AND fex.FetId = fex2.FetId
-					AND vmo.VmaId = "'.$oVehiculoMarca.'"
+					AND vmo.VmaId = "' . $oVehiculoMarca . '"
 					
 				)
 			
 			)
 			';
-		}		
-		
-		if(!empty($oVehiculoModelo)){
+		}
+
+		if (!empty($oVehiculoModelo)) {
 
 			$vmodelo = ' 
 			AND 
@@ -1181,7 +1164,7 @@ class ClsFacturaExportacion {
 										ON vve.VmoId = vmo.VmoId
 										
 				WHERE fex.FexId = bam.FexId AND fex.FetId = bam.FetId
-				AND vve.VmoId = "'.$oVehiculoModelo.'"
+				AND vve.VmoId = "' . $oVehiculoModelo . '"
 				
 				)
 				
@@ -1206,18 +1189,18 @@ class ClsFacturaExportacion {
 										ON vve.VmoId = vmo.VmoId
 										
 				WHERE fex.FexId = fex2.FexId AND fex.FetId = fex2.FetId
-				AND vve.VmoId = "'.$oVehiculoModelo.'"
+				AND vve.VmoId = "' . $oVehiculoModelo . '"
 				
 				)
 				
 					
 			)
 			';
-		}	
-		
-	
-		
-		if(!empty($oTecnico)){
+		}
+
+
+
+		if (!empty($oTecnico)) {
 
 			$tecnico = ' 
 			AND 
@@ -1235,7 +1218,7 @@ class ClsFacturaExportacion {
 								LEFT JOIN tblbamfexetaalmacenmovimiento bam
 								ON bam.AmoId = amo.AmoId
 					WHERE fex.FexId = bam.FexId AND fex.FetId = bam.FetId
-					AND fin.PerId = "'.$oTecnico.'"
+					AND fin.PerId = "' . $oTecnico . '"
 					
 				)
 				
@@ -1253,36 +1236,36 @@ class ClsFacturaExportacion {
 								ON fex2.AmoId = amo.AmoId
 								
 					WHERE fex.FexId = fex2.FexId AND fex.FetId = fex2.FetId
-					AND fin.PerId = "'.$oTecnico.'"
+					AND fin.PerId = "' . $oTecnico . '"
 					
 				)
 							
 			)
 			';
 		}
-		
-		
-				
-		if(!empty($oFuncion) & !empty($oParametro)){		
-			$funcion = $oFuncion.'('.$oParametro.')';			
-		}	
-	
-		if(!empty($oMes)){
-			$mes = ' AND MONTH(fex.FexFechaEmision) ="'.($oMes).'"';
-		}
-		
-		if(!empty($oAno)){
-			$ano = ' AND YEAR(fex.FexFechaEmision) ="'.($oAno).'"';
-		}
-		
-		if(!empty($oClienteTipo)){
-			$ctipo = ' AND cli.LtiId = "'.$oClienteTipo.'" ';
-		}
-		
-		
-			$sql = 'SELECT
 
-				'.$funcion.' AS "RESULTADO"
+
+
+		if (!empty($oFuncion) & !empty($oParametro)) {
+			$funcion = $oFuncion . '(' . $oParametro . ')';
+		}
+
+		if (!empty($oMes)) {
+			$mes = ' AND MONTH(fex.FexFechaEmision) ="' . ($oMes) . '"';
+		}
+
+		if (!empty($oAno)) {
+			$ano = ' AND YEAR(fex.FexFechaEmision) ="' . ($oAno) . '"';
+		}
+
+		if (!empty($oClienteTipo)) {
+			$ctipo = ' AND cli.LtiId = "' . $oClienteTipo . '" ';
+		}
+
+
+		$sql = 'SELECT
+
+				' . $funcion . ' AS "RESULTADO"
 				
 				FROM tblfexfacturaexportacion fex
 					LEFT JOIN tblfetfacturaexportaciontalonario fet
@@ -1291,123 +1274,120 @@ class ClsFacturaExportacion {
 						ON fex.CliId = cli.CliId
 				
 				WHERE 1 = 1
-				'.$$filtrar.$sucursal.$estado.$fecha.$credito.$regimen.$npago.$moneda.$mes.$ano.$amovimiento.$cliente.$clasificacion.$ctipo.$mkilometraje.$vmarca.$vmodelo.$tecnico.$mingreso.$orden.$paginacion;
-
-
-
-					
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			settype($fila['RESULTADO'],"float");
-			
-			return $fila['RESULTADO'];
-		}
+				' . $$filtrar . $sucursal . $estado . $fecha . $credito . $regimen . $npago . $moneda . $mes . $ano . $amovimiento . $cliente . $clasificacion . $ctipo . $mkilometraje . $vmarca . $vmodelo . $tecnico . $mingreso . $orden . $paginacion;
 
 
 
 
-	public function MtdActualizarEstadoFacturaExportacion($oElementos,$oEstado) {
-		
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		settype($fila['RESULTADO'], "float");
+
+		return $fila['RESULTADO'];
+	}
+
+
+
+
+	public function MtdActualizarEstadoFacturaExportacion($oElementos, $oEstado)
+	{
+
 		$error = false;
-		
+
 		$this->InsMysql->MtdTransaccionIniciar();
-		
+
 		$accion = '';
-		$elementos = explode("#",$oElementos);
-		
-		$i=1;
-		foreach($elementos as $elemento){
-			if(!empty($elemento)){
-			
-				$aux = explode("%",$elemento);
-				
+		$elementos = explode("#", $oElementos);
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+
+				$aux = explode("%", $elemento);
+
 				//$this->FexId = $aux[0];
 				//$this->FetId = $aux[1];
-					
-				$sql = 'UPDATE tblfexfacturaexportacion SET FexEstado = '.$oEstado.' WHERE   (FexId = "'.($aux[0]).'" AND FetId = "'.($aux[1]).'")';
-		
-				$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-				
-				if(!$resultado) {						
+
+				$sql = 'UPDATE tblfexfacturaexportacion SET FexEstado = ' . $oEstado . ' WHERE   (FexId = "' . ($aux[0]) . '" AND FetId = "' . ($aux[1]) . '")';
+
+				$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+				if (!$resultado) {
 					$error = true;
-				}else{
-				
-					$this->MtdAuditarFacturaExportacion(2,"Se actualizo el Estado de la FacturaExportacion",$aux);	
+				} else {
+
+					$this->MtdAuditarFacturaExportacion(2, "Se actualizo el Estado de la FacturaExportacion", $aux);
 				}
 			}
-		$i++;
-		
+			$i++;
 		}
-		
-		if($error) {	
-			$this->InsMysql->MtdTransaccionDeshacer();								
+
+		if ($error) {
+			$this->InsMysql->MtdTransaccionDeshacer();
 			return false;
-		} else {				
+		} else {
 			$this->InsMysql->MtdTransaccionHacer();
 			return true;
-		}	
-
+		}
 	}
 
 
 	//Accion eliminar	
-	public function MtdEliminarFacturaExportacion($oElementos) {
-		
-		$error = false;	
-		
+	public function MtdEliminarFacturaExportacion($oElementos)
+	{
+
+		$error = false;
+
 		$this->InsMysql->MtdTransaccionIniciar();
-				
-		$elementos = explode("#",$oElementos);
-		
-		$i=1;
-		foreach($elementos as $elemento){
-			if(!empty($elemento)){
-			
-				$aux = explode('%',$elemento);
-				
-				if(!$error){
-		
-					$sql = 'DELETE FROM tblfexfacturaexportacion WHERE (FexId = "'.($aux[0]).'" AND FetId = "'.($aux[1]).'")';
-					$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-					
-					if(!$resultado) {						
+
+		$elementos = explode("#", $oElementos);
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+
+				$aux = explode('%', $elemento);
+
+				if (!$error) {
+
+					$sql = 'DELETE FROM tblfexfacturaexportacion WHERE (FexId = "' . ($aux[0]) . '" AND FetId = "' . ($aux[1]) . '")';
+					$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+					if (!$resultado) {
 						$error = true;
-					}else{
-						
-					
-						$this->MtdAuditarFacturaExportacion(3,"Se elimino la FacturaExportacion",$aux);		
+					} else {
+
+
+						$this->MtdAuditarFacturaExportacion(3, "Se elimino la FacturaExportacion", $aux);
 					}
-								
 				}
-		
 			}
-		$i++;
-		
+			$i++;
 		}
-		
-		if($error) {	
-			$this->InsMysql->MtdTransaccionDeshacer();							
+
+		if ($error) {
+			$this->InsMysql->MtdTransaccionDeshacer();
 			return false;
-		} else {		
-			$this->InsMysql->MtdTransaccionHacer();			
+		} else {
+			$this->InsMysql->MtdTransaccionHacer();
 			return true;
-		}	
-									
+		}
 	}
-	
-	
-	public function MtdRegistrarFacturaExportacion() {
-
-			global $Resultado;
-			$error = false;
-			
-			$this->FexId = trim($this->FexId);
-			
-			$this->InsMysql->MtdTransaccionIniciar();
 
 
-	/*			$InsCliente = new ClsCliente();	
+	public function MtdRegistrarFacturaExportacion()
+	{
+
+		global $Resultado;
+		$error = false;
+
+		$this->FexId = trim($this->FexId);
+
+		$this->InsMysql->MtdTransaccionIniciar();
+
+
+		/*			$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->CcaId = "CCA-10000";
@@ -1436,9 +1416,9 @@ class ClsFacturaExportacion {
 					
 					
 				}
-*/				
+*/
 
-				$sql = 'INSERT INTO tblfexfacturaexportacion (
+		$sql = 'INSERT INTO tblfexfacturaexportacion (
 				FexId,
 				FetId,
 				UsuId, 
@@ -1469,151 +1449,148 @@ class ClsFacturaExportacion {
 
 				) 
 				VALUES (
-				"'.($this->FexId).'", 
-				"'.($this->FetId).'",
-				"'.($this->UsuId).'",
-				"'.($this->CliId).'",
+				"' . ($this->FexId) . '", 
+				"' . ($this->FetId) . '",
+				"' . ($this->UsuId) . '",
+				"' . ($this->CliId) . '",
 
-				"'.($this->NpaId).'",
+				"' . ($this->NpaId) . '",
 
-				'.(empty($this->AmoId)?'NULL, ':'"'.$this->AmoId.'",').'
+				' . (empty($this->AmoId) ? 'NULL, ' : '"' . $this->AmoId . '",') . '
 
-				'.(empty($this->FccId)?'NULL, ':'"'.$this->FccId.'",').'
+				' . (empty($this->FccId) ? 'NULL, ' : '"' . $this->FccId . '",') . '
 
-				"'.($this->FexFechaEmision).'",
-				'.($this->FexPorcentajeImpuestoVenta).',
-				"'.($this->FexDireccion).'",
-				'.($this->FexTotalBruto).',			
-				'.($this->FexSubTotal).',
-				'.($this->FexImpuesto).',
-				'.($this->FexTotal).',			
-				"'.($this->FexObservacion).'", 
-				'.($this->FexCantidadDia).',
-				"'.($this->MonId).'",
-				'.(empty($this->FexTipoCambio)?'NULL, ':''.$this->FexTipoCambio.',').'
-				'.($this->FexObsequio).',
-				'.($this->FexEstado).',
-				'.($this->FexCierre).', 
+				"' . ($this->FexFechaEmision) . '",
+				' . ($this->FexPorcentajeImpuestoVenta) . ',
+				"' . ($this->FexDireccion) . '",
+				' . ($this->FexTotalBruto) . ',			
+				' . ($this->FexSubTotal) . ',
+				' . ($this->FexImpuesto) . ',
+				' . ($this->FexTotal) . ',			
+				"' . ($this->FexObservacion) . '", 
+				' . ($this->FexCantidadDia) . ',
+				"' . ($this->MonId) . '",
+				' . (empty($this->FexTipoCambio) ? 'NULL, ' : '' . $this->FexTipoCambio . ',') . '
+				' . ($this->FexObsequio) . ',
+				' . ($this->FexEstado) . ',
+				' . ($this->FexCierre) . ', 
 
-				"'.($this->FexTiempoCreacion).'", 
-				"'.($this->FexTiempoModificacion).'");';
-	
-				if(!$error){
-					$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-					if(!$resultado) {							
-						$error = true;
-						
-						switch($this->InsMysql->MtdObtenerErrorCodigo()){
-							case 1062:					
-								$Resultado.="#ERR_FEX_402";
-							break;
-						}
+				"' . ($this->FexTiempoCreacion) . '", 
+				"' . ($this->FexTiempoModificacion) . '");';
 
-					} 
+		if (!$error) {
+			$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+			if (!$resultado) {
+				$error = true;
+
+				switch ($this->InsMysql->MtdObtenerErrorCodigo()) {
+					case 1062:
+						$Resultado .= "#ERR_FEX_402";
+						break;
 				}
-				
-				if(!$error){			
-				
-					if (!empty($this->FacturaExportacionDetalle)){		
-							
-						$validar = 0;				
-						$InsFacturaExportacionDetalle = new ClsFacturaExportacionDetalle();		
-								
-						foreach ($this->FacturaExportacionDetalle as $DatFacturaExportacionDetalle){
-							$InsFacturaExportacionDetalle->FexId = $this->FexId;
-							$InsFacturaExportacionDetalle->FetId = $this->FetId;
-							$InsFacturaExportacionDetalle->VdeId = $DatFacturaExportacionDetalle->VdeId;
+			}
+		}
 
-							$InsFacturaExportacionDetalle->FedTipo = $DatFacturaExportacionDetalle->FedTipo;
+		if (!$error) {
 
-							$InsFacturaExportacionDetalle->AmdId = $DatFacturaExportacionDetalle->AmdId;
-							$InsFacturaExportacionDetalle->FedDescripcion = $DatFacturaExportacionDetalle->FedDescripcion;
-							$InsFacturaExportacionDetalle->FedUnidadMedida = $DatFacturaExportacionDetalle->FedUnidadMedida;
-							$InsFacturaExportacionDetalle->FedPrecio = $DatFacturaExportacionDetalle->FedPrecio;
-							$InsFacturaExportacionDetalle->FedCantidad = $DatFacturaExportacionDetalle->FedCantidad;
-							$InsFacturaExportacionDetalle->FedPrecio = $DatFacturaExportacionDetalle->FedPrecio;
-							$InsFacturaExportacionDetalle->FedImporte = $DatFacturaExportacionDetalle->FedImporte;
-							$InsFacturaExportacionDetalle->FedEstado = $this->FexEstado;
-							$InsFacturaExportacionDetalle->FedTiempoCreacion = $DatFacturaExportacionDetalle->FedTiempoCreacion;
-							$InsFacturaExportacionDetalle->FedTiempoModificacion = $DatFacturaExportacionDetalle->FedTiempoModificacion;						
-							$InsFacturaExportacionDetalle->FedEliminado = $DatFacturaExportacionDetalle->FedEliminado;
-							
-							if($InsFacturaExportacionDetalle->MtdRegistrarFacturaExportacionDetalle()){
-								$validar++;					
-							}else{
-								$Resultado.='#ERR_FEX_201';
-								$Resultado.='#Item Numero: '.($validar+1);
-							}
-						}					
-						
-						if(count($this->FacturaExportacionDetalle) <> $validar ){
-							$error = true;
-						}					
-									
-					}				
+			if (!empty($this->FacturaExportacionDetalle)) {
+
+				$validar = 0;
+				$InsFacturaExportacionDetalle = new ClsFacturaExportacionDetalle();
+
+				foreach ($this->FacturaExportacionDetalle as $DatFacturaExportacionDetalle) {
+					$InsFacturaExportacionDetalle->FexId = $this->FexId;
+					$InsFacturaExportacionDetalle->FetId = $this->FetId;
+					$InsFacturaExportacionDetalle->VdeId = $DatFacturaExportacionDetalle->VdeId;
+
+					$InsFacturaExportacionDetalle->FedTipo = $DatFacturaExportacionDetalle->FedTipo;
+
+					$InsFacturaExportacionDetalle->AmdId = $DatFacturaExportacionDetalle->AmdId;
+					$InsFacturaExportacionDetalle->FedDescripcion = $DatFacturaExportacionDetalle->FedDescripcion;
+					$InsFacturaExportacionDetalle->FedUnidadMedida = $DatFacturaExportacionDetalle->FedUnidadMedida;
+					$InsFacturaExportacionDetalle->FedPrecio = $DatFacturaExportacionDetalle->FedPrecio;
+					$InsFacturaExportacionDetalle->FedCantidad = $DatFacturaExportacionDetalle->FedCantidad;
+					$InsFacturaExportacionDetalle->FedPrecio = $DatFacturaExportacionDetalle->FedPrecio;
+					$InsFacturaExportacionDetalle->FedImporte = $DatFacturaExportacionDetalle->FedImporte;
+					$InsFacturaExportacionDetalle->FedEstado = $this->FexEstado;
+					$InsFacturaExportacionDetalle->FedTiempoCreacion = $DatFacturaExportacionDetalle->FedTiempoCreacion;
+					$InsFacturaExportacionDetalle->FedTiempoModificacion = $DatFacturaExportacionDetalle->FedTiempoModificacion;
+					$InsFacturaExportacionDetalle->FedEliminado = $DatFacturaExportacionDetalle->FedEliminado;
+
+					if ($InsFacturaExportacionDetalle->MtdRegistrarFacturaExportacionDetalle()) {
+						$validar++;
+					} else {
+						$Resultado .= '#ERR_FEX_201';
+						$Resultado .= '#Item Numero: ' . ($validar + 1);
+					}
 				}
-				
 
-				if(!$error){			
-				
-					if (!empty($this->FacturaExportacionAlmacenMovimiento)){		
-							
-						$validar = 0;				
-						$InsFacturaExportacionAlmacenMovimiento = new ClsFacturaExportacionAlmacenMovimiento();		
-								
-						foreach ($this->FacturaExportacionAlmacenMovimiento as $DatFacturaExportacionAlmacenMovimiento){
-						
-							$InsFacturaExportacionAlmacenMovimiento->FexId = $this->FexId;
-							$InsFacturaExportacionAlmacenMovimiento->FetId = $this->FetId;
-							$InsFacturaExportacionAlmacenMovimiento->AmoId = $DatFacturaExportacionAlmacenMovimiento->AmoId;
-							$InsFacturaExportacionAlmacenMovimiento->BamEstado = $DatFacturaExportacionAlmacenMovimiento->BamEstado;
-							$InsFacturaExportacionAlmacenMovimiento->BamTiempoCreacion = $DatFacturaExportacionAlmacenMovimiento->BamTiempoCreacion;
-							$InsFacturaExportacionAlmacenMovimiento->BamTiempoModificacion = $DatFacturaExportacionAlmacenMovimiento->BamTiempoModificacion;						
-							$InsFacturaExportacionAlmacenMovimiento->BamEliminado = $DatFacturaExportacionAlmacenMovimiento->BamEliminado;
-							
-							if($InsFacturaExportacionAlmacenMovimiento->MtdRegistrarFacturaExportacionAlmacenMovimiento()){
-								$validar++;					
-							}else{								
-								//$Resultado.='#ERR_FAC_201';
-								//$Resultado.='#Item Numero: '.($validar+1);
-							}
-						}					
-						
-						if(count($this->FacturaExportacionAlmacenMovimiento) <> $validar ){
-							$error = true;
-						}					
-									
-					}				
+				if (count($this->FacturaExportacionDetalle) <> $validar) {
+					$error = true;
 				}
-		
+			}
+		}
 
-			if($error) {	
 
-				$this->InsMysql->MtdTransaccionDeshacer();			
-				return false;
-			} else {				
-				
-				$this->InsMysql->MtdTransaccionHacer();		
-				
-				$this->MtdAuditarFacturaExportacion(1,"Se registro la FacturaExportacion",$this);			
-				return true;
-			}			
-			
+		if (!$error) {
+
+			if (!empty($this->FacturaExportacionAlmacenMovimiento)) {
+
+				$validar = 0;
+				$InsFacturaExportacionAlmacenMovimiento = new ClsFacturaExportacionAlmacenMovimiento();
+
+				foreach ($this->FacturaExportacionAlmacenMovimiento as $DatFacturaExportacionAlmacenMovimiento) {
+
+					$InsFacturaExportacionAlmacenMovimiento->FexId = $this->FexId;
+					$InsFacturaExportacionAlmacenMovimiento->FetId = $this->FetId;
+					$InsFacturaExportacionAlmacenMovimiento->AmoId = $DatFacturaExportacionAlmacenMovimiento->AmoId;
+					$InsFacturaExportacionAlmacenMovimiento->BamEstado = $DatFacturaExportacionAlmacenMovimiento->BamEstado;
+					$InsFacturaExportacionAlmacenMovimiento->BamTiempoCreacion = $DatFacturaExportacionAlmacenMovimiento->BamTiempoCreacion;
+					$InsFacturaExportacionAlmacenMovimiento->BamTiempoModificacion = $DatFacturaExportacionAlmacenMovimiento->BamTiempoModificacion;
+					$InsFacturaExportacionAlmacenMovimiento->BamEliminado = $DatFacturaExportacionAlmacenMovimiento->BamEliminado;
+
+					if ($InsFacturaExportacionAlmacenMovimiento->MtdRegistrarFacturaExportacionAlmacenMovimiento()) {
+						$validar++;
+					} else {
+						//$Resultado.='#ERR_FAC_201';
+						//$Resultado.='#Item Numero: '.($validar+1);
+					}
+				}
+
+				if (count($this->FacturaExportacionAlmacenMovimiento) <> $validar) {
+					$error = true;
+				}
+			}
+		}
+
+
+		if ($error) {
+
+			$this->InsMysql->MtdTransaccionDeshacer();
+			return false;
+		} else {
+
+			$this->InsMysql->MtdTransaccionHacer();
+
+			$this->MtdAuditarFacturaExportacion(1, "Se registro la FacturaExportacion", $this);
+			return true;
+		}
 	}
-	
-	public function MtdEditarFacturaExportacion() {
-		
-			global $Resultado;
-			$error = false;
+
+	public function MtdEditarFacturaExportacion()
+	{
+
+		global $Resultado;
+		$error = false;
 
 		//if(FncConvetirTimestamp(date("d/m/Y"))<FncConvetirTimestamp(FncCambiaFechaANormal($this->FexFechaEmision))){
-//			$error = true;
-//			$Resultado.='#ERR_FEX_400';
-//		}else{
-		
-			$this->InsMysql->MtdTransaccionIniciar();
-			/*
-				$InsCliente = new ClsCliente();	
+		//			$error = true;
+		//			$Resultado.='#ERR_FEX_400';
+		//		}else{
+
+		$this->InsMysql->MtdTransaccionIniciar();
+		/*
+				$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->CcaId = "CCA-10000";
@@ -1642,214 +1619,204 @@ class ClsFacturaExportacion {
 					
 					
 				}	*/
-			
-				$sql = 'UPDATE tblfexfacturaexportacion SET 
-				CliId = "'.($this->CliId).'",
-				NpaId = "'.($this->NpaId).'",
-				
-				FexFechaEmision = "'.($this->FexFechaEmision).'",	
-				FexPorcentajeImpuestoVenta = '.($this->FexPorcentajeImpuestoVenta).',
-				FexDireccion = "'.($this->FexDireccion).'",
-				MonId = "'.($this->MonId).'",
-				'.(empty($this->FexTipoCambio)?'FexTipoCambio = NULL, ':'FexTipoCambio = "'.$this->FexTipoCambio.'",').'
-				
-				FexTotalBruto = '.($this->FexTotalBruto).',
-				FexSubTotal = '.($this->FexSubTotal).',
-				FexImpuesto = '.($this->FexImpuesto).',
-				FexTotal = '.($this->FexTotal).',
-				FexObservacion = "'.($this->FexObservacion).'",
-				FexCantidadDia = "'.($this->FexCantidadDia).'",	
-				FexObsequio = '.($this->FexObsequio).',		
-				FexEstado = '.($this->FexEstado).',
-				
-				FexTiempoModificacion = "'.($this->FexTiempoModificacion).'"			
-				WHERE FexId = "'.($this->FexId).'"
-				AND FetId = "'.$this->FetId.'";';
-				
-				
 
-			
-			
-			if(!$error){
-				$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-				if(!$resultado) {							
-					$error = true;
-				} 
-			}
-	
-				if(!$error){
+		$sql = 'UPDATE tblfexfacturaexportacion SET 
+				CliId = "' . ($this->CliId) . '",
+				NpaId = "' . ($this->NpaId) . '",
 				
-					if (!empty($this->FacturaExportacionDetalle)){		
-							
-							
-						$validar = 0;				
-						$InsFacturaExportacionDetalle = new ClsFacturaExportacionDetalle();		
-								
-						foreach ($this->FacturaExportacionDetalle as $DatFacturaExportacionDetalle){
-											
-							$InsFacturaExportacionDetalle->FedId = $DatFacturaExportacionDetalle->FedId;
-							$InsFacturaExportacionDetalle->FexId = $this->FexId;
-							$InsFacturaExportacionDetalle->FetId = $this->FetId;
-							$InsFacturaExportacionDetalle->VdeId = $DatFacturaExportacionDetalle->VdeId;
-							
-							$InsFacturaExportacionDetalle->FedTipo = $DatFacturaExportacionDetalle->FedTipo;
-							
-							$InsFacturaExportacionDetalle->FedDescripcion = $DatFacturaExportacionDetalle->FedDescripcion;
-							$InsFacturaExportacionDetalle->FedUnidadMedida = $DatFacturaExportacionDetalle->FedUnidadMedida;
-							
-							$InsFacturaExportacionDetalle->FedPrecio = $DatFacturaExportacionDetalle->FedPrecio;
-							$InsFacturaExportacionDetalle->FedCantidad = $DatFacturaExportacionDetalle->FedCantidad;
-							$InsFacturaExportacionDetalle->FedPrecio = $DatFacturaExportacionDetalle->FedPrecio;
-							$InsFacturaExportacionDetalle->FedImporte = $DatFacturaExportacionDetalle->FedImporte;
-							$InsFacturaExportacionDetalle->FedTiempoCreacion = $DatFacturaExportacionDetalle->FedTiempoCreacion;
-							$InsFacturaExportacionDetalle->FedTiempoModificacion = $DatFacturaExportacionDetalle->FedTiempoModificacion;
-							$InsFacturaExportacionDetalle->FedEliminado = $DatFacturaExportacionDetalle->FedEliminado;
-							
-							if(empty($InsFacturaExportacionDetalle->FedId)){
-								if($InsFacturaExportacionDetalle->FedEliminado<>2){
-									if($InsFacturaExportacionDetalle->MtdRegistrarFacturaExportacionDetalle()){
-										$validar++;					
-									}else{
-										$Resultado.='#ERR_FEX_201';
-										$Resultado.='#Item Numero: '.($validar+1);
-									}
-								}else{
-									$validar++;	
-								}
-							}else{						
-								if($InsFacturaExportacionDetalle->FedEliminado==2){
-									if($InsFacturaExportacionDetalle->MtdEliminarFacturaExportacionDetalle($InsFacturaExportacionDetalle->FedId)){
-										$validar++;					
-									}else{
-										$Resultado.='#ERR_FEX_203';
-										$Resultado.='#Item Numero: '.($validar+1);	
-									}
-								}else{
-									if($InsFacturaExportacionDetalle->MtdEditarFacturaExportacionDetalle()){
-										$validar++;					
-									}else{
-										$Resultado.='#ERR_FEX_202';
-										$Resultado.='#Item Numero: '.($validar+1);	
-									}
-								}
-							}									
-						}
-						
-						
-						if(count($this->FacturaExportacionDetalle) <> $validar ){
-							$error = true;
-						}					
-									
-					}				
-				}
-						
-						
+				FexFechaEmision = "' . ($this->FexFechaEmision) . '",	
+				FexPorcentajeImpuestoVenta = ' . ($this->FexPorcentajeImpuestoVenta) . ',
+				FexDireccion = "' . ($this->FexDireccion) . '",
+				MonId = "' . ($this->MonId) . '",
+				' . (empty($this->FexTipoCambio) ? 'FexTipoCambio = NULL, ' : 'FexTipoCambio = "' . $this->FexTipoCambio . '",') . '
 				
-			
-			if($error) {		
-				$this->InsMysql->MtdTransaccionDeshacer();					
-				return false;
-			} else {			
-				$this->InsMysql->MtdTransaccionHacer();				
-				$this->MtdAuditarFacturaExportacion(2,"Se edito la FacturaExportacion",$this);		
-				return true;
-			}	
-		
-			
-		
-		}	
-		
-		public function MtdEditarIdFacturaExportacion() {
-		
-			
-			$error = false;
+				FexTotalBruto = ' . ($this->FexTotalBruto) . ',
+				FexSubTotal = ' . ($this->FexSubTotal) . ',
+				FexImpuesto = ' . ($this->FexImpuesto) . ',
+				FexTotal = ' . ($this->FexTotal) . ',
+				FexObservacion = "' . ($this->FexObservacion) . '",
+				FexCantidadDia = "' . ($this->FexCantidadDia) . '",	
+				FexObsequio = ' . ($this->FexObsequio) . ',		
+				FexEstado = ' . ($this->FexEstado) . ',
+				
+				FexTiempoModificacion = "' . ($this->FexTiempoModificacion) . '"			
+				WHERE FexId = "' . ($this->FexId) . '"
+				AND FetId = "' . $this->FetId . '";';
 
-			$this->InsMysql->MtdTransaccionIniciar();
 
-			$sql = 'UPDATE tblfexfacturaexportacion SET 
-			FexId = "'.($this->NFexId).'",
-			FexTiempoModificacion = "'.($this->FexTiempoModificacion).'"
-			WHERE FexId = "'.($this->FexId).'"
-			AND FetId = "'.$this->FetId.'";';
-						
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			if(!$resultado) {							
+
+
+
+		if (!$error) {
+			$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+			if (!$resultado) {
 				$error = true;
-			} 			
-	
-			if($error) {		
-				$this->InsMysql->MtdTransaccionDeshacer();					
-				return false;
-			} else {			
-				$this->InsMysql->MtdTransaccionHacer();		
-				
-				
-				$this->MtdAuditarFacturaExportacion(2,"Se edito el Codigo de la FacturaExportacion",$this);							
-				return true;
-			}	
-		
-			
-		
-		}	
-		
-		
-		
-		
-		
-	public function MtdVerificarExisteAlmacenMovimientoSalidaId($oAlmacenMovimientoSalidaId){
-		
+			}
+		}
+
+		if (!$error) {
+
+			if (!empty($this->FacturaExportacionDetalle)) {
+
+
+				$validar = 0;
+				$InsFacturaExportacionDetalle = new ClsFacturaExportacionDetalle($this->InsMysql);
+
+				foreach ($this->FacturaExportacionDetalle as $DatFacturaExportacionDetalle) {
+
+					$InsFacturaExportacionDetalle->FedId = $DatFacturaExportacionDetalle->FedId;
+					$InsFacturaExportacionDetalle->FexId = $this->FexId;
+					$InsFacturaExportacionDetalle->FetId = $this->FetId;
+					$InsFacturaExportacionDetalle->VdeId = $DatFacturaExportacionDetalle->VdeId;
+
+					$InsFacturaExportacionDetalle->FedTipo = $DatFacturaExportacionDetalle->FedTipo;
+
+					$InsFacturaExportacionDetalle->FedDescripcion = $DatFacturaExportacionDetalle->FedDescripcion;
+					$InsFacturaExportacionDetalle->FedUnidadMedida = $DatFacturaExportacionDetalle->FedUnidadMedida;
+
+					$InsFacturaExportacionDetalle->FedPrecio = $DatFacturaExportacionDetalle->FedPrecio;
+					$InsFacturaExportacionDetalle->FedCantidad = $DatFacturaExportacionDetalle->FedCantidad;
+					$InsFacturaExportacionDetalle->FedPrecio = $DatFacturaExportacionDetalle->FedPrecio;
+					$InsFacturaExportacionDetalle->FedImporte = $DatFacturaExportacionDetalle->FedImporte;
+					$InsFacturaExportacionDetalle->FedTiempoCreacion = $DatFacturaExportacionDetalle->FedTiempoCreacion;
+					$InsFacturaExportacionDetalle->FedTiempoModificacion = $DatFacturaExportacionDetalle->FedTiempoModificacion;
+					$InsFacturaExportacionDetalle->FedEliminado = $DatFacturaExportacionDetalle->FedEliminado;
+
+					if (empty($InsFacturaExportacionDetalle->FedId)) {
+						if ($InsFacturaExportacionDetalle->FedEliminado <> 2) {
+							if ($InsFacturaExportacionDetalle->MtdRegistrarFacturaExportacionDetalle()) {
+								$validar++;
+							} else {
+								$Resultado .= '#ERR_FEX_201';
+								$Resultado .= '#Item Numero: ' . ($validar + 1);
+							}
+						} else {
+							$validar++;
+						}
+					} else {
+						if ($InsFacturaExportacionDetalle->FedEliminado == 2) {
+							if ($InsFacturaExportacionDetalle->MtdEliminarFacturaExportacionDetalle($InsFacturaExportacionDetalle->FedId)) {
+								$validar++;
+							} else {
+								$Resultado .= '#ERR_FEX_203';
+								$Resultado .= '#Item Numero: ' . ($validar + 1);
+							}
+						} else {
+							if ($InsFacturaExportacionDetalle->MtdEditarFacturaExportacionDetalle()) {
+								$validar++;
+							} else {
+								$Resultado .= '#ERR_FEX_202';
+								$Resultado .= '#Item Numero: ' . ($validar + 1);
+							}
+						}
+					}
+				}
+
+
+				if (count($this->FacturaExportacionDetalle) <> $validar) {
+					$error = true;
+				}
+			}
+		}
+
+
+
+
+		if ($error) {
+			$this->InsMysql->MtdTransaccionDeshacer();
+			return false;
+		} else {
+			$this->InsMysql->MtdTransaccionHacer();
+			$this->MtdAuditarFacturaExportacion(2, "Se edito la FacturaExportacion", $this);
+			return true;
+		}
+	}
+
+	public function MtdEditarIdFacturaExportacion()
+	{
+
+
+		$error = false;
+
+		$this->InsMysql->MtdTransaccionIniciar();
+
+		$sql = 'UPDATE tblfexfacturaexportacion SET 
+			FexId = "' . ($this->NFexId) . '",
+			FexTiempoModificacion = "' . ($this->FexTiempoModificacion) . '"
+			WHERE FexId = "' . ($this->FexId) . '"
+			AND FetId = "' . $this->FetId . '";';
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			$this->InsMysql->MtdTransaccionDeshacer();
+			return false;
+		} else {
+			$this->InsMysql->MtdTransaccionHacer();
+
+
+			$this->MtdAuditarFacturaExportacion(2, "Se edito el Codigo de la FacturaExportacion", $this);
+			return true;
+		}
+	}
+
+
+
+
+
+	public function MtdVerificarExisteAlmacenMovimientoSalidaId($oAlmacenMovimientoSalidaId)
+	{
+
 		$FacturaExportacion = array();
-		
-        $sql = 'SELECT 
+
+		$sql = 'SELECT 
 		fex.FexId,
 		fex.FetId
         FROM tblfexfacturaexportacion fex
-        WHERE  fex.AmoId = "'.$oAlmacenMovimientoSalidaId.'" 
+        WHERE  fex.AmoId = "' . $oAlmacenMovimientoSalidaId . '" 
 		AND fex.FexEstado <> 6
 		LIMIT 1;';
-		
-        $resultado = $this->InsMysql->MtdConsultar($sql);
 
-		if($this->InsMysql->MtdObtenerDatosTotal($resultado)>0){
-			while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+
+		if ($this->InsMysql->MtdObtenerDatosTotal($resultado) > 0) {
+			while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 				$FacturaExportacion[]  = $fila['FexId'];
 				$FacturaExportacion[]  = $fila['FetId'];
 			}
 		}
-		return $FacturaExportacion ;
-
+		return $FacturaExportacion;
 	}
-			
-		
-		
-		
-		
-		
-		
-		
-		private function MtdAuditarFacturaExportacion($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
-			
-			$InsAuditoria = new ClsAuditoria();
-			$InsAuditoria->AudCodigo = $this->FexId;
-			$InsAuditoria->AudCodigoExtra = $this->FetId;
-			$InsAuditoria->UsuId = $this->UsuId;
-			$InsAuditoria->SucId = $this->SucId;
-			$InsAuditoria->AudAccion = $oAccion;
-			$InsAuditoria->AudDescripcion = $oDescripcion;
-$InsAuditoria->AudUsuario = $oUsuario;
+
+
+
+
+
+
+
+
+	private function MtdAuditarFacturaExportacion($oAccion, $oDescripcion, $oDatos, $oCodigo = NULL, $oUsuario = NULL, $oPersonal = NULL)
+	{
+
+		$InsAuditoria = new ClsAuditoria($this->InsMysql);
+		$InsAuditoria->AudCodigo = $this->FexId;
+		$InsAuditoria->AudCodigoExtra = $this->FetId;
+		$InsAuditoria->UsuId = $this->UsuId;
+		$InsAuditoria->SucId = $this->SucId;
+		$InsAuditoria->AudAccion = $oAccion;
+		$InsAuditoria->AudDescripcion = $oDescripcion;
+		$InsAuditoria->AudUsuario = $oUsuario;
 		$InsAuditoria->AudPersonal = $oPersonal;
-			$InsAuditoria->AudDatos = $oDatos;
-			$InsAuditoria->AudTiempoCreacion = date("Y-m-d H:i:s");
-			
-			if($InsAuditoria->MtdAuditoriaRegistrar()){
-				return true;
-			}else{
-				return false;	
-			}
-			
+		$InsAuditoria->AudDatos = $oDatos;
+		$InsAuditoria->AudTiempoCreacion = date("Y-m-d H:i:s");
+
+		if ($InsAuditoria->MtdAuditoriaRegistrar()) {
+			return true;
+		} else {
+			return false;
 		}
-		
-		
-		
+	}
 }
-?>

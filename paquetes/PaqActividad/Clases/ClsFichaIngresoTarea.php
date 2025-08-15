@@ -10,163 +10,170 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsFichaIngresoTarea {
+class ClsFichaIngresoTarea
+{
 
-    public $FitId;
+	public $FitId;
 	public $FimId;
 	public $FitDescripcion;
-	public $FitAccion;	
-	public $FitEstado;	
+	public $FitAccion;
+	public $FitEstado;
 	public $FitTiempoCreacion;
 	public $FitTiempoModificacion;
-    public $FitEliminado;
-	
-	public $MinSigla;
-	
-    public $InsMysql;
+	public $FitEliminado;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
-	
-	public function __destruct(){
+	public $MinSigla;
+
+	public $InsMysql;
+
+	public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
 
 	}
 
-	private function MtdGenerarFichaIngresoTareaId() {
-			
-			$sql = 'SELECT	
+	public function __destruct() {}
+
+	private function MtdGenerarFichaIngresoTareaId()
+	{
+
+		$sql = 'SELECT	
 			MAX(CONVERT(SUBSTR(FitId,5),unsigned)) AS "MAXIMO"
 			FROM tblfitfichaingresotarea';
-			
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			if(empty($fila['MAXIMO'])){			
-				$this->FitId = "FIT-10000";
-			}else{
-				$fila['MAXIMO']++;
-				$this->FitId = "FIT-".$fila['MAXIMO'];					
-			}
-				
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
+			$this->FitId = "FIT-10000";
+		} else {
+			$fila['MAXIMO']++;
+			$this->FitId = "FIT-" . $fila['MAXIMO'];
 		}
-		
+	}
 
-    public function MtdObtenerFichaIngresoTareas($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FitId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngresoModalidad=NULL,$oEstado=NULL) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
+	public function MtdObtenerFichaIngresoTareas($oCampo = NULL, $oFiltro = NULL, $oOrden = 'FitId', $oSentido = 'Desc', $oPaginacion = '0,10', $oFichaIngresoModalidad = NULL, $oEstado = NULL)
+	{
+		// Inicializar variables para evitar warnings
+		$fimodalidad = '';
+		$estado = '';
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+		if (!empty($oCampo) and !empty($oFiltro)) {
 
-			$i=1;
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-		if(!empty($oFichaIngresoModalidad)){
-			$fimodalidad = ' AND fit.FimId = "'.$oFichaIngresoModalidad.'"';
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND fit.FitEstado = '.$oEstado.' ';
+
+		if (!empty($oFichaIngresoModalidad)) {
+			$fimodalidad = ' AND fit.FimId = "' . $oFichaIngresoModalidad . '"';
 		}
-		
-		
+
+		if (!empty($oEstado)) {
+			$estado = ' AND fit.FitEstado = ' . $oEstado . ' ';
+		}
+
+
 		$sql = '
 			SELECT
 			SQL_CALC_FOUND_ROWS 
@@ -187,92 +194,93 @@ class ClsFichaIngresoTarea {
 					ON fim.MinId = min.MinId
 						LEFT JOIN tblfatfichaacciontarea fat
 						ON fat.FitId = fit.FitId
-			WHERE  1 = 1 '.$fimodalidad.$estado.$filtrar.$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+			WHERE  1 = 1 ' . $fimodalidad . $estado . $filtrar . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsFichaIngresoTarea = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$FichaIngresoTarea = new $InsFichaIngresoTarea();
-                    $FichaIngresoTarea->FitId = $fila['FitId'];
-                    $FichaIngresoTarea->FimId = $fila['FimId'];					
-					$FichaIngresoTarea->FitDescripcion = $fila['FitDescripcion'];	
-					$FichaIngresoTarea->FitAccion = $fila['FitAccion'];
-					$FichaIngresoTarea->FitEstado = $fila['FitEstado'];
-					$FichaIngresoTarea->FitTiempoCreacion = $fila['NFitTiempoCreacion'];  
-					$FichaIngresoTarea->FitTiempoModificacion = $fila['NFitTiempoModificacion'];
-					
-					$FichaIngresoTarea->MinSigla = $fila['MinSigla'];
-					
-					$FichaIngresoTarea->FatVerificar1 = $fila['FatVerificar1'];
-					
-                    $FichaIngresoTarea->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $FichaIngresoTarea;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		$Respuesta['Datos'] = array();
+
+		$InsFichaIngresoTarea = get_class($this);
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+
+			$FichaIngresoTarea = new $InsFichaIngresoTarea();
+			$FichaIngresoTarea->FitId = $fila['FitId'];
+			$FichaIngresoTarea->FimId = $fila['FimId'];
+			$FichaIngresoTarea->FitDescripcion = $fila['FitDescripcion'];
+			$FichaIngresoTarea->FitAccion = $fila['FitAccion'];
+			$FichaIngresoTarea->FitEstado = $fila['FitEstado'];
+			$FichaIngresoTarea->FitTiempoCreacion = $fila['NFitTiempoCreacion'];
+			$FichaIngresoTarea->FitTiempoModificacion = $fila['NFitTiempoModificacion'];
+
+			$FichaIngresoTarea->MinSigla = $fila['MinSigla'];
+
+			$FichaIngresoTarea->FatVerificar1 = $fila['FatVerificar1'];
+
+			$FichaIngresoTarea->InsMysql = NULL;
+			$Respuesta['Datos'][] = $FichaIngresoTarea;
 		}
-		
-		
-		
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
+
+
+
+
 	//Accion eliminar	 
-	
-	public function MtdEliminarFichaIngresoTarea($oElementos) {
+
+	public function MtdEliminarFichaIngresoTarea($oElementos)
+	{
 
 		$error = false;
-		
-		$elementos = explode("#",$oElementos);
-	
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){				
-					if($i==count($elementos)){						
-						$eliminar .= '  (FitId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (FitId = "'.($elemento).'")  OR';	
-					}	
+
+		$elementos = explode("#", $oElementos);
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+				if ($i == count($elementos)) {
+					$eliminar .= '  (FitId = "' . ($elemento) . '")';
+				} else {
+					$eliminar .= '  (FitId = "' . ($elemento) . '")  OR';
 				}
-			$i++;
-	
 			}
-		
-				
-				$sql = 'DELETE FROM tblfitfichaingresotarea 
-				WHERE '.$eliminar;
-							
-				$error = false;
-	
-				$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-				
-				if(!$resultado) {						
-					$error = true;
-				} 	
-				
-	
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+			$i++;
+		}
+
+
+		$sql = 'DELETE FROM tblfitfichaingresotarea 
+				WHERE ' . $eliminar;
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	
-	public function MtdRegistrarFichaIngresoTarea() {
-	
-			$this->MtdGenerarFichaIngresoTareaId();
-			
-			$sql = 'INSERT INTO tblfitfichaingresotarea (
+
+
+	public function MtdRegistrarFichaIngresoTarea()
+	{
+
+		$this->MtdGenerarFichaIngresoTareaId();
+
+		$sql = 'INSERT INTO tblfitfichaingresotarea (
 			FitId,
 			FimId,	
 			FitDescripcion,
@@ -282,53 +290,49 @@ class ClsFichaIngresoTarea {
 			FitTiempoModificacion
 			) 
 			VALUES (
-			"'.($this->FitId).'", 
-			"'.($this->FimId).'", 
-			"'.($this->FitDescripcion).'", 
-			"'.($this->FitAccion).'",
-			'.($this->FitEstado).',
-			"'.($this->FitTiempoCreacion).'",
-			"'.($this->FitTiempoModificacion).'");';
-		
-			$error = false;
+			"' . ($this->FitId) . '", 
+			"' . ($this->FimId) . '", 
+			"' . ($this->FitDescripcion) . '", 
+			"' . ($this->FitAccion) . '",
+			' . ($this->FitEstado) . ',
+			"' . ($this->FitTiempoCreacion) . '",
+			"' . ($this->FitTiempoModificacion) . '");';
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 	
-		
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	public function MtdEditarFichaIngresoTarea() {
+
+	public function MtdEditarFichaIngresoTarea()
+	{
 
 		$sql = 'UPDATE tblfitfichaingresotarea SET 	
-		 FitDescripcion = "'.($this->FitDescripcion).'",
-		 FitAccion = "'.($this->FitAccion).'"
-		 WHERE FitId = "'.($this->FitId).'";';
-				
+		 FitDescripcion = "' . ($this->FitDescripcion) . '",
+		 FitAccion = "' . ($this->FitAccion) . '"
+		 WHERE FitId = "' . ($this->FitId) . '";';
+
 		$error = false;
-		
-		$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-		
-		if(!$resultado) {						
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
 			$error = true;
-		} 		
-		
-		if($error) {						
+		}
+
+		if ($error) {
 			return false;
-		} else {				
+		} else {
 			return true;
-		}						
-			
-	}	
-		
-	
+		}
+	}
 }
-?>

@@ -30,7 +30,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	
 	$InsVehiculoIngresoBono->MonId = $_POST['CmpMonedaId'];
 	$InsVehiculoIngresoBono->VibTipoCambio = $_POST['CmpTipoCambio'];
-	$InsVehiculoIngresoBono->VibMonto = eregi_replace(",","",(empty($_POST['CmpTotal'])?0:$_POST['CmpTotal']));
+	$InsVehiculoIngresoBono->VibMonto = preg_replace("/,/", "", (empty($_POST['CmpTotal'])?0:$_POST['CmpTotal']));
 	
 	$InsVehiculoIngresoBono->VibEstado = $_POST['CmpEstado'];
 	$InsVehiculoIngresoBono->VibTiempoModificacion = date("Y-m-d H:i:s");

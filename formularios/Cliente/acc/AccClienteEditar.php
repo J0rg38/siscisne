@@ -1,6 +1,6 @@
 <?php
 //Si se hizo click en guardar			
-if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){	
+if(isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guardar']=="1")){	
 
 	$Guardar = true;
 	$Resultado = '';
@@ -61,7 +61,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsCliente->MonId = $_POST['CmpMonedaId'];
 	$InsCliente->CliTipoCambioFecha = FncCambiaFechaAMysql($_POST['CmpTipoCambioFecha'],true);
 	$InsCliente->CliTipoCambio = $_POST['CmpTipoCambio'];
-	$InsCliente->CliLineaCredito = eregi_replace(",","",(empty($_POST['CmpLineaCredito'])?0:$_POST['CmpLineaCredito']));
+	$InsCliente->CliLineaCredito = preg_replace("/,/", "", (empty($_POST['CmpLineaCredito'])?0:$_POST['CmpLineaCredito']));
 
 	$InsCliente->CliCSIIncluir = (empty($_POST['CmpCSIIncluir'])?2:$_POST['CmpCSIIncluir']);
 	$InsCliente->CliCSIExcluirMotivo = addslashes($_POST['CmpCSIExcluirMotivo']);

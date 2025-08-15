@@ -93,10 +93,16 @@ class ClsReporteGarantia {
 	
 	public $Transaccion;
 	
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-		$this->Transaccion = false;
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 

@@ -110,9 +110,16 @@ class ClsBoleta {
     public $InsMysql;
 	
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -904,18 +911,18 @@ bol.BolDatoAdicional28,
 				
 			if($oCompleto){
 				
-				$InsBoletaDetalle = new ClsBoletaDetalle();
+				$InsBoletaDetalle = new ClsBoletaDetalle($this->InsMysql);
 				$ResBoletaDetalle =  $InsBoletaDetalle->MtdObtenerBoletaDetalles(NULL,NULL,NULL,NULL,NULL,$this->BolId,$this->BtaId);
 				$this->BoletaDetalle = $ResBoletaDetalle['Datos'];
 
 // MtdObtenerBoletaAlmacenMovimientos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'BamId',$oSentido = 'Desc',$oPaginacion = '0,10',$oBoleta=NULL,$oBoletaTalonario=NULL,$oAlmacenMovimiento=NULL,$oAnulado=true,$oTipo=NULL)
-				$InsBoletaAlmacenMovimiento = new ClsBoletaAlmacenMovimiento();
+				$InsBoletaAlmacenMovimiento = new ClsBoletaAlmacenMovimiento($this->InsMysql);
 				$ResBoletaAlmacenMovimiento =  $InsBoletaAlmacenMovimiento->MtdObtenerBoletaAlmacenMovimientos(NULL,NULL,NULL,NULL,NULL,$this->BolId,$this->BtaId);
 				$this->BoletaAlmacenMovimiento = $ResBoletaAlmacenMovimiento['Datos'];
 
 				if(!empty($this->OvvId)){
 					
-					$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();
+					$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario($this->InsMysql);
 					$ResOrdenVentaVehiculoPropietario = $InsOrdenVentaVehiculoPropietario->MtdObtenerOrdenVentaVehiculoPropietarios(NULL,NULL,'OvpTiempoCreacion','ASC',NULL,$this->OvvId);
 					$this->OrdenVentaVehiculoPropietario = $ResOrdenVentaVehiculoPropietario['Datos'];
 					
@@ -2306,7 +2313,7 @@ bol.BolObservacionCaja,
 							
 							if(!empty($this->OvvId)){
 								
-								$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+								$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 								
 								
 								
@@ -2385,7 +2392,7 @@ bol.BolObservacionCaja,
 					/*if(!empty($this->FinId)){
 
 						$InsFichaIngreso = new ClsFichaIngreso();
-						$InsFichaAccion = new ClsFichaAccion();
+						$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 
 						if($InsFichaIngreso->MtdActualizarEstadoFichaIngreso($this->FinId,75,false)){
 
@@ -2401,7 +2408,7 @@ bol.BolObservacionCaja,
 					
 					if(!empty($this->OvvId)){
 						
-						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 						$InsOrdenVentaVehiculo->OvvId = $this->OvvId;
 						$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(false);
 							
@@ -2470,7 +2477,7 @@ bol.BolObservacionCaja,
 			$this->InsMysql->MtdTransaccionIniciar();
 
 
-				$InsCliente = new ClsCliente();	
+				$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->CcaId = "CCA-10000";
@@ -2715,7 +2722,7 @@ bol.BolObservacionCaja,
 					if (!empty($this->BoletaDetalle)){		
 							
 						$validar = 0;				
-						$InsBoletaDetalle = new ClsBoletaDetalle();		
+						$InsBoletaDetalle = new ClsBoletaDetalle($this->InsMysql);		
 								
 						foreach ($this->BoletaDetalle as $DatBoletaDetalle){
 							$InsBoletaDetalle->BolId = $this->BolId;
@@ -2771,7 +2778,7 @@ if(!$error){
 					if (!empty($this->BoletaAlmacenMovimiento)){		
 							
 						$validar = 0;				
-						$InsBoletaAlmacenMovimiento = new ClsBoletaAlmacenMovimiento();		
+						$InsBoletaAlmacenMovimiento = new ClsBoletaAlmacenMovimiento($this->InsMysql);		
 								
 						foreach ($this->BoletaAlmacenMovimiento as $DatBoletaAlmacenMovimiento){
 						
@@ -2828,7 +2835,7 @@ if(!$error){
 		
 			$this->InsMysql->MtdTransaccionIniciar();
 			
-				$InsCliente = new ClsCliente();	
+				$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->CcaId = "CCA-10000";
@@ -2964,7 +2971,7 @@ if(!$error){
 							
 							
 						$validar = 0;				
-						$InsBoletaDetalle = new ClsBoletaDetalle();		
+						$InsBoletaDetalle = new ClsBoletaDetalle($this->InsMysql);		
 								
 						foreach ($this->BoletaDetalle as $DatBoletaDetalle){
 											
@@ -3052,7 +3059,7 @@ if(!$error){
 					$validar = 0;	
 					foreach ($this->BoletaAlmacenMovimiento as $DatBoletaAlmacenMovimiento){
 							
-						$InsBoletaAlmacenMovimiento = new ClsBoletaAlmacenMovimiento();	
+						$InsBoletaAlmacenMovimiento = new ClsBoletaAlmacenMovimiento($this->InsMysql);	
 						$InsBoletaAlmacenMovimiento->BamId = $DatBoletaAlmacenMovimiento->BamId;
 						$InsBoletaAlmacenMovimiento->BolId = $this->BolId;
 						$InsBoletaAlmacenMovimiento->BtaId = $this->BtaId;
@@ -3236,7 +3243,7 @@ if(!$error){
 		
 		private function MtdAuditarBoleta($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->BolId;
 			$InsAuditoria->AudCodigoExtra = $this->BtaId;
 			$InsAuditoria->UsuId = $this->UsuId;

@@ -10,167 +10,174 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsFichaIngresoProducto {
+class ClsFichaIngresoProducto
+{
 
-    public $FipId;
+	public $FipId;
 	public $FimId;
 	public $ProId;
 	public $UmeId;
 	public $FipCantidad;
-	
+
 	public $FipEstado;
 	public $FipTiempoCreacion;
 	public $FipTiempoModificacion;
-    public $FipEliminado;
-	
+	public $FipEliminado;
+
 	public $ProNombre;
 	public $ProCodigoOriginal;
 	public $ProCodigoAlternativo;
-	
-	public $Minsigla;
-	
-    public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
-	
-	public function __destruct(){
+	public $Minsigla;
+
+	public $InsMysql;
+
+	public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
 
 	}
 
-	private function MtdGenerarFichaIngresoProductoId() {
+	public function __destruct() {}
+
+	private function MtdGenerarFichaIngresoProductoId()
+	{
 
 		$sql = 'SELECT	
 		MAX(CONVERT(SUBSTR(FipId,5),unsigned)) AS "MAXIMO"
 		FROM tblfipfichaingresoproducto';
-			
-		$resultado = $this->InsMysql->MtdConsultar($sql);                       
-		$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-		
-		if(empty($fila['MAXIMO'])){			
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
 			$this->FipId = "FIP-10000";
-		}else{
+		} else {
 			$fila['MAXIMO']++;
-			$this->FipId = "FIP-".$fila['MAXIMO'];					
+			$this->FipId = "FIP-" . $fila['MAXIMO'];
 		}
-
 	}
-	
 
-    public function MtdObtenerFichaIngresoProductos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FipId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngreso=NULL,$oEstado=NULL) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
+	public function MtdObtenerFichaIngresoProductos($oCampo = NULL, $oFiltro = NULL, $oOrden = 'FipId', $oSentido = 'Desc', $oPaginacion = '0,10', $oFichaIngreso = NULL, $oEstado = NULL)
+	{
+		// Inicializar variables para evitar warnings
+		$fingreso = '';
+		$estado = '';
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+		if (!empty($oCampo) and !empty($oFiltro)) {
 
-			$i=1;
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-		if(!empty($oFichaIngreso)){
-			$fingreso = ' AND fip.FimId = "'.$oFichaIngreso.'"';
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND fip.FipEstado = '.$oEstado.'';
-		}		
+
+		if (!empty($oFichaIngreso)) {
+			$fingreso = ' AND fip.FimId = "' . $oFichaIngreso . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND fip.FipEstado = ' . $oEstado . '';
+		}
 
 		$sql = '
 			SELECT
@@ -204,100 +211,101 @@ class ClsFichaIngresoProducto {
 					ON fip.FimId = fim.FimId
 						LEFT JOIN tblminmodalidadingreso min
 						ON fim.MinId = min.MinId
-			WHERE  1 = 1 '.$fingreso.$estado.$filtrar.$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+			WHERE  1 = 1 ' . $fingreso . $estado . $filtrar . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsFichaIngresoProducto = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$FichaIngresoProducto = new $InsFichaIngresoProducto();
-                    $FichaIngresoProducto->FipId = $fila['FipId'];
-                    $FichaIngresoProducto->FimId = $fila['FimId'];					
-					$FichaIngresoProducto->ProId = $fila['ProId'];	
-					$FichaIngresoProducto->UmeId = $fila['UmeId'];	
-					$FichaIngresoProducto->FipCantidad = $fila['FipCantidad'];	
-					
-					$FichaIngresoProducto->FipEstado = $fila['FipEstado'];
-					$FichaIngresoProducto->FipTiempoCreacion = $fila['NFipTiempoCreacion'];  
-					$FichaIngresoProducto->FipTiempoModificacion = $fila['NFipTiempoModificacion']; 
-					
-					$FichaIngresoProducto->ProNombre = $fila['ProNombre']; 
-					$FichaIngresoProducto->ProCodigoOriginal = $fila['ProCodigoOriginal']; 
-					$FichaIngresoProducto->ProCodigoAlternativo = $fila['ProCodigoAlternativo']; 
-					$FichaIngresoProducto->RtiId = $fila['RtiId']; 
-					$FichaIngresoProducto->UmeIdOrigen = $fila['UmeIdOrigen']; 
-			
-					$FichaIngresoProducto->MinSigla = $fila['MinSigla']; 
-					$FichaIngresoProducto->UmeNombre = $fila['UmeNombre']; 
-					
+		$Respuesta['Datos'] = array();
 
-                    $FichaIngresoProducto->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $FichaIngresoProducto;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		$InsFichaIngresoProducto = get_class($this);
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+
+			$FichaIngresoProducto = new $InsFichaIngresoProducto();
+			$FichaIngresoProducto->FipId = $fila['FipId'];
+			$FichaIngresoProducto->FimId = $fila['FimId'];
+			$FichaIngresoProducto->ProId = $fila['ProId'];
+			$FichaIngresoProducto->UmeId = $fila['UmeId'];
+			$FichaIngresoProducto->FipCantidad = $fila['FipCantidad'];
+
+			$FichaIngresoProducto->FipEstado = $fila['FipEstado'];
+			$FichaIngresoProducto->FipTiempoCreacion = $fila['NFipTiempoCreacion'];
+			$FichaIngresoProducto->FipTiempoModificacion = $fila['NFipTiempoModificacion'];
+
+			$FichaIngresoProducto->ProNombre = $fila['ProNombre'];
+			$FichaIngresoProducto->ProCodigoOriginal = $fila['ProCodigoOriginal'];
+			$FichaIngresoProducto->ProCodigoAlternativo = $fila['ProCodigoAlternativo'];
+			$FichaIngresoProducto->RtiId = $fila['RtiId'];
+			$FichaIngresoProducto->UmeIdOrigen = $fila['UmeIdOrigen'];
+
+			$FichaIngresoProducto->MinSigla = $fila['MinSigla'];
+			$FichaIngresoProducto->UmeNombre = $fila['UmeNombre'];
+
+
+			$FichaIngresoProducto->InsMysql = NULL;
+			$Respuesta['Datos'][] = $FichaIngresoProducto;
 		}
-		
-		
-		
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
+
+
+
+
 	//Accion eliminar	 
-	
-	public function MtdEliminarFichaIngresoProducto($oElementos) {
+
+	public function MtdEliminarFichaIngresoProducto($oElementos)
+	{
 
 		$error = false;
-		
-		$elementos = explode("#",$oElementos);
-	
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){				
-					if($i==count($elementos)){						
-						$eliminar .= '  (FipId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (FipId = "'.($elemento).'")  OR';	
-					}	
+
+		$elementos = explode("#", $oElementos);
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+				if ($i == count($elementos)) {
+					$eliminar .= '  (FipId = "' . ($elemento) . '")';
+				} else {
+					$eliminar .= '  (FipId = "' . ($elemento) . '")  OR';
 				}
-			$i++;
-	
 			}
-		
-				
-				$sql = 'DELETE FROM tblfipfichaingresoproducto 
-				WHERE '.$eliminar;
-							
-				$error = false;
-	
-				$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-				
-				if(!$resultado) {						
-					$error = true;
-				} 	
-				
-	
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+			$i++;
+		}
+
+
+		$sql = 'DELETE FROM tblfipfichaingresoproducto 
+				WHERE ' . $eliminar;
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	
-	public function MtdRegistrarFichaIngresoProducto() {
-	
-			$this->MtdGenerarFichaIngresoProductoId();
-			
-			$sql = 'INSERT INTO tblfipfichaingresoproducto (
+
+
+	public function MtdRegistrarFichaIngresoProducto()
+	{
+
+		$this->MtdGenerarFichaIngresoProductoId();
+
+		$sql = 'INSERT INTO tblfipfichaingresoproducto (
 			FipId,
 			FimId,	
 			ProId,
@@ -308,59 +316,55 @@ class ClsFichaIngresoProducto {
 			FipTiempoCreacion,
 			FipTiempoModificacion) 
 			VALUES (
-			"'.($this->FipId).'", 
-			"'.($this->FimId).'", 
-			"'.($this->ProId).'", 
-				'.(empty($this->UmeId)?'NULL, ':'"'.$this->UmeId.'",').'	
-				'.($this->FipCantidad).',	
+			"' . ($this->FipId) . '", 
+			"' . ($this->FimId) . '", 
+			"' . ($this->ProId) . '", 
+				' . (empty($this->UmeId) ? 'NULL, ' : '"' . $this->UmeId . '",') . '	
+				' . ($this->FipCantidad) . ',	
 				
-			'.($this->FipEstado).',
-			"'.($this->FipTiempoCreacion).'",
-			"'.($this->FipTiempoModificacion).'");';
-		
-			$error = false;
+			' . ($this->FipEstado) . ',
+			"' . ($this->FipTiempoCreacion) . '",
+			"' . ($this->FipTiempoModificacion) . '");';
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 	
-		
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	public function MtdEditarFichaIngresoProducto() {
+
+	public function MtdEditarFichaIngresoProducto()
+	{
 
 		$sql = 'UPDATE tblfipfichaingresoproducto SET 	
-		ProId = "'.($this->ProId).'",
-		UmeId = "'.($this->UmeId).'",
-		FipCantidad = '.($this->FipCantidad).',
-		FipEstado = '.($this->FipEstado).',
-		FipTiempoModificacion = "'.($this->FipTiempoModificacion).'"
+		ProId = "' . ($this->ProId) . '",
+		UmeId = "' . ($this->UmeId) . '",
+		FipCantidad = ' . ($this->FipCantidad) . ',
+		FipEstado = ' . ($this->FipEstado) . ',
+		FipTiempoModificacion = "' . ($this->FipTiempoModificacion) . '"
 		
-		 WHERE FipId = "'.($this->FipId).'";';
-			// FipEstado = '.($this->FipEstado).'	
+		 WHERE FipId = "' . ($this->FipId) . '";';
+		// FipEstado = '.($this->FipEstado).'	
 		$error = false;
-		
-		$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-		
-		if(!$resultado) {						
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
 			$error = true;
-		} 		
-		
-		if($error) {						
+		}
+
+		if ($error) {
 			return false;
-		} else {				
+		} else {
 			return true;
-		}						
-				
-	}	
-		
-	
+		}
+	}
 }
-?>

@@ -21,9 +21,16 @@ class ClsRegimen {
 	
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -68,6 +75,12 @@ class ClsRegimen {
     }
 
     public function MtdObtenerRegimenes($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'RegId',$oSentido = 'Desc',$oPaginacion = '0,10',$oUso=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$uso = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);

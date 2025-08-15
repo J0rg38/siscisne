@@ -22,7 +22,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsPagoProveedor->PovNumeroOperacion = ($_POST['CmpNumeroOperacion']);
 
 	$InsPagoProveedor->PovTipoCambio = ($_POST['CmpTipoCambio']);
-	$InsPagoProveedor->PovMonto = eregi_replace(",","",(empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
+	$InsPagoProveedor->PovMonto = preg_replace("/,/", "", (empty($_POST['CmpMonto'])?0:$_POST['CmpMonto']));
 	
 	$InsPagoProveedor->PovTipoDestino = ($_POST['CmpTipoDestino']);	
 	$InsPagoProveedor->PovEstado = $_POST['CmpEstado'];

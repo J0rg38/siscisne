@@ -26,11 +26,30 @@ class ClsTipoCambio {
 	public $MonNombre;
 	public $MonSimbolo;
 	
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $TcaUsuarioRegistro;
+	public $TcaEstado;
+	public $TcaEstadoDescripcion;
+	public $TcaEstadoIcono;
+	public $TcaFechaFormateada;
+	public $TcaMontoCompraFormateado;
+	public $TcaMontoVentaFormateado;
+	public $TcaMontoComercialFormateado;
+	public $TcaTiempoCreacionFormateado;
+	public $TcaTiempoModificacionFormateado;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 

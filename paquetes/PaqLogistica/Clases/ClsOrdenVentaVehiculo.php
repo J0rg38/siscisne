@@ -62,6 +62,7 @@ class ClsOrdenVentaVehiculo {
 	
 	public $OvvNota;
 	public $OvvPlaca;
+	public $OvvTipoPlaca;
 	public $OvvEstado;
 	public $OvvTiempoCreacion;
 	public $OvvTiempoModificacion;
@@ -106,9 +107,16 @@ class ClsOrdenVentaVehiculo {
 
     public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -839,7 +847,7 @@ class ClsOrdenVentaVehiculo {
 				$this->VehiculoVersionCaracteristica = $ResVehiculoVersionCaracteristica['Datos'];
 	
 				// MtdObtenerOrdenVentaVehiculoPropietarios($oCampo=NULL,$oFiltro=NULL,$oOrden = 'OvpId',$oSentido = 'Desc',$oPaginacion = '0,10',$oOrdenVentaVehiculo=NULL)
-				$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();
+				$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario($this->InsMysql);
 				$ResOrdenVentaVehiculoPropietario = $InsOrdenVentaVehiculoPropietario->MtdObtenerOrdenVentaVehiculoPropietarios(NULL,NULL,'OvpId','ASC',NULL,$this->OvvId);
 				$this->OrdenVentaVehiculoPropietario = $ResOrdenVentaVehiculoPropietario['Datos'];
 				
@@ -2671,7 +2679,7 @@ DATE_FORMAT(ovv.OvvActaEntregaHora, "%H:%i") AS "NOvvActaEntregaHora",
 									
 								}
 								
-								$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();	
+								$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario($this->InsMysql);	
 								
 								if(!$InsOrdenVentaVehiculoPropietario->MtdEliminarOrdenVentaVehiculoPropietario($ovpropietario)){	
 															
@@ -2685,7 +2693,7 @@ DATE_FORMAT(ovv.OvvActaEntregaHora, "%H:%i") AS "NOvvActaEntregaHora",
 							}
 							
 									
-							$InsCliente = new ClsCliente();
+							$InsCliente = new ClsCliente($this->InsMysql);
 							$ResCliente = $InsCliente->MtdObtenerClientes(NULL,NULL,NULL,"CliNombre","ASC",1,"1",NULL,"CYC");
 							$ArrClientes = $ResCliente['Datos'];
 							
@@ -2788,7 +2796,7 @@ DATE_FORMAT(ovv.OvvActaEntregaHora, "%H:%i") AS "NOvvActaEntregaHora",
 
 		$elementos = explode("#",$oElementos);
 
-		$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+		$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 //		$InsOrdenVentaVehiculoObsequios = new ClsOrdenVentaVehiculoObsequio();
 							
 /*	case 1:
@@ -2928,7 +2936,7 @@ break;
 									
 									
 											
-								  //$InsCliente = new ClsCliente();
+								  //$InsCliente = new ClsCliente($this->InsMysql);
 //								  $ResCliente = $InsCliente->MtdObtenerClientes(NULL,NULL,NULL,"CliNombre","ASC",1,"1",NULL,"CYC");
 //								  $ArrClientes = $ResCliente['Datos'];
 //								  
@@ -3053,7 +3061,7 @@ break;
 /*
 		if(empty($this->CliId)){
 
-				$InsCliente = new ClsCliente();	
+				$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->LtiId = $this->LtiId;		
@@ -3081,28 +3089,28 @@ break;
 			}else{
 			
 				if(!empty($this->OvvDireccion)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliDireccion",$this->OvvDireccion,$this->CliId);
 				}
 				
 				if(!empty($this->OvvTelefono)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliTelefono",$this->OvvTelefono,$this->CliId);
 				}
 				
 				if(!empty($this->OvvCelular)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliCelular",$this->OvvCelular,$this->CliId);
 				}
 
 				if(!empty($this->OvvEmail)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliEmail",$this->OvvEmail,$this->CliId);
 				}
 
 		}*/
 //			if(empty($this->CliId)){
-//				$InsCliente = new ClsCliente();
+//				$InsCliente = new ClsCliente($this->InsMysql);
 //				$InsCliente->CliNombre;
 //				$InsCliente->CliNumeroDocumento;
 //				$InsCliente->MtdVerificarExisteCliente();
@@ -3404,7 +3412,7 @@ break;
 				if (!empty($this->OrdenVentaVehiculoPropietario)){		
 						
 					$validar = 0;				
-					$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();		
+					$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario($this->InsMysql);		
 					
 					foreach ($this->OrdenVentaVehiculoPropietario as $DatOrdenVentaVehiculoPropietario){
 					
@@ -3581,7 +3589,7 @@ break;
 
 		/*	if(empty($this->CliId)){
 
-				$InsCliente = new ClsCliente();	
+				$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->LtiId = $this->LtiId;		
@@ -3609,22 +3617,22 @@ break;
 			}else{
 			
 				if(!empty($this->OvvDireccion)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliDireccion",$this->OvvDireccion,$this->CliId);
 				}
 				
 				if(!empty($this->OvvTelefono)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliTelefono",$this->OvvTelefono,$this->CliId);
 				}
 				
 				if(!empty($this->OvvCelular)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliCelular",$this->OvvCelular,$this->CliId);
 				}
 
 				if(!empty($this->OvvEmail)){
-					$InsCliente = new ClsCliente();
+					$InsCliente = new ClsCliente($this->InsMysql);
 					$InsCliente->MtdEditarClienteDato("CliEmail",$this->OvvEmail,$this->CliId);
 				}
 
@@ -3839,7 +3847,7 @@ break;
 				if (!empty($this->OrdenVentaVehiculoPropietario)){	
 				
 					$validar = 0;				
-					$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();
+					$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario($this->InsMysql);
 							
 					foreach ($this->OrdenVentaVehiculoPropietario as $DatOrdenVentaVehiculoPropietario){
 										
@@ -6050,7 +6058,7 @@ $mensaje .= "<br>";
 			
 		private function MtdAuditarOrdenVentaVehiculo($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->OvvId;
 
 			$InsAuditoria->UsuId = $this->UsuId;

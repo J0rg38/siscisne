@@ -34,12 +34,16 @@ class ClsVehiculoIngresoEvento {
 
 	public $Transaccion;
 	
-    public function __construct(){
+    public function __construct($oInsMysql=NULL)
+	{
 
-		$this->InsMysql = new ClsMysql();
-		$this->Transaccion = true;
-		
-    }
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 

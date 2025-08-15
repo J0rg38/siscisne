@@ -18,12 +18,15 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,$GET_form)){
 <?php
 $Registro = false;
 
-$GET_Tipo = $_GET['Tipo'];
-$GET_Ruta = $_GET['Ruta'];
+$GET_Tipo = $_GET['Tipo'] ?? '';
+$GET_Ruta = $_GET['Ruta'] ?? '';
 
-$GET_ProveedorNombre = $_GET['ProveedorNombre'];
-$GET_TipoDocumentoId = $_GET['TipoDocumentoId'];
-$GET_ProveedorNumeroDocumento = $_GET['ProveedorNumeroDocumento'];
+$GET_ProveedorNombre = $_GET['ProveedorNombre'] ?? '';
+$GET_TipoDocumentoId = $_GET['TipoDocumentoId'] ?? '';
+$GET_ProveedorNumeroDocumento = $_GET['ProveedorNumeroDocumento'] ?? '';
+
+// Inicializar variable Identificador para evitar warnings
+$Identificador = '';
 
 //MENSAJES
 include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjProveedor.php');
@@ -274,6 +277,10 @@ if(!empty($GET_dia)){
                   <td>&nbsp;</td>
                   <td>Estado:</td>
                   <td><?php
+			// Inicializar variables para evitar warnings
+			$OpcEstado1 = '';
+			$OpcEstado2 = '';
+			
 			switch($InsProveedor->PrvEstado){
 				case 1:
 					$OpcEstado1 = 'selected="selected"';

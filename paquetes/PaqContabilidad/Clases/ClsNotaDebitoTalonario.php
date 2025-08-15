@@ -18,11 +18,33 @@ class ClsNotaDebitoTalonario {
     public $NdtTiempoCreacion;
     public $NdtTiempoModificacion;
     public $NdtEliminado;
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $SucId;
+	public $NdtDescripcion;
+	public $NdtEstado;
+	public $NdtEstadoDescripcion;
+	public $NdtEstadoIcono;
+	public $NdtMultisucursal;
+	public $NdtSucursal;
+	public $NdtSucursalNombre;
+	public $NdtSucursalDireccion;
+	public $NdtSucursalDistrito;
+	public $NdtSucursalProvincia;
+	public $NdtSucursalDepartamento;
+	public $NdtSucursalCodigoUbigeo;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -180,6 +202,9 @@ class ClsNotaDebitoTalonario {
 	public function MtdEliminarNotaDebitoTalonario($oElementos) {
 		
 		$elementos = explode("#",$oElementos);
+		
+		// Inicializar variable para evitar warnings
+		$eliminar = '';
 		
 		if(!count($elementos)){
 			$eliminar .= ' NdtId = "'.($oElementos).'"';

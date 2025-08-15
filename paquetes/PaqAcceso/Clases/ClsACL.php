@@ -16,9 +16,15 @@ class ClsACL
 	public $InsMysql;
 
 
-	public function __construct()
+	public function __construct($oInsMysql=NULL)
 	{
-		$this->InsMysql = new ClsMysql();
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
 	}
 
 	public function __destruct() {}
@@ -29,24 +35,34 @@ class ClsACL
 
 		$Permiso = false;
 
-
 		//echo $_SESSION['SesionRol'];
 
 		//echo "<br>";
 
 		if (!empty($_SESSION['SesionRol'])) {
 
-			$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio();
-			$ResRolZonaPrivilegio = $InsRolZonaPrivilegio->MtdObtenerRolZonaPrivilegios(NULL, NULL, 'RzpId', 'Desc', NULL, $_SESSION['SesionRol']);
-			$ArrRolZonaPrivilegios = $ResRolZonaPrivilegio['Datos'];
+			try {
+				$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio();
+				$ResRolZonaPrivilegio = $InsRolZonaPrivilegio->MtdObtenerRolZonaPrivilegios(NULL, NULL, 'RzpId', 'Desc', NULL, $_SESSION['SesionRol']);
+				
+				if ($ResRolZonaPrivilegio && isset($ResRolZonaPrivilegio['Datos'])) {
+					$ArrRolZonaPrivilegios = $ResRolZonaPrivilegio['Datos'];
 
-			foreach ($ArrRolZonaPrivilegios as $DatRolZonaPrivilegio) {
+					foreach ($ArrRolZonaPrivilegios as $DatRolZonaPrivilegio) {
 
-				if ($DatRolZonaPrivilegio->RolId == $oRol and $DatRolZonaPrivilegio->ZonNombre == $oZona and $DatRolZonaPrivilegio->PriNombre == $oPrivilegio) {
+						if ($DatRolZonaPrivilegio->RolId == $oRol and $DatRolZonaPrivilegio->ZonNombre == $oZona and $DatRolZonaPrivilegio->PriNombre == $oPrivilegio) {
 
-					$Permiso = true;
-					break;
+							$Permiso = true;
+							break;
+						}
+					}
+				} else {
+					error_log("Error en MtdVerificarACL: No se pudieron obtener los datos de RolZonaPrivilegio");
 				}
+			} catch (Exception $e) {
+				error_log("Error en MtdVerificarACL: " . $e->getMessage());
+			} catch (Error $e) {
+				error_log("Error fatal en MtdVerificarACL: " . $e->getMessage());
 			}
 		}
 

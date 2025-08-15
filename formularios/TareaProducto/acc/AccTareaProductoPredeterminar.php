@@ -102,7 +102,7 @@ switch($POST_MarcaId){
 								
 								$InsTareaProducto->AlmId = $POST_AlmacenId ;
 								
-								$InsTareaProducto->TprCantidad = eregi_replace(",","",(empty($POST_ProductoCantidad)?0:$POST_ProductoCantidad));
+								$InsTareaProducto->TprCantidad = preg_replace("/,/", "", (empty($POST_ProductoCantidad)?0:$POST_ProductoCantidad));
 								$InsTareaProducto->TprKilometraje = $DatKilometro['km'];
 								$InsTareaProducto->PmtId = $POST_PlanMantenimientoTareaId;
 								$InsTareaProducto->PmaId = $InsPlanMantenimiento->PmaId;
@@ -199,7 +199,7 @@ switch($POST_MarcaId){
 							$InsTareaProducto->TprPrecio = $Precio;
 							$InsTareaProducto->AlmId = $POST_AlmacenId ;
 							
-							$InsTareaProducto->TprCantidad = eregi_replace(",","",(empty($POST_ProductoCantidad)?0:$POST_ProductoCantidad));
+							$InsTareaProducto->TprCantidad = preg_replace("/,/", "", (empty($POST_ProductoCantidad)?0:$POST_ProductoCantidad));
 							$InsTareaProducto->TprKilometraje = $DatKilometro['km'];
 							$InsTareaProducto->PmtId = $POST_PlanMantenimientoTareaId;
 							$InsTareaProducto->PmaId = $InsPlanMantenimiento->PmaId;
@@ -334,7 +334,7 @@ switch($POST_MarcaId){
 								
 								$InsTareaProducto->AlmId = $POST_AlmacenId ;
 								
-								$InsTareaProducto->TprCantidad = eregi_replace(",","",(empty($POST_ProductoCantidad)?0:$POST_ProductoCantidad));
+								$InsTareaProducto->TprCantidad = preg_replace("/,/", "", (empty($POST_ProductoCantidad)?0:$POST_ProductoCantidad));
 								
 								$InsTareaProducto->TprKilometraje = $DatKilometro['km'];
 								$InsTareaProducto->PmtId = $POST_PlanMantenimientoTareaId;
@@ -361,7 +361,7 @@ switch($POST_MarcaId){
 							
 							$InsTareaProducto->AlmId = $POST_AlmacenId ;
 							
-							$InsTareaProducto->TprCantidad = eregi_replace(",","",(empty($POST_ProductoCantidad)?0:$POST_ProductoCantidad));
+							$InsTareaProducto->TprCantidad = preg_replace("/,/", "", (empty($POST_ProductoCantidad)?0:$POST_ProductoCantidad));
 							
 							$InsTareaProducto->TprKilometraje = $DatKilometro['km'];
 							$InsTareaProducto->PmtId = $POST_PlanMantenimientoTareaId;

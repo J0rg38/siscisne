@@ -401,7 +401,7 @@ var RutComunes = "comunes/";
             include('formularios/'.$GET_mod.'/Frm'.$GET_mod.$GET_form.'.php');
 			
 						
-			$InsMensaje->MenResultado = $Resultado;
+			$InsMensaje->MenResultado = $Resultado ?? '';
 			$InsMensaje->MtdImprimirResultado("Normal");
         }else{
             //include('default.php');	
@@ -413,7 +413,7 @@ var RutComunes = "comunes/";
     
     
 <?php
-$InsMensaje->MenResultado = $_SESSION['SesAviso'];
+$InsMensaje->MenResultado = $_SESSION['SesAviso'] ?? '';
 $InsMensaje->MtdImprimirResultado("Normal");
 unset($_SESSION['SesAviso']);
 ?>

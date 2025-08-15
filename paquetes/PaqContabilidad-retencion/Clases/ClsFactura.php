@@ -124,12 +124,15 @@ class ClsFactura {
     public $InsMysql;
 	
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-		$this->FacturaDetalle = array();
+    public function __construct($oInsMysql=NULL)
+	{
 
-		
-		$this->FacturaLetra = array();
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
 	}
 	
 	
@@ -1011,14 +1014,14 @@ fac.FacLeyenda,
 				
 			if($oCompleto){
 				
-				$InsFacturaDetalle = new ClsFacturaDetalle();
+				$InsFacturaDetalle = new ClsFacturaDetalle($this->InsMysql);
 				
 				$ResFacturaDetalle =  $InsFacturaDetalle->MtdObtenerFacturaDetalles(NULL,NULL,NULL,NULL,NULL,$this->FacId,$this->FtaId);
 				$this->FacturaDetalle = $ResFacturaDetalle['Datos'];
 				
 
 //MtdObtenerFacturaAlmacenMovimientos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FamId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFactura=NULL,$oFacturaTalonario=NULL,$oAlmacenMovimiento=NULL,$oAnulado=true,$oTipo=NULL)
-				$InsFacturaAlmacenMovimiento = new ClsFacturaAlmacenMovimiento();
+				$InsFacturaAlmacenMovimiento = new ClsFacturaAlmacenMovimiento($this->InsMysql);
 				
 				$ResFacturaAlmacenMovimiento =  $InsFacturaAlmacenMovimiento->MtdObtenerFacturaAlmacenMovimientos(NULL,NULL,NULL,NULL,NULL,$this->FacId,$this->FtaId,NULL,true,NULL);
 				$this->FacturaAlmacenMovimiento = $ResFacturaAlmacenMovimiento['Datos'];
@@ -1026,7 +1029,7 @@ fac.FacLeyenda,
 
 				if(!empty($this->OvvId)){
 					
-					$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();
+					$InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario($this->InsMysql);
 					$ResOrdenVentaVehiculoPropietario = $InsOrdenVentaVehiculoPropietario->MtdObtenerOrdenVentaVehiculoPropietarios(NULL,NULL,'OvpId','ASC',NULL,$this->OvvId);
 					$this->OrdenVentaVehiculoPropietario = $ResOrdenVentaVehiculoPropietario['Datos'];
 					
@@ -2704,7 +2707,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 							
 							if(!empty($this->OvvId)){
 								
-								$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+								$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 								
 								if($oEstado == 6 and (
 								$this->FacEstado == 5 or 
@@ -2789,7 +2792,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 					/*if(!empty($this->FinId)){
 
 						$InsFichaIngreso = new ClsFichaIngreso();
-						$InsFichaAccion = new ClsFichaAccion();
+						$InsFichaAccion = new ClsFichaAccion($this->InsMysql);
 
 						if($InsFichaIngreso->MtdActualizarEstadoFichaIngreso($this->FinId,75,false)){
 
@@ -2807,7 +2810,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 					
 					if(!empty($this->OvvId)){
 						
-						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
 						$InsOrdenVentaVehiculo->OvvId = $this->OvvId;
 						$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(false);
 							
@@ -2869,7 +2872,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 
 				$this->InsMysql->MtdTransaccionIniciar();
 /*
-				$InsCliente = new ClsCliente();	
+				$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->CcaId = "CCA-10000";
@@ -2909,7 +2912,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 
 
 
-				//$InsCliente = new ClsCliente();	
+				//$InsCliente = new ClsCliente($this->InsMysql);	
 //	
 //				$InsCliente->CliId = $this->CliId;
 //				$InsCliente->CcaId = "CCA-10000";
@@ -3192,7 +3195,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 					if (!empty($this->FacturaDetalle)){		
 							
 						$validar = 0;				
-						$InsFacturaDetalle = new ClsFacturaDetalle();		
+						$InsFacturaDetalle = new ClsFacturaDetalle($this->InsMysql);		
 								
 						foreach ($this->FacturaDetalle as $DatFacturaDetalle){
 						
@@ -3251,7 +3254,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 					if (!empty($this->FacturaAlmacenMovimiento)){		
 							
 						$validar = 0;				
-						$InsFacturaAlmacenMovimiento = new ClsFacturaAlmacenMovimiento();		
+						$InsFacturaAlmacenMovimiento = new ClsFacturaAlmacenMovimiento($this->InsMysql);		
 								
 						foreach ($this->FacturaAlmacenMovimiento as $DatFacturaAlmacenMovimiento){
 						
@@ -3307,7 +3310,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 //		}else{
 				$this->InsMysql->MtdTransaccionIniciar();
 
-				$InsCliente = new ClsCliente();	
+				$InsCliente = new ClsCliente($this->InsMysql);	
 	
 				$InsCliente->CliId = $this->CliId;
 				$InsCliente->CcaId = "CCA-10000";
@@ -3343,7 +3346,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 				
 				
 		
-//			$InsCliente = new ClsCliente();	
+//			$InsCliente = new ClsCliente($this->InsMysql);	
 //			
 //
 //			
@@ -3512,7 +3515,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 						
 						
 					$validar = 0;				
-					$InsFacturaDetalle = new ClsFacturaDetalle();		
+					$InsFacturaDetalle = new ClsFacturaDetalle($this->InsMysql);		
 							
 					foreach ($this->FacturaDetalle as $DatFacturaDetalle){
 										
@@ -3593,7 +3596,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 					$validar = 0;	
 					foreach ($this->FacturaAlmacenMovimiento as $DatFacturaAlmacenMovimiento){
 							
-						$InsFacturaAlmacenMovimiento = new ClsFacturaAlmacenMovimiento();	
+						$InsFacturaAlmacenMovimiento = new ClsFacturaAlmacenMovimiento($this->InsMysql);	
 						$InsFacturaAlmacenMovimiento->FamId = $DatFacturaAlmacenMovimiento->FamId;
 						$InsFacturaAlmacenMovimiento->FacId = $this->FacId;
 						$InsFacturaAlmacenMovimiento->FtaId = $this->FtaId;
@@ -3745,7 +3748,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 		
 		private function MtdAuditarFactura($oAccion,$oDescripcion,$oDatos,$oCodigo=NULL,$oUsuario=NULL,$oPersonal=NULL){
 			
-			$InsAuditoria = new ClsAuditoria();
+			$InsAuditoria = new ClsAuditoria($this->InsMysql);
 			$InsAuditoria->AudCodigo = $this->FacId;
 			$InsAuditoria->AudCodigoExtra = $this->FtaId;
 			$InsAuditoria->UsuId = $this->UsuId;

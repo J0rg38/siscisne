@@ -40,19 +40,19 @@ if (!empty($_FILES)) {
 	
 	$file_name = $FotoIdentificador.$file_name;
 
-	$file_name = (eregi_replace(" ","-",$file_name));
+	$file_name = (preg_replace("/ /", "-", $file_name));
 
 //var_dump($tempFile);
 //echo "<br><br>";
 
 //var_dump($file_name);
 
-//	$file_name = eregi_replace(" ","",$file_name);
-//	$file_name = eregi_replace(". ","",$file_name);	
+//	$file_name = preg_replace("/ /", "", $file_name);
+//	$file_name = preg_replace("/. /", "", $file_name);	
 	
 
 	$targetPath = '../../../subidos/conductor_fotos/';
-	$targetFile =  str_replace('//','/',$targetPath) . (eregi_replace(" ","-",$file_name));	
+	$targetFile =  str_replace('//','/',$targetPath) . (preg_replace("/ /", "-", $file_name));	
 
 //echo "<br><br>";
 	

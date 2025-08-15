@@ -271,6 +271,12 @@ if(!empty($GET_dia)){
                   <td>&nbsp;</td>
                   <td align="left" valign="top">Estado Civil:</td>
                   <td align="left" valign="top"><?php
+			// Inicializar variables para evitar warnings
+			$OpcEstadoCivil1 = '';
+			$OpcEstadoCivil2 = '';
+			$OpcEstadoCivil3 = '';
+			$OpcEstadoCivil4 = '';
+			
 			switch($InsCliente->CliEstadoCivil){
 				case "Soltero":
 					$OpcEstadoCivil1 = 'selected="selected"';
@@ -306,6 +312,10 @@ if(!empty($GET_dia)){
                   <td>&nbsp;</td>
                   <td align="left" valign="top">Sexo:</td>
                   <td align="left" valign="top"><?php
+			// Inicializar variables para evitar warnings
+			$OpcSexo1 = '';
+			$OpcSexo2 = '';
+			
 			switch($InsCliente->CliSexo){
 				case "Hombre":
 					$OpcSexo1 = 'selected="selected"';
@@ -493,6 +503,10 @@ if(!empty($GET_dia)){
                   <td>&nbsp;</td>
                   <td align="left" valign="top">Estado:</td>
                   <td align="left" valign="top"><?php
+			// Inicializar variables para evitar warnings
+			$OpcEstado1 = '';
+			$OpcEstado2 = '';
+			
 			switch($InsCliente->CliEstado){
 				case 1:
 					$OpcEstado1 = 'selected="selected"';

@@ -23,11 +23,41 @@ class ClsResumenDiario {
     public $RdiTiempoCreacion;
     public $RdiTiempoModificacion;
     public $RdiEliminado;
-    public $InsMysql;
+    	public $InsMysql;
+	
+	// Propiedades adicionales para evitar warnings
+	public $RdiArchivo;
+	public $RdiEstado;
+	public $RdiSunatRespuestaResumenTicket;
+	public $RdiSunatRespuestaResumenTicketEstado;
+	public $RdiSunatRespuestaResumenObservacion;
+	public $RdiSunatRespuestaResumenFecha;
+	public $RdiSunatRespuestaResumenHora;
+	public $RdiSunatRespuestaResumenCodigo;
+	public $RdiSunatRespuestaResumenContenido;
+	public $RdiSunatRespuestaResumenTiempoCreacion;
+	public $RdiEstadoDescripcion;
+	public $RdiEstadoIcono;
+	public $RdiFechaFormateada;
+	public $RdiFechaReferenciaFormateada;
+	public $RdiTiempoCreacionFormateado;
+	public $RdiTiempoModificacionFormateado;
+	
+	// Propiedades adicionales para evitar warnings
+	public $RdiSunatRespuestaObservacion;
+	public $RdiSunatRespuestaTicket;
+	public $RdiSunatRespuestaTicketEstado;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 

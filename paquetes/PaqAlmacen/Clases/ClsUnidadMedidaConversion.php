@@ -25,9 +25,16 @@ class ClsUnidadMedidaConversion {
 	
 	public $InsMysql;
 
-    public function __construct(){
-		$this->InsMysql = new ClsMysql();
-    }
+    public function __construct($oInsMysql=NULL)
+	{
+
+		if ($oInsMysql) {
+			$this->InsMysql = $oInsMysql;
+		} else {
+			$this->InsMysql = new ClsMysql();
+		}
+
+	}
 	
 	public function __destruct(){
 
@@ -85,6 +92,13 @@ class ClsUnidadMedidaConversion {
     }
 
     public function MtdObtenerUnidadMedidaConversiones($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'UmcId',$oSentido = 'Desc',$oPaginacion = '0,10',$oUnidadMedida1=NULL,$oUnidadMedida2=NULL) {
+
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$unidadMedida1 = '';
+		$unidadMedida2 = '';
 
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);

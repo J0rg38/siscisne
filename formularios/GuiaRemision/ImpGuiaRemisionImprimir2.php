@@ -317,18 +317,18 @@ setTimeout("window.close();",1500);
                     
                     <?php
 		
-		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = eregi_replace("SEDAN","",$InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
+		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = preg_replace("/SEDAN/", "", $InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
 		
-		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = eregi_replace("HATCHBACK","",$InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
+		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = preg_replace("/HATCHBACK/", "", $InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
 		
-		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = eregi_replace("GT","",$InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
+		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = preg_replace("/GT/", "", $InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
 		
 		
-		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = eregi_replace("MAX","",$InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
-		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = eregi_replace("MOVE","",$InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
-		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = eregi_replace("CARGO","",$InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
+		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = preg_replace("/MAX/", "", $InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
+		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = preg_replace("/MOVE/", "", $InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
+		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = preg_replace("/CARGO/", "", $InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
 		
-		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = eregi_replace("WORK","",$InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
+		$InsGuiaRemision->OrdenVentaVehiculoVmoNombre = preg_replace("/WORK/", "", $InsGuiaRemision->OrdenVentaVehiculoVmoNombre);
 		
 		
 		?>    

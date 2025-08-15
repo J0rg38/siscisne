@@ -10,7 +10,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 //	$InsTareaProducto->ProNombre = $_POST['CmpProductoNombre'];
 //	$InsTareaProducto->UmeId = $_POST['CmpProductoUnidadMedidaConvertir'];
 //	//$InsTareaProducto->TprCantidad = $_POST['CmpTareaProductoDetalleCantidad'];
-//	$InsTareaProducto->TprCantidad = eregi_replace(",","",(empty($_POST['CmpTareaProductoDetalleCantidad'])?0:$_POST['CmpTareaProductoDetalleCantidad']));
+//	$InsTareaProducto->TprCantidad = preg_replace("/,/", "", (empty($_POST['CmpTareaProductoDetalleCantidad'])?0:$_POST['CmpTareaProductoDetalleCantidad']));
 //		
 //	
 //	$InsTareaProducto->PmdId = $_POST['CmpPlanMantenimientoDetalleId'];

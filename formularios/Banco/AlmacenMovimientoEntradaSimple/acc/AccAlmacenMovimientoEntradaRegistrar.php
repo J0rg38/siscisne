@@ -40,19 +40,19 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 //	$InsAlmacenMovimientoEntrada->AmoIncluyeImpuesto = $_POST['CmpIncluyeImpuesto'];
 	$InsAlmacenMovimientoEntrada->AmoIncluyeImpuesto = 2;
 
-	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalAduana = eregi_replace(",","",$_POST['CmpTotalAduana']);
-	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalTransporte = eregi_replace(",","",$_POST['CmpTotalTransporte']);
-	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalDesestiba = eregi_replace(",","",$_POST['CmpTotalDesestiba']);
-	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalAlmacenaje = eregi_replace(",","",$_POST['CmpTotalAlmacenaje']);
-	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalAdValorem = eregi_replace(",","",$_POST['CmpTotalAdValorem']);
-	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalAduanaNacional = eregi_replace(",","",$_POST['CmpTotalAduanaNacional']);
-	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalGastoAdministrativo = eregi_replace(",","",$_POST['CmpTotalGastoAdministrativo']);
-	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalOtroCosto1 = eregi_replace(",","",$_POST['CmpTotalOtroCosto1']);
-	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalOtroCosto2 = eregi_replace(",","",$_POST['CmpTotalOtroCosto2']);
+	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalAduana = preg_replace("/,/", "", $_POST['CmpTotalAduana']);
+	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalTransporte = preg_replace("/,/", "", $_POST['CmpTotalTransporte']);
+	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalDesestiba = preg_replace("/,/", "", $_POST['CmpTotalDesestiba']);
+	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalAlmacenaje = preg_replace("/,/", "", $_POST['CmpTotalAlmacenaje']);
+	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalAdValorem = preg_replace("/,/", "", $_POST['CmpTotalAdValorem']);
+	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalAduanaNacional = preg_replace("/,/", "", $_POST['CmpTotalAduanaNacional']);
+	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalGastoAdministrativo = preg_replace("/,/", "", $_POST['CmpTotalGastoAdministrativo']);
+	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalOtroCosto1 = preg_replace("/,/", "", $_POST['CmpTotalOtroCosto1']);
+	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalOtroCosto2 = preg_replace("/,/", "", $_POST['CmpTotalOtroCosto2']);
 
-	$InsAlmacenMovimientoEntrada->AmoNacionalTotalRecargo = eregi_replace(",","",$_POST['CmpTotalRecargo']);
-	$InsAlmacenMovimientoEntrada->AmoNacionalTotalFlete = eregi_replace(",","",$_POST['CmpTotalFlete']);
-	$InsAlmacenMovimientoEntrada->AmoNacionalTotalOtroCosto = eregi_replace(",","",$_POST['CmpTotalOtroCosto']);
+	$InsAlmacenMovimientoEntrada->AmoNacionalTotalRecargo = preg_replace("/,/", "", $_POST['CmpTotalRecargo']);
+	$InsAlmacenMovimientoEntrada->AmoNacionalTotalFlete = preg_replace("/,/", "", $_POST['CmpTotalFlete']);
+	$InsAlmacenMovimientoEntrada->AmoNacionalTotalOtroCosto = preg_replace("/,/", "", $_POST['CmpTotalOtroCosto']);
 
 	$InsAlmacenMovimientoEntrada->AmoTotalInternacional = $InsAlmacenMovimientoEntrada->AmoInternacionalTotalAduana +
 	$InsAlmacenMovimientoEntrada->AmoInternacionalTotalTransporte + $InsAlmacenMovimientoEntrada->AmoInternacionalTotalDesestiba +
@@ -225,7 +225,7 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsAlmacenMovimientoEntrada->AmoTotal = 0;
 	
 	$InsAlmacenMovimientoEntrada->AmoValorTotal = 0;
-	//$InsAlmacenMovimientoEntrada->AmoValorTotal = eregi_replace(",","",$_POST['CmpValorTotal']);
+	//$InsAlmacenMovimientoEntrada->AmoValorTotal = preg_replace("/,/", "", $_POST['CmpValorTotal']);
 	
 	//if($InsAlmacenMovimientoEntrada->MonId<>$EmpresaMonedaId and !empty($InsAlmacenMovimientoEntrada->AmoTipoCambio)){
 //		$InsAlmacenMovimientoEntrada->AmoValorTotal = round($InsAlmacenMovimientoEntrada->AmoValorTotal * $InsAlmacenMovimientoEntrada->AmoTipoCambio,3);

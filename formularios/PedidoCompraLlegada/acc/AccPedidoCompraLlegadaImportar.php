@@ -470,7 +470,7 @@ if (!empty($_FILES)) {
 							
 							if($columna == $inicio_columnaB){
 								$OrdenCompraId  = trim(( (!empty($r[$columna])) ? $r[$columna] : '' ));	
-								$OrdenCompraId = eregi_replace("-AC","",$OrdenCompraId);
+								$OrdenCompraId = preg_replace("/-AC/", "", $OrdenCompraId);
 							}
 							
 							if($columna == $inicio_columnaC){

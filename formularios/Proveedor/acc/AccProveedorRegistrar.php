@@ -1,6 +1,6 @@
 <?php
 //Si se hizo click en guardar			
-if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){	
+if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){	
 
 	$Resultado = '';
 	
@@ -40,8 +40,8 @@ if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){
 	$InsProveedor->MonId = $_POST['CmpMonedaId'];
 	$InsProveedor->PrvTipoCambioFecha = FncCambiaFechaAMysql($_POST['CmpTipoCambioFecha'],true);
 	$InsProveedor->PrvTipoCambio = $_POST['CmpTipoCambio'];
-	$InsProveedor->PrvLineaCredito = eregi_replace(",","",(empty($_POST['CmpLineaCredito'])?0:$_POST['CmpLineaCredito']));
-	$InsProveedor->PrvLineaCreditoActual = eregi_replace(",","",(empty($_POST['CmpLineaCreditoActual'])?0:$_POST['CmpLineaCreditoActual']));
+	$InsProveedor->PrvLineaCredito = str_replace(",","",(empty($_POST['CmpLineaCredito'])?0:$_POST['CmpLineaCredito']));
+	$InsProveedor->PrvLineaCreditoActual = str_replace(",","",(empty($_POST['CmpLineaCreditoActual'])?0:$_POST['CmpLineaCreditoActual']));
 	
 	$InsProveedor->PrvEstado = $_POST['CmpEstado'];
 	$InsProveedor->PrvTiempoCreacion = date("Y-m-d H:i:s");
