@@ -4,6 +4,14 @@ if (!isset($_SESSION['SesionRol']) || !isset($_SESSION['SesionId'])) {
     die('Error: Sesión no válida. Por favor, inicie sesión nuevamente.');
 }
 
+// Verificar que las variables GET estén disponibles
+if (!isset($GET_mod)) {
+    $GET_mod = 'FichaAccion';
+}
+if (!isset($GET_dia)) {
+    $GET_dia = '';
+}
+
 if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Listado") and empty($GET_dia)){
 ?>
 
@@ -56,7 +64,7 @@ $POST_num = $_POST['Num'] ?? '';
 	if($_POST){
 		$_SESSION[$GET_mod."Num"] = $POST_num;
 	}else{
-		$POST_num =  $_SESSION[$GET_mod."Num"];	
+		$POST_num = isset($_SESSION[$GET_mod."Num"]) ? $_SESSION[$GET_mod."Num"] : '10';	
 	}
 	
 $POST_seleccionados = $_POST['cmp_seleccionados'] ?? '';
@@ -124,7 +132,7 @@ if(empty($POST_con)){
 }
 
 if(!$_POST){
-	$POST_Sucursal = $_SESSION['SesionSucursal'];
+	$POST_Sucursal = isset($_SESSION['SesionSucursal']) ? $_SESSION['SesionSucursal'] : '';
 }
 
 

@@ -29,7 +29,7 @@ class ClsSesion {
     public function __construct(){
 		//$this->SesUltimaSesion = 'No se ha registrado ninguna sesion anteriormente';
         if(!isset($_SESSION)){
-           session_start();	   
+           //session_start();	   
         }
     }
     

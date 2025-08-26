@@ -10,21 +10,22 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsFichaIngresoManoObra {
+class ClsFichaIngresoManoObra
+{
 
-    public $FmoId;
+	public $FmoId;
 	public $FinId;
 	public $FmoDescripcion;
 	public $FmoImporte;
-	
+
 	public $FmoEstado;
 	public $FmoTiempoCreacion;
 	public $FmoTiempoModificacion;
-    public $FmoEliminado;
+	public $FmoEliminado;
 
-    public $InsMysql;
+	public $InsMysql;
 
-    public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -32,145 +33,62 @@ class ClsFichaIngresoManoObra {
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
-	}
-	
-	public function __destruct(){
-
 	}
 
-	private function MtdGenerarFichaIngresoManoObraId() {
+	public function __destruct() {}
+
+	private function MtdGenerarFichaIngresoManoObraId()
+	{
 
 		$sql = 'SELECT	
 		MAX(CONVERT(SUBSTR(FmoId,5),unsigned)) AS "MAXIMO"
 		FROM tblfmofichaingresomanoobra';
-			
-		$resultado = $this->InsMysql->MtdConsultar($sql);                       
-		$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-		
-		if(empty($fila['MAXIMO'])){			
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
 			$this->FmoId = "FMO-10000";
-		}else{
+		} else {
 			$fila['MAXIMO']++;
-			$this->FmoId = "FMO-".$fila['MAXIMO'];					
+			$this->FmoId = "FMO-" . $fila['MAXIMO'];
 		}
-
 	}
-	
 
-    public function MtdObtenerFichaIngresoManoObras($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngreso=NULL,$oEstado=NULL) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+	public function MtdObtenerFichaIngresoManoObras($oCampo = NULL, $oFiltro = NULL, $oOrden = 'FmoId', $oSentido = 'Desc', $oPaginacion = '0,10', $oFichaIngreso = NULL, $oEstado = NULL)
+	{
 
-			$i=1;
-			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+		// Inicializar variables para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$fingreso = '';
+		$estado = '';
 
-						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
-						}
-					}
-				$i++;
-		
-				}
-				
-				$filtrar .= '  ) ';
-
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+		if (!empty($oCampo) && !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$filtrar = ' AND ' . ($oCampo) . ' LIKE "%' . ($oFiltro) . '%"';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-		if(!empty($oFichaIngreso)){
-			$fingreso = ' AND fmo.FinId = "'.$oFichaIngreso.'"';
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND fmo.FmoEstado = '.$oEstado.'';
-		}		
+
+		if (!empty($oFichaIngreso)) {
+			$fingreso = ' AND fmo.FinId = "' . $oFichaIngreso . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND fmo.FmoEstado = ' . $oEstado . '';
+		}
 
 		$sql = '
 			SELECT
@@ -186,89 +104,91 @@ class ClsFichaIngresoManoObra {
 			
 			FROM tblfmofichaingresomanoobra fmo
 				
-			WHERE  1 = 1 '.$fingreso.$estado.$filtrar.$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+			WHERE  1 = 1 ' . $fingreso . $estado . $filtrar . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsFichaIngresoManoObra = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$FichaIngresoManoObra = new $InsFichaIngresoManoObra();
-                    $FichaIngresoManoObra->FmoId = $fila['FmoId'];
-                    $FichaIngresoManoObra->FinId = $fila['FinId'];					
-					$FichaIngresoManoObra->FmoDescripcion = $fila['FmoDescripcion'];
-					$FichaIngresoManoObra->FmoImporte = $fila['FmoImporte'];
-					
-					$FichaIngresoManoObra->FmoEstado = $fila['FmoEstado'];
-					$FichaIngresoManoObra->FmoTiempoCreacion = $fila['NFmoTiempoCreacion'];  
-					$FichaIngresoManoObra->FmoTiempoModificacion = $fila['NFmoTiempoModificacion']; 
-					
-                    $FichaIngresoManoObra->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $FichaIngresoManoObra;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		$Respuesta['Datos'] = array();
+
+		$InsFichaIngresoManoObra = get_class($this);
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+
+			$FichaIngresoManoObra = new $InsFichaIngresoManoObra();
+			$FichaIngresoManoObra->FmoId = $fila['FmoId'];
+			$FichaIngresoManoObra->FinId = $fila['FinId'];
+			$FichaIngresoManoObra->FmoDescripcion = $fila['FmoDescripcion'];
+			$FichaIngresoManoObra->FmoImporte = $fila['FmoImporte'];
+
+			$FichaIngresoManoObra->FmoEstado = $fila['FmoEstado'];
+			$FichaIngresoManoObra->FmoTiempoCreacion = $fila['NFmoTiempoCreacion'];
+			$FichaIngresoManoObra->FmoTiempoModificacion = $fila['NFmoTiempoModificacion'];
+
+			$FichaIngresoManoObra->InsMysql = NULL;
+			$Respuesta['Datos'][] = $FichaIngresoManoObra;
 		}
-		
-		
-		
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
+
+
+
+
 	//Accion eliminar	 
-	
-	public function MtdEliminarFichaIngresoManoObra($oElementos) {
+
+	public function MtdEliminarFichaIngresoManoObra($oElementos)
+	{
 
 		$error = false;
-		
-		$elementos = explode("#",$oElementos);
-	
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){				
-					if($i==count($elementos)){						
-						$eliminar .= '  (FmoId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (FmoId = "'.($elemento).'")  OR';	
-					}	
+		$eliminar = ''; // Initialize variable to prevent undefined variable warning
+
+		$elementos = explode("#", $oElementos);
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+				if ($i == count($elementos)) {
+					$eliminar .= '  (FmoId = "' . ($elemento) . '")';
+				} else {
+					$eliminar .= '  (FmoId = "' . ($elemento) . '")  OR';
 				}
-			$i++;
-	
 			}
-		
-				
-				$sql = 'DELETE FROM tblfmofichaingresomanoobra 
-				WHERE '.$eliminar;
-							
-				$error = false;
-	
-				$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-				
-				if(!$resultado) {						
-					$error = true;
-				} 	
-				
-	
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+			$i++;
+		}
+
+
+		$sql = 'DELETE FROM tblfmofichaingresomanoobra 
+				WHERE ' . $eliminar;
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	
-	public function MtdRegistrarFichaIngresoManoObra() {
-	
-			$this->MtdGenerarFichaIngresoManoObraId();
-			
-			$sql = 'INSERT INTO tblfmofichaingresomanoobra (
+
+
+	public function MtdRegistrarFichaIngresoManoObra()
+	{
+
+		$this->MtdGenerarFichaIngresoManoObraId();
+
+		$sql = 'INSERT INTO tblfmofichaingresomanoobra (
 			FmoId,
 			FinId,	
 			FmoDescripcion,
@@ -278,56 +198,52 @@ class ClsFichaIngresoManoObra {
 			FmoTiempoCreacion,
 			FmoTiempoModificacion) 
 			VALUES (
-			"'.($this->FmoId).'", 
-			"'.($this->FinId).'", 
-			"'.($this->FmoDescripcion).'",
-			'.($this->FmoImporte).',
+			"' . ($this->FmoId) . '", 
+			"' . ($this->FinId) . '", 
+			"' . ($this->FmoDescripcion) . '",
+			' . ($this->FmoImporte) . ',
 			
-			'.($this->FmoEstado).',
-			"'.($this->FmoTiempoCreacion).'",
-			"'.($this->FmoTiempoModificacion).'");';
-		
-			$error = false;
+			' . ($this->FmoEstado) . ',
+			"' . ($this->FmoTiempoCreacion) . '",
+			"' . ($this->FmoTiempoModificacion) . '");';
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 	
-		
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	public function MtdEditarFichaIngresoManoObra() {
+
+	public function MtdEditarFichaIngresoManoObra()
+	{
 
 		$sql = 'UPDATE tblfmofichaingresomanoobra SET 	
-		FmoDescripcion = "'.($this->FmoDescripcion).'",
-		FmoImporte = '.($this->FmoImporte).',
+		FmoDescripcion = "' . ($this->FmoDescripcion) . '",
+		FmoImporte = ' . ($this->FmoImporte) . ',
 		
-		FmoTiempoModificacion = '.($this->FmoTiempoModificacion).'
-		WHERE FmoId = "'.($this->FmoId).'";';
-				
+		FmoTiempoModificacion = ' . ($this->FmoTiempoModificacion) . '
+		WHERE FmoId = "' . ($this->FmoId) . '";';
+
 		$error = false;
-		
-		$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-		
-		if(!$resultado) {						
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
 			$error = true;
-		} 		
-		
-		if($error) {						
+		}
+
+		if ($error) {
 			return false;
-		} else {				
+		} else {
 			return true;
-		}						
-				
-	}	
-		
-	
+		}
+	}
 }
-?>

@@ -230,6 +230,18 @@ class ClsFichaIngreso
 	public $FichaIngresoHerramienta;
 	public $PreEntregaDetalle;
 
+	public $CliEmail;
+	public $CliDireccion;
+	public $CliDepartamento;
+	public $CliProvincia;
+	public $CliDistrito;
+	public $CliTelefono;
+	public $CliCelular;
+	public $CliContacto;
+  
+
+	public $FinSalidaObservacionInterna;	
+
 
 	public function __construct($oInsMysql = NULL)
 	{

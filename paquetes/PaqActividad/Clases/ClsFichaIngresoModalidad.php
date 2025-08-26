@@ -35,7 +35,7 @@ class ClsFichaIngresoModalidad
 
 	public $InsMysql;
 
-	public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -43,7 +43,6 @@ class ClsFichaIngresoModalidad
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
 	}
 
 	public function __destruct() {}

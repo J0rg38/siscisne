@@ -718,6 +718,14 @@ if(!empty($GET_dia)){
                       <td>&nbsp;</td>
                       <td align="left" valign="top">Estado: </td>
                       <td align="left" valign="top"><?php
+					// Initialize all OpcEstado variables to prevent undefined variable warnings
+					$OpcEstado1 = '';
+					$OpcEstado2 = '';
+					$OpcEstado3 = '';
+					$OpcEstado4 = '';
+					$OpcEstado5 = '';
+					$OpcEstado6 = '';
+					
 					switch($InsCotizacionProducto->CprEstado){
 						case 1:
 							$OpcEstado1 = 'selected = "selected"';

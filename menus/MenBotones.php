@@ -1409,7 +1409,7 @@
       </li> 
       
       
-     <li><a href="#"><img src="imagenes/menu/reportes.png" alt="[Reportes]" title="Reportes" border="0" align="absmiddle" width="20" height="20" /> Encuestas y Citas</a>
+           <li><a href="#"><img src="imagenes/menu/reportes.png" alt="[Reportes]" title="Reportes" border="0" align="absmiddle" width="20" height="20" /> Encuestas y Citas</a>
         <ul> 
         
           

@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once('../../proyecto/ClsProyecto.php');
 require_once('../../proyecto/ClsPoo.php');
 
@@ -6,40 +8,40 @@ $InsProyecto->Ruta = '../../';
 $InsPoo->Ruta = '../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfFormularioNota.php');
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 $Identificador = $_POST['Identificador'];
 $ModalidadIngreso = $_POST['ModalidadIngreso'];
 $ModalidadIngresoId = $_POST['ModalidadIngresoId'];
 
-session_start();
-if (!isset($_SESSION['InsFichaAccionProducto'.$ModalidadIngreso.$Identificador])){
-	$_SESSION['InsFichaAccionProducto'.$ModalidadIngreso.$Identificador] = new ClsSesionObjeto();	
+//session_start();
+if (!isset($_SESSION['InsFichaAccionProducto' . $ModalidadIngreso . $Identificador])) {
+  $_SESSION['InsFichaAccionProducto' . $ModalidadIngreso . $Identificador] = new ClsSesionObjeto();
 }
 
-if (!isset($_SESSION['InsFichaAccionMantenimiento'.$ModalidadIngreso.$Identificador])){
-	$_SESSION['InsFichaAccionMantenimiento'.$ModalidadIngreso.$Identificador] = new ClsSesionObjeto();	
+if (!isset($_SESSION['InsFichaAccionMantenimiento' . $ModalidadIngreso . $Identificador])) {
+  $_SESSION['InsFichaAccionMantenimiento' . $ModalidadIngreso . $Identificador] = new ClsSesionObjeto();
 }
 
-	
+
 //SesionObjeto-FichaAccionProducto
 //Parametro1 = FapId
 //Parametro2 = ProId
@@ -59,52 +61,52 @@ if (!isset($_SESSION['InsFichaAccionMantenimiento'.$ModalidadIngreso.$Identifica
 //Parametro16 = FapAccion
 //Parmaetro17 = ProCodigoOriginal,
 //Parmaetro18 = ProCodigoAlternativo
-	
-$RepFichaAccionProducto = $_SESSION['InsFichaAccionProducto'.$ModalidadIngreso.$Identificador]->MtdObtenerSesionObjetos(true);
+
+$RepFichaAccionProducto = $_SESSION['InsFichaAccionProducto' . $ModalidadIngreso . $Identificador]->MtdObtenerSesionObjetos(true);
 $ArrFichaAccionProductos = $RepFichaAccionProducto['Datos'];
 
 
 
-$RepFichaAccionMantenimiento = $_SESSION['InsFichaAccionMantenimiento'.$ModalidadIngreso.$Identificador]->MtdObtenerSesionObjetos(true);
+$RepFichaAccionMantenimiento = $_SESSION['InsFichaAccionMantenimiento' . $ModalidadIngreso . $Identificador]->MtdObtenerSesionObjetos(true);
 $ArrFichaAccionMantenimientos = $RepFichaAccionMantenimiento['Datos'];
 
 //deb($ArrFichaAccionMantenimientos);
 ?>
 
-  
-    <?php
-    if(empty($ArrFichaAccionProductos)){
-    ?>
-    No se encontraron elementos
-    <?php
-    }else{
-    ?>
-  
-    <table class="EstTablaListado" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+<?php
+if (empty($ArrFichaAccionProductos)) {
+?>
+  No se encontraron elementos
+<?php
+} else {
+?>
+
+  <table class="EstTablaListado" width="100%" cellpadding="0" cellspacing="0" border="0">
     <thead class="EstTablaListadoHead">
-    <tr>
-      <th width="2%" align="center">#</th>
-      <th width="16%" align="center">Cod. Orig.</th>
-      <th width="49%" align="center"> Nombre </th>
-      <th width="9%" align="center">U.M.</th>
-      <th width="10%" align="center">Cant.</th>
-      <th width="14%" align="center"> Acc.</th>
+      <tr>
+        <th width="2%" align="center">#</th>
+        <th width="16%" align="center">Cod. Orig.</th>
+        <th width="49%" align="center"> Nombre </th>
+        <th width="9%" align="center">U.M.</th>
+        <th width="10%" align="center">Cant.</th>
+        <th width="14%" align="center"> Acc.</th>
       </tr>
     </thead>
     <tbody class="EstTablaListadoBody">
-    <?php
-    $c = 1;
-    
-    foreach($ArrFichaAccionProductos as $DatFichaAccionProducto){
-		
-		$ImprimirDetalle = true;
-		
-		if($ModalidadIngresoId=="MIN-10001"){
-?>
-	
-		<?php
-    
-		/*
+      <?php
+      $c = 1;
+
+      foreach ($ArrFichaAccionProductos as $DatFichaAccionProducto) {
+
+        $ImprimirDetalle = true;
+
+        if ($ModalidadIngresoId == "MIN-10001") {
+      ?>
+
+          <?php
+
+          /*
 		SesionObjeto-FichaAccionMantenimiento
 		Parametro1 = FaaId
 		Parametro2 = 
@@ -131,85 +133,75 @@ $ArrFichaAccionMantenimientos = $RepFichaAccionMantenimiento['Datos'];
 		Parametro22 = UmeNombre
 		Parametro23 = UmeIdOrigen
 		Parametro24 = FapEstado
-		*/	
-		
-			if(!empty($ArrFichaAccionMantenimientos)){
-				foreach($ArrFichaAccionMantenimientos as $DatFichaAccionMantenimiento){
-		
-					if(!empty($DatFichaAccionMantenimiento->Parametro11) ){
-						
-						//
-						//deb($DatFichaAccionMantenimiento->Parametro11." - ".$DatFichaAccionProducto->Parametro1);
-						if($DatFichaAccionMantenimiento->Parametro11 == $DatFichaAccionProducto->Parametro1){
-							$ImprimirDetalle = false;
-							break;
-						}
-						
-					}
-					
-				}
-			}
+		*/
+
+          if (!empty($ArrFichaAccionMantenimientos)) {
+            foreach ($ArrFichaAccionMantenimientos as $DatFichaAccionMantenimiento) {
+
+              if (!empty($DatFichaAccionMantenimiento->Parametro11)) {
+
+                //
+                //deb($DatFichaAccionMantenimiento->Parametro11." - ".$DatFichaAccionProducto->Parametro1);
+                if ($DatFichaAccionMantenimiento->Parametro11 == $DatFichaAccionProducto->Parametro1) {
+                  $ImprimirDetalle = false;
+                  break;
+                }
+              }
+            }
+          }
+
+          ?>
+
+        <?php
+        }
+
+        //if($DatFichaAccionProducto->Parametro14==1 and $ImprimirDetalle){
+        if ($ImprimirDetalle) {
 
         ?>
-    
-	<?php
-		}	
-		
-        //if($DatFichaAccionProducto->Parametro14==1 and $ImprimirDetalle){
-		if($ImprimirDetalle){
-            
-    ?>
-    
-    
-    <tr>
-    <td align="left" valign="top"><?php echo $c;?></td>
-    <td align="left" valign="top"><?php echo $DatFichaAccionProducto->Parametro17;?></td>
-    <td align="left" valign="top">
-      <?php echo $DatFichaAccionProducto->Parametro3;?></td>
-    <td align="left" valign="top"><?php echo $DatFichaAccionProducto->Parametro12;?></td>
-    <td align="left" valign="top"><?php echo number_format($DatFichaAccionProducto->Parametro9,2,'.','');?></td>
-    <td align="center" valign="top">
-      
+
+
+          <tr>
+            <td align="left" valign="top"><?php echo $c; ?></td>
+            <td align="left" valign="top"><?php echo $DatFichaAccionProducto->Parametro17; ?></td>
+            <td align="left" valign="top">
+              <?php echo $DatFichaAccionProducto->Parametro3; ?></td>
+            <td align="left" valign="top"><?php echo $DatFichaAccionProducto->Parametro12; ?></td>
+            <td align="left" valign="top"><?php echo number_format($DatFichaAccionProducto->Parametro9, 2, '.', ''); ?></td>
+            <td align="center" valign="top">
+
+              <?php
+              if ($_POST['Editar'] == 1) {
+              ?>
+
+                <a class="EstSesionObjetosItem" href="javascript:FncFichaAccionProductoEscoger('<?php echo $DatFichaAccionProducto->Item; ?>','<?php echo $ModalidadIngreso; ?>');"><img border="0" align="absmiddle" src="imagenes/acciones/listado_editar.png" alt="[Editar]" title="Editar" width="25" height="25" /></a>
+
+              <?php
+              }
+              ?>
+
+              <?php
+              if ($_POST['Eliminar'] == 1) {
+              ?>
+                <a href="javascript:FncFichaAccionProductoEliminar('<?php echo $DatFichaAccionProducto->Item; ?>','<?php echo $ModalidadIngreso; ?>');">
+                  <img align="absmiddle" src="imagenes/acciones/listado_eliminar.png" alt="[Eliminar]" title="Eliminar" width="25" height="25" border="0" /></a>
+              <?php
+              }
+              ?>
+
+            </td>
+          </tr>
       <?php
-    if($_POST['Editar']==1){
-    ?>
-      
-      <a class="EstSesionObjetosItem" href="javascript:FncFichaAccionProductoEscoger('<?php echo $DatFichaAccionProducto->Item;?>','<?php echo $ModalidadIngreso;?>');"><img border="0"  align="absmiddle" src="imagenes/acciones/listado_editar.png" alt="[Editar]" title="Editar" width="25" height="25"  /></a>
-      
-      <?php
-    }
-    ?>
-      
-      <?php
-    if($_POST['Eliminar']==1){
-    ?>
-      <a href="javascript:FncFichaAccionProductoEliminar('<?php echo $DatFichaAccionProducto->Item;?>','<?php echo $ModalidadIngreso;?>');" >
-        <img align="absmiddle" src="imagenes/acciones/listado_eliminar.png" alt="[Eliminar]" title="Eliminar" width="25" height="25" border="0" /></a>
-      <?php
-    }
-    ?>
-      
-    </td>
-    </tr>
-    <?php
-            
-            $c++;
-           
+
+          $c++;
         }
-    }
-    
+      }
 
-    ?>
+
+      ?>
     </tbody>
-    </table>
-    <br />
-    <?php
-    }
-    ?>
-
-
-
-
-
-
-
+  </table>
+  <br />
+<?php
+}
+?>

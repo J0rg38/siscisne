@@ -15,6 +15,9 @@ class Random{
 		($upper?'ABCDEFGHIJKLMNOPQRSTUVWXYZ':'').($number?'0123456789':'').$extra;
 		$l = strlen($source)-1;
 		if($l==-1) return false;
+		
+		$r = ''; // Initialize variable to prevent undefined variable warning
+		
 		for($i=0; $i<$len; $i++)
 			$r .= $source[mt_rand(0, $l)];
 		return $r;

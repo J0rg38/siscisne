@@ -1,9 +1,10 @@
 <?php
 
-function FncSoloNumeros($oTexto){
-	
+function FncSoloNumeros($oTexto)
+{
+
 	$respuesta = 0;
-	
+
 	$conservar = '0-9'; // juego de caracteres a conservar
 	$regex = sprintf('~[^%s]++~i', $conservar); // case insensitive
 	$string = preg_replace($regex, '', $oTexto);
@@ -13,15 +14,16 @@ function FncSoloNumeros($oTexto){
 
 
 
-function ExcelToPHP($EXCEL_DATE = 0) {
-	
+function ExcelToPHP($EXCEL_DATE = 0)
+{
+
 	$UNIX_DATE = ($EXCEL_DATE - 25569) * 86400;
 	$EXCEL_DATE = 25569 + ($UNIX_DATE / 86400);
 	$UNIX_DATE = ($EXCEL_DATE - 25569) * 86400;
-	
+
 	return $UNIX_DATE;
-	
-  /*  if ($ExcelBaseDate == 1900) {
+
+	/*  if ($ExcelBaseDate == 1900) {
         $myExcelBaseDate = 25569;
         //    Adjust for the spurious 29-Feb-1900 (Day 60)
         if ($dateValue < 60) {
@@ -50,131 +52,139 @@ function ExcelToPHP($EXCEL_DATE = 0) {
 }
 
 
-function html2text($Document) {
-	
-    $Rules = array ('&amp;',
-                    '&aacute;',
-					 '&eacute;',
-					  '&iacute;',
-					   '&oacute;',
-					    '&uacute;',
-						
-						  '&Aacute;',
-					 '&Eacute;',
-					  '&Iacute;',
-					   '&Oacute;',
-					    '&Uacute;',
-						
-						'&ntilde;',
-						'&Ntilde;',
-						
-                   
-             );
-    $Replace = array ('',
-                      'a',
-					  'e',
-					  'i',
-					  'o',
-					  'u',
-					  'A',
-					  'E',
-					  'I',
-					  'O',
-					  'U',
-					  
-					'ntilde;',
-					'Ntilde;'
-                     
-                );
-  return str_replace($Rules, $Replace, $Document);
+function html2text($Document)
+{
+
+	$Rules = array(
+		'&amp;',
+		'&aacute;',
+		'&eacute;',
+		'&iacute;',
+		'&oacute;',
+		'&uacute;',
+
+		'&Aacute;',
+		'&Eacute;',
+		'&Iacute;',
+		'&Oacute;',
+		'&Uacute;',
+
+		'&ntilde;',
+		'&Ntilde;',
+
+
+	);
+	$Replace = array(
+		'',
+		'a',
+		'e',
+		'i',
+		'o',
+		'u',
+		'A',
+		'E',
+		'I',
+		'O',
+		'U',
+
+		'ntilde;',
+		'Ntilde;'
+
+	);
+	return str_replace($Rules, $Replace, $Document);
 }
-function FncRestarFechas($oFechaInicio,$oFechaFin){
+function FncRestarFechas($oFechaInicio, $oFechaFin)
+{
 
 	$fechaInicial = $oFechaInicio;
 	$fechaActual = $oFechaFin; // la fecha del ordenador
-	 
+
 	// Obtenemos la diferencia en milisegundos
 	$diff = abs(strtotime($fechaActual) - strtotime($fechaInicial));
-	 
-	$years = floor($diff / (365*60*60*24));
-	
-	$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-	
-	$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-	
+
+	$years = floor($diff / (365 * 60 * 60 * 24));
+
+	$months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+
+	$days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
 	return $days;
-	
 }
 
-function primera_mayuscula($cadena){
-//$cadena=mb_convert_case($cadena, MB_CASE_TITLE, "utf8");
-$cadena = ucwords(strtolower($cadena));
-return($cadena);
+function primera_mayuscula($cadena)
+{
+	//$cadena=mb_convert_case($cadena, MB_CASE_TITLE, "utf8");
+	$cadena = ucwords(strtolower($cadena));
+	return ($cadena);
 }
 
-function jbalog($oRuta,$oNombreArchivo,$oContenido){
+function jbalog($oRuta, $oNombreArchivo, $oContenido)
+{
 
-	if(file_exists($oRuta.''.$oNombreArchivo)){
-		unlink($oRuta.''.$oNombreArchivo);
+	if (file_exists($oRuta . '' . $oNombreArchivo)) {
+		unlink($oRuta . '' . $oNombreArchivo);
 	}
-	$ddf = @fopen($oRuta.''.$oNombreArchivo,'a');
-	@fwrite($ddf,$oContenido);
+	$ddf = @fopen($oRuta . '' . $oNombreArchivo, 'a');
+	@fwrite($ddf, $oContenido);
 	@fclose($ddf);
-
 }
 
-function TimeToSec($time) {
-    $sec = 0;
-    foreach (array_reverse(explode(':', $time)) as $k => $v) $sec += pow(60, $k) * $v;
-    return $sec;
+function TimeToSec($time)
+{
+	$sec = 0;
+	foreach (array_reverse(explode(':', $time)) as $k => $v) $sec += pow(60, $k) * $v;
+	return $sec;
 }
 
-function LimpiarNombreArchivo($oTexto){
+function LimpiarNombreArchivo($oTexto)
+{
 
 	$nombre = quitar_tildes($oTexto);
-	$nombre = str_replace(" ","_",$nombre);
-	
+	$nombre = str_replace(" ", "_", $nombre);
+
 	return $nombre;
-	
 }
-function quitar_tildes($cadena) {
-	
-$no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã");
-$permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
-$texto = str_replace($no_permitidas, $permitidas ,$cadena);
+function quitar_tildes($cadena)
+{
 
-return $texto;
-}
+	$no_permitidas = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "À", "Ã", "Ì", "Ò", "Ù", "Ã™", "Ã ", "Ã¨", "Ã¬", "Ã²", "Ã¹", "ç", "Ç", "Ã¢", "ê", "Ã®", "Ã´", "Ã»", "Ã‚", "ÃŠ", "ÃŽ", "Ã");
+	$permitidas = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N", "A", "E", "I", "O", "U", "a", "e", "i", "o", "u", "c", "C", "a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "u", "o", "O", "i", "a", "e", "U", "I", "A", "E");
+	$texto = str_replace($no_permitidas, $permitidas, $cadena);
 
-function reemplazaMe($text) { 
-utf8_encode($text); 
-$codigo= array("&aacute;","&eacute;","&iacute;","&oacute;","&uacute;","&uuml;","&ntilde;"); 
-$cambiar = array("á","é","í","ó","ú","ü","ñ"); 
-$text = str_replace($codigo, $cambiar, $text); 
-$text= strtolower($text); 
-//$text = ereg_replace("[^A-Za-z0-9-]", "", $text); 
-return $text; 
-}  
-function file_url($url){
-  $parts = parse_url($url);
-  $path_parts = array_map('rawurldecode', explode('/', $parts['path']));
-
-  return
-    $parts['scheme'] . '://' .
-    $parts['host'] .
-    implode('/', array_map('rawurlencode', $path_parts))
-  ;
+	return $texto;
 }
 
-function storeUrlToFilesystem($url, $localFile) {
+function reemplazaMe($text)
+{
+	utf8_encode($text);
+	$codigo = array("&aacute;", "&eacute;", "&iacute;", "&oacute;", "&uacute;", "&uuml;", "&ntilde;");
+	$cambiar = array("á", "é", "í", "ó", "ú", "ü", "ñ");
+	$text = str_replace($codigo, $cambiar, $text);
+	$text = strtolower($text);
+	//$text = ereg_replace("[^A-Za-z0-9-]", "", $text); 
+	return $text;
+}
+function file_url($url)
+{
+	$parts = parse_url($url);
+	$path_parts = array_map('rawurldecode', explode('/', $parts['path']));
+
+	return
+		$parts['scheme'] . '://' .
+		$parts['host'] .
+		implode('/', array_map('rawurlencode', $path_parts));
+}
+
+function storeUrlToFilesystem($url, $localFile)
+{
 	try {
 		$data = file_get_contents($source);
 		$handle = fopen($destination, "w");
 		fwrite($handle, $data);
 		fclose($handle);
-		return true;	
+		return true;
 	} catch (Exception $e) {
-    		echo 'Caught exception: ',  $e->getMessage(), "\n";
+		echo 'Caught exception: ',  $e->getMessage(), "\n";
 	}
 	return false;
 }
@@ -230,77 +240,79 @@ function storeUrlToFilesystem($url, $localFile) {
 
 
 
-function FncRedondearCYC($oNumero){
-	
+function FncRedondearCYC($oNumero)
+{
+
 	//15.35
 	//16
-	
+
 	$redondeado = 0;
-	
-	list($entero,$decimal) = explode(".",$oNumero);
-	
-	if(($decimal)>0){
-		
+
+	list($entero, $decimal) = explode(".", $oNumero);
+
+	if (($decimal) > 0) {
+
 		$redondeado = $entero + 1;
-		
-	}else{
-		
+	} else {
+
 		$redondeado = $entero;
-		
 	}
-	
+
 	return $redondeado;
 }
 
 
-function stripAccents($string) {
-    $accents = array('À','Á','Â','Ã','Ä','Å','Æ','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ð','Ñ','Ò','Ó','Ô','Õ','Ö','Ø','Ù','Ú','Û','Ü','Ý','Þ','ß','à','á','â','ã','ä','å','æ','ç','è','é','ê','ë','ì','í','î','ï','ð','ñ','ò','ó','ô','õ','ö','ø','ù','ú','û','ý','ý','þ','ÿ','Ŕ','ŕ');
-    $string = str_replace($accents, '', $string);
-    return $string;
+function stripAccents($string)
+{
+	$accents = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ý', 'ý', 'þ', 'ÿ', 'Ŕ', 'ŕ');
+	$string = str_replace($accents, '', $string);
+	return $string;
 }
 
 
-function get_mime_type(&$structure) { 
-    $primary_mime_type = array("TEXT", "MULTIPART", "MESSAGE", "APPLICATION", "AUDIO", "IMAGE", "VIDEO", "OTHER"); 
-    if($structure->subtype) { 
-         return $primary_mime_type[(int) $structure->type] . '/' . $structure->subtype; 
-     } 
-     return "TEXT/PLAIN"; 
-} 
+function get_mime_type(&$structure)
+{
+	$primary_mime_type = array("TEXT", "MULTIPART", "MESSAGE", "APPLICATION", "AUDIO", "IMAGE", "VIDEO", "OTHER");
+	if ($structure->subtype) {
+		return $primary_mime_type[(int) $structure->type] . '/' . $structure->subtype;
+	}
+	return "TEXT/PLAIN";
+}
 
 
-function get_part($stream, $msg_number, $mime_type, $structure = false, $part_number = false) {
-    if (!$structure) { 
-         $structure = imap_fetchstructure($stream, $msg_number,FT_UID); 
-     } 
-    if($structure) { 
-         if($mime_type == get_mime_type($structure)) { 
-              if(!$part_number) { 
-                   $part_number = "1"; 
-               } 
-              $text = imap_fetchbody($stream, $msg_number, $part_number); 
-              if($structure->encoding == 3) { 
-                   return imap_base64($text); 
-               } else if ($structure->encoding == 4) { 
-                   return imap_qprint($text); 
-               } else { 
-                   return $text; 
-            } 
-        } 
-         if ($structure->type == 1) { /* multipart */ 
-              while (list($index, $sub_structure) = each($structure->parts)) { 
-                if ($part_number) { 
-                    $prefix = $part_number . '.'; 
-                } 
-                $data = get_part($stream, $msg_number, $mime_type, $sub_structure, $prefix . ($index + 1)); 
-                if ($data) { 
-                    return $data; 
-                } 
-            } 
-        } 
-    } 
-    return false; 
-} 
+function get_part($stream, $msg_number, $mime_type, $structure = false, $part_number = false)
+{
+	if (!$structure) {
+		$structure = imap_fetchstructure($stream, $msg_number, FT_UID);
+	}
+	if ($structure) {
+		if ($mime_type == get_mime_type($structure)) {
+			if (!$part_number) {
+				$part_number = "1";
+			}
+			$text = imap_fetchbody($stream, $msg_number, $part_number);
+			if ($structure->encoding == 3) {
+				return imap_base64($text);
+			} else if ($structure->encoding == 4) {
+				return imap_qprint($text);
+			} else {
+				return $text;
+			}
+		}
+		if ($structure->type == 1) { /* multipart */
+			while (list($index, $sub_structure) = each($structure->parts)) {
+				if ($part_number) {
+					$prefix = $part_number . '.';
+				}
+				$data = get_part($stream, $msg_number, $mime_type, $sub_structure, $prefix . ($index + 1));
+				if ($data) {
+					return $data;
+				}
+			}
+		}
+	}
+	return false;
+}
 
 
 
@@ -308,278 +320,282 @@ function get_part($stream, $msg_number, $mime_type, $structure = false, $part_nu
 
 
 
-function FncCantidadDiaMes($oAno,$oMes){
+function FncCantidadDiaMes($oAno, $oMes)
+{
 	$cantidad = -1;
-	
+
 	$cantidad = cal_days_in_month(CAL_GREGORIAN, $oMes, $oAno); // 31
 
 	return $cantidad;
-	
 }
 
 
-function FncObtenerIp() {
-	
+function FncObtenerIp()
+{
+
 	if (!empty($_SERVER['HTTP_CLIENT_IP']))
 		return $_SERVER['HTTP_CLIENT_IP'];
-		
+
 	if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
 		return $_SERVER['HTTP_X_FORWARDED_FOR'];
-	
+
 	return $_SERVER['REMOTE_ADDR'];
 }
 
 
-function FncConvertirNumeroALetraExcel($oNumero){
-	
+function FncConvertirNumeroALetraExcel($oNumero)
+{
+
 	$Letra = "";
-	
-	switch($oNumero){
+
+	switch ($oNumero) {
 		case 1:
 			$Letra = "A";
-		break;
-		
+			break;
+
 		case 2:
 			$Letra = "B";
-		break;
-		
+			break;
+
 		case 3:
 			$Letra = "C";
-		break;
-		
+			break;
+
 		case 4:
 			$Letra = "D";
-		break;
-		
+			break;
+
 		case 5:
 			$Letra = "E";
-		break;
-		
+			break;
+
 		case 6:
 			$Letra = "F";
-		break;
-		
+			break;
+
 		case 7:
 			$Letra = "G";
-		break;
-		
+			break;
+
 		case 8:
 			$Letra = "H";
-		break;
-		
+			break;
+
 		case 9:
 			$Letra = "I";
-		break;
-		
+			break;
+
 		case 10:
 			$Letra = "J";
-		break;
-		
+			break;
+
 		case 11:
 			$Letra = "K";
-		break;
-		
+			break;
+
 		case 12:
 			$Letra = "L";
-		break;
-		
+			break;
+
 		case 13:
 			$Letra = "M";
-		break;
-		
+			break;
+
 		case 14:
 			$Letra = "N";
-		break;
-		
+			break;
+
 		case 15:
 			$Letra = "O";
-		break;
-		
+			break;
+
 		case 16:
 			$Letra = "P";
-		break;
-		
+			break;
+
 		case 17:
 			$Letra = "Q";
-		break;
-		
+			break;
+
 		case 18:
 			$Letra = "R";
-		break;
-		
+			break;
+
 		case 19:
 			$Letra = "S";
-		break;
-		
+			break;
+
 		case 20:
 			$Letra = "T";
-		break;
-		
+			break;
+
 		case 21:
 			$Letra = "U";
-		break;
-		
+			break;
+
 		case 22:
 			$Letra = "V";
-		break;
-		
+			break;
+
 		case 23:
 			$Letra = "W";
-		break;
-		
+			break;
+
 		case 24:
 			$Letra = "X";
-		break;
-		
+			break;
+
 		case 25:
 			$Letra = "Y";
-		break;
+			break;
 
 		case 26:
 			$Letra = "Z";
-		break;
+			break;
 
 		case 27:
 			$Letra = "AA";
-		break;
+			break;
 		case 28:
 			$Letra = "AB";
-		break;
+			break;
 		case 29:
 			$Letra = "AC";
-		break;
+			break;
 		case 30:
 			$Letra = "AD";
-		break;
+			break;
 		case 31:
 			$Letra = "AE";
-		break;
+			break;
 		case 32:
 			$Letra = "AF";
-		break;
+			break;
 		case 33:
 			$Letra = "AG";
-		break;
-		
-		
+			break;
+
+
 		case 34:
 			$Letra = "AH";
-		break;
-		
+			break;
+
 		case 35:
 			$Letra = "AI";
-		break;
-		
-		
+			break;
+
+
 		case 36:
 			$Letra = "AJ";
-		break;
-		
+			break;
+
 		case 37:
 			$Letra = "AK";
-		break;
-		
+			break;
+
 		case 38:
 			$Letra = "AL";
-		break;
+			break;
 	}
-	
+
 	return $Letra;
 }
 
-function FncLimpiarCaracteresEspeciales($s) {
-	
-	$s = preg_replace("/[áàâãª]/","a",$s);
-	$s = preg_replace("/[ÁÀÂÃ]/","A",$s);
-	$s = preg_replace("/[éèê]/","e",$s);
-	$s = preg_replace("/[ÉÈÊ]/","E",$s);
-	$s = preg_replace("/[íìî]/","i",$s);
-	$s = preg_replace("/[ÍÌÎ]/","I",$s);
-	$s = preg_replace("/[óòôõº]/","o",$s);
-	$s = preg_replace("/[ÓÒÔÕ]/","O",$s);
-	$s = preg_replace("/[úùû]/","u",$s);
-	$s = preg_replace("/[ÚÙÛ]/","U",$s);
-	$s = str_replace(" ","-",$s);
-	$s = str_replace("ñ","n",$s);
-	$s = str_replace("Ñ","N",$s);
+function FncLimpiarCaracteresEspeciales($s)
+{
+
+	$s = preg_replace("/[áàâãª]/", "a", $s);
+	$s = preg_replace("/[ÁÀÂÃ]/", "A", $s);
+	$s = preg_replace("/[éèê]/", "e", $s);
+	$s = preg_replace("/[ÉÈÊ]/", "E", $s);
+	$s = preg_replace("/[íìî]/", "i", $s);
+	$s = preg_replace("/[ÍÌÎ]/", "I", $s);
+	$s = preg_replace("/[óòôõº]/", "o", $s);
+	$s = preg_replace("/[ÓÒÔÕ]/", "O", $s);
+	$s = preg_replace("/[úùû]/", "u", $s);
+	$s = preg_replace("/[ÚÙÛ]/", "U", $s);
+	$s = str_replace(" ", "-", $s);
+	$s = str_replace("ñ", "n", $s);
+	$s = str_replace("Ñ", "N", $s);
 	//para ampliar los caracteres a reemplazar agregar lineas de este tipo:
 	//$s = str_replace("caracter-que-queremos-cambiar","caracter-por-el-cual-lo-vamos-a-cambiar",$s);
 	return $s;
 }
 
 
-function FncCortarTexto($texto, $limite=100){   
-    $texto = trim($texto);
-    $texto = strip_tags($texto);
-    $tamano = strlen($texto);
-    $resultado = '';
-    if($tamano <= $limite){
-        return $texto;
-    }else{
-        $texto = substr($texto, 0, $limite);
-        $palabras = explode(' ', $texto);
-        $resultado = implode(' ', $palabras);
-        $resultado .= '...';
-    }   
-    return $resultado;
+function FncCortarTexto($texto, $limite = 100)
+{
+	$texto = trim($texto);
+	$texto = strip_tags($texto);
+	$tamano = strlen($texto);
+	$resultado = '';
+	if ($tamano <= $limite) {
+		return $texto;
+	} else {
+		$texto = substr($texto, 0, $limite);
+		$palabras = explode(' ', $texto);
+		$resultado = implode(' ', $palabras);
+		$resultado .= '...';
+	}
+	return $resultado;
 }
 
 
-function FncLimpiarVariable($oVariable,$oTipo=NULL){
+function FncLimpiarVariable($oVariable, $oTipo = NULL)
+{
 
 	return	 $oVariable;
-	
 }
 
 
-  function FncTiempoTranscurrido($datefrom, $dateto = -1)
- {
-	 
+function FncTiempoTranscurrido($datefrom, $dateto = -1)
+{
+
 	// Defaults and assume if 0 is passed in that
 	// its an error rather than the epoch
 	if ($datefrom <= 0) {
-	  return "A long time ago";
+		return "A long time ago";
 	}
-	if($dateto==-1) {
-	  $dateto = time();
+	if ($dateto == -1) {
+		$dateto = time();
 	}
 	// Calculate the difference in seconds betweeen
 	// the two timestamps
 	$difference = $dateto - $datefrom;
-	
-	$difference ;
+
+	$difference;
 	// If difference is less than 60 seconds,
 	// seconds is a good interval of choice
-	if($difference < 60) {
-	  $interval = "s";
+	if ($difference < 60) {
+		$interval = "s";
 	}
 	// If difference is between 60 seconds and
 	// 60 minutes, minutes is a good interval
-	elseif($difference >= 60 && $difference < 60*60) {
-	  $interval = "n";
+	elseif ($difference >= 60 && $difference < 60 * 60) {
+		$interval = "n";
 	}
 	// If difference is between 1 hour and 24 hours
 	// hours is a good interval
-	elseif($difference >= 60*60 && $difference < 60*60*24) {
-	  $interval = "h";
+	elseif ($difference >= 60 * 60 && $difference < 60 * 60 * 24) {
+		$interval = "h";
 	}
 	// If difference is between 1 day and 7 days
 	// days is a good interval
-	elseif($difference >= 60*60*24 && $difference < 60*60*24*7) {
-	  $interval = "d";
+	elseif ($difference >= 60 * 60 * 24 && $difference < 60 * 60 * 24 * 7) {
+		$interval = "d";
 	}
 	// If difference is between 1 week and 30 days
 	// weeks is a good interval
-	elseif($difference >= 60*60*24*7 && $difference < 60*60*24*30) {
-	  $interval = "ww";
+	elseif ($difference >= 60 * 60 * 24 * 7 && $difference < 60 * 60 * 24 * 30) {
+		$interval = "ww";
 	}
 	// If difference is between 30 days and 365 days
 	// months is a good interval, again, the same thing
 	// applies, if the 29th February happens to exist
 	// between your 2 dates, the function will return
 	// the 'incorrect' value for a day
-	elseif($difference >= 60*60*24*30 && $difference < 60*60*24*365) {
-	  $interval = "m";
+	elseif ($difference >= 60 * 60 * 24 * 30 && $difference < 60 * 60 * 24 * 365) {
+		$interval = "m";
 	}
 	// If difference is greater than or equal to 365
 	// days, return year. This will be incorrect if
@@ -587,8 +603,8 @@ function FncLimpiarVariable($oVariable,$oTipo=NULL){
 	// 2008 passing in 29th April 2007. It will return
 	// 1 year ago when in actual fact (yawn!) not quite
 	// a year has gone by
-	elseif($difference >= 60*60*24*365) {
-	  $interval = "y";
+	elseif ($difference >= 60 * 60 * 24 * 365) {
+		$interval = "y";
 	}
 	// Based on the interval, determine the
 	// number of units between the two dates
@@ -597,99 +613,102 @@ function FncLimpiarVariable($oVariable,$oTipo=NULL){
 	// this function and DateDiff. If the $datediff
 	// returned is 1, be sure to return the singular
 	// of the unit, e.g. 'day' rather 'days'
-	switch($interval) {
-	  case "m":
-		$months_difference = floor($difference / 60 / 60 / 24 / 29);
-		while (mktime(date("H", $datefrom), date("i", $datefrom),
-		  date("s", $datefrom), date("n", $datefrom) + ($months_difference),
-		  date("j", $dateto), date("Y", $datefrom)) < $dateto) {
-		  $months_difference++;
-		}
-		$datediff = $months_difference;
-		// We need this in here because it is possible
-		// to have an 'm' interval and a months
-		// difference of 12 because we are using 29 days
-		// in a month
-		if($datediff == 12) {
-		  $datediff--;
-		}
-		$res = ($datediff==1) ? "Hace $datediff mes" : "Hace $datediff meses";
-	  break;
-	  case "y":
-		$datediff = floor($difference / 60 / 60 / 24 / 365);
-		$res = ($datediff==1) ? "Hace $datediff año" : "Hace $datediff años";
-	  break;
-	  case "d":
-		$datediff = floor($difference / 60 / 60 / 24);
-		$res = ($datediff==1) ? "Hace $datediff dia" : "Hace $datediff dias";
-	  break;
-	  case "ww":
-		$datediff = floor($difference / 60 / 60 / 24 / 7);
-		$res = ($datediff==1) ? "Hace $datediff semana" : "Hace $datediff semanas";
-	  break;
-	  case "h":
-		$datediff = floor($difference / 60 / 60);
-		$res = ($datediff==1) ? "Hace $datediff hora" : "Hace $datediff horas";
-	  break;
-	  case "n":
-		$datediff = floor($difference / 60);
-		$res = ($datediff==1) ? "Hace $datediff minuto" : "Hace $datediff minutos";
-	  break;
-	  case "s":
-		$datediff = $difference;
-		$res = ($datediff==1) ? "Hace $datediff segundo" : "Hace $datediff segundos";
-	  break;
+	switch ($interval) {
+		case "m":
+			$months_difference = floor($difference / 60 / 60 / 24 / 29);
+			while (mktime(
+				date("H", $datefrom),
+				date("i", $datefrom),
+				date("s", $datefrom),
+				date("n", $datefrom) + ($months_difference),
+				date("j", $dateto),
+				date("Y", $datefrom)
+			) < $dateto) {
+				$months_difference++;
+			}
+			$datediff = $months_difference;
+			// We need this in here because it is possible
+			// to have an 'm' interval and a months
+			// difference of 12 because we are using 29 days
+			// in a month
+			if ($datediff == 12) {
+				$datediff--;
+			}
+			$res = ($datediff == 1) ? "Hace $datediff mes" : "Hace $datediff meses";
+			break;
+		case "y":
+			$datediff = floor($difference / 60 / 60 / 24 / 365);
+			$res = ($datediff == 1) ? "Hace $datediff año" : "Hace $datediff años";
+			break;
+		case "d":
+			$datediff = floor($difference / 60 / 60 / 24);
+			$res = ($datediff == 1) ? "Hace $datediff dia" : "Hace $datediff dias";
+			break;
+		case "ww":
+			$datediff = floor($difference / 60 / 60 / 24 / 7);
+			$res = ($datediff == 1) ? "Hace $datediff semana" : "Hace $datediff semanas";
+			break;
+		case "h":
+			$datediff = floor($difference / 60 / 60);
+			$res = ($datediff == 1) ? "Hace $datediff hora" : "Hace $datediff horas";
+			break;
+		case "n":
+			$datediff = floor($difference / 60);
+			$res = ($datediff == 1) ? "Hace $datediff minuto" : "Hace $datediff minutos";
+			break;
+		case "s":
+			$datediff = $difference;
+			$res = ($datediff == 1) ? "Hace $datediff segundo" : "Hace $datediff segundos";
+			break;
 	}
 	return $res;
 }
 
-function redondear_dos_decimal($valor) {
+function redondear_dos_decimal($valor)
+{
 
-   $float_redondeado=round($valor * 100) / 100;
-   
-   return $float_redondeado;
-} 
+	$float_redondeado = round($valor * 100) / 100;
 
-
-
-function FncConvetirTimestamp($oDate){
-	
-	$Aux = explode(" ",$oDate);
-	$Fecha = $Aux[0];
-	$Hora = $Aux[1];
-	
-	list($day, $month, $year) = explode('/', $Fecha);
-	
-	if(!empty($Hora) ){
-		list($hora,$minuto,$segundo) = explode(":",$Hora);
-		$timestamp = mktime($hora, $minuto, $segundo, $month, $day, $year);
-		
-		
-	}else{
-		$timestamp = mktime(0, 0, 0, $month, $day, $year);		
-		
-	}
-
-	
-	return $timestamp;
-
+	return $float_redondeado;
 }
 
 
 
-function FncCodigoRegenerar($oCodigo,$oContador=0){
-	
-	$ArrCodigo = explode("-",$oCodigo);
+function FncConvetirTimestamp($oDate)
+{
 
-	if($oContador==0){
-		$Numero = $ArrCodigo[1];		
-	}else{
-		$Numero = $ArrCodigo[1]+ 1;	
+	$Aux = explode(" ", $oDate);
+	$Fecha = $Aux[0];
+	$Hora = $Aux[1];
+
+	list($day, $month, $year) = explode('/', $Fecha);
+
+	if (!empty($Hora)) {
+		list($hora, $minuto, $segundo) = explode(":", $Hora);
+		$timestamp = mktime($hora, $minuto, $segundo, $month, $day, $year);
+	} else {
+		$timestamp = mktime(0, 0, 0, $month, $day, $year);
 	}
-	
-	
-	return $ArrCodigo[0]."-".$Numero;
-	
+
+
+	return $timestamp;
+}
+
+
+
+function FncCodigoRegenerar($oCodigo, $oContador = 0)
+{
+
+	$ArrCodigo = explode("-", $oCodigo);
+
+	if ($oContador == 0) {
+		$Numero = $ArrCodigo[1];
+	} else {
+		$Numero = $ArrCodigo[1] + 1;
+	}
+
+
+	return $ArrCodigo[0] . "-" . $Numero;
 }
 
 
@@ -697,21 +716,22 @@ function FncCodigoRegenerar($oCodigo,$oContador=0){
 Funciones - Clases
 */
 
-function createExcel($filename, $arrydata) {
-	$excelfile = "xlsfile://tmp/".$filename;  
-	$fp = fopen($excelfile, "wb");  
-	if (!is_resource($fp)) {  
-		die("Error al crear $excelfile");  
-	}  
-	fwrite($fp, serialize($arrydata));  
+function createExcel($filename, $arrydata)
+{
+	$excelfile = "xlsfile://tmp/" . $filename;
+	$fp = fopen($excelfile, "wb");
+	if (!is_resource($fp)) {
+		die("Error al crear $excelfile");
+	}
+	fwrite($fp, serialize($arrydata));
 	fclose($fp);
-	header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");  
-	header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");  
-	header ("Cache-Control: no-cache, must-revalidate");  
-	header ("Pragma: no-cache");  
-	header ("Content-type: application/x-msexcel");  
-	header ("Content-Disposition: attachment; filename=\"" . $filename . "\"" );
-	readfile($excelfile);  
+	header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+	header("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+	header("Cache-Control: no-cache, must-revalidate");
+	header("Pragma: no-cache");
+	header("Content-type: application/x-msexcel");
+	header("Content-Disposition: attachment; filename=\"" . $filename . "\"");
+	readfile($excelfile);
 }
 
 
@@ -721,7 +741,7 @@ function createExcel($filename, $arrydata) {
 /*
 Funciones
 */
-$dias = array('Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
+$dias = array('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo');
 
 
 /*
@@ -1230,83 +1250,81 @@ function FncArbol(){
 //	echo "<select></selected>";
 }*/
 
-	
+
 
 function FncFechaHoy()
-    {
-     $mes=date('n'); // <-- comillas simples
-     $dia=date('l'); // <-- comillas simples
-     switch($mes)
-        {         
-         case 1:
-            $mes='Enero';
-           break;     
-         case 2:
-            $mes='Febrero';
-            break;     
-         case 3:
-            $mes='Marzo';
-           break;
-         case 4:
-            $mes='Abril';
-            break;
-         case 5:
-            $mes='Mayo';
-            break;
-         case 6:
-            $mes='Junio';
-            break;
-         case 7:
-           $mes='Julio';
-            break;
-         case 8:
-            $mes='Agosto';
-            break;
-         case 9:
-            $mes='Septiembre';
-            break;
-         case 10:
-            $mes='Octubre';
-            break;
-         case 11:
-            $mes='Noviembre';
-          break;
-         case 12:
-            $mes='Diciembre';
-            break;
-        }
-     switch($dia)
-        {         
-         case 'Monday':
-               $dia='Lunes';
-               break;
-         case 'Tuesday':
-               $dia='Martes';
-               break;
-         case 'Wednesday':
-               $dia='Miercoles';
-               break;
-         case 'Thursday':
-               $dia='Jueves';
-               break;
-         case 'Friday':
-               $dia='Viernes';
-               break;
-         case 'Saturday':
-               $dia='Sabado';
-               break;
-         case 'Sunday':
-               $dia='Domingo';
-               break;
-        }
-     echo "".$dia." ";
-     echo "".date('j')." de ".$mes;
-    // echo "".date('H').":".date('i')."";   
-   
-}  
-	
-	
-	/*
+{
+	$mes = date('n'); // <-- comillas simples
+	$dia = date('l'); // <-- comillas simples
+	switch ($mes) {
+		case 1:
+			$mes = 'Enero';
+			break;
+		case 2:
+			$mes = 'Febrero';
+			break;
+		case 3:
+			$mes = 'Marzo';
+			break;
+		case 4:
+			$mes = 'Abril';
+			break;
+		case 5:
+			$mes = 'Mayo';
+			break;
+		case 6:
+			$mes = 'Junio';
+			break;
+		case 7:
+			$mes = 'Julio';
+			break;
+		case 8:
+			$mes = 'Agosto';
+			break;
+		case 9:
+			$mes = 'Septiembre';
+			break;
+		case 10:
+			$mes = 'Octubre';
+			break;
+		case 11:
+			$mes = 'Noviembre';
+			break;
+		case 12:
+			$mes = 'Diciembre';
+			break;
+	}
+	switch ($dia) {
+		case 'Monday':
+			$dia = 'Lunes';
+			break;
+		case 'Tuesday':
+			$dia = 'Martes';
+			break;
+		case 'Wednesday':
+			$dia = 'Miercoles';
+			break;
+		case 'Thursday':
+			$dia = 'Jueves';
+			break;
+		case 'Friday':
+			$dia = 'Viernes';
+			break;
+		case 'Saturday':
+			$dia = 'Sabado';
+			break;
+		case 'Sunday':
+			$dia = 'Domingo';
+			break;
+	}
+	echo "" . $dia . " ";
+	echo "" . date('j') . " de " . $mes;
+	// echo "".date('H').":".date('i')."";   
+
+}
+
+
+/*
 	
 function FncConvertirFechaEnLetras($dia)
     {
@@ -1380,206 +1398,213 @@ function FncConvertirFechaEnLetras($dia)
     // echo "".date(H).":".date(i)."";   
    
 }  */
-	
-	
-function FncRepararClase($class, $object){
-  return unserialize(preg_replace('/^O:\d+:"[^"]++"/', 'O:' . strlen($class) . ':"' . $class . '"', serialize($object)));
+
+
+
+function FncRepararClase($class, $object)
+{
+	//return $object;
+	return unserialize(preg_replace('/^O:\d+:"[^"]++"/', 'O:' . strlen($class) . ':"' . $class . '"', serialize($object)));
 }
 
 
-function contar($dato){
+function contar($dato)
+{
 
 	echo "<h1>:";
 	echo count($dato);
 	echo ":</h1>";
-	
 }
 
 
-function deb($dato,$alin="i"){
-//function FncDebug($dato){
+function deb($dato, $alin = "i")
+{
+	//function FncDebug($dato){
 
-	switch($alin){
+	switch ($alin) {
 		case "i":
 			$ali = "left";
-		break;
-		
+			break;
+
 		case "d":
 			$ali = "right";
-		break;
-		
+			break;
+
 		case "c":
 			$ali = "center";
-		break;
-		
+			break;
+
 		default:
 			$ali = "left";
-		break;
+			break;
 	}
-	echo "<div align='".$ali."'><pre>";
+	echo "<div align='" . $ali . "'><pre>";
 	var_dump($dato);
 	echo "</pre></div><br>";
 }
 
 
-function FncCambiaFechaANormal($oFecha,$oVacio=false){
-	
-		// Validar que la fecha no sea NULL o vacía
-		if (empty($oFecha)) {
-			if ($oVacio) {
-				return "";
-			} else {
-				return "00/00/0000";
-			}
-		}
-		
-		$AFecha = explode(" ",$oFecha);
-		
-		if(count($AFecha)>1){
-			$fecha = $AFecha[0];
-			$hora = $AFecha[1];	
-		}else{
-			$fecha = $oFecha;
-			$hora = "";
-		}
+function FncCambiaFechaANormal($oFecha, $oVacio = false)
+{
 
-
-		preg_match("/([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})/", $fecha, $mifecha);
-		
-		if(empty($hora)){
-		    $lafecha=$mifecha[3]."/".$mifecha[2]."/".$mifecha[1];
-		}else{
-		    $lafecha=$mifecha[3]."/".$mifecha[2]."/".$mifecha[1]." ".$hora;		
-		}
-		
-		
-		/*
-		   1. ereg('\.([^\.]*$)', $this->file_src_name, $extension);
-		   
-		   1. preg_match('/\.([^\.]*$)/', $this->file_src_name, $extension);
-		   
-		*/
-	   // $lafecha=$mifecha[3]."/".$mifecha[2]."/".$mifecha[1]." ".$hora;
-	
-
-		
-	if(trim($lafecha)=="//"){
-		
-		if($oVacio){
-			$lafecha="";		
-		}else{
-			if(empty($hora)){
-				$lafecha="00/00/0000";			
-			}else{
-				$lafecha="00/00/0000 00:00:00";
-			}					
-		}
-	}
-	
-    return $lafecha;
-} 
-
-
-
-function FncCambiaFechaAImpresion($oFecha){
-
-		// Validar que la fecha no sea NULL o vacía
-		if (empty($oFecha)) {
+	// Validar que la fecha no sea NULL o vacía
+	if (empty($oFecha)) {
+		if ($oVacio) {
 			return "";
+		} else {
+			return "00/00/0000";
 		}
-		
-		$AFecha = explode(" ",$oFecha);
-		
-		if(count($AFecha)>1){
-			$fecha = $AFecha[0];
-			$hora = $AFecha[1];	
-		}else{
-			$fecha = $oFecha;
-			$hora = "";
-		}
-	
-		preg_match("/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/",$fecha, $mifecha);	
-		
-		if(empty($hora)){			
-			$lafecha=$mifecha[1]." ".FncConvertirMes($mifecha[2])." ".$mifecha[3];			
-		}else{
-			$lafecha=$mifecha[1]." ".FncConvertirMes($mifecha[2])." ".$mifecha[3]." ".$hora;
-		}
-		
-		
-	if(trim($lafecha)==""){
-		$lafecha="";
 	}
-	
-	
-	return $lafecha;
-} 
+
+	$AFecha = explode(" ", $oFecha);
+
+	if (count($AFecha) > 1) {
+		$fecha = $AFecha[0];
+		$hora = $AFecha[1];
+	} else {
+		$fecha = $oFecha;
+		$hora = "";
+	}
 
 
-function FncCambiaFechaAMysql($oFecha,$oVacio=false){
+	preg_match("/([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})/", $fecha, $mifecha);
 
-		// Validar que la fecha no sea NULL o vacía
-		if (empty($oFecha)) {
-			if ($oVacio) {
-				return "";
-			} else {
-				return "0000-00-00";
-			}
-		}
-		
-		$AFecha = explode(" ",$oFecha);
-		
-		if(count($AFecha)>1){
-			$fecha = $AFecha[0];
-			$hora = $AFecha[1];	
-		}else{
-			$fecha = $oFecha;
-			$hora = "";
-		}
-	
-		preg_match("/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/", $fecha, $mifecha);
-	//
-	
-		/*
+	if (empty($hora)) {
+		$lafecha = $mifecha[3] . "/" . $mifecha[2] . "/" . $mifecha[1];
+	} else {
+		$lafecha = $mifecha[3] . "/" . $mifecha[2] . "/" . $mifecha[1] . " " . $hora;
+	}
+
+
+	/*
 		   1. ereg('\.([^\.]*$)', $this->file_src_name, $extension);
 		   
 		   1. preg_match('/\.([^\.]*$)/', $this->file_src_name, $extension);
 		   
 		*/
-			
-		if(empty($hora)){
-			$lafecha=$mifecha[3]."-".$mifecha[2]."-".$mifecha[1];
-		}else{
-			$lafecha=$mifecha[3]."-".$mifecha[2]."-".$mifecha[1]." ".$hora;
-		}
-
-		//$lafecha=$mifecha[3]."-".$mifecha[2]."-".$mifecha[1]." ".$hora;
-		
-	//if($lafecha=="-- "){
-//		$lafecha="0000-00-00";
-//	}
-
-//	echo $oFecha." A ".$fecha." B ".$lafecha." C<br>";
+	// $lafecha=$mifecha[3]."/".$mifecha[2]."/".$mifecha[1]." ".$hora;
 
 
-	if(trim($lafecha)=="--"){
-		
-		if($oVacio){
-			$lafecha="";		
-		}else{
-			if(empty($hora)){
-				$lafecha="0000-00-00";			
-			}else{
-				$lafecha="0000-00-00 00:00:00";
-			}					
+
+	if (trim($lafecha) == "//") {
+
+		if ($oVacio) {
+			$lafecha = "";
+		} else {
+			if (empty($hora)) {
+				$lafecha = "00/00/0000";
+			} else {
+				$lafecha = "00/00/0000 00:00:00";
+			}
 		}
 	}
-	
-	
 
 	return $lafecha;
-} 
-		
+}
+
+
+
+function FncCambiaFechaAImpresion($oFecha)
+{
+
+	// Validar que la fecha no sea NULL o vacía
+	if (empty($oFecha)) {
+		return "";
+	}
+
+	$AFecha = explode(" ", $oFecha);
+
+	if (count($AFecha) > 1) {
+		$fecha = $AFecha[0];
+		$hora = $AFecha[1];
+	} else {
+		$fecha = $oFecha;
+		$hora = "";
+	}
+
+	preg_match("/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/", $fecha, $mifecha);
+
+	if (empty($hora)) {
+		$lafecha = $mifecha[1] . " " . FncConvertirMes($mifecha[2]) . " " . $mifecha[3];
+	} else {
+		$lafecha = $mifecha[1] . " " . FncConvertirMes($mifecha[2]) . " " . $mifecha[3] . " " . $hora;
+	}
+
+
+	if (trim($lafecha) == "") {
+		$lafecha = "";
+	}
+
+
+	return $lafecha;
+}
+
+
+function FncCambiaFechaAMysql($oFecha, $oVacio = false)
+{
+
+	// Validar que la fecha no sea NULL o vacía
+	if (empty($oFecha)) {
+		if ($oVacio) {
+			return "";
+		} else {
+			return "0000-00-00";
+		}
+	}
+
+	$AFecha = explode(" ", $oFecha);
+
+	if (count($AFecha) > 1) {
+		$fecha = $AFecha[0];
+		$hora = $AFecha[1];
+	} else {
+		$fecha = $oFecha;
+		$hora = "";
+	}
+
+	preg_match("/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/", $fecha, $mifecha);
+	//
+
+	/*
+		   1. ereg('\.([^\.]*$)', $this->file_src_name, $extension);
+		   
+		   1. preg_match('/\.([^\.]*$)/', $this->file_src_name, $extension);
+		   
+		*/
+
+	if (empty($hora)) {
+		$lafecha = $mifecha[3] . "-" . $mifecha[2] . "-" . $mifecha[1];
+	} else {
+		$lafecha = $mifecha[3] . "-" . $mifecha[2] . "-" . $mifecha[1] . " " . $hora;
+	}
+
+	//$lafecha=$mifecha[3]."-".$mifecha[2]."-".$mifecha[1]." ".$hora;
+
+	//if($lafecha=="-- "){
+	//		$lafecha="0000-00-00";
+	//	}
+
+	//	echo $oFecha." A ".$fecha." B ".$lafecha." C<br>";
+
+
+	if (trim($lafecha) == "--") {
+
+		if ($oVacio) {
+			$lafecha = "";
+		} else {
+			if (empty($hora)) {
+				$lafecha = "0000-00-00";
+			} else {
+				$lafecha = "0000-00-00 00:00:00";
+			}
+		}
+	}
+
+
+
+	return $lafecha;
+}
+
 /*function cambiar_fechat($fecha){
 	
 		$fec = explode(" ",$fecha);		
@@ -1590,169 +1615,170 @@ function FncCambiaFechaAMysql($oFecha,$oVacio=false){
     return $nueva_fecha;
 } */
 
-function FncConvertirMes($oMes,$oAbreviado=false){
+function FncConvertirMes($oMes, $oAbreviado = false)
+{
 
-	switch ($oMes){
-	case 1:
-				$mes='Enero';
-				if($oAbreviado){
-				$mes='Ene';
-				}
-			   break;     
-			 case 2:
-				$mes='Febrero';
-				if($oAbreviado){
-				$mes='Feb';
-				}
-				break;     
-			 case 3:
-				$mes='Marzo';
-				if($oAbreviado){
-				$mes='Mar';
-				}
-			   break;
-			 case 4:
-				$mes='Abril';
-				if($oAbreviado){
-				$mes='Abr';
-				}
-				break;
-			 case 5:
-				$mes='Mayo';
-				if($oAbreviado){
-				$mes='May';
-				}
-				break;
-			 case 6:
-				$mes='Junio';
-				if($oAbreviado){
-				$mes='Jun';
-				}
-				break;
-			 case 7:
-			   $mes='Julio';
-			   if($oAbreviado){
-				$mes='Jul';
-				}
-				break;
-			 case 8:
-				$mes='Agosto';
-				if($oAbreviado){
-				$mes='Ago';
-				}
-				break;
-			 case 9:
-				$mes='Septiembre';
-				if($oAbreviado){
-				$mes='Sep';
-				}
-				break;
-			 case 10:
-				$mes='Octubre';
-				if($oAbreviado){
-				$mes='Oct';
-				}
-				break;
-			 case 11:
-				$mes='Noviembre';
-				if($oAbreviado){
-				$mes='Nov';
-				}
-			  break;
-			 case 12:
-				$mes='Diciembre';
-				if($oAbreviado){
-				$mes='Dic';
-				}
+	switch ($oMes) {
+		case 1:
+			$mes = 'Enero';
+			if ($oAbreviado) {
+				$mes = 'Ene';
+			}
 			break;
-			
-			default:
-				$mes= '';
+		case 2:
+			$mes = 'Febrero';
+			if ($oAbreviado) {
+				$mes = 'Feb';
+			}
+			break;
+		case 3:
+			$mes = 'Marzo';
+			if ($oAbreviado) {
+				$mes = 'Mar';
+			}
+			break;
+		case 4:
+			$mes = 'Abril';
+			if ($oAbreviado) {
+				$mes = 'Abr';
+			}
+			break;
+		case 5:
+			$mes = 'Mayo';
+			if ($oAbreviado) {
+				$mes = 'May';
+			}
+			break;
+		case 6:
+			$mes = 'Junio';
+			if ($oAbreviado) {
+				$mes = 'Jun';
+			}
+			break;
+		case 7:
+			$mes = 'Julio';
+			if ($oAbreviado) {
+				$mes = 'Jul';
+			}
+			break;
+		case 8:
+			$mes = 'Agosto';
+			if ($oAbreviado) {
+				$mes = 'Ago';
+			}
+			break;
+		case 9:
+			$mes = 'Septiembre';
+			if ($oAbreviado) {
+				$mes = 'Sep';
+			}
+			break;
+		case 10:
+			$mes = 'Octubre';
+			if ($oAbreviado) {
+				$mes = 'Oct';
+			}
+			break;
+		case 11:
+			$mes = 'Noviembre';
+			if ($oAbreviado) {
+				$mes = 'Nov';
+			}
+			break;
+		case 12:
+			$mes = 'Diciembre';
+			if ($oAbreviado) {
+				$mes = 'Dic';
+			}
+			break;
+
+		default:
+			$mes = '';
 			break;
 	}
 
 	return $mes;
 }
 
-function FncMostrarImagen($oRuta=NULL,$oImagen,$ancho_fijo=NULL,$altura_fijo=NULL,$oBorde=0,$oExRuta=NULL){
+function FncMostrarImagen($oRuta = NULL, $oImagen, $ancho_fijo = NULL, $altura_fijo = NULL, $oBorde = 0, $oExRuta = NULL)
+{
 
-	if(!empty($oImagen)){
-		if(file_exists($oExRuta.$oRuta.$oImagen)){
-			
-			if(!empty($ancho_fijo) & !empty($altura_fijo)){
-				
-				$Imagen['error'] = 0;			
-				$Imagen['path']=$oExRuta.$oRuta.$oImagen;
-				$Imagen['ancho']=$ancho_fijo;	
-				$Imagen['altura']=$altura_fijo;	
-				
-				$resolucion = getimagesize($Imagen['path']);	
-				$res = explode(' ',$resolucion[3]);	
-				$Imagen['ancho']=preg_replace("/[width,=,\"]/i",'',$res[0]);
-				$Imagen['altura']=preg_replace("/[height,=,\"]/i",'',$res[1]);
-				
-				$dif=$Imagen['ancho']-$Imagen['altura'];	
-				
-				$dif_altura=$altura_fijo-$Imagen['altura'];
-				$dif_ancho=$ancho_fijo-$Imagen['ancho'];
-				
-				if($dif_altura<0){
-					if($dif_ancho<0){
-						$resize=1;
-					}else{
-						$resize=2;
+	if (!empty($oImagen)) {
+		if (file_exists($oExRuta . $oRuta . $oImagen)) {
+
+			if (!empty($ancho_fijo) & !empty($altura_fijo)) {
+
+				$Imagen['error'] = 0;
+				$Imagen['path'] = $oExRuta . $oRuta . $oImagen;
+				$Imagen['ancho'] = $ancho_fijo;
+				$Imagen['altura'] = $altura_fijo;
+
+				$resolucion = getimagesize($Imagen['path']);
+				$res = explode(' ', $resolucion[3]);
+				$Imagen['ancho'] = preg_replace("/[width,=,\"]/i", '', $res[0]);
+				$Imagen['altura'] = preg_replace("/[height,=,\"]/i", '', $res[1]);
+
+				$dif = $Imagen['ancho'] - $Imagen['altura'];
+
+				$dif_altura = $altura_fijo - $Imagen['altura'];
+				$dif_ancho = $ancho_fijo - $Imagen['ancho'];
+
+				if ($dif_altura < 0) {
+					if ($dif_ancho < 0) {
+						$resize = 1;
+					} else {
+						$resize = 2;
 					}
-				}else{
-					if($dif_ancho<0){
-						$resize=3;
-					}else{
-						$resize=4;
-					}	
+				} else {
+					if ($dif_ancho < 0) {
+						$resize = 3;
+					} else {
+						$resize = 4;
+					}
 				}
-				
-				switch($resize){
+
+				switch ($resize) {
 					case 1:
-					//echo 'ancho y altura son grandes';		
-						$Imagen['altura']=($altura_fijo*$Imagen['altura'])/$Imagen['ancho'];
-						$Imagen['ancho']=$ancho_fijo;
-					
-					break;
+						//echo 'ancho y altura son grandes';		
+						$Imagen['altura'] = ($altura_fijo * $Imagen['altura']) / $Imagen['ancho'];
+						$Imagen['ancho'] = $ancho_fijo;
+
+						break;
 					case 2:
-					//echo 'altura es grande';		
-						$Imagen['ancho']=($altura_fijo*$Imagen['ancho'])/$Imagen['altura'];
-						$Imagen['altura']=$altura_fijo;
-					break;
+						//echo 'altura es grande';		
+						$Imagen['ancho'] = ($altura_fijo * $Imagen['ancho']) / $Imagen['altura'];
+						$Imagen['altura'] = $altura_fijo;
+						break;
 					case 3:
-					//echo 'ancho es grande';	
-						$Imagen['altura']=($ancho_fijo*$Imagen['altura'])/$Imagen['ancho'];
-						$Imagen['ancho']=$ancho_fijo;				
-					break;
-					
+						//echo 'ancho es grande';	
+						$Imagen['altura'] = ($ancho_fijo * $Imagen['altura']) / $Imagen['ancho'];
+						$Imagen['ancho'] = $ancho_fijo;
+						break;
+
 					case 4:
-					//echo 'todo ok';					
-					break;	
+						//echo 'todo ok';					
+						break;
 				}
 			}
 			///}else{
-		
-		//	}
-			
-	?>
 
-<img src="<?php echo $Imagen['path'];?>" title="<?php echo $oImagen;?>"  <?php if(!empty($Imagen['ancho'])){ ?> width="<?php echo $Imagen['ancho'];?>"  <?php } ?> <?php if(!empty($Imagen['altura'])){ ?> height="<?php echo $Imagen['altura'];?>"  <?php } ?> alt="[<?php echo $oImagen;?>]" border="<?php echo $oBorde;?>" />
+			//	}
 
-<?php					
-
-		}else{
 ?>
-<img src="<?php echo $oExRuta; ?>imagenes/noencontrado.jpg" width="<?php echo $ancho_fijo;?>" height="<?php echo $altura_fijo;?>" title="No se encontro la imagen" alt="[NoEncontrado]" border="<?php echo $oBorde;?>"  />
-<?php
+
+			<img src="<?php echo $Imagen['path']; ?>" title="<?php echo $oImagen; ?>" <?php if (!empty($Imagen['ancho'])) { ?> width="<?php echo $Imagen['ancho']; ?>" <?php } ?> <?php if (!empty($Imagen['altura'])) { ?> height="<?php echo $Imagen['altura']; ?>" <?php } ?> alt="[<?php echo $oImagen; ?>]" border="<?php echo $oBorde; ?>" />
+
+		<?php
+
+		} else {
+		?>
+			<img src="<?php echo $oExRuta; ?>imagenes/noencontrado.jpg" width="<?php echo $ancho_fijo; ?>" height="<?php echo $altura_fijo; ?>" title="No se encontro la imagen" alt="[NoEncontrado]" border="<?php echo $oBorde; ?>" />
+		<?php
 		}
-	}else{
-?>
-<img src="<?php echo $oExRuta; ?>imagenes/default.jpg"  width="<?php echo $ancho_fijo;?>" height="<?php echo $altura_fijo;?>" title="Default" alt="[Default]"  border="<?php echo $oBorde;?>" />
+	} else {
+		?>
+		<img src="<?php echo $oExRuta; ?>imagenes/default.jpg" width="<?php echo $ancho_fijo; ?>" height="<?php echo $altura_fijo; ?>" title="Default" alt="[Default]" border="<?php echo $oBorde; ?>" />
 <?php
 	}
-
 }
 ?>

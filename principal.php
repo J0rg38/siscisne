@@ -97,7 +97,7 @@ if ($InsSesion->MtdSesionVerificar()) {
 //			}
 //		}
 
-//$InsMysql = new ClsMysql();
+$InsMysql = new ClsMysql();
 
 $_SESSION['SesIpAcceso'] = FncObtenerIp();
 

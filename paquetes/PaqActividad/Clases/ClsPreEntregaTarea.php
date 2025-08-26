@@ -72,6 +72,12 @@ class ClsPreEntregaTarea {
 
     public function MtdObtenerPreEntregaTareas($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PetId',$oSentido = 'Desc',$oPaginacion = '0,10',$oSeccion=NULL) {
 
+		// Initialize variables to prevent undefined variable warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$seccion = '';
+
 		if(!empty($oCampo) && !empty($oFiltro)){
 			$oFiltro = str_replace(" ","%",$oFiltro);
 			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';

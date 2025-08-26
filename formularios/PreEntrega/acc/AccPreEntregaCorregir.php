@@ -2,7 +2,7 @@
 //Si se hizo click en guardar	
 
 	
-if(isset($_POST['BtnGuardar_x']) or $_POST['Guardar']=="1"){	
+if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guardar'] == "1")) {
 
 	$Guardar = true;
 	$Resultado = '';

@@ -562,6 +562,10 @@ if($VerificarStock == 1){
 
 
 <?php
+// Initialize TotalBruto if not already set
+if (!isset($TotalBruto)) {
+    $TotalBruto = 0;
+}
 
 $TotalRepuesto = $TotalBruto;
 

@@ -60,6 +60,13 @@ class ClsConfiguracionEmpresa {
     public $CemImpuestoSelectivo;
     public $CalId;
     public $EmpresaXml;
+    public $CemRuta;
+    
+    // Propiedades adicionales de calificación
+    public $CalTipo;
+    public $CalCosto;
+    public $CalTipoCambio;
+    public $CalMargen;
 
     public function __construct($oInsMysql=NULL)
 	{
@@ -221,7 +228,15 @@ class ClsConfiguracionEmpresa {
 			
 //			deb($this->CemId);
 $error = false;
-			$this->MtdObtenerConfiguracionEmpresa();
+			// Obtener la configuración de la empresa
+			$resultado = $this->MtdObtenerConfiguracionEmpresa();
+			
+			// Verificar que se obtuvo la configuración correctamente
+			if (!$resultado) {
+				$error = true;
+				error_log("Error: No se pudo obtener la configuración de la empresa");
+				return false;
+			}
 
 			$cadena = '<?php '.	chr(13).	chr(13).
 			' $EmpresaAlias = "'.$this->CemAlias.'";'.	chr(13).
@@ -274,12 +289,51 @@ $error = false;
 
 */			
 //deb($this->CemRuta.'CnfEmpresa.php'.$this->EmpresaXml);
-			$Archivo = fopen($this->CemRuta.'CnfEmpresa.php'.$this->EmpresaXml,"w+");
-			
-			if(fwrite ($Archivo,$cadena)){
-				fclose($Archivo);
-			}else{
+			// Verificar que CemRuta esté definido
+			if (!isset($this->CemRuta) || empty($this->CemRuta)) {
 				$error = true;
+				error_log("Error: CemRuta no está definido");
+			} elseif (!isset($this->EmpresaXml) || empty($this->EmpresaXml)) {
+				$error = true;
+				error_log("Error: EmpresaXml no está definido");
+			} else {
+				$rutaArchivo = $this->CemRuta.'CnfEmpresa.php'.$this->EmpresaXml;
+				
+				// Verificar que la ruta del directorio sea válida y escribible
+				$directorio = dirname($rutaArchivo);
+				if (!is_dir($directorio)) {
+					// Intentar crear el directorio si no existe
+					if (!@mkdir($directorio, 0777, true)) {
+						$error = true;
+						error_log("Error: No se pudo crear el directorio: " . $directorio);
+					}
+				}
+				
+				// Verificar permisos de escritura en el directorio
+				if (!$error && !is_writable($directorio)) {
+					$error = true;
+					error_log("Error: El directorio no es escribible: " . $directorio);
+				}
+				
+				// Solo intentar abrir el archivo si no hay errores previos
+				if (!$error) {
+					$Archivo = @fopen($rutaArchivo, "w+");
+					
+					// Verificar que el archivo se abrió correctamente
+					if ($Archivo === false) {
+						$error = true;
+						error_log("Error: No se pudo abrir el archivo para escritura: " . $rutaArchivo);
+					} else {
+						// Intentar escribir en el archivo
+						if (fwrite($Archivo, $cadena) === false) {
+							$error = true;
+							error_log("Error: No se pudo escribir en el archivo: " . $rutaArchivo);
+						} else {
+							// Cerrar el archivo solo si se escribió correctamente
+							fclose($Archivo);
+						}
+					}
+				}
 			}
 
 //deb($error);

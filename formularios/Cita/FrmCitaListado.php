@@ -27,6 +27,14 @@ PrivilegioGenerarExcel
 $POST_cam = ($_POST['Cam'] ?? '');
 $POST_fil = ($_POST['Fil'] ?? '');
 
+// Initialize session variables if they don't exist
+if (!isset($_SESSION[$GET_mod."Filtro"])) {
+    $_SESSION[$GET_mod."Filtro"] = '';
+}
+if (!isset($_SESSION[$GET_mod."Num"])) {
+    $_SESSION[$GET_mod."Num"] = '10';
+}
+
    if($_POST){
 	   $_SESSION[$GET_mod."Filtro"] = $POST_fil;
    }else{

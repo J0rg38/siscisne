@@ -1,0 +1,37 @@
+✅ 1. Extraer el certificado (cert.pem)
+
+openssl pkcs12 -in archivo.pfx -clcerts -nokeys -out cert.pem
+
+    -clcerts: omite los certificados CA intermedios.
+
+    -nokeys: no extrae la clave privada.
+
+✅ 2. Extraer la clave privada (key.pem)
+
+openssl pkcs12 -in archivo.pfx -nocerts -nodes -out key.pem
+
+    -nocerts: omite el certificado, solo extrae la clave privada.
+
+    -nodes: no encripta la clave privada (sin passphrase).
+
+🔐 Si tu .pfx tiene contraseña, el sistema la solicitará al ejecutar los comandos.
+📁 Resultado:
+
+    cert.pem: tu certificado público.
+
+    key.pem: tu clave privada.
+
+Si deseas hacerlo sin interacción (ejemplo en script), puedes añadir:
+
+openssl pkcs12 -in archivo.pfx -clcerts -nokeys -out cert.pem -passin pass:tu_contraseña
+openssl pkcs12 -in archivo.pfx -nocerts -nodes -out key.pem -passin pass:tu_contraseña
+
+
+#. ejemplo
+
+
+
+openssl pkcs12 -in CT2412117547.pfx -clcerts -nokeys -out CT2412117547-cert.pem -passin pass:HotelNivial24
+openssl pkcs12 -in CT2412117547.pfx -nocerts -nodes -out CT2412117547-key.pem -passin pass:HotelNivial24
+
+
