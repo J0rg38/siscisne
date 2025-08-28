@@ -130,7 +130,7 @@ if (!empty($_FILES)) {
 				$fila = 1;
 				for ($i = 1; $i <= $data->sheets[0]['numRows']; $i++) {	
 					  
-					$InsProducto = new ClsProducto();
+					$InsProducto = new ClsProducto($InsMysql);
 					  
 					$InsProductoDisponibilidad->PdiCodigo  = $data->sheets[0]['cells'][$i][$inicio_columna];
 					$InsProductoDisponibilidad->PdiCodigo  = str_replace("'", "&#8217;", $InsProductoDisponibilidad->PdiCodigo);	
@@ -244,7 +244,7 @@ if (!empty($_FILES)) {
 					
 					if($inicio_fila <= $fila){
 						
-					$InsProducto = new ClsProducto();
+					$InsProducto = new ClsProducto($InsMysql);
 					$InsProducto->UsuId = $_SESSION['SesionId'];
 					
 						for( $i=0; $i < $num_cols; $i++ ) {

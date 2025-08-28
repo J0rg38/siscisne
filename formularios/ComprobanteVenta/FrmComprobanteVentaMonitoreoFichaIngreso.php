@@ -125,9 +125,9 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsComprobanteVenta.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsComprobanteVenta = new ClsComprobanteVenta();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsMoneda = new ClsMoneda();
 //$ResFichaAccion = $InsFichaAccion->MtdObtenerFichaAcciones("fin.FinId,EinVIN,EinPlaca,CliNombre,CliApellidoPaterno,CliApellidoMaterno,CliNumeroDocumento,FinConductor,VmaNombre,VmoNombre,VveNombre",$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,NULL,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),1,"75",true);//73,74,75,8,9
 

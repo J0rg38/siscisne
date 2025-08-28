@@ -13,7 +13,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMarca.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsVehiculoMarca = new ClsVehiculoMarca();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $RepVehiculoMarca = $InsVehiculoMarca->MtdObtenerVehiculoMarcas(NULL,NULL,"VmaNombre","ASC",NULL,1,NULL);
 $ArrVehiculoMarcas = $RepVehiculoMarca['Datos'];

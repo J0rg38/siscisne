@@ -53,7 +53,7 @@ $InsBanco = new ClsBanco();
 
 $InsCuenta = new ClsCuenta();
 
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsFormaPago = new ClsFormaPago();
 
 

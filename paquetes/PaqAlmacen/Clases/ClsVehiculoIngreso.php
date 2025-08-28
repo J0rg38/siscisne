@@ -2564,10 +2564,10 @@ ein.EinNumeroProforma,
 		}
 
 		if ($error) {
-			$this->InsMysql->MtdTransaccionDeshacer();
+			//$this->InsMysql->MtdTransaccionDeshacer();
 			return false;
 		} else {
-			$this->InsMysql->MtdTransaccionHacer();
+			//$this->InsMysql->MtdTransaccionHacer();
 			return true;
 		}
 	}

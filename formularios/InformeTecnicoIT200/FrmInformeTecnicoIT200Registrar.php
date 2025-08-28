@@ -48,8 +48,8 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 //INSTANCIAS
 $InsInformeTecnico = new ClsInformeTecnico();
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsPersonal = new ClsPersonal();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccInformeTecnicoRegistrar.php');
@@ -389,13 +389,13 @@ if($Registro){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 
 Calendar.setup({ 
 	inputField : "CmpFechaVenta",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaVenta"// el id del botón que  
+	button     : "BtnFechaVenta"// el id del botï¿½n que  
 	});
 var sprytextfield7 = new Spry.Widget.ValidationTextField("sprytextfield7", "date", {format:"dd/mm/yyyy"});
 var sprytextfield = new Spry.Widget.ValidationTextField("sprytextfield", "date", {format:"dd/mm/yyyy"});

@@ -6,33 +6,35 @@ $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfFormularioNota.php');
 
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 $Identificador = $_POST['Identificador'];
 
 
 session_start();
-if (!isset($_SESSION['InsTallerPedidoAlmacenMovimientoEntrada'.$Identificador])){
-	$_SESSION['InsTallerPedidoAlmacenMovimientoEntrada'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsTallerPedidoAlmacenMovimientoEntrada' . $Identificador])) {
+	$_SESSION['InsTallerPedidoAlmacenMovimientoEntrada' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsTallerPedidoAlmacenMovimientoEntrada' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTallerPedidoAlmacenMovimientoEntrada' . $Identificador]);
 }
 
 //SesionObjeto-TallerPedidoAlmacenMovimientoEntrada
@@ -52,7 +54,7 @@ if (!isset($_SESSION['InsTallerPedidoAlmacenMovimientoEntrada'.$Identificador]))
 //Parametro14 = GasTipoCambio
 //Parametro15 = MonId
 //Parametro16 = GasFoto
-	
+
 $POST_AlmacenMovimientoEntradaId = $_POST['AlmacenMovimientoEntradaId'];
 $POST_AlmacenMovimientoEntradaComprobanteNumero = $_POST['AlmacenMovimientoEntradaComprobanteNumero'];
 $POST_AlmacenMovimientoEntradaComprobanteFecha = $_POST['AlmacenMovimientoEntradaComprobanteFecha'];
@@ -71,27 +73,25 @@ $POST_AlmacenMovimientoEntradaMonedaId = $_POST['AlmacenMovimientoEntradaMonedaI
 $POST_AlmacenMovimientoEntradaFoto = $_POST['AlmacenMovimientoEntradaFoto'];
 $POST_AlmacenMovimientoEntradaConcepto = $_POST['AlmacenMovimientoEntradaConcepto'];
 
-$_SESSION['InsTallerPedidoAlmacenMovimientoEntrada'.$ModalidadIngreso.$Identificador]->MtdAgregarSesionObjeto(1,
-NULL,
-(($POST_AlmacenMovimientoEntradaId)),
-(($POST_AlmacenMovimientoEntradaComprobanteNumero)),
-(($POST_AlmacenMovimientoEntradaComprobanteFecha)),
-(($POST_AlmacenMovimientoEntradaTotal)),
-3,
+$_SESSION['InsTallerPedidoAlmacenMovimientoEntrada' . $ModalidadIngreso . $Identificador]->MtdAgregarSesionObjeto(
+	1,
+	NULL,
+	(($POST_AlmacenMovimientoEntradaId)),
+	(($POST_AlmacenMovimientoEntradaComprobanteNumero)),
+	(($POST_AlmacenMovimientoEntradaComprobanteFecha)),
+	(($POST_AlmacenMovimientoEntradaTotal)),
+	3,
 
-date("d/m/Y H:i:s"),
-date("d/m/Y H:i:s"),
-$POST_ProveedorNombre,
-$POST_ProveedorApellidoPaterno,
-$POST_ProveedorApellidoMaterno,
+	date("d/m/Y H:i:s"),
+	date("d/m/Y H:i:s"),
+	$POST_ProveedorNombre,
+	$POST_ProveedorApellidoPaterno,
+	$POST_ProveedorApellidoMaterno,
 
-$POST_AlmacenMovimientoEntradaMonedaNombre,
-$POST_AlmacenMovimientoEntradaMonedaSimbolo,
-$POST_AlmacenMovimientoEntradaTipoCambio,
-$POST_AlmacenMovimientoEntradaMonedaId,
-$POST_AlmacenMovimientoEntradaFoto,
-$POST_AlmacenMovimientoEntradaConcepto
+	$POST_AlmacenMovimientoEntradaMonedaNombre,
+	$POST_AlmacenMovimientoEntradaMonedaSimbolo,
+	$POST_AlmacenMovimientoEntradaTipoCambio,
+	$POST_AlmacenMovimientoEntradaMonedaId,
+	$POST_AlmacenMovimientoEntradaFoto,
+	$POST_AlmacenMovimientoEntradaConcepto
 );
-
-
-?>

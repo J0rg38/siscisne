@@ -101,7 +101,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsInformeTecnico.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
 $InsInformeTecnico = new ClsInformeTecnico();
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccInformeTecnicoATS3.php');
 

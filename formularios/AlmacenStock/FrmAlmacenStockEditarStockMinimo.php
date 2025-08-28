@@ -28,7 +28,7 @@ $InsVentaConcretadaDetalle = new ClsVentaConcretadaDetalle();
 
 $InsAlmacenStock = new ClsAlmacenStock();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccAlmacenStockEditarStockMinimo.php');
 

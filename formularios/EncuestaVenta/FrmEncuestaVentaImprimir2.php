@@ -49,7 +49,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsEncuestaPreguntaSeccion.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
 $InsEncuesta = new ClsEncuesta();
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 //$InsFichaIngreso->FinId = $GET_FichaIngresoId;
 //$InsFichaIngreso->MtdObtenerFichaIngreso(false);

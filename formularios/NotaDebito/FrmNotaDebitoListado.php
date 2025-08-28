@@ -133,7 +133,7 @@ $InsNotaDebito = new ClsNotaDebito();
 $InsNotaDebitoTalonario = new ClsNotaDebitoTalonario();
 $InsCondicionPago = new ClsCondicionPago();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $InsNotaDebito->SucId = $_SESSION['SesionSucursal'];
 $InsNotaDebito->UsuId = $_SESSION['SesionId'];

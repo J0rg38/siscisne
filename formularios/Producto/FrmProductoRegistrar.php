@@ -50,9 +50,9 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoDisponibilidad.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoReemplazo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMarca.php');
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProductoTipo = new ClsProductoTipo();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoModelo = new ClsVehiculoModelo();
 $InsVehiculoVersion = new ClsVehiculoVersion();

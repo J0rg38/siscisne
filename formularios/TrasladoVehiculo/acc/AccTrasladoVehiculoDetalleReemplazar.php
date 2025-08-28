@@ -44,8 +44,8 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
 //require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoCosto.php');
 
 $InsVehiculo = new ClsVehiculo();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsVehiculo->ProId = $_POST['VehiculoId'];
 $InsVehiculo->MtdObtenerVehiculo(false);

@@ -66,15 +66,15 @@ require_once($InsPoo->MtdPaqLogistica().'ClsComprobanteTipo.php');
 $InsTrasladoProducto = new ClsTrasladoProducto();
 $InsTipoOperacion = new ClsTipoOperacion();
 
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 $InsClienteTipo = new ClsClienteTipo();
 
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsComprobanteTipo = new ClsComprobanteTipo();
 
 
@@ -621,13 +621,13 @@ if($Registro){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 Calendar.setup({ 
 	inputField : "CmpFechaLlegada",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaLlegada"// el id del botón que  
+	button     : "BtnFechaLlegada"// el id del botï¿½n que  
 	});
 		
 	

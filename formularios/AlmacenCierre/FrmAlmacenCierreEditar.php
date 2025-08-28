@@ -17,7 +17,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenCierre.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsAlmacenCierre = new ClsAlmacenCierre();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc('AlmacenCierre').'AccAlmacenCierreEditar.php');
 

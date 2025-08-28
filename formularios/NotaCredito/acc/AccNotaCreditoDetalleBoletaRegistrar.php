@@ -30,8 +30,10 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsBoletaDetalle.php');
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsNotaCreditoDetalle'.$Identificador])){
-	$_SESSION['InsNotaCreditoDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsNotaCreditoDetalle' . $Identificador])) {
+	$_SESSION['InsNotaCreditoDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsNotaCreditoDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsNotaCreditoDetalle' . $Identificador]);
 }
 
 $InsBoletaDetalle = new ClsBoletaDetalle();

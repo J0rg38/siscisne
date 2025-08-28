@@ -75,7 +75,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsSocio.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 //INSTANCIAS
 $InsSocio = new ClsSocio();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 //ACCIONES
 
 //DATOS

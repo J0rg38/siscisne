@@ -96,7 +96,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCodigoReemplazo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoVehiculoVersion.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoVehiculoModelo.php');
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProductoTipo = new ClsProductoTipo();
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccProducto.php');

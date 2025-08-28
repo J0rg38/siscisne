@@ -68,8 +68,8 @@ require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimientoDetalle.php');
 require_once($InsPoo->MtdPaqActividad().'ClsTareaProducto.php');
 
 $InsVehiculoModelo = new ClsVehiculoModelo();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 //MtdObtenerVehiculoModelos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVehiculoMarca=NULL,$oVigenciaVenta=NULL,$oEstado=NULL)
 $ResVehiculoModelo = $InsVehiculoModelo->MtdObtenerVehiculoModelos(NULL,NULL,'VmoId','Desc',NULL,"VMA-10018",1,NULL);
 $ArrVehiculoModelos = $ResVehiculoModelo['Datos'];

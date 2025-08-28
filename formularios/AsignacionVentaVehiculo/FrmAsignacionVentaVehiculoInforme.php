@@ -48,9 +48,9 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php'
 
 $InsAsignacionVentaVehiculo = new ClsAsignacionVentaVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
  
 
 

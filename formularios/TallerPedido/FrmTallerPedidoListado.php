@@ -198,11 +198,11 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsGarantia = new ClsGarantia();
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsGarantia = new ClsGarantia($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $InsFichaIngreso->UsuId = $_SESSION['SesionId'];
 

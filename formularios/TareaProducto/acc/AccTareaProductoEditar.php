@@ -8,7 +8,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 	
 		if($_POST['CmpCopiar']=="1"){
 			
-			$InsPlanMantenimiento = new ClsPlanMantenimiento();
+			$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 			$InsPlanMantenimiento->PmaId = $_POST['CmpPlanMantenimientoId'];
 			$InsPlanMantenimiento->MtdObtenerPlanMantenimiento();
 			

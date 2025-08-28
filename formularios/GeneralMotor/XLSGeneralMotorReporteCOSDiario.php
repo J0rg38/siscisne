@@ -88,10 +88,10 @@ $InsVentaConcretadaDetalle = new ClsVentaConcretadaDetalle();
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsAlmacenMovimientoEntradaDetalle = new ClsAlmacenMovimientoEntradaDetalle();
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
-$InsPersonal = new ClsPersonal();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
 $InsCita = new ClsCita();

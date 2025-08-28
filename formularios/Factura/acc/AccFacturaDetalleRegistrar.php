@@ -41,8 +41,10 @@ $POST_Exonerado = (empty($_POST['Exonerado'])?2:$_POST['Exonerado']);
 
 
 session_start();
-if (!isset($_SESSION['InsFacturaDetalle'.$Identificador])){
-	$_SESSION['InsFacturaDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsFacturaDetalle' . $Identificador])) {
+	$_SESSION['InsFacturaDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsFacturaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsFacturaDetalle' . $Identificador]);	
 }
 
 

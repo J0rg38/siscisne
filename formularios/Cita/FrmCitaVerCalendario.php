@@ -16,8 +16,8 @@ $POST_Sucursal = $_SESSION['SesionSucursal'];
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $ResPersonal = $InsPersonal->MtdObtenerPersonales(NULL,NULL,NULL,"PerNombre","ASC",NULL,NULL,NULL,NULL,1);
 $ArrTecnicos = $ResPersonal['Datos'];

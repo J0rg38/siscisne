@@ -33,7 +33,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipoUnidadMedida.php');
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
 
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 //MtdObtenerPedidoCompraLlegadaDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PldId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oPedidoCompraLlegada=NULL,$oEstado=NULL,$oProducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oOrdenCompra=NULL,$oCliente=NULL,$oConOrdenCompra=NULL,$oPedidoCompraDetalle=NULL,$oPedidoCompraLlegadaEstado =NULL) {
 $InsPedidoCompraLlegadaDetalle = new ClsPedidoCompraLlegadaDetalle();

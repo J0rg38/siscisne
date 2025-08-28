@@ -28,7 +28,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipoUnidadMedida.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedidaConversion.php');
 
 $InsProductoTipoUnidadMedida = new ClsProductoTipoUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $POST_ProductoUnidadMedidaIngreso = $_POST['ProductoUnidadMedidaIngreso'];
 $POST_ProductoUnidadMedidaBase = $_POST['ProductoUnidadMedidaBase'];

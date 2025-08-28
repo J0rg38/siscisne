@@ -31,6 +31,8 @@ $Identificador = $_POST['Identificador'];
 session_start();
 if (!isset($_SESSION['InsVentaDirectaDetalle'.$Identificador])){
 	$_SESSION['InsVentaDirectaDetalle'.$Identificador] = new ClsSesionObjeto();
+}else{
+	$_SESSION['InsVentaDirectaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVentaDirectaDetalle'.$Identificador]);
 }
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedidaConversion.php');
@@ -43,9 +45,9 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
 //require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCosto.php');
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsProducto->ProId = $_POST['ProductoId'];
 $InsProducto->MtdObtenerProducto(false);

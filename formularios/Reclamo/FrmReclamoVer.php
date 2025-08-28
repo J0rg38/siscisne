@@ -42,9 +42,9 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsReclamo = new ClsReclamo();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsMoneda = new ClsMoneda();
 
 if (!isset($_SESSION['InsReclamoFoto'.$Identificador])){	

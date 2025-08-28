@@ -59,15 +59,15 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 $InsTrasladoAlmacenSalida = new ClsTrasladoAlmacenSalida();
 $InsTipoOperacion = new ClsTipoOperacion();
 
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 $InsClienteTipo = new ClsClienteTipo();
 
 $InsAlmacen = new ClsAlmacen();
 $InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (!isset($_SESSION['InsTrasladoAlmacenSalidaDetalle'.$Identificador])){	
 	$_SESSION['InsTrasladoAlmacenSalidaDetalle'.$Identificador] = new ClsSesionObjeto();
@@ -510,13 +510,13 @@ if($Registro){
 Calendar.setup({ 
 inputField : "CmpFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnFecha"// el id del botón que  
+button     : "BtnFecha"// el id del botï¿½n que  
 });
 
 Calendar.setup({ 
 inputField : "CmpEmpresaTransporteFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnEmpresaTransporteFecha"// el id del botón que  
+button     : "BtnEmpresaTransporteFecha"// el id del botï¿½n que  
 });
 	
 </script>

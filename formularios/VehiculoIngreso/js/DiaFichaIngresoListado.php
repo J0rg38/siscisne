@@ -84,7 +84,7 @@ $InsVentaDirecta->MtdObtenerVentaDirecta(false);
 
 if(!empty($InsVentaDirecta->FinId)){
 	
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$ResFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresos("fin.FinId","esigual",$InsVentaDirecta->FinId,"FinId","ASC",NULL,(NULL),(NULL),NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,1,0,NULL,NULL,0,NULL,NULL,NULL,NULL,$POST_Sucursal,false);
 	$ArrFichaIngresos = $ResFichaIngreso['Datos'];
 

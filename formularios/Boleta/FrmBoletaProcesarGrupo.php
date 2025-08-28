@@ -201,7 +201,7 @@ $InsBoleta = new ClsBoleta();
 $InsBoletaTalonario = new ClsBoletaTalonario();
 $InsCondicionPago = new ClsCondicionPago();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $InsBoleta->UsuId = $_SESSION['SesionId'];
 $InsBoleta->SucId = $_SESSION['SesionSucursal'];

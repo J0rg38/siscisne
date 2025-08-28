@@ -109,12 +109,12 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoIngreso.php');
 
 $InsFactura = new ClsFactura();
 $InsFacturaTalonario = new ClsFacturaTalonario();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsMoneda = new ClsMoneda();
 $InsRegimen = new ClsRegimen();
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsCotizacionProducto = new ClsCotizacionProducto();
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 

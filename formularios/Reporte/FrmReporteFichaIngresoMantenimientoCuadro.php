@@ -25,7 +25,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoModelo = new ClsVehiculoModelo();
 $InsClienteTipo = new ClsClienteTipo();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 
 //MtdObtenerVehiculoMarcas($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VmaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVigenciaVenta=NULL,$oEstado=NULL)

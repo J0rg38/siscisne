@@ -456,7 +456,7 @@ Parametro26 = PcdEstado
 		
 		case "FichaAccion":
 			
-			$InsFichaAccion = new ClsFichaAccion();
+			$InsFichaAccion = new ClsFichaAccion($InsMysql);
 			$InsFichaAccion->FccId = $GET_FccId;
 			$InsFichaAccion->MtdObtenerFichaAccion(false);
 

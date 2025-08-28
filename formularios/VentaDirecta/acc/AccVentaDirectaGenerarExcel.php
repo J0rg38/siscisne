@@ -151,8 +151,8 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 
 

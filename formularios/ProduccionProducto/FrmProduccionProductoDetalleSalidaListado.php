@@ -66,9 +66,9 @@ $InsAlmacenStock = new ClsAlmacenStock();
 $InsAlmacen = new ClsAlmacen();
 $InsAlmacenProducto = new ClsAlmacenProducto();
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 $InsAlmacenProducto = new ClsAlmacenProducto();
 
 $InsMoneda = new ClsMoneda();

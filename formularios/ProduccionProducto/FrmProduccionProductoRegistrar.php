@@ -44,7 +44,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenProducto.php');
 //INSTANCIAS
 $InsProduccionProducto = new ClsProduccionProducto();
 $InsAlmacen = new ClsAlmacen();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (!isset($_SESSION['InsProduccionProductoDetalleEntrada'.$Identificador])){	
 	$_SESSION['InsProduccionProductoDetalleEntrada'.$Identificador] = new ClsSesionObjeto();
@@ -579,7 +579,7 @@ PRODUCTOS SALIENTES
 Calendar.setup({ 
 inputField : "CmpFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnFecha"// el id del botón que  
+button     : "BtnFecha"// el id del botï¿½n que  
 });
 
 </script>

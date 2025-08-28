@@ -63,11 +63,11 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMarca.php');
 
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsFichaAccion = new ClsFichaAccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsFichaAccionProducto = new ClsFichaAccionProducto();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
 $InsPersonal->PerId = "PER-10016";

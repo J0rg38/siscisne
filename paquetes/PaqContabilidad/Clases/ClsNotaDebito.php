@@ -572,7 +572,7 @@ DATE_FORMAT(ndb.NdbTiempoCreacion, "%H:%i:%s") AS "NdbHoraEmision",
 		return $Respuesta;
 	}
 
-	public function MtdObtenerNotaDebitos($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'NdbId', $oSentido = 'Desc', $oEliminado = 1, $oPaginacion = '0,10', $oSucursal = NULL, $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oMoneda = NULL, $oDocumentoId = NULL, $oDocumentoTalonarioId = NULL, $oSucursal = NULL)
+	public function MtdObtenerNotaDebitos($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'NdbId', $oSentido = 'Desc', $oEliminado = 1, $oPaginacion = '0,10', $oSucursal = NULL, $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oMoneda = NULL, $oDocumentoId = NULL, $oDocumentoTalonarioId = NULL)
 	{
 
 		if (!empty($oCampo) and !empty($oFiltro)) {

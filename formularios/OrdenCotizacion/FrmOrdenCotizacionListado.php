@@ -118,8 +118,8 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 
 $InsOrdenCotizacion = new ClsOrdenCotizacion();
-$InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccOrdenCotizacion.php');
 

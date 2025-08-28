@@ -109,8 +109,8 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 //INSTANCAS
 $InsCita = new ClsCita();
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccCita.php');
 //DATOS

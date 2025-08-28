@@ -46,7 +46,7 @@ if(!empty($POST_VehiculoIngresoVIN)){
 
 
 	<?php
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$ResFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresos("EinVIN","esigual",$POST_VehiculoIngresoVIN,"FinFecha","DESC",NULL,NULL,NULL,NULL,NULL,NULL);
 	$ArrFichaIngresos = $ResFichaIngreso['Datos'];
 	?>

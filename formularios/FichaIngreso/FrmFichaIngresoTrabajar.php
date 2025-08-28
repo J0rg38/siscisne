@@ -104,23 +104,23 @@ require_once($InsPoo->MtdPaqLogistica().'ClsClienteTipo.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimiento.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 $InsPlanMantenimientoDetalle = new ClsPlanMantenimientoDetalle();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsTipoReparacion = new ClsTipoReparacion();
 $InsClienteTipo = new ClsClienteTipo();
-$InsSucursal = new ClsSucursal();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 
 
 
@@ -1447,7 +1447,7 @@ if($Edito){
 					$FichaIngresoModalidadObsequio = $DatFichaIngresoModalidad->FimObsequio;
 
 
-						$InsFichaAccion = new ClsFichaAccion();
+						$InsFichaAccion = new ClsFichaAccion($InsMysql);
 						$ResFichaAccion = $InsFichaAccion->MtdObtenerFichaAcciones(NULL,NULL,NULL,'FccId','Desc',"1",$DatFichaIngresoModalidad->FimId,NULL,NULL,NULL,NULL,false,false,NULL,false);
 						$ArrFichaAcciones  = $ResFichaAccion['Datos'];
 							

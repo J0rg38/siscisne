@@ -208,7 +208,7 @@ if(!empty($GET_FacId) and !empty($GET_FtaId)){
 <?php
 if(!empty($GET_FinId) and empty($GET_VdiId)){
 	
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$InsFichaIngreso->FinId = $GET_FinId;
 	$InsFichaIngreso->MtdObtenerFichaIngreso(false);
 	

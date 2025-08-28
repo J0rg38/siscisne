@@ -138,7 +138,7 @@ $EntregaVentaVehiculoColor = $InsEntregaVentaVehiculo->EvvColor;
 			
 			if($GET_Notificar=="1"){
 				
-				$InsPersonal = new ClsPersonal();
+				$InsPersonal = new ClsPersonal($InsMysql);
 				$InsPersonal->PerId = $InsEntregaVentaVehiculo->PerIdVendedor;
 				$InsPersonal->MtdObtenerPersonal();
 				

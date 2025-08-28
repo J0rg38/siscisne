@@ -28,8 +28,10 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsGarantiaRepuestoIsuzuDetalle'.$Identificador])){
-	$_SESSION['InsGarantiaRepuestoIsuzuDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsGarantiaRepuestoIsuzuDetalle' . $Identificador])) {
+	$_SESSION['InsGarantiaRepuestoIsuzuDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsGarantiaRepuestoIsuzuDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsGarantiaRepuestoIsuzuDetalle' . $Identificador]);
 }
 
 $_SESSION['InsGarantiaRepuestoIsuzuDetalle'.$Identificador]->MtdEliminarSesionObjeto($_POST['Item']);

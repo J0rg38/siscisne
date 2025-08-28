@@ -32,8 +32,8 @@ require_once($InsPoo->MtdPaqActividad().'ClsModalidadIngreso.php');
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoModelo = new ClsVehiculoModelo();
 $InsClienteTipo = new ClsClienteTipo();
-$InsSucursal = new ClsSucursal();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
 
 //MtdObtenerVehiculoMarcas($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VmaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVigenciaVenta=NULL,$oEstado=NULL)

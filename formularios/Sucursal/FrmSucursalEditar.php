@@ -14,7 +14,7 @@ include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjSucursal.php');
 //CLASES
 require_once($InsPoo->MtdPaqSucursal().'ClsSucursal.php');
 //INSTANCIAS
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccSucursalEditar.php');
 //ALERTAS

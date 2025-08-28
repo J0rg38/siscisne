@@ -49,7 +49,7 @@ require_once($InsPoo->MtdPaqAcceso().'ClsAuditoria.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //MtdObtenerSucursales($oCampo=NULL,$oFiltro=NULL,$oOrden = 'SucId',$oSentido = 'Desc',$oPaginacion = '0,10',$oUso=NULL)
 $RepSucursal = $InsSucursal->MtdObtenerSucursales(NULL,NULL,"SucNombre","ASC",NULL,"INICIAL");
 $ArrSucursales = $RepSucursal['Datos'];

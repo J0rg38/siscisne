@@ -101,10 +101,10 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php'
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php');
 
 $InsEntregaVentaVehiculo = new ClsEntregaVentaVehiculo();
-$InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsEntregaVentaVehiculo->EvvId = $GET_Id;
 $InsEntregaVentaVehiculo->MtdObtenerEntregaVentaVehiculo(false);

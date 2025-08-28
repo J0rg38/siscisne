@@ -263,7 +263,7 @@ function FncCargarDatos(){
 //	}
 //	
 //			
-//	$InsFichaIngreso = new ClsFichaIngreso();
+//	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 //	$InsFichaIngreso->FinId = $InsTallerPedido->FinId;
 //	$InsFichaIngreso->MtdObtenerFichaIngreso();
 //}

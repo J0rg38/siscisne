@@ -235,7 +235,7 @@ class MYPDF extends TCPDF {
 
 if(!empty($InsCotizacionVehiculo->PerId)){
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 		$InsPersonal->PerId = $InsCotizacionVehiculo->PerId;
 		$InsPersonal->MtdObtenerPersonal();
 		

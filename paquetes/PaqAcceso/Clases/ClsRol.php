@@ -23,7 +23,7 @@ class ClsRol
 	public $InsMysql;
 
 
-	public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -31,7 +31,6 @@ class ClsRol
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
 	}
 
 	public function __destruct() {}
@@ -72,7 +71,8 @@ class ClsRol
 		if ($this->InsMysql->MtdObtenerDatosTotal($resultado) > 0) {
 
 			while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
-				$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio();
+
+				$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio($this->InsMysql);
 				$ResRolZonaPrivilegio = $InsRolZonaPrivilegio->MtdObtenerRolZonaPrivilegios(NULL, NULL, "RzpId", "ASC", NULL, $fila['RolId']);
 
 
@@ -131,7 +131,7 @@ class ClsRol
 		$InsRol = get_class($this);
 
 		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
-			$Rol = new $InsRol();
+			$Rol = new $InsRol($this->InsMysql);
 			$Rol->RolId = $fila['RolId'];
 			$Rol->RolNombre = $fila['RolNombre'];
 			$Rol->RolTiempoCreacion = $fila['NRolTiempoCreacion'];
@@ -221,6 +221,29 @@ class ClsRol
 			$error = true;
 		}
 
+		if (!$error) {
+
+			if (!empty($this->RolZonaPrivilegio)) {
+
+				$validar = 0;
+				$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio($this->InsMysql);
+
+				foreach ($this->RolZonaPrivilegio as $DatRolZonaPrivilegio) {
+
+					$InsRolZonaPrivilegio->RolId = $this->RolId;
+					$InsRolZonaPrivilegio->ZprId = $DatRolZonaPrivilegio->ZprId;
+
+					if ($InsRolZonaPrivilegio->MtdRegistrarRolZonaPrivilegio()) {
+						$validar++;
+					}
+				}
+
+				if (count($this->RolZonaPrivilegio) <> $validar) {
+					$error = true;
+				}
+			}
+		}
+
 		if ($error) {
 			$this->InsMysql->MtdTransaccionDeshacer();
 			return false;
@@ -235,7 +258,7 @@ class ClsRol
 	{
 
 
-		$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio();
+		$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio($this->InsMysql);
 
 		$ResRolZonaPrivilegio = $InsRolZonaPrivilegio->MtdObtenerRolZonaPrivilegios(NULL, NULL, $oOrden = 'RzpId', $oSentido = 'ASC', NULL, $this->RolId);
 
@@ -270,7 +293,7 @@ class ClsRol
 			if (!empty($this->RolZonaPrivilegio)) {
 
 				$validar = 0;
-				$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio();
+				$InsRolZonaPrivilegio = new ClsRolZonaPrivilegio($this->InsMysql);
 
 				foreach ($this->RolZonaPrivilegio as $DatRolZonaPrivilegio) {
 

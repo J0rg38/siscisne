@@ -99,14 +99,14 @@ require_once($InsPoo->MtdPaqActividad().'ClsTareaProducto.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenStock.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 $InsAlmacen = new ClsAlmacen();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsFichaIngreso->FinId = $GET_Id;
 $InsFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngreso();

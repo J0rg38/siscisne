@@ -32,6 +32,8 @@ $POST_MonedaId = $_POST['MonedaId'];
 session_start();
 if (!isset($_SESSION['InsVentaDirectaPlanchado'.$Identificador])){
 	$_SESSION['InsVentaDirectaPlanchado'.$Identificador] = new ClsSesionObjeto();	
+}else{
+	$_SESSION['InsVentaDirectaPlanchado'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVentaDirectaPlanchado'.$Identificador]);
 }
 
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');

@@ -76,7 +76,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsNotaCreditoTalonario.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsNotaCreditoTalonario = new ClsNotaCreditoTalonario();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccNotaCreditoTalonario.php');
 

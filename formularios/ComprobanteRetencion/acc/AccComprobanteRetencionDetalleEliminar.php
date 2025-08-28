@@ -25,9 +25,12 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsComprobanteRetencionDetalle'.$Identificador])){
-	$_SESSION['InsComprobanteRetencionDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsComprobanteRetencionDetalle' . $Identificador])) {
+	$_SESSION['InsComprobanteRetencionDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsComprobanteRetencionDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsComprobanteRetencionDetalle' . $Identificador]);
 }
+
 
 /*
 Parametro1 = MatId

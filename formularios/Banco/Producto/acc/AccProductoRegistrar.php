@@ -169,7 +169,7 @@ function FncNuevo(){
 		
 	$_SESSION['InsProductoCodigoReemplazo'.$Identificador] = new ClsSesionObjeto();
 		
-			$InsProducto = new ClsProducto();
+			$InsProducto = new ClsProducto($InsMysql);
 			
 			
 	$InsProducto->ProCodigoOriginal = empty($GET_ProductoCodigo)?$GET_ProductoCodigoOriginal:$GET_ProductoCodigo;

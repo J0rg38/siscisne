@@ -49,7 +49,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 
 }else{
 
-	$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
+	$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 	$InsPlanMantenimientoTarea->PmtId = $GET_PlanMantenimientoTareaId;;
 	$InsPlanMantenimientoTarea->MtdObtenerPlanMantenimientoTarea();
 

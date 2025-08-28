@@ -142,7 +142,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculo.php');
 
 $InsAprobacionVentaVehiculo = new ClsAprobacionVentaVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccAprobacionVentaVehiculo.php');
 

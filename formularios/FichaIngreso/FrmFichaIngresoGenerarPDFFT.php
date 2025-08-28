@@ -83,7 +83,7 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqActividad().'ClsTipoReparacion.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsClienteTipo.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 $InsFichaIngreso->FinId = $GET_id;
 $InsFichaIngreso->MtdObtenerFichaIngreso();

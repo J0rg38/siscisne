@@ -25,7 +25,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipo.php');
 
 
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsProductoTipo = new ClsProductoTipo();
 
 

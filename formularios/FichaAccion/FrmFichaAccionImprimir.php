@@ -29,7 +29,7 @@ $GET_id = $_GET['Id'];
 require_once($InsPoo->MtdPaqActividad().'ClsFichaAccion.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaAccionDetalle.php');
 
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 
 $InsFichaAccion->FccId = $GET_id;
 $InsFichaAccion = $InsFichaAccion->MtdObtenerFichaAccion();

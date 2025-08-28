@@ -65,10 +65,10 @@ require_once($InsPoo->MtdPaqLogistica().'ClsObsequio.php');
 
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsCondicionVenta = new ClsCondicionVenta();
 $InsObsequio = new ClsObsequio();
@@ -729,7 +729,7 @@ foreach($ArrTipoDocumentos as $DatTipoDocumento){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 

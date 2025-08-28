@@ -72,8 +72,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 //INSTANCAS
 $InsVehiculoIngreso = new ClsVehiculoIngreso();
 $InsVehiculoIngresoEvento = new ClsVehiculoIngresoEvento();
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 //MtdObtenerVentaConcretadas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'VdiId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oConCotizacionRepuesto=0,$oCotizacionRepuestoEstado=NULL,$oCotizacionRepuesto=NULL)
 
 //MtdObtenerVentaConcretadas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'VdiId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oConCotizacionRepuesto=0,$oCotizacionRepuestoEstado=NULL,$oCotizacionRepuesto=NULL) 

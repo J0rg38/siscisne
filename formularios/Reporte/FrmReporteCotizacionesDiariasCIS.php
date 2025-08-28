@@ -18,8 +18,8 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL,1);
 $ArrMonedas = $ResMoneda['Datos'];

@@ -78,9 +78,9 @@ $InsVentaConcretadaDetalle = new ClsVentaConcretadaDetalle();
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsAlmacenMovimientoEntradaDetalle = new ClsAlmacenMovimientoEntradaDetalle();
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsPersonal->PerId = "PER-10016";
 $InsPersonal->MtdObtenerPersonal();

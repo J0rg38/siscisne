@@ -41,7 +41,7 @@ $InsVehiculoRecepcion = new ClsVehiculoRecepcion();
 $InsVehiculoRecepcionDetalle = new ClsVehiculoRecepcionDetalle();
 
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsVehiculoRecepcion->UsuId = $_SESSION['SesionId'];	
 
@@ -509,7 +509,7 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 

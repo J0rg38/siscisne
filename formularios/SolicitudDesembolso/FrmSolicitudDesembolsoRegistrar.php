@@ -41,8 +41,8 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoGasto.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 //INSTANCIAS
 $InsSolicitudDesembolso = new ClsSolicitudDesembolso();
-$InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsArea = new ClsArea();
 $InsTipoGasto = new ClsTipoGasto();
 
@@ -540,7 +540,7 @@ if($Registro){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 <?php

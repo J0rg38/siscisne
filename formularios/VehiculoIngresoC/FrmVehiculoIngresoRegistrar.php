@@ -73,8 +73,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 $InsVehiculoIngreso = new ClsVehiculoIngreso();
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsConcesionario = new ClsConcesionario();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsMoneda = new ClsMoneda();
 

@@ -166,8 +166,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
 
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccOrdenVentaVehiculo.php');
 

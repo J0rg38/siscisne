@@ -87,9 +87,9 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonalTipo.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 //INSTANCIAS
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsPersonalTipo = new ClsPersonalTipo();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccPersonal.php');
 //MtdObtenerPersonales($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PerId',$oSentido = 'Desc',$oPaginacion = '0,10',$oPersonalTipo=NULL,$oEstado=NULL,$oFechaNacimientoRango=NULL,$oTaller=NULL,$oRecepcion=NULL,$oVenta=NULL,$oArea=NULL,$oSucursal=NULL) 

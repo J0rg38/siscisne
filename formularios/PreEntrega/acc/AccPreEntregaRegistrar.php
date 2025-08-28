@@ -342,7 +342,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 			$Resultado.='#PRE-ENTREGA (PDS) NUMERO: '.$InsFichaIngreso->FinId;
 	
 			unset($InsFichaIngreso);
-			$InsFichaIngreso = new ClsFichaIngreso();
+			$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 			
 			unset($_SESSION['InsPreEntregaDetalle'.$Identificador]);
 			unset($_SESSION['InsPreEntregaCliente'.$Identificador]);

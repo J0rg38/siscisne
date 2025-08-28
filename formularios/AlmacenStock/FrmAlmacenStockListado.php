@@ -151,7 +151,7 @@ $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 $InsProductoReemplazo = new ClsProductoReemplazo();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccAlmacenStock.php');
 //MtdObtenerAlmacenStocks($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'AstNombre',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oProductoTipo=NULL,$oVehiculoMarca=NULL,$oReferencia=NULL,$oProducto=NULL,$oProductoCategoria=NULL,$oAlmacen=NULL,$oTieneMovimiento=false)

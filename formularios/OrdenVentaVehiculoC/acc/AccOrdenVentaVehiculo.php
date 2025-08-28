@@ -45,7 +45,7 @@ switch($POST_acc){
 									
 									if(!empty($InsOrdenVentaVehiculo->PerId)){
 										
-										$InsPersonal = new ClsPersonal();
+										$InsPersonal = new ClsPersonal($InsMysql);
 										$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 										$InsPersonal->MtdObtenerPersonal();
 									

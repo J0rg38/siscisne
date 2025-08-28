@@ -43,7 +43,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenProducto.php');
 //INSTANCIAS
 $InsTrasladoAlmacen = new ClsTrasladoAlmacen();
 $InsAlmacen = new ClsAlmacen();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (!isset($_SESSION['InsTrasladoAlmacenDetalle'.$Identificador])){	
 	$_SESSION['InsTrasladoAlmacenDetalle'.$Identificador] = new ClsSesionObjeto();
@@ -527,19 +527,19 @@ PRODUCTOS
 Calendar.setup({ 
 inputField : "CmpFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnFecha"// el id del botón que  
+button     : "BtnFecha"// el id del botï¿½n que  
 });
 
 Calendar.setup({ 
 inputField : "CmpFechaLlegada",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnFechaLlegada"// el id del botón que  
+button     : "BtnFechaLlegada"// el id del botï¿½n que  
 });
 
 Calendar.setup({ 
 inputField : "CmpComprobanteFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnComprobanteFecha"// el id del botón que  
+button     : "BtnComprobanteFecha"// el id del botï¿½n que  
 });
 </script>
 

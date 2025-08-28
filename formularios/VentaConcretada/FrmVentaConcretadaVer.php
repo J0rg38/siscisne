@@ -40,7 +40,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmaceStock.php');
 
 $InsVentaConcretada = new ClsVentaConcretada();
 $InsTipoOperacion = new ClsTipoOperacion();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 
 $InsMoneda = new ClsMoneda();

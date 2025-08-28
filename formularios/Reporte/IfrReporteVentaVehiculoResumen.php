@@ -78,7 +78,7 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsCotizacionVehiculo.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculo.php');
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 //$ResPersonal = $InsPersonal->MtdObtenerPersonales(NULL,NULL,NULL,"PerNombre","ASC",NULL,NULL,1,NULL,NULL,NULL,1);
 //$ArrPersonales = $ResPersonal['Datos'];

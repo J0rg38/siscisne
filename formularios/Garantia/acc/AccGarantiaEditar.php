@@ -289,7 +289,7 @@ function FncCargarDatos(){
 	$InsGarantia->MtdObtenerGarantia();
 
 
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$InsFichaIngreso->FinId = $InsGarantia->FinId ;
 	$InsFichaIngreso->MtdObtenerFichaIngreso();
 	

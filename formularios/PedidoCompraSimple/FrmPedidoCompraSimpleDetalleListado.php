@@ -53,7 +53,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 $InsProductoReemplazo = new ClsProductoReemplazo();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsMoneda = new ClsMoneda();
 $InsMoneda->MonId = $POST_MonedaId;
@@ -245,11 +245,11 @@ switch($DatSesionObjeto->Parametro26){
   
   
   <?php
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProducto->ProId = $DatSesionObjeto->Parametro2;
 $InsProducto->MtdObtenerProducto(false);
 
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 $InsUnidadMedida->UmeId = $DatSesionObjeto->Parametro10;
 $InsUnidadMedida->MtdObtenerUnidadMedida();
 
@@ -258,7 +258,7 @@ $VerificarStock = 2;
 if($InsUnidadMedida->UmeId == $InsProducto->UmeId){
 	$InsUnidadMedidaConversion->UmcEquivalente = 1;
 }else{
-	$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+	$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 	$RepUnidadMedidaConversion = $InsUnidadMedidaConversion->MtdObtenerUnidadMedidaConversiones(NULL,NULL,NULL,"UmeId1","DESC","1",$InsUnidadMedida->UmeId,$InsProducto->UmeId);
 	$ArrUnidadMedidaConversiones = $RepUnidadMedidaConversion['Datos'];
 

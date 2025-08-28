@@ -73,8 +73,8 @@ require_once($InsPoo->MtdPaqReporte().'ClsReporteOrdenVentaVehiculo.php');
 
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoVersion = new ClsVehiculoVersion();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsVehiculoModelo = new ClsVehiculoModelo();
 $InsAsignacionVentaVehiculo = new ClsAsignacionVentaVehiculo();

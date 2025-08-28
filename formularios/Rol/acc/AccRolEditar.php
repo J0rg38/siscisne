@@ -1,55 +1,51 @@
 <?php
 //Si se hizo click en guardar	
-		
+
 if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guardar'] == "1")) {
 
 	$Resultado = '';
-	
+
 	$InsRol->RolId = $_POST['CmpId'];
 	$InsRol->RolNombre = $_POST['CmpNombre'];
 	$InsRol->RolTiempoModificacion = date("Y-m-d H:i:s");
-	
-	$InsRol->RolZonaPrivilegio = array();	
-	
-	foreach($ArrZonas as $DatZona){
-		
-		$ResZonaPrivilegio = $InsZonaPrivilegio->MtdObtenerZonaPrivilegios(NULL,NULL,"ZprId","ASC",NULL,$DatZona->ZonId);
+
+	$InsRol->RolZonaPrivilegio = array();
+
+	foreach ($ArrZonas as $DatZona) {
+
+		$ResZonaPrivilegio = $InsZonaPrivilegio->MtdObtenerZonaPrivilegios(NULL, NULL, "ZprId", "ASC", NULL, $DatZona->ZonId);
 		$ArrZonaPrivilegios = $ResZonaPrivilegio['Datos'];
-		
-		foreach($ArrZonaPrivilegios as $DatZonaPrivilegio){
-		
-			if(isset($_POST['Chk_'.$DatZona->ZonId.'__'.$DatZonaPrivilegio->PriId])){
-				
-				$InsRolZonaPrivilegio1 = new ClsRolZonaPrivilegio();
+
+		foreach ($ArrZonaPrivilegios as $DatZonaPrivilegio) {
+
+			if (isset($_POST['Chk_' . $DatZona->ZonId . '__' . $DatZonaPrivilegio->PriId])) {
+
+				$InsRolZonaPrivilegio1 = new ClsRolZonaPrivilegio($InsMysql);
 				$InsRolZonaPrivilegio1->ZprId = $DatZonaPrivilegio->ZprId;
-				
-				$InsRolZonaPrivilegio1->Mysql = NULL;
-				
-				$InsRol->RolZonaPrivilegio[] = $InsRolZonaPrivilegio1;	
-				
+
+				$InsRolZonaPrivilegio1->InsMysql = NULL;
+
+				$InsRol->RolZonaPrivilegio[] = $InsRolZonaPrivilegio1;
 			}
-			
 		}
-		
 	}
-				
-		if($InsRol->MtdEditarRol()){		
-			$Edito = true;			
-			$Resultado.='#SAS_ROL_102';			
-			FncCargarDatos();
-		}else{			
-			$Resultado.='#ERR_ROL_102';		
-		}			
-			
-}else{
+
+	if ($InsRol->MtdEditarRol()) {
+		$Edito = true;
+		$Resultado .= '#SAS_ROL_102';
+		FncCargarDatos();
+	} else {
+		$Resultado .= '#ERR_ROL_102';
+	}
+} else {
 	FncCargarDatos();
 }
 
-function FncCargarDatos(){
+function FncCargarDatos()
+{
 
 	global $GET_id;
 	global $InsRol;
 	$InsRol->RolId = $GET_id;
-	$InsRol->MtdObtenerRol();	
+	$InsRol->MtdObtenerRol();
 }
-?>

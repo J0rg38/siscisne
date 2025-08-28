@@ -172,7 +172,7 @@ $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 $InsProductoReemplazo = new ClsProductoReemplazo();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 //include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccAlmacenStock.php');
 

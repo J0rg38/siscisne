@@ -31,12 +31,12 @@ require_once($InsPoo->MtdPaqLogistica().'ClsClienteTipo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipoUnidadMedida.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedidaConversion.php');
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProductoTipo = new ClsProductoTipo();
 $InsClienteTipo = new ClsClienteTipo();
 
 $InsProductoTipoUnidadMedida = new ClsProductoTipoUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsProducto->ProId = $GET_id;
 $InsProducto = $InsProducto->MtdObtenerProducto();		

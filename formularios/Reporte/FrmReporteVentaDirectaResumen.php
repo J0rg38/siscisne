@@ -23,7 +23,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL,1);
 $ArrMonedas = $ResMoneda['Datos'];

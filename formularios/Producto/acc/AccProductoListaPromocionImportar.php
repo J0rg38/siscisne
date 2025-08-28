@@ -118,7 +118,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsTipoCambio.php');
 
 $InsMoneda = new ClsMoneda();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL,1);
 $ArrMonedas = $ResMoneda['Datos'];

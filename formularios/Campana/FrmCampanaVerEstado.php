@@ -220,7 +220,7 @@ if(!empty($InsCampana->CampanaVehiculo)){
 		$FichaIngresoId = "";
 		$FichaIngresoFecha = "";
 		
-		$InsFichaIngreso = new ClsFichaIngreso();
+		$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 		$ResFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresos(NULL,NULL,NULL,'CamId','ASC','1',NULL,NULL,NULL,NULL,NULL,$DatCampanaVehiculo->AveVIN,NULL,NULL,0,$InsCampana->CamId);
 		$ArrFichaIngresos = $ResFichaIngreso['Datos'];
 	

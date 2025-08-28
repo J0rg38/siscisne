@@ -57,16 +57,16 @@ require_once($InsPoo->MtdPaqLogistica().'ClsComprobanteTipo.php');
 $InsTrasladoProducto = new ClsTrasladoProducto();
 $InsTipoOperacion = new ClsTipoOperacion();
 
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 $InsClienteTipo = new ClsClienteTipo();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsComprobanteTipo = new ClsComprobanteTipo();
 
 
@@ -612,7 +612,7 @@ if($Edito){
 //Calendar.setup({ 
 //	inputField : "CmpFecha",  // id del campo de texto 
 //	ifFormat   : "%d/%m/%Y",  //  
-//	button     : "BtnFecha"// el id del botón que  
+//	button     : "BtnFecha"// el id del botï¿½n que  
 //	});
 </script>
 <?php

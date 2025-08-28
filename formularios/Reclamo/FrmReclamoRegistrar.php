@@ -40,9 +40,9 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsReclamo = new ClsReclamo();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsMoneda = new ClsMoneda();
 
 $InsAlmacenMovimientoEntrada->AmoId = $GET_AmoId;
@@ -575,7 +575,7 @@ if($Registro){
 				doneStr:"Hecho",
 				multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
 				extErrorStr:"Extension de archivo no permitido",
-				sizeErrorStr:"Tamaño no permitido",
+				sizeErrorStr:"Tamaï¿½o no permitido",
 				uploadErrorStr:"No se pudo subir el archivo",
 				dragdropWidth: 400,
 				
@@ -661,7 +661,7 @@ if($Registro){
 Calendar.setup({ 
 inputField : "CmpFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnFecha"// el id del botón que  
+button     : "BtnFecha"// el id del botï¿½n que  
 });
 </script>
     
@@ -669,7 +669,7 @@ button     : "BtnFecha"// el id del botón que
 Calendar.setup({ 
 inputField : "CmpRespuestaFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnRespuestaFecha"// el id del botón que  
+button     : "BtnRespuestaFecha"// el id del botï¿½n que  
 });
 </script>
 

@@ -54,7 +54,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsSunatCatalogo.php');
 
 $InsGuiaRemision = new ClsGuiaRemision();
 $InsGuiaRemisionTalonario = new ClsGuiaRemisionTalonario();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsSunatCatalogo = new ClsSunatCatalogo();
 
 if (isset($_SESSION['InsGuiaRemisionDetalle'.$Identificador])){	

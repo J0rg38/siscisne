@@ -48,8 +48,8 @@ $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 $InsProductoReemplazo = new ClsProductoReemplazo();
 
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsRegistroOperacionUIFDetalle'.$Identificador])){	
 	$_SESSION['InsRegistroOperacionUIFDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsRegistroOperacionUIFDetalle'.$Identificador]);

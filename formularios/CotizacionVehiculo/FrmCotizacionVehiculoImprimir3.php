@@ -305,7 +305,7 @@ setTimeout("window.close();",1500);
 
 	if(!empty($InsCotizacionVehiculo->PerId)){
 		
-		$InsPersonal = new ClsPersonal();
+		$InsPersonal = new ClsPersonal($InsMysql);
 		$InsPersonal->PerId = $InsCotizacionVehiculo->PerId;
 		$InsPersonal->MtdObtenerPersonal();
 		

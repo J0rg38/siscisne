@@ -7,33 +7,33 @@ $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta  = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfFormularioNota.php');
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsCotizacionProductoDetalle'.$Identificador])){
-	$_SESSION['InsCotizacionProductoDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsCotizacionProductoDetalle' . $Identificador])) {
+	$_SESSION['InsCotizacionProductoDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsCotizacionProductoDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsCotizacionProductoDetalle' . $Identificador]);
 }
 
-$_SESSION['InsCotizacionProductoDetalle'.$Identificador]->MtdEliminarSesionObjeto($_POST['Item']);
-
-?>
+$_SESSION['InsCotizacionProductoDetalle' . $Identificador]->MtdEliminarSesionObjeto($_POST['Item']);

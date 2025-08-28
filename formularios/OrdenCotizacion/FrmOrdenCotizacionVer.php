@@ -25,9 +25,9 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsOrdenCotizacion = new ClsOrdenCotizacion();
-$InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsOrdenCotizacionDetalle'.$Identificador])){	
 	$_SESSION['InsOrdenCotizacionDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsOrdenCotizacionDetalle'.$Identificador]);

@@ -252,7 +252,7 @@ $InsGarantiaRepuestoIsuzu->GriSubTotalRepuestoStock += $InsGarantiaRepuestoIsuzu
 
 	FncNuevo();
 
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$InsFichaIngreso->FinId = $InsFichaAccion->FinId;
 	$InsFichaIngreso->MtdObtenerFichaIngreso();
 		

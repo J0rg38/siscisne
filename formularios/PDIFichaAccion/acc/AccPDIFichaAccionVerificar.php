@@ -33,7 +33,7 @@ require_once($InsPoo->MtdPaqAcceso().'ClsRolZonaPrivilegio.php');
 
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 $InsACL = new ClsACL();
 /*

@@ -102,8 +102,8 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsKardex = new ClsKardex();
-$InsProducto = new ClsProducto();
-$InsSucursal = new ClsSucursal();
+$InsProducto = new ClsProducto($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 
 $aux = explode("/",$POST_FechaInicio);

@@ -147,8 +147,8 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 
 $InsEntregaVentaVehiculo = new ClsEntregaVentaVehiculo();
-$InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccEntregaVentaVehiculo.php');
 

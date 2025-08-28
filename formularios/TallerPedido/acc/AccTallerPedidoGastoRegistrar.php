@@ -6,33 +6,35 @@ $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfFormularioNota.php');
 
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 $Identificador = $_POST['Identificador'];
 
 
 session_start();
-if (!isset($_SESSION['InsTallerPedidoGasto'.$Identificador])){
-	$_SESSION['InsTallerPedidoGasto'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsTallerPedidoGasto' . $Identificador])) {
+	$_SESSION['InsTallerPedidoGasto' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsTallerPedidoGasto' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTallerPedidoGasto' . $Identificador]);
 }
 
 //SesionObjeto-TallerPedidoGasto
@@ -52,7 +54,7 @@ if (!isset($_SESSION['InsTallerPedidoGasto'.$Identificador])){
 //Parametro14 = GasTipoCambio
 //Parametro15 = MonId
 //Parametro16 = GasFoto
-	
+
 $POST_GastoId = $_POST['GastoId'];
 $POST_GastoComprobanteNumero = $_POST['GastoComprobanteNumero'];
 $POST_GastoComprobanteFecha = $_POST['GastoComprobanteFecha'];
@@ -71,27 +73,25 @@ $POST_GastoMonedaId = $_POST['GastoMonedaId'];
 $POST_GastoFoto = $_POST['GastoFoto'];
 $POST_GastoConcepto = $_POST['GastoConcepto'];
 
-$_SESSION['InsTallerPedidoGasto'.$ModalidadIngreso.$Identificador]->MtdAgregarSesionObjeto(1,
-NULL,
-(($POST_GastoId)),
-(($POST_GastoComprobanteNumero)),
-(($POST_GastoComprobanteFecha)),
-(($POST_GastoTotal)),
-3,
+$_SESSION['InsTallerPedidoGasto' . $ModalidadIngreso . $Identificador]->MtdAgregarSesionObjeto(
+	1,
+	NULL,
+	(($POST_GastoId)),
+	(($POST_GastoComprobanteNumero)),
+	(($POST_GastoComprobanteFecha)),
+	(($POST_GastoTotal)),
+	3,
 
-date("d/m/Y H:i:s"),
-date("d/m/Y H:i:s"),
-$POST_ProveedorNombre,
-$POST_ProveedorApellidoPaterno,
-$POST_ProveedorApellidoMaterno,
+	date("d/m/Y H:i:s"),
+	date("d/m/Y H:i:s"),
+	$POST_ProveedorNombre,
+	$POST_ProveedorApellidoPaterno,
+	$POST_ProveedorApellidoMaterno,
 
-$POST_GastoMonedaNombre,
-$POST_GastoMonedaSimbolo,
-$POST_GastoTipoCambio,
-$POST_GastoMonedaId,
-$POST_GastoFoto,
-$POST_GastoConcepto
+	$POST_GastoMonedaNombre,
+	$POST_GastoMonedaSimbolo,
+	$POST_GastoTipoCambio,
+	$POST_GastoMonedaId,
+	$POST_GastoFoto,
+	$POST_GastoConcepto
 );
-
-
-?>

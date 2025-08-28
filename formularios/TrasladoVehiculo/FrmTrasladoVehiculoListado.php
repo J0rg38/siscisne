@@ -101,7 +101,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsTrasladoVehiculo = new ClsTrasladoVehiculo();
 $InsMoneda = new ClsMoneda();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccTrasladoVehiculo.php');
 

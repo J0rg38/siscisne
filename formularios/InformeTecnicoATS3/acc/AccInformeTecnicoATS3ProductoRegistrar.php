@@ -56,11 +56,11 @@ $InformeTecnicoATS3ProductoCantidad = ($_POST['InformeTecnicoProductoCantidad'])
 $InformeTecnicoATS3ProductoValorTotal = ($_POST['InformeTecnicoProductoValorTotal']);
 $InformeTecnicoATS3ProductoValorUnitario= ($InformeTecnicoATS3ProductoValorTotal/$InformeTecnicoATS3ProductoCantidad);
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProducto->ProId = $ProductoId;
 $InsProducto->MtdObtenerProducto(false);
 
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 $InsUnidadMedida->UmeId = $UnidadMedidaId;
 $InsUnidadMedida->MtdObtenerUnidadMedida();
 

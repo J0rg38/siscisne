@@ -49,6 +49,7 @@
     require_once($InsPoo->MtdPaqActividad() . 'ClsModalidadIngreso.php');
 
     require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngreso.php');
+require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoManoObra.php');
     require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoLlamada.php');
     require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoGasto.php');
     require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoAlmacenMovimientoEntrada.php');
@@ -109,17 +110,17 @@
     require_once($InsPoo->MtdPaqAlmacen() . 'ClsAlmacenStock.php');
 
 
-    $InsFichaIngreso = new ClsFichaIngreso();
-    $InsModalidadIngreso = new ClsModalidadIngreso();
+    $InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+    $InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
-    $InsProducto = new ClsProducto();
-    $InsUnidadMedida = new ClsUnidadMedida();
-    $InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+    $InsProducto = new ClsProducto($InsMysql);
+    $InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+    $InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
     $InsAlmacenStock = new ClsAlmacenStock();
 
     $InsMoneda = new ClsMoneda();
     $InsAlmacen = new ClsAlmacen();
-    $InsPersonal = new ClsPersonal();
+    $InsPersonal = new ClsPersonal($InsMysql);
     $InsFichaIngreso->FinId = $GET_FinId;
     $InsFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngreso();
     $InsFichaIngreso->UsuId = $_SESSION['SesionId'];

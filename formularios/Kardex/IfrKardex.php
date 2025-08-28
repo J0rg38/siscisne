@@ -83,7 +83,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsKardex = new ClsKardex();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 
 $aux = explode("/",$POST_FechaInicio);
 

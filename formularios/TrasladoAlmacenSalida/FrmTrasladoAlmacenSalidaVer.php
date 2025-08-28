@@ -53,7 +53,7 @@ $InsClienteTipo = new ClsClienteTipo();
 
 $InsAlmacen = new ClsAlmacen();
 $InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsTrasladoAlmacenSalidaDetalle'.$Identificador])){	
 	$_SESSION['InsTrasladoAlmacenSalidaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTrasladoAlmacenSalidaDetalle'.$Identificador]);

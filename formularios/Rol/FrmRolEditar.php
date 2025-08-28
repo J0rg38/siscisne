@@ -17,10 +17,10 @@ require_once($InsPoo->MtdPaqAcceso().'ClsZona.php');
 require_once($InsPoo->MtdPaqAcceso().'ClsZonaPrivilegio.php');
 require_once($InsPoo->MtdPaqAcceso().'ClsZonaCategoria.php');
 
-$InsRol = new ClsRol();
-$InsZona = new ClsZona();
-$InsZonaPrivilegio = new ClsZonaPrivilegio();
-$InsZonaCategoria = new ClsZonaCategoria();
+$InsRol = new ClsRol($InsMysql);
+$InsZona = new ClsZona($InsMysql);
+$InsZonaPrivilegio = new ClsZonaPrivilegio($InsMysql);
+$InsZonaCategoria = new ClsZonaCategoria($InsMysql);
 
 $ResZonaCategoria = $InsZonaCategoria->MtdObtenerZonaCategorias(NULL,NULL,'ZcaId','ASC',NULL);
 $ArrZonaCategorias = $ResZonaCategoria['Datos'];

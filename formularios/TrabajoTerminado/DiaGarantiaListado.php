@@ -63,7 +63,7 @@ $GET_FinId = $_GET['FinId'];
 
 require_once($InsPoo->MtdPaqActividad().'ClsGarantia.php');
 
-$InsGarantia = new ClsGarantia();
+$InsGarantia = new ClsGarantia($InsMysql);
 
 // MtdObtenerGarantias($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'GarId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oMoneda=NULL,$oFichaIngreso=NULL) 
 

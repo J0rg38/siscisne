@@ -38,7 +38,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenProducto.php');
 //INSTANCIAS
 $InsProduccionProducto = new ClsProduccionProducto();
 $InsAlmacen = new ClsAlmacen();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 
 if (isset($_SESSION['InsProduccionProductoDetalleEntrada'.$Identificador])){	
@@ -106,7 +106,7 @@ var ProduccionProductoDetalleSalidaEliminar = 1;
 <?php
 if(!empty($GET_dia)){
 ?>
-	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div> 
+	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div>ï¿½
 <?php	
 }
 ?>
@@ -485,7 +485,7 @@ if($Edito){
 Calendar.setup({ 
 inputField : "CmpFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnFecha"// el id del botón que  
+button     : "BtnFecha"// el id del botï¿½n que  
 });
 
 

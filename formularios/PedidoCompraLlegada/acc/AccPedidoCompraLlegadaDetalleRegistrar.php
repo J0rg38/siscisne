@@ -41,9 +41,9 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
 
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsProducto->ProId = $_POST['ProductoId'];
 $InsProducto->MtdObtenerProducto(false);

@@ -36,7 +36,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsFichaIngresoModalidad.php');
 
 if(!empty($POST_VehiculoIngresoVIN)){
 	
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	
 	$ResFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresos("EinVIN","esigual",$POST_VehiculoIngresoVIN,"FinTiempoCreacion","DESC",NULL,NULL,NULL,NULL,NULL,NULL);
 	$ArrFichaIngresos = $ResFichaIngreso['Datos'];

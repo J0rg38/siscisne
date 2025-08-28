@@ -21,7 +21,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMarca.php');
 
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL,1);

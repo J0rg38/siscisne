@@ -108,7 +108,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsMoneda = new ClsMoneda();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 //MtdObtenerAlmacenMovimientoEntradas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AmoId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oOrigen=NULL,$oMoneda=NULL,$oOrdenCompra=NULL,$oPedidoCompra=NULL,$oPedidoCompraDetalle=NULL,$oCliente=NULL,$oFecha="AmoFecha",$oConOrdenCompra=0,$oCancelado=0,$oProveedor=NULL,$oVentaDirecta=NULL,$oCondicionPago=NULL,$oSubTipo=NULL,$oAlmacen=NULL,$oSucursal=NULL)																											
 $ResAlmacenMovimientoEntrada = $InsAlmacenMovimientoEntrada->MtdObtenerAlmacenMovimientoEntradas("AmoId,prv.PrvNombre,prv.PrvApellidoPaterno,prv.PrvApellidoMaterno,AmoComprobanteNumero,AmoGuiaRemisionNumero,amo.OcoId",$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),$POST_estado,$POST_origen,$POST_Moneda,NULL,NULL,NULL,NULL,$POST_TipoFecha,0,0,NULL,NULL,NULL,1,$POST_Almacen,$POST_Sucursal);

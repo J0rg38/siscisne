@@ -22,7 +22,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 //INSTANCIAS
 $InsMiembroDirectorio = new ClsMiembroDirectorio();
 
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccMiembroDirectorioEditar.php');
 //DATOS

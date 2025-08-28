@@ -147,7 +147,7 @@ function FncNuevo(){
 	$InsEncuesta->EncTipo = "POSTVENTA";
 	$InsEncuesta->SucId = $_SESSION['SesionSucursal'];
 	
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$InsFichaIngreso->FinId =  $GET_FichaIngresoId;	
 	$InsFichaIngreso->MtdObtenerFichaIngreso(false);
 	

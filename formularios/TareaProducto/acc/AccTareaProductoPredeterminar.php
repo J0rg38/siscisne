@@ -46,7 +46,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipoUnidadMedida.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsClienteTipo.php');
 $InsTareaProducto = new ClsTareaProducto();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 
 $ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,NULL,'PmaId','ASC',1,NULL,NULL,$POST_ModeloId) ;
 $ArrPlanMantenimientos = $ResPlanMantenimiento['Datos'];

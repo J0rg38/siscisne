@@ -82,7 +82,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $ResCotizacionVehiculo = $InsCotizacionVehiculo->MtdObtenerCotizacionVehiculos(NULL,NULL,NULL,$POST_ord,$POST_sen,NULL,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),3,NULL,$POST_Personal,NULL,$POST_Sucursal);
 $ArrCotizacionVehiculos = $ResCotizacionVehiculo['Datos'];

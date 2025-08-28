@@ -78,18 +78,18 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 //INSTANCIAS
 $InsRegistroOperacionUIF = new ClsRegistroOperacionUIF();
 $InsTipoOperacion = new ClsTipoOperacion();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 $InsCotizacionProducto = new ClsCotizacionProducto();
 
 $InsVentaDirecta = new ClsVentaDirecta();
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 
 
@@ -537,7 +537,7 @@ if($Registro){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 

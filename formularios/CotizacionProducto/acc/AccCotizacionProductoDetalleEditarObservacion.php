@@ -31,7 +31,7 @@ $Identificador = $_POST['Identificador'];
 session_start();
 if (!isset($_SESSION['InsCotizacionProductoDetalle'.$Identificador])){
 	$_SESSION['InsCotizacionProductoDetalle'.$Identificador] = new ClsSesionObjeto();	
-}
+}q
 
 
 $CotizacionProductoDetalleObservacion = ($_POST['CotizacionProductoDetalleObservacion']);

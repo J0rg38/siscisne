@@ -31,6 +31,8 @@ $Identificador = $_POST['Identificador'];
 session_start();
 if (!isset($_SESSION['InsFichaAccionHerramienta'.$Identificador])){
 	$_SESSION['InsFichaAccionHerramienta'.$Identificador] = new ClsSesionObjeto();	
+}else{
+	$_SESSION['InsFichaAccionHerramienta'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsFichaAccionHerramienta'.$Identificador]);
 }
 
 

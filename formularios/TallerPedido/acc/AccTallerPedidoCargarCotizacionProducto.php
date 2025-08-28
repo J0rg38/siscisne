@@ -37,8 +37,10 @@ $Identificador = $_POST['Identificador'];
 $ModalidadIngreso = $_POST['ModalidadIngreso'];
 
 session_start();
-if (!isset($_SESSION['InsTallerPedidoDetalle'.$ModalidadIngreso.$Identificador])){
-	$_SESSION['InsTallerPedidoDetalle'.$ModalidadIngreso.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador])) {
+	$_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador]);
 }
 
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
@@ -64,13 +66,13 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
 
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 $InsCotizacionProducto = new ClsCotizacionProducto();
 $InsVentaDirecta = new ClsVentaDirecta();
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 //$InsCotizacionProducto->CprId = $POST_CotizacionProductoId;
 //$InsCotizacionProducto->MtdObtenerCotizacionProducto();	

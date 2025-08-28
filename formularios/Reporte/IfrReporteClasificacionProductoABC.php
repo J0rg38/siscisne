@@ -81,12 +81,12 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenStock.php');
 
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoVersion = new ClsVehiculoVersion();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsVehiculoModelo = new ClsVehiculoModelo();
 $InsAsignacionVentaVehiculo = new ClsAsignacionVentaVehiculo();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsReporteProducto = new ClsReporteProducto();
 $InsAlmacenStock = new ClsAlmacenStock();
 //MtdObtenerProductos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'ProId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oTipo=NULL,$oValidarStock=1,$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oVehiculoVersion=NULL,$oVehiculoAno=NULL,$oTieneIngreso=false,$oReferencia=NULL,$oFecha=NULL,$oTieneSock=0,$oProductoCategoria=NULL,$oUsoEstricto=false,$oVehiculoMarca=NULL,$oCalcularPrecio=NULL) {

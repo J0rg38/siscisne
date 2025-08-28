@@ -17,7 +17,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 
 $InsNotaDebitoTalonario = new ClsNotaDebitoTalonario();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccNotaDebitoTalonarioRegistrar.php');

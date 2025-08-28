@@ -46,7 +46,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoObsequio.php');
 
 
 $InsComprobanteRetencion = new ClsComprobanteRetencion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoCambio = new ClsTipoCambio();
 
 //Obteniendo datos de factura

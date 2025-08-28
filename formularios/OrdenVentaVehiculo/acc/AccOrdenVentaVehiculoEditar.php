@@ -381,7 +381,7 @@ list($InsOrdenVentaVehiculo->OvvAno,$InsOrdenVentaVehiculo->OvvMes,$aux) = explo
 			
 			if($InsOrdenVentaVehiculo->OvvNotificar == 1){
 				
-				$InsPersonal = new ClsPersonal();
+				$InsPersonal = new ClsPersonal($InsMysql);
 				$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 				$InsPersonal->MtdObtenerPersonal();
 				
@@ -398,7 +398,7 @@ list($InsOrdenVentaVehiculo->OvvAno,$InsOrdenVentaVehiculo->OvvMes,$aux) = explo
 				
 				if(!empty($InsOrdenVentaVehiculo->OvvActaEntregaFecha)){
 				
-					$InsPersonal = new ClsPersonal();
+					$InsPersonal = new ClsPersonal($InsMysql);
 					$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 					$InsPersonal->MtdObtenerPersonal();
 					

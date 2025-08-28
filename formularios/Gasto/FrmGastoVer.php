@@ -55,7 +55,7 @@ $InsGasto = new ClsGasto();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccGastoEditar.php');

@@ -73,10 +73,10 @@ $InsCompraVehiculo = new ClsCompraVehiculo();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 if (isset($_SESSION['InsCompraVehiculoDetalle'.$Identificador])){	
 	$_SESSION['InsCompraVehiculoDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsCompraVehiculoDetalle'.$Identificador]);
@@ -685,21 +685,21 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 	
 Calendar.setup({ 
 	inputField : "CmpComprobanteFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnComprobanteFecha",// el id del botón que  
+	button     : "BtnComprobanteFecha",// el id del botï¿½n que  
 onUpdate       :    FncTipoCambioCargarAux
 	});
 	
 Calendar.setup({ 
 	inputField : "CmpGuiaRemisionFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnGuiaRemisionFecha"// el id del botón que  
+	button     : "BtnGuiaRemisionFecha"// el id del botï¿½n que  
 	});
 	
 

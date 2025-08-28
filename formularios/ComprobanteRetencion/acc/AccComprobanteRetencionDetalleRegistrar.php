@@ -35,9 +35,12 @@ $POST_Numero = $_POST['Numero'];
 $POST_TipoDocumento = $_POST['TipoDocumento'];
 
 session_start();
-if (!isset($_SESSION['InsComprobanteRetencionDetalle'.$Identificador])){
-	$_SESSION['InsComprobanteRetencionDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsComprobanteRetencionDetalle' . $Identificador])) {
+	$_SESSION['InsComprobanteRetencionDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsComprobanteRetencionDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsComprobanteRetencionDetalle' . $Identificador]);
 }
+
 
 
 /*

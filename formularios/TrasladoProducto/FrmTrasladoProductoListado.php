@@ -150,7 +150,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsTrasladoProducto = new ClsTrasladoProducto();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccTrasladoProducto.php');
       

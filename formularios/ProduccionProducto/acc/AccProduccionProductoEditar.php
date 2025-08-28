@@ -378,7 +378,7 @@ Parametro18 = PpdImporte
 //	}
 //	
 //			
-//	$InsFichaIngreso = new ClsFichaIngreso();
+//	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 //	$InsFichaIngreso->FinId = $InsPprlerPedido->FinId;
 //	$InsFichaIngreso->MtdObtenerFichaIngreso();
 //}

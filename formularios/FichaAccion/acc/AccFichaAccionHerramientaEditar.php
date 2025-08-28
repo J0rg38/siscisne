@@ -6,50 +6,53 @@ $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfFormularioNota.php');
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 
 $Identificador = $_POST['Identificador'];
 $ModalidadIngreso = $_POST['ModalidadIngreso'];
 
 session_start();
-if (!isset($_SESSION['InsFichaAccionHerramienta'.$ModalidadIngreso.$Identificador])){
-	$_SESSION['InsFichaAccionHerramienta'.$ModalidadIngreso.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsFichaAccionHerramienta' . $ModalidadIngreso . $Identificador])) {
+	$_SESSION['InsFichaAccionHerramienta' . $ModalidadIngreso . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsFichaAccionHerramienta' . $ModalidadIngreso . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsFichaAccionHerramienta' . $ModalidadIngreso . $Identificador]);
 }
 
 
 
-require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedidaConversion.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCodigoReemplazo.php');require_once($InsPoo->MtdPaqAlmacen().'ClsProductoVehiculoVersion.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsProductoAno.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsUnidadMedidaConversion.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsUnidadMedida.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProducto.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProductoFoto.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProductoCodigoReemplazo.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProductoVehiculoVersion.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProductoAno.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProductoFoto.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsListaPrecio.php');
 //require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCosto.php');
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsUnidadMedida->UmeId = $_POST['HerramientaUnidadMedidaConvertir'];
 $InsUnidadMedida->MtdObtenerUnidadMedida();
@@ -59,24 +62,24 @@ $InsProducto->MtdObtenerProducto(false);
 
 $VerificarStock = 1;
 
-if($InsUnidadMedida->UmeId == $InsProducto->UmeId){
-	$InsUnidadMedidaConversion->UmcEquivalente = 1;	
-}else{
-	$RepUnidadMedidaConversion = $InsUnidadMedidaConversion->MtdObtenerUnidadMedidaConversiones(NULL,NULL,NULL,"UmeId1","DESC","1",$InsUnidadMedida->UmeId,$InsProducto->UmeId);
+if ($InsUnidadMedida->UmeId == $InsProducto->UmeId) {
+	$InsUnidadMedidaConversion->UmcEquivalente = 1;
+} else {
+	$RepUnidadMedidaConversion = $InsUnidadMedidaConversion->MtdObtenerUnidadMedidaConversiones(NULL, NULL, NULL, "UmeId1", "DESC", "1", $InsUnidadMedida->UmeId, $InsProducto->UmeId);
 	$ArrUnidadMedidaConversiones = $RepUnidadMedidaConversion['Datos'];
-	
-	foreach($ArrUnidadMedidaConversiones as $DatUnidadMedidaConversion){
+
+	foreach ($ArrUnidadMedidaConversiones as $DatUnidadMedidaConversion) {
 		$InsUnidadMedidaConversion->UmcEquivalente = $DatUnidadMedidaConversion->UmcEquivalente;
-	}	
+	}
 }
 
-if(!empty($InsUnidadMedidaConversion->UmcEquivalente)){
-	
-	$Cantidad = round($_POST['HerramientaCantidad'],3);
-	$Importe = round($_POST['HerramientaImporte'],2);
-	$Precio = round(($Importe/$Cantidad),2);		
-	$CantidadReal = round($Cantidad * $InsUnidadMedidaConversion->UmcEquivalente,6);
-		
+if (!empty($InsUnidadMedidaConversion->UmcEquivalente)) {
+
+	$Cantidad = round($_POST['HerramientaCantidad'], 3);
+	$Importe = round($_POST['HerramientaImporte'], 2);
+	$Precio = round(($Importe / $Cantidad), 2);
+	$CantidadReal = round($Cantidad * $InsUnidadMedidaConversion->UmcEquivalente, 6);
+
 	//SesionObjeto-FichaAccionHerramienta
 	//Parametro1 = FihId
 	//Parametro2 = ProId
@@ -92,31 +95,27 @@ if(!empty($InsUnidadMedidaConversion->UmcEquivalente)){
 	//Parametro12 = UmeNombre
 	//Parametro13 = UmeIdOrigen
 	//Parametro14 = FihEstado
-	
+
 	$InsFichaAccionHerramienta1 = array();
-	$InsFichaAccionHerramienta1 = $_SESSION['InsFichaAccionHerramienta'.$ModalidadIngreso.$Identificador]->MtdObtenerSesionObjeto($_POST['Item']);
-	
-	
-	$_SESSION['InsFichaAccionHerramienta'.$ModalidadIngreso.$Identificador]->MtdEditarSesionObjeto($_POST['Item'],1,
-	$InsFichaAccionHerramienta1->Parametro1,
-	$_POST['HerramientaId'],
-	(stripslashes($_POST['HerramientaNombre'])),
-	2,
-	2,
-	$InsUnidadMedida->UmeId,
-	$InsFichaAccionHerramienta1->Parametro7,
-	date("d/m/Y H:i:s"),
-	$Cantidad,
-	$CantidadReal,
-	$InsFichaAccionHerramienta1->Parametro11,
-	$InsUnidadMedida->UmeNombre,
-	$InsFichaAccionHerramienta1->Parametro13,
-	$InsFichaAccionHerramienta1->Parametro14
+	$InsFichaAccionHerramienta1 = $_SESSION['InsFichaAccionHerramienta' . $ModalidadIngreso . $Identificador]->MtdObtenerSesionObjeto($_POST['Item']);
+
+
+	$_SESSION['InsFichaAccionHerramienta' . $ModalidadIngreso . $Identificador]->MtdEditarSesionObjeto(
+		$_POST['Item'],
+		1,
+		$InsFichaAccionHerramienta1->Parametro1,
+		$_POST['HerramientaId'],
+		(stripslashes($_POST['HerramientaNombre'])),
+		2,
+		2,
+		$InsUnidadMedida->UmeId,
+		$InsFichaAccionHerramienta1->Parametro7,
+		date("d/m/Y H:i:s"),
+		$Cantidad,
+		$CantidadReal,
+		$InsFichaAccionHerramienta1->Parametro11,
+		$InsUnidadMedida->UmeNombre,
+		$InsFichaAccionHerramienta1->Parametro13,
+		$InsFichaAccionHerramienta1->Parametro14
 	);
-	
-
-
 }
-
-
-?>

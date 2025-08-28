@@ -3,31 +3,33 @@ require_once('../../../proyecto/ClsProyecto.php');
 $InsProyecto->Ruta = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfFormularioNota.php');
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsNotaCreditoDetalle'.$Identificador])){
-	$_SESSION['InsNotaCreditoDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsNotaCreditoDetalle' . $Identificador])) {
+	$_SESSION['InsNotaCreditoDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsNotaCreditoDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsNotaCreditoDetalle' . $Identificador]);
 }
 
 /*
@@ -44,13 +46,24 @@ Parametro11 = VtaNumero;
 */
 
 $InsNotaCreditoDetalle1 = array();
-$InsNotaCreditoDetalle1 = $_SESSION['InsNotaCreditoDetalle'.$Identificador]->MtdObtenerSesionObjeto($_POST['Item']);
+$InsNotaCreditoDetalle1 = $_SESSION['InsNotaCreditoDetalle' . $Identificador]->MtdObtenerSesionObjeto($_POST['Item']);
 
-$Cantidad = round($_POST['Cantidad'],2);
-$Importe = round($_POST['Importe'],2);
-$Precio = round(($Importe/$Cantidad),2);
-	
-$_SESSION['InsNotaCreditoDetalle'.$Identificador]->MtdEditarSesionObjeto($_POST['Item'],1,$InsNotaCreditoDetalle1->Parametro1,$_POST['Descripcion'],NULL,$Precio,$Cantidad,$Importe,$InsNotaCreditoDetalle1->Parametro7,
-date("d/m/Y H:i:s"),$InsNotaCreditoDetalle1->Parametro9,$InsNotaCreditoDetalle1->Parametro10,$InsNotaCreditoDetalle1->Parametro11);
+$Cantidad = round($_POST['Cantidad'], 2);
+$Importe = round($_POST['Importe'], 2);
+$Precio = round(($Importe / $Cantidad), 2);
 
-?>
+$_SESSION['InsNotaCreditoDetalle' . $Identificador]->MtdEditarSesionObjeto(
+	$_POST['Item'],
+	1,
+	$InsNotaCreditoDetalle1->Parametro1,
+	$_POST['Descripcion'],
+	NULL,
+	$Precio,
+	$Cantidad,
+	$Importe,
+	$InsNotaCreditoDetalle1->Parametro7,
+	date("d/m/Y H:i:s"),
+	$InsNotaCreditoDetalle1->Parametro9,
+	$InsNotaCreditoDetalle1->Parametro10,
+	$InsNotaCreditoDetalle1->Parametro11
+);

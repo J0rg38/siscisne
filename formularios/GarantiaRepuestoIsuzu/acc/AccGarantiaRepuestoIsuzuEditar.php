@@ -289,7 +289,7 @@ function FncCargarDatos(){
 	$InsGarantiaRepuestoIsuzu->MtdObtenerGarantiaRepuestoIsuzu();
 
 
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$InsFichaIngreso->FinId = $InsGarantiaRepuestoIsuzu->FinId ;
 	$InsFichaIngreso->MtdObtenerFichaIngreso();
 	

@@ -21,7 +21,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsArea = new ClsArea();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsFormaPago = new ClsFormaPago();
 $InsCuenta = new ClsCuenta();
 $InsMoneda = new ClsMoneda();

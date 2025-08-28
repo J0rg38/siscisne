@@ -134,8 +134,8 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsCotizacionVehiculo->UsuId = $_SESSION['SesionId'];	
 

@@ -42,7 +42,7 @@ $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 $InsProductoReemplazo = new ClsProductoReemplazo();
 
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 if (isset($_SESSION['InsTrasladoAlmacenDetalle'.$Identificador])){	
 	$_SESSION['InsTrasladoAlmacenDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTrasladoAlmacenDetalle'.$Identificador]);

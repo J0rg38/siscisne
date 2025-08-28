@@ -76,8 +76,8 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsAlmacenStock = new ClsAlmacenStock();
 $InsAlmacen = new ClsAlmacen();
-$InsProducto = new ClsProducto();
-$InsSucursal = new ClsSucursal();
+$InsProducto = new ClsProducto($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 
 $InsProducto->ProId = $GET_ProductoId;

@@ -54,16 +54,16 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 $InsTrasladoAlmacenSalida = new ClsTrasladoAlmacenSalida();
 $InsTipoOperacion = new ClsTipoOperacion();
 
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 $InsClienteTipo = new ClsClienteTipo();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 
 $InsAlmacen = new ClsAlmacen();
 $InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsTrasladoAlmacenSalidaDetalle'.$Identificador])){	
 	$_SESSION['InsTrasladoAlmacenSalidaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTrasladoAlmacenSalidaDetalle'.$Identificador]);
@@ -529,13 +529,13 @@ if($Edito){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 	Calendar.setup({ 
 inputField : "CmpEmpresaTransporteFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnEmpresaTransporteFecha"// el id del botón que  
+button     : "BtnEmpresaTransporteFecha"// el id del botï¿½n que  
 });
 	
 var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1", "date", {format:"dd/mm/yyyy"});

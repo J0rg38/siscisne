@@ -15,8 +15,8 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
 
 $InsMoneda = new ClsMoneda();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL);

@@ -40,8 +40,10 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoPropietario.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php');
 
 session_start();
-if (!isset($_SESSION['InsFacturaDetalle'.$Identificador])){
-	$_SESSION['InsFacturaDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsFacturaDetalle' . $Identificador])) {
+	$_SESSION['InsFacturaDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsFacturaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsFacturaDetalle' . $Identificador]);	
 }
 
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();

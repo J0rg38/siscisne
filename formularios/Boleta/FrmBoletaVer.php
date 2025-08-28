@@ -48,7 +48,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoIngreso.php');
 
 $InsBoleta = new ClsBoleta();
 $InsBoletaTalonario = new ClsBoletaTalonario();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 $InsCondicionPago = new ClsCondicionPago();
 

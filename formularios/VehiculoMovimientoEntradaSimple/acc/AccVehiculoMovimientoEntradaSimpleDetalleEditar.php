@@ -62,7 +62,7 @@ $POST_VehiculoIngresoVersionId = $_POST['VehiculoIngresoVersionId'];
 session_start();
 if (!isset($_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador])){
 	$_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador] = new ClsSesionObjeto();
-}
+}else{}
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoIngreso.php');
@@ -70,7 +70,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
 
 $InsVehiculo = new ClsVehiculo();
 $InsVehiculoIngreso = new ClsVehiculoIngreso();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 $InsVehiculoIngreso->EinId = $POST_VehiculoIngresoId;
 $InsVehiculoIngreso->MtdObtenerVehiculoIngreso(false);

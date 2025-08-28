@@ -21,7 +21,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCodigoReemplazo.php');require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenMovimientoEntradaDetalle.php');
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsAlmacenMovimientoEntradaDetalle = new ClsAlmacenMovimientoEntradaDetalle();
 
 include($InsProyecto->MtdFormulariosAcc('Producto').'AccProductoEditar.php');

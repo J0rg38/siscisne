@@ -32,9 +32,12 @@ require_once($InsProyecto->MtdRutLibrerias().'JSON.php');
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsCotizacionProductoTarea'.$Identificador])){
-	$_SESSION['InsCotizacionProductoTarea'.$Identificador] = new ClsSesionObjeto();	
+if (!isset($_SESSION['InsCotizacionProductoTarea' . $Identificador])) {
+	$_SESSION['InsCotizacionProductoTarea' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsCotizacionProductoTarea' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsCotizacionProductoTarea' . $Identificador]);
 }
+
 
 $InsCotizacionProductoPintado1 = array();
 $InsCotizacionProductoPintado1 = $_SESSION['InsCotizacionProductoTarea'.$Identificador]->MtdObtenerSesionObjeto($_POST['Item']);

@@ -72,8 +72,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
 
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoVersion = new ClsVehiculoVersion();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsReporteFacturacion = new ClsReporteFacturacion();
 

@@ -122,7 +122,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoPropietario.php');
 $InsVehiculoMovimientoSalida = new ClsVehiculoMovimientoSalida();
 $InsMoneda = new ClsMoneda();
 $InsComprobanteVenta = new ClsComprobanteVenta();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccComprobanteVentaMonitoreoVehiculoMovimientoSalida.php');
 

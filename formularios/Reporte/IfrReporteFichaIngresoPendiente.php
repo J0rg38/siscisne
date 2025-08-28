@@ -84,7 +84,7 @@ $InsFichaIngresoModalidad = new ClsFichaIngresoModalidad();
 $InsPedidoCompra = new ClsPedidoCompra();
 $InsPedidoCompraDetalle = new ClsPedidoCompraDetalle();
 
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsFichaAccionTarea = new ClsFichaAccionTarea();
 
 

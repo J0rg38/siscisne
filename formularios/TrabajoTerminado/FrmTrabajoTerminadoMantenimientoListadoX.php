@@ -54,9 +54,9 @@ require_once($InsPoo->MtdPaqLogistica().'ClsMantenimientoTarea.php');
 //require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCosto.php');
 require_once($InsPoo->MtdPaqActividad().'ClsTareaProducto.php');
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 $InsMantenimientoTarea = new ClsMantenimientoTarea();				
 	/*
 	SesionObjeto-FichaAccionMantenimiento
@@ -238,10 +238,10 @@ require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimientoTarea.php');
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipoUnidadMedida.php');
 //INSTANCIAS
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 $InsPlanMantenimientoDetalle = new ClsPlanMantenimientoDetalle();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 
 $InsProductoTipoUnidadMedida = new ClsProductoTipoUnidadMedida();
 
@@ -298,7 +298,7 @@ if($POST_MantenimientoLlenadoAutomatico==1){
 //			$ResProducto = $InsProducto->MtdObtenerProductos("ProId","esigual",$DatTareaProducto->ProId,"ProNombre","ASC",1,1,NULL,NULL,NULL,NULL,NULL,NULL);
 //			$ArrProductos = $ResProducto['Datos'];
 //
-//			$InsUnidadMedida = new ClsUnidadMedida();
+//			$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 //			$InsUnidadMedida->UmeId = $DatProductoPredeterminado[2];
 //
 //			foreach($ArrProductos as $DatProducto){
@@ -1339,10 +1339,10 @@ require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimientoTarea.php');
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipoUnidadMedida.php');
 //INSTANCIAS
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 $InsPlanMantenimientoDetalle = new ClsPlanMantenimientoDetalle();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 
 $InsProductoTipoUnidadMedida = new ClsProductoTipoUnidadMedida();
 

@@ -51,13 +51,13 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenMovimientoSalida.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenMovimientoSalidaDetalle.php');
 //INSTANCIAS
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 $InsPlanMantenimientoDetalle = new ClsPlanMantenimientoDetalle();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 
 
 

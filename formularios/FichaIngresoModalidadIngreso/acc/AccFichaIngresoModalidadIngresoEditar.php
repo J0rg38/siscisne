@@ -155,7 +155,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 								
 								if($InsFichaIngresoModalidad->MinId == "MIN-10001"){
 	
-									$InsPlanMantenimiento = new ClsPlanMantenimiento();
+									$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 									$ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,NULL,'PmaId','ASC',1,NULL,NULL,$InsFichaIngreso->VmoId) ;
 									$ArrPlanMantenimientos = $ResPlanMantenimiento['Datos'];
 									
@@ -276,7 +276,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 							
 							if($InsFichaIngresoModalidad->MinId == "MIN-10001"){
 	
-								$InsPlanMantenimiento = new ClsPlanMantenimiento();
+								$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 								$ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,NULL,'PmaId','ASC',1,NULL,NULL,$InsFichaIngreso->VmoId) ;
 								$ArrPlanMantenimientos = $ResPlanMantenimiento['Datos'];
 								

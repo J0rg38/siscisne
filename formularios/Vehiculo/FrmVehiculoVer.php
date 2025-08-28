@@ -24,7 +24,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
 //INSTANCIAS
 $InsVehiculo = new ClsVehiculo();
 $InsVehiculoMarca = new ClsVehiculoMarca();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccVehiculoEditar.php');
 //DATOS

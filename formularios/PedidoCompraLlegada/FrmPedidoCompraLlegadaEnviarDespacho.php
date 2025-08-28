@@ -56,8 +56,8 @@ $InsPedidoCompraLlegada = new ClsPedidoCompraLlegada();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsPedidoCompraLlegadaDetalle'.$Identificador])){	
 	$_SESSION['InsPedidoCompraLlegadaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsPedidoCompraLlegadaDetalle'.$Identificador]);
@@ -407,7 +407,7 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 	

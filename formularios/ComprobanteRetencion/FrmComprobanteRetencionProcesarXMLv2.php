@@ -39,7 +39,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsTipoCambio.php');
 
 
 $InsComprobanteRetencion = new ClsComprobanteRetencion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoCambio = new ClsTipoCambio();
 
 //Obteniendo datos de boleta

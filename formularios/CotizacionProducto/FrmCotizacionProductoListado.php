@@ -135,8 +135,8 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsCotizacionProducto = new ClsCotizacionProducto();
 $InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $InsCotizacionProducto->UsuId = $_SESSION['SesionId'];
 

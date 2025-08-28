@@ -57,11 +57,11 @@ $InsVehiculoMovimientoEntrada = new ClsVehiculoMovimientoEntrada();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 if (isset($_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador])){	
 	$_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador]);

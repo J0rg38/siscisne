@@ -71,8 +71,8 @@ require_once($InsPoo->MtdPaqActividad().'ClsGarantiaLlamada.php');
 
 require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 
-$InsGarantia = new ClsGarantia();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsGarantia = new ClsGarantia($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCuenta = new ClsCuenta();
 
 if (!isset($_SESSION['InsGarantiaOperacion'.$Identificador])){	
@@ -985,26 +985,26 @@ $ArrSesionObjetos = $RepSesionObjetos['Datos'];
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 
 	Calendar.setup({ 
 		inputField : "CmpFechaVenta",  // id del campo de texto 
 		ifFormat   : "%d/%m/%Y",  //  
-		button     : "BtnFechaVenta"// el id del botón que  
+		button     : "BtnFechaVenta"// el id del botï¿½n que  
 	});
 
 	Calendar.setup({ 
 		inputField : "CmpTransaccionFecha",  // id del campo de texto 
 		ifFormat   : "%d/%m/%Y",  //  
-		button     : "BtnTransaccionFecha"// el id del botón que  
+		button     : "BtnTransaccionFecha"// el id del botï¿½n que  
 	});
 	
 	
 		Calendar.setup({ 
 		inputField : "CmpFechaPago",  // id del campo de texto 
 		ifFormat   : "%d/%m/%Y",  //  
-		button     : "BtnFechaPago"// el id del botón que  
+		button     : "BtnFechaPago"// el id del botï¿½n que  
 	});
 
 
@@ -1018,7 +1018,7 @@ Calendar.setup({
 //		Calendar.setup({ 
 //		inputField : "CmpGarantiaOperacionTransaccionFecha",  // id del campo de texto 
 //		ifFormat   : "%d/%m/%Y",  //  
-//		button     : "BtnGarantiaOperacionTransaccionFecha"// el id del botón que  
+//		button     : "BtnGarantiaOperacionTransaccionFecha"// el id del botï¿½n que  
 //	});
 //	
 //	
@@ -1026,7 +1026,7 @@ Calendar.setup({
 //			Calendar.setup({ 
 //		inputField : "CmpGarantiaOperacionFechaAprobacion",  // id del campo de texto 
 //		ifFormat   : "%d/%m/%Y",  //  
-//		button     : "BtnGarantiaOperacionFechaAprobacion"// el id del botón que  
+//		button     : "BtnGarantiaOperacionFechaAprobacion"// el id del botï¿½n que  
 //	});
 //	
 //	
@@ -1034,7 +1034,7 @@ Calendar.setup({
 //			Calendar.setup({ 
 //		inputField : "CmpGarantiaOperacionFechaPago",  // id del campo de texto 
 //		ifFormat   : "%d/%m/%Y",  //  
-//		button     : "BtnGarantiaOperacionFechaPago"// el id del botón que  
+//		button     : "BtnGarantiaOperacionFechaPago"// el id del botï¿½n que  
 //	});
 //		
 	

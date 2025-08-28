@@ -81,7 +81,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsCampanaVehiculo.php');
 $InsCampana = new ClsCampana();
 $InsVehiculoIngreso = new ClsVehiculoIngreso();
 $InsCampanaVehiculo = new ClsCampanaVehiculo();
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 $ResCampana = $InsCampana->MtdObtenerCampanas($POST_cam,"contiene",$POST_fil,$POST_ord,$POST_sen,NULL,NULL,NULL,NULL);
 $ArrCampanas = $ResCampana['Datos'];

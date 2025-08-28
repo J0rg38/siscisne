@@ -52,12 +52,12 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 //INSTANCIAS
 $InsVehiculoIngreso = new ClsVehiculoIngreso();
 $InsVehiculoMarca = new ClsVehiculoMarca();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsConcesionario = new ClsConcesionario();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 if (!isset($_SESSION['InsVehiculoIngresoCliente'.$Identificador])){	
 	$_SESSION['InsVehiculoIngresoCliente'.$Identificador] = new ClsSesionObjeto();

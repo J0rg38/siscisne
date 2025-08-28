@@ -38,7 +38,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 $random = new Random();
 $Identificador = $random->random_text(10, false, false, true);
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 //MtdObtenerFichaIngresos( $oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FinId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oPrioridad=NULL,$oModalidadIngreso=NULL,$oVIN=NULL,$oCliente=NULL,$oPersonalId=NULL,$oTrabajoConcluido=0,$oCampana=NULL,$oClienteTipo=NULL,$oTipo=NULL,$oSalidaExterna=0,$oConCampana=NULL,$oVehiculoIngreso=NULL,$oConConcluido=0,$oTipoReparacion=NULL,$oPersonalIdAsesor=NULL,$oVehiculoMarca=NULL,$oCodigoOriginal=NULL,$oSucursal=NULL,$oMigrado=true)
 $ResFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresos(NULL,NULL,NULL,"FinTiempoCreacion","ASC",NULL,(date("Y")."-01-01"),(date("Y-m-d")),"4,5,6,7",NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,0,NULL,NULL,1,NULL,NULL,NULL,NULL,$_SESSION['SesionSucursal'],true);
 $ArrFichaIngresos = $ResFichaIngreso['Datos'];

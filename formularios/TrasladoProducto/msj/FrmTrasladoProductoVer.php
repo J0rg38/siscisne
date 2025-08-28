@@ -53,8 +53,8 @@ $InsTrasladoProducto = new ClsTrasladoProducto();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsClienteTipo = new ClsClienteTipo();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsComprobanteTipo = new ClsComprobanteTipo();
 
 

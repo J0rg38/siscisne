@@ -317,7 +317,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 			
 
 	
-				$InsFichaAccion = new ClsFichaAccion();
+				$InsFichaAccion = new ClsFichaAccion($InsMysql);
 				$InsFichaAccion->UsuId = $_SESSION['SesionId'];
 				$InsFichaAccion->FccId = $_POST['CmpId_'.$DatFichaIngresoModalidad->MinSigla];
 				$InsFichaAccion->FimId = $_POST['CmpFichaIngresoModalidadId_'.$DatFichaIngresoModalidad->MinSigla];

@@ -76,7 +76,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsGuiaRemisionTalonario.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsGuiaRemisionTalonario = new ClsGuiaRemisionTalonario();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccGuiaRemisionTalonario.php');
 

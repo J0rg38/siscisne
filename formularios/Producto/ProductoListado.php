@@ -72,7 +72,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCodigoReemplazo.php');require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipo.php');
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProductoTipo = new ClsProductoTipo();
 
 

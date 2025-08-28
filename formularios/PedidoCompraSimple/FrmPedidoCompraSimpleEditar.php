@@ -62,9 +62,9 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 $InsPedidoCompra = new ClsPedidoCompra();
 $InsTipoOperacion = new ClsTipoOperacion();
 
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 
 $InsMoneda = new ClsMoneda();
@@ -72,7 +72,7 @@ $InsMoneda = new ClsMoneda();
 $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 $InsProductoReemplazo = new ClsProductoReemplazo();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsPedidoCompraDetalle'.$Identificador])){	
 	$_SESSION['InsPedidoCompraDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsPedidoCompraDetalle'.$Identificador]);
@@ -161,7 +161,7 @@ var UnidadMedidaTipo = 2;
 <?php
 if(!empty($GET_dia)){
 ?>
-	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div> 
+	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div>ï¿½
 <?php	
 }
 ?>
@@ -663,7 +663,7 @@ Anulado
 //Calendar.setup({ 
 //	inputField : "CmpFecha",  // id del campo de texto 
 //	ifFormat   : "%d/%m/%Y",  //  
-//	button     : "BtnFecha"// el id del botón que  
+//	button     : "BtnFecha"// el id del botï¿½n que  
 //	});
 //
 </script>

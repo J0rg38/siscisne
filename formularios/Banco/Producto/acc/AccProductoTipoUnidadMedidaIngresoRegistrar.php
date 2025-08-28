@@ -32,9 +32,9 @@ $POST_ProductoTipoUnidadMedidaIngreso = $_POST['ProductoTipoUnidadMedidaIngreso'
 $POST_ProductoTipoId = $_POST['ProductoTipoId'];
 $POST_ProductoUnidadMedidaId = $_POST['ProductoUnidadMedidaId'];
 
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 $InsProductoTipoUnidadMedida = new ClsProductoTipoUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 		
 		
 $InsUnidadMedida->UmeNombre = "UNIDAD ".$POST_ProductoTipoUnidadMedidaIngreso.'';

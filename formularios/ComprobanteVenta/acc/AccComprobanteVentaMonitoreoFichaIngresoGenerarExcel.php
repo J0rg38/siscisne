@@ -127,7 +127,7 @@ if(empty($POST_con)){
 
 require_once($InsPoo->MtdPaqActividad().'ClsFichaAccion.php');
 
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 
 $ResFichaAccion = $InsFichaAccion->MtdObtenerFichaAcciones("amo.AmoId,fin.FinId,EinVIN,EinPlaca,CliNombre,CliApellidoPaterno,CliApellidoMaterno,CliNumeroDocumento,FinConductor,VmaNombre,VmoNombre,VveNombre",$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,NULL,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),NULL,NULL,false,false,"MIN-10016,MIN-10001,MIN-10002,MIN-10003,MIN-10004,MIN-10005,MIN-10006,MIN-10007,MIN-10009,MIN-10015,MIN-10013,MIN-10017",true,$POST_Facturable,true);//73,74,75,8,9
 $ArrFichaAcciones = $ResFichaAccion['Datos'];

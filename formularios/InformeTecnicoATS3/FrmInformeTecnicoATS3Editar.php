@@ -64,7 +64,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsInformeTecnicoOperacion.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsInformeTecnico = new ClsInformeTecnico();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 
 if (!isset($_SESSION['InsInformeTecnicoATS3Foto'.$Identificador])){	
@@ -852,13 +852,13 @@ $ArrSesionObjetos = $RepSesionObjetos['Datos'];
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 
 Calendar.setup({ 
 	inputField : "CmpFechaVenta",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaVenta"// el id del botón que  
+	button     : "BtnFechaVenta"// el id del botï¿½n que  
 	});
 	
 var spryselect2 = new Spry.Widget.ValidationSelect("spryselect2");

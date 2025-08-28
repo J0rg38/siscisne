@@ -227,7 +227,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 		foreach($InsFichaIngreso->FichaIngresoModalidad as $DatFichaIngresoModalidad){
 			
 			
-			$InsFichaAccion = new ClsFichaAccion();
+			$InsFichaAccion = new ClsFichaAccion($InsMysql);
 			$InsFichaAccion->UsuId = $_SESSION['SesionId'];
 			$InsFichaAccion->FccId = $_POST['CmpId_'.$DatFichaIngresoModalidad->MinSigla];
 			$InsFichaAccion->FimId = $_POST['CmpFichaIngresoModalidadId_'.$DatFichaIngresoModalidad->MinSigla];
@@ -1206,7 +1206,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 		if(!empty($InsFichaIngreso->FichaIngresoModalidad)){
 			foreach($InsFichaIngreso->FichaIngresoModalidad as $DatFichaIngresoModalidad){
 	
-				$InsFichaAccion = new ClsFichaAccion();
+				$InsFichaAccion = new ClsFichaAccion($InsMysql);
 				$InsFichaAccion->FimId = $DatFichaIngresoModalidad->FimId;
 				$InsFichaAccion->FccFecha = date("Y-m-d");
 				$InsFichaAccion->FccObservacion = date("d/m/Y H:i:s")." - Sub OT autogenerada de O.T.: ".$InsFichaIngreso->FinId;

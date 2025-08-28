@@ -117,8 +117,8 @@ require_once($InsPoo->MtdPaqActividad().'ClsModalidadIngreso.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsGarantiaRepuestoIsuzu = new ClsGarantiaRepuestoIsuzu();
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsMoneda = new ClsMoneda();
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsGarantiaRepuestoIsuzu->UsuId = $_SESSION['SesionId'];
 

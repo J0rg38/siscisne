@@ -37,8 +37,10 @@ $POST_Gratuito = (empty($_POST['Gratuito'])?2:$_POST['Gratuito']);
 $POST_Exonerado = (empty($_POST['Exonerado'])?2:$_POST['Exonerado']);
 
 session_start();
-if (!isset($_SESSION['InsNotaCreditoDetalle'.$Identificador])){
-	$_SESSION['InsNotaCreditoDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsNotaCreditoDetalle' . $Identificador])) {
+	$_SESSION['InsNotaCreditoDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsNotaCreditoDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsNotaCreditoDetalle' . $Identificador]);
 }
 
 /*

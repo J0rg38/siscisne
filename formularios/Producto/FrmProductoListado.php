@@ -113,7 +113,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoVehiculoVersion.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoVehiculoModelo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCategoria.php');
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProductoTipo = new ClsProductoTipo();
 $InsProductoCategoria = new ClsProductoCategoria();
 

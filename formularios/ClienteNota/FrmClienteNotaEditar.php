@@ -27,8 +27,8 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 //INSTANCIAS
 $InsClienteNota = new ClsClienteNota();
 $InsCliente = new ClsCliente();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccClienteNotaEditar.php');
 

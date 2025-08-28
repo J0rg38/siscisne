@@ -29,7 +29,7 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 /*
 case 1:		$Estado = "RECEPCION [Pendiente]";

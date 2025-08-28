@@ -31,7 +31,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenProducto.php');
 //INSTANCIAS
 $InsTrasladoAlmacen = new ClsTrasladoAlmacen();
 $InsAlmacen = new ClsAlmacen();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsTrasladoAlmacenDetalle'.$Identificador])){	
 	$_SESSION['InsTrasladoAlmacenDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTrasladoAlmacenDetalle'.$Identificador]);

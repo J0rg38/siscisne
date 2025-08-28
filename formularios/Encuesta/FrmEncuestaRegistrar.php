@@ -30,7 +30,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
 //CLASES
 $InsEncuesta = new ClsEncuesta();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 	
 	

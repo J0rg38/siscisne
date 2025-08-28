@@ -148,7 +148,7 @@ $InsPago = new ClsPago();
 $InsCondicionPago = new ClsCondicionPago();
 $InsMoneda = new ClsMoneda();
 $InsArea = new ClsArea();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsFormaPago = new ClsFormaPago();
 
 $InsPago->UsuId = $_SESSION['SesionId'];

@@ -48,8 +48,8 @@ require_once($InsPoo->MtdPaqLogistica().'ClsBanco.php');
 
 $InsPagoVehiculoIngreso = new ClsPagoVehiculoIngreso();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsBanco = new ClsBanco();
 
 if (!isset($_SESSION['InsPagoVehiculoIngresoDetalle'.$Identificador])){	
@@ -557,20 +557,20 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 Calendar.setup({ 
 	inputField : "CmpComprobanteFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnComprobanteFecha",// el id del botón que  
+	button     : "BtnComprobanteFecha",// el id del botï¿½n que  
 	onUpdate       :    FncTipoCambioCargarAux
 	});
 
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2", "currency", {minValue:1});
 </script>

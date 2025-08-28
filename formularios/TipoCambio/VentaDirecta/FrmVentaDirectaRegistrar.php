@@ -92,17 +92,17 @@ require_once($InsPoo->MtdPaqActividad().'ClsNotificacion.php');
 //INSTANCIAS
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsTipoOperacion = new ClsTipoOperacion();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 $InsCotizacionProducto = new ClsCotizacionProducto();
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsMoneda = new ClsMoneda();
 $InsCondicionPago = new ClsCondicionPago();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsAlmacen = new ClsAlmacen();
 
@@ -775,7 +775,7 @@ if($Registro){
                               
                               <option value="3">Interno</option>
                               <option value="4">Devolucion</option>
-                              <option value="5">Dañado</option>
+                              <option value="5">Daï¿½ado</option>
                               <option value="7">Facturado</option>
                             </select></td>
                             <td>
@@ -1212,7 +1212,7 @@ if($InsVentaDirecta->VdiOrigen <> "CPR"){
 				doneStr:"Hecho",
 				multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
 				extErrorStr:"Extension de archivo no permitido",
-				sizeErrorStr:"Tamaño no permitido",
+				sizeErrorStr:"Tamaï¿½o no permitido",
 				uploadErrorStr:"No se pudo subir el archivo",
 				
 				dragdropWidth: 500,
@@ -1293,7 +1293,7 @@ if($InsVentaDirecta->VdiOrigen <> "CPR"){
 				doneStr:"Hecho",
 				multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
 				extErrorStr:"Extension de archivo no permitido",
-				sizeErrorStr:"Tamaño no permitido",
+				sizeErrorStr:"Tamaï¿½o no permitido",
 				uploadErrorStr:"No se pudo subir el archivo",
 				
 				dragdropWidth: 500,
@@ -1400,7 +1400,7 @@ if($InsVentaDirecta->VdiOrigen <> "CPR"){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 
@@ -1409,7 +1409,7 @@ Calendar.setup({
 Calendar.setup({ 
 	inputField : "CmpOrdenCompraFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnOrdenCompraFecha"// el id del botón que  
+	button     : "BtnOrdenCompraFecha"// el id del botï¿½n que  
 	});
 </script>
 

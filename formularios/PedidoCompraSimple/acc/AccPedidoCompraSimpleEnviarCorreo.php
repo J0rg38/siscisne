@@ -52,7 +52,7 @@ if(isset($_POST['BtnEnviarCorreo_x']) or $_POST['Guardar']=="1"){
 
 			if(!empty($_SESSION['SesionPersonal'])){
 
-				$InsPersonal = new ClsPersonal();
+				$InsPersonal = new ClsPersonal($InsMysql);
 				$InsPersonal->PerId = $_SESSION['SesionPersonal'];
 				$InsPersonal->MtdObtenerPersonal();
 				

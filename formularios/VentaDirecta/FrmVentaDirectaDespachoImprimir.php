@@ -51,9 +51,9 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenStock.php');
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsAlmacenStock = new ClsAlmacenStock();

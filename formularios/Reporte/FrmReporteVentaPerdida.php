@@ -22,8 +22,8 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 
 $InsVehiculoMarca = new ClsVehiculoMarca();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 
 // MtdObtenerVehiculoMarcas($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VmaId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVigenciaVenta=NULL,$oEstado=NULL)

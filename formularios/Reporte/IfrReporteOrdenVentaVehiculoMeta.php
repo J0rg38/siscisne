@@ -83,8 +83,8 @@ require_once($InsPoo->MtdPaqLogistica().'ClsSucursalMeta.php');
  
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoVersion = new ClsVehiculoVersion();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsVehiculoModelo = new ClsVehiculoModelo();
 

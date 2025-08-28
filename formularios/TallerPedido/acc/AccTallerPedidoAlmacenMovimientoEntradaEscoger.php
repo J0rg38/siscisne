@@ -33,8 +33,10 @@ require_once($InsProyecto->MtdRutLibrerias().'JSON.php');
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsTallerPedidoAlmacenMovimientoEntrada'.$Identificador])){
-	$_SESSION['InsTallerPedidoAlmacenMovimientoEntrada'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsTallerPedidoAlmacenMovimientoEntrada' . $Identificador])) {
+	$_SESSION['InsTallerPedidoAlmacenMovimientoEntrada' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsTallerPedidoAlmacenMovimientoEntrada' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTallerPedidoAlmacenMovimientoEntrada' . $Identificador]);
 }
 
 $InsTallerPedidoAlmacenMovimientoEntrada1 = array();

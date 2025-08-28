@@ -133,7 +133,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculo.php');
 
 $InsAsignacionVentaVehiculo = new ClsAsignacionVentaVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 //
 ////MtdObtenerAsignacionVentaVehiculos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AvvId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oOrdenVentaVehiculo=NULL,$oConFechaEntrega=false)

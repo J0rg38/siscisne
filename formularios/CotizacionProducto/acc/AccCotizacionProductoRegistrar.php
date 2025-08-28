@@ -533,7 +533,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 
 		case "TallerPedido":
 
-			$InsFichaIngreso = new ClsFichaIngreso();
+			$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 			$InsFichaIngreso->FinId = $GET_FinId;
 			$InsFichaIngreso->MtdObtenerFichaIngreso();
 
@@ -999,7 +999,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 
 			if ($GET_ProId) {
 
-				$InsProducto = new ClsProducto();
+				$InsProducto = new ClsProducto($InsMysql);
 				$InsProducto->ProId = $GET_ProId;
 				$InsProducto->MtdObtenerProducto(false);
 

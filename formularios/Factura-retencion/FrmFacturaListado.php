@@ -207,7 +207,7 @@ $InsFactura = new ClsFactura();
 $InsFacturaTalonario = new ClsFacturaTalonario();
 $InsCondicionPago = new ClsCondicionPago();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $InsFactura->SucId = $_SESSION['SesionSucursal'];
 $InsFactura->UsuId = $_SESSION['SesionId'];

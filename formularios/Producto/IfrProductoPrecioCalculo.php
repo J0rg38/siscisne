@@ -83,7 +83,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsTipoCambio.php');
 $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 $InsProductoReemplazo = new ClsProductoReemplazo();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsMoneda = new ClsMoneda();
 $InsClienteListaPrecio = new ClsClienteListaPrecio();
 

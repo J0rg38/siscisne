@@ -347,7 +347,7 @@ function FncCargarFichaAccionDatos(){
 	global $EmpresaMonedaId;
 	global $EmpresaImpuestoVenta;
 
-	$InsFichaAccion = new ClsFichaAccion();
+	$InsFichaAccion = new ClsFichaAccion($InsMysql);
 	$InsFichaAccion->FccId = $GET_FccId;
 	$InsFichaAccion->MtdObtenerFichaAccion();
 		
@@ -368,7 +368,7 @@ function FncCargarFichaAccionDatos(){
 			
 	}
 	
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$InsFichaIngreso->FinId = $InsFichaAccion->FinId;
 	$InsFichaIngreso->MtdObtenerFichaIngreso();
 
@@ -560,7 +560,7 @@ function FncCargarAlmacenMovimientoSalidaDatos(){
 	$InsAlmacenMovimientoSalida->AmoId = $GET_AmoId;
 	$InsAlmacenMovimientoSalida->MtdObtenerAlmacenMovimientoSalida();	
 	
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$InsFichaIngreso->FinId = $InsAlmacenMovimientoSalida->FinId;
 	$InsFichaIngreso->MtdObtenerFichaIngreso();
 

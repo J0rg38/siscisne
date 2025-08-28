@@ -28,7 +28,7 @@ $InsVentaConcretadaDetalle = new ClsVentaConcretadaDetalle();
 
 $InsAlmacenStock = new ClsAlmacenStock();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $InsAlmacenStock->ProId = $GET_id;
 $InsAlmacenStock->MtdObtenerAlmacenStock();

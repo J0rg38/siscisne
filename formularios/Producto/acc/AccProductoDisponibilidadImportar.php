@@ -42,7 +42,7 @@ Libreria leer excel
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoDisponibilidad.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 ?>
 
 <form method="post" enctype="multipart/form-data">

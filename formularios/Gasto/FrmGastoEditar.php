@@ -67,7 +67,7 @@ $InsGasto = new ClsGasto();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 
 if (isset($_SESSION['InsGastoDetalle'.$Identificador])){	
@@ -419,7 +419,7 @@ if(!empty($GET_dia)){
                <td align="left" valign="top">Total:</td>
                <td align="left" valign="top"><span id="sprytextfield2">
                <input class="EstFormularioCaja" name="CmpTotal" type="text" id="CmpTotal" size="10" maxlength="10" value="<?php echo round($InsGasto->GasTotal,2);?>" />
-               <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldInvalidFormatMsg">Formato no v&aacute;lido.</span><span class="textfieldMinValueMsg">El valor introducido es inferior al mínimo permitido.</span></span></td>
+               <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldInvalidFormatMsg">Formato no v&aacute;lido.</span><span class="textfieldMinValueMsg">El valor introducido es inferior al mï¿½nimo permitido.</span></span></td>
                <td>&nbsp;</td>
                <td>&nbsp;</td>
                <td>&nbsp;</td>
@@ -506,14 +506,14 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 	
 Calendar.setup({ 
 	inputField : "CmpComprobanteFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnComprobanteFecha",// el id del botón que  
+	button     : "BtnComprobanteFecha",// el id del botï¿½n que  
 onUpdate       :    FncTipoCambioCargarAux
 	});
 

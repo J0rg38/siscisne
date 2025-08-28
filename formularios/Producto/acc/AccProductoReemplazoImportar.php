@@ -43,7 +43,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoReemplazo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 ?>
 
 <form method="post" enctype="multipart/form-data">

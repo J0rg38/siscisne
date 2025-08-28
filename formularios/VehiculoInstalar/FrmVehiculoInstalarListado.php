@@ -101,8 +101,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 //INSTANCAS
 $InsVehiculoInstalar = new ClsVehiculoInstalar();
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccVehiculoInstalar.php');
 //DATOS

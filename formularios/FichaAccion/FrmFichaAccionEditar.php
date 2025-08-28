@@ -56,6 +56,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
   require_once($InsPoo->MtdPaqActividad() . 'ClsModalidadIngreso.php');
 
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngreso.php');
+require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoManoObra.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoLlamada.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoGasto.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsPreEntregaDetalle.php');
@@ -102,24 +103,24 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
 
 
 
-  $InsFichaAccion = new ClsFichaAccion();
-  $InsFichaIngreso = new ClsFichaIngreso();
-  $InsModalidadIngreso = new ClsModalidadIngreso();
+  $InsFichaAccion = new ClsFichaAccion($InsMysql);
+  $InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+  $InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
-  $InsPlanMantenimiento = new ClsPlanMantenimiento();
-  $InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
-  $InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+  $InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+  $InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
+  $InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 
-  $InsProducto = new ClsProducto();
-  $InsUnidadMedida = new ClsUnidadMedida();
-  $InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+  $InsProducto = new ClsProducto($InsMysql);
+  $InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+  $InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
-  $InsTipoDocumento = new ClsTipoDocumento();
+  $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
-  $InsMoneda = new ClsMoneda();
+  $InsMoneda = new ClsMoneda($InsMysql);
 
-  $InsPreEntregaTarea = new ClsPreEntregaTarea();
-  $InsPreEntregaSeccion = new ClsPreEntregaSeccion();
+  $InsPreEntregaTarea = new ClsPreEntregaTarea($InsMysql);
+  $InsPreEntregaSeccion = new ClsPreEntregaSeccion($InsMysql);
 
 
 

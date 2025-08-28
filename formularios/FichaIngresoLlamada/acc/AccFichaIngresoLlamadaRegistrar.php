@@ -84,7 +84,7 @@ function FncNuevo(){
 	$InsFichaIngresoLlamada->FllFecha = date("d/m/Y");
 
 	
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$InsFichaIngreso->FinId = $GET_FichaIngresoId;
 	$InsFichaIngreso->MtdObtenerFichaIngreso(false);
 	

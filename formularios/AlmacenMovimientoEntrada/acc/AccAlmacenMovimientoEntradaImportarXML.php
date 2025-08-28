@@ -59,7 +59,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenCierre.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsComprobanteTipo.php');
 
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //MtdObtenerSucursales($oCampo=NULL,$oFiltro=NULL,$oOrden = 'SucId',$oSentido = 'Desc',$oPaginacion = '0,10',$oUso=NULL)
 $RepSucursal = $InsSucursal->MtdObtenerSucursales(NULL,NULL,"SucNombre","ASC",NULL,"INICIAL");
 $ArrSucursales = $RepSucursal['Datos'];
@@ -705,7 +705,7 @@ if (!empty($_FILES)) {
 								
 								$Importe = $Cantidad * $PrecioUnitario;
 								
-								$InsProducto = new ClsProducto();
+								$InsProducto = new ClsProducto($InsMysql);
 								$ResProducto = $InsProducto->MtdObtenerProductos("ProCodigoOriginal","esigual",$Codigo,"ProCodigoOriginal","DESC","1",NULL,NULL,NULL,NULL,NULL,NULL,NULL,false,NULL,NULL,0,NULL,false,NULL,NULL);
 								$ArrProductos = $ResProducto['Datos'];
 								

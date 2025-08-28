@@ -42,7 +42,7 @@ $POST_VehiculoModeloId = $_POST['VehiculoModeloId'];
 $POST_PlanMantenimientoTareaId = $_POST['PlanMantenimientoTareaId'];
 
 $InsTareaProducto = new ClsTareaProducto();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 
 $ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,NULL,'PmaId','ASC',1,NULL,NULL,$POST_VehiculoModeloId);
 $ArrPlanMantenimientos = $ResPlanMantenimiento['Datos'];

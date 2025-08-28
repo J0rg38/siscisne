@@ -67,8 +67,8 @@ require_once($InsPoo->MtdPaqActividad().'ClsPreEntregaTarea.php');
 require_once($InsPoo->MtdPaqActividad().'ClsPreEntregaSeccion.php');
 
 //INSTANCIAS
-$InsPreEntregaSeccion = new ClsPreEntregaSeccion();
-$InsPreEntregaTarea = new ClsPreEntregaTarea();
+$InsPreEntregaSeccion = new ClsPreEntregaSeccion($InsMysql);
+$InsPreEntregaTarea = new ClsPreEntregaTarea($InsMysql);
 
 $RepPreEntregaSeccion = $InsPreEntregaSeccion->MtdObtenerPreEntregaSecciones(NULL,NULL,"PesId","ASC",NULL);
 $ArrPreEntregaSecciones = $RepPreEntregaSeccion['Datos'];

@@ -97,7 +97,7 @@ include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjGarantia.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaAccion.php');
 
 
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsFichaAccion->UsuId = $_SESSION['SesionId'];
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccGarantia.php');

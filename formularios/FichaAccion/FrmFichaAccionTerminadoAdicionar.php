@@ -69,17 +69,17 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
 //require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCosto.php');
 
-$InsFichaAccion = new ClsFichaAccion();
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
-$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
+$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsFichaIngreso->FinId = $GET_Id;
 $InsFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngreso();	

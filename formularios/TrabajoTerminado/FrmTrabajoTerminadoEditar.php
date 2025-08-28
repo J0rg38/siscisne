@@ -94,17 +94,17 @@ require_once($InsPoo->MtdPaqActividad().'ClsGarantiaDetalle.php');
 require_once($InsPoo->MtdPaqActividad().'ClsGarantiaOperacion.php');
 require_once($InsPoo->MtdPaqActividad().'ClsGarantiaLlamada.php');
 
-$InsFichaAccion = new ClsFichaAccion();
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
-$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
+$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsFichaIngreso->FinId = $GET_Id;
 $InsFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngreso();	
@@ -391,7 +391,7 @@ HISTORIALES
 Calendar.setup({ 
 inputField : "CmpTrabajoTerminadoFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnTrabajoTerminadoFecha"// el id del botón que  
+button     : "BtnTrabajoTerminadoFecha"// el id del botï¿½n que  
 });
 
 </script> 
@@ -573,18 +573,18 @@ button     : "BtnTrabajoTerminadoFecha"// el id del botón que
 							  if($DatFichaIngresoModalidad->MinSigla == "CA"){
 							?>
                             
-                             CAMPAÑA:
+                             CAMPAï¿½A:
                               <?php
 if(!empty($InsFichaIngreso->CamId)){
 ?>
                               <?php
 				if(!empty($InsFichaIngreso->CamBoletin)){
 				?>
-                              <a  href="subidos/campana/<?php echo $InsFichaIngreso->CamBoletin; ?>" target="_blank"  > <img src="imagenes/menu/campanas.png" alt="[Campañas]" title="<?php echo $InsFichaIngreso->CamCodigo; ?> - <?php echo $InsFichaIngreso->CamNombre; ?>" border="0" align="absmiddle" width="20" height="20" /> <?php echo $InsFichaIngreso->CamCodigo; ?> - <?php echo $InsFichaIngreso->CamNombre; ?></a>
+                              <a  href="subidos/campana/<?php echo $InsFichaIngreso->CamBoletin; ?>" target="_blank"  > <img src="imagenes/menu/campanas.png" alt="[Campaï¿½as]" title="<?php echo $InsFichaIngreso->CamCodigo; ?> - <?php echo $InsFichaIngreso->CamNombre; ?>" border="0" align="absmiddle" width="20" height="20" /> <?php echo $InsFichaIngreso->CamCodigo; ?> - <?php echo $InsFichaIngreso->CamNombre; ?></a>
                               <?php					
 				}else{
 ?>
-                              <a  href="javascript:alert('!No se encontro boletin de campaña¡');"> <img  src="imagenes/menu/campanas.png" alt="[Campañas]" title="<?php echo $InsFichaIngreso->CamCodigo; ?> - <?php echo $InsFichaIngreso->CamNombre; ?>" border="0" align="absmiddle" width="20" height="20" /> <?php echo $InsFichaIngreso->CamCodigo; ?> - <?php echo $InsFichaIngreso->CamNombre; ?></a>
+                              <a  href="javascript:alert('!No se encontro boletin de campaï¿½aï¿½');"> <img  src="imagenes/menu/campanas.png" alt="[Campaï¿½as]" title="<?php echo $InsFichaIngreso->CamCodigo; ?> - <?php echo $InsFichaIngreso->CamNombre; ?>" border="0" align="absmiddle" width="20" height="20" /> <?php echo $InsFichaIngreso->CamCodigo; ?> - <?php echo $InsFichaIngreso->CamNombre; ?></a>
                               <?php	
 				}
 				?>
@@ -782,7 +782,7 @@ if(!empty($InsFichaIngreso->CamId)){
                                   <td align="left" valign="top">
                                     
                                     
-                                    <span class="EstFormularioNota">* En caso de una Garantia, Campaña o Politica, rellene este espacio.</span>
+                                    <span class="EstFormularioNota">* En caso de una Garantia, Campaï¿½a o Politica, rellene este espacio.</span>
                                     
                                     
                                     
@@ -825,7 +825,7 @@ if(!empty($InsFichaIngreso->CamId)){
                                 </tr>
                                 <tr>
                                   <td align="left" valign="top">&nbsp;</td>
-                                  <td align="left" valign="top"><span class="EstFormularioNota">* En caso de una Garantia, Campaña o Politica, rellene este espacio.</span></td>
+                                  <td align="left" valign="top"><span class="EstFormularioNota">* En caso de una Garantia, Campaï¿½a o Politica, rellene este espacio.</span></td>
                                   <td align="left" valign="top">&nbsp;</td>
                                 </tr>
                               </table>
@@ -2871,19 +2871,19 @@ if(!empty($InsFichaIngreso->CamId)){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 	Calendar.setup({ 
 	inputField : "CmpActaEntregaFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnActaEntregaFecha"// el id del botón que  
+	button     : "BtnActaEntregaFecha"// el id del botï¿½n que  
 	});
 	
 	Calendar.setup({ 
 	inputField : "CmpVentaFechaEntrega",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnVentaFechaEntrega"// el id del botón que  
+	button     : "BtnVentaFechaEntrega"// el id del botï¿½n que  
 	});	
 	
 var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2", "date", {format:"dd/mm/yyyy", isRequired:false});

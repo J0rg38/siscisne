@@ -121,16 +121,16 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsCondicionPago.php');
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsCondicionVenta = new ClsCondicionVenta();
 $InsCondicionPago = new ClsCondicionPago();
 $InsObsequio = new ClsObsequio();
 $InsModalidadPago = new ClsModalidadPago();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 
 
 $ResCondicionVenta = $InsCondicionVenta->MtdObtenerCondicionVentas(NULL,NULL,'CovId','DESC',NULL,1);
@@ -1230,21 +1230,21 @@ tinymce.init({
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 
 Calendar.setup({ 
 	inputField : "CmpFechaEntrega",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaEntrega"// el id del botón que  
+	button     : "BtnFechaEntrega"// el id del botï¿½n que  
 	});
 
 
 Calendar.setup({ 
 	inputField : "CmpActaEntregaFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnActaEntregaFecha"// el id del botón que  
+	button     : "BtnActaEntregaFecha"// el id del botï¿½n que  
 	});
 
 

@@ -50,7 +50,7 @@ $InsAlmacenMovimientoSalida = new ClsAlmacenMovimientoSalida();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsClienteTipo = new ClsClienteTipo();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 if (isset($_SESSION['InsAlmacenMovimientoSalidaDetalle'.$Identificador])){	
 	$_SESSION['InsAlmacenMovimientoSalidaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsAlmacenMovimientoSalidaDetalle'.$Identificador]);

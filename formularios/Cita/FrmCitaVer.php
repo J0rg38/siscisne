@@ -27,10 +27,10 @@ require_once($InsPoo->MtdPaqLogistica().'ClsClienteTipo.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 //INSTANCIAS
 $InsCita = new ClsCita();
-$InsPersonal = new ClsPersonal();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccCitaEditar.php');
 

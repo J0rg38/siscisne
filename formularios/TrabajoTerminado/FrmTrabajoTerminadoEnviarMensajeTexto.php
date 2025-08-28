@@ -75,7 +75,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedido.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 $InsFichaIngreso->FinId = $GET_FinId;
 $InsFichaIngreso->MtdObtenerFichaIngreso(false);
 
@@ -97,7 +97,7 @@ if(!empty($ArrFichaIngresoModalidades)){
 			
 			//$ModalidaIngresoMantenimiento = true;
 			
-			$InsFichaAccion = new ClsFichaAccion();
+			$InsFichaAccion = new ClsFichaAccion($InsMysql);
 			$ResFichaAccion = $InsFichaAccion->MtdObtenerFichaAcciones(NULL,NULL,NULL,'FccId','ASC','1',$DatFichaIngresoModalidad->FimId,NULL,NULL,NULL);
 			$ArrFichaAcciones = $ResFichaAccion['Datos'];
 					

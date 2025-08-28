@@ -23,7 +23,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 //INSTANCIAS
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccAlmacenRegistrar.php');
 //ALERTAS

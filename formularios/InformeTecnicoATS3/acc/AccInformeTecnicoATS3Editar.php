@@ -191,7 +191,7 @@ function FncCargarDatos(){
 	$InsInformeTecnico->IteId = $GET_id;
 	$InsInformeTecnico = $InsInformeTecnico->MtdObtenerInformeTecnico();	
 	
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$InsFichaIngreso->FinId = $InsInformeTecnico->FinId ;
 	$InsFichaIngreso->MtdObtenerFichaIngreso();
 	

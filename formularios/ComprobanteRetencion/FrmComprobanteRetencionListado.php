@@ -122,7 +122,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsComprobanteRetencion = new ClsComprobanteRetencion();
 $InsComprobanteRetencionTalonario = new ClsComprobanteRetencionTalonario();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsComprobanteRetencion->SucId = $_SESSION['SisSucId'];
 $InsComprobanteRetencion->UsuId = $_SESSION['SesionId'];

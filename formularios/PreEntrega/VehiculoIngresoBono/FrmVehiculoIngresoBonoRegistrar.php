@@ -37,10 +37,10 @@ require_once($InsPoo->MtdPaqActividadConf().'CnfVehiculoIngresoBono.php');
 
 //CLASES
 $InsVehiculoIngresoBono = new ClsVehiculoIngresoBono();
-$InsPersonal = new ClsPersonal();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $SucursalSiglas = "";
 

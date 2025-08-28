@@ -37,8 +37,8 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 //INSTANCIAS
 $InsOrdenCodificacion = new ClsOrdenCodificacion();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccOrdenCodificacionRegistrar.php');
@@ -453,7 +453,7 @@ if($Registro){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 
@@ -461,7 +461,7 @@ Calendar.setup({
 Calendar.setup({ 
 	inputField : "CmpFechaRespuesta",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaRespuesta"// el id del botón que  
+	button     : "BtnFechaRespuesta"// el id del botï¿½n que  
 	});
 </script>
 <?php

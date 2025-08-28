@@ -111,7 +111,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsEncuesta.php');
 
 
 $InsEncuesta = new ClsEncuesta();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 //deb($InsEncuesta->EncTipo);
 $InsEncuestaPreguntaSeccion = new ClsEncuestaPreguntaSeccion();

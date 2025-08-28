@@ -6,47 +6,49 @@ $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta  = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfFormularioNota.php');
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsCotizacionProductoDetalle'.$Identificador])){
-	$_SESSION['InsCotizacionProductoDetalle'.$Identificador] = new ClsSesionObjeto();	
+if (!isset($_SESSION['InsCotizacionProductoDetalle' . $Identificador])) {
+	$_SESSION['InsCotizacionProductoDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsCotizacionProductoDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsCotizacionProductoDetalle' . $Identificador]);
 }
 
-require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedidaConversion.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCodigoReemplazo.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsProductoVehiculoVersion.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsProductoAno.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsUnidadMedidaConversion.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsUnidadMedida.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProducto.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProductoCodigoReemplazo.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProductoVehiculoVersion.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProductoAno.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsProductoFoto.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsListaPrecio.php');
 
-require_once($InsPoo->MtdPaqLogistica().'ClsCotizacionProductoDetalle.php');
+require_once($InsPoo->MtdPaqLogistica() . 'ClsCotizacionProductoDetalle.php');
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsProducto->ProId = $_POST['ProductoId'];
 $InsProducto->MtdObtenerProducto(false);
@@ -54,14 +56,13 @@ $InsProducto->MtdObtenerProducto(false);
 $InsUnidadMedida->UmeId = $_POST['ProductoUnidadMedidaConvertir'];
 $InsUnidadMedida->MtdObtenerUnidadMedida();
 
-if($InsUnidadMedida->UmeId == $InsProducto->UmeId){
+if ($InsUnidadMedida->UmeId == $InsProducto->UmeId) {
 	$InsUnidadMedidaConversion->UmcEquivalente = 1;
-
-}else{
-	$RepUnidadMedidaConversion = $InsUnidadMedidaConversion->MtdObtenerUnidadMedidaConversiones(NULL,NULL,NULL,"UmeId1","DESC","1",$InsUnidadMedida->UmeId,$InsProducto->UmeId);
+} else {
+	$RepUnidadMedidaConversion = $InsUnidadMedidaConversion->MtdObtenerUnidadMedidaConversiones(NULL, NULL, NULL, "UmeId1", "DESC", "1", $InsUnidadMedida->UmeId, $InsProducto->UmeId);
 	$ArrUnidadMedidaConversiones = $RepUnidadMedidaConversion['Datos'];
-	
-	foreach($ArrUnidadMedidaConversiones as $DatUnidadMedidaConversion){
+
+	foreach ($ArrUnidadMedidaConversiones as $DatUnidadMedidaConversion) {
 		$InsUnidadMedidaConversion->UmcEquivalente = $DatUnidadMedidaConversion->UmcEquivalente;
 	}
 }
@@ -71,46 +72,46 @@ $Importe = round($_POST['ProductoImporte'],3);
 $Costo = round($_POST['ProductoCosto'],3);
 $Costo = round($_POST['ProductoValorVenta'],3);
 */
-$POST_PorcentajeDescuento = (empty($_POST['DescuentoPorcentaje'])?0:$_POST['DescuentoPorcentaje']);
+$POST_PorcentajeDescuento = (empty($_POST['DescuentoPorcentaje']) ? 0 : $_POST['DescuentoPorcentaje']);
 $CotizacionProductoDetalleTipoPedido = ($_POST['CotizacionProductoDetalleTipoPedido']);
 
-$CotizacionProductoDetallePorcentajeUtilidad = (empty($_POST['CotizacionProductoDetallePorcentajeUtilidad'])?0:$_POST['CotizacionProductoDetallePorcentajeUtilidad']);
-$CotizacionProductoDetallePorcentajeOtroCosto = (empty($_POST['CotizacionProductoDetallePorcentajeOtroCosto'])?0:$_POST['CotizacionProductoDetallePorcentajeOtroCosto']);
-$CotizacionProductoDetallePorcentajeManoObra = (empty($_POST['CotizacionProductoDetallePorcentajeManoObra'])?0:$_POST['CotizacionProductoDetallePorcentajeManoObra']);
-$CotizacionProductoDetallePorcentajePedido = (empty($_POST['CotizacionProductoDetallePorcentajePedido'])?0:$_POST['CotizacionProductoDetallePorcentajePedido']);
+$CotizacionProductoDetallePorcentajeUtilidad = (empty($_POST['CotizacionProductoDetallePorcentajeUtilidad']) ? 0 : $_POST['CotizacionProductoDetallePorcentajeUtilidad']);
+$CotizacionProductoDetallePorcentajeOtroCosto = (empty($_POST['CotizacionProductoDetallePorcentajeOtroCosto']) ? 0 : $_POST['CotizacionProductoDetallePorcentajeOtroCosto']);
+$CotizacionProductoDetallePorcentajeManoObra = (empty($_POST['CotizacionProductoDetallePorcentajeManoObra']) ? 0 : $_POST['CotizacionProductoDetallePorcentajeManoObra']);
+$CotizacionProductoDetallePorcentajePedido = (empty($_POST['CotizacionProductoDetallePorcentajePedido']) ? 0 : $_POST['CotizacionProductoDetallePorcentajePedido']);
 
-$CotizacionProductoDetallePorcentajeAdicional = (empty($_POST['CotizacionProductoDetallePorcentajeAdicional'])?0:$_POST['CotizacionProductoDetallePorcentajeAdicional']);
-$CotizacionProductoDetallePorcentajeDescuento = (empty($_POST['CotizacionProductoDetallePorcentajeDescuento'])?0:$_POST['CotizacionProductoDetallePorcentajeDescuento']);
+$CotizacionProductoDetallePorcentajeAdicional = (empty($_POST['CotizacionProductoDetallePorcentajeAdicional']) ? 0 : $_POST['CotizacionProductoDetallePorcentajeAdicional']);
+$CotizacionProductoDetallePorcentajeDescuento = (empty($_POST['CotizacionProductoDetallePorcentajeDescuento']) ? 0 : $_POST['CotizacionProductoDetallePorcentajeDescuento']);
 
-$CotizacionProductoDetalleValorVenta = (empty($_POST['CotizacionProductoDetalleValorVenta'])?0:$_POST['CotizacionProductoDetalleValorVenta']);
-$CotizacionProductoDetalleDescuento = (empty($_POST['CotizacionProductoDetalleDescuento'])?0:$_POST['CotizacionProductoDetalleDescuento']);
-$CotizacionProductoDetalleAdicional = (empty($_POST['CotizacionProductoDetalleAdicional'])?0:$_POST['CotizacionProductoDetalleAdicional']);
+$CotizacionProductoDetalleValorVenta = (empty($_POST['CotizacionProductoDetalleValorVenta']) ? 0 : $_POST['CotizacionProductoDetalleValorVenta']);
+$CotizacionProductoDetalleDescuento = (empty($_POST['CotizacionProductoDetalleDescuento']) ? 0 : $_POST['CotizacionProductoDetalleDescuento']);
+$CotizacionProductoDetalleAdicional = (empty($_POST['CotizacionProductoDetalleAdicional']) ? 0 : $_POST['CotizacionProductoDetalleAdicional']);
 //$CotizacionProductoDetalleCosto = (empty($_POST['CotizacionProductoDetalleCosto'])?0:$_POST['CotizacionProductoDetalleCosto']);
 
-$Cantidad = round($_POST['ProductoCantidad'],6);
-$Importe = round($_POST['ProductoImporte'],6);
-$Costo = round($_POST['ProductoCosto'],6);
+$Cantidad = round($_POST['ProductoCantidad'], 6);
+$Importe = round($_POST['ProductoImporte'], 6);
+$Costo = round($_POST['ProductoCosto'], 6);
 //$ValorVenta = round($_POST['ProductoValorVenta'],6);
 
-$Precio = round(($Importe/$Cantidad),6);
-$CantidadReal = round($Cantidad * $InsUnidadMedidaConversion->UmcEquivalente,6);
+$Precio = round(($Importe / $Cantidad), 6);
+$CantidadReal = round($Cantidad * $InsUnidadMedidaConversion->UmcEquivalente, 6);
 $Estado = $_POST['ProductoEstado'];
 
 $MonedaId = $_POST['MonedaId'];
 $TipoCambio = $_POST['TipoCambio'];
 $ProductoUnidadMedida = $_POST['ProductoUnidadMedida'];
 
-	$PrecioBruto = 0;
-	$ImporteBruto = 0;
-	$DescuentoTotal = 0;
-	$AdicionalTotal = 0;
-	
-	$PrecioBruto  = $Precio + $CotizacionProductoDetalleDescuento - $CotizacionProductoDetalleAdicional;	
-	$DescuentoTotal = $CotizacionProductoDetalleDescuento * $Cantidad;
-	$AdicionalTotal = $CotizacionProductoDetalleAdicional * $Cantidad;
-	$ImporteBruto = $PrecioBruto * $Cantidad;
-	
-		
+$PrecioBruto = 0;
+$ImporteBruto = 0;
+$DescuentoTotal = 0;
+$AdicionalTotal = 0;
+
+$PrecioBruto  = $Precio + $CotizacionProductoDetalleDescuento - $CotizacionProductoDetalleAdicional;
+$DescuentoTotal = $CotizacionProductoDetalleDescuento * $Cantidad;
+$AdicionalTotal = $CotizacionProductoDetalleAdicional * $Cantidad;
+$ImporteBruto = $PrecioBruto * $Cantidad;
+
+
 //						SesionObjeto-CotizacionProductoDetalle
 //						Parametro1 = CpdId
 //						Parametro2 = ProId
@@ -152,8 +153,9 @@ $ProductoUnidadMedida = $_POST['ProductoUnidadMedida'];
 //						Parametro33 = CrdImporteBruto
 //						Parametro34 = CrdAdicionalUnitario
 
-	
-	$_SESSION['InsCotizacionProductoDetalle'.$Identificador]->MtdAgregarSesionObjeto(1,
+
+$_SESSION['InsCotizacionProductoDetalle' . $Identificador]->MtdAgregarSesionObjeto(
+	1,
 	NULL,
 	$InsProducto->ProId,
 	$InsProducto->ProNombre,
@@ -162,12 +164,12 @@ $ProductoUnidadMedida = $_POST['ProductoUnidadMedida'];
 	$Importe,
 	(date("d/m/Y H:i:s")),
 	(date("d/m/Y H:i:s")),
-	
+
 	$InsUnidadMedida->UmeNombre,
 	$InsUnidadMedida->UmeId,
 	$InsProducto->RtiId,
 	$CantidadReal,
-	
+
 	$InsProducto->ProCodigoOriginal,
 	$InsProducto->ProCodigoAlternativo,
 	0,
@@ -176,23 +178,22 @@ $ProductoUnidadMedida = $_POST['ProductoUnidadMedida'];
 	$CotizacionProductoDetalleValorVenta,
 	$ProductoUnidadMedida,
 	$Costo,
-	3,//$Estado,
-	$CotizacionProductoDetalleTipoPedido,	
+	3, //$Estado,
+	$CotizacionProductoDetalleTipoPedido,
 	$DescuentoTotal,
-	
+
 	$PrecioBruto,
-	
+
 	$CotizacionProductoDetallePorcentajeUtilidad,
 	$CotizacionProductoDetallePorcentajeOtroCosto,
 	$CotizacionProductoDetallePorcentajeManoObra,
 	$CotizacionProductoDetallePorcentajePedido,
-	
+
 	$CotizacionProductoDetallePorcentajeAdicional,
 	$CotizacionProductoDetallePorcentajeDescuento,
-	
+
 	$AdicionalTotal,
 	$CotizacionProductoDetalleDescuento,
 	$ImporteBruto,
-	$CotizacionProductoDetalleAdicional);
-			
-?>
+	$CotizacionProductoDetalleAdicional
+);

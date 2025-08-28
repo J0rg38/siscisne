@@ -54,6 +54,6 @@ function FncNuevo(){
 	
 	unset($_SESSION['SesSucFoto'.$Identificador]);
 	
-	$InsSucursal = new ClsSucursal();
+	$InsSucursal = new ClsSucursal($InsMysql);
 }
 ?>

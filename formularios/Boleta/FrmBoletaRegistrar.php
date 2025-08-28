@@ -130,16 +130,16 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
 
 $InsBoleta = new ClsBoleta();
 $InsBoletaTalonario = new ClsBoletaTalonario();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsMoneda = new ClsMoneda();
 $InsRegimen = new ClsRegimen();
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsCotizacionProducto = new ClsCotizacionProducto();
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsPago = new ClsPago();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 if (!isset($_SESSION['InsBoletaDetalle'.$Identificador])){	
 	$_SESSION['InsBoletaDetalle'.$Identificador] = new ClsSesionObjeto();

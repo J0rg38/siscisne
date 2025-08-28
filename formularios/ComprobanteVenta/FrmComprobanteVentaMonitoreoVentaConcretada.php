@@ -132,7 +132,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsVentaConcretada = new ClsVentaConcretada();
 $InsComprobanteVenta = new ClsComprobanteVenta();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsMoneda = new ClsMoneda();
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccComprobanteVentaMonitoreoVentaConcretada.php');

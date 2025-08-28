@@ -144,7 +144,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
 
 	$InsAsignacionVentaVehiculo = new ClsAsignacionVentaVehiculo();
 	$InsMoneda = new ClsMoneda();
-	$InsSucursal = new ClsSucursal();
+	$InsSucursal = new ClsSucursal($InsMysql);
 
 	include($InsProyecto->MtdFormulariosAcc($GET_mod) . 'AccAsignacionVentaVehiculo.php');
 

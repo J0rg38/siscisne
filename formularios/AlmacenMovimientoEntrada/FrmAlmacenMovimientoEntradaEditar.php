@@ -81,10 +81,10 @@ $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 if (isset($_SESSION['InsAlmacenMovimientoEntradaDetalle'.$Identificador])){	
 	$_SESSION['InsAlmacenMovimientoEntradaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsAlmacenMovimientoEntradaDetalle'.$Identificador]);
@@ -675,7 +675,7 @@ if(!empty($GET_dia)){
                <td align="left" valign="top">
                  <span id="sprytextfield10">
                  <input class="EstFormularioCajaFecha" name="CmpComprobanteFecha" type="text" id="CmpComprobanteFecha" value="<?php echo $InsAlmacenMovimientoEntrada->AmoComprobanteFecha;?>" size="15" maxlength="10" />
-                 <span class="textfieldInvalidFormatMsg">Formato no válido.</span><span class="textfieldRequiredMsg">Se necesita un valor.</span></span>                 <img src="imagenes/acciones/calendario.png" alt="[Calendario]"  id="BtnComprobanteFecha" name="BtnComprobanteFecha" width="25" height="25" align="absmiddle"  style="cursor:pointer;" /></td>
+                 <span class="textfieldInvalidFormatMsg">Formato no vï¿½lido.</span><span class="textfieldRequiredMsg">Se necesita un valor.</span></span>                 <img src="imagenes/acciones/calendario.png" alt="[Calendario]"  id="BtnComprobanteFecha" name="BtnComprobanteFecha" width="25" height="25" align="absmiddle"  style="cursor:pointer;" /></td>
                <td>&nbsp;</td>
              </tr>
              <tr>
@@ -1400,21 +1400,21 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 	
 Calendar.setup({ 
 	inputField : "CmpComprobanteFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnComprobanteFecha",// el id del botón que  
+	button     : "BtnComprobanteFecha",// el id del botï¿½n que  
 onUpdate       :    FncTipoCambioCargarAux
 	});
 	
 Calendar.setup({ 
 	inputField : "CmpGuiaRemisionFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnGuiaRemisionFecha"// el id del botón que  
+	button     : "BtnGuiaRemisionFecha"// el id del botï¿½n que  
 	});
 	
 

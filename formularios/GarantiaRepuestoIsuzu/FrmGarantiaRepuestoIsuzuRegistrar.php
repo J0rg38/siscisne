@@ -62,9 +62,9 @@ require_once($InsPoo->MtdPaqConfiguracion().'ClsCalificacion.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoListaPrecio.php');
 
 $InsGarantiaRepuestoIsuzu = new ClsGarantiaRepuestoIsuzu();
-$InsFichaAccion = new ClsFichaAccion();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 $InsFichaAccion->FccId = $GET_FccId;
 $InsFichaAccion->MtdObtenerFichaAccion();	
@@ -616,13 +616,13 @@ if($Registro){
 Calendar.setup({ 
 		inputField : "CmpFecha",  // id del campo de texto 
 		ifFormat   : "%d/%m/%Y",  //  
-		button     : "BtnFecha"// el id del botón que  
+		button     : "BtnFecha"// el id del botï¿½n que  
 	});
 
 	Calendar.setup({ 
 		inputField : "CmpFechaVenta",  // id del campo de texto 
 		ifFormat   : "%d/%m/%Y",  //  
-		button     : "BtnFechaVenta"// el id del botón que  
+		button     : "BtnFechaVenta"// el id del botï¿½n que  
 	});
 </script>
 

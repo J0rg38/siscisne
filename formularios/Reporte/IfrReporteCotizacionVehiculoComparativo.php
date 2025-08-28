@@ -99,8 +99,8 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCotizacionVehiculo.php');
  
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoVersion = new ClsVehiculoVersion();
-$InsSucursal = new ClsSucursal();
-$InsPersonal = new ClsPersonal();
+$InsSucursal = new ClsSucursal($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
 $InsVehiculoModelo = new ClsVehiculoModelo();
 
@@ -126,7 +126,7 @@ $PersonalNombre = "";
 
 if(!empty($POST_Personal)){
 	
-	$InsPersonal = new ClsPersonal();
+	$InsPersonal = new ClsPersonal($InsMysql);
 	$InsPersonal->PerId = $POST_Personal;
 	$InsPersonal->MtdObtenerPersonal();
 	

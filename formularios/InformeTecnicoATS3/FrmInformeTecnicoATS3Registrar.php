@@ -84,8 +84,8 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoListaPrecio.php');
 
 //INSTANCIAS
 $InsInformeTecnico = new ClsInformeTecnico();
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsPersonal = new ClsPersonal();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 
 if (!isset($_SESSION['InsInformeTecnicoATS3Foto'.$Identificador])){	
@@ -345,7 +345,7 @@ if($Registro){
                            
                            <input <?php echo ($InsInformeTecnico->IteSolucionSatisfactoria==2)?'checked="checked"':'';?> type="radio" name="CmpSolucionSatisfactoria" value="2" id="CmpSolucionSatisfactoria2" />
                            No
-                          <span class="radioRequiredMsg">Realice una selección.</span></span></td>
+                          <span class="radioRequiredMsg">Realice una selecciï¿½n.</span></span></td>
                        <td>&nbsp;</td>
                      </tr>
                      <tr>
@@ -865,13 +865,13 @@ $ArrSesionObjetos = $RepSesionObjetos['Datos'];
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 
 Calendar.setup({ 
 	inputField : "CmpFechaVenta",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaVenta"// el id del botón que  
+	button     : "BtnFechaVenta"// el id del botï¿½n que  
 	});
 	
 

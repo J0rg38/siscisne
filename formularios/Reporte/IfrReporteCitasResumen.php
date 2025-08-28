@@ -80,7 +80,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsCita.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
 $InsEncuesta = new ClsEncuesta();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsCita = new ClsCita();
  
 $RepSucursal = $InsSucursal->MtdObtenerSucursales("SucId",$POST_Sucursal,"SucNombre","ASC",NULL,"VEN");
@@ -192,7 +192,7 @@ if(!empty($ArrSucursales)){
 		
 		//MtdObtenerFichaIngresosValor($oFuncion="SUM",$oParametro="FinId",$oMes=NULL,$oAno=NULL, $oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FinId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oPrioridad=NULL,$oModalidadIngreso=NULL,$oVIN=NULL,$oCliente=NULL,$oPersonalId=NULL,$oTrabajoConcluido=0,$oCampana=NULL,$oClienteTipo=NULL,$oTipo=NULL,$oSalidaExterna=0,$oConCampana=NULL,$oVehiculoIngreso=NULL,$oConConcluido=0,$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oFinMantenimientoKilometraje=NULL,$oTipoReparacion=NULL,$oPersonalIdAsesor=NULL,$oIgnorarPrimerMantenimiento=false,$oIgnorarReparacionesSinCosto=false,$oSucursal=NULL) {
 
-		$InsFichaIngreso = new ClsFichaIngreso();
+		$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 		//MtdObtenerFichaIngresosValor($oFuncion="SUM",$oParametro="FinId",$oMes=NULL,$oAno=NULL, $oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FinId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oPrioridad=NULL,$oModalidadIngreso=NULL,$oVIN=NULL,$oCliente=NULL,$oPersonalId=NULL,$oTrabajoConcluido=0,$oCampana=NULL,$oClienteTipo=NULL,$oTipo=NULL,$oSalidaExterna=0,$oConCampana=NULL,$oVehiculoIngreso=NULL,$oConConcluido=0,$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oFinMantenimientoKilometraje=NULL,$oTipoReparacion=NULL,$oPersonalIdAsesor=NULL,$oIgnorarPrimerMantenimiento=false,$oIgnorarReparacionesSinCosto=false,$oSucursal=NULL,$oCita=NULL)
 		$TotalFichaIngresos = $InsFichaIngreso->MtdObtenerFichaIngresosValor("COUNT","fin.FinId",NULL,NULL, NULL,NULL,NULL,'fin.FinId','Desc','1',FncCambiaFechaAMysql($POST_finicio),(FncCambiaFechaAMysql($POST_ffin)),9,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,1,0,NULL,NULL,0,$oVehiculoMarca=NULL,NULL,NULL,NULL,NULL,false,false,$DatSucursal->SucId,"1,2");
 		

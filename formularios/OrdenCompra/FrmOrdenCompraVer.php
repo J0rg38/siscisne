@@ -38,7 +38,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMarca.php');
 
 $InsOrdenCompra = new ClsOrdenCompra();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
 if (isset($_SESSION['InsOrdenCompraPedido'.$Identificador])){	

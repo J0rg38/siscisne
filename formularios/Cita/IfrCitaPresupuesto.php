@@ -109,13 +109,13 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
 
 
 //INSTANCIAS
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 $InsPlanMantenimientoDetalle = new ClsPlanMantenimientoDetalle();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 
 $InsProductoTipoUnidadMedida = new ClsProductoTipoUnidadMedida();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 
 //$ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,'PmaId','ASC',1,NULL,$POST_VehiculoVersion,$POST_VehiculoModelo) ;
 $ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,NULL,'PmaId','ASC',1,NULL,NULL,$POST_VehiculoModelo) ;

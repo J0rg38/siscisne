@@ -6,25 +6,25 @@ $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
 
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 $POST_Item = $_POST['Item'];
 $Identificador = $_POST['Identificador'];
@@ -32,18 +32,20 @@ $POST_ClienteId = $_POST['PropietarioId'];
 $POST_OrdenVentaVehiculoFirmaDJ = $_POST['OrdenVentaVehiculoFirmaDJ'];
 
 session_start();
-if (!isset($_SESSION['InsOrdenVentaVehiculoPropietario'.$Identificador])){
-	$_SESSION['InsOrdenVentaVehiculoPropietario'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsOrdenVentaVehiculoPropietario' . $Identificador])) {
+	$_SESSION['InsOrdenVentaVehiculoPropietario' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsOrdenVentaVehiculoPropietario' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsOrdenVentaVehiculoPropietario' . $Identificador]);
 }
 
-require_once($InsPoo->MtdPaqLogistica().'ClsCliente.php');
+require_once($InsPoo->MtdPaqLogistica() . 'ClsCliente.php');
 
 $InsCliente = new ClsCliente();
 $InsCliente->CliId = $POST_ClienteId;
 $InsCliente->MtdObtenerCliente(false);
 
 
-	
+
 //SesionObjeto-OrdenVentaVehiculoPropietario
 //Parametro1 = CviId
 //Parametro2 = 
@@ -63,28 +65,28 @@ $InsCliente->MtdObtenerCliente(false);
 //Parametro14 = CliApellidoPaterno
 //Parametro15 = CliApellidoMaterno
 
-	$InsOrdenVentaVehiculoPropietario1 = array();
-	$InsOrdenVentaVehiculoPropietario1 = $_SESSION['InsOrdenVentaVehiculoPropietario'.$Identificador]->MtdObtenerSesionObjeto($POST_Item);
-	
-	$_SESSION['InsOrdenVentaVehiculoPropietario'.$Identificador]->MtdEditarSesionObjeto($POST_Item,1,
+$InsOrdenVentaVehiculoPropietario1 = array();
+$InsOrdenVentaVehiculoPropietario1 = $_SESSION['InsOrdenVentaVehiculoPropietario' . $Identificador]->MtdObtenerSesionObjeto($POST_Item);
+
+$_SESSION['InsOrdenVentaVehiculoPropietario' . $Identificador]->MtdEditarSesionObjeto(
+	$POST_Item,
+	1,
 	$InsOrdenVentaVehiculoPropietario1->Parametro1,
 	NULL,
-	$InsCliente->CliNombre." ".$InsCliente->CliApellidoPaterno." ".$InsCliente->CliApellidoMaterno,
+	$InsCliente->CliNombre . " " . $InsCliente->CliApellidoPaterno . " " . $InsCliente->CliApellidoMaterno,
 	$InsCliente->CliNumeroDocumento,
 	$InsCliente->TdoId,
 	$InsOrdenVentaVehiculoPropietario1->Parametro6,
 	$InsOrdenVentaVehiculoPropietario1->Parametro7,
 	date("d/m/Y H:i:s"),
 	$InsCliente->TdoNombre,
-	
+
 	$InsCliente->CliTelefono,
 	$InsCliente->CliCelular,
 	$InsCliente->CliEmail,
-	
+
 	$InsCliente->CliNombre,
 	$InsCliente->CliApellidoPaterno,
 	$InsCliente->CliApellidoMaterno,
 	$POST_OrdenVentaVehiculoFirmaDJ
-	);
-
-?>
+);

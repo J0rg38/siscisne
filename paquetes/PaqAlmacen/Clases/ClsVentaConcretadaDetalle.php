@@ -10,43 +10,44 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsVentaConcretadaDetalle {
+class ClsVentaConcretadaDetalle
+{
 
-    public $VcdId;
+	public $VcdId;
 	public $AmoId;
 	public $ProId;
 	public $UmeId;
-	
+
 	public $VddId;
-	
-    public $VcdCantidad;	
+
+	public $VcdCantidad;
 	public $VcdCantidadReal;
 	public $VcdCosto;
 
 	public $VcdValorTotal;
 	public $VcdUtilidad;
 	public $VcdPrecioVenta;
-	
-	public $VcdImporte;	
+
+	public $VcdImporte;
 	public $VcdReingreso;
-	public $VcdEstado;	
+	public $VcdEstado;
 	public $VcdTiempoCreacion;
 	public $VcdTiempoModificacion;
-    public $VcdEliminado;
-	
+	public $VcdEliminado;
+
 
 	public $ProCodigoOriginal;
 	public $ProCodigoAlternativo;
 	public $ProNombre;
 	public $RtiId;
 	public $UmeIdOrigen;
-	
+
 	public $UmeNombre;
 	public $UmeAbreviacion;
-	
-    public $InsMysql;
 
-    public function __construct($oInsMysql=NULL)
+	public $InsMysql;
+
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -54,161 +55,153 @@ class ClsVentaConcretadaDetalle {
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
-	}
-	
-	public function __destruct(){
-
 	}
 
-	private function MtdGenerarVentaConcretadaDetalleId() {
-			
-			$sql = 'SELECT	
+	public function __destruct() {}
+
+	private function MtdGenerarVentaConcretadaDetalleId()
+	{
+
+		$sql = 'SELECT	
 			MAX(CONVERT(SUBSTR(AmdId,5),unsigned)) AS "MAXIMO"
 			FROM tblamdalmacenmovimientodetalle';
-			
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			if(empty($fila['MAXIMO'])){			
-				$this->VcdId = "VCD-10000";
-			}else{
-				$fila['MAXIMO']++;
-				$this->VcdId = "VCD-".$fila['MAXIMO'];					
-			}
-				
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
+			$this->VcdId = "VCD-10000";
+		} else {
+			$fila['MAXIMO']++;
+			$this->VcdId = "VCD-" . $fila['MAXIMO'];
 		}
-		
+	}
 
-    public function MtdObtenerVentaConcretadaDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVentaConcretada=NULL,$oEstado=NULL,$oProducto=NULL,$oVentaDirectaDetalleId=NULL,$oVentaConcretadaEstado=NULL,$oVehiculoMarca=NULL,$oProductoTipo=NULL,$oFechaInicio=NULL,$oFechaFin=NULL) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
+	public function MtdObtenerVentaConcretadaDetalles($oCampo = NULL, $oFiltro = NULL, $oOrden = 'AmdId', $oSentido = 'Desc', $oPaginacion = '0,10', $oVentaConcretada = NULL, $oEstado = NULL, $oProducto = NULL, $oVentaDirectaDetalleId = NULL, $oVentaConcretadaEstado = NULL, $oVehiculoMarca = NULL, $oProductoTipo = NULL, $oFechaInicio = NULL, $oFechaFin = NULL)
+	{
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+		if (!empty($oCampo) and !empty($oFiltro)) {
 
-			$i=1;
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oVentaConcretada)){
-			$vconcretada = ' AND amd.AmoId = "'.$oVentaConcretada.'"';
-		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND amd.AmdEstado = '.$oEstado.' ';
-		}
-		
-		if(!empty($oProducto)){
-			$producto = ' AND (amd.ProId = "'.$oProducto.'") ';
-		}
-	
-		if(!empty($oVentaDirectaDetalleId)){
-			$vddetalle = ' AND (amd.VddId = "'.$oVentaDirectaDetalleId.'") ';
+
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		if(!empty($oVentaConcretadaEstado)){
-			$vcestado = ' AND (amo.AmoEstado = "'.$oVentaConcretadaEstado.'") ';
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		
-		if(!empty($oVehiculoMarca)){
-			
+
+		if (!empty($oVentaConcretada)) {
+			$vconcretada = ' AND amd.AmoId = "' . $oVentaConcretada . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND amd.AmdEstado = ' . $oEstado . ' ';
+		}
+
+		if (!empty($oProducto)) {
+			$producto = ' AND (amd.ProId = "' . $oProducto . '") ';
+		}
+
+		if (!empty($oVentaDirectaDetalleId)) {
+			$vddetalle = ' AND (amd.VddId = "' . $oVentaDirectaDetalleId . '") ';
+		}
+
+		if (!empty($oVentaConcretadaEstado)) {
+			$vcestado = ' AND (amo.AmoEstado = "' . $oVentaConcretadaEstado . '") ';
+		}
+
+
+		if (!empty($oVehiculoMarca)) {
+
 			$vmarca = '
 			
 			AND 
@@ -223,37 +216,36 @@ class ClsVentaConcretadaDetalle {
 						ON pvv.VveId = vve.VveId
 							LEFT JOIN tblvmovehiculomodelo vmo
 							ON vve.VmoId = vmo.VmoId
-					WHERE vmo.VmaId = "'.$oVehiculoMarca.'"
+					WHERE vmo.VmaId = "' . $oVehiculoMarca . '"
 					AND amd.ProId = pvv.ProId
 				)
 				
 				OR
 				
-				pro.VmaId = "'.$oVehiculoMarca.'"
+				pro.VmaId = "' . $oVehiculoMarca . '"
 			)
 			';
 		}
-		
-		if(!empty($oProductoTipo)){
-			$ptipo = ' AND (pro.RtiId = "'.$oProductoTipo.'") ';
+
+		if (!empty($oProductoTipo)) {
+			$ptipo = ' AND (pro.RtiId = "' . $oProductoTipo . '") ';
 		}
-		
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(amo.AmoFecha)>="'.$oFechaInicio.'" AND DATE(amo.AmoFecha)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(amo.AmoFecha)>="'.$oFechaInicio.'"';
+
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(amo.AmoFecha)>="' . $oFechaInicio . '" AND DATE(amo.AmoFecha)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(amo.AmoFecha)>="' . $oFechaInicio . '"';
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(amo.AmoFecha)<="'.$oFechaFin.'"';		
-			}			
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(amo.AmoFecha)<="' . $oFechaFin . '"';
+			}
 		}
-		
-				
-		 $sql = '
+
+
+		$sql = '
 			SELECT
 			SQL_CALC_FOUND_ROWS 
 			amd.AmdId,			
@@ -451,217 +443,212 @@ AND ncr.NcrMotivoCodigo<> "04"
 									ON vdd.ProId = pro2.ProId
 			WHERE amo.AmoTipo = 2 
 			AND amo.AmoSubTipo = 3 
-			'.$vconcretada.$estado.$producto.$filtrar.$vddetalle.$vcestado.$vmarca.$fecha.$ptipo .$orden.$paginacion;	
+			' . $vconcretada . $estado . $producto . $filtrar . $vddetalle . $vcestado . $vmarca . $fecha . $ptipo . $orden . $paginacion;
 
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-			$Respuesta['Datos'] = array();
+		$Respuesta['Datos'] = array();
 
-            $InsVentaConcretadaDetalle = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$InsVentaConcretadaDetalle = get_class($this);
 
-					$VentaConcretadaDetalle = new $InsVentaConcretadaDetalle();
-                    $VentaConcretadaDetalle->VcdId = $fila['AmdId'];
-                    $VentaConcretadaDetalle->VcoId = $fila['AmoId'];
-					$VentaConcretadaDetalle->UmeId = $fila['UmeId'];
-					
-					$VentaConcretadaDetalle->VddId = $fila['VddId'];
-					
-					$VentaConcretadaDetalle->VcdCosto = $fila['AmdCosto'];  
-			        $VentaConcretadaDetalle->VcdCantidad = $fila['AmdCantidad'];  
-					$VentaConcretadaDetalle->VcdCantidadReal = $fila['AmdCantidadReal'];  
-					
-					$VentaConcretadaDetalle->VcdValorTotal = $fila['AmdValorTotal'];  
-					$VentaConcretadaDetalle->VcdUtilidad = $fila['AmdUtilidad'];  					
-					$VentaConcretadaDetalle->VcdPrecioVenta = $fila['AmdPrecioVenta'];  					
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-					$VentaConcretadaDetalle->VcdImporte = $fila['AmdImporte'];
-					$VentaConcretadaDetalle->VcdReingreso = $fila['AmdReingreso'];
-					$VentaConcretadaDetalle->VcdCompraOrigen = $fila['AmdCompraOrigen'];
-					
-					
-					$VentaConcretadaDetalle->VcdCierre = $fila['AmdCierre'];
-					$VentaConcretadaDetalle->VcdEstado = $fila['AmdEstado'];
-					$VentaConcretadaDetalle->VcdTiempoCreacion = $fila['NAmdTiempoCreacion'];  
-					$VentaConcretadaDetalle->VcdTiempoModificacion = $fila['NAmdTiempoModificacion']; 					
-				
-					
-					$VentaConcretadaDetalle->VdiId = $fila['VdiId'];
-					
-					$VentaConcretadaDetalle->VcdFactura = $fila['VcdFactura'];
-					$VentaConcretadaDetalle->VcdBoleta = $fila['VcdBoleta'];
-					
-					
-					$VentaConcretadaDetalle->ProId = $fila['ProId'];
-					$VentaConcretadaDetalle->ProCodigoOriginal = $fila['ProCodigoOriginal'];
-					$VentaConcretadaDetalle->ProCodigoAlternativo = $fila['ProCodigoAlternativo'];
-                    $VentaConcretadaDetalle->ProNombre = (($fila['ProNombre']));
-					$VentaConcretadaDetalle->RtiId = (($fila['RtiId']));
-					$VentaConcretadaDetalle->UmeIdOrigen = (($fila['UmeIdOrigen']));
-					
-					$VentaConcretadaDetalle->UmeNombre = (($fila['UmeNombre']));
-					$VentaConcretadaDetalle->UmeAbreviacion = (($fila['UmeAbreviacion']));
-					
-					
-					//$VentaConcretadaDetalle->AmoFecha = (($fila['NAmoFecha']));
-					$VentaConcretadaDetalle->VcoFecha = (($fila['NAmoFecha']));
-					
-					$VentaConcretadaDetalle->CliNombreCompleto = (($fila['CliNombreCompleto']));
-					$VentaConcretadaDetalle->CliNombre = (($fila['CliNombre']));
-					$VentaConcretadaDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));
-					$VentaConcretadaDetalle->CliApellidoMaterno = (($fila['CliApellidoMaterno']));
-					
-					$VentaConcretadaDetalle->ProIdReemplazo = (($fila['ProIdReemplazo']));
-					$VentaConcretadaDetalle->ProCodigoOriginalReemplazo = (($fila['ProCodigoOriginalReemplazo']));
-					$VentaConcretadaDetalle->AmdReemplazo = (($fila['AmdReemplazo']));
-					
-					$VentaConcretadaDetalle->VcdCantidadFacturar = (($fila['AmdCantidadFacturar']));
-	
-			
-                    $VentaConcretadaDetalle->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $VentaConcretadaDetalle;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+			$VentaConcretadaDetalle = new $InsVentaConcretadaDetalle();
+			$VentaConcretadaDetalle->VcdId = $fila['AmdId'];
+			$VentaConcretadaDetalle->VcoId = $fila['AmoId'];
+			$VentaConcretadaDetalle->UmeId = $fila['UmeId'];
+
+			$VentaConcretadaDetalle->VddId = $fila['VddId'];
+
+			$VentaConcretadaDetalle->VcdCosto = $fila['AmdCosto'];
+			$VentaConcretadaDetalle->VcdCantidad = $fila['AmdCantidad'];
+			$VentaConcretadaDetalle->VcdCantidadReal = $fila['AmdCantidadReal'];
+
+			$VentaConcretadaDetalle->VcdValorTotal = $fila['AmdValorTotal'];
+			$VentaConcretadaDetalle->VcdUtilidad = $fila['AmdUtilidad'];
+			$VentaConcretadaDetalle->VcdPrecioVenta = $fila['AmdPrecioVenta'];
+
+			$VentaConcretadaDetalle->VcdImporte = $fila['AmdImporte'];
+			$VentaConcretadaDetalle->VcdReingreso = $fila['AmdReingreso'];
+			$VentaConcretadaDetalle->VcdCompraOrigen = $fila['AmdCompraOrigen'];
+
+
+			$VentaConcretadaDetalle->VcdCierre = $fila['AmdCierre'];
+			$VentaConcretadaDetalle->VcdEstado = $fila['AmdEstado'];
+			$VentaConcretadaDetalle->VcdTiempoCreacion = $fila['NAmdTiempoCreacion'];
+			$VentaConcretadaDetalle->VcdTiempoModificacion = $fila['NAmdTiempoModificacion'];
+
+
+			$VentaConcretadaDetalle->VdiId = $fila['VdiId'];
+
+			$VentaConcretadaDetalle->VcdFactura = $fila['VcdFactura'];
+			$VentaConcretadaDetalle->VcdBoleta = $fila['VcdBoleta'];
+
+
+			$VentaConcretadaDetalle->ProId = $fila['ProId'];
+			$VentaConcretadaDetalle->ProCodigoOriginal = $fila['ProCodigoOriginal'];
+			$VentaConcretadaDetalle->ProCodigoAlternativo = $fila['ProCodigoAlternativo'];
+			$VentaConcretadaDetalle->ProNombre = (($fila['ProNombre']));
+			$VentaConcretadaDetalle->RtiId = (($fila['RtiId']));
+			$VentaConcretadaDetalle->UmeIdOrigen = (($fila['UmeIdOrigen']));
+
+			$VentaConcretadaDetalle->UmeNombre = (($fila['UmeNombre']));
+			$VentaConcretadaDetalle->UmeAbreviacion = (($fila['UmeAbreviacion']));
+
+
+			//$VentaConcretadaDetalle->AmoFecha = (($fila['NAmoFecha']));
+			$VentaConcretadaDetalle->VcoFecha = (($fila['NAmoFecha']));
+
+			$VentaConcretadaDetalle->CliNombreCompleto = (($fila['CliNombreCompleto']));
+			$VentaConcretadaDetalle->CliNombre = (($fila['CliNombre']));
+			$VentaConcretadaDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));
+			$VentaConcretadaDetalle->CliApellidoMaterno = (($fila['CliApellidoMaterno']));
+
+			$VentaConcretadaDetalle->ProIdReemplazo = (($fila['ProIdReemplazo']));
+			$VentaConcretadaDetalle->ProCodigoOriginalReemplazo = (($fila['ProCodigoOriginalReemplazo']));
+			$VentaConcretadaDetalle->AmdReemplazo = (($fila['AmdReemplazo']));
+
+			$VentaConcretadaDetalle->VcdCantidadFacturar = (($fila['AmdCantidadFacturar']));
+
+
+			$VentaConcretadaDetalle->InsMysql = NULL;
+			$Respuesta['Datos'][] = $VentaConcretadaDetalle;
 		}
-		
-		
-	 public function MtdObtenerVentaConcretadaDetallesValor($oFuncion="SUM",$oParametro="AmoTotal",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVentaConcretada=NULL,$oEstado=NULL,$oProducto=NULL,$oVentaDirectaDetalleId=NULL,$oVentaConcretadaEstado=NULL,$oVehiculoMarca=NULL,$oProductoTipo=NULL) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 
-			$i=1;
+		return $Respuesta;
+	}
+
+
+	public function MtdObtenerVentaConcretadaDetallesValor($oFuncion = "SUM", $oParametro = "AmoTotal", $oMes = NULL, $oAno = NULL, $oCampo = NULL, $oFiltro = NULL, $oOrden = 'AmdId', $oSentido = 'Desc', $oPaginacion = '0,10', $oVentaConcretada = NULL, $oEstado = NULL, $oProducto = NULL, $oVentaDirectaDetalleId = NULL, $oVentaConcretadaEstado = NULL, $oVehiculoMarca = NULL, $oProductoTipo = NULL)
+	{
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oVentaConcretada)){
-			$vconcretada = ' AND amd.AmoId = "'.$oVentaConcretada.'"';
-		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND amd.AmdEstado = '.$oEstado.' ';
-		}
-		
-		if(!empty($oProducto)){
-			$producto = ' AND (amd.ProId = "'.$oProducto.'") ';
-		}
-	
-		if(!empty($oVentaDirectaDetalleId)){
-			$vddetalle = ' AND (amd.VddId = "'.$oVentaDirectaDetalleId.'") ';
+
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		if(!empty($oVentaConcretadaEstado)){
-			$vcestado = ' AND (amo.AmoEstado = "'.$oVentaConcretadaEstado.'") ';
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		
-	
-		if(!empty($oVehiculoMarca)){
-			
+
+		if (!empty($oVentaConcretada)) {
+			$vconcretada = ' AND amd.AmoId = "' . $oVentaConcretada . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND amd.AmdEstado = ' . $oEstado . ' ';
+		}
+
+		if (!empty($oProducto)) {
+			$producto = ' AND (amd.ProId = "' . $oProducto . '") ';
+		}
+
+		if (!empty($oVentaDirectaDetalleId)) {
+			$vddetalle = ' AND (amd.VddId = "' . $oVentaDirectaDetalleId . '") ';
+		}
+
+		if (!empty($oVentaConcretadaEstado)) {
+			$vcestado = ' AND (amo.AmoEstado = "' . $oVentaConcretadaEstado . '") ';
+		}
+
+
+
+		if (!empty($oVehiculoMarca)) {
+
 			$vmarca = '
 			AND 
 			
@@ -675,39 +662,39 @@ AND ncr.NcrMotivoCodigo<> "04"
 						ON pvv.VveId = vve.VveId
 							LEFT JOIN tblvmovehiculomodelo vmo
 							ON vve.VmoId = vmo.VmoId
-					WHERE vmo.VmaId = "'.$oVehiculoMarca.'"
+					WHERE vmo.VmaId = "' . $oVehiculoMarca . '"
 					AND amd.ProId = pvv.ProId
 				)
 				
 				OR
 				
-				pro.VmaId = "'.$oVehiculoMarca.'"
+				pro.VmaId = "' . $oVehiculoMarca . '"
 			)
 			';
 		}
-		
-		
-		if(!empty($oProductoTipo)){
-			$ptipo = ' AND (pro.RtiId = "'.$oProductoTipo.'") ';
+
+
+		if (!empty($oProductoTipo)) {
+			$ptipo = ' AND (pro.RtiId = "' . $oProductoTipo . '") ';
 		}
-		
-		
-			
-		if(!empty($oFuncion) & !empty($oParametro)){		
-			$funcion = $oFuncion.'('.$oParametro.')';			
-		}	
-		
-		if(!empty($oMes)){
-			$mes = ' AND MONTH(amo.AmoFecha) ="'.($oMes).'"';
+
+
+
+		if (!empty($oFuncion) & !empty($oParametro)) {
+			$funcion = $oFuncion . '(' . $oParametro . ')';
 		}
-		
-		if(!empty($oAno)){
-			$ano = ' AND YEAR(amo.AmoFecha) ="'.($oAno).'"';
+
+		if (!empty($oMes)) {
+			$mes = ' AND MONTH(amo.AmoFecha) ="' . ($oMes) . '"';
 		}
-		
-		 $sql = '
+
+		if (!empty($oAno)) {
+			$ano = ' AND YEAR(amo.AmoFecha) ="' . ($oAno) . '"';
+		}
+
+		$sql = '
 			SELECT
-				'.$funcion.' AS "RESULTADO"
+				' . $funcion . ' AS "RESULTADO"
 			
 			FROM tblamdalmacenmovimientodetalle amd
 				LEFT JOIN tblproproducto pro
@@ -719,107 +706,108 @@ AND ncr.NcrMotivoCodigo<> "04"
 							LEFT JOIN tblclicliente cli
 							ON amo.CliId = cli.CliId
 							
-			WHERE  amo.AmoTipo = 2  AND amo.AmoSubTipo = 3 '.$ano.$mes.$vconcretada.$estado.$producto.$filtrar.$vddetalle.$vcestado.$vmarca.$ptipo.$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			settype($fila['RESULTADO'],"float");
-			
-			return $fila['RESULTADO'];		
-		}	
-		
+			WHERE  amo.AmoTipo = 2  AND amo.AmoSubTipo = 3 ' . $ano . $mes . $vconcretada . $estado . $producto . $filtrar . $vddetalle . $vcestado . $vmarca . $ptipo . $orden . $paginacion;
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		settype($fila['RESULTADO'], "float");
+
+		return $fila['RESULTADO'];
+	}
+
 	//Accion eliminar	 
-	
-	public function MtdEliminarVentaConcretadaDetalle($oElementos) {
+
+	public function MtdEliminarVentaConcretadaDetalle($oElementos)
+	{
 
 		$error = false;
-		
-		$elementos = explode("#",$oElementos);
-	
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){				
-					if($i==count($elementos)){						
-						$eliminar .= '  (AmdId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (AmdId = "'.($elemento).'")  OR';	
-					}	
+
+		$elementos = explode("#", $oElementos);
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+				if ($i == count($elementos)) {
+					$eliminar .= '  (AmdId = "' . ($elemento) . '")';
+				} else {
+					$eliminar .= '  (AmdId = "' . ($elemento) . '")  OR';
 				}
-			$i++;
-	
 			}
-		
-				
-				$sql = 'DELETE FROM tblamdalmacenmovimientodetalle 
-				WHERE '.$eliminar;
-							
-				$error = false;
-	
-				$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-				
-				if(!$resultado) {						
-					$error = true;
-				} 	
-				
-	
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
-	}
-	
-	
-	
-		public function MtdActualizarEstadoVentaConcretadaDetalle($oElementos,$oEstado) {
+			$i++;
+		}
+
+
+		$sql = 'DELETE FROM tblamdalmacenmovimientodetalle 
+				WHERE ' . $eliminar;
 
 		$error = false;
-		
-		$elementos = explode("#",$oElementos);
-	
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){				
-					if($i==count($elementos)){						
-						$actualizar .= '  (AmdId = "'.($elemento).'")';	
-					}else{
-						$actualizar .= '  (AmdId = "'.($elemento).'")  OR';	
-					}	
-				}
-			$i++;
-	
-			}
-		
-				
-				$sql = 'UPDATE tblamdalmacenmovimientodetalle SET 
-				AmdEstado = '.$oEstado.'
-				WHERE '.$actualizar;
-							
-				$error = false;
-	
-				$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-				
-				if(!$resultado) {						
-					$error = true;
-				} 	
-				
-	
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	
-	public function MtdRegistrarVentaConcretadaDetalle() {
-	
-			$this->MtdGenerarVentaConcretadaDetalleId();
-			
-			$sql = 'INSERT INTO tblamdalmacenmovimientodetalle (
+
+
+
+	public function MtdActualizarEstadoVentaConcretadaDetalle($oElementos, $oEstado)
+	{
+
+		$error = false;
+
+		$elementos = explode("#", $oElementos);
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+				if ($i == count($elementos)) {
+					$actualizar .= '  (AmdId = "' . ($elemento) . '")';
+				} else {
+					$actualizar .= '  (AmdId = "' . ($elemento) . '")  OR';
+				}
+			}
+			$i++;
+		}
+
+
+		$sql = 'UPDATE tblamdalmacenmovimientodetalle SET 
+				AmdEstado = ' . $oEstado . '
+				WHERE ' . $actualizar;
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+	public function MtdRegistrarVentaConcretadaDetalle()
+	{
+
+		$this->MtdGenerarVentaConcretadaDetalleId();
+
+		$sql = 'INSERT INTO tblamdalmacenmovimientodetalle (
 			AmdId,
 			AmoId,	
 			ProId,
@@ -846,9 +834,12 @@ AND ncr.NcrMotivoCodigo<> "04"
 			AmdValorTotal,
 			AmdUtilidad,
 			AmdPrecioVenta,
+
+			AmdCostoExtraUnitario,
 			
 			AmdImporte,
 			AmdCostoPromedio,
+
 
 			AmdInternacionalTotalAduana,
 			AmdInternacionalTotalTransporte,
@@ -875,116 +866,116 @@ AND ncr.NcrMotivoCodigo<> "04"
 			AmdTiempoModificacion
 			) 
 			VALUES (
-			"'.($this->VcdId).'", 
-			"'.($this->VcoId).'", 
-			"'.($this->ProId).'", 
-			"'.($this->UmeId).'", 
+			"' . ($this->VcdId) . '", 
+			"' . ($this->VcoId) . '", 
+			"' . ($this->ProId) . '", 
+			"' . ($this->UmeId) . '", 
 			
 			NULL,
 			NULL,
-			'.(empty($this->VddId)?'NULL, ':'"'.$this->VddId.'",').'
+			' . (empty($this->VddId) ? 'NULL, ' : '"' . $this->VddId . '",') . '
 			
-			NULL,
-			
-			NULL,
 			NULL,
 			
 			NULL,
 			NULL,
 			
-			'.($this->VcdCosto).', 
-			0,
-			'.($this->VcdCostoExtraTotal).', 
-			'.($this->VcdCantidad).',
-			'.($this->VcdCantidadReal).',
+			NULL,
+			NULL,
 			
-			'.($this->VcdValorTotal).',
-			'.($this->VcdUtilidad).',
-			'.($this->VcdPrecioVenta).',
+			' . ($this->VcdCosto) . ', 
+			0,
+			' . ($this->VcdCostoExtraTotal) . ', 
+			' . ($this->VcdCantidad) . ',
+			' . ($this->VcdCantidadReal) . ',
 			
-			'.($this->VcdImporte).', 
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
+			' . ($this->VcdValorTotal) . ',
+			' . ($this->VcdUtilidad) . ',
+			' . ($this->VcdPrecioVenta) . ',
+
 			0,
 			
-			"'.($this->AlmId).'",
-			"'.($this->VcdFecha).'",
-			"'.($this->VcdReingreso).'",
-			"'.($this->VcdCompraOrigen).'",
+			' . ($this->VcdImporte) . ', 
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			
+			"' . ($this->AlmId) . '",
+			"' . ($this->VcdFecha) . '",
+			"' . ($this->VcdReingreso) . '",
+			"' . ($this->VcdCompraOrigen) . '",
 			
 			2,
-			'.($this->VcdEstado).',
-			"'.($this->VcdTiempoCreacion).'",
-			"'.($this->VcdTiempoModificacion).'");';
-		
-			$error = false;
+			' . ($this->VcdEstado) . ',
+			"' . ($this->VcdTiempoCreacion) . '",
+			"' . ($this->VcdTiempoModificacion) . '");';
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 	
-		
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	public function MtdEditarVentaConcretadaDetalle() {
 
-			$sql = 'UPDATE tblamdalmacenmovimientodetalle SET 	
-			ProId = "'.($this->ProId).'",
-			UmeId = "'.($this->UmeId).'",
-			AmdCosto = '.($this->VcdCosto).',
-			AmdCostoExtraTotal = '.($this->VcdCostoExtraTotal).',
-			AmdCantidad = '.($this->VcdCantidad).',
-			AmdCantidadReal = '.($this->VcdCantidadReal).',
-			
-			AmdValorTotal = '.($this->VcdValorTotal).',
-			AmdUtilidad = '.($this->VcdUtilidad).',
-			AmdPrecioVenta = '.($this->VcdPrecioVenta).',	
-			
-			AlmId = "'.($this->AlmId).'",
-			AmdCompraOrigen = "'.($this->VcdCompraOrigen).'",
-			
-			AmdFecha = "'.($this->VcdFecha).'",
-			AmdImporte = '.($this->VcdImporte).',
-			
-			AmdEstado = '.($this->VcdEstado).',
-			AmdTiempoModificacion = "'.($this->VcdTiempoModificacion).'"
-					
-			WHERE AmdId = "'.($this->VcdId).'";';
-					
-			$error = false;
+	public function MtdEditarVentaConcretadaDetalle()
+	{
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
+		$sql = 'UPDATE tblamdalmacenmovimientodetalle SET 	
+			ProId = "' . ($this->ProId) . '",
+			UmeId = "' . ($this->UmeId) . '",
+			AmdCosto = ' . ($this->VcdCosto) . ',
+			AmdCostoExtraTotal = ' . ($this->VcdCostoExtraTotal) . ',
+			AmdCantidad = ' . ($this->VcdCantidad) . ',
+			AmdCantidadReal = ' . ($this->VcdCantidadReal) . ',
 			
-			if(!$resultado) {						
-				$error = true;
-			} 		
+			AmdValorTotal = ' . ($this->VcdValorTotal) . ',
+			AmdUtilidad = ' . ($this->VcdUtilidad) . ',
+			AmdPrecioVenta = ' . ($this->VcdPrecioVenta) . ',	
 			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}						
-				
-		}	
-	
-//	
-	
+			AlmId = "' . ($this->AlmId) . '",
+			AmdCompraOrigen = "' . ($this->VcdCompraOrigen) . '",
+			
+			AmdFecha = "' . ($this->VcdFecha) . '",
+			AmdImporte = ' . ($this->VcdImporte) . ',
+			
+			AmdEstado = ' . ($this->VcdEstado) . ',
+			AmdTiempoModificacion = "' . ($this->VcdTiempoModificacion) . '"
+					
+			WHERE AmdId = "' . ($this->VcdId) . '";';
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	//	
+
 }
-?>

@@ -18,7 +18,7 @@ require_once($InsPoo->MtdPaqEmpresa().'/ClsSucursal.php');
 
 $InsUsuario = new ClsUsuario();
 $InsRol = new ClsRol();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 
 include('formularios/Usuario/acc/AccUsuarioEditar.php');

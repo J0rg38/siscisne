@@ -21,7 +21,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsProductoTipo = new ClsProductoTipo();
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsProductoCategoria = new ClsProductoCategoria();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $RepProductoTipo = $InsProductoTipo->MtdObtenerProductoTipos(NULL,NULL,'RtiNombre',"ASC",NULL);
 $ArrProductoTipos = $RepProductoTipo['Datos'];

@@ -68,7 +68,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsGarantiaRepuestoIsuzuLlamada.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 
 $InsGarantiaRepuestoIsuzu = new ClsGarantiaRepuestoIsuzu();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCuenta = new ClsCuenta();
 
 if (!isset($_SESSION['InsGarantiaRepuestoIsuzuManoObra'.$Identificador])){	
@@ -889,26 +889,26 @@ $ArrSesionObjetos = $RepSesionObjetos['Datos'];
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 
 	Calendar.setup({ 
 		inputField : "CmpFechaVenta",  // id del campo de texto 
 		ifFormat   : "%d/%m/%Y",  //  
-		button     : "BtnFechaVenta"// el id del botón que  
+		button     : "BtnFechaVenta"// el id del botï¿½n que  
 	});
 
 	Calendar.setup({ 
 		inputField : "CmpTransaccionFecha",  // id del campo de texto 
 		ifFormat   : "%d/%m/%Y",  //  
-		button     : "BtnTransaccionFecha"// el id del botón que  
+		button     : "BtnTransaccionFecha"// el id del botï¿½n que  
 	});
 	
 	
 		Calendar.setup({ 
 		inputField : "CmpFechaPago",  // id del campo de texto 
 		ifFormat   : "%d/%m/%Y",  //  
-		button     : "BtnFechaPago"// el id del botón que  
+		button     : "BtnFechaPago"// el id del botï¿½n que  
 	});
 
 
@@ -922,7 +922,7 @@ Calendar.setup({
 //		Calendar.setup({ 
 //		inputField : "CmpGarantiaRepuestoIsuzuManoObraTransaccionFecha",  // id del campo de texto 
 //		ifFormat   : "%d/%m/%Y",  //  
-//		button     : "BtnGarantiaRepuestoIsuzuManoObraTransaccionFecha"// el id del botón que  
+//		button     : "BtnGarantiaRepuestoIsuzuManoObraTransaccionFecha"// el id del botï¿½n que  
 //	});
 //	
 //	
@@ -930,7 +930,7 @@ Calendar.setup({
 //			Calendar.setup({ 
 //		inputField : "CmpGarantiaRepuestoIsuzuManoObraFechaAprobacion",  // id del campo de texto 
 //		ifFormat   : "%d/%m/%Y",  //  
-//		button     : "BtnGarantiaRepuestoIsuzuManoObraFechaAprobacion"// el id del botón que  
+//		button     : "BtnGarantiaRepuestoIsuzuManoObraFechaAprobacion"// el id del botï¿½n que  
 //	});
 //	
 //	
@@ -938,7 +938,7 @@ Calendar.setup({
 //			Calendar.setup({ 
 //		inputField : "CmpGarantiaRepuestoIsuzuManoObraFechaPago",  // id del campo de texto 
 //		ifFormat   : "%d/%m/%Y",  //  
-//		button     : "BtnGarantiaRepuestoIsuzuManoObraFechaPago"// el id del botón que  
+//		button     : "BtnGarantiaRepuestoIsuzuManoObraFechaPago"// el id del botï¿½n que  
 //	});
 //
 </script>

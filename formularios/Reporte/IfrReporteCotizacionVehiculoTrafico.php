@@ -71,7 +71,7 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
 $InsVehiculoModelo = new ClsVehiculoModelo();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $RepVehiculoModelo = $InsVehiculoModelo->MtdObtenerVehiculoModelos(NULL,NULL,"VmaId,VmoOrden","ASC",NULL,$GET_Marca,1);
 $ArrVehiculoModelos = $RepVehiculoModelo['Datos'];

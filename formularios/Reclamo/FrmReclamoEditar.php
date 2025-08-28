@@ -42,9 +42,9 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsReclamo = new ClsReclamo();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsMoneda = new ClsMoneda();
 
 if (!isset($_SESSION['InsReclamoFoto'.$Identificador])){	
@@ -608,14 +608,14 @@ if($Registro){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 	<script type="text/javascript">
 Calendar.setup({ 
 inputField : "CmpRespuestaFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnRespuestaFecha"// el id del botón que  
+button     : "BtnRespuestaFecha"// el id del botï¿½n que  
 });
 </script>
 

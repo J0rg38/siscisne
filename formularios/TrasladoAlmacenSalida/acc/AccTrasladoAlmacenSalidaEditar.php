@@ -174,7 +174,7 @@ function FncCargarDatos(){
 //	Parametro17 = AmdCosto
 //	Parametro18 = AmdCantidadRealAnterior
 //	Parametro19 = AmdEstado
-			$InsProducto = new ClsProducto();
+			$InsProducto = new ClsProducto($InsMysql);
 			$InsProducto->ProId = $DatTrasladoAlmacenSalidaDetalle->ProId;
 			$InsProducto->MtdObtenerProducto(false);
 			
@@ -261,7 +261,7 @@ function FncCargarDatos(){
 //	}
 //	
 //			
-//	$InsFichaIngreso = new ClsFichaIngreso();
+//	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 //	$InsFichaIngreso->FinId = $InsTallerPedido->FinId;
 //	$InsFichaIngreso->MtdObtenerFichaIngreso();
 //}

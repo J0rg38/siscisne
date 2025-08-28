@@ -95,7 +95,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsEncuesta.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 //INSTANCAS
 $InsEncuesta = new ClsEncuesta();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccEncuesta.php');
 //DATOS

@@ -164,7 +164,7 @@ function FncCargarDatos(){
 	global $EmpresaMonedaId;
 	global $ArrModalidadIngresos;
 
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 	$InsFichaIngreso->FinId = $GET_id;
 	$InsFichaIngreso->MtdObtenerFichaIngreso();	

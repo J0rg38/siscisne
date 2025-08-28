@@ -6,24 +6,24 @@ $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 $POST_Item = $_POST['Item'];
 $Identificador = $_POST['Identificador'];
@@ -56,12 +56,14 @@ $POST_VehiculoIngresoModeloId = $_POST['VehiculoIngresoModeloId'];
 $POST_VehiculoIngresoVersionId = $_POST['VehiculoIngresoVersionId'];
 
 session_start();
-if (!isset($_SESSION['InsCompraVehiculoDetalle'.$Identificador])){
-	$_SESSION['InsCompraVehiculoDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsCompraVehiculoDetalle' . $Identificador])) {
+	$_SESSION['InsCompraVehiculoDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsCompraVehiculoDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsCompraVehiculoDetalle' . $Identificador]);
 }
 
-require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculo.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoIngreso.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsVehiculo.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsVehiculoIngreso.php');
 
 $InsVehiculo = new ClsVehiculo();
 $InsVehiculoIngreso = new ClsVehiculoIngreso();
@@ -99,20 +101,22 @@ $InsVehiculoIngreso->MtdObtenerVehiculoIngreso(false);
 //Parametro24 = VveId
 //Parametro25 = CvdEstado
 
-	
-	$InsCompraVehiculoDetalle1 = array();
-	$InsCompraVehiculoDetalle1 = $_SESSION['InsCompraVehiculoDetalle'.$Identificador]->MtdObtenerSesionObjeto($POST_Item);
-	
-	$Cantidad = round($POST_Cantidad,3);
-	
-	$Importe = round($POST_Importe,3);
-	$Costo = round(($Importe/$Cantidad),3);
-	$CostoAnterior = round($POST_CostoAnterior,3);
-	
-	$Utilidad = round($POST_Utilidad,3);
-	$UtilidadPorcentaje = round($POST_UtilidadPorcentaje,3);
 
-	$_SESSION['InsCompraVehiculoDetalle'.$Identificador]->MtdEditarSesionObjeto($POST_Item,1,
+$InsCompraVehiculoDetalle1 = array();
+$InsCompraVehiculoDetalle1 = $_SESSION['InsCompraVehiculoDetalle' . $Identificador]->MtdObtenerSesionObjeto($POST_Item);
+
+$Cantidad = round($POST_Cantidad, 3);
+
+$Importe = round($POST_Importe, 3);
+$Costo = round(($Importe / $Cantidad), 3);
+$CostoAnterior = round($POST_CostoAnterior, 3);
+
+$Utilidad = round($POST_Utilidad, 3);
+$UtilidadPorcentaje = round($POST_UtilidadPorcentaje, 3);
+
+$_SESSION['InsCompraVehiculoDetalle' . $Identificador]->MtdEditarSesionObjeto(
+	$POST_Item,
+	1,
 	$InsCompraVehiculoDetalle1->Parametro1,
 	$InsCompraVehiculoDetalle1->Parametro2,
 	$InsCompraVehiculoDetalle1->Parametro3,
@@ -121,7 +125,7 @@ $InsVehiculoIngreso->MtdObtenerVehiculoIngreso(false);
 	$Importe,
 	$InsCompraVehiculoDetalle1->Parametro7,
 	date("d/m/Y H:i:s"),
-	
+
 	$InsCompraVehiculoDetalle1->Parametro9,
 	$InsCompraVehiculoDetalle1->Parametro10,
 	$InsCompraVehiculoDetalle1->Parametro11,
@@ -131,7 +135,7 @@ $InsVehiculoIngreso->MtdObtenerVehiculoIngreso(false);
 	$InsCompraVehiculoDetalle1->Parametro15,
 	$InsCompraVehiculoDetalle1->Parametro16,
 	NULL,
-	
+
 	$InsCompraVehiculoDetalle1->Parametro18,
 	$InsCompraVehiculoDetalle1->Parametro19,
 	$InsCompraVehiculoDetalle1->Parametro20,
@@ -139,8 +143,6 @@ $InsVehiculoIngreso->MtdObtenerVehiculoIngreso(false);
 	$InsCompraVehiculoDetalle1->Parametro22,
 	$InsCompraVehiculoDetalle1->Parametro23,
 	$InsCompraVehiculoDetalle1->Parametro24,
-	
-	$POST_Estado
-	);
 
-?>
+	$POST_Estado
+);

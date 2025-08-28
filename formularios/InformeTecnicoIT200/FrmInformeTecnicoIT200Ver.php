@@ -23,7 +23,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsInformeTecnico.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsInformeTecnico = new ClsInformeTecnico();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccInformeTecnicoEditar.php');
 

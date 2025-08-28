@@ -54,10 +54,10 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 //INSTANCIAS
 $InsCliente = new ClsCliente();
 $InsClienteTipo = new ClsClienteTipo();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsMoneda = new ClsMoneda();
 $InsTipoReferido = new ClsTipoReferido();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (!isset($_SESSION['InsClienteVehiculoIngreso'.$Identificador])){	
 	$_SESSION['InsClienteVehiculoIngreso'.$Identificador] = new ClsSesionObjeto();

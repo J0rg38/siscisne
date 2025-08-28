@@ -137,7 +137,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsVehiculoStock = new ClsVehiculoStock();
 $InsVehiculo = new ClsVehiculo();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccVehiculoStock.php');
 

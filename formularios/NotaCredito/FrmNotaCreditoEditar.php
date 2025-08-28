@@ -53,7 +53,7 @@ $InsNotaCredito = new ClsNotaCredito();
 $InsNotaCreditoTalonario = new ClsNotaCreditoTalonario();
 $InsFactura = new ClsFactura();
 $InsSunatCatalogo = new ClsSunatCatalogo();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 if (isset($_SESSION['InsNotaCreditoDetalle'.$Identificador])){	
 	$_SESSION['InsNotaCreditoDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsNotaCreditoDetalle'.$Identificador]);

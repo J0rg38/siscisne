@@ -30,12 +30,12 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsArea.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 //INSTANCIAS
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsPersonalTipo = new ClsPersonalTipo();
 $InsUsuario = new ClsUsuario();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsArea = new ClsArea();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccPersonalRegistrar.php');
 //DATOS
@@ -176,7 +176,7 @@ if(!empty($GET_dia)){
 											doneStr:"Hecho",
 											multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
 											extErrorStr:"Extension de archivo no permitido",
-											sizeErrorStr:"Tamaño no permitido",
+											sizeErrorStr:"Tamaï¿½o no permitido",
 											uploadErrorStr:"No se pudo subir el archivo",
 											dragdropWidth: 500,
 											
@@ -250,7 +250,7 @@ if(!empty($GET_dia)){
 											doneStr:"Hecho",
 											multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
 											extErrorStr:"Extension de archivo no permitido",
-											sizeErrorStr:"Tamaño no permitido",
+											sizeErrorStr:"Tamaï¿½o no permitido",
 											uploadErrorStr:"No se pudo subir el archivo",
 											dragdropWidth: 500,
 											
@@ -692,7 +692,7 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFechaNacimiento",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaNacimiento"// el id del botón que  
+	button     : "BtnFechaNacimiento"// el id del botï¿½n que  
 	}); 
 		
 

@@ -73,8 +73,8 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngresoLlamada.php');
 
-$InsPersonal = new ClsPersonal();
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 $InsFichaIngresoLlamada = new ClsFichaIngresoLlamada();
 
 //MtdObtenerFichaIngresoLlamadas($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FllId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngreso=NULL,$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oAsesor=NULL) {

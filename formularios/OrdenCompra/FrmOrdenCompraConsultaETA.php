@@ -37,7 +37,7 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsOrdenCompra = new ClsOrdenCompra();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 if (isset($_SESSION['InsOrdenCompraPedido'.$Identificador])){	
 	$_SESSION['InsOrdenCompraPedido'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsOrdenCompraPedido'.$Identificador]);

@@ -20,7 +20,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsFormaPago = new ClsFormaPago();
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL,1);

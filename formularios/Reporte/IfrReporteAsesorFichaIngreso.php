@@ -74,8 +74,8 @@ $POST_sen = isset($_POST['CmpSentido'])?$_POST['CmpSentido']:"ASC";
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
-$InsPersonal = new ClsPersonal();
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 $ResPersonal = $InsPersonal->MtdObtenerPersonales(NULL,NULL,NULL,"PerNombre","ASC",NULL,NULL,1,NULL,NULL,1);
 $ArrAsesores = $ResPersonal['Datos'];
@@ -144,7 +144,7 @@ $ArrAsesores = $ResPersonal['Datos'];
 			for($mes=1;$mes<=12;$mes++){
 			?>
              <td width="50"  align="center" valign="top" class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>"   ><?php
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 //MtdObtenerFichaIngresosValor($oFuncion="SUM",$oParametro="FinId",$oMes=NULL,$oAno=NULL, $oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FinId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oPrioridad=NULL,$oModalidadIngreso=NULL,$oVIN=NULL,$oCliente=NULL,$oPersonalId=NULL,$oTrabajoConcluido=0,$oCampana=NULL,$oClienteTipo=NULL,$oTipo=NULL,$oSalidaExterna=0,$oConCampana=NULL,$oVehiculoIngreso=NULL,$oConConcluido=0,$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oFinMantenimientoKilometraje=NULL,$oTipoReparacion=NULL,$oPersonalIdAsesor=NULL)
 $TotalAsesorFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresosValor("COUNT","fin.FinId",$mes,$POST_Ano, NULL,NULL,NULL,'fin.FinId','Desc',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,0,NULL,NULL,0,NULL,NULL,NULL,NULL,$DatAsesor->PerId) ;

@@ -102,7 +102,7 @@ $InsBoleta = new ClsBoleta();
 $InsNotaCredito = new ClsNotaCredito();
 $InsNotaDebito = new ClsNotaDebito();
 $InsReporteComprobanteVentaDetalle = new ClsReporteComprobanteVentaDetalle();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 
 
 //if(empty($POST_ClienteId) and !empty($POST_ClienteNombre)){

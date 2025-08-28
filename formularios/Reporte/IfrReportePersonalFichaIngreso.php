@@ -98,12 +98,12 @@ require_once($InsPoo->MtdPaqReporte().'ClsReporteTallerPedido.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirecta.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirectaDetalle.php');
 
-$InsPersonal = new ClsPersonal();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 $InsBoleta = new ClsBoleta();
 $InsFactura = new ClsFactura();
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsReporteFichaIngreso = new ClsReporteFichaIngreso();
 $InsTallerPedido = new ClsTallerPedido();
 $InsTallerPedidoDetalle = new ClsTallerPedidoDetalle();
@@ -250,7 +250,7 @@ $FacturadoOtros = 0;
 					
 					
 					<?php
-                    $InsFichaIngreso = new ClsFichaIngreso();
+                    $InsFichaIngreso = new ClsFichaIngreso($InsMysql);
                     //MtdObtenerFichaIngresosValor($oFuncion="SUM",$oParametro="FinId",$oMes=NULL,$oAno=NULL, $oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FinId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oPrioridad=NULL,$oModalidadIngreso=NULL,$oVIN=NULL,$oCliente=NULL,$oPersonalId=NULL,$oTrabajoConcluido=0,$oCampana=NULL,$oClienteTipo=NULL,$oTipo=NULL,$oSalidaExterna=0,$oConCampana=NULL,$oVehiculoIngreso=NULL,$oConConcluido=0,$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oFinMantenimientoKilometraje=NULL,$oTipoReparacion=NULL,$oPersonalIdAsesor=NULL,$oIgnorarPrimerMantenimiento=false,$oIgnorarReparacionesSinCosto=false,$oSucursal=NULL) {
                     $TotalPersonalModalidadFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresosValor("COUNT","fin.FinId",NULL,NULL,NULL,NULL,NULL,'fin.FinId','Desc',NULL,FncCambiaFechaAMysql($POST_FechaInicio),FncCambiaFechaAMysql($POST_FechaFin),NULL,NULL,$DatModalidadIngreso->MinId,NULL,NULL,$DatTecnico->PerId,0,NULL,NULL,NULL,0,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,false,false,$POST_Sucursal);
                     
@@ -345,7 +345,7 @@ $FacturadoOtros = 0;
 			}else if($DatModalidadIngreso->MinSigla <> "GA" and $DatModalidadIngreso->MinSigla <> "OB" ){
 			
 			
-				 $InsFichaIngreso = new ClsFichaIngreso();
+				 $InsFichaIngreso = new ClsFichaIngreso($InsMysql);
                  //MtdObtenerFichaIngresosValor($oFuncion="SUM",$oParametro="FinId",$oMes=NULL,$oAno=NULL, $oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FinId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oPrioridad=NULL,$oModalidadIngreso=NULL,$oVIN=NULL,$oCliente=NULL,$oPersonalId=NULL,$oTrabajoConcluido=0,$oCampana=NULL,$oClienteTipo=NULL,$oTipo=NULL,$oSalidaExterna=0,$oConCampana=NULL,$oVehiculoIngreso=NULL,$oConConcluido=0,$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oFinMantenimientoKilometraje=NULL,$oTipoReparacion=NULL,$oPersonalIdAsesor=NULL,$oIgnorarPrimerMantenimiento=false,$oIgnorarReparacionesSinCosto=false,$oSucursal=NULL) {
                  $TotalPersonalModalidadFichaIngresoOtro = $InsFichaIngreso->MtdObtenerFichaIngresosValor("COUNT","fin.FinId",NULL,NULL,NULL,NULL,NULL,'fin.FinId','Desc',NULL,FncCambiaFechaAMysql($POST_FechaInicio),FncCambiaFechaAMysql($POST_FechaFin),NULL,NULL,$DatModalidadIngreso->MinId,NULL,NULL,$DatTecnico->PerId,0,NULL,NULL,NULL,0,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,false,false,$POST_Sucursal);
                     
@@ -1201,7 +1201,7 @@ if($POST_Detalle=="Si"){
 /*if(!empty($ArrTecnicos)){
 	foreach($ArrTecnicos as $DatTecnico){
 		
-		$InsFichaIngreso = new ClsFichaIngreso();
+		$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 		$ResFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresos(NULL,NULL,NULL,"FinFecha","ASC",NULL,FncCambiaFechaAMysql($POST_FechaInicio),FncCambiaFechaAMysql($POST_FechaFin),NULL,NULL,NULL,NULL,NULL,$DatTecnico->PerId,0,NULL,NULL,1,0,NULL,NULL,0,NULL,NULL,NULL,NULL,$POST_Sucursal);
 		$ArrFichaIngresos = $ResFichaIngreso['Datos'];
 ?>
@@ -1310,7 +1310,7 @@ if($POST_Detalle=="Si"){
 				 ?>   
     <?php
     //MtdObtenerFichaAcciones($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FccId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngresoModalidad=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oFichaIngresoEstado=NULL,$oPorFacturar=false,$oPorGenerarGarantia=false,$oFichaIngresoModalidadIngreso=NULL,$oIgnorarTotalVacio=false,$oFacturable=NULL,$oGenerarFactura=false,$oTipoFecha="fcc.FccFecha") {
-        $InsFichaAccion = new ClsFichaAccion();
+        $InsFichaAccion = new ClsFichaAccion($InsMysql);
         $ResFichaAccion = $InsFichaAccion->MtdObtenerFichaAcciones(NULL,NULL,NULL,'FccId','Desc',NULL,$DatFichaIngresoModalidad->FimId,NULL,NULL,NULL,NULL,false,false,NULL,false,NULL,false,"fcc.FccFecha");
         $ArrFichaAcciones = $ResFichaAccion['Datos'];
     ?>

@@ -38,10 +38,10 @@ $InsMoneda = new ClsMoneda();
 $InsCondicionPago = new ClsCondicionPago();
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsArea = new ClsArea();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsFormaPago = new ClsFormaPago();
 $InsBanco = new ClsBanco();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsOrdenVentaVehiculo->OvvId = $GET_OvvId;
 $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(false);

@@ -479,7 +479,7 @@ if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){
 												
 							if(!empty($InsOrdenVentaVehiculo->PerId)){
 								
-								$InsPersonal = new ClsPersonal();
+								$InsPersonal = new ClsPersonal($InsMysql);
 								$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 								$InsPersonal->MtdObtenerPersonal();
 							
@@ -751,15 +751,15 @@ function FncCargarFichaAccionDatos(){
 	global $EmpresaImpuestoSelectivo;
 	global $POST_Seleccionados;
 
-	$InsFichaAccion = new ClsFichaAccion();
+	$InsFichaAccion = new ClsFichaAccion($InsMysql);
 
 	if(!empty($GET_FccId)){
 		
-		$InsFichaAccion = new ClsFichaAccion();
+		$InsFichaAccion = new ClsFichaAccion($InsMysql);
 		$InsFichaAccion->FccId = $GET_FccId;
 		$InsFichaAccion->MtdObtenerFichaAccion();
 		
-		$InsFichaIngreso = new ClsFichaIngreso();
+		$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 		$InsFichaIngreso->FinId = $InsFichaAccion->FinId;
 		$InsFichaIngreso->MtdObtenerFichaIngreso();
 		
@@ -1462,12 +1462,12 @@ function FncCargarFichaAccionDatos(){
 				
 				if(!empty($DatSeleccionado)){
 					
-					$InsFichaAccion = new ClsFichaAccion();
+					$InsFichaAccion = new ClsFichaAccion($InsMysql);
 					$InsFichaAccion->FccId = $DatSeleccionado;
 					$InsFichaAccion->MtdObtenerFichaAccion();
 					
 					
-					$InsFichaIngreso = new ClsFichaIngreso();
+					$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 					$InsFichaIngreso->FinId = $InsFichaAccion->FinId;
 					$InsFichaIngreso->MtdObtenerFichaIngreso();
 					
@@ -3585,7 +3585,7 @@ function FncCargarVehiculoMovimientoSalidaDatos(){
 //						
 //	if(!empty($InsOrdenVentaVehiculo->PerId)){
 //		
-//		$InsPersonal = new ClsPersonal();
+//		$InsPersonal = new ClsPersonal($InsMysql);
 //		$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 //		$InsPersonal->MtdObtenerPersonal();
 //	

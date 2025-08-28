@@ -79,7 +79,7 @@ $InsFacturaTalonario = new ClsFacturaTalonario();
 $InsCondicionPago = new ClsCondicionPago();
 $InsMoneda = new ClsMoneda();
 $InsRegimen = new ClsRegimen();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 
 if (isset($_SESSION['InsFacturaDetalle'.$Identificador])){	

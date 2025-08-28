@@ -73,7 +73,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenStock.php');
 $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 $InsProductoReemplazo = new ClsProductoReemplazo();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsMoneda = new ClsMoneda();
 $InsClienteListaPrecio = new ClsClienteListaPrecio();
 $InsAlmacen = new ClsAlmacen();

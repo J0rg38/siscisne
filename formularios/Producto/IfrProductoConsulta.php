@@ -79,7 +79,7 @@ require_once($InsPoo->MtdPaqReporte().'ClsReporteProductoCompra.php');
 $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 $InsProductoReemplazo = new ClsProductoReemplazo();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsMoneda = new ClsMoneda();
 $InsClienteListaPrecio = new ClsClienteListaPrecio();
 $InsReporteProductoVenta = new ClsReporteProductoVenta();

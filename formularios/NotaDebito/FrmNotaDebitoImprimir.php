@@ -80,7 +80,7 @@ $InsNotaDebito->NdbTotal = (($InsNotaDebito->NdbTotal/$InsTipoCambio->TcaMontoCo
 //$InsNotaDebito->NdbImpuesto = number_format(($InsNotaDebito->NdbImpuesto/$InsTipoCambio->TcaMontoCompra),2);
 //$InsNotaDebito->NdbTotal = number_format(($InsNotaDebito->NdbTotal/$InsTipoCambio->TcaMontoCompra),2);
 
-//$InsSucursal = new ClsSucursal();
+//$InsSucursal = new ClsSucursal($InsMysql);
 //$InsSucursal->SucId = $_SESSION['SesionSucursal'];
 //$InsSucursal->MtdObtenerSucursal();
 

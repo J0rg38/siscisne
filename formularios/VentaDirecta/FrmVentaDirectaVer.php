@@ -62,22 +62,22 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 
 //INSTANCIAS
-$InsVentaDirecta = new ClsVentaDirecta();
-$InsTipoOperacion = new ClsTipoOperacion();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsClienteTipo = new ClsClienteTipo();
-$InsCotizacionProducto = new ClsCotizacionProducto();
+$InsVentaDirecta = new ClsVentaDirecta($InsMysql);
+$InsTipoOperacion = new ClsTipoOperacion($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsClienteTipo = new ClsClienteTipo($InsMysql);
+$InsCotizacionProducto = new ClsCotizacionProducto($InsMysql);
 
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
-$InsMoneda = new ClsMoneda();
-$InsCondicionPago = new ClsCondicionPago();
-$InsPersonal = new ClsPersonal();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsCondicionPago = new ClsCondicionPago($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
-$InsAlmacen = new ClsAlmacen();
+$InsAlmacen = new ClsAlmacen($InsMysql);
 
 if (isset($_SESSION['InsVentaDirectaDetalle'.$Identificador])){	
 	$_SESSION['InsVentaDirectaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVentaDirectaDetalle'.$Identificador]);

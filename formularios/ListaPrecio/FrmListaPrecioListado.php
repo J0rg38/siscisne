@@ -97,14 +97,14 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCodigoReemplazo.php');   requi
 	require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
    
    
-   $InsProducto = new ClsProducto();
+   $InsProducto = new ClsProducto($InsMysql);
    $InsProductoTipo = new ClsProductoTipo();
    $InsListaPrecio = new ClsListaPrecio();
    
    $InsClienteTipo = new ClsClienteTipo();
    
 //   $InsProductoTipoUnidadMedida = new ClsProductoTipoUnidadMedida();
-   $InsUnidadMedida = new ClsUnidadMedida();
+   $InsUnidadMedida = new ClsUnidadMedida($InsMysql);
    
    //include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccListaPrecio.php');
    

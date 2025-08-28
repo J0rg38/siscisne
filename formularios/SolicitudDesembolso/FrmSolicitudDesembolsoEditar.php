@@ -39,7 +39,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoGasto.php');
 
 $InsSolicitudDesembolso = new ClsSolicitudDesembolso();
 $InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsArea = new ClsArea();
 $InsTipoGasto = new ClsTipoGasto();
 
@@ -111,7 +111,7 @@ var SolicitudDesembolsoDetalleEliminar = 1;
 <?php
 if(!empty($GET_dia)){
 ?>
-	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div> 
+	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div>ï¿½
 <?php	
 }
 ?>
@@ -549,7 +549,7 @@ if($Edito){
 //Calendar.setup({ 
 //	inputField : "CmpFecha",  // id del campo de texto 
 //	ifFormat   : "%d/%m/%Y",  //  
-//	button     : "BtnFecha"// el id del botón que  
+//	button     : "BtnFecha"// el id del botï¿½n que  
 //	});
 //
 </script>

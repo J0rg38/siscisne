@@ -79,7 +79,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsFichaIngresoLlamada.php');
 require_once($InsPoo->MtdPaqActividad().'ClsPreEntregaDetalle.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngresoModalidad.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 $InsFichaIngreso->Ruta = '../../';
 
 //MtdObtenerFichaIngresos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FinId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oPrioridad=NULL,$oModalidadIngreso=NULL,$oVIN=NULL,$oClienteId=NULL) {

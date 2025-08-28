@@ -19,7 +19,7 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsMoneda = new ClsMoneda();
 $InsCondicionPago = new ClsCondicionPago();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL,1);
 $ArrMonedas = $ResMoneda['Datos'];

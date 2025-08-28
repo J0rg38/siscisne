@@ -74,7 +74,7 @@ $InsNotaDebito = new ClsNotaDebito();
 $InsNotaDebitoTalonario = new ClsNotaDebitoTalonario();
 $InsFactura = new ClsFactura();
 $InsSunatCatalogo = new ClsSunatCatalogo();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 if (!isset($_SESSION['InsNotaDebitoDetalle'.$Identificador])){	
 	$_SESSION['InsNotaDebitoDetalle'.$Identificador] = new ClsSesionObjeto();

@@ -73,15 +73,15 @@ require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimiento.php');
 
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsCondicionVenta = new ClsCondicionVenta();
 $InsObsequio = new ClsObsequio();
 $InsModalidadPago = new ClsModalidadPago();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 
 $ResCondicionVenta = $InsCondicionVenta->MtdObtenerCondicionVentas(NULL,NULL,'CovId','DESC',NULL,1);
 $ArrCondicionVentas = $ResCondicionVenta['Datos'];

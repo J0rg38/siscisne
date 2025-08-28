@@ -98,14 +98,14 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoModelo.php');
 require_once($InsPoo->MtdPaqActividad().'ClsModalidadIngreso.php');
 require_once($InsPoo->MtdPaqActividad().'ClsModalidadIngreso.php');
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsFichaAccion = new ClsFichaAccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsFichaAccionProducto = new ClsFichaAccionProducto();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoModelo = new ClsVehiculoModelo();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
 $InsVehiculoMarca->VmaId = $POST_VehiculoMarca;
 $InsVehiculoMarca->MtdObtenerVehiculoMarca();

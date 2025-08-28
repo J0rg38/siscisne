@@ -19,7 +19,7 @@ $InsProductoTipo = new ClsProductoTipo();
 $InsMoneda = new ClsMoneda();
 $InsProductoCategoria = new ClsProductoCategoria();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $RepProductoTipo = $InsProductoTipo->MtdObtenerProductoTipos(NULL,NULL,'RtiNombre',"ASC",NULL);
 $ArrProductoTipos = $RepProductoTipo['Datos'];

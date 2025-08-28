@@ -252,7 +252,7 @@ $InsGarantia->GarSubTotalRepuestoStock += $InsGarantiaDetalle1->GdeCostoTotal;
 
 	FncNuevo();
 
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 	$InsFichaIngreso->FinId = $InsFichaAccion->FinId;
 	$InsFichaIngreso->MtdObtenerFichaIngreso();
 		
@@ -435,7 +435,7 @@ function FncNuevo(){
 	$_SESSION['InsGarantiaOperacion'.$Identificador] = new ClsSesionObjeto();
 	$_SESSION['InsGarantiaDetalle'.$Identificador] = new ClsSesionObjeto();	
 
-	$InsGarantia = new ClsGarantia();
+	$InsGarantia = new ClsGarantia($InsMysql);
 	$InsGarantia->GarFechaEmision = date("d/m/Y");
 
 }

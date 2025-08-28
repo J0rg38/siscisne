@@ -47,10 +47,10 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoReferido.php');
 
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsCondicionVenta = new ClsCondicionVenta();
 $InsCondicionPago = new ClsCondicionPago();
 $InsObsequio = new ClsObsequio();

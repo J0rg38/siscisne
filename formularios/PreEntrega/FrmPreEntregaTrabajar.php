@@ -79,22 +79,22 @@ require_once($InsPoo->MtdPaqActividad().'ClsPreEntregaTarea.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 $InsPlanMantenimientoDetalle = new ClsPlanMantenimientoDetalle();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 
-$InsPreEntregaTarea = new ClsPreEntregaTarea();
-$InsPreEntregaSeccion = new ClsPreEntregaSeccion();
+$InsPreEntregaTarea = new ClsPreEntregaTarea($InsMysql);
+$InsPreEntregaSeccion = new ClsPreEntregaSeccion($InsMysql);
 
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $ResModalidadIngreso = $InsModalidadIngreso->MtdObtenerModalidadIngresos(NULL,NULL,"MinOrden","ASC",NULL,"2,3");
 $ArrModalidadIngresos = $ResModalidadIngreso['Datos'];

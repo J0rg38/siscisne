@@ -424,7 +424,7 @@ function FncCargarDatos(){
 	$_SESSION['InsPreEntregaDetalle'.$Identificador] = new ClsSesionObjeto();	
 	$_SESSION['InsPreEntregaCliente'.$Identificador] = new ClsSesionObjeto();	
 
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 		
 	foreach($ArrModalidadIngresos as $DatModalidadIngreso){
 		

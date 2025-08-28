@@ -60,7 +60,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedido.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 $InsFichaIngreso->FinId = $GET_id;
 $InsFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngreso();

@@ -58,8 +58,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsComprobanteRetencion = new ClsComprobanteRetencion();
 $InsComprobanteRetencionTalonario = new ClsComprobanteRetencionTalonario();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsMoneda = new ClsMoneda();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsFichaIngreso->UsuId = $_SESSION['SesionId'];
 

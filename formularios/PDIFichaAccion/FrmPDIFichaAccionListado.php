@@ -143,7 +143,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedido.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 $InsFichaIngreso->UsuId = $_SESSION['SesionId'];
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccPDIFichaAccion.php');

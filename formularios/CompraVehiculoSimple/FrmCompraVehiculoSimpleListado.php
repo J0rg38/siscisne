@@ -97,9 +97,9 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsCompraVehiculo = new ClsCompraVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccCompraVehiculoSimple.php');
 

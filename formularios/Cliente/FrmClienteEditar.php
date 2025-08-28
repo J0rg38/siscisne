@@ -46,10 +46,10 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 //INSTANCIAS
 $InsCliente = new ClsCliente();
 $InsClienteTipo = new ClsClienteTipo();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsMoneda = new ClsMoneda();
 $InsTipoReferido = new ClsTipoReferido();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 // Cargar datos del cliente si se está editando
 if (!empty($GET_id)) {

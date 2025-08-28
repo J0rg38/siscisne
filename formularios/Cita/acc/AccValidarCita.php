@@ -38,7 +38,7 @@ $POST_Sucursal = $_POST['Sucursal'];
 require_once($InsPoo->MtdPaqActividad().'ClsCita.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
-//$InsSucursal = new ClsSucursal();
+//$InsSucursal = new ClsSucursal($InsMysql);
 //$InsSucursal->SucId = $POST_Sucursal;
 //$InsSucursal->MtdObtenerSucursal();
 $SucursalId = $POST_Sucursal;

@@ -38,7 +38,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsGarantiaLlamada.php');
 require_once($InsPoo->MtdPaqActividad().'ClsFichaAccionFoto.php');
 
 
-$InsGarantia = new ClsGarantia();
+$InsGarantia = new ClsGarantia($InsMysql);
 
 $InsGarantia->GarId = $GET_id;
 $InsGarantia->MtdObtenerGarantia();

@@ -56,7 +56,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoReferido.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $ResPersonal = $InsPersonal->MtdObtenerPersonales(NULL,NULL,NULL,"PerNombre","ASC",NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 $ArrPersonales = $ResPersonal['Datos'];

@@ -61,7 +61,7 @@ function FncCargarDatos(){
 	global $Identificador;
 	global $InsFichaIngreso;
 
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 		
 	$InsFichaIngreso->FinId = $GET_id;
 	$InsFichaIngreso->MtdObtenerFichaIngreso(false);	

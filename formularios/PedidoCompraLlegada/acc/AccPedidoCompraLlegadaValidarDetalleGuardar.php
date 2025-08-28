@@ -85,7 +85,7 @@ if(!empty($POST_PedidoCompraLlegadaDetalleId)){
 
 	if(empty($POST_ProductoId)){
 
-		$InsProducto = new ClsProducto();
+		$InsProducto = new ClsProducto($InsMysql);
 		$InsProducto->ProCodigoAlternativo = "";
 		$InsProducto->ProCodigoOriginal = $POST_ProductoCodigoOriginal;
 		$InsProducto->ProNombre = $POST_ProductoNombre;

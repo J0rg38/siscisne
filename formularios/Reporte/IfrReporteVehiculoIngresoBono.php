@@ -91,8 +91,8 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsVehiculoIngresoBono = new ClsVehiculoIngresoBono();
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 
 

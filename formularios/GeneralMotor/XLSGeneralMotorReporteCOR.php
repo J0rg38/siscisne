@@ -74,18 +74,18 @@ require_once($InsPoo->MtdPaqReporte().'ClsReporteCOR.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsFichaAccion = new ClsFichaAccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsFichaAccionProducto = new ClsFichaAccionProducto();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsProveedor = new ClsProveedor();
 $InsOrdenCompra = new ClsOrdenCompra();
 $InsAlmacenMovimientoEntradaDetalle = new ClsAlmacenMovimientoEntradaDetalle();
 $InsTallerPedidoDetalle = new ClsTallerPedidoDetalle();
 $InsVentaConcretadaDetalle = new ClsVentaConcretadaDetalle();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsReporteProducto = new ClsReporteProducto();
 $InsResumenVenta = new ClsResumenVenta();
 $InsResumenStock = new ClsResumenStock();
@@ -101,7 +101,7 @@ $InsProveedor->PrvId = "PRV-10548";
 $InsProveedor->MtdObtenerProveedor();
 
 			
-$InsSucursal = new ClsSucursal();		
+$InsSucursal = new ClsSucursal($InsMysql);		
 $InsSucursal->SucId = $POST_Sucursal;
 $InsSucursal->MtdObtenerSucursal();
 

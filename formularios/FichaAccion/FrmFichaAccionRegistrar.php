@@ -56,6 +56,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
   require_once($InsPoo->MtdPaqActividad() . 'ClsModalidadIngreso.php');
 
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngreso.php');
+require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoManoObra.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoLlamada.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoGasto.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsPreEntregaDetalle.php');

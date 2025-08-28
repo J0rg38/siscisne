@@ -119,10 +119,10 @@ require_once($InsPoo->MtdPaqLogistica().'ClsArea.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsSolicitudDesembolso = new ClsSolicitudDesembolso();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoGasto = new ClsTipoGasto();
 $InsArea = new ClsArea();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccSolicitudDesembolso.php');
 

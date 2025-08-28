@@ -34,8 +34,8 @@ if (!isset($_SESSION['InsCotizacionVehiculoDetalle'.$Identificador])){
 require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedidaConversion.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
 
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsUnidadMedida->UmeId = $_POST['ProductoUnidadMedidaConvertir'];
 $InsUnidadMedida->MtdObtenerUnidadMedida();

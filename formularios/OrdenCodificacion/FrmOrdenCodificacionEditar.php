@@ -33,8 +33,8 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsOrdenCodificacion = new ClsOrdenCodificacion();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccOrdenCodificacionEditar.php');
 
@@ -95,7 +95,7 @@ var OrdenCodificacionFotoEliminar = 1;
 <?php
 if(!empty($GET_dia)){
 ?>
-	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div> 
+	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div>ï¿½
 <?php	
 }
 ?>
@@ -481,7 +481,7 @@ if($Edito){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 
@@ -489,14 +489,14 @@ Calendar.setup({
 Calendar.setup({ 
 	inputField : "CmpFechaRespuesta",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaRespuesta"// el id del botón que  
+	button     : "BtnFechaRespuesta"// el id del botï¿½n que  
 	});
 </script>
 <script type="text/javascript">
 //Calendar.setup({ 
 //	inputField : "CmpFecha",  // id del campo de texto 
 //	ifFormat   : "%d/%m/%Y",  //  
-//	button     : "BtnFecha"// el id del botón que  
+//	button     : "BtnFecha"// el id del botï¿½n que  
 //	});
 //
 </script>

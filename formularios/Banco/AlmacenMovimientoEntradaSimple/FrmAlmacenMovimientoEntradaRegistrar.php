@@ -80,10 +80,10 @@ $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsAlmacen = new ClsAlmacen();
 
@@ -406,7 +406,7 @@ if(!empty($GET_dia)){
 <select  class="EstFormularioCombo" name="CmpAlmacenMovimientoDetalleEstado" id="CmpAlmacenMovimientoDetalleEstado">
                          <option value="0">-</option>
                          <option value="1">No Llego</option>
-                         <option value="2">Dañado</option>
+                         <option value="2">Daï¿½ado</option>
                          <option selected="selected" value="3">Conforme</option>
                        </select>
                        
@@ -1494,26 +1494,26 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 Calendar.setup({ 
 	inputField : "CmpComprobanteFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnComprobanteFecha",// el id del botón que  
+	button     : "BtnComprobanteFecha",// el id del botï¿½n que  
 	onUpdate       :    FncTipoCambioCargarAux
 	});
 	
 Calendar.setup({ 
 	inputField : "CmpGuiaRemisionFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnGuiaRemisionFecha"// el id del botón que  
+	button     : "BtnGuiaRemisionFecha"// el id del botï¿½n que  
 	});
 
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});		
 </script>
 

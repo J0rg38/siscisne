@@ -107,7 +107,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsVehiculoMovimientoSalida = new ClsVehiculoMovimientoSalida();
 $InsMoneda = new ClsMoneda();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccVehiculoMovimientoEntradaSimpleMonitoreo.php');
 

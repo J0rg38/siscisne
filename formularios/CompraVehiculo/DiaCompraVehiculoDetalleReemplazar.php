@@ -124,8 +124,10 @@ $Identificador = $_GET['Identificador'];
 $POST_Item = $_GET['Item'];
 
 session_start();
-if (!isset($_SESSION['InsCompraVehiculoDetalle'.$Identificador])){
-	$_SESSION['InsCompraVehiculoDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsCompraVehiculoDetalle' . $Identificador])) {
+	$_SESSION['InsCompraVehiculoDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsCompraVehiculoDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsCompraVehiculoDetalle' . $Identificador]);
 }
 
 $InsCompraVehiculoDetalle1 = array();

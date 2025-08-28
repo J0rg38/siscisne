@@ -85,7 +85,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenMovimientoEntradaDetalle.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenMovimientoSalidaDetalle.php');
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProductoTipo = new ClsProductoTipo();
 $InsAlmacenStock = new ClsAlmacenStock();
 

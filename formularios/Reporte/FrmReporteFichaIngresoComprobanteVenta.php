@@ -24,9 +24,9 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMarca.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoModelo.php');
 
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoModelo = new ClsVehiculoModelo();

@@ -166,9 +166,9 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoFoto.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsSucursal = new ClsSucursal();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsFichaIngreso->UsuId = $_SESSION['SesionId'];
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccPreEntrega.php');

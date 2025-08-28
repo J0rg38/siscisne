@@ -28,8 +28,10 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsCompraVehiculoDetalle'.$Identificador])){
-	$_SESSION['InsCompraVehiculoDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsCompraVehiculoDetalle' . $Identificador])) {
+	$_SESSION['InsCompraVehiculoDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsCompraVehiculoDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsCompraVehiculoDetalle' . $Identificador]);
 }
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedidaConversion.php');
@@ -43,8 +45,8 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
 //require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoCosto.php');
 
 $InsVehiculo = new ClsVehiculo();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsVehiculo->ProId = $_POST['VehiculoId'];
 $InsVehiculo->MtdObtenerVehiculo(false);

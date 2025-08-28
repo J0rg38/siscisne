@@ -98,8 +98,8 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 //INSTANCAS
 $InsVehiculoIngresoBono = new ClsVehiculoIngresoBono();
-$InsPersonal = new ClsPersonal();
-$InsSucursal = new ClsSucursal();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccVehiculoIngresoBono.php');
 //DATOS

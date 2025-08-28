@@ -64,8 +64,8 @@ require_once($InsPoo->MtdPaqActividad().'ClsGarantiaDetalle.php');
 require_once($InsPoo->MtdPaqActividad().'ClsGarantiaOperacion.php');
 require_once($InsPoo->MtdPaqActividad().'ClsGarantiaLlamada.php');
 
-$InsGarantia = new ClsGarantia();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsGarantia = new ClsGarantia($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 if (!isset($_SESSION['InsGarantiaLlamada'.$Identificador])){	
 	$_SESSION['InsGarantiaLlamada'.$Identificador] = new ClsSesionObjeto();
@@ -345,7 +345,7 @@ if($Registro){
 Calendar.setup({ 
 	inputField : "CmpGarantiaLlamadaFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnGarantiaLlamadaFecha"// el id del botón que  
+	button     : "BtnGarantiaLlamadaFecha"// el id del botï¿½n que  
 	});
 
 </script>

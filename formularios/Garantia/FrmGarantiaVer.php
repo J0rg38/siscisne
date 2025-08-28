@@ -70,8 +70,8 @@ require_once($InsPoo->MtdPaqActividad().'ClsGarantiaLlamada.php');
 
 require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 
-$InsGarantia = new ClsGarantia();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsGarantia = new ClsGarantia($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCuenta = new ClsCuenta();
 
 if (!isset($_SESSION['InsGarantiaOperacion'.$Identificador])){	

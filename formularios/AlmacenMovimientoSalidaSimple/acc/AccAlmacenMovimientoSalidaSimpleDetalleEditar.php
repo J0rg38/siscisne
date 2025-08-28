@@ -29,8 +29,10 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsAlmacenMovimientoSalidaDetalle'.$Identificador])){
-	$_SESSION['InsAlmacenMovimientoSalidaDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsAlmacenMovimientoSalidaDetalle' . $Identificador])) {
+	$_SESSION['InsAlmacenMovimientoSalidaDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsAlmacenMovimientoSalidaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsAlmacenMovimientoSalidaDetalle' . $Identificador]);
 }
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedidaConversion.php');
@@ -42,9 +44,9 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoAno.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsListaPrecio.php');
 //require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCosto.php');
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsUnidadMedida->UmeId = $_POST['ProductoUnidadMedidaConvertir'];
 $InsUnidadMedida->MtdObtenerUnidadMedida();

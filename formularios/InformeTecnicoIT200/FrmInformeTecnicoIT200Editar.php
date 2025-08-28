@@ -24,7 +24,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsInformeTecnico.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsInformeTecnico = new ClsInformeTecnico();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccInformeTecnicoEditar.php');
 
@@ -371,13 +371,13 @@ if($Edito){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 
 Calendar.setup({ 
 	inputField : "CmpFechaVenta",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaVenta"// el id del botón que  
+	button     : "BtnFechaVenta"// el id del botï¿½n que  
 	});
 var sprytextfield7 = new Spry.Widget.ValidationTextField("sprytextfield7", "date", {format:"dd/mm/yyyy"});
 var sprytextfield = new Spry.Widget.ValidationTextField("sprytextfield", "date", {format:"dd/mm/yyyy"});

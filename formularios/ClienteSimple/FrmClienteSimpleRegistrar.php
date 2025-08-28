@@ -41,7 +41,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 //INSTANCIAS
 $InsCliente = new ClsCliente();
 $InsClienteTipo = new ClsClienteTipo();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsMoneda = new ClsMoneda();
 
 //ACCIONES

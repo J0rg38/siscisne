@@ -37,7 +37,7 @@ $InsMoneda = new ClsMoneda();
 $InsCondicionPago = new ClsCondicionPago();
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsArea = new ClsArea();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsFormaPago = new ClsFormaPago();
 
 

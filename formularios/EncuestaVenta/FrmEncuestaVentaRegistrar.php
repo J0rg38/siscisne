@@ -36,7 +36,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoIngreso.php');
 
 //CLASES
 $InsEncuesta = new ClsEncuesta();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 	
 	

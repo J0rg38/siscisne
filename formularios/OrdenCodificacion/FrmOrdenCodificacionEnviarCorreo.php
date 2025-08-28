@@ -27,8 +27,8 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsOrdenCodificacion = new ClsOrdenCodificacion();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccOrdenCodificacionEnviarCorreo.php');
 

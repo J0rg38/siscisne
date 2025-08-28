@@ -72,10 +72,10 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php'
  
 
 $InsEntregaVentaVehiculo = new ClsEntregaVentaVehiculo();
-$InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (!isset($_SESSION['InsEntregaVentaVehiculoPropietario'.$Identificador])){	
 	$_SESSION['InsEntregaVentaVehiculoPropietario'.$Identificador] = new ClsSesionObjeto();
@@ -546,7 +546,7 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFechaProgramada",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaProgramada"// el id del botón que  
+	button     : "BtnFechaProgramada"// el id del botï¿½n que  
 	});
 	
 </script>

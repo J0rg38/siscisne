@@ -28,9 +28,12 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsGarantiaDetalle'.$Identificador])){
-	$_SESSION['InsGarantiaDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsGarantiaDetalle' . $Identificador])) {
+	$_SESSION['InsGarantiaDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsGarantiaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsGarantiaDetalle' . $Identificador]);
 }
+
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 
@@ -69,7 +72,7 @@ $GarantiaDetalleCosto = ($GarantiaDetalleCostoTotal/$GarantiaDetalleCantidad);
 $GarantiaDetalleMargen = 0;
 $GarantiaDetalleCostoMargen = 0;
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProducto->ProId = $ProductoId;
 $InsProducto->MtdObtenerProducto(false);
 

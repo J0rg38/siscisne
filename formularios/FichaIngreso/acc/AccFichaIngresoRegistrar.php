@@ -673,7 +673,7 @@ if (isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '') == "1") {
 			$Resultado .= '#ORDEN DE TRABAJO NUMERO: ' . $InsFichaIngreso->FinId;
 
 			unset($InsFichaIngreso);
-			$InsFichaIngreso = new ClsFichaIngreso();
+			$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 			foreach ($ArrModalidadIngresos as $DatModalidadIngreso) {
 

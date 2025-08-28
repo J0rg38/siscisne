@@ -36,7 +36,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 //INSTANCIAS
 $InsProveedor = new ClsProveedor();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsMoneda = new ClsMoneda();
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccProveedorRegistrar.php');

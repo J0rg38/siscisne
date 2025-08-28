@@ -38,7 +38,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProductoCategoria.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsClienteTipo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMarca.php');
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccProductoEditarCodigoOriginal.php');
 

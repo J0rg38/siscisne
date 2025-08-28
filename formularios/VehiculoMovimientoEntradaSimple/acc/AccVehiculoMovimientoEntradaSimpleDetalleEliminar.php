@@ -30,6 +30,8 @@ $Identificador = $_POST['Identificador'];
 session_start();
 if (!isset($_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador])){
 	$_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador] = new ClsSesionObjeto();
+}else{
+	
 }
 
 $_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador]->MtdEliminarSesionObjeto($_POST['Item']);

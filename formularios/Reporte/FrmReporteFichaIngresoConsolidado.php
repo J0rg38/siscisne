@@ -34,8 +34,8 @@ require_once($InsPoo->MtdPaqActividad().'ClsModalidadIngreso.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsVehiculoMarca = new ClsVehiculoMarca();
-$InsModalidadIngreso = new ClsModalidadIngreso();
-$InsSucursal = new ClsSucursal();
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $RepVehiculoMarca = $InsVehiculoMarca->MtdObtenerVehiculoMarcas(NULL,NULL,"VmaNombre","ASC",NULL);
 $ArrVehiculoMarcas = $RepVehiculoMarca['Datos'];

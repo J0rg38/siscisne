@@ -40,7 +40,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenProducto.php');
 //INSTANCIAS
 $InsTrasladoAlmacen = new ClsTrasladoAlmacen();
 $InsAlmacen = new ClsAlmacen();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsTrasladoAlmacenDetalle'.$Identificador])){	
 	$_SESSION['InsTrasladoAlmacenDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTrasladoAlmacenDetalle'.$Identificador]);
@@ -101,7 +101,7 @@ var UnidadMedidaTipo = 2;
 <?php
 if(!empty($GET_dia)){
 ?>
-	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div> 
+	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div>ï¿½
 <?php	
 }
 ?>
@@ -521,19 +521,19 @@ if($Edito){
 Calendar.setup({ 
 inputField : "CmpFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnFecha"// el id del botón que  
+button     : "BtnFecha"// el id del botï¿½n que  
 });
 
 Calendar.setup({ 
 inputField : "CmpFechaLlegada",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnFechaLlegada"// el id del botón que  
+button     : "BtnFechaLlegada"// el id del botï¿½n que  
 });
 
 Calendar.setup({ 
 inputField : "CmpComprobanteFecha",  // id del campo de texto 
 ifFormat   : "%d/%m/%Y",  //  
-button     : "BtnComprobanteFecha"// el id del botón que  
+button     : "BtnComprobanteFecha"// el id del botï¿½n que  
 });
 var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2", "date", {format:"dd/mm/yyyy", isRequired:false});
 var sprytextfield8 = new Spry.Widget.ValidationTextField("sprytextfield8", "date", {format:"dd/mm/yyyy", isRequired:false});

@@ -31,6 +31,8 @@ $Identificador = $_POST['Identificador'];
 session_start();
 if (!isset($_SESSION['InsVentaDirectaCentrado'.$Identificador])){
 	$_SESSION['InsVentaDirectaCentrado'.$Identificador] = new ClsSesionObjeto();	
+}else{
+	$_SESSION['InsVentaDirectaCentrado'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVentaDirectaCentrado'.$Identificador]);
 }
 
 $RepSesionObjetos = $_SESSION['InsVentaDirectaCentrado'.$Identificador]->MtdObtenerSesionObjetos(true);

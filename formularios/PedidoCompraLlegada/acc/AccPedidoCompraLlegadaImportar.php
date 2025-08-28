@@ -701,7 +701,7 @@ if (!empty($_FILES)) {
 										<span class="EstImportarRegistrarNo">Codigo de reemplazo identificado <?php echo $ProductoCodigoOriginalImportado;?> </span><br />
 	
 	<?php
-										$InsProducto = new ClsProducto();
+										$InsProducto = new ClsProducto($InsMysql);
 										$ResProducto = $InsProducto->MtdObtenerProductos("ProCodigoOriginal","esigual",$ProductoCodigoOriginalImportado,'ProId','Desc',"1",NULL,NULL,1,NULL,NULL,NULL,NULL,false);
 										$ArrProductos = $ResProducto['Datos'];
 		
@@ -713,7 +713,7 @@ if (!empty($_FILES)) {
 											<span class="EstImportarRegistrarSi">No se encontro el codigo de reemplazo registrado en sistema, se procedera a registrar automaticamente... </span><br />
 	
 	<?php
-											$InsProducto = new ClsProducto();
+											$InsProducto = new ClsProducto($InsMysql);
 											$InsProducto->UsuId = $_SESSION['SesionId'];
 											$InsProducto->ProCodigoAlternativo = "";
 											$InsProducto->ProCodigoOriginal = $ProductoCodigoOriginalImportado;
@@ -861,7 +861,7 @@ if (!empty($_FILES)) {
 										<span class="EstImportarRegistrarNo">Codigo de reemplazo NO identificado <?php echo $ProductoCodigoOriginalImportado;?>. PROCESO CANCELADO </span><br />
 	
 	<?php									
-										$InsProducto = new ClsProducto();
+										$InsProducto = new ClsProducto($InsMysql);
 										$ResProducto = $InsProducto->MtdObtenerProductos("ProCodigoOriginal","esigual",$ProductoCodigoOriginalImportado,'ProId','Desc',"1",NULL,NULL,1,NULL,NULL,NULL,NULL,false);
 										$ArrProductos = $ResProducto['Datos'];
 		
@@ -869,7 +869,7 @@ if (!empty($_FILES)) {
 										
 										if(empty($ArrProductos)){
 	
-											$InsProducto = new ClsProducto();
+											$InsProducto = new ClsProducto($InsMysql);
 											$InsProducto->ProCodigoAlternativo = "";
 											$InsProducto->ProCodigoOriginal = $ProductoCodigoOriginalImportado;
 											$InsProducto->ProNombre = "CODIGO NO IDENTIFICADO";

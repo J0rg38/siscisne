@@ -238,15 +238,15 @@ class ClsFichaIngreso
 	public $CliTelefono;
 	public $CliCelular;
 	public $CliContacto;
-  
 
-	public $FinSalidaObservacionInterna;	
+
+	public $FinSalidaObservacionInterna;
 
 
 	public function __construct($oInsMysql = NULL)
 	{
 
-		if ($oInsMysql) {
+		if (isset($oInsMysql)) {
 			$this->InsMysql = $oInsMysql;
 		} else {
 			$this->InsMysql = new ClsMysql();
@@ -271,7 +271,7 @@ class ClsFichaIngreso
 					LEFT JOIN tblsucsucursal suc
 					ON fin.SucId = suc.SucId
 					
-					WHERE YEAR(fin.FinFecha) = ' . $this->FinAno . '
+					WHERE YEAR(fin.FinTiempoCreacion) = ' . $this->FinAno . '
 					AND fin.SucId = "' . $this->SucId . '"
 					AND fin.FinTipo = 2
                                            AND fin.FinMigrado IS NULL;';
@@ -297,7 +297,7 @@ class ClsFichaIngreso
 					LEFT JOIN tblsucsucursal suc
 					ON fin.SucId = suc.SucId
 										
-					WHERE YEAR(fin.FinFecha) = ' . $this->FinAno . '
+					WHERE YEAR(fin.FinTiempoCreacion) = ' . $this->FinAno . '
 					AND fin.SucId = "' . $this->SucId . '"
 					AND fin.FinTipo = 1
                        AND fin.FinMigrado IS NULL

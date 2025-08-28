@@ -627,7 +627,7 @@ ncr.NcrDatoAdicional28,
 		return $Respuesta;
 	}
 
-	public function MtdObtenerNotaCreditos($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'NcrId', $oSentido = 'Desc', $oEliminado = 1, $oPaginacion = '0,10', $oSucursal = NULL, $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oMoneda = NULL, $oDocumentoId = NULL, $oDocumentoTalonarioId = NULL, $oSucursal = NULL, $oClienteId = NULL, $oNoProcesdado = false)
+	public function MtdObtenerNotaCreditos($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'NcrId', $oSentido = 'Desc', $oEliminado = 1, $oPaginacion = '0,10', $oSucursal = NULL, $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oMoneda = NULL, $oDocumentoId = NULL, $oDocumentoTalonarioId = NULL, $oClienteId = NULL, $oNoProcesdado = false)
 	{
 
 		if (!empty($oCampo) and !empty($oFiltro)) {

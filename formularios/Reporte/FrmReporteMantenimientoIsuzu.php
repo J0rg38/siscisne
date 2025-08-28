@@ -16,10 +16,10 @@ require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimientoSeccion.php');
 require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimientoTarea.php');
 require_once($InsPoo->MtdPaqActividad().'ClsTareaProducto.php');
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 $InsPlanMantenimientoDetalle = new ClsPlanMantenimientoDetalle();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 
 
 

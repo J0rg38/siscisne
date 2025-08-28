@@ -415,7 +415,7 @@ $ResGuiaRemisionAlmacenMovimiento = $_SESSION['InsGuiaRemisionAlmacenMovimiento'
 		
 		case "FichaAccion":
 		
-			$InsFichaAccion = new ClsFichaAccion();
+			$InsFichaAccion = new ClsFichaAccion($InsMysql);
 			$InsFichaAccion->FccId = $GET_FccId;
 			$InsFichaAccion->MtdObtenerFichaAccion();
 				
@@ -443,7 +443,7 @@ $ResGuiaRemisionAlmacenMovimiento = $_SESSION['InsGuiaRemisionAlmacenMovimiento'
 			
 			//deb($InsFichaAccion->FinId);
 			
-			$InsFichaIngreso = new ClsFichaIngreso();
+			$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 			$InsFichaIngreso->FinId = $InsFichaAccion->FinId;
 			$InsFichaIngreso->MtdObtenerFichaIngreso();
 

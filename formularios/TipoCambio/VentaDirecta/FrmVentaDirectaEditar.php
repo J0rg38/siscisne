@@ -87,18 +87,18 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsTipoOperacion = new ClsTipoOperacion();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 $InsCotizacionProducto = new ClsCotizacionProducto();
 
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsMoneda = new ClsMoneda();
 $InsCondicionPago = new ClsCondicionPago();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsAlmacen = new ClsAlmacen();
 

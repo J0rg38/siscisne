@@ -71,8 +71,8 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
 $InsFichaIngreso->FinId = $GET_FinId;
 $InsFichaIngreso->MtdObtenerFichaIngreso();	
@@ -98,13 +98,13 @@ $InsFichaIngreso->MtdObtenerFichaIngreso();
                 
                 $FichaAccion = $DatFichaIngresoModalidad->FichaAccion;
                 
-                $InsFichaAccion = new ClsFichaAccion();
+                $InsFichaAccion = new ClsFichaAccion($InsMysql);
                 $InsFichaAccion->FccId = $FichaAccion->FccId;
                 $InsFichaAccion->MtdObtenerFichaAccion();
                 
                 if(!empty($_SESSION['SesionPersonal'])){
                           
-                      $InsPersonal = new ClsPersonal();
+                      $InsPersonal = new ClsPersonal($InsMysql);
                       $InsPersonal->PerId = $_SESSION['SesionPersonal'];
                       $InsPersonal->MtdObtenerPersonal();
             

@@ -48,10 +48,10 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 //INSTANCIAS
 $InsVehiculoInstalar = new ClsVehiculoInstalar();
-$InsPersonal = new ClsPersonal();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsMoneda = new ClsMoneda();
 
 

@@ -122,7 +122,7 @@ $InsVehiculoIngreso = new ClsVehiculoIngreso();
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoModelo = new ClsVehiculoModelo();
 $InsVehiculoVersion = new ClsVehiculoVersion();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsConcesionario = new ClsConcesionario();
 
 //ACCIONES

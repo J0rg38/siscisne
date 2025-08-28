@@ -105,7 +105,7 @@ class ClsZona
 		}
 
 		if (!empty($oOrden)) {
-			$orden = ' ORDER BY ZonGrupo ASC, ' . ($oOrden) . ' ' . ($oSentido);
+			$orden = ' ORDER BY zon.ZonGrupo ASC, ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
 		if (!empty($oPaginacion)) {
@@ -113,7 +113,7 @@ class ClsZona
 		}
 
 		if (!empty($oZonaCategoria)) {
-			$zcategoria = ' AND ZcaId = "' . ($oZonaCategoria) . '" ';
+			$zcategoria = ' AND zca.ZcaId = "' . ($oZonaCategoria) . '" ';
 		}
 
 		$sql = 'SELECT

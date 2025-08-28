@@ -34,8 +34,10 @@ $POST_Eliminar = $_POST['Eliminar'];
 
 
 session_start();
-if (!isset($_SESSION['InsCotizacionProductoPintado'.$Identificador])){
-	$_SESSION['InsCotizacionProductoPintado'.$Identificador] = new ClsSesionObjeto();	
+if (!isset($_SESSION['InsCotizacionProductoPintado' . $Identificador])) {
+	$_SESSION['InsCotizacionProductoPintado' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsCotizacionProductoPintado' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsCotizacionProductoPintado' . $Identificador]);
 }
 
 

@@ -133,7 +133,7 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsCotizacionProducto->UsuId = $_SESSION['SesionId'];
 

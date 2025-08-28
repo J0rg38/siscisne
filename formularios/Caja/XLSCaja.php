@@ -64,7 +64,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenMovimientoEntradaDetalle.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsIngreso.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsSucursal->SucId =  $POST_Sucursal;
 $InsSucursal->MtdObtenerSucursal();
 	

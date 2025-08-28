@@ -39,7 +39,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsFichaAccionSuministro.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedido.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsTallerPedido = new ClsTallerPedido();
 
 $InsFichaAccion->FccId = $GET_id;

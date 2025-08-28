@@ -39,11 +39,11 @@ if (!isset($_SESSION['InsServicioDetalle'.$Identificador])){
 require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProducto->ProId = $POST_ProductoId;
 $InsProducto->MtdObtenerProducto(false);
 
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 $InsUnidadMedida->UmeId = $POST_ProductoUnidadMedidaConvertir;
 $InsUnidadMedida->MtdObtenerUnidadMedida(false);
 

@@ -48,9 +48,9 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 //INSTANCIAS
 $InsOrdenCotizacion = new ClsOrdenCotizacion();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (!isset($_SESSION['InsOrdenCotizacionDetalle'.$Identificador])){	
 	$_SESSION['InsOrdenCotizacionDetalle'.$Identificador] = new ClsSesionObjeto();
@@ -592,7 +592,7 @@ PRODUCTOS
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 
@@ -600,7 +600,7 @@ Calendar.setup({
 Calendar.setup({ 
 	inputField : "CmpFechaRespuesta",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaRespuesta"// el id del botón que  
+	button     : "BtnFechaRespuesta"// el id del botï¿½n que  
 	});
 </script>
 

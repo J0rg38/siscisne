@@ -63,10 +63,10 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 
 $InsCotizacionProducto = new ClsCotizacionProducto();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsCliente = new ClsCliente();
 
 

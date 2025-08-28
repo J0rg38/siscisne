@@ -40,7 +40,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 
 $InsOrdenCompra = new ClsOrdenCompra();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 if (isset($_SESSION['InsOrdenCompraPedido'.$Identificador])){	
 	$_SESSION['InsOrdenCompraPedido'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsOrdenCompraPedido'.$Identificador]);
@@ -505,12 +505,12 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 		Calendar.setup({ 
 	inputField : "CmpFechaEstimadaLlegada",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaEstimadaLlegada"// el id del botón que  
+	button     : "BtnFechaEstimadaLlegada"// el id del botï¿½n que  
 	});
 	
 	

@@ -10,7 +10,7 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Editar")){
 <?php
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $ResPersonal = $InsPersonal->MtdObtenerPersonales(NULL,NULL,NULL,"PerNombre","ASC",NULL,NULL,1,NULL,NULL,NULL,1);
 $ArrPersonales = $ResPersonal['Datos'];

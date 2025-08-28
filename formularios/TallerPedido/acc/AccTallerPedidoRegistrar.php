@@ -112,7 +112,7 @@
 				$MonedaId = $_POST['CmpMonedaId_' . $DatFichaIngresoModalidad->MinSigla];
 				$TipoCambio = $_POST['CmpTipoCambio_' . $DatFichaIngresoModalidad->MinSigla];
 
-				$InsFichaAccion = new ClsFichaAccion();
+				$InsFichaAccion = new ClsFichaAccion($InsMysql);
 				$InsFichaAccion->FccId = $_POST['CmpFichaAccionId_' . $DatFichaIngresoModalidad->MinSigla];
 				$InsFichaAccion->FimId = $DatFichaIngresoModalidad->FimId;
 				$InsFichaAccion->FccManoObra = preg_replace("/,/", "", (empty($_POST['CmpFichaAccionManoObra_' . $DatFichaIngresoModalidad->MinSigla]) ? 0 : $_POST['CmpFichaAccionManoObra_' . $DatFichaIngresoModalidad->MinSigla]));
@@ -207,7 +207,7 @@
 							$InsTallerPedidoDetalle1->AmdId = $DatSesionObjeto->Parametro1;
 							$InsTallerPedidoDetalle1->ProId = $DatSesionObjeto->Parametro2;
 
-							$InsProducto = new ClsProducto();
+							$InsProducto = new ClsProducto($InsMysql);
 							$InsProducto->ProId = $InsTallerPedidoDetalle1->ProId;
 							$InsProducto->MtdObtenerProducto(false);
 
@@ -219,11 +219,11 @@
 							$InsTallerPedidoDetalle1->AmdPrecioVenta = $DatSesionObjeto->Parametro4;
 							$InsTallerPedidoDetalle1->AmdImporte = $InsTallerPedidoDetalle1->AmdPrecioVenta * $InsTallerPedidoDetalle1->AmdCantidad;
 
-							$InsProducto = new ClsProducto();
+							$InsProducto = new ClsProducto($InsMysql);
 							$InsProducto->ProId = $InsTallerPedidoDetalle1->ProId;
 							$InsProducto->MtdObtenerProducto(false);
 
-							$InsUnidadMedida = new ClsUnidadMedida();
+							$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 							$InsUnidadMedida->UmeId = $InsTallerPedidoDetalle1->UmeId;
 							$InsUnidadMedida->MtdObtenerUnidadMedida();
 
@@ -393,7 +393,7 @@
 							//if(!empty($InsTallerPedidoDetalle1->AmdId)){
 							if (!empty($DatSesionObjeto->Parametro1)) {
 
-								$InsProducto = new ClsProducto();
+								$InsProducto = new ClsProducto($InsMysql);
 								$InsProducto->ProId = $_POST['Cmp' . $DatSesionObjeto->Parametro21 . 'ProductoId'];;
 								$InsProducto->MtdObtenerProducto(false);
 
@@ -405,7 +405,7 @@
 									$InsTallerPedidoDetalle1->ProId = $_POST['Cmp' . $DatSesionObjeto->Parametro21 . 'ProductoId'];
 
 									//OBTENIENDO PRODUCTO
-									$InsProducto = new ClsProducto();
+									$InsProducto = new ClsProducto($InsMysql);
 									$InsProducto->ProId = $InsTallerPedidoDetalle1->ProId;
 									$InsProducto->MtdObtenerProducto(false);
 
@@ -457,7 +457,7 @@
 									}
 
 									//OBTENIENDO UNIDAD DE MEDIDA
-									$InsUnidadMedida = new ClsUnidadMedida();
+									$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 									$InsUnidadMedida->UmeId = $InsTallerPedidoDetalle1->UmeId;
 									$InsUnidadMedida->MtdObtenerUnidadMedida();
 
@@ -706,7 +706,7 @@
 									$InsTallerPedidoDetalle1->ProId = $_POST['Cmp' . $DatSesionObjeto->Parametro21 . 'ProductoId'];
 
 									//OBTENIENDO DATOS DEL PRODUCTO
-									$InsProducto = new ClsProducto();
+									$InsProducto = new ClsProducto($InsMysql);
 									$InsProducto->ProId = $InsTallerPedidoDetalle1->ProId;
 									$InsProducto->MtdObtenerProducto(false);
 
@@ -759,7 +759,7 @@
 									//					$InsTallerPedidoDetalle1->AmdImporte = $InsTallerPedidoDetalle1->AmdPrecioVenta * $InsTallerPedidoDetalle1->AmdCantidad ;
 
 									//OBTENIENDO UNIDAD DE MEDIDA
-									$InsUnidadMedida = new ClsUnidadMedida();
+									$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 									$InsUnidadMedida->UmeId = $InsTallerPedidoDetalle1->UmeId;
 									$InsUnidadMedida->MtdObtenerUnidadMedida();
 
@@ -1062,7 +1062,7 @@
 
 												if (empty($InsFichaIngreso->PmaId)) {
 
-													$InsPlanMantenimiento = new ClsPlanMantenimiento();
+													$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 													$ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL, NULL, NULL, 'PmaId', 'ASC', 1, NULL, NULL, $InsFichaIngreso->VmoId);
 													$ArrPlanMantenimientos = $ResPlanMantenimiento['Datos'];
 
@@ -1071,7 +1071,7 @@
 													$InsPlanMantenimiento->MtdObtenerPlanMantenimiento();
 												} else {
 
-													$InsPlanMantenimiento = new ClsPlanMantenimiento();
+													$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 													$InsPlanMantenimiento->PmaId = $InsFichaIngreso->PmaId;
 													$InsPlanMantenimiento->MtdObtenerPlanMantenimiento();
 												}
@@ -1092,7 +1092,7 @@
 														foreach ($ArrTareaProductos as $DatTareaProducto) {
 
 
-															$InsProducto = new ClsProducto();
+															$InsProducto = new ClsProducto($InsMysql);
 															$InsProducto->ProId = $DatTareaProducto->ProId;
 															$InsProducto->MtdObtenerProducto(false);
 
@@ -1237,7 +1237,7 @@
 					//											$ProductoTipo = "";
 					//											$ProductoCantidad = 0;
 					//											
-					//											$InsPlanMantenimiento = new ClsPlanMantenimiento();
+					//											$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 					//											$ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,NULL,'PmaId','ASC',1,NULL,NULL,$InsFichaIngreso->VmoId);
 					//											$ArrPlanMantenimientos = $ResPlanMantenimiento['Datos'];
 					//											
@@ -1260,7 +1260,7 @@
 					//													foreach($ArrTareaProductos as $DatTareaProducto){
 					//													
 					//														
-					//														$InsProducto = new ClsProducto();
+					//														$InsProducto = new ClsProducto($InsMysql);
 					//														$InsProducto->ProId = $DatTareaProducto->ProId;
 					//														$InsProducto->MtdObtenerProducto(false);
 					//														
@@ -1574,11 +1574,11 @@
 
 								$InsTallerPedidoDetalle1->AmdImporte = $InsTallerPedidoDetalle1->AmdPrecioVenta * $InsTallerPedidoDetalle1->AmdCantidad;
 
-								$InsProducto = new ClsProducto();
+								$InsProducto = new ClsProducto($InsMysql);
 								$InsProducto->ProId = $InsTallerPedidoDetalle1->ProId;
 								$InsProducto->MtdObtenerProducto(false);
 
-								$InsUnidadMedida = new ClsUnidadMedida();
+								$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 								$InsUnidadMedida->UmeId = $InsTallerPedidoDetalle1->UmeId;
 								$InsUnidadMedida->MtdObtenerUnidadMedida();
 
@@ -1712,11 +1712,11 @@
 
 								$InsTallerPedidoDetalle1->AmdImporte = $InsTallerPedidoDetalle1->AmdPrecioVenta * $InsTallerPedidoDetalle1->AmdCantidad;
 
-								$InsProducto = new ClsProducto();
+								$InsProducto = new ClsProducto($InsMysql);
 								$InsProducto->ProId = $InsTallerPedidoDetalle1->ProId;
 								$InsProducto->MtdObtenerProducto(false);
 
-								$InsUnidadMedida = new ClsUnidadMedida();
+								$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 								$InsUnidadMedida->UmeId = $InsTallerPedidoDetalle1->UmeId;
 								$InsUnidadMedida->MtdObtenerUnidadMedida();
 
@@ -1925,7 +1925,7 @@
 		$_SESSION['InsTallerPedidoFoto' . $InsTallerPedido->MinSigla . $Identificador] = new ClsSesionObjeto();
 
 		//////deb($InsTallerPedido);
-		$InsFichaAccion = new ClsFichaAccion();
+		$InsFichaAccion = new ClsFichaAccion($InsMysql);
 
 		$InsFichaAccion->FccId = $InsTallerPedido->FccId;
 		$InsFichaAccion->MtdObtenerFichaAccion();

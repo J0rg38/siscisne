@@ -45,7 +45,7 @@ $InsBanco = new ClsBanco();
 
 $InsCuenta = new ClsCuenta();
 
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 if (!isset($_SESSION['InsPagoProveedorComprobante'.$Identificador])){	
 	$_SESSION['InsPagoProveedorComprobante'.$Identificador] = new ClsSesionObjeto();

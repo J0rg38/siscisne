@@ -107,7 +107,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsModalidadIngreso.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsReclamo = new ClsReclamo();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 $InsMoneda = new ClsMoneda();
 
 $InsReclamo->UsuId = $_SESSION['SesionId'];

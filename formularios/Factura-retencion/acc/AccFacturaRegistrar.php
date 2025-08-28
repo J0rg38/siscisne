@@ -474,7 +474,7 @@ Parametro17 = OvvId
 //												
 //							if(!empty($InsOrdenVentaVehiculo->PerId)){
 //								
-//								$InsPersonal = new ClsPersonal();
+//								$InsPersonal = new ClsPersonal($InsMysql);
 //								$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 //								$InsPersonal->MtdObtenerPersonal();
 //							
@@ -535,7 +535,7 @@ Parametro17 = OvvId
 									
 								if(!empty($InsOrdenVentaVehiculo->PerId)){
 									
-									$InsPersonal = new ClsPersonal();
+									$InsPersonal = new ClsPersonal($InsMysql);
 									$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 									$InsPersonal->MtdObtenerPersonal();
 								
@@ -812,11 +812,11 @@ function FncCargarFichaAccionDatos(){
 
 	if(!empty($GET_FccId)){
 	
-		$InsFichaAccion = new ClsFichaAccion();
+		$InsFichaAccion = new ClsFichaAccion($InsMysql);
 		$InsFichaAccion->FccId = $GET_FccId;
 		$InsFichaAccion->MtdObtenerFichaAccion();
 			
-		$InsFichaIngreso = new ClsFichaIngreso();
+		$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 		$InsFichaIngreso->FinId = $InsFichaAccion->FinId;
 		$InsFichaIngreso->MtdObtenerFichaIngreso();
 		
@@ -1595,7 +1595,7 @@ Parametro25 = FdeImpuestoSelectivo
 					$InsFichaAccion->FccId = $DatSeleccionado;
 					$InsFichaAccion->MtdObtenerFichaAccion();
 					
-					$InsFichaIngreso = new ClsFichaIngreso();
+					$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 					$InsFichaIngreso->FinId = $InsFichaAccion->FinId;
 					$InsFichaIngreso->MtdObtenerFichaIngreso();
 				
@@ -3838,7 +3838,7 @@ function FncCargarVehiculoMovimientoSalidaDatos(){
 						
 	if(!empty($InsOrdenVentaVehiculo->PerId)){
 		
-		$InsPersonal = new ClsPersonal();
+		$InsPersonal = new ClsPersonal($InsMysql);
 		$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 		$InsPersonal->MtdObtenerPersonal();
 	

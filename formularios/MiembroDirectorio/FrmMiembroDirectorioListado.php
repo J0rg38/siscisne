@@ -86,7 +86,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsMiembroDirectorio.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 //INSTANCIAS
 $InsMiembroDirectorio = new ClsMiembroDirectorio();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccMiembroDirectorio.php');
 //DATOS

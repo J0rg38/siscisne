@@ -19,7 +19,7 @@ $POST_Sucursal = $_SESSION['SesionSucursal'];
 
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $RepSucursal = $InsSucursal->MtdObtenerSucursales(NULL,NULL,"SucNombre","ASC",NULL,"VEN");
 $ArrSucursales = $RepSucursal['Datos'];

@@ -17,7 +17,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 
 $InsBoletaTalonario = new ClsBoletaTalonario();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccBoletaTalonarioRegistrar.php');

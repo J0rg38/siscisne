@@ -42,7 +42,7 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 
 //INSTANCIAS
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsCita = new ClsCita();
 
 //$ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,'PmaId','ASC',1,NULL,$POST_VehiculoVersion,$POST_VehiculoModelo) ;

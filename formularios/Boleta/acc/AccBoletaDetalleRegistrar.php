@@ -38,8 +38,10 @@ $POST_PorcentajeImpuestoSelectivo = $_POST['PorcentajeImpuestoSelectivo'];
 $POST_IncluyeSelectivo = $_POST['IncluyeSelectivo'];
 
 session_start();
-if (!isset($_SESSION['InsBoletaDetalle'.$Identificador])){
-	$_SESSION['InsBoletaDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsBoletaDetalle' . $Identificador])) {
+	$_SESSION['InsBoletaDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsBoletaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsBoletaDetalle' . $Identificador]);
 }
 
 /*

@@ -110,7 +110,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsPagoVehiculoIngreso = new ClsPagoVehiculoIngreso();
 $InsMoneda = new ClsMoneda();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccPagoVehiculoIngreso.php');
 

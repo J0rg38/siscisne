@@ -87,7 +87,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsKardex.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 
 $InsKardex = new ClsKardex();
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 
 $aux = explode("/",$POST_FechaInicio);
 

@@ -116,7 +116,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoRecepcionDetalleFoto.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsVehiculoRecepcion = new ClsVehiculoRecepcion();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsVehiculoRecepcion->UsuId = $_SESSION['SesionId'];
 

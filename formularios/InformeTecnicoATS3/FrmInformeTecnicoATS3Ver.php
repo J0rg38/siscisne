@@ -29,7 +29,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsInformeTecnicoOperacion.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsInformeTecnico = new ClsInformeTecnico();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (!isset($_SESSION['InsInformeTecnicoATS3Foto'.$Identificador])){	
 	$_SESSION['InsInformeTecnicoATS3Foto'.$Identificador] = new ClsSesionObjeto();

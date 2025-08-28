@@ -25,7 +25,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsProveedor.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsProveedorComunicado.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsProveedorComunicado = new ClsProveedorComunicado();
 
 

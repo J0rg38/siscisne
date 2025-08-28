@@ -137,6 +137,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
   include($InsProyecto->MtdFormulariosMsj($GET_mod) . 'MsjFichaIngreso.php');
 
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngreso.php');
+require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoManoObra.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoLlamada.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoGasto.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsPreEntregaDetalle.php');
@@ -192,12 +193,12 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
   require_once($InsPoo->MtdPaqActividad() . 'ClsPlanMantenimiento.php');
 
 
-  $InsFichaIngreso = new ClsFichaIngreso();
-  $InsModalidadIngreso = new ClsModalidadIngreso();
-  $InsPersonal = new ClsPersonal();
+  $InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+  $InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+  $InsPersonal = new ClsPersonal($InsMysql);
   $InsVehiculoMarca = new ClsVehiculoMarca();
   $InsAlmacen = new ClsAlmacen();
-  $InsSucursal = new ClsSucursal();
+  $InsSucursal = new ClsSucursal($InsMysql);
 
   $InsFichaIngreso->UsuId = $_SESSION['SesionId'];
 

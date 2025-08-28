@@ -115,7 +115,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 					
 					if(!empty($InsOrdenVentaVehiculo->PerId)){
 						
-						$InsPersonal = new ClsPersonal();
+						$InsPersonal = new ClsPersonal($InsMysql);
 						$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 						$InsPersonal->MtdObtenerPersonal();
 					
@@ -136,7 +136,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 					}	
 					
 					
-				//$InsPersonal = new ClsPersonal();
+				//$InsPersonal = new ClsPersonal($InsMysql);
 //				$InsPersonal->PerId = $InsAsignacionVentaVehiculo->PerId;
 //				$InsPersonal->MtdObtenerPersonal();
 //				

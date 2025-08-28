@@ -41,9 +41,9 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsOrdenCotizacion = new ClsOrdenCotizacion();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsOrdenCotizacionDetalle'.$Identificador])){	
 	$_SESSION['InsOrdenCotizacionDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsOrdenCotizacionDetalle'.$Identificador]);
@@ -114,7 +114,7 @@ var UnidadMedidaTipo = 2;
 <?php
 if(!empty($GET_dia)){
 ?>
-	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div> 
+	<div class="EstSubMenuBoton"><a href="javascript:self.parent.tb_remove('<?php echo $GET_mod;?>');" ><img src="imagenes/iconos/salir.png" alt="[Salir]" title="Salir" border="0"  />Salir</a></div>ï¿½
 <?php	
 }
 ?>
@@ -564,7 +564,7 @@ switch($InsOrdenCotizacion->OotIncluyeImpuesto){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 
@@ -572,14 +572,14 @@ Calendar.setup({
 Calendar.setup({ 
 	inputField : "CmpFechaRespuesta",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaRespuesta"// el id del botón que  
+	button     : "BtnFechaRespuesta"// el id del botï¿½n que  
 	});
 </script>
 <script type="text/javascript">
 //Calendar.setup({ 
 //	inputField : "CmpFecha",  // id del campo de texto 
 //	ifFormat   : "%d/%m/%Y",  //  
-//	button     : "BtnFecha"// el id del botón que  
+//	button     : "BtnFecha"// el id del botï¿½n que  
 //	});
 //
 var spryselect2 = new Spry.Widget.ValidationSelect("spryselect2");

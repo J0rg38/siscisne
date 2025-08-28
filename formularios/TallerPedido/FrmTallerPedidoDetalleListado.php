@@ -36,8 +36,10 @@ $POST_SucursalId = $_POST['SucursalId'];
 
 
 session_start();
-if (!isset($_SESSION['InsTallerPedidoDetalle'.$ModalidadIngreso.$Identificador])){
-	$_SESSION['InsTallerPedidoDetalle'.$ModalidadIngreso.$Identificador] = new ClsSesionObjeto();	
+if (!isset($_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador])) {
+	$_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador]);
 }
 
 //require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipoUnidadMedida.php');
@@ -59,9 +61,9 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenStock.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 $InsAlmacenProducto = new ClsAlmacenProducto();
 $InsAlmacen = new ClsAlmacen();
 $InsAlmacenStock = new ClsAlmacenStock();

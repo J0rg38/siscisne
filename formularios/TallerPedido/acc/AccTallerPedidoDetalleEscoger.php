@@ -32,8 +32,10 @@ $Identificador = $_POST['Identificador'];
 $ModalidadIngreso = $_POST['ModalidadIngreso'];
 
 session_start();
-if (!isset($_SESSION['InsTallerPedidoDetalle'.$ModalidadIngreso.$Identificador])){
-	$_SESSION['InsTallerPedidoDetalle'.$ModalidadIngreso.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador])) {
+	$_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsTallerPedidoDetalle' . $ModalidadIngreso . $Identificador]);
 }
 
 $InsTallerPedidoDetalle1 = array();

@@ -102,7 +102,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimiento.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMarca.php');
 
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
 //include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccPlanMantenimiento.php');

@@ -95,11 +95,11 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoModelo.php');
 require_once($InsPoo->MtdPaqActividad().'ClsTipoReparacion.php');
 
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoModelo = new ClsVehiculoModelo();
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 
 $InsBoleta = new ClsBoleta();

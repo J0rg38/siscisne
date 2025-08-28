@@ -227,7 +227,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 		if(!empty($InsFichaIngreso->FichaIngresoModalidad)){
 			foreach($InsFichaIngreso->FichaIngresoModalidad as $DatFichaIngresoModalidad){
 	
-				$InsFichaAccion = new ClsFichaAccion();
+				$InsFichaAccion = new ClsFichaAccion($InsMysql);
 				$InsFichaAccion->UsuId = $_SESSION['SesionId'];
 				$InsFichaAccion->FccId = $_POST['CmpId_'.$DatFichaIngresoModalidad->MinSigla];
 				$InsFichaAccion->FccFecha = FncCambiaFechaAMysql($_POST['CmpFecha_'.$DatFichaIngresoModalidad->MinSigla]);
@@ -317,7 +317,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 				if(!$TieneCampana){
 					//$InsFichaIngreso->MtdActualizarEstadoFichaIngreso($InsFichaIngreso->FinId,75);
 				}else{
-					$InsGarantia = new ClsGarantia();
+					$InsGarantia = new ClsGarantia($InsMysql);
 					$InsGarantia->MtdGenerarGarantia($InsFichaIngreso->FinId);
 			
 				}

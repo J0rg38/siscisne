@@ -6,24 +6,24 @@ $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 $Identificador = $_POST['Identificador'];
 $POST_VehiculoId = $_POST['VehiculoId'];
@@ -61,22 +61,24 @@ $POST_VehiculoIngresoVersionId = $_POST['VehiculoIngresoVersionId'];
 
 
 session_start();
-if (!isset($_SESSION['InsVehiculoMovimientoSalidaDetalle'.$Identificador])){
-	$_SESSION['InsVehiculoMovimientoSalidaDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsVehiculoMovimientoSalidaDetalle' . $Identificador])) {
+	$_SESSION['InsVehiculoMovimientoSalidaDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsVehiculoMovimientoSalidaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVehiculoMovimientoSalidaDetalle' . $Identificador]);
 }
 
-require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculo.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoIngreso.php');
-require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsVehiculo.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsVehiculoIngreso.php');
+require_once($InsPoo->MtdPaqAlmacen() . 'ClsUnidadMedida.php');
 
 $InsVehiculo = new ClsVehiculo();
 $InsVehiculoIngreso = new ClsVehiculoIngreso();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
-$InsVehiculoIngreso->EinId = $POST_VehiculoIngresoId ;
+$InsVehiculoIngreso->EinId = $POST_VehiculoIngresoId;
 $InsVehiculoIngreso->MtdObtenerVehiculoIngreso(false);
 
-$InsUnidadMedida->UmeId = $POST_VehiculoMovimientoSalidaDetalleUnidadMedida ;
+$InsUnidadMedida->UmeId = $POST_VehiculoMovimientoSalidaDetalleUnidadMedida;
 $InsUnidadMedida->MtdObtenerUnidadMedida(false);
 
 
@@ -115,16 +117,17 @@ $InsUnidadMedida->MtdObtenerUnidadMedida(false);
 //Parametro28 = UmeNombre
 //Parametro29 = VmdCostoIngreso
 
-	$Cantidad = round($POST_Cantidad,3);
-	
-	$Importe = round($POST_Importe,3);
-	$Costo = round(($Importe/$Cantidad),3);
-	$CostoAnterior = round($POST_CostoAnterior,3);
-	
-	$Utilidad = round($POST_Utilidad,3);
-	$UtilidadPorcentaje = round($POST_UtilidadPorcentaje,3);
-	
-	$_SESSION['InsVehiculoMovimientoSalidaDetalle'.$Identificador]->MtdAgregarSesionObjeto(1,
+$Cantidad = round($POST_Cantidad, 3);
+
+$Importe = round($POST_Importe, 3);
+$Costo = round(($Importe / $Cantidad), 3);
+$CostoAnterior = round($POST_CostoAnterior, 3);
+
+$Utilidad = round($POST_Utilidad, 3);
+$UtilidadPorcentaje = round($POST_UtilidadPorcentaje, 3);
+
+$_SESSION['InsVehiculoMovimientoSalidaDetalle' . $Identificador]->MtdAgregarSesionObjeto(
+	1,
 	NULL,
 	$POST_VehiculoIngresoId,
 	$POST_VehiculoIngresoVIN,
@@ -133,33 +136,30 @@ $InsUnidadMedida->MtdObtenerUnidadMedida(false);
 	$Importe,
 	date("d/m/Y H:i:s"),
 	date("d/m/Y H:i:s"),
-	
+
 	$POST_VehiculoIngresoNumeroMotor,
 	$POST_VehiculoIngresoAnoFabricacion,
 	$POST_VehiculoIngresoAnoModelo,
 	$POST_VehiculoId,
-	
+
 	$Utilidad,
 	$UtilidadPorcentaje,
 	$CostoAnterior,
 	$POST_Observacion,
-	
+
 	$POST_VehiculoIngresoColor,
 	$POST_VehiculoIngresoColorInterior,
 	$POST_VehiculoIngresoMarca,
 	$POST_VehiculoIngresoModelo,
-	$POST_VehiculoIngresoVersion,	
+	$POST_VehiculoIngresoVersion,
 	$POST_VehiculoIngresoMarcaId,
 	$POST_VehiculoIngresoModeloId,
 	$POST_VehiculoIngresoVersionId,
-	
+
 	3,
 	$POST_VehiculoCodigoIdentificador,
-	
+
 	$POST_VehiculoMovimientoSalidaDetalleUnidadMedida,
 	$InsUnidadMedida->UmeNombre,
 	$POST_CostoIngreso
-	);
-
-
-?>
+);

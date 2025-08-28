@@ -50,8 +50,8 @@ $InsPedidoCompraLlegada = new ClsPedidoCompraLlegada();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 
 if (isset($_SESSION['InsPedidoCompraLlegadaDetalle'.$Identificador])){	

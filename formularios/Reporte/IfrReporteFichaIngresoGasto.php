@@ -77,9 +77,9 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqReporte().'ClsReporteFichaIngreso.php');
 
 
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsMoneda = new ClsMoneda();
 $InsReporteFichaIngreso = new ClsReporteFichaIngreso();
 

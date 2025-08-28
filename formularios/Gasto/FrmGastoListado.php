@@ -101,7 +101,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsGasto = new ClsGasto();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccGasto.php');
 

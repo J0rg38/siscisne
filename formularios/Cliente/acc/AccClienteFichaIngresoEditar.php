@@ -39,7 +39,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
 $resultado = 0;
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 $InsFichaIngreso->FinId = $POST_FichaIngresoId;
 $InsFichaIngreso->FinObservacionCallcenter = $POST_FichaIngresoObservacionCallcenter;
 $InsFichaIngreso->FinTiempoModificacion = date("Y-m-d H:i:s");

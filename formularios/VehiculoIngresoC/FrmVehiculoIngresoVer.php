@@ -50,10 +50,10 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 //INSTANCIAS
 $InsVehiculoIngreso = new ClsVehiculoIngreso();
 $InsVehiculoMarca = new ClsVehiculoMarca();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsConcesionario = new ClsConcesionario();
-$InsTipoDocumento = new ClsTipoDocumento();
-$InsPersonal = new ClsPersonal();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsMoneda = new ClsMoneda();
 

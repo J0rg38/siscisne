@@ -77,7 +77,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsFichaAccionTarea.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsCliente.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
-$InsFichaAccion = new ClsFichaAccion();
+$InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsCliente = new ClsCliente();
 $InsMoneda = new ClsMoneda();
 

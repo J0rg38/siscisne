@@ -145,10 +145,10 @@ $InsCotizacionProducto = new ClsCotizacionProducto();
 $InsCotizacionProductoDetalle = new ClsCotizacionProductoDetalle();
 
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsCliente = new ClsCliente();
 
 $InsCotizacionProducto->UsuId = $_SESSION['SesionId'];	

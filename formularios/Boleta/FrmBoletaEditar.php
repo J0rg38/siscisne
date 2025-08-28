@@ -82,11 +82,11 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsBoleta = new ClsBoleta();
 $InsBoletaTalonario = new ClsBoletaTalonario();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsMoneda = new ClsMoneda();
 $InsRegimen = new ClsRegimen();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 if (isset($_SESSION['InsBoletaDetalle'.$Identificador])){	
 	$_SESSION['InsBoletaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsBoletaDetalle'.$Identificador]);

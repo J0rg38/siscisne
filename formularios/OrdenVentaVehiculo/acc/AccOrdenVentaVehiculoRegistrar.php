@@ -355,7 +355,7 @@ if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){
 
 			if($InsOrdenVentaVehiculo->OvvNotificar == 1){
 				
-				$InsPersonal = new ClsPersonal();
+				$InsPersonal = new ClsPersonal($InsMysql);
 				$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 				$InsPersonal->MtdObtenerPersonal();
 				
@@ -391,7 +391,7 @@ if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){
 				
 				if(!empty($InsOrdenVentaVehiculo->OvvActaEntregaFecha)){
 				
-					$InsPersonal = new ClsPersonal();
+					$InsPersonal = new ClsPersonal($InsMysql);
 					$InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 					$InsPersonal->MtdObtenerPersonal();
 					

@@ -45,7 +45,7 @@ $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsOrdenVentaVehiculo->OvvId = $GET_Id;
 $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsPersonal->PerId = $InsOrdenVentaVehiculo->PerId;
 $InsPersonal->MtdObtenerPersonal();
 

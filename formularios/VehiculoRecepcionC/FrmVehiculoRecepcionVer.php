@@ -49,7 +49,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoIngresoFoto.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsVehiculoRecepcion = new ClsVehiculoRecepcion();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsVehiculoRecepcionDetalle'.$Identificador])){	
 	$_SESSION['InsVehiculoRecepcionDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVehiculoRecepcionDetalle'.$Identificador]);

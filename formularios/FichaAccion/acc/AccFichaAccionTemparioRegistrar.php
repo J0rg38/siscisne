@@ -6,25 +6,25 @@ $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfFormularioNota.php');
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
 $Identificador = $_POST['Identificador'];
 $ModalidadIngreso = $_POST['ModalidadIngreso'];
@@ -34,8 +34,10 @@ $POST_TemparioCodigo = $_POST['TemparioCodigo'];
 $POST_TemparioTiempo = $_POST['TemparioTiempo'];
 
 session_start();
-if (!isset($_SESSION['InsFichaAccionTempario'.$ModalidadIngreso.$Identificador])){
-	$_SESSION['InsFichaAccionTempario'.$ModalidadIngreso.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsFichaAccionTempario' . $ModalidadIngreso . $Identificador])) {
+	$_SESSION['InsFichaAccionTempario' . $ModalidadIngreso . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsFichaAccionTempario' . $ModalidadIngreso . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsFichaAccionTempario' . $ModalidadIngreso . $Identificador]);
 }
 
 //SesionObjeto-FichaAccionTempario
@@ -48,15 +50,14 @@ if (!isset($_SESSION['InsFichaAccionTempario'.$ModalidadIngreso.$Identificador])
 //Parametro7 = FaeTiempoCreacion
 //Parametro8 = FaeTiempoModificacion
 
-$_SESSION['InsFichaAccionTempario'.$ModalidadIngreso.$Identificador]->MtdAgregarSesionObjeto(1,
-NULL,
-NULL,
-strtoupper($POST_TemparioCodigo),
-round($POST_TemparioTiempo,2),
-NULL,
-1,
-date("d/m/Y H:i:s"),
-date("d/m/Y H:i:s")
+$_SESSION['InsFichaAccionTempario' . $ModalidadIngreso . $Identificador]->MtdAgregarSesionObjeto(
+	1,
+	NULL,
+	NULL,
+	strtoupper($POST_TemparioCodigo),
+	round($POST_TemparioTiempo, 2),
+	NULL,
+	1,
+	date("d/m/Y H:i:s"),
+	date("d/m/Y H:i:s")
 );
-
-?>

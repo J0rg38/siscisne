@@ -97,7 +97,7 @@ include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjFichaIngreso.php');
 
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 $InsFichaIngreso->UsuId = $_SESSION['SesionId'];
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccFichaIngreso.php');

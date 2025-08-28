@@ -84,8 +84,8 @@ require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimientoTarea.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedido.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
 $InsFichaIngreso->FinId = $GET_FinId;
 $InsFichaIngreso->MtdObtenerFichaIngreso();	

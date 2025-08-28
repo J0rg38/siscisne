@@ -34,7 +34,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoGasto.php');
 
 $InsSolicitudDesembolso = new ClsSolicitudDesembolso();
 $InsMoneda = new ClsMoneda();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsArea = new ClsArea();
 $InsTipoGasto = new ClsTipoGasto();
 

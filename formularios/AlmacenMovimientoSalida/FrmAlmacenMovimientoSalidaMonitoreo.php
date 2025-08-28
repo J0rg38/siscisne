@@ -97,7 +97,7 @@ if(empty($POST_con)){
 
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 $ResFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresos($POST_cam,$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),2,$POST_Prioridad,$POST_Modalidad);
 $ArrFichaIngresos = $ResFichaIngreso['Datos'];

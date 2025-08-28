@@ -97,7 +97,7 @@ if(empty($POST_con)){
 
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 //$ResFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresos($POST_cam,$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),"2,3,4,5,6,7,71,72,73,74,75,8,9",$POST_Prioridad,$POST_Modalidad,NULL,NULL,$_SESSION['SesionPersonal']);
 $ResFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngresos($POST_cam,$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),11,$POST_Prioridad,$POST_Modalidad,NULL,NULL,$_SESSION['SesionPersonal']);

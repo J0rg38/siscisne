@@ -35,10 +35,14 @@ $ModalidadIngresoId = $_POST['ModalidadIngresoId'];
 //session_start();
 if (!isset($_SESSION['InsFichaAccionProducto' . $ModalidadIngreso . $Identificador])) {
   $_SESSION['InsFichaAccionProducto' . $ModalidadIngreso . $Identificador] = new ClsSesionObjeto();
+} else {
+  $_SESSION['InsFichaAccionProducto' . $ModalidadIngreso . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsFichaAccionProducto' . $ModalidadIngreso . $Identificador]);
 }
 
 if (!isset($_SESSION['InsFichaAccionMantenimiento' . $ModalidadIngreso . $Identificador])) {
   $_SESSION['InsFichaAccionMantenimiento' . $ModalidadIngreso . $Identificador] = new ClsSesionObjeto();
+} else {
+  $_SESSION['InsFichaAccionMantenimiento' . $ModalidadIngreso . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsFichaAccionMantenimiento' . $ModalidadIngreso . $Identificador]);
 }
 
 

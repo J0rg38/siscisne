@@ -33,7 +33,7 @@ $InsMoneda = new ClsMoneda();
 $InsCondicionPago = new ClsCondicionPago();
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsArea = new ClsArea();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsFormaPago = new ClsFormaPago();
 $InsCuenta = new ClsCuenta();
 

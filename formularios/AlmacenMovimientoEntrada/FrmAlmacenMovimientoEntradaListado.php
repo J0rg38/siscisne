@@ -111,7 +111,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsMoneda = new ClsMoneda();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccAlmacenMovimientoEntrada.php');
 

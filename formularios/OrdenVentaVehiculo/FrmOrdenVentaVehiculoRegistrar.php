@@ -122,16 +122,16 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCondicionPago.php');
 $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 
 $InsCondicionVenta = new ClsCondicionVenta();
 $InsCondicionPago = new ClsCondicionPago();
 $InsObsequio = new ClsObsequio();
 $InsModalidadPago = new ClsModalidadPago();
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 
 
 $ResCondicionVenta = $InsCondicionVenta->MtdObtenerCondicionVentas(NULL,NULL,'CovId','DESC',NULL,1);

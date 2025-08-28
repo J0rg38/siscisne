@@ -106,21 +106,21 @@ require_once($InsPoo->MtdPaqActividad().'ClsTareaProducto.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenStock.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsModalidadIngreso = new ClsModalidadIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
 
-$InsProducto = new ClsProducto();
-$InsUnidadMedida = new ClsUnidadMedida();
-$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion();
+$InsProducto = new ClsProducto($InsMysql);
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
+$InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
-$InsPlanMantenimiento = new ClsPlanMantenimiento();
-$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion();
+$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+$InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 $InsPlanMantenimientoDetalle = new ClsPlanMantenimientoDetalle();
-$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea();
+$InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 
 $InsMoneda = new ClsMoneda();
 $InsAlmacen = new ClsAlmacen();
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsFichaIngreso->FinId = $GET_Id;
 $InsFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngreso();
 $InsFichaIngreso->UsuId = $_SESSION['SesionId'];
@@ -640,7 +640,7 @@ Ver Documentacion
 Calendar.setup({ 
 	inputField : "CmpFecha_<?php echo $DatTallerPedido->MinSigla?>",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha_<?php echo $DatTallerPedido->MinSigla?>"// el id del botón que  
+	button     : "BtnFecha_<?php echo $DatTallerPedido->MinSigla?>"// el id del botï¿½n que  
 	});
 
 </script>    		
@@ -819,7 +819,7 @@ foreach($ArrMonedas as $DatMoneda){
 Calendar.setup({ 
 	inputField : "CmpTallerPedidoDetalleFecha_<?php echo $DatTallerPedido->MinSigla?>",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnTallerPedidoDetalleFecha_<?php echo $DatTallerPedido->MinSigla?>"// el id del botón que  
+	button     : "BtnTallerPedidoDetalleFecha_<?php echo $DatTallerPedido->MinSigla?>"// el id del botï¿½n que  
 	});
 
 </script>    
@@ -1197,7 +1197,7 @@ Calendar.setup({
 Calendar.setup({ 
 	inputField : "CmpTallerPedidoDetalleFecha_<?php echo $DatTallerPedido->MinSigla?>",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnTallerPedidoDetalleFecha_<?php echo $DatTallerPedido->MinSigla?>"// el id del botón que  
+	button     : "BtnTallerPedidoDetalleFecha_<?php echo $DatTallerPedido->MinSigla?>"// el id del botï¿½n que  
 	});
 
 </script>    
@@ -2078,7 +2078,7 @@ tinymce.init({
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 </script>
 

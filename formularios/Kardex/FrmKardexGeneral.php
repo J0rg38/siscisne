@@ -25,7 +25,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 $InsProductoTipo = new ClsProductoTipo();
 $InsMoneda = new ClsMoneda();
 $InsProductoCategoria = new ClsProductoCategoria();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsAlmacen = new ClsAlmacen();
 
 $RepProductoTipo = $InsProductoTipo->MtdObtenerProductoTipos(NULL,NULL,'RtiNombre',"ASC",NULL);

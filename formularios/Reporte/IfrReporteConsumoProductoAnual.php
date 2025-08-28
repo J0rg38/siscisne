@@ -78,7 +78,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVentaConcretadaDetalle.php');
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 
 ////MtdObtenerReporteConsumoProductoAnuals($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'ProId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oProductoTipo=NULL,$oConVentaDirecta=0,$oConFichaIngreso=0,$oCliente=NULL)
 //$ResReporteConsumoProductoAnual = $InsReporteConsumoProductoAnual->MtdObtenerReporteConsumoProductoAnuals(NULL,NULL,NULL,$POST_ord,$POST_sen,NULL,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),$POST_ProductoTipo,0,0,$POST_ClienteId);

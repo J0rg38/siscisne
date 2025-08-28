@@ -38,7 +38,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsComprobanteRetencion = new ClsComprobanteRetencion();
 $InsComprobanteRetencionTalonario = new ClsComprobanteRetencionTalonario();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 
 

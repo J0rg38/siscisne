@@ -104,10 +104,10 @@ $InsCotizacionProducto = new ClsCotizacionProducto();
 $InsCotizacionProductoDetalle = new ClsCotizacionProductoDetalle();
 
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsCliente = new ClsCliente();
 
 $InsCotizacionProducto->UsuId = $_SESSION['SesionId'];	
@@ -1200,7 +1200,7 @@ if(!empty($GET_dia)){
 				doneStr:"Hecho",
 				multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
 				extErrorStr:"Extension de archivo no permitido",
-				sizeErrorStr:"Tamaño no permitido",
+				sizeErrorStr:"Tamaï¿½o no permitido",
 				uploadErrorStr:"No se pudo subir el archivo",
 				
 				dragdropWidth: 500,
@@ -1295,7 +1295,7 @@ if(!empty($GET_dia)){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 

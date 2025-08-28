@@ -100,7 +100,7 @@ if($InsNotaCredito->MonId<>$EmpresaMonedaId){
 //$InsNotaCredito->NcrImpuesto = number_format(($InsNotaCredito->NcrImpuesto/$InsTipoCambio->TcaMontoCompra),2);
 //$InsNotaCredito->NcrTotal = number_format(($InsNotaCredito->NcrTotal/$InsTipoCambio->TcaMontoCompra),2);
 
-//$InsSucursal = new ClsSucursal();
+//$InsSucursal = new ClsSucursal($InsMysql);
 //$InsSucursal->SucId = $_SESSION['SesionSucursal'];
 //$InsSucursal->MtdObtenerSucursal();
  

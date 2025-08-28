@@ -61,10 +61,10 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoReferido.php');
 
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
-$InsPersonal = new ClsPersonal();
+$InsPersonal = new ClsPersonal($InsMysql);
 $InsCondicionVenta = new ClsCondicionVenta();
 $InsCondicionPago = new ClsCondicionPago();
 $InsObsequio = new ClsObsequio();
@@ -877,7 +877,7 @@ tinymce.init({
 											doneStr:"Hecho",
 											multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
 											extErrorStr:"Extension de archivo no permitido",
-											sizeErrorStr:"Tamaño no permitido",
+											sizeErrorStr:"Tamaï¿½o no permitido",
 											uploadErrorStr:"No se pudo subir el archivo",
 											dragdropWidth: 500,
 											
@@ -958,7 +958,7 @@ tinymce.init({
                                         doneStr:"Hecho",
                                         multiDragErrorStr: "Arrastre y suelte aqui los archivos.",
                                         extErrorStr:"Extension de archivo no permitido",
-                                        sizeErrorStr:"Tamaño no permitido",
+                                        sizeErrorStr:"Tamaï¿½o no permitido",
                                         uploadErrorStr:"No se pudo subir el archivo",
                                         dragdropWidth: 500,
                                         onSuccess:function(files,data,xhr){
@@ -1116,13 +1116,13 @@ tinymce.init({
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 Calendar.setup({ 
 	inputField : "CmpFechaVigencia",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaVigencia"// el id del botón que  
+	button     : "BtnFechaVigencia"// el id del botï¿½n que  
 	});
 
 </script>

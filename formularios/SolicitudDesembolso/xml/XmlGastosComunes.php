@@ -33,7 +33,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenStock.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsAlmacenStock = new ClsAlmacenStock();
 $InsAlmacen = new ClsAlmacen();
 

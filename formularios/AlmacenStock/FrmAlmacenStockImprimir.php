@@ -55,7 +55,7 @@ $InsAlmacen = new ClsAlmacen();
 $InsAlmacenStock = new ClsAlmacenStock();
 $InsKardex = new ClsKardex();
 
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 
 $InsAlmacenStock->ProId = $GET_id;

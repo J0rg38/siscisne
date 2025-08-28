@@ -76,7 +76,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsFacturaTalonario.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsFacturaTalonario = new ClsFacturaTalonario();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccFacturaTalonario.php');
 

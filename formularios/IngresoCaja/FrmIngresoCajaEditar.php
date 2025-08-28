@@ -49,10 +49,10 @@ require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 
 
 $InsIngreso = new ClsIngreso();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsBanco = new ClsBanco();
 $InsCuenta = new ClsCuenta();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsFormaPago = new ClsFormaPago();
 
 

@@ -641,7 +641,7 @@ function FncCargarDatos()
 	global $ArrModalidadIngresos;
 	global $InsPlanMantenimiento;
 	//unset($InsFichaIngreso);
-	$InsFichaIngreso = new ClsFichaIngreso();
+	$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 	foreach ($ArrModalidadIngresos as $DatModalidadIngreso) {
 

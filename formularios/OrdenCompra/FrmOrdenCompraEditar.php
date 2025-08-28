@@ -42,7 +42,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMarca.php');
 
 $InsOrdenCompra = new ClsOrdenCompra();
 $InsMoneda = new ClsMoneda();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 
 if (isset($_SESSION['InsOrdenCompraPedido'.$Identificador])){	
@@ -605,13 +605,13 @@ switch($InsOrdenCompra->OcoIncluyeImpuesto){
 Calendar.setup({ 
 	inputField : "CmpFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFecha"// el id del botón que  
+	button     : "BtnFecha"// el id del botï¿½n que  
 	});
 	
 		Calendar.setup({ 
 	inputField : "CmpFechaLlegadaEstimada",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaLlegadaEstimada"// el id del botón que  
+	button     : "BtnFechaLlegadaEstimada"// el id del botï¿½n que  
 	});
 	
 	

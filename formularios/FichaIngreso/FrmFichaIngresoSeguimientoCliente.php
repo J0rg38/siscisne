@@ -68,8 +68,8 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 require_once($InsPoo->MtdPaqActividad().'ClsTipoReparacion.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 if (!isset($_SESSION['InsFichaIngresoLlamada'.$Identificador])){	
 	$_SESSION['InsFichaIngresoLlamada'.$Identificador] = new ClsSesionObjeto();
@@ -381,7 +381,7 @@ if($Registro){
 Calendar.setup({ 
 	inputField : "CmpFichaIngresoLlamadaFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFichaIngresoLlamadaFecha"// el id del botón que  
+	button     : "BtnFichaIngresoLlamadaFecha"// el id del botï¿½n que  
 	});
 
 </script>

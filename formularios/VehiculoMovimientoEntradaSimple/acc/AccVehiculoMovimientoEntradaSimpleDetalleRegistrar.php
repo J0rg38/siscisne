@@ -70,7 +70,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
 
 $InsVehiculo = new ClsVehiculo();
 $InsVehiculoIngreso = new ClsVehiculoIngreso();
-$InsUnidadMedida = new ClsUnidadMedida();
+$InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 $InsVehiculoIngreso->EinId = $POST_VehiculoIngresoId ;
 $InsVehiculoIngreso->MtdObtenerVehiculoIngreso(false);

@@ -28,7 +28,7 @@ $InsVentaConcretadaDetalle = new ClsVentaConcretadaDetalle();
 
 $InsVehiculoStock = new ClsVehiculoStock();
 $InsAlmacen = new ClsAlmacen();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 
 $InsVehiculoStock->VehId = $GET_id;
 $InsVehiculoStock->MtdObtenerVehiculoStock();

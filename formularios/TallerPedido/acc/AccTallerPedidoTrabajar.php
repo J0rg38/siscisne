@@ -114,7 +114,7 @@ $InsFichaIngreso->FinNota = addslashes($_POST['CmpNota']);
 			$TipoCambio = $_POST['CmpTipoCambio_'.$DatFichaIngresoModalidad->MinSigla];
 			
 			
-			$InsFichaAccion = new ClsFichaAccion();
+			$InsFichaAccion = new ClsFichaAccion($InsMysql);
 			$InsFichaAccion->FccId = $_POST['CmpFichaAccionId_'.$DatFichaIngresoModalidad->MinSigla];
 			$InsFichaAccion->FimId = $DatFichaIngresoModalidad->FimId;
 			$InsFichaAccion->FccManoObra = preg_replace("/,/", "", (empty($_POST['CmpFichaAccionManoObra_'.$DatFichaIngresoModalidad->MinSigla])?0:$_POST['CmpFichaAccionManoObra_'.$DatFichaIngresoModalidad->MinSigla]));
@@ -1083,7 +1083,7 @@ $InsFichaIngreso->MtdEditarFichaIngresoAlmacenMovimientoEntrada();
 										
 										if(empty($InsFichaIngreso->PmaId)){
 											
-											$InsPlanMantenimiento = new ClsPlanMantenimiento();
+											$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 											$ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,NULL,'PmaId','ASC',1,NULL,NULL,$InsFichaIngreso->VmoId);
 											$ArrPlanMantenimientos = $ResPlanMantenimiento['Datos'];
 											
@@ -1093,7 +1093,7 @@ $InsFichaIngreso->MtdEditarFichaIngresoAlmacenMovimientoEntrada();
 											
 										}else{
 												
-												$InsPlanMantenimiento = new ClsPlanMantenimiento();												
+												$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);												
 												$InsPlanMantenimiento->PmaId = $InsFichaIngreso->PmaId;												
 												$InsPlanMantenimiento->MtdObtenerPlanMantenimiento();
 												
@@ -1115,7 +1115,7 @@ $InsFichaIngreso->MtdEditarFichaIngresoAlmacenMovimientoEntrada();
 													foreach($ArrTareaProductos as $DatTareaProducto){
 													
 														
-														$InsProducto = new ClsProducto();
+														$InsProducto = new ClsProducto($InsMysql);
 														$InsProducto->ProId = $DatTareaProducto->ProId;
 														$InsProducto->MtdObtenerProducto(false);
 														
@@ -1209,7 +1209,7 @@ $InsFichaIngreso->MtdEditarFichaIngresoAlmacenMovimientoEntrada();
 										
 										if(empty($InsFichaIngreso->PmaId)){
 											
-											$InsPlanMantenimiento = new ClsPlanMantenimiento();
+											$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 											$ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,NULL,'PmaId','ASC',1,NULL,NULL,$InsFichaIngreso->VmoId);
 											$ArrPlanMantenimientos = $ResPlanMantenimiento['Datos'];
 											
@@ -1219,7 +1219,7 @@ $InsFichaIngreso->MtdEditarFichaIngresoAlmacenMovimientoEntrada();
 											
 										}else{
 												
-												$InsPlanMantenimiento = new ClsPlanMantenimiento();												
+												$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);												
 												$InsPlanMantenimiento->PmaId = $InsFichaIngreso->PmaId;												
 												$InsPlanMantenimiento->MtdObtenerPlanMantenimiento();
 												
@@ -1241,7 +1241,7 @@ $InsFichaIngreso->MtdEditarFichaIngresoAlmacenMovimientoEntrada();
 													foreach($ArrTareaProductos as $DatTareaProducto){
 													
 														
-														$InsProducto = new ClsProducto();
+														$InsProducto = new ClsProducto($InsMysql);
 														$InsProducto->ProId = $DatTareaProducto->ProId;
 														$InsProducto->MtdObtenerProducto(false);
 														
@@ -1782,7 +1782,7 @@ $InsFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngreso();
 //											$ProductoTipo = "";
 //											$ProductoCantidad = 0;
 //											
-//											$InsPlanMantenimiento = new ClsPlanMantenimiento();
+//											$InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 //											$ResPlanMantenimiento = $InsPlanMantenimiento->MtdObtenerPlanMantenimientos(NULL,NULL,NULL,'PmaId','ASC',1,NULL,NULL,$InsFichaIngreso->VmoId);
 //											$ArrPlanMantenimientos = $ResPlanMantenimiento['Datos'];
 //											
@@ -1805,7 +1805,7 @@ $InsFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngreso();
 //													foreach($ArrTareaProductos as $DatTareaProducto){
 //													
 //														
-//														$InsProducto = new ClsProducto();
+//														$InsProducto = new ClsProducto($InsMysql);
 //														$InsProducto->ProId = $DatTareaProducto->ProId;
 //														$InsProducto->MtdObtenerProducto(false);
 //														
@@ -2432,7 +2432,7 @@ function FncCargarTallerPedidoDatos(){
 	$_SESSION['InsTallerPedidoMantenimiento'.$InsTallerPedido->MinSigla.$Identificador] = new ClsSesionObjeto();
 
 	//////deb($InsTallerPedido);
-	$InsFichaAccion = new ClsFichaAccion();
+	$InsFichaAccion = new ClsFichaAccion($InsMysql);
 	
 	$InsFichaAccion->FccId = $InsTallerPedido->FccId;
 	$InsFichaAccion->MtdObtenerFichaAccion();

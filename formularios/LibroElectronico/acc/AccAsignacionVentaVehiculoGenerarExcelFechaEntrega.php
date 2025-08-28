@@ -136,7 +136,7 @@ require_once($InsPoo->MtdPaqReporte().'ClsReporteAsignacionVentaVehiculo.php');
 
 $InsAsignacionVentaVehiculo = new ClsAsignacionVentaVehiculo();
 $InsMoneda = new ClsMoneda();
-$InsSucursal = new ClsSucursal();
+$InsSucursal = new ClsSucursal($InsMysql);
 $InsReporteAsignacionVentaVehiculo = new ClsReporteAsignacionVentaVehiculo();
 
 //MtdObtenerAsignacionVentaVehiculos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AvvId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oOrdenVentaVehiculo=NULL,$oConFechaEntrega=false,$oTipoFecha="avv.AvvFecha")

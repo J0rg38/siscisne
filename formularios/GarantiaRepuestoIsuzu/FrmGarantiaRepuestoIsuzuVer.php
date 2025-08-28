@@ -71,7 +71,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsGarantiaRepuestoIsuzuLlamada.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 
 $InsGarantiaRepuestoIsuzu = new ClsGarantiaRepuestoIsuzu();
-$InsTipoDocumento = new ClsTipoDocumento();
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCuenta = new ClsCuenta();
 
 if (!isset($_SESSION['InsGarantiaRepuestoIsuzuManoObra'.$Identificador])){	

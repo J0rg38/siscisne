@@ -68,8 +68,8 @@ require_once($InsPoo->MtdPaqActividad().'ClsInformeTecnicoProducto.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsInformeTecnico = new ClsInformeTecnico();
-$InsPersonal = new ClsPersonal();
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsPersonal = new ClsPersonal($InsMysql);
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 $InsInformeTecnico->IteId = $GET_id;
 $InsInformeTecnico->MtdObtenerInformeTecnico();	
@@ -249,7 +249,7 @@ if(!empty($InsInformeTecnico->FinId)){
 	if(!empty($ArrFichaIngresoModalidades)){
 		foreach($ArrFichaIngresoModalidades as $DatFichaIngresoModalidad){
 			
-			$InsFichaAccion = new ClsFichaAccion();
+			$InsFichaAccion = new ClsFichaAccion($InsMysql);
 			$ResFichaAccion = $InsFichaAccion->MtdObtenerFichaAcciones(NULL,NULL,NULL,'FccId','ASC','1',$DatFichaIngresoModalidad->FimId,NULL,NULL,NULL);
 			$ArrFichaAcciones = $ResFichaAccion['Datos'];
 			

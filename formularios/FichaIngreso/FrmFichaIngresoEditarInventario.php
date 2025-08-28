@@ -22,7 +22,7 @@ include($InsProyecto->MtdFormulariosMsj($GET_mod).'MsjFichaIngreso.php');
 
 require_once($InsPoo->MtdPaqActividad().'ClsFichaIngreso.php');
 
-$InsFichaIngreso = new ClsFichaIngreso();
+$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 
 
 $InsFichaIngreso->FinId = $GET_id;

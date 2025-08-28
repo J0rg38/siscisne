@@ -27,8 +27,10 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 $Identificador = $_POST['Identificador'];
 
 session_start();
-if (!isset($_SESSION['InsGarantiaRepuestoIsuzuDetalle'.$Identificador])){
-	$_SESSION['InsGarantiaRepuestoIsuzuDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsGarantiaRepuestoIsuzuDetalle' . $Identificador])) {
+	$_SESSION['InsGarantiaRepuestoIsuzuDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsGarantiaRepuestoIsuzuDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsGarantiaRepuestoIsuzuDetalle' . $Identificador]);
 }
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsProducto.php');
@@ -68,7 +70,7 @@ $GarantiaRepuestoIsuzuDetalleCosto = ($GarantiaRepuestoIsuzuDetalleCostoTotal/$G
 $GarantiaRepuestoIsuzuDetalleMargen = 0;
 $GarantiaRepuestoIsuzuDetalleCostoMargen = 0;
 
-$InsProducto = new ClsProducto();
+$InsProducto = new ClsProducto($InsMysql);
 $InsProducto->ProId = $ProductoId;
 $InsProducto->MtdObtenerProducto(false);
 

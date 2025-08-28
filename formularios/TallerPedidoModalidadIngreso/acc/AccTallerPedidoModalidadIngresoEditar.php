@@ -29,7 +29,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 	if(!empty($ArrModalidadIngresos)){			
 		foreach($ArrModalidadIngresos  as $DatModalidadIngreso){
 
-			$InsFichaAccion = new ClsFichaAccion();
+			$InsFichaAccion = new ClsFichaAccion($InsMysql);
 			$InsFichaAccion->UsuId = $_SESSION['SesionId'];
 			$InsFichaAccion->FccId = $_POST['CmpId_'.$DatModalidadIngreso->MinSigla];
 			$InsFichaAccion->FimId = $_POST['CmpFichaIngresoModalidadId_'.$DatModalidadIngreso->MinSigla];

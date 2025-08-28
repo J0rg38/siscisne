@@ -46,6 +46,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
   include($InsProyecto->MtdFormulariosMsj('Vehiculo') . 'MsjVehiculo.php');
 
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngreso.php');
+require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoManoObra.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoLlamada.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoGasto.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsPreEntregaDetalle.php');
@@ -90,18 +91,18 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
   require_once($InsPoo->MtdPaqEmpresa() . 'ClsSucursal.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsPlanMantenimiento.php');
 
-  $InsFichaIngreso = new ClsFichaIngreso();
-  $InsModalidadIngreso = new ClsModalidadIngreso();
-  $InsPlanMantenimiento = new ClsPlanMantenimiento();
-  $InsTipoDocumento = new ClsTipoDocumento();
+  $InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+  $InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
+  $InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
+  $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
   $InsVehiculoMarca = new ClsVehiculoMarca();
 
-  $InsPersonal = new ClsPersonal();
+  $InsPersonal = new ClsPersonal($InsMysql);
 
   $InsTipoReparacion = new ClsTipoReparacion();
   $InsClienteTipo = new ClsClienteTipo();
-  $InsSucursal = new ClsSucursal();
-  $InsPlanMantenimiento = new ClsPlanMantenimiento();
+  $InsSucursal = new ClsSucursal($InsMysql);
+  $InsPlanMantenimiento = new ClsPlanMantenimiento($InsMysql);
 
 
   $ResModalidadIngreso = $InsModalidadIngreso->MtdObtenerModalidadIngresos(NULL, NULL, "MinOrden", "ASC", NULL, "1,3");

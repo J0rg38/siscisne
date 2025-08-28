@@ -28,7 +28,7 @@ class ClsFichaIngresoManoObra
 	public function __construct($oInsMysql = NULL)
 	{
 
-		if ($oInsMysql) {
+		if (isset($oInsMysql)) {
 			$this->InsMysql = $oInsMysql;
 		} else {
 			$this->InsMysql = new ClsMysql();
