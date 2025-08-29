@@ -853,7 +853,7 @@ sds.SdsObservacionCorreo,
 				if (!empty($this->SolicitudDesembolsoDetalle)){		
 						
 					$validar = 0;				
-					$InsSolicitudDesembolsoDetalle = new ClsSolicitudDesembolsoDetalle();		
+					$InsSolicitudDesembolsoDetalle = new ClsSolicitudDesembolsoDetalle($this->InsMysql);		
 					
 					foreach ($this->SolicitudDesembolsoDetalle as $DatSolicitudDesembolsoDetalle){
 					
@@ -947,7 +947,7 @@ sds.SdsObservacionCorreo,
 				if (!empty($this->SolicitudDesembolsoDetalle)){		
 
 					$validar = 0;				
-					$InsSolicitudDesembolsoDetalle = new ClsSolicitudDesembolsoDetalle();
+					$InsSolicitudDesembolsoDetalle = new ClsSolicitudDesembolsoDetalle($this->InsMysql);
 							
 					foreach ($this->SolicitudDesembolsoDetalle as $DatSolicitudDesembolsoDetalle){
 										

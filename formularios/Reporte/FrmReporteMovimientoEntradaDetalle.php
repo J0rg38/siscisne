@@ -17,7 +17,7 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Ver")){
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsProveedor.php');
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsProveedor = new ClsProveedor();
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL,1);

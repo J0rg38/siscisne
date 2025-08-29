@@ -73,7 +73,7 @@ $InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 $InsAlmacenProducto = new ClsAlmacenProducto();
 $InsAlmacenStock = new ClsAlmacenStock();
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

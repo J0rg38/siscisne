@@ -80,7 +80,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 $InsFactura = new ClsFactura();
 $InsBoleta = new ClsBoleta();
 $InsCliente = new ClsCliente();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 if(empty($POST_ClienteId)){
 	

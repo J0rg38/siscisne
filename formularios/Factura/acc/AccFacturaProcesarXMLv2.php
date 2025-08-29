@@ -49,7 +49,7 @@ require_once($InsPoo->MtdPaqLogistica() . 'ClsOrdenVentaVehiculoObsequio.php');
 
 
 $InsFactura = new ClsFactura();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoCambio = new ClsTipoCambio();
 
 //Obteniendo datos de factura
@@ -103,7 +103,7 @@ $ComprobanteXML['XMLUrl'] = "http://" . $URL_LOCAL . "/" . $SistemaNombreCarpeta
 
 $ComprobanteXML['XMLNombre'] = $NOMBRE;
 
-
+deb($ComprobanteXML);
 
 $l_stResult = $l_oProxy->MtdProcesarFactura(json_encode($ComprobanteXML));
 $l_stResult = eregi_replace("'", "\"", $l_stResult);

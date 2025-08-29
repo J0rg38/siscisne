@@ -10,21 +10,22 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsCotizacionVehiculoLlamada {
+class ClsCotizacionVehiculoLlamada
+{
 
-    public $CvlId;
+	public $CvlId;
 	public $CveId;
 	public $CvlNumero;
 	public $CvlFecha;
 	public $CvlObservacion;
-	public $CvlEstado;	
+	public $CvlEstado;
 	public $CvlTiempoCreacion;
 	public $CvlTiempoModificacion;
-    public $CvlEliminado;
-	
-    public $InsMysql;
+	public $CvlEliminado;
 
-    public function __construct($oInsMysql=NULL)
+	public $InsMysql;
+
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -32,143 +33,135 @@ class ClsCotizacionVehiculoLlamada {
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
 	}
 
-	public function __destruct(){
+	public function __destruct() {}
 
-	}
-
-	private function MtdGenerarCotizacionVehiculoLlamadaId() {
+	private function MtdGenerarCotizacionVehiculoLlamadaId()
+	{
 
 		$sql = 'SELECT	
 		MAX(CONVERT(SUBSTR(CvlId,5),unsigned)) AS "MAXIMO"
 		FROM tblcvlcotizacionvehiculollamada';
-		
-		$resultado = $this->InsMysql->MtdConsultar($sql);                       
-		$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-		
-		if(empty($fila['MAXIMO'])){			
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
 			$this->CvlId = "CVL-10000";
-		}else{
+		} else {
 			$fila['MAXIMO']++;
-			$this->CvlId = "CVL-".$fila['MAXIMO'];					
+			$this->CvlId = "CVL-" . $fila['MAXIMO'];
 		}
-			
 	}
 
-    public function MtdObtenerCotizacionVehiculoLlamadas($oCampo=NULL,$oFiltro=NULL,$oOrden = 'CvlId',$oSentido = 'Desc',$oPaginacion = '0,10',$oCotizacionVehiculo=NULL,$oEstado=NULL) {
+	public function MtdObtenerCotizacionVehiculoLlamadas($oCampo = NULL, $oFiltro = NULL, $oOrden = 'CvlId', $oSentido = 'Desc', $oPaginacion = '0,10', $oCotizacionVehiculo = NULL, $oEstado = NULL)
+	{
 
-		if(!empty($oCampo) and !empty($oFiltro)){
+		if (!empty($oCampo) and !empty($oFiltro)) {
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
 
-			$i=1;
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-		if(!empty($oCotizacionVehiculo)){
-			$garantia = ' AND cvl.CveId = "'.$oCotizacionVehiculo.'"';
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND cvl.CvlEstado = '.$oEstado.' ';
+
+		if (!empty($oCotizacionVehiculo)) {
+			$garantia = ' AND cvl.CveId = "' . $oCotizacionVehiculo . '"';
 		}
-			
+
+		if (!empty($oEstado)) {
+			$estado = ' AND cvl.CvlEstado = ' . $oEstado . ' ';
+		}
+
 		$sql = '
 			SELECT
 			SQL_CALC_FOUND_ROWS 
@@ -186,95 +179,96 @@ class ClsCotizacionVehiculoLlamada {
 	        DATE_FORMAT(cvl.CvlTiempoModificacion, "%d/%m/%Y %H:%i:%s") AS "NCvlTiempoModificacion"
 			
 			FROM tblcvlcotizacionvehiculollamada cvl
-			WHERE  1 = 1 '.$garantia.$estado.$filtrar.$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+			WHERE  1 = 1 ' . $garantia . $estado . $filtrar . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsCotizacionVehiculoLlamada = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$CotizacionVehiculoLlamada = new $InsCotizacionVehiculoLlamada();
-                    $CotizacionVehiculoLlamada->CvlId = $fila['CvlId'];
-                    $CotizacionVehiculoLlamada->CveId = $fila['CveId'];
+		$Respuesta['Datos'] = array();
 
-					$CotizacionVehiculoLlamada->CvlNumero = $fila['CvlNumero'];  
+		$InsCotizacionVehiculoLlamada = get_class($this);
 
-					$CotizacionVehiculoLlamada->CvlFecha = $fila['NCvlFecha'];  
-					$CotizacionVehiculoLlamada->CvlFechaProgramada = $fila['NCvlFechaProgramada'];  
-					
-					$CotizacionVehiculoLlamada->CvlObservacion = $fila['CvlObservacion'];
-			      
-					$CotizacionVehiculoLlamada->CvlEstado = $fila['CvlEstado'];
-					$CotizacionVehiculoLlamada->CvlTiempoCreacion = $fila['NCvlTiempoCreacion'];  
-					$CotizacionVehiculoLlamada->CvlTiempoModificacion = $fila['NCvlTiempoModificacion']; 					
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-                    $CotizacionVehiculoLlamada->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $CotizacionVehiculoLlamada;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+			$CotizacionVehiculoLlamada = new $InsCotizacionVehiculoLlamada();
+			$CotizacionVehiculoLlamada->CvlId = $fila['CvlId'];
+			$CotizacionVehiculoLlamada->CveId = $fila['CveId'];
+
+			$CotizacionVehiculoLlamada->CvlNumero = $fila['CvlNumero'];
+
+			$CotizacionVehiculoLlamada->CvlFecha = $fila['NCvlFecha'];
+			$CotizacionVehiculoLlamada->CvlFechaProgramada = $fila['NCvlFechaProgramada'];
+
+			$CotizacionVehiculoLlamada->CvlObservacion = $fila['CvlObservacion'];
+
+			$CotizacionVehiculoLlamada->CvlEstado = $fila['CvlEstado'];
+			$CotizacionVehiculoLlamada->CvlTiempoCreacion = $fila['NCvlTiempoCreacion'];
+			$CotizacionVehiculoLlamada->CvlTiempoModificacion = $fila['NCvlTiempoModificacion'];
+
+			$CotizacionVehiculoLlamada->InsMysql = NULL;
+			$Respuesta['Datos'][] = $CotizacionVehiculoLlamada;
 		}
-		
-		
-		
-		
-	//Accion eliminar	 
-	
-	public function MtdEliminarCotizacionVehiculoLlamada($oElementos) {
-		
-		$error = false;
-		
-		$elementos = explode("#",$oElementos);
-	
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){				
-					if($i==count($elementos)){						
-						$eliminar .= '  (CvlId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (CvlId = "'.($elemento).'")  OR';	
-					}	
-				}
-			$i++;
-	
-			}
-		
-				
-				$sql = 'DELETE FROM tblcvlcotizacionvehiculollamada 
-				WHERE '.$eliminar;
-							
-				$error = false;
-	
-				$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-				
-				if(!$resultado) {						
-					$error = true;
-				} 	
-				
-	
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
 	}
-	
-	
-	public function MtdRegistrarCotizacionVehiculoLlamada() {
-	
-			$this->MtdGenerarCotizacionVehiculoLlamadaId();
-			
-			
-			$sql = 'INSERT INTO tblcvlcotizacionvehiculollamada (
+
+
+
+
+	//Accion eliminar	 
+
+	public function MtdEliminarCotizacionVehiculoLlamada($oElementos)
+	{
+
+		$error = false;
+
+		$elementos = explode("#", $oElementos);
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+				if ($i == count($elementos)) {
+					$eliminar .= '  (CvlId = "' . ($elemento) . '")';
+				} else {
+					$eliminar .= '  (CvlId = "' . ($elemento) . '")  OR';
+				}
+			}
+			$i++;
+		}
+
+
+		$sql = 'DELETE FROM tblcvlcotizacionvehiculollamada 
+				WHERE ' . $eliminar;
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+	public function MtdRegistrarCotizacionVehiculoLlamada()
+	{
+
+		$this->MtdGenerarCotizacionVehiculoLlamadaId();
+
+
+		$sql = 'INSERT INTO tblcvlcotizacionvehiculollamada (
 			CvlId,
 			CveId,
 			
@@ -288,65 +282,61 @@ class ClsCotizacionVehiculoLlamada {
 			CvlTiempoCreacion,
 			CvlTiempoModificacion) 
 			VALUES (
-			"'.($this->CvlId).'", 
-			"'.($this->CveId).'", 
-			"'.($this->CvlNumero).'", 
+			"' . ($this->CvlId) . '", 
+			"' . ($this->CveId) . '", 
+			"' . ($this->CvlNumero) . '", 
 
-			"'.($this->CvlFecha).'", 
-			'.(empty($this->CvlFechaProgramada)?"NULL,":'"'.$this->CvlFechaProgramada.'",').'
-			"'.($this->CvlObservacion).'", 	
+			"' . ($this->CvlFecha) . '", 
+			' . (empty($this->CvlFechaProgramada) ? "NULL," : '"' . $this->CvlFechaProgramada . '",') . '
+			"' . ($this->CvlObservacion) . '", 	
 			
-			'.($this->CvlEstado).',
-			"'.($this->CvlTiempoCreacion).'",
-			"'.($this->CvlTiempoModificacion).'");';
-		
-			$error = false;
+			' . ($this->CvlEstado) . ',
+			"' . ($this->CvlTiempoCreacion) . '",
+			"' . ($this->CvlTiempoModificacion) . '");';
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 	
-		
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	public function MtdEditarCotizacionVehiculoLlamada() {
 
-			$sql = 'UPDATE tblcvlcotizacionvehiculollamada SET 	
+	public function MtdEditarCotizacionVehiculoLlamada()
+	{
+
+		$sql = 'UPDATE tblcvlcotizacionvehiculollamada SET 	
 			
-			CvlNumero = "'.($this->CvlNumero).'",
+			CvlNumero = "' . ($this->CvlNumero) . '",
 
-			CvlFecha = "'.($this->CvlFecha).'",	
-			'.(empty($this->CvlFechaProgramada)?'CvlFechaProgramada = NULL, ':'CvlFechaProgramada = "'.$this->CvlFechaProgramada.'",').'
+			CvlFecha = "' . ($this->CvlFecha) . '",	
+			' . (empty($this->CvlFechaProgramada) ? 'CvlFechaProgramada = NULL, ' : 'CvlFechaProgramada = "' . $this->CvlFechaProgramada . '",') . '
 					 
-			CvlObservacion = "'.($this->CvlObservacion).'",
+			CvlObservacion = "' . ($this->CvlObservacion) . '",
 		
-			CvlTiempoModificacion = "'.($this->CvlTiempoModificacion).'"
+			CvlTiempoModificacion = "' . ($this->CvlTiempoModificacion) . '"
 			 
-			WHERE CvlId = "'.($this->CvlId).'";';
-					
-			$error = false;
+			WHERE CvlId = "' . ($this->CvlId) . '";';
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}						
-				
-		}	
-		
-	
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
-?>

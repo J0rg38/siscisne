@@ -39,7 +39,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsPedidoCompraDetalle.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 
 $InsOrdenCompra = new ClsOrdenCompra();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 if (isset($_SESSION['InsOrdenCompraPedido'.$Identificador])){	

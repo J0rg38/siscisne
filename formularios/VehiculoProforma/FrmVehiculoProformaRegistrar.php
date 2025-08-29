@@ -37,7 +37,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 $InsVehiculoProforma = new ClsVehiculoProforma();
 $InsVehiculMarca = new ClsVehiculoMarca();
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 if (!isset($_SESSION['InsVehiculoProformaDetalle'.$Identificador])){	
 	$_SESSION['InsVehiculoProformaDetalle'.$Identificador] = new ClsSesionObjeto();

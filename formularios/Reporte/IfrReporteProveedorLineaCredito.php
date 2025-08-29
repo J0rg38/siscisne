@@ -83,7 +83,7 @@ require_once($InsPoo->MtdPaqReporte().'ClsReporteAlmacenMovimientoEntrada.php');
 
 
 $InsProveedor = new ClsProveedor();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsOrdenCompra = new ClsOrdenCompra();
 $InsPagoProveedor = new ClsPagoProveedor();

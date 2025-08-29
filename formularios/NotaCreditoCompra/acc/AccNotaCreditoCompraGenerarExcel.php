@@ -121,7 +121,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsFichaAccion.php');
 $InsNotaCreditoCompra = new ClsNotaCreditoCompra();
 $InsNotaCreditoCompraTalonario = new ClsNotaCreditoCompraTalonario();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
   $ResNotaCreditoCompra = $InsNotaCreditoCompra->MtdObtenerNotaCreditoCompras("Ftanumero,NccId,CliNombreCompleto,CliNombre,CliApellidoPaterno,CliApellidoMaterno,CliNumeroDocumento,NccOrdenNumero,NccSIAFNumero,NccTotal,fac.AmoId,FinId",$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,$_SESSION['SisSucId'],$POST_estado,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),$POST_tal,NULL,NULL,$POST_npago,NULL,$POST_Moneda);
 $ArrNotaCreditoCompras = $ResNotaCreditoCompra['Datos'];

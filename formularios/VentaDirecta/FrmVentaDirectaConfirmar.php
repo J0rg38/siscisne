@@ -91,7 +91,7 @@ $InsProducto = new ClsProducto($InsMysql);
 $InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 $InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 
 if (isset($_SESSION['InsVentaDirectaDetalle'.$Identificador])){	

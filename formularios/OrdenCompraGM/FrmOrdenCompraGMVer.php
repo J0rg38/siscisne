@@ -30,7 +30,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsPedidoCompra.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsPedidoCompraDetalle.php');
 
 $InsOrdenCompra = new ClsOrdenCompra();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 if (isset($_SESSION['InsOrdenCompraPedido'.$Identificador])){	
 	$_SESSION['InsOrdenCompraPedido'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsOrdenCompraPedido'.$Identificador]);

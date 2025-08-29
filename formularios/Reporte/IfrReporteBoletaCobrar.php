@@ -85,9 +85,9 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCliente.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsNotaCredito.php');
 
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsBoleta = new ClsBoleta();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCliente = new ClsCliente();
 $InsNotaCredito = new ClsNotaCredito();
 
@@ -315,7 +315,7 @@ echo number_format($TotalNotaCredito,2);
           <td class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" align="right" >
 
 <?php
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 //MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oOrdenVentaVehiculo=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oFactura=NULL,$oFacturaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oArea=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oFecha="PagFecha",$oOrigen=NULL,$oFormaPago=NULL) {
 $ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,'PagId','Desc',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,$DatBoleta->BolId,$DatBoleta->BtaId);
 $ArrPagos = $ResPago['Datos'];

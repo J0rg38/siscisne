@@ -46,10 +46,10 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
 
 
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsOrdenVentaVehiculoPropietario = new ClsOrdenVentaVehiculoPropietario();
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsOrdenVentaVehiculo->OvvId = $GET_id;
 $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(true);
 
@@ -329,7 +329,7 @@ setTimeout("window.close();",1500);
         
         
         <?php
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,"PagFecha","ASC",NULL,NULL,NULL,$InsOrdenVentaVehiculo->OvvId,NULL,NULL);
 
 $ArrPagos = $ResPago['Datos'];

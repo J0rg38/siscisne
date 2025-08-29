@@ -119,9 +119,9 @@ require_once($InsPoo->MtdPaqActividad().'ClsPlanMantenimiento.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsCondicionPago.php');
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 

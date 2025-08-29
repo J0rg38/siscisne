@@ -76,7 +76,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 				
 				if($InsAprobacionVentaVehiculo->AovEstado == 3){
 					
-					$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+					$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 					$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("OvvAprobacion2",$InsAprobacionVentaVehiculo->AovAprobacion,$InsAprobacionVentaVehiculo->OvvId);
 	
 				}

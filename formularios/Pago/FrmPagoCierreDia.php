@@ -38,8 +38,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 
-$InsMoneda = new ClsMoneda();
-$InsFormaPago = new ClsFormaPago();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsFormaPago = new ClsFormaPago($InsMysql);
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL,1);
 $ArrMonedas = $ResMoneda['Datos'];

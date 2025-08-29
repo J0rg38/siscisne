@@ -140,7 +140,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 	
 		case "OrdenVentaVehiculo":
 			
-			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 			$InsOrdenVentaVehiculo->OvvId = $GET_OvvId;
 			$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 			

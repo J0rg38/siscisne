@@ -178,7 +178,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoCaracteristicaSeccion.php');
 $InsFactura = new ClsFactura();
 $InsFacturaTalonario = new ClsFacturaTalonario();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsFactura->SucId = $_SESSION['SesionSucursal'];
 $InsFactura->UsuId = $_SESSION['SesionId'];

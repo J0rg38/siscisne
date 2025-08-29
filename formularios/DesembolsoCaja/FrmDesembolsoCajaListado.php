@@ -128,8 +128,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsDesembolso = new ClsDesembolso();
-$InsCuenta = new ClsCuenta();
-$InsMoneda = new ClsMoneda();
+$InsCuenta = new ClsCuenta($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsSucursal = new ClsSucursal($InsMysql);
 
 $InsDesembolso->UsuId = $_SESSION['SesionId'];	

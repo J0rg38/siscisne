@@ -55,7 +55,7 @@ $InsConcesionario = new ClsConcesionario();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsPersonal = new ClsPersonal($InsMysql);
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 if (!isset($_SESSION['InsVehiculoIngresoCliente'.$Identificador])){	
 	$_SESSION['InsVehiculoIngresoCliente'.$Identificador] = new ClsSesionObjeto();

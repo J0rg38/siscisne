@@ -496,7 +496,7 @@ function FncCargarDatos(){
 	$InsFactura->FtaId = $GET_ta;
 	$InsFactura->MtdObtenerFactura();		
 	
-	//$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+	//$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 //	$InsOrdenVentaVehiculo->OvvId = $InsFactura->OvvId;
 //	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 //	

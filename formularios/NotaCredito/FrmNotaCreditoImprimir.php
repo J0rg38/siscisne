@@ -49,7 +49,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php'
 //require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsNotaCredito = new ClsNotaCredito();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoCambio = new ClsTipoCambio();
 
 //Obteniendo datos de moneda escogida

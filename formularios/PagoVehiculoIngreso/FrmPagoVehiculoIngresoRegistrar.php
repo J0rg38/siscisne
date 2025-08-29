@@ -47,7 +47,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsBanco.php');
 
 $InsPagoVehiculoIngreso = new ClsPagoVehiculoIngreso();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsSucursal = new ClsSucursal($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsBanco = new ClsBanco();

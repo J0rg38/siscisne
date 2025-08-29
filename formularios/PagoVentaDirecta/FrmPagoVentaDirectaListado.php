@@ -82,9 +82,9 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirecta.php');
 
 //INSTANCAS
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsVentaDirecta = new ClsVentaDirecta();
 
 $InsVentaDirecta->VdiId = $GET_VdiId;

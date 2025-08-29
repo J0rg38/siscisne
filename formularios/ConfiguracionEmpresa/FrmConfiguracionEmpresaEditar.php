@@ -15,7 +15,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 
 $InsConfiguracionEmpresa = new ClsConfiguracionEmpresa();
 $InsCalificacion = new ClsCalificacion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsAlmacen = new ClsAlmacen();
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccConfiguracionEmpresaEditar.php');
@@ -201,7 +201,7 @@ if(!empty($GET_dia)){
 			  ?>
                   </select>
              
-              <span class="selectInvalidMsg">Seleccione un elemento válido.</span>               <span class="selectRequiredMsg"><img src="imagenes/advertencia.png" width="20" height="20" border="0" align="absmiddle" title="Debe seleccionar un elemento" alt="[A]"  /></span></span>
+              <span class="selectInvalidMsg">Seleccione un elemento vï¿½lido.</span>               <span class="selectRequiredMsg"><img src="imagenes/advertencia.png" width="20" height="20" border="0" align="absmiddle" title="Debe seleccionar un elemento" alt="[A]"  /></span></span>
               
               
               </td>

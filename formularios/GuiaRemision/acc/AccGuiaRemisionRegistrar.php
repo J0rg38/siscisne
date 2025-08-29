@@ -692,7 +692,7 @@ Parametro9 = GrdPesoNeto
 		case "OrdenVentaVehiculo":
 		
 		
-			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 
 			if(!empty($GET_ori)){
 						

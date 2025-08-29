@@ -104,7 +104,7 @@ function FncNuevo(){
 	global $InsVentaDirecta;
 	global $VentaDirectaId;
 	
-	$InsPago = new ClsPago();
+	$InsPago = new ClsPago($InsMysql);
 	
 	$InsPago->PagFecha = date("d/m/Y");	
 	$InsPago->MonId = $EmpresaMonedaId;

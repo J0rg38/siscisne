@@ -144,12 +144,12 @@ require_once($InsPoo->MtdPaqLogistica().'ClsArea.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsArea = new ClsArea();
 $InsSucursal = new ClsSucursal($InsMysql);
-$InsFormaPago = new ClsFormaPago();
+$InsFormaPago = new ClsFormaPago($InsMysql);
 
 $InsPago->UsuId = $_SESSION['SesionId'];
 

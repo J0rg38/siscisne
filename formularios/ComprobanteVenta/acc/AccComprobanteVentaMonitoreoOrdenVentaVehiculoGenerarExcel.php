@@ -126,8 +126,8 @@ if(empty($POST_con)){
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculo.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $ResOrdenVentaVehiculo = $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculos("OvvId,CliNombre,CliApellidoPaterno,CliApellidoMaterno,CliNombreCompleto",$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),4,$POST_Moneda);
 $ArrOrdenVentaVehiculos = $ResOrdenVentaVehiculo['Datos'];

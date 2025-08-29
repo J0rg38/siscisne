@@ -88,7 +88,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsProducto = new ClsProducto($InsMysql);
 $InsUnidadMedida = new ClsUnidadMedida($InsMysql);

@@ -71,9 +71,9 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsVentaDirectaDetalle = new ClsVentaDirectaDetalle();
 $InsCliente = new ClsCliente();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsReporteProductoVenta = new ClsReporteProductoVenta();
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 
 //	 public function MtdObtenerReporteProductoVentaPendienteEntregas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'VddId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVentaDirecta=NULL,$oEstado=NULL,$oProducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oMoneda=NULL,$oCliente=NULL,$oConOrdenCompraReferencia=NULL,$oConDespacho=NULL,$oConPendiente=false,$oPersonal=NULL,$oSucursal=NULL,$oTieneAbono=NULL) {
 $ResProductoVenta = $InsReporteProductoVenta->MtdObtenerReporteProductoVentaPendienteEntregas(NULL,NULL,NULL,'VdiId','DESC',NULL,NULL,NULL,NULL,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),$POST_Moneda,$POST_ClienteId,$POST_ConOrdenCompra,NULL,true,NULL,$POST_Sucursal, 0);
@@ -148,7 +148,7 @@ $POST_Personal
         
 <?php
 
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 //MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oOrdenVentaVehiculo=NULL,$oCondicionPago=NULL)
 $ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,"PagFecha","DESC","",NULL,$DatProductoVenta->VdiId,NULL,$POST_CondicionPago,$POST_Moneda);
 $ArrPagos = $ResPago['Datos'];

@@ -39,7 +39,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoListaPrecio.php');
 
 $InsVehiculoListaPrecio = new ClsVehiculoListaPrecio();
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

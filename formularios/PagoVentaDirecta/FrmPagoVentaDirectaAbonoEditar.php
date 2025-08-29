@@ -39,15 +39,15 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsTarjeta.php');
 
 //INSTANCIAS
-$InsPago = new ClsPago();
-$InsMoneda = new ClsMoneda();
+$InsPago = new ClsPago($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsArea = new ClsArea();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsFormaPago = new ClsFormaPago();
-$InsCuenta = new ClsCuenta();
-$InsTarjeta = new ClsTarjeta();
+$InsFormaPago = new ClsFormaPago($InsMysql);
+$InsCuenta = new ClsCuenta($InsMysql);
+$InsTarjeta = new ClsTarjeta($InsMysql);
 
 $InsVentaDirecta->VdiId = $GET_VdiId;
 $InsVentaDirecta->MtdObtenerVentaDirecta(false);

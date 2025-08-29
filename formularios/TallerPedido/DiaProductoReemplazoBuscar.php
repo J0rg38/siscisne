@@ -76,7 +76,7 @@ $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();
 $InsProductoReemplazo = new ClsProductoReemplazo();
 $InsProducto = new ClsProducto($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsClienteListaPrecio = new ClsClienteListaPrecio();
 $InsAlmacen = new ClsAlmacen();
 

@@ -96,7 +96,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsPedidoCompraDetalle.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsTipoGasto.php');
 
 $InsServicioRepuesto = new ClsServicioRepuesto();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoGasto = new ClsTipoGasto();
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccServicioRepuesto.php');

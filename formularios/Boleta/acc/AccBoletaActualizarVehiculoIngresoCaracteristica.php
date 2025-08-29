@@ -46,7 +46,7 @@ if (!isset($_SESSION['InsBoletaDetalle' . $Identificador])) {
 	$_SESSION['InsBoletaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsBoletaDetalle' . $Identificador]);
 }
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsOrdenVentaVehiculo->OvvId = $POST_OvvId;
 $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 

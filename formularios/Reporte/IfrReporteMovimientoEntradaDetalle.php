@@ -91,7 +91,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCliente.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsProveedor.php');
 
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsProveedor = new ClsProveedor();
 
 if(empty($POST_ProveedorId) and !empty($POST_ProveedorNombre)){
@@ -127,7 +127,7 @@ $ArrAlmacenMovimientoEntradas = $ResAlmacenMovimientoEntrada['Datos'];
 //$ArrAlmacenMovimientoEntradas = $ResAlmacenMovimientoEntrada['Datos'];
 
 //deb($POST_Moned//a);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_Moneda;
 $InsMoneda->MtdObtenerMoneda();
 

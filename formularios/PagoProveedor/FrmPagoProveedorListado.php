@@ -126,8 +126,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsPagoProveedor = new ClsPagoProveedor();
-$InsCuenta = new ClsCuenta();
-$InsMoneda = new ClsMoneda();
+$InsCuenta = new ClsCuenta($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsPagoProveedor->UsuId = $_SESSION['SesionId'];	
 

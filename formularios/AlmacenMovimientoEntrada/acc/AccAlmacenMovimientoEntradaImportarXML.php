@@ -426,7 +426,7 @@ if (!empty($_FILES)) {
 					}
 					
 					
-					$InsMoneda = new ClsMoneda();
+					$InsMoneda = new ClsMoneda($InsMysql);
 					//MtdObtenerMonedas($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'MonId',$oSentido = 'Desc',$oPaginacion = '0,10')
 					$ResMoneda = $InsMoneda->MtdObtenerMonedas("MonSigla","esigual",$Moneda,'MonId','DESC','1');
 					$ArrMonedas = $ResMoneda['Datos'];

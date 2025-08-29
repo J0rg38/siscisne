@@ -18,7 +18,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 
 $InsProveedor = new ClsProveedor();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $ResProveedor = $InsProveedor->MtdObtenerProveedores(NULL,NULL,NULL,'PrvNombre','ASC','1',NULL,"CYC");
 $ArrProveedores = $ResProveedor['Datos'];

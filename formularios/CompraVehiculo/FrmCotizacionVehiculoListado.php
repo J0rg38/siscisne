@@ -132,7 +132,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
 	require_once($InsPoo->MtdPaqRRHH() . 'ClsPersonal.php');
 
 	$InsCotizacionVehiculo = new ClsCotizacionVehiculo();
-	$InsMoneda = new ClsMoneda();
+	$InsMoneda = new ClsMoneda($InsMysql);
 	$InsSucursal = new ClsSucursal($InsMysql);
 	$InsPersonal = new ClsPersonal($InsMysql);
 

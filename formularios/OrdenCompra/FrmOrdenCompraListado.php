@@ -116,7 +116,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsPedidoCompraDetalle.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsOrdenCompra = new ClsOrdenCompra();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccOrdenCompra.php');
 

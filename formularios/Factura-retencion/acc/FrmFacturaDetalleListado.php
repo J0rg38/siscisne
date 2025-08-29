@@ -67,7 +67,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php'
 
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 
@@ -116,7 +116,7 @@ $VehiculoIngresoId = "";
 <?php
 if(!empty($POST_OvvId)){
 	
-	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 	$InsOrdenVentaVehiculo->OvvId = $POST_OvvId;
 	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 	

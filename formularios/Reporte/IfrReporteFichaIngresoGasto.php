@@ -80,7 +80,7 @@ require_once($InsPoo->MtdPaqReporte().'ClsReporteFichaIngreso.php');
 $InsFichaAccion = new ClsFichaAccion($InsMysql);
 
 $InsSucursal = new ClsSucursal($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsReporteFichaIngreso = new ClsReporteFichaIngreso();
 
 //MtdObtenerFichaIngresoGastos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'FigId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFichaIngreso=NULL,$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oMoneda=NULL,$oFecha="GasFecha",$oSucursal=NULL)

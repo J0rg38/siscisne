@@ -31,7 +31,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 $InsVehiculoProforma = new ClsVehiculoProforma();
 $InsVehiculMarca = new ClsVehiculoMarca();
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccVehiculoProformaEditar.php');
 //DATOS

@@ -104,8 +104,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
 
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsCliente = new ClsCliente();
-$InsMoneda = new ClsMoneda();
-$InsPago = new ClsPago();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsPago = new ClsPago($InsMysql);
 
 if(empty($POST_ClienteId) and !empty($POST_ClienteNombre)){
 	
@@ -142,14 +142,14 @@ if(empty($POST_ClienteId) and !empty($POST_ClienteNumeroDocumento)){
 if(empty($POST_Moneda)){
 	
 	
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $EmpresaMonedaId;
 $InsMoneda->MtdObtenerMoneda();
 
 }else{
 	
 	
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_Moneda;
 $InsMoneda->MtdObtenerMoneda();
 

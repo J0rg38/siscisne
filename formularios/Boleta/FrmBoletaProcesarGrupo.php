@@ -200,7 +200,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsBoleta = new ClsBoleta();
 $InsBoletaTalonario = new ClsBoletaTalonario();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsSucursal = new ClsSucursal($InsMysql);
 
 $InsBoleta->UsuId = $_SESSION['SesionId'];

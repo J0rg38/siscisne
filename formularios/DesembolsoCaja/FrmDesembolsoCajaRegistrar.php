@@ -48,13 +48,13 @@ require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 
 
 $InsDesembolso = new ClsDesembolso();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsBanco = new ClsBanco();
 
-$InsCuenta = new ClsCuenta();
+$InsCuenta = new ClsCuenta($InsMysql);
 
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsFormaPago = new ClsFormaPago();
+$InsFormaPago = new ClsFormaPago($InsMysql);
 
 
 if (!isset($_SESSION['InsDesembolsoComprobante'.$Identificador])){	

@@ -71,7 +71,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCondicionPago.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsObsequio.php');
 
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 

@@ -44,7 +44,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsTipoCambio.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsFactura = new ClsFactura();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoCambio = new ClsTipoCambio();
 
 /*

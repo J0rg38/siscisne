@@ -95,7 +95,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
 
 $InsOrdenCompra = new ClsOrdenCompra();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsProveedor = new ClsProveedor();
 $InsReporteOrdenCompra = new ClsReporteOrdenCompra();
 
@@ -134,7 +134,7 @@ $ResReporteOrdenCompraResumen = $InsReporteOrdenCompra->MtdObtenerReporteOrdenCo
 $ArrReporteOrdenCompraResumenes = $ResReporteOrdenCompraResumen['Datos'];
 
 //deb($POST_Moned//a);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_Moneda;
 $InsMoneda->MtdObtenerMoneda();
 

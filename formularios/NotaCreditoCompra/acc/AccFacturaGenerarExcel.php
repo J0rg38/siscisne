@@ -119,7 +119,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsFichaAccion.php');
 $InsFactura = new ClsFactura();
 $InsFacturaTalonario = new ClsFacturaTalonario();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
   $ResFactura = $InsFactura->MtdObtenerFacturas("Ftanumero,FacId,CliNombreCompleto,CliNombre,CliApellidoPaterno,CliApellidoMaterno,CliNumeroDocumento,FacOrdenNumero,FacSIAFNumero,FacTotal,fac.AmoId,FinId",$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,$_SESSION['SisSucId'],$POST_estado,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),$POST_tal,NULL,NULL,$POST_npago,NULL,$POST_Moneda);
 $ArrFacturas = $ResFactura['Datos'];

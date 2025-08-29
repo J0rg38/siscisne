@@ -26,13 +26,13 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 
 //INSTANCIAS
-$InsPago = new ClsPago();
-$InsMoneda = new ClsMoneda();
+$InsPago = new ClsPago($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsArea = new ClsArea();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsFormaPago = new ClsFormaPago();
+$InsFormaPago = new ClsFormaPago($InsMysql);
 
 $InsVentaDirecta->VdiId = $GET_VdiId;
 $InsVentaDirecta->MtdObtenerVentaDirecta(false);

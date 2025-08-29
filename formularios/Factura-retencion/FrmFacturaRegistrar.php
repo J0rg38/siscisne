@@ -136,13 +136,13 @@ $InsFactura = new ClsFactura();
 $InsFacturaTalonario = new ClsFacturaTalonario();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsRegimen = new ClsRegimen();
 $InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 $InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsCotizacionProducto = new ClsCotizacionProducto();
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
-$InsPago = new ClsPago();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
+$InsPago = new ClsPago($InsMysql);
 $InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
 $InsFichaIngreso->UsuId = $_SESSION['SesionId'];

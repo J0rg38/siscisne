@@ -55,9 +55,9 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsBoleta.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsNotaCredito.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsNotaDebito.php');
 
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsFactura = new ClsFactura();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCliente = new ClsCliente();
 $InsNotaCredito = new ClsNotaCredito();
 $InsBoleta = new ClsBoleta();

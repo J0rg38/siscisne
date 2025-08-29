@@ -62,7 +62,7 @@ $InsClienteTipo = new ClsClienteTipo();
 $InsProducto = new ClsProducto($InsMysql);
 
 $InsAlmacen = new ClsAlmacen();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsPersonal = new ClsPersonal($InsMysql);
 
 if (isset($_SESSION['InsTrasladoAlmacenSalidaDetalle'.$Identificador])){	

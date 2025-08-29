@@ -27,7 +27,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 $InsVehiculoListaPrecio = new ClsVehiculoListaPrecio();
 $InsVehiculMarca = new ClsVehiculoMarca();
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccVehiculoListaPrecioEditar.php');
 //DATOS

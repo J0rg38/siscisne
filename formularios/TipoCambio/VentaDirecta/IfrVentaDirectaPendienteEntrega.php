@@ -63,7 +63,7 @@ require_once($InsPoo->MtdPaqReporte().'ClsReporteProductoVenta.php');
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsVentaDirectaDetalle = new ClsVentaDirectaDetalle();
 $InsCliente = new ClsCliente();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsReporteProductoVenta = new ClsReporteProductoVenta();
 
 

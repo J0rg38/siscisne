@@ -630,24 +630,9 @@ CprNivelInteres,
 		return $Respuesta;
 	}
 
+
 	public function MtdObtenerCotizacionProductos($oCampo = NULL, $oCondicion = "contiene", $oFiltro = NULL, $oOrden = 'CprId', $oSentido = 'Desc', $oPaginacion = '0,10', $oFechaInicio = NULL, $oFechaFin = NULL, $oEstado = NULL, $oMoneda = NULL, $oFichaIngreso = NULL, $oVehiculoIngreso = NULL, $oPersonal = NULL, $oCliente = NULL, $oTieneFichaIngreso = NULL, $oSucursal = NULL, $oVentaPerdida = NULL)
 	{
-
-		// Inicializar variables
-		$filtrar = '';
-		$orden = '';
-		$paginacion = '';
-		$fechainicio = '';
-		$fechafin = '';
-		$estado = '';
-		$moneda = '';
-		$fichaIngreso = '';
-		$vehiculoIngreso = '';
-		$personal = '';
-		$cliente = '';
-		$tieneFichaIngreso = '';
-		$sucursal = '';
-		$ventaPerdida = '';
 
 		if (!empty($oCampo) and !empty($oFiltro)) {
 
@@ -1036,8 +1021,11 @@ CprNivelInteres,
 					ELSE "No"
 					END AS CprTareaVerificado,
 					
-					
-					
+
+
+
+
+
 
 
 				CASE
@@ -1045,281 +1033,306 @@ CprNivelInteres,
 					SELECT 
 					vdi.VdiId
 					FROM tblvdiventadirecta vdi
-					WHERE vdi.CprId = cpr.CprId LIMIT 1
+					WHERE vdi.CprId = cpr.CprId 
+					LIMIT 1
 				) THEN "Si"
 				ELSE "No"
 				END AS CprVentaDirecta,
-				
-				
-		cli.TdoId,
-		
-		CONCAT(IFNULL(cli.CliNombre,"")," ",IFNULL(cli.CliApellidoPaterno,"")," ",IFNULL(cli.CliApellidoMaterno,"")) AS CliNombre,
-		
-		cli.CliNumeroDocumento,
-		tdo.TdoNombre,
-		lti.LtiNombre,
-		
-		mon.MonNombre,
-		mon.MonSimbolo,
-		
-		ein.EinVIN,
-		ein.EinPlaca,
-		
-		ein.VmaId,
-		vma.VmaNombre,
 
-		ein.VmoId,
-		vmo.VmoNombre,
-		
-		vmo.VtiId,
-		vti.VtiNombre,
+				CASE
+				WHEN EXISTS (
+					SELECT 
 
-		ein.VveId,		
-		vve.VveNombre,
-		
-		per.PerNombre,
-		per.PerApellidoPaterno,
-		per.PerApellidoMaterno,
-		per.PerFirma,
-		per.PerEmail,
-		per.PerCelular,
-		per.PerTelefono,
-		
-		seg.CliNombre AS CliNombreSeguro,
-		seg.CliApellidoPaterno AS CliApellidoPaternoSeguro,
-		seg.CliApellidoMaterno AS CliApellidoMaternoSeguro
-		
-        FROM tblcprcotizacionproducto cpr
-			LEFT JOIN tblclicliente cli
-			ON cpr.CliId = cli.CliId
-				LEFT JOIN tbltdotipodocumento tdo
-				ON cli.TdoId = tdo.TdoId
-					LEFT JOIN tbllticlientetipo lti
-					ON cpr.LtiId = lti.LtiId
+						(
+							IFNULL(crd.CrdCantidad,0) - IFNULL(
+
+								(
+									SELECT 
+									SUM(vdd.VddCantidad)
+									FROM tblvddventadirectadetalle vdd
+									
+										LEFT JOIN tblvdiventadirecta vdi
+										ON vdd.VdiId = vdi.VdiId
+											
+									WHERE vdd.CrdId = crd.CrdId
+										AND vdi.VdiEstado = 3
+									LIMIT 1
+								)
+
+							,0)
+							
+						)  AS CrdCantidadPendiente
+
+					FROM tblcrdcotizacionproductodetalle crd
+						LEFT JOIN tblvddventadirectadetalle vdd
+						ON vdd.CrdId = crd.CrdId
+
+					WHERE crd.CprId = cpr.CprId
+						HAVING CrdCantidadPendiente > 0
 					
-						LEFT JOIN tblclicliente seg
-						ON cpr.CliIdSeguro = seg.CliId
+					LIMIT 1
+				) THEN "Si"
+				ELSE "No"
+				END AS VdiGenerarVentaDirecta,
+				
+				(SELECT COUNT(crd.CrdId) FROM tblcrdcotizacionproductodetalle crd WHERE crd.CprId = cpr.CprId ) AS "CprTotalItems",
+		
+				cli.TdoId,
+				CONCAT(IFNULL(cli.CliNombre,"")," ",IFNULL(cli.CliApellidoPaterno,"")," ",IFNULL(cli.CliApellidoMaterno,"")) AS CliNombre,
+				cli.CliNumeroDocumento,
+				tdo.TdoNombre,
+				lti.LtiNombre,
+				lti.LtiAbreviatura,
+				
+				mon.MonNombre,
+				mon.MonSimbolo,
+				
+				ein.EinVIN,
+				ein.EinPlaca,
+				
+				vma.VmaNombre,
+				vmo.VmoNombre,
+				vve.VveNombre,
+				
+				per.PerNombre,
+				per.PerApellidoPaterno,
+				per.PerApellidoMaterno,
+				
+				seg.CliNombre AS CliNombreSeguro,
+				seg.CliApellidoPaterno AS CliApellidoPaternoSeguro,
+				seg.CliApellidoMaterno AS CliApellidoMaternoSeguro,
+				seg.CliArchivo AS CliFotoSeguro
+				
+				FROM tblcprcotizacionproducto cpr
+					LEFT JOIN tblclicliente cli
+					ON cpr.CliId = cli.CliId
+						LEFT JOIN tbltdotipodocumento tdo
+						ON cli.TdoId = tdo.TdoId
+							LEFT JOIN tbllticlientetipo lti
+							ON cpr.LtiId = lti.LtiId
+							
+							LEFT JOIN tblclicliente seg
+								ON cpr.CliIdSeguro = seg.CliId
 						
-						LEFT JOIN tblmonmoneda mon
-						ON cpr.MonId = mon.MonId
-							LEFT JOIN tbleinvehiculoingreso ein
-							ON cpr.EinId = ein.EinId
 						
-				LEFT JOIN tblvvevehiculoversion vve
-				ON ein.VveId = vve.VveId
-						LEFT JOIN tblvmovehiculomodelo vmo
-						ON ein.VmoId = vmo.VmoId
-							LEFT JOIN tblvtivehiculotipo vti
-							ON vmo.VtiId = vti.VtiId					
-								LEFT JOIN tblvmavehiculomarca vma
-								ON ein.VmaId = vma.VmaId
-
-									LEFT JOIN tblperpersonal per
+								LEFT JOIN tblmonmoneda mon
+								ON cpr.MonId = mon.MonId
+									LEFT JOIN	tbleinvehiculoingreso ein
+									ON cpr.EinId = ein.EinId
+								
+										LEFT JOIN tblvmavehiculomarca vma
+										ON ein.VmaId = vma.VmaId
+											LEFT JOIN tblvmovehiculomodelo vmo
+											ON ein.VmoId = vmo.VmoId
+												LEFT JOIN tblvvevehiculoversion vve
+												ON ein.VveId = vve.VveId
+												
+												
+													LEFT JOIN tblperpersonal per
 									ON cpr.PerId = per.PerId
 									
-        WHERE cpr.CprId = "' . $this->CprId . '"';
+				WHERE 1 = 1 ' . $filtrar . $fecha . $tipo . $sucursal . $stipo . $estado . $moneda . $fingreso . $vingreso . $cliente . $tfingreso . $personal . $orden . $paginacion;
 
 		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-		if ($this->InsMysql->MtdObtenerDatosTotal($resultado) > 0) {
+		$Respuesta['Datos'] = array();
 
-			while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+		$InsCotizacionProducto = get_class($this);
 
-				$this->CprId = $fila['CprId'];
-				$this->SucId = $fila['SucId'];
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-				$this->CliId = $fila['CliId'];
-				$this->LtiId = $fila['LtiId'];
-				$this->CprFecha = $fila['NCprFecha'];
-				$this->CprHora = $fila['NCprHora'];
-
-				$this->CliIdSeguro = $fila['CliIdSeguro'];
-
-				$this->EinId = $fila['EinId'];
-				$this->PerId = $fila['PerId'];
-				$this->FinId = $fila['FinId'];
+			$CotizacionProducto = new $InsCotizacionProducto();
+			$CotizacionProducto->CprId = $fila['CprId'];
+			$CotizacionProducto->SucId = $fila['SucId'];
 
 
-				$this->CprVIN = $fila['CprVIN'];
-				$this->CprMarca = $fila['CprMarca'];
-				$this->CprModelo = $fila['CprModelo'];
-				$this->CprPlaca = $fila['CprPlaca'];
-				$this->CprAnoModelo = $fila['CprAnoModelo'];
+			$CotizacionProducto->CliId = $fila['CliId'];
+			$CotizacionProducto->LtiId = $fila['LtiId'];
+			$CotizacionProducto->CprFecha = $fila['NCprFecha'];
+			$CotizacionProducto->CprHora = $fila['NCprHora'];
 
-				$this->MonId = $fila['MonId'];
-				$this->CprTipoCambio = $fila['CprTipoCambio'];
+			$CotizacionProducto->EinId = $fila['EinId'];
+			$CotizacionProducto->PerId = $fila['PerId'];
+			$CotizacionProducto->FinId = $fila['FinId'];
 
-				$this->CprIncluyeImpuesto = $fila['CprIncluyeImpuesto'];
-				$this->CprPorcentajeImpuestoVenta = $fila['CprPorcentajeImpuestoVenta'];
+			$CotizacionProducto->CprVIN = $fila['CprVIN'];
+			$CotizacionProducto->CprMarca = $fila['CprMarca'];
+			$CotizacionProducto->CprModelo = $fila['CprModelo'];
+			$CotizacionProducto->CprPlaca = $fila['CprPlaca'];
+			$CotizacionProducto->CprAnoModelo = $fila['CprAnoModelo'];
 
-				$this->CprPorcentajeMargenUtilidad = $fila['CprPorcentajeMargenUtilidad'];
-				$this->CprPorcentajeOtroCosto = $fila['CprPorcentajeOtroCosto'];
-				$this->CprPorcentajeManoObra = $fila['CprPorcentajeManoObra'];
+			$CotizacionProducto->MonId = $fila['MonId'];
+			$CotizacionProducto->CprTipoCambio = $fila['CprTipoCambio'];
 
-				$this->CprObservacion = $fila['CprObservacion'];
-				$this->CprObservacionImpresa = $fila['CprObservacionImpresa'];
+			$CotizacionProducto->CprIncluyeImpuesto = $fila['CprIncluyeImpuesto'];
+			$CotizacionProducto->CprPorcentajeImpuestoVenta = $fila['CprPorcentajeImpuestoVenta'];
+			$CotizacionProducto->CprPorcentajeMargenUtilidad = $fila['CprPorcentajeMargenUtilidad'];
+			$CotizacionProducto->CprPorcentajeOtroCosto = $fila['CprPorcentajeOtroCosto'];
+			$CotizacionProducto->CprPorcentajeManoObra = $fila['CprPorcentajeManoObra'];
 
-				$this->CprTelefono = $fila['CprTelefono'];
-				$this->CprDireccion = $fila['CprDireccion'];
-				$this->CprEmail = $fila['CprEmail'];
-				$this->CprRepresentante = $fila['CprRepresentante'];
-				$this->CprAsegurado = $fila['CprAsegurado'];
+			$CotizacionProducto->CprObservacion = $fila['CprObservacion'];
+			$CotizacionProducto->CprObservacionImpresa = $fila['CprObservacionImpresa'];
 
-
-
-				$this->CprManoObra = $fila['CprManoObra'];
-				$this->CprPorcentajeDescuento = $fila['CprPorcentajeDescuento'];
-				$this->CprVigencia = $fila['CprVigencia'];
-				$this->CprTiempoEntrega = $fila['CprTiempoEntrega'];
-				$this->CprFechaEntrega = $fila['CprFechaEntrega'];
+			$CotizacionProducto->CprTelefono = $fila['CprTelefono'];
+			$CotizacionProducto->CprDireccion = $fila['CprDireccion'];
+			$CotizacionProducto->CprEmail = $fila['CprEmail'];
+			$CotizacionProducto->CprRepresentante = $fila['CprRepresentante'];
+			$CotizacionProducto->CprAsegurado = $fila['CprAsegurado'];
 
 
 
-				$this->CprPlanchadoTotal = $fila['CprPlanchadoTotal'];
-				$this->CprPintadoTotal = $fila['CprPintadoTotal'];
-				$this->CprProductoTotal = $fila['CprProductoTotal'];
+			$CotizacionProducto->CprManoObra = $fila['CprManoObra'];
+			$CotizacionProducto->CprPorcentajeDescuento = $fila['CprPorcentajeDescuento'];
+			$CotizacionProducto->CprVigencia = $fila['CprVigencia'];
+			$CotizacionProducto->CprTiempoEntrega = $fila['CprTiempoEntrega'];
+			$CotizacionProducto->CprFechaEntrega = $fila['CprFechaEntrega'];
 
-				$this->CprDescuento = $fila['CprDescuento'];
-				$this->CprSubTotal = $fila['CprSubTotal'];
-				$this->CprImpuesto = $fila['CprImpuesto'];
-				$this->CprTotal = $fila['CprTotal'];
+			$CotizacionProducto->CprPlanchadoTotal = $fila['CprPlanchadoTotal'];
+			$CotizacionProducto->CprPintadoTotal = $fila['CprPintadoTotal'];
+			$CotizacionProducto->CprProductoTotal = $fila['CprProductoTotal'];
 
-				$this->CprVerificar = $fila['CprVerificar'];
-				$this->CprFirmaDigital = $fila['CprFirmaDigital'];
+			$CotizacionProducto->CprDescuento = $fila['CprDescuento'];
+			$CotizacionProducto->CprSubTotal = $fila['CprSubTotal'];
+			$CotizacionProducto->CprImpuesto = $fila['CprImpuesto'];
+			$CotizacionProducto->CprTotal = $fila['CprTotal'];
 
-				$this->CprNotificar = $fila['CprNotificar'];
-
-
-				$this->CprVentaPerdida = $fila['CprVentaPerdida'];
-				$this->CprVentaPerdidaMotivo = $fila['CprVentaPerdidaMotivo'];
-
-				$this->CprNivelInteres = $fila['CprNivelInteres'];
-
-				$this->CprEstado = $fila['CprEstado'];
-				$this->CprTiempoCreacion = $fila['NCprTiempoCreacion'];
-				$this->CprTiempoModificacion = $fila['NCprTiempoModificacion'];
-
-				$this->CprRepuesto = $fila['CprRepuesto'];
-				$this->CprRepuestoVerificado = $fila['CprRepuestoVerificado'];
-				$this->CprPlanchado = $fila['CprPlanchado'];
-				$this->CprPlanchadoVerificado = $fila['CprPlanchadoVerificado'];
-				$this->CprPintado = $fila['CprPintado'];
-				$this->CprPintadoVerificado = $fila['CprPintadoVerificado'];
-				$this->CprCentrado = $fila['CprCentrado'];
-				$this->CprCentradoVerificado = $fila['CprCentradoVerificado'];
-				$this->CprTarea = $fila['CprTarea'];
-				$this->CprTareaVerificado = $fila['CprTareaVerificado'];
-
-				$this->CprVentaDirecta = $fila['CprVentaDirecta'];
-
-				$this->TdoId = $fila['TdoId'];
-
-
-				$this->CliNombre = $fila['CliNombre'];
-				$this->CliNumeroDocumento = $fila['CliNumeroDocumento'];
-				$this->TdoNombre = $fila['TdoNombre'];
-				$this->LtiNombre = $fila['LtiNombre'];
-
-				$this->MonNombre = $fila['MonNombre'];
-				$this->MonSimbolo = $fila['MonSimbolo'];
-
-
-				$this->EinVIN = $fila['EinVIN'];
-				$this->EinPlaca = $fila['EinPlaca'];
-
-				$this->VmaId = $fila['VmaId'];
-				$this->VmaNombre = $fila['VmaNombre'];
-
-				$this->VmoId = $fila['VmoId'];
-				$this->VmoNombre = $fila['VmoNombre'];
-
-				$this->VtiId = $fila['VtiId'];
-				$this->VtiNombre = $fila['VtiNombre'];
-
-				$this->VveId = $fila['VveId'];
-				$this->VveNombre = $fila['VveNombre'];
-
-				$this->PerNombre = $fila['PerNombre'];
-				$this->PerApellidoPaterno = $fila['PerApellidoPaterno'];
-				$this->PerApellidoMaterno = $fila['PerApellidoMaterno'];
-				$this->PerFirma = $fila['PerFirma'];
-
-				$this->PerEmail = $fila['PerEmail'];
-				$this->PerCelular = $fila['PerCelular'];
-				$this->PerTelefono = $fila['PerTelefono'];
-
-				$this->CliNombreSeguro = $fila['CliNombreSeguro'];
-				$this->CliApellidoPaternoSeguro = $fila['CliApellidoPaternoSeguro'];
-				$this->CliApellidoMaternoSeguro = $fila['CliApellidoMaternoSeguro'];
+			$CotizacionProducto->CprFirmaDigital = $fila['CprFirmaDigital'];
+			$CotizacionProducto->CprVerificar = $fila['CprVerificar'];
 
 
 
-				if ($oCompleto) {
+
+			$CotizacionProducto->CprNotificar = $fila['CprNotificar'];
+
+			$CotizacionProducto->CprVentaPerdida = $fila['CprVentaPerdida'];
+			$CotizacionProducto->CprVentaPerdidaMotivo = $fila['CprVentaPerdidaMotivo'];
+			$CotizacionProducto->CprNivelInteres = $fila['CprNivelInteres'];
+
+			$CotizacionProducto->CprEstado = $fila['CprEstado'];
+			$CotizacionProducto->CprTiempoCreacion = $fila['NCprTiempoCreacion'];
+			$CotizacionProducto->CprTiempoModificacion = $fila['NCprTiempoModificacion'];
+			$CotizacionProducto->CprTotalItems = $fila['CprTotalItems'];
+
+			$CotizacionProducto->CprRepuesto = $fila['CprRepuesto'];
+			$CotizacionProducto->CprRepuestoVerificado = $fila['CprRepuestoVerificado'];
+			$CotizacionProducto->CprPlanchado = $fila['CprPlanchado'];
+			$CotizacionProducto->CprPlanchadoVerificado = $fila['CprPlanchadoVerificado'];
+			$CotizacionProducto->CprPintado = $fila['CprPintado'];
+			$CotizacionProducto->CprPintadoVerificado = $fila['CprPintadoVerificado'];
+			$CotizacionProducto->CprCentrado = $fila['CprCentrado'];
+			$CotizacionProducto->CprCentradoVerificado = $fila['CprCentradoVerificado'];
+			$CotizacionProducto->CprTarea = $fila['CprTarea'];
+			$CotizacionProducto->CprTareaVerificado = $fila['CprTareaVerificado'];
+
+			$CotizacionProducto->CprVentaDirecta = $fila['CprVentaDirecta'];
+
+			$CotizacionProducto->VdiGenerarVentaDirecta = $fila['VdiGenerarVentaDirecta'];
 
 
-					$InsCotizacionProductoDetalle = new ClsCotizacionProductoDetalle();
-					$ResCotizacionProductoDetalle =  $InsCotizacionProductoDetalle->MtdObtenerCotizacionProductoDetalles(NULL, NULL, NULL, NULL, NULL, $this->CprId);
+			$CotizacionProducto->TdoId = $fila['TdoId'];
+			$CotizacionProducto->CliNombre = $fila['CliNombre'];
+			$CotizacionProducto->CliNumeroDocumento = $fila['CliNumeroDocumento'];
 
-					$this->CotizacionProductoDetalle = 	$ResCotizacionProductoDetalle['Datos'];
-
-					$InsCotizacionProductoPlanchadoPintado = new ClsCotizacionProductoPlanchadoPintado();
-					$ResCotizacionProductoPlanchado =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL, NULL, NULL, NULL, NULL, $this->CprId, NULL, "L");
-					$this->CotizacionProductoPlanchado = 	$ResCotizacionProductoPlanchado['Datos'];
-
-					$ResCotizacionProductoPintado =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL, NULL, NULL, NULL, NULL, $this->CprId, NULL, "I");
-					$this->CotizacionProductoPintado = 	$ResCotizacionProductoPintado['Datos'];
-
-					$ResCotizacionProductoCentrado =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL, NULL, NULL, NULL, NULL, $this->CprId, NULL, "C");
-					$this->CotizacionProductoCentrado = 	$ResCotizacionProductoCentrado['Datos'];
-
-					$ResCotizacionProductoTarea =  $InsCotizacionProductoPlanchadoPintado->MtdObtenerCotizacionProductoPlanchadoPintados(NULL, NULL, NULL, NULL, NULL, $this->CprId, NULL, "Z");
-					$this->CotizacionProductoTarea = 	$ResCotizacionProductoTarea['Datos'];
-
-					$InsCotizacionProductoFoto = new ClsCotizacionProductoFoto();
-					//MtdObtenerCotizacionProductoFotos($oCampo=NULL,$oFiltro=NULL,$oOrden = 'VdfId',$oSentido = 'Desc',$oPaginacion = '0,10',$oCotizacionProducto=NULL,$oEstado=NULL,$oTipo=NULL) {
-					$ResCotizacionProductoFoto =  $InsCotizacionProductoFoto->MtdObtenerCotizacionProductoFotos(NULL, NULL, NULL, NULL, NULL, $this->CprId, NULL, NULL);
-					$this->CotizacionProductoFoto = 	$ResCotizacionProductoFoto['Datos'];
-				}
-				switch ($this->CprEstado) {
-
-					case 1:
-						$Estado = "Emitido";
-						break;
-
-					case 2:
-						$Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Enviado]";
-						break;
-
-					case 3:
-						$Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Revisando]";
-						break;
-
-					case 4:
-						$Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Por Facturar]";
-						break;
-
-					case 5:
-						$Estado = "<img src='imagenes/iconos/contabilidad.png' alt='CONTABILIDAD' border='0' width='20' height='20' title='CONTABILIDAD' > [Facturado]";
-						break;
+			$CotizacionProducto->TdoNombre = $fila['TdoNombre'];
+			$CotizacionProducto->LtiNombre = $fila['LtiNombre'];
+			$CotizacionProducto->LtiAbreviatura = $fila['LtiAbreviatura'];
 
 
-					case 6:
-						$Estado = "<img src='imagenes/iconos/anulado.png' alt='ANULADO' border='0' width='20' height='20' title='ANULADO' > [Anulado]";
-						break;
+			$CotizacionProducto->MonSimbolo = $fila['MonSimbolo'];
+			$CotizacionProducto->MonNombre = $fila['MonNombre'];
 
-					default:
-						$Estado = "";
-						break;
-				}
+			$CotizacionProducto->EinVIN = $fila['EinVIN'];
+			$CotizacionProducto->EinPlaca = $fila['EinPlaca'];
 
-				$this->CprEstadoDescripcion = $Estado;
+			$CotizacionProducto->VmaNombre = $fila['VmaNombre'];
+			$CotizacionProducto->VmoNombre = $fila['VmoNombre'];
+			$CotizacionProducto->VveNombre = $fila['VveNombre'];
+
+			$CotizacionProducto->PerNombre = $fila['PerNombre'];
+			$CotizacionProducto->PerApellidoPaterno = $fila['PerApellidoPaterno'];
+			$CotizacionProducto->PerApellidoMaterno = $fila['PerApellidoMaterno'];
+
+			$CotizacionProducto->CliNombreSeguro = $fila['CliNombreSeguro'];
+			$CotizacionProducto->CliApellidoPaternoSeguro = $fila['CliApellidoPaternoSeguro'];
+			$CotizacionProducto->CliApellidoMaternoSeguro = $fila['CliApellidoMaternoSeguro'];
+			$CotizacionProducto->CliFotoSeguro = $fila['CliFotoSeguro'];
+
+			/*switch($CotizacionProducto->CprEstado){
+						
+					  case 1:
+						  $Estado = "Emitido";
+					  break;
+					  
+					  case 2:
+						  $Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Enviado]";
+					  break;
+				  
+					  case 3:
+						  $Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Revisando]";
+					  break;	
+					  
+					  case 4:
+						  $Estado = "<img src='imagenes/iconos/almacen.png' alt='ALMACEN' border='0' width='20' height='20' title='ALMACEN'> [Por Facturar]";
+					  break;
+
+					  
+					  case 5:
+						  $Estado = "<img src='imagenes/iconos/contabilidad.png' alt='CONTABILIDAD' border='0' width='20' height='20' title='CONTABILIDAD' > [Facturado]";
+					  break;
+					  
+					   case 6:
+				 		 $Estado = "<img src='imagenes/iconos/anulado.png' alt='ANULADO' border='0' width='20' height='20' title='ANULADO' > [Anulado]";
+					  break;
+
+					  default:
+						  $Estado = "";
+					  break;					
+	
+					}*/
+
+			switch ($CotizacionProducto->CprEstado) {
+
+				case 1:
+					$Estado = "Emitido";
+					break;
+
+				case 2:
+					$Estado = "Enviado";
+					break;
+
+				case 3:
+					$Estado = "Revisando";
+					break;
+
+				case 4:
+					$Estado = "Por Facturar";
+					break;
+
+
+				case 5:
+					$Estado = "Facturado";
+					break;
+
+				case 6:
+					$Estado = "Anulado";
+					break;
+
+				default:
+					$Estado = "";
+					break;
 			}
 
-			$Respuesta =  $this;
-		} else {
-			$Respuesta =   NULL;
+			$CotizacionProducto->CprEstadoDescripcion = $Estado;
+
+
+			$CotizacionProducto->InsMysql = NULL;
+			$Respuesta['Datos'][] = $CotizacionProducto;
 		}
 
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 
 		return $Respuesta;
 	}
@@ -1780,7 +1793,7 @@ CprNivelInteres,
 				$validar = 0;
 				foreach ($this->CotizacionProductoDetalle as $DatCotizacionProductoDetalle) {
 
-					$InsCotizacionProductoDetalle = new ClsCotizacionProductoDetalle();
+					$InsCotizacionProductoDetalle = new ClsCotizacionProductoDetalle($this->InsMysql);
 					$InsCotizacionProductoDetalle->CprId = $this->CprId;
 					$InsCotizacionProductoDetalle->ProId = $DatCotizacionProductoDetalle->ProId;
 					$InsCotizacionProductoDetalle->UmeId = $DatCotizacionProductoDetalle->UmeId;
@@ -1840,7 +1853,7 @@ CprNivelInteres,
 				$validar = 0;
 
 
-				$InsCotizacionProductoPlanchado = new ClsCotizacionProductoPlanchadoPintado();
+				$InsCotizacionProductoPlanchado = new ClsCotizacionProductoPlanchadoPintado($this->InsMysql);
 
 				foreach ($this->CotizacionProductoPlanchado as $DatCotizacionProductoPlanchado) {
 
@@ -1877,7 +1890,7 @@ CprNivelInteres,
 				$validar = 0;
 
 
-				$InsCotizacionProductoPintado = new ClsCotizacionProductoPlanchadoPintado();
+				$InsCotizacionProductoPintado = new ClsCotizacionProductoPlanchadoPintado($this->InsMysql);
 
 				foreach ($this->CotizacionProductoPintado as $DatCotizacionProductoPintado) {
 
@@ -1917,7 +1930,7 @@ CprNivelInteres,
 				$validar = 0;
 
 
-				$InsCotizacionProductoCentrado = new ClsCotizacionProductoPlanchadoPintado();
+				$InsCotizacionProductoCentrado = new ClsCotizacionProductoPlanchadoPintado($this->InsMysql);
 
 				foreach ($this->CotizacionProductoCentrado as $DatCotizacionProductoCentrado) {
 
@@ -1957,7 +1970,7 @@ CprNivelInteres,
 				$validar = 0;
 
 
-				$InsCotizacionProductoTarea = new ClsCotizacionProductoPlanchadoPintado();
+				$InsCotizacionProductoTarea = new ClsCotizacionProductoPlanchadoPintado($this->InsMysql);
 
 				foreach ($this->CotizacionProductoTarea as $DatCotizacionProductoTarea) {
 
@@ -1997,7 +2010,7 @@ CprNivelInteres,
 
 				foreach ($this->CotizacionProductoFoto as $DatCotizacionProductoFoto) {
 
-					$InsCotizacionProductoFoto = new ClsCotizacionProductoFoto();
+					$InsCotizacionProductoFoto = new ClsCotizacionProductoFoto($this->InsMysql);
 					$InsCotizacionProductoFoto->VdiId = $this->VdiId;
 					$InsCotizacionProductoFoto->CpfArchivo = $DatCotizacionProductoFoto->CpfArchivo;
 					$InsCotizacionProductoFoto->CpfTipo = $DatCotizacionProductoFoto->CpfTipo;
@@ -2050,14 +2063,14 @@ CprNivelInteres,
 				if (!empty($this->CotizacionProductoDetalle) and !empty($InsVehiculoIngreso->VveId)) {
 					foreach ($this->CotizacionProductoDetalle as $DatCotizacionProductoDetalle) {
 
-						$InsProductoVehiculoVersion = new ClsProductoVehiculoVersion();
+						$InsProductoVehiculoVersion = new ClsProductoVehiculoVersion($this->InsMysql);
 						$ResProductoVehiculoVersion = $InsProductoVehiculoVersion->MtdObtenerProductoVehiculoVersiones(NULL, NULL, "PvvId", "ASC", NULL, $DatCotizacionProductoDetalle->ProId, $InsVehiculoIngreso->VveId);
 						$ArrProductoVersiones = $ResProductoVehiculoVersion['Datos'];
 
 						if (empty($ArrProductoVersiones)) {
 
 
-							$InsProductoVehiculoVersion = new ClsProductoVehiculoVersion();
+							$InsProductoVehiculoVersion = new ClsProductoVehiculoVersion($this->InsMysql);
 							$InsProductoVehiculoVersion->ProId = $DatCotizacionProductoDetalle->ProId;
 							$InsProductoVehiculoVersion->VveId = $InsVehiculoIngreso->VveId;
 							$InsProductoVehiculoVersion->PvvTiempoCreacion = date("Y-m-d H:i:s");
@@ -2075,7 +2088,7 @@ CprNivelInteres,
 				if (!empty($this->CotizacionProductoDetalle)) {
 					foreach ($this->CotizacionProductoDetalle as $DatCotizacionProductoDetalle) {
 
-						$InsProducto = new ClsProducto();
+						$InsProducto = new ClsProducto($this->InsMysql);
 						$InsProducto->ProId = $DatCotizacionProductoDetalle->ProId;
 						$InsProducto->MtdObtenerProducto(false);
 
@@ -2099,7 +2112,7 @@ CprNivelInteres,
 
 			if (!empty($this->CprVIN)) {
 
-				$InsVehiculoIngreso = new ClsVehiculoIngreso();
+				$InsVehiculoIngreso = new ClsVehiculoIngreso($this->InsMysql);
 				$ResVehiculoIngreso = $InsVehiculoIngreso->MtdObtenerVehiculoIngresos("EinVIN", "esigual", $this->CprVIN, 'EinId', 'ASC', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "EinFechaRecepcion", NULL, NULL);
 				$ArrVehiculoIngresos = $ResVehiculoIngreso['Datos'];
 
@@ -2247,7 +2260,7 @@ CprNivelInteres,
 				$validar = 0;
 				foreach ($this->CotizacionProductoDetalle as $DatCotizacionProductoDetalle) {
 
-					$InsCotizacionProductoDetalle = new ClsCotizacionProductoDetalle();
+					$InsCotizacionProductoDetalle = new ClsCotizacionProductoDetalle($this->InsMysql);
 					$InsCotizacionProductoDetalle->CrdId = $DatCotizacionProductoDetalle->CrdId;
 					$InsCotizacionProductoDetalle->CprId = $this->CprId;
 					$InsCotizacionProductoDetalle->ProId = $DatCotizacionProductoDetalle->ProId;
@@ -2328,7 +2341,7 @@ CprNivelInteres,
 			if (!empty($this->CotizacionProductoPlanchado)) {
 
 				$validar = 0;
-				$InsCotizacionProductoPlanchado = new ClsCotizacionProductoPlanchadoPintado();
+				$InsCotizacionProductoPlanchado = new ClsCotizacionProductoPlanchadoPintado($this->InsMysql);
 
 				foreach ($this->CotizacionProductoPlanchado as $DatCotizacionProductoPlanchado) {
 
@@ -2386,7 +2399,7 @@ CprNivelInteres,
 			if (!empty($this->CotizacionProductoPintado)) {
 
 				$validar = 0;
-				$InsCotizacionProductoPintado = new ClsCotizacionProductoPlanchadoPintado();
+				$InsCotizacionProductoPintado = new ClsCotizacionProductoPlanchadoPintado($this->InsMysql);
 
 				foreach ($this->CotizacionProductoPintado as $DatCotizacionProductoPlanchado) {
 
@@ -2446,7 +2459,7 @@ CprNivelInteres,
 			if (!empty($this->CotizacionProductoCentrado)) {
 
 				$validar = 0;
-				$InsCotizacionProductoCentrado = new ClsCotizacionProductoPlanchadoPintado();
+				$InsCotizacionProductoCentrado = new ClsCotizacionProductoPlanchadoPintado($this->InsMysql);
 
 				foreach ($this->CotizacionProductoCentrado as $DatCotizacionProductoPlanchado) {
 
@@ -2506,7 +2519,7 @@ CprNivelInteres,
 			if (!empty($this->CotizacionProductoTarea)) {
 
 				$validar = 0;
-				$InsCotizacionProductoTarea = new ClsCotizacionProductoPlanchadoPintado();
+				$InsCotizacionProductoTarea = new ClsCotizacionProductoPlanchadoPintado($this->InsMysql);
 
 				foreach ($this->CotizacionProductoTarea as $DatCotizacionProductoPlanchado) {
 
@@ -2565,7 +2578,7 @@ CprNivelInteres,
 				$validar = 0;
 				foreach ($this->CotizacionProductoFoto as $DatCotizacionProductoFoto) {
 
-					$InsCotizacionProductoFoto = new ClsCotizacionProductoFoto();
+					$InsCotizacionProductoFoto = new ClsCotizacionProductoFoto($this->InsMysql);
 					$InsCotizacionProductoFoto->CpfId = $DatCotizacionProductoFoto->CpfId;
 					$InsCotizacionProductoFoto->CprId = $this->CprId;
 					$InsCotizacionProductoFoto->CpfArchivo = $DatCotizacionProductoFoto->CpfArchivo;

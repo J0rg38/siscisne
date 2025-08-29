@@ -86,7 +86,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 				
 				if($InsAsignacionVentaVehiculo->AvvEstado == 3){
 					
-					//$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+					//$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 //					$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("OvvAprobacion1",$InsAsignacionVentaVehiculo->AvvAprobacion,$InsAsignacionVentaVehiculo->OvvId);
 					
 					if($InsAsignacionVentaVehiculo->AvvAprobacion == 1){
@@ -94,7 +94,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 						//$InsVehiculoIngreso = new ClsVehiculoIngreso();
 //						$InsVehiculoIngreso->MtdEditarVehiculoIngresoDato("EinEstadoVehicular","RESERVADO",$InsAsignacionVentaVehiculo->EinId);
 //						
-//						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+//						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 //						$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("EinId",$InsAsignacionVentaVehiculo->EinId,$InsAsignacionVentaVehiculo->OvvId);
 						
 					}	
@@ -109,7 +109,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 		
 			if($InsAsignacionVentaVehiculo->AvvNotificar == 1){
 				
-					$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+					$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 					$InsOrdenVentaVehiculo->OvvId = $InsAsignacionVentaVehiculo->OvvId ;
 					$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 					
@@ -218,7 +218,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 	
 		case "OrdenVentaVehiculo":
 			
-			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 			$InsOrdenVentaVehiculo->OvvId = $GET_OvvId;
 			$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 			

@@ -76,7 +76,7 @@ $InsConcesionario = new ClsConcesionario();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsPersonal = new ClsPersonal($InsMysql);
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 
 

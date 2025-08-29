@@ -301,7 +301,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 
 			
 		//if(!empty($InsFichaIngreso->FinOrdenVentaVehiculo)){
-//			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+//			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 //			$InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato("OvvActaEntregaFecha",$InsFichaIngreso->FinVentaFechaEntrega,$InsFichaIngreso->FinOrdenVentaVehiculo);
 //		}
 		

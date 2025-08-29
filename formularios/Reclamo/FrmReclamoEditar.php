@@ -45,7 +45,7 @@ $InsReclamo = new ClsReclamo();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsPersonal = new ClsPersonal($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 if (!isset($_SESSION['InsReclamoFoto'.$Identificador])){	
 	$_SESSION['InsReclamoFoto'.$Identificador] = new ClsSesionObjeto();

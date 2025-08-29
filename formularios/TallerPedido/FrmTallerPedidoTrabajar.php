@@ -118,7 +118,7 @@ $InsPlanMantenimientoSeccion = new ClsPlanMantenimientoSeccion($InsMysql);
 $InsPlanMantenimientoDetalle = new ClsPlanMantenimientoDetalle();
 $InsPlanMantenimientoTarea = new ClsPlanMantenimientoTarea($InsMysql);
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsAlmacen = new ClsAlmacen();
 $InsPersonal = new ClsPersonal($InsMysql);
 $InsFichaIngreso->FinId = $GET_Id;

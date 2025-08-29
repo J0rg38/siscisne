@@ -85,9 +85,9 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirecta.php');
 
 //INSTANCAS
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsBoleta = new ClsBoleta();
 
 $InsBoleta->BolId = $GET_BolId;
@@ -701,12 +701,12 @@ if(!empty($InsBoleta->OvvId)){
 ?>
 ORDENES DE VENTA DE VEHICULO
 <?php	
-	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 	$InsOrdenVentaVehiculo->OvvId = $InsBoleta->OvvId;
 	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(false);
 	
 	
-		$InsPago = new ClsPago();
+		$InsPago = new ClsPago($InsMysql);
 		$ResPago = $InsPago->MtdObtenerPagos("PagId,OvvId,OvvId","contiene",$POST_fil,$POST_ord,$POST_sen,$POST_pag,NULL,NULL,$InsOrdenVentaVehiculo->OvvId,$POST_CondicionPago,$POST_Moneda);
 		
 		$ArrPagos = $ResPago['Datos'];
@@ -820,7 +820,7 @@ $InsVentaDirecta = new ClsVentaDirecta();
 $InsVentaDirecta->VdiId = $InsBoleta->VdiId;
 $InsVentaDirecta->MtdObtenerVentaDirecta(false);
 
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 //MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oPago=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oFactura=NULL,$oFacturaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oArea=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oFecha="PagFecha",$oOrigen=NULL,$oFormaPago=NULL,$oSucursal=NULL) {
 $ResPago = $InsPago->MtdObtenerPagos("PagId,OvvId,OvvId","contiene",$POST_fil,$POST_ord,$POST_sen,$POST_pag,"",$InsVentaDirecta->VdiId,NULL,$POST_CondicionPago,$POST_Moneda);
 $ArrPagos = $ResPago['Datos'];

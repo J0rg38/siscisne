@@ -63,7 +63,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMovimientoSalidaDetalle.php');
 $InsVehiculoMovimientoEntrada = new ClsVehiculoMovimientoEntrada();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculo = new ClsVehiculo();
 $InsUnidadMedida = new ClsUnidadMedida($InsMysql);

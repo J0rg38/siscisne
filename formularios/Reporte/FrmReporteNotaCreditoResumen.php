@@ -17,7 +17,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsCondicionPago.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsPersonal = new ClsPersonal($InsMysql);
 

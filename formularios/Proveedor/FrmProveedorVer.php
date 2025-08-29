@@ -29,7 +29,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 //INSTANCIAS
 $InsProveedor = new ClsProveedor();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccProveedorEditar.php');
 //DATOS

@@ -650,7 +650,7 @@ Parametro7 = CrdTiempoModificacion
 					
 					$Guardar = true;
 					
-					$InsPago = new ClsPago();
+					$InsPago = new ClsPago($InsMysql);
 				
 					$InsPago->PagId = NULL;
 					$InsPago->PagFecha = date("Y-m-d");

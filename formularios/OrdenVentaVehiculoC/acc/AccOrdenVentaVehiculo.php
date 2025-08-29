@@ -39,7 +39,7 @@ switch($POST_acc){
 								
 								if(!empty($Id)){
 									
-									$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+									$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 									$InsOrdenVentaVehiculo->OvvId = $Id;
 									$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 									

@@ -88,14 +88,14 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenCompraPedido.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenCompraDetalle.php');
 
 $InsReporteAlmacenMovimientoEntradaReclamo = new ClsReporteAlmacenMovimientoEntradaReclamo();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 //MtdObtenerReporteAlmacenMovimientoEntradaReclamos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oProducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oConReclamo=0) 
 $ResReporteAlmacenMovimientoEntradaReclamo = $InsReporteAlmacenMovimientoEntradaReclamo->MtdObtenerReporteAlmacenMovimientoEntradaReclamos(NULL,NULL,NULL,$POST_ord,$POST_sen,NULL,NULL,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),0);
 $ArrReporteAlmacenMovimientoEntradaReclamos = $ResReporteAlmacenMovimientoEntradaReclamo['Datos'];
 
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_Moneda;
 $InsMoneda->MtdObtenerMoneda();
 

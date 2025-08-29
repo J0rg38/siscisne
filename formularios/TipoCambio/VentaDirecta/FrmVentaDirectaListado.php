@@ -132,7 +132,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
 $InsVentaDirecta = new ClsVentaDirecta();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsPersonal = new ClsPersonal($InsMysql);
 
 $InsCotizacionProducto->UsuId = $_SESSION['SesionId'];

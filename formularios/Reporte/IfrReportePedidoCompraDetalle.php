@@ -80,7 +80,7 @@ require_once($InsPoo->MtdPaqReporte().'ClsReportePedidoCompra.php');
 $InsFichaAccion = new ClsFichaAccion($InsMysql);
 
 $InsSucursal = new ClsSucursal($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsReportePedidoCompra = new ClsReportePedidoCompra();
 
 //MtdObtenerPedidoCompraDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'PcdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oPedidoCompra=NULL,$oEstado=NULL,$oProducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oOrdenCompra=NULL,$oCliente=NULL,$oConOrdenCompra=NULL,$oVentaDirectaDetalleId=NULL,$oPedidoCompraEstado=NULL,$oFecha="PcoFecha",$oValidarRecibido=false,$oConFichaIngreso=false,$oOrdenCompraEstado=NULL,$oSucursal=NULL) {

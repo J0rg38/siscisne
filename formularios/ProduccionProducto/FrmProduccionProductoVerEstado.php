@@ -36,7 +36,7 @@ $InsProduccionProducto = new ClsProduccionProducto();
 $InsTipoOperacion = new ClsTipoOperacion();
 $InsClienteTipo = new ClsClienteTipo();
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsProductoDisponibilidad = new ClsProductoDisponibilidad();
 $InsProductoListaPrecio = new ClsProductoListaPrecio();

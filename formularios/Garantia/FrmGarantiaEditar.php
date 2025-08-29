@@ -73,7 +73,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 
 $InsGarantia = new ClsGarantia($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsCuenta = new ClsCuenta();
+$InsCuenta = new ClsCuenta($InsMysql);
 
 if (!isset($_SESSION['InsGarantiaOperacion'.$Identificador])){	
 	$_SESSION['InsGarantiaOperacion'.$Identificador] = new ClsSesionObjeto();

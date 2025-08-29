@@ -159,8 +159,8 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTarjetaMarca.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsClientePago = new ClsClientePago();
-$InsFormaPago = new ClsFormaPago();
-$InsMoneda = new ClsMoneda();
+$InsFormaPago = new ClsFormaPago($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 
 	
 include($InsProyecto->MtdFormulariosAcc("ClientePago").'AccClientePagoEditar.php');

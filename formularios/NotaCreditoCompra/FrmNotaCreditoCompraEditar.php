@@ -34,7 +34,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsProveedor.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 
 $InsNotaCreditoCompra = new ClsNotaCreditoCompra();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsAlmacen = new ClsAlmacen();
 
 if (isset($_SESSION['InsNotaCreditoCompraDetalle'.$Identificador])){	

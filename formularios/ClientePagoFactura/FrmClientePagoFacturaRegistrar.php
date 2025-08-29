@@ -24,9 +24,9 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsFactura.php');
 
 //INSTANCIAS
 $InsClientePago = new ClsClientePago();
-$InsFormaPago = new ClsFormaPago();
-$InsCuenta = new ClsCuenta();
-$InsMoneda = new ClsMoneda();
+$InsFormaPago = new ClsFormaPago($InsMysql);
+$InsCuenta = new ClsCuenta($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsFactura = new ClsFactura();
 
 

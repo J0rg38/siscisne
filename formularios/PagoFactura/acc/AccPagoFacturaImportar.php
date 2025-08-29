@@ -115,7 +115,7 @@ if(empty($POST_ClienteId) and !empty($POST_ClienteNumeroDocumento)){
 
 
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 
@@ -123,11 +123,11 @@ $InsCliente = new ClsCliente();
 $InsCliente->CliId = $POST_ClienteId;
 $InsCliente->MtdObtenerCliente();
 
-$InsCuenta = new ClsCuenta();
+$InsCuenta = new ClsCuenta($InsMysql);
 $InsCuenta->CueId = $POST_CuentaId;
 $InsCuenta->MtdObtenerCuenta();
 
-$InsFormaPago = new ClsFormaPago();
+$InsFormaPago = new ClsFormaPago($InsMysql);
 $InsFormaPago->FpaId = $POST_FormaPagoId;
 $InsFormaPago->MtdObtenerFormaPago();
 
@@ -274,7 +274,7 @@ if (!empty($_FILES)) {
 
 
 		
-				$InsPago = new ClsPago();
+				$InsPago = new ClsPago($InsMysql);
 				$InsPago->PleFecha = date("Y-m-d");
 				$InsPago->PleEstado = 3;
 				$InsPago->PleTiempoCreacion = date("Y-m-d H:i:s");
@@ -397,7 +397,7 @@ Tareas realizdas:
 								
 							}
 							
-								$InsPago = new ClsPago();
+								$InsPago = new ClsPago($InsMysql);
 								$InsPago->PagFecha = date("Y-m-d");
 								$InsPago->CliId = $POST_ClienteId;
 								

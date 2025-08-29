@@ -16,7 +16,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 
 $InsConfiguracionEmpresa = new ClsConfiguracionEmpresa();
 $InsCalificacion = new ClsCalificacion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsAlmacen = new ClsAlmacen();
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccConfiguracionEmpresaEditar.php');
 

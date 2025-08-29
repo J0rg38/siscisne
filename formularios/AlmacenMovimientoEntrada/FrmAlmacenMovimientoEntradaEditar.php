@@ -80,7 +80,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenCierre.php');
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsAlmacen = new ClsAlmacen();

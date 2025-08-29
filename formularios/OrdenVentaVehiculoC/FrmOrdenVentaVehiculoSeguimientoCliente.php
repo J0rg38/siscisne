@@ -32,7 +32,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php'
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoVersionCaracteristica.php');
 
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 
 if (!isset($_SESSION['InsOrdenVentaVehiculoLlamada'.$Identificador])){	
 	$_SESSION['InsOrdenVentaVehiculoLlamada'.$Identificador] = new ClsSesionObjeto();
@@ -308,7 +308,7 @@ if($Registro){
 Calendar.setup({ 
 	inputField : "CmpOrdenVentaVehiculoLlamadaFecha",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnOrdenVentaVehiculoLlamadaFecha"// el id del botón que  
+	button     : "BtnOrdenVentaVehiculoLlamadaFecha"// el id del botï¿½n que  
 	});
 
 </script>

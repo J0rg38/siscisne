@@ -37,7 +37,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirectaDetalle.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirectaTarea.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirectaFoto.php');
 
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 
 $InsPago->PagId = $GET_id;
 $InsPago->MtdObtenerPago();

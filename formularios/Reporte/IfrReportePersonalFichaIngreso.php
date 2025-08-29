@@ -480,7 +480,7 @@ $SumaTotaMecanicolFacturacion+=$TotaMecanicolFacturacion;
 
 <?php
 ///MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oPago=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oFactura=NULL,$oFacturaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oArea=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oFecha="PagFecha",$oOrigen=NULL,$oFormaPago=NULL,$oSucursal=NULL,$oFichaIngresoId=NULL,$oPersonalId=NULL,$oTipo=NULL,$oFacturado=0)
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,'PagId','Desc',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,FncCambiaFechaAMysql($POST_FechaInicio),FncCambiaFechaAMysql($POST_FechaFin),"PagFecha",NULL,NULL,$POST_Sucursal,NULL,$DatTecnico->PerId,NULL,1);
 $ArrPagos =  $ResPago['Datos'];
 ?>
@@ -631,7 +631,7 @@ if($POST_Detalle=="Si"){
         $ArrReporteFichaIngresos = $ResReporteFichaIngreso['Datos'];
         
         //MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oPago=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oFactura=NULL,$oFacturaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oArea=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oFecha="PagFecha",$oOrigen=NULL,$oFormaPago=NULL,$oSucursal=NULL,$oFichaIngresoId=NULL,$oPersonalId=NULL) {
-        $InsPago = new ClsPago();
+        $InsPago = new ClsPago($InsMysql);
         $ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,'PagId','Desc',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,FncCambiaFechaAMysql($POST_FechaInicio),FncCambiaFechaAMysql($POST_FechaFin),"PagFecha",NULL,NULL,$POST_Sucursal,$oFichaIngresoId=NULL,$DatTecnico->PerId);
         $ArrPagos =  $ResPago['Datos'];
         

@@ -97,12 +97,12 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsBoletaTalonario.php');
 
 $InsBoleta = new ClsBoleta();
 $InsFactura = new ClsFactura();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsFacturaTalonario = new ClsFacturaTalonario();
 $InsBoletaTalonario = new ClsBoletaTalonario();
 
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_Moneda;
 $InsMoneda->MtdObtenerMoneda();
 

@@ -26,7 +26,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsArea.php');
 
 //INSTANCIAS
 $InsOrdenCobro = new ClsOrdenCobro();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsArea = new ClsArea();

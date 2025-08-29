@@ -42,7 +42,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsTipoCambio.php');
 //require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsNotaDebito = new ClsNotaDebito();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoCambio = new ClsTipoCambio();
 
 //Obteniendo datos de moneda escogida

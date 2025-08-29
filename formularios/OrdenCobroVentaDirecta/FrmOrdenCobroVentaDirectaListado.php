@@ -76,7 +76,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 //INSTANCAS
 $InsOrdenCobro = new ClsOrdenCobro();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccOrdenCobroVentaDirecta.php');

@@ -82,7 +82,7 @@ $InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

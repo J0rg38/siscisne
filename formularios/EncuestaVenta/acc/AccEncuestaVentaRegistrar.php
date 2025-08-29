@@ -159,7 +159,7 @@ function FncNuevo(){
 	$InsEncuesta->SucId = $_SESSION['SesionSucursal'];
 	
 	
-	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 	$InsOrdenVentaVehiculo->OvvId =  $GET_OrdenVentaVehiculoId;	
 	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(false);
 	

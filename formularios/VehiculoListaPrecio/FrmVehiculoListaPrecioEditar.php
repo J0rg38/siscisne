@@ -36,7 +36,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 $InsVehiculoListaPrecio = new ClsVehiculoListaPrecio();
 $InsVehiculMarca = new ClsVehiculoMarca();
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 if (isset($_SESSION['InsVehiculoListaPrecioDetalle'.$Identificador])){	
 	$_SESSION['InsVehiculoListaPrecioDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVehiculoListaPrecioDetalle'.$Identificador]);

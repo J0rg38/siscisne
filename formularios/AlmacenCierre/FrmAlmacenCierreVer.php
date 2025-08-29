@@ -19,7 +19,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsBanco.php');
 
 $InsAlmacenCierre = new ClsAlmacenCierre();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsBanco = new ClsBanco();
 
 

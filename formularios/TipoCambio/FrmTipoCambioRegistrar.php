@@ -8,7 +8,7 @@ include($InsProyecto->MtdFormulariosMsj('TipoCambio').'MsjTipoCambio.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsTipoCambio.php');
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoCambio = new ClsTipoCambio();
 
 include($InsProyecto->MtdFormulariosAcc('TipoCambio').'AccTipoCambioRegistrar.php');

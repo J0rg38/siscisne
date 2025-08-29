@@ -55,7 +55,7 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 $InsCliente = new ClsCliente();
 $InsClienteTipo = new ClsClienteTipo();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoReferido = new ClsTipoReferido();
 $InsPersonal = new ClsPersonal($InsMysql);
 
