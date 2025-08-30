@@ -12,7 +12,7 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Ver")){
 <?php
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL,1);
 $ArrMonedas = $ResMoneda['Datos'];

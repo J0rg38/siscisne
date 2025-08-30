@@ -28,14 +28,14 @@ require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 
 //INSTANCIAS
-$InsPago = new ClsPago();
-$InsMoneda = new ClsMoneda();
+$InsPago = new ClsPago($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsArea = new ClsArea();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsFormaPago = new ClsFormaPago();
-$InsCuenta = new ClsCuenta();
+$InsFormaPago = new ClsFormaPago($InsMysql);
+$InsCuenta = new ClsCuenta($InsMysql);
 
 $InsVentaDirecta->VdiId = $GET_VdiId;
 $InsVentaDirecta->MtdObtenerVentaDirecta(false);

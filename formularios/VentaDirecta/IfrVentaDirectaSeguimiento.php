@@ -140,7 +140,7 @@ $ArrVentaDirectas = $ResVentaDirecta['Datos'];
 
 
 //$POST_ClienteId
-//$InsMoneda = new ClsMoneda();
+//$InsMoneda = new ClsMoneda($InsMysql);
 //$InsMoneda->MonId = $POST_Moneda;
 //$InsMoneda->MtdObtenerMoneda();
 ?>

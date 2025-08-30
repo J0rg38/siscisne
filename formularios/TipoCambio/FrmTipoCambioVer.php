@@ -10,7 +10,7 @@ include('formularios/TipoCambio/msj/MsjTipoCambio.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once('paquetes/PaqContabilidad/Clases/ClsTipoCambio.php');
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoCambio = new ClsTipoCambio();
 
 include('formularios/TipoCambio/acc/AccTipoCambioEditar.php');

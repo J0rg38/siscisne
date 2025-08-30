@@ -34,7 +34,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php'
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoVersionCaracteristica.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccOrdenVentaVehiculoConfirmarEntrega.php');

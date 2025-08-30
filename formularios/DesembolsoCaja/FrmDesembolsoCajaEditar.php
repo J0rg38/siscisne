@@ -50,13 +50,13 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
 
 
   $InsDesembolso = new ClsDesembolso();
-  $InsMoneda = new ClsMoneda();
+  $InsMoneda = new ClsMoneda($InsMysql);
   $InsBanco = new ClsBanco();
 
-  $InsCuenta = new ClsCuenta();
+  $InsCuenta = new ClsCuenta($InsMysql);
 
   $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-  $InsFormaPago = new ClsFormaPago();
+  $InsFormaPago = new ClsFormaPago($InsMysql);
 
   if (isset($_SESSION['InsDesembolsoComprobante' . $Identificador])) {
     $_SESSION['InsDesembolsoComprobante' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsDesembolsoComprobante' . $Identificador]);

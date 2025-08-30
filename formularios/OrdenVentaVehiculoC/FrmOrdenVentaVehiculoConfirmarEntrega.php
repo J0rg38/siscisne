@@ -33,7 +33,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php'
 
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoVersionCaracteristica.php');
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccOrdenVentaVehiculoConfirmarEntrega.php');
@@ -354,7 +354,7 @@ Notificar via email </td>
 Calendar.setup({ 
 	inputField : "CmpFechaEntrega",  // id del campo de texto 
 	ifFormat   : "%d/%m/%Y",  //  
-	button     : "BtnFechaEntrega"// el id del botón que  
+	button     : "BtnFechaEntrega"// el id del botï¿½n que  
 	});
 
 </script>

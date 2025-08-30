@@ -15,8 +15,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsBanco.php');
 
-$InsCuenta = new ClsCuenta();
-$InsMoneda = new ClsMoneda();
+$InsCuenta = new ClsCuenta($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsBanco = new ClsBanco();
 
 

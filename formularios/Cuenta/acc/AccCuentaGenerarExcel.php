@@ -114,7 +114,7 @@ if(empty($POST_con)){
 
 require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 
-$InsCuenta = new ClsCuenta();
+$InsCuenta = new ClsCuenta($InsMysql);
 
 $ResCuenta = $InsCuenta->MtdObtenerCuentas($POST_cam,$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,$POST_est);
 $ArrCuentas = $ResCuenta['Datos'];

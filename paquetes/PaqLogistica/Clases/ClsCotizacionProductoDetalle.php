@@ -10,37 +10,38 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsCotizacionProductoDetalle {
+class ClsCotizacionProductoDetalle
+{
 
-    public $CrdId;
+	public $CrdId;
 	public $CprId;
 	public $ProId;
 	public $UmeId;
-	
+
 	public $CrdCodigo;
 	public $CrdDescripcion;
-	
-    public $CrdCantidad;
-	public $CrdCantidadReal;	
+
+	public $CrdCantidad;
+	public $CrdCantidadReal;
 	public $CrdCosto;
-	
+
 	public $CrdMargenPorcentaje;
 	public $CrdMantenimientoPorcentaje;
 	public $CrdFletePorcentaje;
 	public $CrdDescuentoPorcentaje;
-	
+
 	public $CrdPrecioBruto;
 	public $CrdDescuento;
 	public $CrdPrecio;
 
 	public $CrdValorVenta;
-	
-	public $CrdImporte;	
-	public $CrdEstado;	
+
+	public $CrdImporte;
+	public $CrdEstado;
 	public $CrdTiempoCreacion;
 	public $CrdTiempoModificacion;
-    public $CrdEliminado;
-	
+	public $CrdEliminado;
+
 	public $ProNombre;
 	public $ProCodigoOriginal;
 	public $ProCodigoAlternativo;
@@ -51,10 +52,10 @@ class ClsCotizacionProductoDetalle {
 	public $ProStockReal;
 
 	public $UmeNombre;
-					
-    public $InsMysql;
 
-    public function __construct($oInsMysql=NULL)
+	public $InsMysql;
+
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -62,36 +63,34 @@ class ClsCotizacionProductoDetalle {
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
-	}
-	
-	public function __destruct(){
-
 	}
 
-	private function MtdGenerarCotizacionProductoDetalleId() {
+	public function __destruct() {}
 
-			$sql = 'SELECT	
+	private function MtdGenerarCotizacionProductoDetalleId()
+	{
+
+		$sql = 'SELECT	
 			MAX(CONVERT(SUBSTR(CrdId,5),unsigned)) AS "MAXIMO"
 			FROM tblcrdcotizacionproductodetalle';
-			
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			if(empty($fila['MAXIMO'])){			
-				$this->CrdId = "CRD-10000";
-			}else{
-				$fila['MAXIMO']++;
-				$this->CrdId = "CRD-".$fila['MAXIMO'];					
-			}
-				
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
+			$this->CrdId = "CRD-10000";
+		} else {
+			$fila['MAXIMO']++;
+			$this->CrdId = "CRD-" . $fila['MAXIMO'];
+		}
 	}
-	
 
 
-		public function MtdObtenerCotizacionProductoDetalle(){
 
-        $sql = 'SELECT 
+	public function MtdObtenerCotizacionProductoDetalle()
+	{
+
+		$sql = 'SELECT 
 			crd.CrdId,			
 			crd.CprId,
 			crd.ProId,
@@ -134,186 +133,177 @@ class ClsCotizacionProductoDetalle {
 				ON crd.ProId = pro.ProId
 					LEFT JOIN tblumeunidadmedida ume
 					ON crd.UmeId = ume.UmeId
-        WHERE crd.CrdId = "'.$this->CrdId.'";';
-		
-        $resultado = $this->InsMysql->MtdConsultar($sql);
-		
-		if($this->InsMysql->MtdObtenerDatosTotal($resultado)>0){
-		
-        while ($fila = $this->InsMysql->MtdObtenerDatos($resultado))
-        {
-			$this->CrdId = $fila['CrdId'];
-			$this->CprId = $fila['CprId'];
-			$this->UmeId = $fila['UmeId'];
-			
-			$this->CrdCodigo = $fila['CrdCodigo'];  
-			$this->CrdDescripcion = $fila['CrdDescripcion']; 
+        WHERE crd.CrdId = "' . $this->CrdId . '";';
 
-			$this->CrdPorcentajeUtilidad = $fila['CrdPorcentajeUtilidad'];  
-			$this->CrdPorcentajeOtroCosto = $fila['CrdPorcentajeOtroCosto'];  
-			$this->CrdPorcentajeManoObra = $fila['CrdPorcentajeManoObra'];  
-			$this->CrdPorcentajePedido = $fila['CrdPorcentajePedido'];  
-			
-			$this->CrdPorcentajeAdicional = $fila['CrdPorcentajeAdicional'];  
-			$this->CrdPorcentajeDescuento = $fila['CrdPorcentajeDescuento'];  
-			
-			$this->CrdCosto = $fila['CrdCosto'];
-		
-			$this->CrdPrecioBruto = $fila['CrdPrecioBruto'];
-			$this->CrdDescuento = $fila['CrdDescuento'];
-			$this->CrdPrecio = $fila['CrdPrecio'];
-		
-			$this->CrdValorVenta = $fila['CrdValorVenta'];
-			
-			$this->CrdCantidad = $fila['CrdCantidad'];  
-			$this->CrdCantidadReal = $fila['CrdCantidadReal'];  
-			$this->CrdImporte = $fila['CrdImporte'];
-			$this->CrdObservacion = $fila['CrdObservacion'];
-			
-			$this->CrdTiempoCreacion = $fila['NCrdTiempoCreacion'];  
-			$this->CrdTiempoModificacion = $fila['NCrdTiempoModificacion']; 					
-			$this->ProId = $fila['ProId'];	
-			$this->ProNombre = (($fila['ProNombre']));
-			$this->ProCodigoOriginal = (($fila['ProCodigoOriginal']));
-			$this->ProCodigoAlternativo = (($fila['ProCodigoAlternativo']));
-			$this->RtiId = (($fila['RtiId']));
-			$this->UmeIdOrigen = (($fila['UmeIdOrigen']));
-			$this->ProStock = (($fila['ProStock']));
-			$this->ProStockReal = (($fila['ProStockReal']));
-			
-			$this->UmeNombre = (($fila['UmeNombre']));
-			
-		}
-        
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+
+		if ($this->InsMysql->MtdObtenerDatosTotal($resultado) > 0) {
+
+			while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+				$this->CrdId = $fila['CrdId'];
+				$this->CprId = $fila['CprId'];
+				$this->UmeId = $fila['UmeId'];
+
+				$this->CrdCodigo = $fila['CrdCodigo'];
+				$this->CrdDescripcion = $fila['CrdDescripcion'];
+
+				$this->CrdPorcentajeUtilidad = $fila['CrdPorcentajeUtilidad'];
+				$this->CrdPorcentajeOtroCosto = $fila['CrdPorcentajeOtroCosto'];
+				$this->CrdPorcentajeManoObra = $fila['CrdPorcentajeManoObra'];
+				$this->CrdPorcentajePedido = $fila['CrdPorcentajePedido'];
+
+				$this->CrdPorcentajeAdicional = $fila['CrdPorcentajeAdicional'];
+				$this->CrdPorcentajeDescuento = $fila['CrdPorcentajeDescuento'];
+
+				$this->CrdCosto = $fila['CrdCosto'];
+
+				$this->CrdPrecioBruto = $fila['CrdPrecioBruto'];
+				$this->CrdDescuento = $fila['CrdDescuento'];
+				$this->CrdPrecio = $fila['CrdPrecio'];
+
+				$this->CrdValorVenta = $fila['CrdValorVenta'];
+
+				$this->CrdCantidad = $fila['CrdCantidad'];
+				$this->CrdCantidadReal = $fila['CrdCantidadReal'];
+				$this->CrdImporte = $fila['CrdImporte'];
+				$this->CrdObservacion = $fila['CrdObservacion'];
+
+				$this->CrdTiempoCreacion = $fila['NCrdTiempoCreacion'];
+				$this->CrdTiempoModificacion = $fila['NCrdTiempoModificacion'];
+				$this->ProId = $fila['ProId'];
+				$this->ProNombre = (($fila['ProNombre']));
+				$this->ProCodigoOriginal = (($fila['ProCodigoOriginal']));
+				$this->ProCodigoAlternativo = (($fila['ProCodigoAlternativo']));
+				$this->RtiId = (($fila['RtiId']));
+				$this->UmeIdOrigen = (($fila['UmeIdOrigen']));
+				$this->ProStock = (($fila['ProStock']));
+				$this->ProStockReal = (($fila['ProStockReal']));
+
+				$this->UmeNombre = (($fila['UmeNombre']));
+			}
+
 			$Respuesta =  $this;
-			
-		}else{
+		} else {
 			$Respuesta =   NULL;
 		}
-		
-        
+
+
 		return $Respuesta;
+	}
 
-    }
+	public function MtdObtenerCotizacionProductoDetalles($oCampo = NULL, $oFiltro = NULL, $oOrden = 'CrdId', $oSentido = 'Desc', $oPaginacion = '0,10', $oCotizacion = NULL, $oEstado = NULL, $oProducto = NULL)
+	{
 
-    public function MtdObtenerCotizacionProductoDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'CrdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oCotizacion=NULL,$oEstado=NULL,$oProducto=NULL) {
+		if (!empty($oCampo) and !empty($oFiltro)) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
-
-			$i=1;
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-		if(!empty($oCotizacion)){
-			$amovimiento = ' AND crd.CprId = "'.$oCotizacion.'"';
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND crd.CrdEstado = '.$oEstado.' ';
+
+		if (!empty($oCotizacion)) {
+			$amovimiento = ' AND crd.CprId = "' . $oCotizacion . '"';
 		}
-		
-		if(!empty($oProducto)){
-			$producto = ' AND (crd.ProId = "'.$oProducto.'") ';
+
+		if (!empty($oEstado)) {
+			$estado = ' AND crd.CrdEstado = ' . $oEstado . ' ';
 		}
-		
+
+		if (!empty($oProducto)) {
+			$producto = ' AND (crd.ProId = "' . $oProducto . '") ';
+		}
+
 		$sql = '
 			SELECT
 			SQL_CALC_FOUND_ROWS 
@@ -404,150 +394,151 @@ class ClsCotizacionProductoDetalle {
 				ON crd.ProId = pro.ProId
 					LEFT JOIN tblumeunidadmedida ume
 					ON crd.UmeId = ume.UmeId
-			WHERE  1 = 1 '.$amovimiento.$estado.$producto.$filtrar.$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+			WHERE  1 = 1 ' . $amovimiento . $estado . $producto . $filtrar . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsCotizacionProductoDetalle = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$CotizacionProductoDetalle = new $InsCotizacionProductoDetalle();
-                    $CotizacionProductoDetalle->CrdId = $fila['CrdId'];
-                    $CotizacionProductoDetalle->CprId = $fila['CprId'];
-					$CotizacionProductoDetalle->UmeId = $fila['UmeId'];
+		$Respuesta['Datos'] = array();
 
-					$CotizacionProductoDetalle->CrdCodigo = $fila['CrdCodigo'];  
-					$CotizacionProductoDetalle->CrdDescripcion = $fila['CrdDescripcion'];  
-					
-					$CotizacionProductoDetalle->CrdMargenPorcentaje = $fila['CrdMargenPorcentaje'];  
-					$CotizacionProductoDetalle->CrdMantenimientoPorcentaje = $fila['CrdMantenimientoPorcentaje'];  
-					$CotizacionProductoDetalle->CrdFletePorcentaje = $fila['CrdFletePorcentaje'];  
-					$CotizacionProductoDetalle->CrdDescuentoPorcentaje = $fila['CrdDescuentoPorcentaje'];  
-					
-					$CotizacionProductoDetalle->CrdPorcentajeUtilidad = $fila['CrdPorcentajeUtilidad'];  
-					$CotizacionProductoDetalle->CrdPorcentajeOtroCosto = $fila['CrdPorcentajeOtroCosto'];  
-					$CotizacionProductoDetalle->CrdPorcentajeManoObra = $fila['CrdPorcentajeManoObra'];  
-					$CotizacionProductoDetalle->CrdPorcentajePedido = $fila['CrdPorcentajePedido'];  
-					
-					$CotizacionProductoDetalle->CrdPorcentajeAdicional = $fila['CrdPorcentajeAdicional'];  
-					$CotizacionProductoDetalle->CrdPorcentajeDescuento = $fila['CrdPorcentajeDescuento'];  
+		$InsCotizacionProductoDetalle = get_class($this);
 
-					$CotizacionProductoDetalle->CrdCosto = $fila['CrdCosto'];
-					$CotizacionProductoDetalle->CrdPrecio = $fila['CrdPrecio'];
-					$CotizacionProductoDetalle->CrdPrecioNeto = $fila['CrdPrecioNeto'];
-					
-					$CotizacionProductoDetalle->CrdPrecioBruto = $fila['CrdPrecioBruto'];
-					$CotizacionProductoDetalle->CrdImporteBruto = $fila['CrdImporteBruto'];
-					
-					$CotizacionProductoDetalle->CrdDescuento = $fila['CrdDescuento'];
-					$CotizacionProductoDetalle->CrdDescuentoUnitario = $fila['CrdDescuentoUnitario'];
-					
-					$CotizacionProductoDetalle->CrdAdicional = $fila['CrdAdicional'];
-					$CotizacionProductoDetalle->CrdAdicionalUnitario = $fila['CrdAdicionalUnitario'];
-					
-					$CotizacionProductoDetalle->CrdPrecio = $fila['CrdPrecio'];
-						
-					$CotizacionProductoDetalle->CrdValorVenta = $fila['CrdValorVenta'];
-					
-			        $CotizacionProductoDetalle->CrdCantidad = $fila['CrdCantidad'];  
-					$CotizacionProductoDetalle->CrdCantidadReal = $fila['CrdCantidadReal'];  
-					$CotizacionProductoDetalle->CrdImporte = $fila['CrdImporte'];
-					
-					$CotizacionProductoDetalle->CrdTipoPedido = $fila['CrdTipoPedido'];
-					$CotizacionProductoDetalle->CrdEstado = $fila['CrdEstado'];
-					
-					
-					$CotizacionProductoDetalle->CrdObservacion = $fila['CrdObservacion'];
-					
-					$CotizacionProductoDetalle->CrdTiempoCreacion = $fila['NCrdTiempoCreacion'];  
-					$CotizacionProductoDetalle->CrdTiempoModificacion = $fila['NCrdTiempoModificacion']; 					
-					$CotizacionProductoDetalle->ProId = $fila['ProId'];	
-                    $CotizacionProductoDetalle->ProNombre = (($fila['ProNombre']));
-					$CotizacionProductoDetalle->ProCodigoOriginal = (($fila['ProCodigoOriginal']));
-					$CotizacionProductoDetalle->ProCodigoAlternativo = (($fila['ProCodigoAlternativo']));
-					$CotizacionProductoDetalle->RtiId = (($fila['RtiId']));
-					$CotizacionProductoDetalle->UmeIdOrigen = (($fila['UmeIdOrigen']));
-					$CotizacionProductoDetalle->ProStock = (($fila['ProStock']));
-					$CotizacionProductoDetalle->ProStockReal = (($fila['ProStockReal']));
-					
-					$CotizacionProductoDetalle->UmeNombre = (($fila['UmeNombre']));
-					$CotizacionProductoDetalle->UmeAbreviacion = (($fila['UmeAbreviacion']));
-					
-					$CotizacionProductoDetalle->VddId = (($fila['VddId']));
-					
-					$CotizacionProductoDetalle->VddCantidad = (($fila['VddCantidad']));
-					
-					$CotizacionProductoDetalle->CrdCantidadPendiente = (($fila['CrdCantidadPendiente']));
-					
-                    $CotizacionProductoDetalle->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $CotizacionProductoDetalle;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+
+			$CotizacionProductoDetalle = new $InsCotizacionProductoDetalle();
+			$CotizacionProductoDetalle->CrdId = $fila['CrdId'];
+			$CotizacionProductoDetalle->CprId = $fila['CprId'];
+			$CotizacionProductoDetalle->UmeId = $fila['UmeId'];
+
+			$CotizacionProductoDetalle->CrdCodigo = $fila['CrdCodigo'];
+			$CotizacionProductoDetalle->CrdDescripcion = $fila['CrdDescripcion'];
+
+			$CotizacionProductoDetalle->CrdMargenPorcentaje = $fila['CrdMargenPorcentaje'];
+			$CotizacionProductoDetalle->CrdMantenimientoPorcentaje = $fila['CrdMantenimientoPorcentaje'];
+			$CotizacionProductoDetalle->CrdFletePorcentaje = $fila['CrdFletePorcentaje'];
+			$CotizacionProductoDetalle->CrdDescuentoPorcentaje = $fila['CrdDescuentoPorcentaje'];
+
+			$CotizacionProductoDetalle->CrdPorcentajeUtilidad = $fila['CrdPorcentajeUtilidad'];
+			$CotizacionProductoDetalle->CrdPorcentajeOtroCosto = $fila['CrdPorcentajeOtroCosto'];
+			$CotizacionProductoDetalle->CrdPorcentajeManoObra = $fila['CrdPorcentajeManoObra'];
+			$CotizacionProductoDetalle->CrdPorcentajePedido = $fila['CrdPorcentajePedido'];
+
+			$CotizacionProductoDetalle->CrdPorcentajeAdicional = $fila['CrdPorcentajeAdicional'];
+			$CotizacionProductoDetalle->CrdPorcentajeDescuento = $fila['CrdPorcentajeDescuento'];
+
+			$CotizacionProductoDetalle->CrdCosto = $fila['CrdCosto'];
+			$CotizacionProductoDetalle->CrdPrecio = $fila['CrdPrecio'];
+			$CotizacionProductoDetalle->CrdPrecioNeto = $fila['CrdPrecioNeto'];
+
+			$CotizacionProductoDetalle->CrdPrecioBruto = $fila['CrdPrecioBruto'];
+			$CotizacionProductoDetalle->CrdImporteBruto = $fila['CrdImporteBruto'];
+
+			$CotizacionProductoDetalle->CrdDescuento = $fila['CrdDescuento'];
+			$CotizacionProductoDetalle->CrdDescuentoUnitario = $fila['CrdDescuentoUnitario'];
+
+			$CotizacionProductoDetalle->CrdAdicional = $fila['CrdAdicional'];
+			$CotizacionProductoDetalle->CrdAdicionalUnitario = $fila['CrdAdicionalUnitario'];
+
+			$CotizacionProductoDetalle->CrdPrecio = $fila['CrdPrecio'];
+
+			$CotizacionProductoDetalle->CrdValorVenta = $fila['CrdValorVenta'];
+
+			$CotizacionProductoDetalle->CrdCantidad = $fila['CrdCantidad'];
+			$CotizacionProductoDetalle->CrdCantidadReal = $fila['CrdCantidadReal'];
+			$CotizacionProductoDetalle->CrdImporte = $fila['CrdImporte'];
+
+			$CotizacionProductoDetalle->CrdTipoPedido = $fila['CrdTipoPedido'];
+			$CotizacionProductoDetalle->CrdEstado = $fila['CrdEstado'];
+
+
+			$CotizacionProductoDetalle->CrdObservacion = $fila['CrdObservacion'];
+
+			$CotizacionProductoDetalle->CrdTiempoCreacion = $fila['NCrdTiempoCreacion'];
+			$CotizacionProductoDetalle->CrdTiempoModificacion = $fila['NCrdTiempoModificacion'];
+			$CotizacionProductoDetalle->ProId = $fila['ProId'];
+			$CotizacionProductoDetalle->ProNombre = (($fila['ProNombre']));
+			$CotizacionProductoDetalle->ProCodigoOriginal = (($fila['ProCodigoOriginal']));
+			$CotizacionProductoDetalle->ProCodigoAlternativo = (($fila['ProCodigoAlternativo']));
+			$CotizacionProductoDetalle->RtiId = (($fila['RtiId']));
+			$CotizacionProductoDetalle->UmeIdOrigen = (($fila['UmeIdOrigen']));
+			$CotizacionProductoDetalle->ProStock = (($fila['ProStock']));
+			$CotizacionProductoDetalle->ProStockReal = (($fila['ProStockReal']));
+
+			$CotizacionProductoDetalle->UmeNombre = (($fila['UmeNombre']));
+			$CotizacionProductoDetalle->UmeAbreviacion = (($fila['UmeAbreviacion']));
+
+			$CotizacionProductoDetalle->VddId = (($fila['VddId']));
+
+			$CotizacionProductoDetalle->VddCantidad = (($fila['VddCantidad']));
+
+			$CotizacionProductoDetalle->CrdCantidadPendiente = (($fila['CrdCantidadPendiente']));
+
+			$CotizacionProductoDetalle->InsMysql = NULL;
+			$Respuesta['Datos'][] = $CotizacionProductoDetalle;
 		}
-		
-		
-		
-		
-	//Accion eliminar	 
-	
-	public function MtdEliminarCotizacionProductoDetalle($oElementos) {
-		
-//		$InsCotizacionProductoDetalleOrigen = new ClsCotizacionProductoDetalleOrigen();
-		
-		$error = false;
-		
-		$elementos = explode("#",$oElementos);
-	
-			$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){				
-					if($i==count($elementos)){						
-						$eliminar .= '  (CrdId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (CrdId = "'.($elemento).'")  OR';	
-					}	
-				}
-			$i++;
-	
-			}
-		
-				
-				$sql = 'DELETE FROM tblcrdcotizacionproductodetalle 
-				WHERE '.$eliminar;
-							
-				$error = false;
-	
-				$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-				
-				if(!$resultado) {						
-					$error = true;
-				} 	
-				
-	
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
 	}
-	
-	
-	public function MtdRegistrarCotizacionProductoDetalle() {
-	
-			$this->MtdGenerarCotizacionProductoDetalleId();
-		  
-					
-			$sql = 'INSERT INTO tblcrdcotizacionproductodetalle (
+
+
+
+
+	//Accion eliminar	 
+
+	public function MtdEliminarCotizacionProductoDetalle($oElementos)
+	{
+
+		//		$InsCotizacionProductoDetalleOrigen = new ClsCotizacionProductoDetalleOrigen();
+
+		$error = false;
+
+		$elementos = explode("#", $oElementos);
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+				if ($i == count($elementos)) {
+					$eliminar .= '  (CrdId = "' . ($elemento) . '")';
+				} else {
+					$eliminar .= '  (CrdId = "' . ($elemento) . '")  OR';
+				}
+			}
+			$i++;
+		}
+
+
+		$sql = 'DELETE FROM tblcrdcotizacionproductodetalle 
+				WHERE ' . $eliminar;
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+	public function MtdRegistrarCotizacionProductoDetalle()
+	{
+
+		$this->MtdGenerarCotizacionProductoDetalleId();
+
+
+		$sql = 'INSERT INTO tblcrdcotizacionproductodetalle (
 			CrdId,
 			CprId,
 			
@@ -569,14 +560,14 @@ class ClsCotizacionProductoDetalle {
 			CrdValorVenta,
 			CrdAdicional,
 			CrdDescuento,
-			
 			CrdPrecioBruto,
 			CrdPrecio,	
 					
 			CrdCantidad,
 			CrdCantidadReal,
 			CrdImporte,
-			
+			CrdImporteBruto,
+
 			CrdTipoPedido,
 			
 			CrdObservacion,
@@ -584,138 +575,135 @@ class ClsCotizacionProductoDetalle {
 			CrdTiempoCreacion,
 			CrdTiempoModificacion) 
 			VALUES (
-			"'.($this->CrdId).'", 
-			"'.($this->CprId).'", 
+			"' . ($this->CrdId) . '", 
+			"' . ($this->CprId) . '", 
 
-			'.(empty($this->ProId)?'NULL,':'"'.$this->ProId.'",').'	
-			'.(empty($this->UmeId)?'NULL,':'"'.$this->UmeId.'",').'				
+			' . (empty($this->ProId) ? 'NULL,' : '"' . $this->ProId . '",') . '	
+			' . (empty($this->UmeId) ? 'NULL,' : '"' . $this->UmeId . '",') . '				
 
-			"'.($this->CrdCodigo).'", 
-			"'.($this->CrdDescripcion).'", 
+			"' . ($this->CrdCodigo) . '", 
+			"' . ($this->CrdDescripcion) . '", 
 
-			'.($this->CrdPorcentajeUtilidad).', 
-			'.($this->CrdPorcentajeOtroCosto).', 
-			'.($this->CrdPorcentajeManoObra).', 
-			'.($this->CrdPorcentajePedido).', 
+			' . ($this->CrdPorcentajeUtilidad) . ', 
+			' . ($this->CrdPorcentajeOtroCosto) . ', 
+			' . ($this->CrdPorcentajeManoObra) . ', 
+			' . ($this->CrdPorcentajePedido) . ', 
 			
-			'.($this->CrdPorcentajeAdicional).', 
-			'.($this->CrdPorcentajeDescuento).', 
+			' . ($this->CrdPorcentajeAdicional) . ', 
+			' . ($this->CrdPorcentajeDescuento) . ', 
 		
-			'.($this->CrdCosto).', 				
-			'.($this->CrdValorVenta).',
-			'.($this->CrdAdicional).', 				
-			'.($this->CrdDescuento).',
+			' . ($this->CrdCosto) . ', 				
+			' . ($this->CrdValorVenta) . ',
+			' . ($this->CrdAdicional) . ', 				
+			' . ($this->CrdDescuento) . ',
 			
-			'.($this->CrdPrecioBruto).',
-			'.($this->CrdPrecio).',
+			' . ($this->CrdPrecioBruto) . ',
+			' . ($this->CrdPrecio) . ',
 		
-			'.($this->CrdCantidad).',
-			'.($this->CrdCantidadReal).',
-			'.($this->CrdImporte).', 
+			' . ($this->CrdCantidad) . ',
+			' . ($this->CrdCantidadReal) . ',
+			' . ($this->CrdImporte) . ', 
+			0,
 			
-			"'.($this->CrdTipoPedido).'",	
+			"' . ($this->CrdTipoPedido) . '",	
 			
-			"'.($this->CrdObservacion).'",	
-			'.($this->CrdEstado).',
-			"'.($this->CrdTiempoCreacion).'",
-			"'.($this->CrdTiempoModificacion).'");';
-		
-			$error = false;
+			"' . ($this->CrdObservacion) . '",	
+			' . ($this->CrdEstado) . ',
+			"' . ($this->CrdTiempoCreacion) . '",
+			"' . ($this->CrdTiempoModificacion) . '");';
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 	
-		
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	public function MtdEditarCotizacionProductoDetalle() {
 
-			 $sql = 'UPDATE tblcrdcotizacionproductodetalle SET 	
-			
-			'.(empty($this->UmeId)?'UmeId = NULL, ':'UmeId = "'.$this->UmeId.'",').'
-			
-			CrdCodigo = "'.($this->CrdCodigo).'",
-			CrdDescripcion = "'.($this->CrdDescripcion).'",
-			 
-			CrdPorcentajeUtilidad = '.($this->CrdPorcentajeUtilidad).',
-			CrdPorcentajeOtroCosto = '.($this->CrdPorcentajeOtroCosto).',
-			CrdPorcentajeManoObra = '.($this->CrdPorcentajeManoObra).',
-			CrdPorcentajePedido = '.($this->CrdPorcentajePedido).',
-			
-			CrdPorcentajeAdicional = '.($this->CrdPorcentajeAdicional).',
-			CrdPorcentajeDescuento = '.($this->CrdPorcentajeDescuento).',
-			
-			CrdCosto = '.($this->CrdCosto).',
-			CrdValorVenta = '.($this->CrdValorVenta).',
-			CrdAdicional = '.($this->CrdAdicional).',
-			CrdDescuento = '.($this->CrdDescuento).',
-			
-			CrdPrecioBruto = '.($this->CrdPrecioBruto).',
-			CrdDescuento = '.($this->CrdDescuento).',
-			CrdPrecio = '.($this->CrdPrecio).',
-			
-			 CrdCantidad = '.($this->CrdCantidad).',
-			 CrdCantidadReal = '.($this->CrdCantidadReal).',
-			 
-			 CrdTipoPedido = "'.($this->CrdTipoPedido).'",
-			 
-			 CrdObservacion = "'.($this->CrdObservacion).'",
-			 
-			 
-			 CrdEstado = '.($this->CrdEstado).',
-			 CrdImporte = '.($this->CrdImporte).',
-			 CrdTiempoModificacion = "'.($this->CrdTiempoModificacion).'"
-			 WHERE CrdId = "'.($this->CrdId).'";';
-					
-			$error = false;
+	public function MtdEditarCotizacionProductoDetalle()
+	{
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
+		$sql = 'UPDATE tblcrdcotizacionproductodetalle SET 	
 			
-			if(!$resultado) {						
-				$error = true;
-			} 		
+			' . (empty($this->UmeId) ? 'UmeId = NULL, ' : 'UmeId = "' . $this->UmeId . '",') . '
 			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}						
-				
-		}	
-		
-		
-		public function MtdEditarCotizacionProductoDetalleDato($oCampo,$oDato,$oCotizacionProductoDetalleId) {
+			CrdCodigo = "' . ($this->CrdCodigo) . '",
+			CrdDescripcion = "' . ($this->CrdDescripcion) . '",
+			 
+			CrdPorcentajeUtilidad = ' . ($this->CrdPorcentajeUtilidad) . ',
+			CrdPorcentajeOtroCosto = ' . ($this->CrdPorcentajeOtroCosto) . ',
+			CrdPorcentajeManoObra = ' . ($this->CrdPorcentajeManoObra) . ',
+			CrdPorcentajePedido = ' . ($this->CrdPorcentajePedido) . ',
+			
+			CrdPorcentajeAdicional = ' . ($this->CrdPorcentajeAdicional) . ',
+			CrdPorcentajeDescuento = ' . ($this->CrdPorcentajeDescuento) . ',
+			
+			CrdCosto = ' . ($this->CrdCosto) . ',
+			CrdValorVenta = ' . ($this->CrdValorVenta) . ',
+			CrdAdicional = ' . ($this->CrdAdicional) . ',
+			CrdDescuento = ' . ($this->CrdDescuento) . ',
+			
+			CrdPrecioBruto = ' . ($this->CrdPrecioBruto) . ',
+			CrdDescuento = ' . ($this->CrdDescuento) . ',
+			CrdPrecio = ' . ($this->CrdPrecio) . ',
+			
+			 CrdCantidad = ' . ($this->CrdCantidad) . ',
+			 CrdCantidadReal = ' . ($this->CrdCantidadReal) . ',
+			 
+			 CrdTipoPedido = "' . ($this->CrdTipoPedido) . '",
+			 
+			 CrdObservacion = "' . ($this->CrdObservacion) . '",
+			 
+			 
+			 CrdEstado = ' . ($this->CrdEstado) . ',
+			 CrdImporte = ' . ($this->CrdImporte) . ',
+			 CrdTiempoModificacion = "' . ($this->CrdTiempoModificacion) . '"
+			 WHERE CrdId = "' . ($this->CrdId) . '";';
 
-			 $sql = 'UPDATE tblcrdcotizacionproductodetalle SET 
-			'.(empty($oDato)?$oCampo.' = NULL, ':$oCampo.' = "'.$oDato.'",').'
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+	public function MtdEditarCotizacionProductoDetalleDato($oCampo, $oDato, $oCotizacionProductoDetalleId)
+	{
+
+		$sql = 'UPDATE tblcrdcotizacionproductodetalle SET 
+			' . (empty($oDato) ? $oCampo . ' = NULL, ' : $oCampo . ' = "' . $oDato . '",') . '
 			CrdTiempoModificacion = NOW()		
 			
-			WHERE CrdId = "'.($oCotizacionProductoDetalleId).'";';
-					
-			$error = false;
+			WHERE CrdId = "' . ($oCotizacionProductoDetalleId) . '";';
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}						
-				
-		}	
-		
-	
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
-?>

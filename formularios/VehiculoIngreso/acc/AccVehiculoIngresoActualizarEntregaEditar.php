@@ -56,7 +56,7 @@ switch($POST_Tipo){
 	
 	case "OVV":
 	
-		$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+		$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 
 		if($InsOrdenVentaVehiculo->MtdEditarOrdenVentaVehiculoDato($POST_Campo,$POST_Dato,$POST_Id)){
 			$resultado = 1;			

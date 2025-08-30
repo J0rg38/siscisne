@@ -117,7 +117,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 
 $InsRegistroOperacionUIF = new ClsRegistroOperacionUIF();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccRegistroOperacionUIF.php');
 

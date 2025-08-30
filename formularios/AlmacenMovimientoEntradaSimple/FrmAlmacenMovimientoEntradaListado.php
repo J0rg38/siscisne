@@ -115,7 +115,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
 	require_once($InsPoo->MtdPaqLogistica() . 'ClsPedidoCompraDetalle.php');
 
 	$InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
-	$InsMoneda = new ClsMoneda();
+	$InsMoneda = new ClsMoneda($InsMysql);
 	$InsSucursal = new ClsSucursal($InsMysql);
 
 	include($InsProyecto->MtdFormulariosAcc($GET_mod) . 'AccAlmacenMovimientoEntrada.php');

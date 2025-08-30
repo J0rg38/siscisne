@@ -65,7 +65,7 @@ $InsAlmacenProducto = new ClsAlmacenProducto();
 $InsAlmacen = new ClsAlmacen();
 
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

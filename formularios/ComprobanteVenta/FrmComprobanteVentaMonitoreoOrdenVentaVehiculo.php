@@ -117,8 +117,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsComprobanteVenta.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsComprobanteVenta = new ClsComprobanteVenta();
 $InsSucursal = new ClsSucursal($InsMysql);
 

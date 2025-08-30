@@ -206,7 +206,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsFactura = new ClsFactura();
 $InsFacturaTalonario = new ClsFacturaTalonario();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsSucursal = new ClsSucursal($InsMysql);
 
 $InsFactura->SucId = $_SESSION['SesionSucursal'];

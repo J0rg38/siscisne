@@ -22,9 +22,9 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsArea = new ClsArea();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsFormaPago = new ClsFormaPago();
-$InsCuenta = new ClsCuenta();
-$InsMoneda = new ClsMoneda();
+$InsFormaPago = new ClsFormaPago($InsMysql);
+$InsCuenta = new ClsCuenta($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $ResMoneda = $InsMoneda->MtdObtenerMonedas(NULL,NULL,NULL,"MonId","ASC",NULL,1);
 $ArrMonedas = $ResMoneda['Datos'];

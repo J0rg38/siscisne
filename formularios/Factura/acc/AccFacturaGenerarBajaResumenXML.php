@@ -49,7 +49,7 @@ $InsFactura = new ClsFactura();
 $InsFacturaTalonario = new ClsFacturaTalonario();
 
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsRegimen = new ClsRegimen();
 
 

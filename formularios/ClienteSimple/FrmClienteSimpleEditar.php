@@ -37,7 +37,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 $InsCliente = new ClsCliente();
 $InsClienteTipo = new ClsClienteTipo();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccClienteSimpleEditar.php');
 //DATOS

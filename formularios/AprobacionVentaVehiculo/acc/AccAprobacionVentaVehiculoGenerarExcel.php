@@ -126,7 +126,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 
 $InsAprobacionVentaVehiculo = new ClsAprobacionVentaVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsSucursal = new ClsSucursal($InsMysql);
 
 $ResAprobacionVentaVehiculo = $InsAprobacionVentaVehiculo->MtdObtenerAprobacionVentaVehiculos("AovId,EinVIN,CliNombre,CliApellidoPaterno,CliApellidoMaterno,CliNombreCompleto,vma.VmaNombre,vmo.VmoNombre,vve.VveNombre",$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),$POST_estado,NULL);

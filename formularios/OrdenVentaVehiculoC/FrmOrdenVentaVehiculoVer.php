@@ -71,8 +71,8 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCondicionPago.php');
 
 
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsVehiculoMarca = new ClsVehiculoMarca();
 

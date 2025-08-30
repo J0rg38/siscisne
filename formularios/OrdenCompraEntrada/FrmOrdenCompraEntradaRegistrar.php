@@ -46,7 +46,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 
 $InsOrdenCompraEntrada = new ClsOrdenCompraEntrada();
 $InsOrdenCompra = new ClsOrdenCompra();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();

@@ -23,7 +23,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 
 $InsProductoTipo = new ClsProductoTipo();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsProductoCategoria = new ClsProductoCategoria();
 $InsSucursal = new ClsSucursal($InsMysql);
 $InsAlmacen = new ClsAlmacen();

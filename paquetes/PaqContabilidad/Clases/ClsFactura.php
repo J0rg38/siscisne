@@ -2004,7 +2004,7 @@ fac.FacLeyenda,
 
 		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-			$Factura = new $InsFactura();
+			$Factura = new $InsFactura($this->InsMysql);
 			$Factura->FacId = $fila['FacId'];
 			$Factura->FtaId = $fila['FtaId'];
 			$Factura->SucId = $fila['SucId'];

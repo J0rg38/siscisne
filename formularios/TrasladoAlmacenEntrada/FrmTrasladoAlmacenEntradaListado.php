@@ -97,7 +97,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsPedidoCompra.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsPedidoCompraDetalle.php');
 
 $InsTrasladoAlmacenEntrada = new ClsTrasladoAlmacenEntrada();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccTrasladoAlmacenEntrada.php');
 

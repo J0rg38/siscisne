@@ -84,7 +84,7 @@ $InsBoleta = new ClsBoleta();
 $InsBoletaTalonario = new ClsBoletaTalonario();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsRegimen = new ClsRegimen();
 $InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 

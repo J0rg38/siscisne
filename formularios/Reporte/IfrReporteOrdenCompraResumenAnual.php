@@ -85,7 +85,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsOrdenCompra = new ClsOrdenCompra();
 $InsProveedor = new ClsProveedor();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 
 if(empty($POST_ProveedorId) and !empty($POST_ProveedorNombre)){
@@ -117,13 +117,13 @@ if(empty($POST_ProveedorId) and !empty($POST_ProveedorNumeroDocumento)){
 
 if(empty($POST_Moneda)){
 	
-	$InsMoneda = new ClsMoneda();
+	$InsMoneda = new ClsMoneda($InsMysql);
 	$InsMoneda->MonId = $EmpresaMonedaId;
 	$InsMoneda->MtdObtenerMoneda();
 
 }else{
 
-	$InsMoneda = new ClsMoneda();
+	$InsMoneda = new ClsMoneda($InsMysql);
 	$InsMoneda->MonId = $POST_Moneda;
 	$InsMoneda->MtdObtenerMoneda();
 

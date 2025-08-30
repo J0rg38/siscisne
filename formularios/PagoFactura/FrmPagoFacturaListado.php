@@ -86,9 +86,9 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculo.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVentaDirecta.php');
 
 //INSTANCAS
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsFactura = new ClsFactura();
 
 $InsFactura->FacId = $GET_FacId;
@@ -704,12 +704,12 @@ if($PrivilegioVer){
 
 if(!empty($InsFactura->OvvId)){
 	
-	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 	$InsOrdenVentaVehiculo->OvvId = $InsFactura->OvvId;
 	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(false);
 	
 	
-		$InsPago = new ClsPago();
+		$InsPago = new ClsPago($InsMysql);
 		$ResPago = $InsPago->MtdObtenerPagos("PagId,OvvId,OvvId","contiene",$POST_fil,$POST_ord,$POST_sen,$POST_pag,NULL,NULL,$InsOrdenVentaVehiculo->OvvId,$POST_CondicionPago,$POST_Moneda);
 		
 		$ArrPagos = $ResPago['Datos'];
@@ -826,7 +826,7 @@ if(!empty($dat->PagFoto1)){
 	$InsVentaDirecta->MtdObtenerVentaDirecta(false);
 	
 	
-	$InsPago = new ClsPago();
+	$InsPago = new ClsPago($InsMysql);
 
 // MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oOrdenVentaVehiculo=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oFactura=NULL,$oFacturaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oArea=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oFecha="PagFecha")
 	$ResPago = $InsPago->MtdObtenerPagos("PagId,OvvId,OvvId","contiene",$POST_fil,$POST_ord,$POST_sen,$POST_pag,NULL,$InsVentaDirecta->VdiId,NULL,$POST_CondicionPago,$POST_Moneda);

@@ -208,7 +208,7 @@ Parametro13 = FedUnidadMedida
 				
 				case "OrdenVentaVehiculo":	
 
-					$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+					$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 
 					if($InsFacturaExportacion->FexEstado <> 6){
 						$InsOrdenVentaVehiculo->MtdActualizarEstadoOrdenVentaVehiculo($InsFacturaExportacion->OvvId,5);
@@ -1319,7 +1319,7 @@ function FncCargarOrdenVentaVehiculoDatos(){
 	global $EmpresaImpuestoVenta;
 	global $InsFacturaExportacion;
 	
-	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 	
 	$InsOrdenVentaVehiculo->OvvId = $GET_OvvId;	
 	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();	

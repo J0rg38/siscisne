@@ -44,7 +44,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, "Editar")) {
   $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
   $InsClienteTipo = new ClsClienteTipo();
 
-  $InsMoneda = new ClsMoneda();
+  $InsMoneda = new ClsMoneda($InsMysql);
 
   $InsAlmacen = new ClsAlmacen();
 

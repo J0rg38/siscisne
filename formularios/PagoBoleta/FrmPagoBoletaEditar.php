@@ -38,15 +38,15 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsTarjeta.php');
 
 //INSTANCIAS
-$InsPago = new ClsPago();
-$InsMoneda = new ClsMoneda();
+$InsPago = new ClsPago($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsBoleta = new ClsBoleta();
 $InsArea = new ClsArea();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsFormaPago = new ClsFormaPago();
-$InsCuenta = new ClsCuenta();
-$InsTarjeta = new ClsTarjeta();
+$InsFormaPago = new ClsFormaPago($InsMysql);
+$InsCuenta = new ClsCuenta($InsMysql);
+$InsTarjeta = new ClsTarjeta($InsMysql);
 
 $InsBoleta->BolId = $GET_BolId;
 $InsBoleta->MtdObtenerBoleta(false);

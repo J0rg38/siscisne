@@ -92,7 +92,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsBoletaDetalle.php');
 
 $InsVentaDirectaDetalle = new ClsVentaDirectaDetalle();
 $InsCliente = new ClsCliente();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 
 if(empty($POST_ClienteId) and !empty($POST_ClienteNombre)){
@@ -128,7 +128,7 @@ $ArrVentaDirectaDetalles = $ResVentaDirectaDetalle['Datos'];
 //$ArrVentaDirectas = $ResVentaDirecta['Datos'];
 $POST_Moneda = (empty($POST_Moneda)?$EmpresaMonedaId:$POST_Moneda);
 //deb($POST_Moneda);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_Moneda;
 $InsMoneda->MtdObtenerMoneda();
 

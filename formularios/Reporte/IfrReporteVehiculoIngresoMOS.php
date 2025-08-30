@@ -65,7 +65,7 @@ $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoVersion = new ClsVehiculoVersion();
 $InsSucursal = new ClsSucursal($InsMysql);
 $InsPersonal = new ClsPersonal($InsMysql);
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsVehiculoCierreInventario = new ClsVehiculoCierreInventario();
 $InsVehiculoIngreso = new ClsVehiculoIngreso();
 
@@ -200,7 +200,7 @@ if(!empty($ArrVehiculoCierreInventarios)){
 ?>
 <?php
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 //MtdObtenerOrdenVentaVehiculosValor($oFuncion="SUM",$oParametro="OvvId",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'OvvId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oMoneda=NULL,$oPersonal=NULL,$oModelo=NULL,$oMarca=NULL,$oSucursal=NULL,$oVersion=NULL,$oAnoFabricacion=NULL)
 $OrdeneVentaVehiculoTotal[$DatVehiculoVersion->VveId] = $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculosValor("COUNT","OvvId",$POST_Mes,$POST_Ano,NULL,NULL,NULL,'OvvId','ASC',NULL,NULL,NULL,array(2,3,4,5),NULL,NULL,NULL,NULL,NULL,$DatVehiculoVersion->VveId,$DatVehiculoIngresoAno->EinAnoFabricacion);
 ?>

@@ -106,12 +106,12 @@ $InsFacturaExportacion = new ClsFacturaExportacion();
 $InsFacturaExportacionTalonario = new ClsFacturaExportacionTalonario();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsRegimen = new ClsRegimen();
 $InsFichaIngreso = new ClsFichaIngreso($InsMysql);
 $InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsCotizacionProducto = new ClsCotizacionProducto();
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 
 if (!isset($_SESSION['InsFacturaExportacionDetalle'.$Identificador])){	
 	$_SESSION['InsFacturaExportacionDetalle'.$Identificador] = new ClsSesionObjeto();

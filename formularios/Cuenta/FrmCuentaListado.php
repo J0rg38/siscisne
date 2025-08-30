@@ -103,7 +103,7 @@ if(empty($POST_con)){
 include($InsProyecto->MtdFormulariosMsj('Cuenta').'MsjCuenta.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsCuenta.php');
 
-$InsCuenta = new ClsCuenta();
+$InsCuenta = new ClsCuenta($InsMysql);
 
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccCuenta.php');

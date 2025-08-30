@@ -79,7 +79,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 $InsFichaAccion = new ClsFichaAccion($InsMysql);
 $InsComprobanteVenta = new ClsComprobanteVenta();
 $InsSucursal = new ClsSucursal($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $ResComprobanteVenta = $InsComprobanteVenta->MtdObtenerFichaIngresoxFacturar(NULL,NULL,NULL,$POST_ord,$POST_sen,$POST_pag,NULL,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),NULL,"75,8,9",false,false,"MIN-10016,MIN-10016,MIN-10001,MIN-10002,MIN-10003,MIN-10004,MIN-10005,MIN-10007,MIN-10009,MIN-10015,MIN-10013,MIN-10006,MIN-10017,MIN-10018,MIN-10028,MIN-10024,MIN-10019,MIN-10020,MIN-10021,MIN-10023,MIN-10026,MIN-10029",true,$POST_Facturable,true,"fcc.FccFecha",$POST_Sucursal,$POST_Moneda);//73,74,75,8,9
 $ArrComprobanteVentas = $ResComprobanteVenta['Datos'];

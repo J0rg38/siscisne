@@ -54,9 +54,9 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculo.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsFactura = new ClsFactura();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCliente = new ClsCliente();
 $InsNotaCredito = new ClsNotaCredito();
 $InsBoleta = new ClsBoleta();

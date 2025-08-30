@@ -48,7 +48,7 @@ require_once($InsPoo->MtdPaqAlmacen() . 'ClsVentaConcretada.php');
 
 $InsVentaConcretada = new ClsVentaConcretada();
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

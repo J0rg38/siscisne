@@ -155,8 +155,8 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsBoleta = new ClsBoleta();
 $InsClientePago = new ClsClientePago();
-$InsFormaPago = new ClsFormaPago();
-$InsMoneda = new ClsMoneda();
+$InsFormaPago = new ClsFormaPago($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc("ClientePago").'AccClientePagoRegistrar.php');
 

@@ -41,7 +41,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoPropietario.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php');
 
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $ResOrdenVentaVehiculo = $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculos("EinVIN","esigual",$GET_VehiculoIngresoVIN,"OvvFecha","DESC",NULL,(NULL),(NULL),$POST_estado,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 $ArrOrdenVentaVehiculos = $ResOrdenVentaVehiculo['Datos'];
 
@@ -62,7 +62,7 @@ if(!empty($ArrOrdenVentaVehiculos)){
 
 if(!empty($OrdenVentaVehiculoId)){
 	
-	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 	$InsOrdenVentaVehiculo->OvvId = $OrdenVentaVehiculoId;
 	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(false);
 	

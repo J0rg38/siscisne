@@ -104,7 +104,7 @@ $InsVehiculoVersion = new ClsVehiculoVersion();
 $InsSucursal = new ClsSucursal($InsMysql);
 $InsPersonal = new ClsPersonal($InsMysql);
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsVehiculoModelo = new ClsVehiculoModelo();
 
 $InsVehiculoMarca->VmaId = $POST_VehiculoMarca;

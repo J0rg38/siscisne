@@ -39,7 +39,7 @@ if (!isset($_SESSION['InsGarantiaDetalle' . $ModalidadIngreso . $Identificador])
   $_SESSION['InsGarantiaDetalle' . $ModalidadIngreso . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsGarantiaDetalle' . $ModalidadIngreso . $Identificador]);
 }
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

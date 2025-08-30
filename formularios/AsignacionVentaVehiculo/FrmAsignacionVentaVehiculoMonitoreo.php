@@ -128,8 +128,8 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php'
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoVersionCaracteristica.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoCaracteristicaSeccion.php');
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsAsignacionVentaVehiculo = new ClsAsignacionVentaVehiculo();
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccAsignacionVentaVehiculoMonitoreo.php');

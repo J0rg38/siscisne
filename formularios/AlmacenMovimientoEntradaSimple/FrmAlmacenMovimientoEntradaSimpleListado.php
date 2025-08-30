@@ -107,7 +107,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsPedidoCompraDetalle.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsSucursal = new ClsSucursal($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccAlmacenMovimientoEntradaSimple.php');

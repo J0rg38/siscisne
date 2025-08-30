@@ -25,11 +25,11 @@ require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsArea.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsTipoGasto.php');
 
-$InsSolicitudDesembolso = new ClsSolicitudDesembolso();
-$InsMoneda = new ClsMoneda();
+$InsSolicitudDesembolso = new ClsSolicitudDesembolso($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsPersonal = new ClsPersonal($InsMysql);
-$InsArea = new ClsArea();
-$InsTipoGasto = new ClsTipoGasto();
+$InsArea = new ClsArea($InsMysql);
+$InsTipoGasto = new ClsTipoGasto($InsMysql);
 
 
 if (isset($_SESSION['InsSolicitudDesembolsoDetalle'.$Identificador])){	

@@ -160,8 +160,8 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoMovimientoSalidaDetalle.php');
 
 
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsSucursal = new ClsSucursal($InsMysql);
 $InsPersonal = new ClsPersonal($InsMysql);
 

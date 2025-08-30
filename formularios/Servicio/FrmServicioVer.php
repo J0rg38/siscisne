@@ -28,7 +28,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsServicioDetalle.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 //INSTANCIAS
 $InsServicio = new ClsServicio();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 if (!isset($_SESSION['InsServicioDetalle'.$Identificador])){	
 	$_SESSION['InsServicioDetalle'.$Identificador] = new ClsSesionObjeto();

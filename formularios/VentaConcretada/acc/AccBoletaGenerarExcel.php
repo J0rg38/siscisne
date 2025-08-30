@@ -119,7 +119,7 @@ require_once($InsPoo->MtdPaqActividad().'ClsFichaAccion.php');
 $InsBoleta = new ClsBoleta();
 $InsBoletaTalonario = new ClsBoletaTalonario();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsBoleta->UsuId = $_SESSION['SesionId'];
 $InsBoleta->SucId = $_SESSION['SesionSucursal'];

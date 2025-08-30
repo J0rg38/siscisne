@@ -104,7 +104,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenCodificacion.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsOrdenCodificacion = new ClsOrdenCodificacion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccOrdenCodificacion.php');
 

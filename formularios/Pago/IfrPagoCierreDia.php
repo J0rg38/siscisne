@@ -78,8 +78,8 @@ if(empty($POST_ffin)){
 require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
-$InsPago = new ClsPago();
-$InsMoneda = new ClsMoneda();
+$InsPago = new ClsPago($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 
 //MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oOrdenVentaVehiculo=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oFactura=NULL,$oFacturaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oArea=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oFecha="PagFecha",$oOrigen=NULL,$oFormaPago=NULL)
 $ResPago = $InsPago->MtdObtenerPagos("PagId,OvvId,VdiId,cli.CliNombre,cli.CliApellidoPaterno,cli.CliApellidoMaterno,cli.CliNombreCompleto,cli.CliNumeroDocumento","contiene",$POST_fil,$POST_ord,$POST_sen,$POST_pag,3,$GET_VdiId,NULL,$POST_CondicionPago,$POST_Moneda,NULL,NULL,NULL,NULL,$POST_Area,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),"PagFecha",$POST_Origen,$POST_FormaPago);
@@ -90,7 +90,7 @@ $POST_Moneda = (empty($POST_Moneda)?$EmpresaMonedaId:$POST_Moneda);
 
 //deb($POST_Moneda);
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_Moneda;
 $InsMoneda->MtdObtenerMoneda();
 ?>

@@ -85,7 +85,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 //$InsReporteCompra = new ClsReporteCompra();
 
 $InsCompra = new ClsCompra();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsRegimen = new ClsRegimen();
 $InsSucursal = new ClsSucursal($InsMysql);
 $InsCompraGasto = new ClsCompraGasto();

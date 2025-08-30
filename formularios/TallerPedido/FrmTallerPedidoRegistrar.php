@@ -118,7 +118,7 @@ require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoManoObra.php');
     $InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
     $InsAlmacenStock = new ClsAlmacenStock();
 
-    $InsMoneda = new ClsMoneda();
+    $InsMoneda = new ClsMoneda($InsMysql);
     $InsAlmacen = new ClsAlmacen();
     $InsPersonal = new ClsPersonal($InsMysql);
     $InsFichaIngreso->FinId = $GET_FinId;

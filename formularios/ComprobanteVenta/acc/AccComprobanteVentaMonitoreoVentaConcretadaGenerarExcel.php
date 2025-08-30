@@ -144,7 +144,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 $InsVentaConcretada = new ClsVentaConcretada();
 $InsComprobanteVenta = new ClsComprobanteVenta();
 $InsSucursal = new ClsSucursal($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 
 $ResComprobanteVenta = $InsComprobanteVenta->MtdObtenerVentaConcretadaxFacturar("AmoId,vdi.CprId,amo.VdiId,CliNombreCompleto,CliNombre,CliApellidoPaterno,CliApellidoMaterno,CliNumeroDocumento,VdiOrdenCompraNumero",$POST_con,$POST_fil,$POST_ord,$POST_sen,$POST_pag,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),$POST_Estado,0,0,0,NULL,$POST_Moneda,false,true,$POST_Facturable,$POST_Sucursal);

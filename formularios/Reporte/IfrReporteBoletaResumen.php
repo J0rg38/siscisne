@@ -85,9 +85,9 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCliente.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsNotaCredito.php');
 
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsBoleta = new ClsBoleta();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCliente = new ClsCliente();
 $InsNotaCredito = new ClsNotaCredito();
 

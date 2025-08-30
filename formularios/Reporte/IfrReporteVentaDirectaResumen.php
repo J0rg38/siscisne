@@ -103,8 +103,8 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacenMovimientoEntrada.php');
 
 $InsVentaDirecta = new ClsVentaDirecta();
 $InsCliente = new ClsCliente();
-$InsMoneda = new ClsMoneda();
-$InsPago = new ClsPago();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsPago = new ClsPago($InsMysql);
 
 if(empty($POST_ClienteId) and !empty($POST_ClienteNombre)){
 
@@ -140,7 +140,7 @@ $POST_Moneda = (empty($POST_Moneda)?$EmpresaMonedaId:$POST_Moneda);
 
 //deb($POST_Moneda);
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_Moneda;
 $InsMoneda->MtdObtenerMoneda();
 
@@ -732,7 +732,7 @@ if(!empty($DatVentaDirecta->VdiArchivo)){
                     <?php //echo ($DatFactura->FacFechaEmision);?>
                     
                     <?php
-                    $InsPago = new ClsPago();
+                    $InsPago = new ClsPago($InsMysql);
                     //MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oOrdenVentaVehiculo=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oFactura=NULL,$oFacturaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL)
                     
                     $ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,'PagId','Desc',NULL,NULL,NULL,NULL,NULL,NULL,$DatFactura->FacId,$DatFactura->FtaId,NULL,NULL);

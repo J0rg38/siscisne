@@ -132,7 +132,7 @@ require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 $InsNotaDebito = new ClsNotaDebito();
 $InsNotaDebitoTalonario = new ClsNotaDebitoTalonario();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsSucursal = new ClsSucursal($InsMysql);
 
 $InsNotaDebito->SucId = $_SESSION['SesionSucursal'];

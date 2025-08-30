@@ -441,7 +441,7 @@ if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){
 
 					if($InsBoleta->BolEstado <> 6){
 						
-						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 						$InsOrdenVentaVehiculo->MtdActualizarEstadoOrdenVentaVehiculo($InsBoleta->OvvId,5);
 						$InsOrdenVentaVehiculo->OvvId = $InsBoleta->OvvId;
 						$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
@@ -470,7 +470,7 @@ if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){
 					
 					if($InsBoleta->BolEstado <> 6){
 						
-						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 						$InsOrdenVentaVehiculo->MtdActualizarEstadoOrdenVentaVehiculo($InsBoleta->OvvId,5);
 						$InsOrdenVentaVehiculo->OvvId = $InsBoleta->OvvId;
 						$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
@@ -525,7 +525,7 @@ if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){
 					
 					if($InsBoleta->BolEstado <> 6){
 						
-						$InsPago = new ClsPago();
+						$InsPago = new ClsPago($InsMysql);
 						$InsPago->MtdActualizarEstadoPago($InsBoleta->PagId,3);
 						
 					}
@@ -539,7 +539,7 @@ if(isset($_POST['BtnGuardar_x']) or ($_POST['Guardar'] ?? '')=="1"){
 					//
 //					$Guardar = true;
 //					
-//					$InsPago = new ClsPago();
+//					$InsPago = new ClsPago($InsMysql);
 //				
 //					$InsPago->PagId = NULL;
 //					$InsPago->PagFecha = date("Y-m-d");
@@ -2488,7 +2488,7 @@ Parametro23 = BdeExonerado
 			}
 			
 			
-			$InsPago = new ClsPago();
+			$InsPago = new ClsPago($InsMysql);
 //MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oOrdenVentaVehiculo=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oArea=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oFecha="PagFecha",$oOrigen=NULL,$oFormaPago=NULL)
 			$ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,"PagFecha","ASC",NULL,NULL,$InsVentaConcretada->VdiId,NULL,NULL,NULL);
 			$ArrPagos = $ResPago['Datos'];
@@ -3104,7 +3104,7 @@ Parametro25 = BdeImpuestoSelectivo
 					}
 			
 					
-					$InsPago = new ClsPago();
+					$InsPago = new ClsPago($InsMysql);
 		//MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oOrdenVentaVehiculo=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oArea=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oFecha="PagFecha",$oOrigen=NULL,$oFormaPago=NULL)
 					$ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,"PagFecha","ASC",NULL,NULL,$InsVentaConcretada->VdiId,NULL,NULL,NULL);
 					$ArrPagos = $ResPago['Datos'];
@@ -3160,7 +3160,7 @@ Parametro25 = BdeImpuestoSelectivo
 //	
 //	global $InsBoleta;
 //	
-//	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+//	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 //	
 //	$InsOrdenVentaVehiculo->OvvId = $GET_OvvId;	
 //	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();	
@@ -3568,7 +3568,7 @@ function FncCargarVehiculoMovimientoSalidaDatos(){
 	$InsVehiculoMovimientoSalida->MtdObtenerVehiculoMovimientoSalida();
 	
 
-	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+	$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 	$InsOrdenVentaVehiculo->OvvId = $InsVehiculoMovimientoSalida->OvvId;	
 	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();	
 	
@@ -3577,7 +3577,7 @@ function FncCargarVehiculoMovimientoSalidaDatos(){
 	
 	
 	
-	//$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+	//$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 //	$InsOrdenVentaVehiculo->OvvId = $InsVehiculoMovimientoSalida->OvvId;
 //	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 //	

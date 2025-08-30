@@ -446,7 +446,7 @@ function FncCargarDatos(){
 */
 
 
-	//$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+	//$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 //	$InsOrdenVentaVehiculo->OvvId = $InsBoleta->OvvId;
 //	$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 //	

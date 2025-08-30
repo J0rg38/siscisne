@@ -43,7 +43,7 @@ $InsReclamo = new ClsReclamo();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
 $InsPersonal = new ClsPersonal($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsAlmacenMovimientoEntrada->AmoId = $GET_AmoId;
 $InsAlmacenMovimientoEntrada->MtdObtenerAlmacenMovimientoEntrada();	

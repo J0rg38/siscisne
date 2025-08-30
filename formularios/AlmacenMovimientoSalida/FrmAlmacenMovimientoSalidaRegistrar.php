@@ -67,7 +67,7 @@ $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 
 $InsAlmacen = new ClsAlmacen();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 if (!isset($_SESSION['InsAlmacenMovimientoSalidaDetalle'.$Identificador])){	
 	$_SESSION['InsAlmacenMovimientoSalidaDetalle'.$Identificador] = new ClsSesionObjeto();

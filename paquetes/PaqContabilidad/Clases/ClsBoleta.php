@@ -1122,8 +1122,33 @@ bol.BolDatoAdicional28,
 		return $Respuesta;
 	}
 
-	public function MtdObtenerBoletas($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'BolId', $oSentido = 'Desc', $oPaginacion = '0,10', $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oRegimen = NULL, $oCondicionPago = NULL, $oMoneda = NULL, $oAlmacenMovimiento = NULL, $oCliente = NULL, $oOrdenVentaVehiculo = NULL, $oVentaDirecta = NULL, $oVendedor = NULL, $oSucursal = NULL, $oNoProcesdado = false, $oCancelado = NULL, $oSinPago = false, $oDiasVencido = NULL, $oVencido = false, $oObsequio = NULL)
-	{
+	public function MtdObtenerBoletas(
+		$oCampo = NULL,
+		$oCondicion = NULL,
+		$oFiltro = NULL,
+		$oOrden = 'BolId',
+		$oSentido = 'Desc',
+		$oPaginacion = '0,10',
+		$oEstado = NULL,
+		$oFechaInicio = NULL,
+		$oFechaFin = NULL,
+		$oTalonario = NULL,
+		$oRegimen = NULL,
+		$oCondicionPago = NULL,
+		$oMoneda = NULL,
+		$oAlmacenMovimiento = NULL,
+		$oCliente = NULL,
+		$oOrdenVentaVehiculo = NULL,
+		$oVentaDirecta = NULL,
+		$oVendedor = NULL,
+		$oSucursal = NULL,
+		$oNoProcesdado = false,
+		$oCancelado = NULL,
+		$oSinPago = false,
+		$oDiasVencido = NULL,
+		$oVencido = false,
+		$oObsequio = NULL
+	) {
 
 		// Inicializar variables para evitar warnings
 		$filtrar = '';
@@ -1370,7 +1395,20 @@ bol.BolDatoAdicional28,
 			}
 		}
 
-		if (($oSinPago)) {
+		/*
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+
+		var_dump("<hr>");
+
+		deb($oSinPago);
+*/
+		if ($oSinPago) {
+
+			//deb("oSinPago SI ");
 
 			$sinpago = ' AND 
 			
@@ -1399,6 +1437,8 @@ bol.BolDatoAdicional28,
 			) AND bol.OvvId IS NULL
 			
 			';
+		} else {
+			deb("oSinPago NO ");
 		}
 
 		if (!empty($oDiaVencido)) {
@@ -1727,7 +1767,9 @@ bol.BolObservacionCaja,
 		$InsBoleta = get_class($this);
 
 		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
-			$Boleta = new $InsBoleta();
+
+			$Boleta = new $InsBoleta($this->InsMysql);
+
 			$Boleta->BolId = $fila['BolId'];
 			$Boleta->BtaId = $fila['BtaId'];
 			$Boleta->SucId = $fila['SucId'];
@@ -1978,6 +2020,8 @@ bol.BolObservacionCaja,
 
 		return $Respuesta;
 	}
+
+
 
 	//MtdObtenerBoletasValor($oFuncion="SUM",$oParametro="BolId",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'BolId',$oSentido = 'Desc',$oPaginacion = '0,10',$oSucursal=NULL,$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oRegimen=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oAlmacenMovimiento=NULL,$oCliente=NULL,$oClienteClasificacion=NULL,$oFichaIngresoMantenimientoKilometraje=NULL,$oModalidadIngreso=NULL,$oVehiculoMarca=NULL,$oVehiculoModelo=NULL,$oClienteTipo=NULL,$oTecnico=NULL,$oOrigen=NULL,$oVendedor=NULL) {
 	public function MtdObtenerBoletasValor($oFuncion = "SUM", $oParametro = "BolId", $oMes = NULL, $oAno = NULL, $oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'BolId', $oSentido = 'Desc', $oPaginacion = '0,10', $oSucursal = NULL, $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oRegimen = NULL, $oCondicionPago = NULL, $oMoneda = NULL, $oAlmacenMovimiento = NULL, $oCliente = NULL, $oClienteClasificacion = NULL, $oFichaIngresoMantenimientoKilometraje = NULL, $oModalidadIngreso = NULL, $oVehiculoMarca = NULL, $oVehiculoModelo = NULL, $oClienteTipo = NULL, $oTecnico = NULL, $oOrigen = NULL, $oVendedor = NULL)
@@ -2473,7 +2517,7 @@ bol.BolObservacionCaja,
 
 					if (!empty($this->OvvId)) {
 
-						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
+						$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);
 
 
 
@@ -2564,7 +2608,7 @@ bol.BolObservacionCaja,
 
 				if (!empty($this->OvvId)) {
 
-					$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);	
+					$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($this->InsMysql);
 					$InsOrdenVentaVehiculo->OvvId = $this->OvvId;
 					$InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(false);
 

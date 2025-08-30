@@ -78,7 +78,7 @@ $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoVersion = new ClsVehiculoVersion();
 $InsSucursal = new ClsSucursal($InsMysql);
 $InsPersonal = new ClsPersonal($InsMysql);
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsVehiculoModelo = new ClsVehiculoModelo();
  
 
@@ -241,7 +241,7 @@ $().ready(function() {
                      
                     
                     <?php
-                    $InsPago = new ClsPago();
+                    $InsPago = new ClsPago($InsMysql);
 
 //MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oOrdenVentaVehiculo=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oFactura=NULL,$oFacturaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oArea=NULL)
                     $ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,'PagFecha','ASC',NULL,NULL,NULL,$DatOrdenVentaVehiculo->OvvId,NULL,NULL,NULL,NULL,NULL,NULL);

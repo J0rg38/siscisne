@@ -114,7 +114,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCotizacionProducto.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsTrasladoAlmacen = new ClsTrasladoAlmacen();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccTrasladoAlmacen.php');
 

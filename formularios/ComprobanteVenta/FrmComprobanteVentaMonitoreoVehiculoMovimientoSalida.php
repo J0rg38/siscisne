@@ -120,7 +120,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculo.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoPropietario.php');
 
 $InsVehiculoMovimientoSalida = new ClsVehiculoMovimientoSalida();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsComprobanteVenta = new ClsComprobanteVenta();
 $InsSucursal = new ClsSucursal($InsMysql);
 

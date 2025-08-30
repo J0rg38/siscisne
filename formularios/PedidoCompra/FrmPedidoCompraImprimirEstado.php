@@ -35,7 +35,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsPagoComprobante.php');
 
 $InsPedidoCompra = new ClsPedidoCompra();
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 
 $InsPedidoCompra->PcoId = $GET_id;
 $InsPedidoCompra = $InsPedidoCompra->MtdObtenerPedidoCompra();

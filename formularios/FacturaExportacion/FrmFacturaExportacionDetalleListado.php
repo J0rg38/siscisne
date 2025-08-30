@@ -74,7 +74,7 @@ $SesionObjetosTotalSeleccionado = $RepSesionObjetos['TotalSeleccionado'];
 <?php
 if (!empty($POST_OvvId)) {
 
-  $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+  $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
   $InsOrdenVentaVehiculo->OvvId = $POST_OvvId;
   $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 }

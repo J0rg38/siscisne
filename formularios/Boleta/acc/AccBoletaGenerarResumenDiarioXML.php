@@ -49,7 +49,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsResumenBaja.php');
 
 $InsBoletaTalonario = new ClsBoletaTalonario();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsRegimen = new ClsRegimen();
 
 $ArrBoletas = explode("@",$GET_Seleccionados);

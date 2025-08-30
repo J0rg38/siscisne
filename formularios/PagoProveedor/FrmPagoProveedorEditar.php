@@ -41,10 +41,10 @@ require_once($InsPoo->MtdPaqLogistica().'ClsProveedor.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsTipoDocumento.php');
 
 $InsPagoProveedor = new ClsPagoProveedor();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsBanco = new ClsBanco();
 
-$InsCuenta = new ClsCuenta();
+$InsCuenta = new ClsCuenta($InsMysql);
 
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 

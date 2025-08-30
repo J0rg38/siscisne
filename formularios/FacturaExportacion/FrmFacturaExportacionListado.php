@@ -180,7 +180,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 $InsFacturaExportacion = new ClsFacturaExportacion();
 $InsFacturaExportacionTalonario = new ClsFacturaExportacionTalonario();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsFacturaExportacion->UsuId = $_SESSION['SesionId'];
 $InsFacturaExportacion->SucId = $_SESSION['SisSucId'];

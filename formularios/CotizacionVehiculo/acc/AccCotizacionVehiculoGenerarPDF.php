@@ -1,7 +1,19 @@
 <?php
+// Control de buffer de salida para evitar output antes del PDF
+ob_start();
+
+// Deshabilitar output de errores que puedan interferir con el PDF
+error_reporting(0);
+ini_set('display_errors', 0);
+
 //session_start();
 require_once('../../../proyecto/ClsProyecto.php');
 require_once('../../../proyecto/ClsPoo.php');
+
+// Limpiar cualquier output después de incluir archivos del proyecto
+if (ob_get_length() > 0) {
+    ob_clean();
+}
 
 $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta  = '../../../';
@@ -12,6 +24,12 @@ require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
 require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
 require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
 require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+
+// Limpiar cualquier output después de incluir configuraciones
+if (ob_get_length() > 0) {
+    ob_clean();
+}
+
 ////MENSAJES GENERALES
 require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
 ////CLASES GENERALES
@@ -21,12 +39,21 @@ require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
 require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
 require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
 
+// Limpiar cualquier output después de incluir clases
+if (ob_get_length() > 0) {
+    ob_clean();
+}
+
 ////CLASES GENERALES
 require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
 require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
 ////FUNCIONES GENERALES
 require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 
+// Verificar que no haya output después de incluir archivos
+if (ob_get_length() > 0) {
+    ob_clean();
+}
 
 //require_once($InsProyecto->MtdRutLibrerias().'fpdf17/fpdf.php');
 //require_once($InsProyecto->MtdRutLibrerias().'fpdf181/fpdf.php');
@@ -141,23 +168,80 @@ class MYPDF extends TCPDF {
 		global $EmpresaNombre;
   		global $EmpresaCodigo;
        
+		// Sanitizar y validar variables antes de usarlas
+		$empresaNombre = !empty($EmpresaNombre) ? $this->sanitizeString($EmpresaNombre) : '';
+		$empresaCodigo = !empty($EmpresaCodigo) ? $this->sanitizeString($EmpresaCodigo) : '';
+		
 		// Título
 		$this->Ln(5);
-		$this->Cell(0,3,($EmpresaNombre." - R.U.C.: ".$EmpresaCodigo),0,1,'R');
+		if (!empty($empresaNombre) && !empty($empresaCodigo)) {
+			$this->Cell(0,3,($empresaNombre." - R.U.C.: ".$empresaCodigo),0,1,'R');
+		}
 	
-		$this->Cell(0,3,($_SESSION['SesionSucursalDepartamento'].": ".$_SESSION['SesionSucursalDireccion']." ".$_SESSION['SesionSucursalProvincia']." -  ".$_SESSION['SesionSucursalDistrito']),0,1,'R');
+		// Sanitizar variables de sesión
+		$departamento = !empty($_SESSION['SesionSucursalDepartamento']) ? $this->sanitizeString($_SESSION['SesionSucursalDepartamento']) : '';
+		$direccion = !empty($_SESSION['SesionSucursalDireccion']) ? $this->sanitizeString($_SESSION['SesionSucursalDireccion']) : '';
+		$provincia = !empty($_SESSION['SesionSucursalProvincia']) ? $this->sanitizeString($_SESSION['SesionSucursalProvincia']) : '';
+		$distrito = !empty($_SESSION['SesionSucursalDistrito']) ? $this->sanitizeString($_SESSION['SesionSucursalDistrito']) : '';
+		
+		if (!empty($departamento) || !empty($direccion) || !empty($provincia) || !empty($distrito)) {
+			$direccionCompleta = trim($departamento.": ".$direccion." ".$provincia." -  ".$distrito);
+			$this->Cell(0,3,$direccionCompleta,0,1,'R');
+		}
 	
 		if(!empty($_SESSION['SesionSucursalTelefono'])){
-			$this->Cell(0,3,"Telefono: ".$_SESSION['SesionSucursalTelefono'],0,0,'R');
+			$telefono = $this->sanitizeString($_SESSION['SesionSucursalTelefono']);
+			if (!empty($telefono)) {
+				$this->Cell(0,3,"Telefono: ".$telefono,0,0,'R');
+			}
 		}
         
         if(!empty($_SESSION['SesionSucursalEmail'])){
-			$this->Cell(0,3,"Email: ".$_SESSION['SesionSucursalEmail'],0,0,'R');
+			$email = $this->sanitizeString($_SESSION['SesionSucursalEmail']);
+			if (!empty($email)) {
+				$this->Cell(0,3,"Email: ".$email,0,0,'R');
+			}
 		}
          
 		// Salto de línea
 		$this->Ln(20);		
 		
+	}
+	
+	/**
+	 * Sanitiza una cadena para uso seguro en TCPDF
+	 * @param string $string
+	 * @return string
+	 */
+	private function sanitizeString($string) {
+		if (empty($string)) {
+			return '';
+		}
+		
+		// Convertir a string si no lo es
+		$string = (string)$string;
+		
+		// Remover caracteres problemáticos para TCPDF
+		$string = str_replace(['"', "'", '\\', "\0", "\n", "\r", "\t"], '', $string);
+		
+		// Limpiar caracteres no imprimibles y problemáticos
+		$string = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $string);
+		
+		// Remover caracteres que pueden causar problemas con chr()
+		$string = preg_replace('/[^\x20-\x7E\xA0-\xFF]/', '', $string);
+		
+		// Convertir caracteres especiales a entidades HTML básicas
+		$string = html_entity_decode($string, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+		
+		// Asegurar que la cadena no esté vacía después de la limpieza
+		if (empty(trim($string))) {
+			return '';
+		}
+		
+		// Limpiar espacios múltiples y trim
+		$string = preg_replace('/\s+/', ' ', trim($string));
+		
+		return $string;
 	}
 }
 
@@ -312,6 +396,24 @@ $Borde = 0;
 
 //$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, $pagelayout, true, 'UTF-8', false);
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+// Configuraciones adicionales para evitar errores de codificación
+$pdf->setFontSubsetting(true);
+$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+// Configurar fuentes para mejor compatibilidad
+$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+// Configuraciones adicionales para evitar errores chr()
+$pdf->setRTL(false);
+$pdf->setCellHeightRatio(1.25);
+$pdf->setCellPaddings(0, 0, 0, 0);
+
+// Configurar encoding interno
+$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
 //$pdf = new TCPDF();
 //$pdf->SetHeaderData('logotipo.png', PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
 // set document information
@@ -1266,17 +1368,57 @@ $pdf->Cell(190,5,'Numeros de Cuenta:',$Borde,1,'L');
 
 if($GET_Tipo == "S"){
 	
+	// Limpieza completa antes de generar PDF
+	cleanAllOutput();
+	
+	// Generar PDF sin output previo
 	$pdf->Output('../../../generados/'.$InsCotizacionVehiculo->CveId.".pdf","F");	
 	
-	$Resultado['Respuesta'] = '1';
-	$Resultado['Mensaje'] = 'Se genero archivo pdf correctamente';
-	
-	echo json_encode($Resultado);	
+	// Solo enviar respuesta JSON si no hay errores
+	if (!headers_sent()) {
+		$Resultado['Respuesta'] = '1';
+		$Resultado['Mensaje'] = 'Se genero archivo pdf correctamente';
+		
+		// Limpiar cualquier output buffer antes de enviar JSON
+		if (ob_get_level()) {
+			ob_end_clean();
+		}
+		
+		// Enviar headers apropiados para JSON
+		header('Content-Type: application/json; charset=utf-8');
+		echo json_encode($Resultado);
+	}
 	
 }else{
 
+	// Para descarga directa, asegurar que no hay output previo
+	cleanAllOutput();
+	
 	$pdf->Output($InsCotizacionVehiculo->CveId.".pdf","D");	
 
+}
+
+/**
+ * Función para limpiar completamente todo el output antes de generar PDF
+ */
+function cleanAllOutput() {
+	// Limpiar todos los niveles de buffer
+	while (ob_get_level()) {
+		ob_end_clean();
+	}
+	
+	// Limpiar cualquier output que pueda haber quedado
+	if (function_exists('ob_clean')) {
+		ob_clean();
+	}
+	
+	// Verificar si hay headers enviados
+	if (headers_sent($file, $line)) {
+		error_log("Headers already sent in $file on line $line - Cleaning output");
+		// Intentar limpiar el output de todas formas
+		ob_start();
+		ob_end_clean();
+	}
 }
   
 //$pdf->Output($InsCotizacionVehiculo->CveId.".pdf","D");

@@ -81,7 +81,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsSucursal = new ClsSucursal($InsMysql);
 
 $ResCotizacionVehiculo = $InsCotizacionVehiculo->MtdObtenerCotizacionVehiculos(NULL,NULL,NULL,$POST_ord,$POST_sen,NULL,FncCambiaFechaAMysql($POST_finicio),FncCambiaFechaAMysql($POST_ffin),3,NULL,$POST_Personal,NULL,$POST_Sucursal);
@@ -91,7 +91,7 @@ $POST_Moneda = (empty($POST_Moneda)?$EmpresaMonedaId:$POST_Moneda);
 
 //deb($POST_Moneda);
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_Moneda;
 $InsMoneda->MtdObtenerMoneda();
 

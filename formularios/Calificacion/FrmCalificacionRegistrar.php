@@ -11,7 +11,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsTipoCambio.php');
 //CLASES
 $InsCalificacion = new ClsCalificacion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccCalificacionRegistrar.php');
 

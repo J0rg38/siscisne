@@ -45,7 +45,7 @@ $InsPersonal = new ClsPersonal($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsClienteTipo = new ClsClienteTipo();
 $InsSucursal = new ClsSucursal($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $SucursalSiglas = "";
 

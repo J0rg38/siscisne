@@ -51,7 +51,7 @@ $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
 $InsCondicionPago = new ClsCondicionPago();
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsRegimen = new ClsRegimen();
 
 if (isset($_SESSION['InsFacturaExportacionDetalle'.$Identificador])){	

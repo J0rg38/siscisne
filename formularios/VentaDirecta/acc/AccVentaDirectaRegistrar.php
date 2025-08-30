@@ -902,7 +902,7 @@ Parametro7 = CrdTiempoModificacion
 
 				$GuardarAbono = true;
 
-				$InsPago = new ClsPago();
+				$InsPago = new ClsPago($InsMysql);
 
 				$InsPago->PagId = NULL;
 				$InsPago->SucId = $_SESSION['SesionSucursal'];

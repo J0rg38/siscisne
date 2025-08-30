@@ -13,7 +13,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsUnidadMedida.php');
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsAlmacen = new ClsAlmacen();
 $InsSucursal = new ClsSucursal($InsMysql);
 $InsUnidadMedida = new ClsUnidadMedida($InsMysql);

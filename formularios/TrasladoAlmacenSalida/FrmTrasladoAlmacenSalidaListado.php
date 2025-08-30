@@ -141,7 +141,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 
 
 $InsTrasladoAlmacenSalida = new ClsTrasladoAlmacenSalida();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccTrasladoAlmacenSalida.php');
       

@@ -129,7 +129,7 @@ function FncNuevo(){
 	
 	global $TotalOriginal;
 	
-	$InsPago = new ClsPago();
+	$InsPago = new ClsPago($InsMysql);
 	
 	$InsPago->PagFecha = date("d/m/Y");	
 	$InsPago->MonId = $EmpresaMonedaId;

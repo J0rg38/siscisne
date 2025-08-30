@@ -80,10 +80,10 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculo.php');
 
 //INSTANCAS
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 
 $InsOrdenVentaVehiculo->OvvId = $GET_OvvId;
 $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo(false);

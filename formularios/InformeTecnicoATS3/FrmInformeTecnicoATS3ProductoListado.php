@@ -36,7 +36,7 @@ if (!isset($_SESSION['InsInformeTecnicoATS3Producto'.$Identificador])){
 	$_SESSION['InsInformeTecnicoATS3Producto'.$Identificador] = new ClsSesionObjeto();	
 }
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

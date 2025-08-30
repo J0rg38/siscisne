@@ -99,7 +99,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 $InsTrasladoVehiculo = new ClsTrasladoVehiculo();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsAlmacen = new ClsAlmacen();
 $InsSucursal = new ClsSucursal($InsMysql);
 

@@ -70,7 +70,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsProveedor.php');
 $InsTrasladoVehiculo = new ClsTrasladoVehiculo();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsAlmacen = new ClsAlmacen();

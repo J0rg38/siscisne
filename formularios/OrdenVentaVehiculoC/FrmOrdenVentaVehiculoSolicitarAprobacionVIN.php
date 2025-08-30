@@ -41,7 +41,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoVersionCaracteristica.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsVehiculoCaracteristicaSeccion.php');
 
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsOrdenVentaVehiculo->OvvId = $GET_Id;
 $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 

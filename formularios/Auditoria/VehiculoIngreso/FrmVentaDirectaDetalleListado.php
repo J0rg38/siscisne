@@ -44,7 +44,7 @@ if (!isset($_SESSION['InsVentaDirectaDetalle'.$Identificador])){
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsProductoTipoUnidadMedida.php');		
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

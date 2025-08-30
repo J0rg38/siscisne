@@ -400,7 +400,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 			$Registro = true;
 
 			unset($InsOrdenVentaVehiculo);
-			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 			FncNuevo();
 			$Resultado.='#SAS_OVV_101';
 

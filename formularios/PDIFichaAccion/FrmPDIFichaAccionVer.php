@@ -110,7 +110,7 @@ $InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsPreEntregaTarea = new ClsPreEntregaTarea($InsMysql);
 $InsPreEntregaSeccion = new ClsPreEntregaSeccion($InsMysql);

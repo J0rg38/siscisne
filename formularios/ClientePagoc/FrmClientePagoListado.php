@@ -90,7 +90,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsClientePago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsClientePago = new ClsClientePago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 include($InsProyecto->MtdRutFormularios().'ClientePago/acc/AccClientePago.php');
 

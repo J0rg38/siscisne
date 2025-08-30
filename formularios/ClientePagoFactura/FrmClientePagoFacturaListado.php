@@ -76,8 +76,8 @@ require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 //INSTANCAS
 $InsClientePago = new ClsClientePago();
-$InsFormaPago = new ClsFormaPago();
-$InsMoneda = new ClsMoneda();
+$InsFormaPago = new ClsFormaPago($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 
 //ACCIONES
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccClientePagoFactura.php');

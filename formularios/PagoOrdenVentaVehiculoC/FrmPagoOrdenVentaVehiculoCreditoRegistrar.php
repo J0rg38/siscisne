@@ -33,13 +33,13 @@ require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsBanco.php');
 require_once($InsPoo->MtdPaqRRHH().'ClsPersonal.php');
 //INSTANCIAS
-$InsPago = new ClsPago();
-$InsMoneda = new ClsMoneda();
+$InsPago = new ClsPago($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsArea = new ClsArea();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsFormaPago = new ClsFormaPago();
+$InsFormaPago = new ClsFormaPago($InsMysql);
 $InsBanco = new ClsBanco();
 $InsPersonal = new ClsPersonal($InsMysql);
 

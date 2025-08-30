@@ -85,9 +85,9 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCliente.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsPago.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsNotaCredito.php');
 
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $InsFactura = new ClsFactura();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCliente = new ClsCliente();
 $InsNotaCredito = new ClsNotaCredito();
 
@@ -315,7 +315,7 @@ echo number_format($TotalNotaCredito,2);
           <td class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" align="right" >
 
 <?php
-$InsPago = new ClsPago();
+$InsPago = new ClsPago($InsMysql);
 $ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,'PagId','Desc',NULL,NULL,NULL,NULL,NULL,NULL,$DatFactura->FacId,$DatFactura->FtaId,NULL,NULL);
 $ArrPagos = $ResPago['Datos'];
 ?>

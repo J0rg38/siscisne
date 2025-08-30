@@ -252,7 +252,7 @@ $ResNotaCreditoDetalle = $_SESSION['InsNotaCreditoDetalle'.$Identificador]->MtdO
 		if(!empty($InsNotaCredito->OvvId)){
 			
 			//MtdObtenerVehiculoMovimientoSalidas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'VmvId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oMoneda=NULL,$oCliente=NULL,$oFecha="VmvFecha",$oCancelado=0,$oProveedor=NULL,$oCondicionPago=NULL,$oSucursal=NULL,$oAlmacen=NULL,$oSubTipo=NULL,$oOrdenVentaVehiculoId=NULL)
-			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();	
+			$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);	
 					
 			if($InsOrdenVentaVehiculo->MtdGenerarVehiculoMovimientoEntradaDevolucion($InsNotaCredito->OvvId)){
 			

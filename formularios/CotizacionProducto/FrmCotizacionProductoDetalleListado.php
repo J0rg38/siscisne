@@ -26,6 +26,8 @@ require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
 require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
+$InsMysql = new ClsMysql();
+
 $Identificador = $_POST['Identificador'];
 
 $POST_PorcentajeImpuestoVenta = $_POST['PorcentajeImpuestoVenta'];
@@ -91,17 +93,36 @@ require_once($InsPoo->MtdPaqAlmacen() . 'ClsProductoFoto.php');
 require_once($InsPoo->MtdPaqAlmacen() . 'ClsListaPrecio.php');
 require_once($InsPoo->MtdPaqAlmacen() . 'ClsAlmacenProducto.php');
 
-$InsProductoDisponibilidad = new ClsProductoDisponibilidad();
-$InsProductoListaPrecio = new ClsProductoListaPrecio();
-$InsProductoReemplazo = new ClsProductoReemplazo();
+$InsProductoDisponibilidad = new ClsProductoDisponibilidad($InsMysql);
+$InsProductoListaPrecio = new ClsProductoListaPrecio($InsMysql);
+$InsProductoReemplazo = new ClsProductoReemplazo($InsMysql);
 
 $InsProducto = new ClsProducto($InsMysql);
 $InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 $InsUnidadMedidaConversion = new ClsUnidadMedidaConversion($InsMysql);
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
+
+
+$RepSesionObjetos = $_SESSION['InsCotizacionProductoDetalle' . $Identificador]->MtdObtenerSesionObjetos(true);
+$ArrCotizacionProductoDetalles = $RepSesionObjetos['Datos'];
+
+
+
+
+$RepSesionObjetos = $_SESSION['InsCotizacionProductoPlanchado' . $Identificador]->MtdObtenerSesionObjetos(true);
+$ArrCotizacionProductoPlanchados = $RepSesionObjetos['Datos'];
+
+$RepSesionObjetos = $_SESSION['InsCotizacionProductoPintado' . $Identificador]->MtdObtenerSesionObjetos(true);
+$ArrCotizacionProductoPintados = $RepSesionObjetos['Datos'];
+
+$RepSesionObjetos = $_SESSION['InsCotizacionProductoCentrado' . $Identificador]->MtdObtenerSesionObjetos(true);
+$ArrCotizacionProductoCentrados = $RepSesionObjetos['Datos'];
+
+$RepSesionObjetos = $_SESSION['InsCotizacionProductoTarea' . $Identificador]->MtdObtenerSesionObjetos(true);
+$ArrCotizacionProductoTareas = $RepSesionObjetos['Datos'];
 
 
 

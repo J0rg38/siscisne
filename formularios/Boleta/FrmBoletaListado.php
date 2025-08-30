@@ -232,13 +232,41 @@ Otras variables
 	include($InsProyecto->MtdFormulariosAcc("Boleta") . 'AccBoleta.php');
 
 	//MtdObtenerBoletas($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'BolId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oRegimen=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oAlmacenMovimiento=NULL,$oCliente=NULL,$oOrdenVentaVehiculo=NULL,$oVentaDirecta=NULL,$oVendedor=NULL, $oSucursal=NULL,$oNoProcesdado=false,$oCancelado=NULL)
-	$ResBoleta = $InsBoleta->MtdObtenerBoletas("bol.BolId,bta.BtaNumero,cli.CliNombreCompleto,cli.CliNombre,cli.CliApellidoPaterno,cli.CliApellidoMaterno,cli.CliNumeroDocumento,bol.AmoId,fim.FinId,amo.VdiId,vdi.VdiOrdenCompraNumero,bol.OvvId,bol.BolDatoAdicional8", $POST_con, $POST_fil, $POST_ord, $POST_sen, $POST_pag, $POST_estado, FncCambiaFechaAMysql($POST_finicio), FncCambiaFechaAMysql($POST_ffin), $POST_tal, NULL, $POST_npago, $POST_Moneda, NULL, NULL, NULL, NULL, NULL, $POST_Sucursal, $MostrarNoProcesados, $POST_Cancelado);
+	$ResBoleta = $InsBoleta->MtdObtenerBoletas(
+		"bol.BolId,bta.BtaNumero,cli.CliNombreCompleto,cli.CliNombre,cli.CliApellidoPaterno,cli.CliApellidoMaterno,cli.CliNumeroDocumento,bol.AmoId,fim.FinId,amo.VdiId,vdi.VdiOrdenCompraNumero,bol.OvvId,bol.BolDatoAdicional8",
+		$POST_con,
+		$POST_fil,
+		$POST_ord,
+		$POST_sen,
+		$POST_pag,
+		$POST_estado,
+		FncCambiaFechaAMysql($POST_finicio),
+		FncCambiaFechaAMysql($POST_ffin),
+		$POST_tal,
+		NULL,
+		$POST_npago,
+		$POST_Moneda,
+		NULL,
+		NULL,
+		NULL,
+		NULL,
+		NULL,
+		$POST_Sucursal,
+		$MostrarNoProcesados,
+		$POST_Cancelado,
+		false,
+		NULL,
+		false,
+		NULL,
+		NULL,
+		NULL
+	);
+
 	$ArrBoletas = $ResBoleta['Datos'];
 	$BoletasTotal = $ResBoleta['Total'];
 	$BoletasTotalSeleccionado = $ResBoleta['TotalSeleccionado'];
 
-	$ResBoletaTalonario = $InsBoletaTalonario->MtdObtenerBoletaTalonarios(NULL, NULL, "BtaNumero", "DESC", NULL, $POST_Sucursal);
-	$ArrBoletaTalonarios = $ResBoletaTalonario['Datos'];
+
 	$ResBoletaTalonario = $InsBoletaTalonario->MtdObtenerBoletaTalonarios(NULL, NULL, "BtaNumero", "DESC", NULL, $POST_Sucursal, true);
 	$ArrBoletaTalonarios = $ResBoletaTalonario['Datos'];
 

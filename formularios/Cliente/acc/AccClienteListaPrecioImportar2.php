@@ -121,7 +121,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsClienteListaPrecio.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsTipoCambio.php');
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

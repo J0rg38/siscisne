@@ -42,7 +42,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoMantenimiento.php'
 
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoPropietario.php');
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsOrdenVentaVehiculo->OvvId = $GET_id;
 $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 

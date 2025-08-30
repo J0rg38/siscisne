@@ -39,7 +39,7 @@ if (!isset($_SESSION['InsVehiculoListaPrecioDetalle'.$Identificador])){
 
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

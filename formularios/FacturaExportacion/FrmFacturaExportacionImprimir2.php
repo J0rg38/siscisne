@@ -38,7 +38,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsTipoCambio.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoPropietario.php');
 
 $InsFacturaExportacion = new ClsFacturaExportacion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoCambio = new ClsTipoCambio();
 
 //Obteniendo datos de boleta

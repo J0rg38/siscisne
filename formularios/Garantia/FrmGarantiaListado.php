@@ -118,7 +118,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsGarantia = new ClsGarantia($InsMysql);
 $InsModalidadIngreso = new ClsModalidadIngreso($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsGarantia->UsuId = $_SESSION['SesionId'];
 

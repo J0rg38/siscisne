@@ -109,7 +109,7 @@ $InsPersonal = new ClsPersonal($InsMysql);
 $InsEntregaVentaVehiculo->EvvId = $GET_Id;
 $InsEntregaVentaVehiculo->MtdObtenerEntregaVentaVehiculo(false);
 
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsOrdenVentaVehiculo->OvvId = $InsEntregaVentaVehiculo->OvvId;
 $InsOrdenVentaVehiculo->MtdObtenerOrdenVentaVehiculo();
 

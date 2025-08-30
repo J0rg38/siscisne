@@ -115,7 +115,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsNotaCreditoCompraDetalle.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsNotaCreditoCompra = new ClsNotaCreditoCompra();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 $InsNotaCreditoCompra->UsuId = $_SESSION['SesionId'];
 

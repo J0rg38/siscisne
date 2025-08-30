@@ -182,7 +182,7 @@ require_once($InsPoo->MtdPaqContabilidad().'ClsFacturaTalonario.php');
 $InsFactura = new ClsFactura();
 $InsFacturaTalonario = new ClsFacturaTalonario();
 $InsCondicionPago = new ClsCondicionPago();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsNotaCredito = new ClsNotaCredito();
 
 

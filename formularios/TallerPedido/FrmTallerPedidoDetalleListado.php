@@ -69,7 +69,7 @@ $InsAlmacen = new ClsAlmacen();
 $InsAlmacenStock = new ClsAlmacenStock();
 
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsMoneda->MonId = $POST_MonedaId;
 $InsMoneda->MtdObtenerMoneda();
 

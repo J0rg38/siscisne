@@ -292,7 +292,7 @@ $().ready(function() {
                      
                     
                     <?php
-                    $InsPago = new ClsPago();
+                    $InsPago = new ClsPago($InsMysql);
 
 //MtdObtenerPagos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'PagId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oVentaDirecta=NULL,$oReporteFacturacion=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oFactura=NULL,$oFacturaTalonario=NULL,$oBoleta=NULL,$oBoletaTalonario=NULL,$oArea=NULL)
                     $ResPago = $InsPago->MtdObtenerPagos(NULL,NULL,NULL,'PagId','Desc',NULL,NULL,NULL,$DatReporteFacturacion->OvvId,NULL,NULL,NULL,NULL,NULL,NULL);

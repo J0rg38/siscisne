@@ -114,7 +114,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCotizacionProducto.php');
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
 $InsProduccionProducto = new ClsProduccionProducto();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccProduccionProducto.php');
 

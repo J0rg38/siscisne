@@ -24,7 +24,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCondicionPago.php');
 require_once($InsPoo->MtdPaqEmpresa().'ClsSucursal.php');
 
 
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 $InsSucursal = new ClsSucursal($InsMysql);
 

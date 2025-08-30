@@ -43,7 +43,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoPropietario.php');
 require_once($InsPoo->MtdPaqLogistica().'ClsOrdenVentaVehiculoObsequio.php');
 
 $InsBoleta = new ClsBoleta();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoCambio = new ClsTipoCambio();
 
 //Obteniendo datos de boleta

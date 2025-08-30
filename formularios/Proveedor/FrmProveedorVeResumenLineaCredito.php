@@ -32,7 +32,7 @@ require_once($InsPoo->MtdPaqReporte().'ClsReporteOrdenCompra.php');
 //INSTANCIAS
 $InsProveedor = new ClsProveedor();
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 
 
 

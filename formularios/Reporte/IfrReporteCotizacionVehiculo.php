@@ -82,7 +82,7 @@ $InsVehiculoMarca = new ClsVehiculoMarca();
 $InsVehiculoVersion = new ClsVehiculoVersion();
 $InsSucursal = new ClsSucursal($InsMysql);
 $InsPersonal = new ClsPersonal($InsMysql);
-$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo();
+$InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
 $InsCotizacionVehiculo = new ClsCotizacionVehiculo();
 $InsVehiculoModelo = new ClsVehiculoModelo();
 

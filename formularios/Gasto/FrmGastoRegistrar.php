@@ -47,7 +47,7 @@ require_once($InsPoo->MtdPaqLogistica().'ClsCondicionPago.php');
 $InsGasto = new ClsGasto();
 $InsComprobanteTipo = new ClsComprobanteTipo();
 $InsTipoOperacion = new ClsTipoOperacion();
-$InsMoneda = new ClsMoneda();
+$InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsCondicionPago = new ClsCondicionPago();
 
