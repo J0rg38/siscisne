@@ -1383,9 +1383,11 @@ $pdf->SetFont('times', 'B', 6);
 $pdf->Cell(190,3,"Esta es una representación impresa de la Factura electrónica, Puede verificarlo utilizando su clave SOL en www.sunat.gob.pe",$lineas,1,'C',0,0);
 	
 
+$pdf->Output('../../generados/comprobantes_pdf/'.$NOMBRE.'.pdf', 'F');
 
-$pdf->Output('../../generados/comprobantes_pdf/'.$NOMBRE.'.pdf', 'F');	
+if (ob_get_length()) {
+    ob_end_clean();
+}
 
 $pdf->Output($NOMBRE.".pdf");
-
 ?>
