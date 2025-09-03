@@ -85,7 +85,9 @@ $ARCHIVO_CDR = "R-" . $NOMBRE . ".zip";
 
 //echo 'http://'.$URL_REMOTO.'/'.$CARPETA.'/WsSUNAT.php?wsdl';
 
-$l_oClient = new nusoap_client('http://' . $URL_REMOTO . '/' . $CARPETA . '/WsSUNAT.php?wsdl', 'wsdl');
+$URL_SOAP = 'http://' . $URL_REMOTO . '/' . $CARPETA . '/WsSUNAT.php?wsdl';
+
+$l_oClient = new nusoap_client($URL_SOAP, 'wsdl');
 
 
 $l_oProxy = $l_oClient->getProxy();
@@ -102,8 +104,6 @@ $ComprobanteXML['XMLUrl'] = "http://" . $URL_LOCAL . "/" . $SistemaNombreCarpeta
 //$ComprobanteXML['XMLUrl'] = "http://".$URL_LOCAL."/SISTEMAS/SISCA/empresa/generados/comprobantes_xml/".$ARCHIVO_XML;
 
 $ComprobanteXML['XMLNombre'] = $NOMBRE;
-
-deb($ComprobanteXML);
 
 $l_stResult = $l_oProxy->MtdProcesarFactura(json_encode($ComprobanteXML));
 $l_stResult = eregi_replace("'", "\"", $l_stResult);
