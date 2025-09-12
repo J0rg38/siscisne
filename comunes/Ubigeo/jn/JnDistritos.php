@@ -28,7 +28,7 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 
 require_once($InsProyecto->MtdRutLibrerias().'JSON.php');
 
-$GET_Provincia = $_GET['Provincia'];
+$GET_Provincia = utf8_decode($_GET['Provincia']);
 
 require_once($InsPoo->MtdPaqLogistica().'ClsUbigeo.php');
 
