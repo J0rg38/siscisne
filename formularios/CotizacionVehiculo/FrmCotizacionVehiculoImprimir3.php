@@ -131,13 +131,13 @@ setTimeout("window.close();",1500);
 	  
 	  //deb($InsCotizacionVehiculo->VmaId);
 	  switch($InsCotizacionVehiculo->VmaId){
-		  case "VMA-10017":
+		  case "VMA-10000":
 	?>
         <img src="../../imagenes/membretes/cabecera_chevrolet.png" width="100%"  />
         <?php  
 		  break;
 		  
-		  case "VMA-10018":
+		  case "VMA-10001":
 	?>
         <img src="../../imagenes/membretes/cabecera_isuzu.png" width="100%"  />
         <?php	  
