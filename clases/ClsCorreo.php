@@ -42,8 +42,8 @@ class ClsCorreo {
 			$mail->SMTPAuth   = true;                  // enable SMTP authentication
 			//$mail->SMTPSecure = "tls";//"ssl";                 // sets the prefix to the servier
 			$mail->SMTPSecure = "ssl";//"ssl";                 // sets the prefix to the servier
-			$mail->Host       = "mail.cisne.com.pe";      // sets GMAIL as the SMTP server
-			$mail->Port       = 587;	//465;//587;                   // set the SMTP port for the GMAIL server
+			$mail->Host       = "planetape104114.dedicados.cl";      // sets GMAIL as the SMTP server
+			$mail->Port       = 465;	//465;//587;                   // set the SMTP port for the GMAIL server
 			$mail->Username   =  $SistemaCorreoUsuario;  // GMAIL username
 			$mail->Password   = $SistemaCorreoContrasena;            // GMAIL password
 			$mail->SetFrom($SistemaCorreoUsuario, $CorRemitenteNombre);

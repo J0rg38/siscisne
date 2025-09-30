@@ -105,7 +105,7 @@ class ClsUbigeo {
 
 				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
 					$Ubigeo = new $InsUbigeo();
-					$Ubigeo->UbiDepartamento= $fila['UbiDepartamento'];
+					$Ubigeo->UbiDepartamento= utf8_encode($fila['UbiDepartamento']);
 				
                     $Ubigeo->InsMysql = NULL;                    
 					$Respuesta['Datos'][]= $Ubigeo;
@@ -153,7 +153,7 @@ class ClsUbigeo {
 
 				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
 					$Ubigeo = new $InsUbigeo();
-					$Ubigeo->UbiProvincia= $fila['UbiProvincia'];
+					$Ubigeo->UbiProvincia= utf8_encode($fila['UbiProvincia']);
 					
                     $Ubigeo->InsMysql = NULL;                    
 					$Respuesta['Datos'][]= $Ubigeo;
@@ -203,7 +203,7 @@ class ClsUbigeo {
 
 				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
 					$Ubigeo = new $InsUbigeo();
-					$Ubigeo->UbiDistrito= $fila['UbiDistrito'];
+					$Ubigeo->UbiDistrito= utf8_encode($fila['UbiDistrito']);
 					$Ubigeo->UbiId= $fila['UbiId'];
 					$Ubigeo->UbiCodigo= $fila['UbiCodigo'];
 					

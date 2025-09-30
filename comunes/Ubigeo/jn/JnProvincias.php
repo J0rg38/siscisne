@@ -29,7 +29,7 @@ require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
 require_once($InsProyecto->MtdRutLibrerias().'JSON.php');
 
 
-$GET_Departamento = $_GET['Departamento'];
+$GET_Departamento = utf8_decode($_GET['Departamento']);
 
 require_once($InsPoo->MtdPaqLogistica().'ClsUbigeo.php');
 

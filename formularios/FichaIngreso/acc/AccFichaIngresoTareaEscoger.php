@@ -35,6 +35,8 @@ $ModalidadIngreso = $_POST['ModalidadIngreso'];
 session_start();
 if (!isset($_SESSION['InsFichaIngresoTarea'.$ModalidadIngreso.$Identificador])){
 	$_SESSION['InsFichaIngresoTarea'.$ModalidadIngreso.$Identificador] = new ClsSesionObjeto();
+} else {
+  $_SESSION['InsFichaIngresoTarea' . $ModalidadIngreso.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsFichaIngresoTarea' . $ModalidadIngreso.$Identificador]);
 }
 
 $InsFichaIngresoTarea1 = array();

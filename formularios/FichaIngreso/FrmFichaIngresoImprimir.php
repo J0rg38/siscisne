@@ -60,7 +60,7 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedido.php');
 require_once($InsPoo->MtdPaqAlmacen().'ClsTallerPedidoDetalle.php');
 
 
-$InsFichaIngreso = new ClsFichaIngreso($InsMysql);
+$InsFichaIngreso = new ClsFichaIngreso();
 
 $InsFichaIngreso->FinId = $GET_id;
 $InsFichaIngreso = $InsFichaIngreso->MtdObtenerFichaIngreso();
@@ -111,15 +111,17 @@ setTimeout("window.close();",1500);
   <td width="57%" align="center" valign="top">
   
 
-  <span class="EstPlantillaImprimirEtiqueta">ORDEN DE TRABAJO - GARANTIA</span><br />
-  <span class="EstPlantillaTituloCodigo"><?php echo "No - ".$InsFichaIngreso->FinId2;?></span> 
+  <span class="EstPlantillaImprimirEtiqueta">ORDEN DE TRABAJO </span><br />
+  <span class="EstPlantillaTituloCodigo"><?php echo $InsFichaIngreso->FinId;?></span> 
   
   
  
   
   </td>
   <td width="21%" align="right" valign="top">
-    </td>
+    <span class="EstPlantillaDatosImpresion"><?php echo date("d/m/Y");?> <?php echo date("H:i:s");?> <?php echo date("a");?></span> <br />
+    
+    <span class="EstPlantillaDatosImpresion"><?php echo $_SESSION['SesionUsuario'];?></span></td>
 </tr>
 </table>
 
@@ -185,7 +187,7 @@ setTimeout("window.close();",1500);
           <tr>
             <td width="49%" align="left" valign="top" class="EstFichaIngresoImprimirEtiquetaFondo" ><span class="EstFichaIngresoImprimirEtiqueta">No. de O/T</span></td>
             <td width="5%" align="left" valign="top" ><span class="EstFichaIngresoImprimirEtiqueta">:</span></td>
-            <td width="46%" align="left" valign="top" ><span class="EstFichaIngresoImprimirContenido"><?php echo $InsFichaIngreso->FinId2;?></span></td>
+            <td width="46%" align="left" valign="top" ><span class="EstFichaIngresoImprimirContenido"><?php echo $InsFichaIngreso->FinId;?></span></td>
             </tr>
           <tr>
             <td align="left" valign="top" class="EstFichaIngresoImprimirEtiquetaFondo"><span class="EstFichaIngresoImprimirEtiqueta">Fecha de O/T</span></td>
@@ -332,7 +334,6 @@ Realizar
 	
 	
 ?>
-
                   </tbody>
                 </table>
 			
@@ -575,20 +576,6 @@ Realizar
         </table>
       </div>
     </td>
-</tr>
-<tr>
-  <td>
-    <table width="100%" height="140" border="0" cellpadding="3" cellspacing="2" class="EstFichaIngresoImprimirTabla">
-      <tbody class="EstFichaIngresoImprimirTablaBody">
-        <tr>
-          <td width="100%">
-            <strong>NOTAS DE INGRESO:</strong><br>
-            <?php echo $InsFichaIngreso->FinNota; ?>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </td>
 </tr>
 <tr>
   <td colspan="6" valign="top"><div class="EstFichaIngresoImprimirCapa">

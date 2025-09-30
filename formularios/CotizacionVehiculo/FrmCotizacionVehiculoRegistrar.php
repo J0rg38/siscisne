@@ -305,7 +305,7 @@ if(!empty($GET_dia)){
 					}
 					?>
                       <select  class="EstFormularioCombo" name="CmpNivelInteres" id="CmpNivelInteres">
-                        <option <?php echo $OpcNivelInteres1;?> value="1">Normal (Sin Inter&eacute;s)</option>
+                        <option <?php echo $OpcNivelInteres1;?> value="1">Normal (Sin Interés)</option>
                         <option <?php echo $OpcNivelInteres11;?> value="11">Poco Interesado</option>
                         <option <?php echo $OpcNivelInteres12;?> value="12">Medianamente Interesado</option>
                         <option <?php echo $OpcNivelInteres2;?> value="2">Interesado</option>
