@@ -371,13 +371,37 @@ function consultarEstadoCDR($ruc, $tipo, $serie, $numero)
     //$endpoint = 'https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService';
     $endpoint = $URL_SERVICIO_CDR;
 
-    $soapRequest = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:ser="http://service.sunat.gob.pe"
-                  xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    /*
+"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:ser=""http://service.sunat.gob.pe"">
    <soapenv:Header>
-      <wsse:Security soapenv:mustUnderstand="1">
-         <wsse:UsernameToken wsu:Id="ABC-123">
+      <wsse:Security soapenv:mustUnderstand=""1"" xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"">
+         <wsse:UsernameToken wsu:Id=""UsernameToken-c175cdb9-9a32-4291-b8c7-85dff8107561"">
+            <wsse:Username>*************</wsse:Username>
+            <wsse:Password Type=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"">***************</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ser:getStatusCdr>
+         <!--Optional:-->
+         <statusCdr>
+            <!--Optional:-->
+             <numeroComprobante>********</numeroComprobante>
+            <!--Optional:-->
+            <rucComprobante>******</rucComprobante>
+            <!--Optional:-->
+            <serieComprobante>****</serieComprobante>
+            <!--Optional:-->
+            <tipoComprobante>***</tipoComprobante>
+         </statusCdr>
+      </ser:getStatusCdr>
+   </soapenv:Body>
+</soapenv:Envelope>"
+    */
+    $soapRequest = '<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:ser=""http://service.sunat.gob.pe"">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand=""1"" xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"">
+          <wsse:UsernameToken wsu:Id=""UsernameToken-c175cdb9-9a32-4291-b8c7-85dff8107561"">
             <wsse:Username>' . htmlspecialchars($usuario, ENT_XML1) . '</wsse:Username>
             <wsse:Password>' . htmlspecialchars($clave, ENT_XML1) . '</wsse:Password>
          </wsse:UsernameToken>
@@ -473,16 +497,32 @@ function procesarComprobante($nombreArchivo, $contenidoZip)
     // Codificar el contenido del ZIP en base64
     $zipBase64 = base64_encode($contenidoZip);
 
+    /*
+    "<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:ser=""http://service.sunat.gob.pe"">
+	<soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand=""1"" xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"">
+         <wsse:UsernameToken wsu:Id=""UsernameToken-c175cdb9-9a32-4291-b8c7-85dff8107561"">
+            <wsse:Username>*********</wsse:Username>
+            <wsse:Password Type=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"">********</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>  
+    <soapenv:Body>      
+    <ser:sendBill>   
+         <fileName>***********************</fileName>
+         <contentFile>*********************</contentFile>
+      </ser:sendBill> 
+   </soapenv:Body>
+</soapenv:Envelope>"
+    */
     // Armar la estructura del XML SOAP
     $xml = '<?xml version="1.0" encoding="UTF-8"?>
-    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                    xmlns:ser="http://service.sunat.gob.pe"
-                    xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
-    <soapenv:Header>
-    <wsse:Security soapenv:mustUnderstand="0">
-        <wsse:UsernameToken>
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.sunat.gob.pe">
+   <soapenv:Header>
+    <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken wsu:Id="UsernameToken-c175cdb9-9a32-4291-b8c7-85dff8107561">
         <wsse:Username>' . $usuario . '</wsse:Username>
-        <wsse:Password>' . $clave . '</wsse:Password>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">' . $clave . '</wsse:Password>
         </wsse:UsernameToken>
     </wsse:Security>
     </soapenv:Header>
@@ -727,6 +767,26 @@ function procesarBajaResumen($nombreArchivo, $contenidoZip)
     // Codificar el contenido del ZIP en base64
     $zipBase64 = base64_encode($contenidoZip);
 
+    /*
+"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:ser=""http://service.sunat.gob.pe"">
+<soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand=""1"" xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"">
+         <wsse:UsernameToken wsu:Id=""UsernameToken-c175cdb9-9a32-4291-b8c7-85dff8107561"">
+            <wsse:Username>****************</wsse:Username>
+            <wsse:Password Type=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"">***************</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ser:sendSummary>
+         <!--Optional:-->
+         <fileName>*****************</fileName>
+         <!--Optional:-->
+         <contentFile>***************</contentFile>
+      </ser:sendSummary>
+   </soapenv:Body>
+</soapenv:Envelope>"
+    */
     // Armar la estructura del XML SOAP
     $xml = '<?xml version="1.0" encoding="UTF-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"

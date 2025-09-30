@@ -78,7 +78,7 @@ if ($err) {
 $Ticket['Numero'] = $InsGuiaRemision->GreSunatRespuestaTicket."";
 
 $l_stResult = $l_oProxy->MtdConsultarEstadoTicket(json_encode($Ticket));
-$l_stResult = eregi_replace("'","\"",$l_stResult);
+$l_stResult = preg_replace("/'/", "\"", $l_stResult);
 $Trama = json_decode($l_stResult,true);
 
 $InsGuiaRemision->MtdEditarGuiaRemisionDato("GreSunatRespuestaConsultaTicket",$Trama['TicketRespuesta'],$InsGuiaRemision->GreId,$InsGuiaRemision->GrtId);

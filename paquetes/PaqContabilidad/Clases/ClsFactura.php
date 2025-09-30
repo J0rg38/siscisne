@@ -1136,8 +1136,38 @@ fac.FacLeyenda,
 		return $Respuesta;
 	}
 
-	public function MtdObtenerFacturas($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'FacId', $oSentido = 'Desc', $oPaginacion = '0,10', $oSucursal = NULL, $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oCredito = NULL, $oRegimen = NULL, $oCondicionPago = NULL, $oNotaCredito = NULL, $oMoneda = NULL, $oCliente = NULL, $oAlmacenMovimiento = NULL, $oDiaVencer = NULL, $oPagado = NULL, $oOrdenVentaVehiculo = NULL, $oVentaDirecta = NULL, $oVendedor = NULL, $oTieneCodigoExterno = NULL, $oNoProcesdado = false, $oCancelado = NULL, $oSinPago = false, $oDiasVencido = NULL, $oVencido = false, $oObsequio = NULL)
-	{
+	public function MtdObtenerFacturas(
+		$oCampo = NULL,
+		$oCondicion = NULL,
+		$oFiltro = NULL,
+		$oOrden = 'FacId',
+		$oSentido = 'Desc',
+		$oPaginacion = '0,10',
+		$oSucursal = NULL,
+		$oEstado = NULL,
+		$oFechaInicio = NULL,
+		$oFechaFin = NULL,
+		$oTalonario = NULL,
+		$oCredito = NULL,
+		$oRegimen = NULL,
+		$oCondicionPago = NULL,
+		$oNotaCredito = NULL,
+		$oMoneda = NULL,
+		$oCliente = NULL,
+		$oAlmacenMovimiento = NULL,
+		$oDiaVencer = NULL,
+		$oPagado = NULL,
+		$oOrdenVentaVehiculo = NULL,
+		$oVentaDirecta = NULL,
+		$oVendedor = NULL,
+		$oTieneCodigoExterno = NULL,
+		$oNoProcesdado = false,
+		$oCancelado = NULL,
+		$oSinPago = false,
+		$oDiasVencido = NULL,
+		$oVencido = false,
+		$oObsequio = NULL
+	) {
 
 		// Inicializar variables de filtro para evitar warnings
 		$filtrar = '';
@@ -1529,6 +1559,7 @@ fac.FacLeyenda,
 			$sucursal = ' AND fac.SucId = "' . $oSucursal . '"';
 		}
 
+		deb($oNoProcesdado);
 		if (($oNoProcesdado)) {
 
 			$noprocesado = ' 	AND (fac.FacSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 

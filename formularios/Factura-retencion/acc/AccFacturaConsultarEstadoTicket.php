@@ -79,7 +79,7 @@ if ($err) {
 $Ticket['Numero'] = $InsFactura->FacSunatRespuestaTicket."";
 
 $l_stResult = $l_oProxy->MtdConsultarEstadoTicket(json_encode($Ticket));
-$l_stResult = eregi_replace("'","\"",$l_stResult);
+$l_stResult = preg_replace("/'/", "\"", $l_stResult);
 $Trama = json_decode($l_stResult,true);
 
 $InsFactura->MtdEditarFacturaDato("FacSunatRespuestaConsultaTicket",$Trama['TicketRespuesta'],$InsFactura->FacId,$InsFactura->FtaId);

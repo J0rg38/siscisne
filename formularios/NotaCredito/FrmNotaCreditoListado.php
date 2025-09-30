@@ -147,7 +147,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
 	include($InsProyecto->MtdRutFormularios() . 'NotaCredito/acc/AccNotaCredito.php');
 
 	//MtdObtenerNotaCreditos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'NcrId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oSucursal=NULL,$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oMoneda=NULL,$oDocumentoId=NULL,$oDocumentoTalonarioId=NULL,$oSucursal=NULL,$oClienteId=NULL,$oNoProcesdado=false)
-	$ResNotaCredito = $InsNotaCredito->MtdObtenerNotaCreditos("cli.CliNombre,cli.CliApellidoPaterno,cli.CliApellidoMaterno,ncr.NcrId", "contiene", $POST_fil, $POST_ord, $POST_sen, 1, $POST_pag, $_SESSION['SesionSucursal'], $POST_estado, FncCambiaFechaAMysql($POST_finicio), FncCambiaFechaAMysql($POST_ffin), $POST_tal, $POST_Moneda, NULL, NULL, $POST_Sucursal, NULL, $MostrarNoProcesados);
+	$ResNotaCredito = $InsNotaCredito->MtdObtenerNotaCreditos("cli.CliNombre,cli.CliApellidoPaterno,cli.CliApellidoMaterno,ncr.NcrId", "contiene", $POST_fil, $POST_ord, $POST_sen, 1, $POST_pag, $_SESSION['SesionSucursal'], $POST_estado, FncCambiaFechaAMysql($POST_finicio), FncCambiaFechaAMysql($POST_ffin), $POST_tal, $POST_Moneda, NULL, NULL,  NULL, $MostrarNoProcesados);
 	$ArrNotaCreditos = $ResNotaCredito['Datos'];
 	$NotaCreditosTotal = $ResNotaCredito['Total'];
 	$NotaCreditosTotalSeleccionado = $ResNotaCredito['TotalSeleccionado'];

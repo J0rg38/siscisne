@@ -86,11 +86,14 @@ class ClsConexion
 				throw new Exception("Error de conexión: No se pudo establecer la conexión");
 			}
 
-			/*
-			// Configurar charset
-			if (!$this->CloConexion->set_charset($config['charset'])) {
-				throw new Exception("Error al establecer charset: " . $this->CloConexion->error);
-			}*/
+			// Configurar charset UTF-8
+			if (!$this->CloConexion->set_charset("utf8")) {
+				throw new Exception("Error al establecer charset UTF-8: " . $this->CloConexion->error);
+			}
+			
+			// Establecer cotejamiento UTF-8
+			$this->CloConexion->query("SET NAMES utf8");
+			$this->CloConexion->query("SET collation_connection = 'utf8_unicode_ci'");
 
 			// Configurar modo SQL
 			$this->CloConexion->query("SET sql_mode = 'STRICT_TRANS_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO'");

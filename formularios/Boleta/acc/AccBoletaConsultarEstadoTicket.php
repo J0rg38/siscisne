@@ -79,7 +79,7 @@ if ($err) {
 $Ticket['Numero'] = $InsBoleta->BolSunatRespuestaTicket."";
 
 $l_stResult = $l_oProxy->MtdConsultarEstadoTicket(json_encode($Ticket));
-$l_stResult = eregi_replace("'","\"",$l_stResult);
+$l_stResult = preg_replace("/'/", "\"", $l_stResult);
 $Trama = json_decode($l_stResult,true);
 
 $InsBoleta->MtdEditarBoletaDato("BolSunatRespuestaConsultaTicket",$Trama['TicketRespuesta'],$InsBoleta->BolId,$InsBoleta->BtaId);

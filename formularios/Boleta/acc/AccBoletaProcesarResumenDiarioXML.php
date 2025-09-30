@@ -66,7 +66,7 @@ $Comprobante['XMLUrl'] = "http://".$URL_LOCAL."/".$SistemaNombreCarpeta."/genera
 $Comprobante['XMLNombre'] = $NOMBRE;
 
 $l_stResult = $l_oProxy->MtdProcesarResumenDiario(json_encode($Comprobante));
-$l_stResult = eregi_replace("'","\"",$l_stResult);
+$l_stResult = preg_replace("/'/", "\"", $l_stResult);
 $Trama = json_decode($l_stResult,true);
 
 $InsResumenDiario->MtdEditarResumenDiarioDato("RdiSunatRespuestaResumenTicket",$Trama['TicketRespuesta'],$InsResumenDiario->RdiId);

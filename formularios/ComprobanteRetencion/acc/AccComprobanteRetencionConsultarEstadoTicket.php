@@ -77,7 +77,7 @@ if ($err) {
 $Ticket['Numero'] = $InsComprobanteRetencion->CrnSunatRespuestaTicket."";
 
 $l_stResult = $l_oProxy->MtdConsultarEstadoTicket(json_encode($Ticket));
-$l_stResult = eregi_replace("'","\"",$l_stResult);
+$l_stResult = preg_replace("/'/", "\"", $l_stResult);
 $Trama = json_decode($l_stResult,true);
 
 $InsComprobanteRetencion->MtdEditarComprobanteRetencionDato("CrnSunatRespuestaConsultaTicket",$Trama['TicketRespuesta'],$InsComprobanteRetencion->CrnId,$InsComprobanteRetencion->CrtId);

@@ -141,7 +141,7 @@ if (!empty($_FILES)) {
 					
 					//$data = preg_replace("/[\r\n|\n|\r]+/", PHP_EOL, $data);
 					
-					$data = eregi_replace("[\n|\r|\n\r]", ' ', $data);
+					$data = preg_replace("/[\n|\r|\n\r]/", " ", $data);
 					
 //					$items = simplexml_load_string($data);
 //					

@@ -78,7 +78,7 @@ if ($err) {
 $Ticket['Numero'] = $InsNotaCredito->NcrSunatRespuestaTicket."";
 
 $l_stResult = $l_oProxy->MtdConsultarEstadoTicket(json_encode($Ticket));
-$l_stResult = eregi_replace("'","\"",$l_stResult);
+$l_stResult = preg_replace("/'/", "\"", $l_stResult);
 $Trama = json_decode($l_stResult,true);
 
 $InsNotaCredito->MtdEditarNotaCreditoDato("NcrSunatRespuestaConsultaTicket",$Trama['TicketRespuesta'],$InsNotaCredito->NcrId,$InsNotaCredito->NctId);

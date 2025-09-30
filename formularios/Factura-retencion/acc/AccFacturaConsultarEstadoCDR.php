@@ -126,7 +126,7 @@ $l_stResult = $l_oProxy->MtdConsultarCDR(json_encode($ComprobanteXML));
 
 
 
-$l_stResult = eregi_replace("'","\"",$l_stResult);
+$l_stResult = preg_replace("/'/", "\"", $l_stResult);
 
 $Trama = json_decode($l_stResult,true);
 

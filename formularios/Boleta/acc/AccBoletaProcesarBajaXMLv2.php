@@ -77,7 +77,7 @@ $Comprobante['XMLNombre'] = $NOMBRE;
 //deb($Comprobante);
 ///exit();
 $l_stResult = $l_oProxy->MtdDarBajaBoleta(json_encode($Comprobante));
-$l_stResult = eregi_replace("'","\"",$l_stResult);
+$l_stResult = preg_replace("/'/", "\"", $l_stResult);
 $l_stResult = utf8_encode($l_stResult);
 
 $Trama = json_decode($l_stResult,true);

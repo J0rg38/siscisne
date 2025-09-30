@@ -87,7 +87,7 @@ $ComprobanteXML['XMLUrl'] = "http://".$URL_LOCAL."/".$SistemaNombreCarpeta."/gen
 $ComprobanteXML['XMLNombre'] = $NOMBRE;
 
 $l_stResult = $l_oProxy->MtdProcesarNotaDebito(json_encode($ComprobanteXML));
-$l_stResult = eregi_replace("'","\"",$l_stResult);
+$l_stResult = preg_replace("/'/", "\"", $l_stResult);
 $l_stResult = utf8_encode($l_stResult);
 
 $Trama = json_decode($l_stResult,true);

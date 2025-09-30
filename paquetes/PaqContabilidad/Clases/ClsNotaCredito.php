@@ -1473,7 +1473,8 @@ ncr.NcrDatoAdicional28,
 				NcrId,
 				NctId,
 				SucId,
-				 
+				UsuId,
+
 				FacId,
 				FtaId,
 				BolId,
@@ -1553,6 +1554,7 @@ ncr.NcrDatoAdicional28,
 				"' . ($this->NcrId) . '", 
 				"' . ($this->NctId) . '",
 				"' . ($this->SucId) . '",
+				' . (empty($this->UsuId) ? 'NULL, ' : '"' . $this->UsuId . '",') . '		
 
 				' . $detalle . '
 				

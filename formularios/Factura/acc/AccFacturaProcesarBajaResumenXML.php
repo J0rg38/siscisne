@@ -78,7 +78,7 @@ $Comprobante['XMLNombre'] = $NOMBRE;
 
 //exit();
 $l_stResult = $l_oProxy->MtdDarBajaFactura(json_encode($Comprobante));
-$l_stResult = eregi_replace("'","\"",$l_stResult);
+$l_stResult = preg_replace("/'/", "\"", $l_stResult);
 $Trama = json_decode($l_stResult,true);
 
 $ArrFacturas = explode("@",$GET_Seleccionados);
