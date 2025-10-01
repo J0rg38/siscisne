@@ -33,6 +33,8 @@ $POST_Tipo = $_POST['Tipo'];
 session_start();
 if (!isset($_SESSION['InsProductoFoto'.$Identificador])){
 	$_SESSION['InsProductoFoto'.$Identificador] = new ClsSesionObjeto();	
+}else{	
+	$_SESSION['InsProductoFoto'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsProductoFoto'.$Identificador]);
 }
 //		SesionObjeto-FichaAccionFoto
 //		Parametro1 = FafId

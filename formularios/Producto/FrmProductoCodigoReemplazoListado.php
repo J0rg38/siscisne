@@ -33,6 +33,8 @@ $POST_MonedaId = $_POST['MonedaId'];
 session_start();
 if (!isset($_SESSION['InsProductoCodigoReemplazo'.$Identificador])){
 	$_SESSION['InsProductoCodigoReemplazo'.$Identificador] = new ClsSesionObjeto();	
+}else{	
+	$_SESSION['InsProductoCodigoReemplazo'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsProductoCodigoReemplazo'.$Identificador]);
 }
 
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
