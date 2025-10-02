@@ -432,7 +432,7 @@ pag.PagObservacionCaja,
 
 				if ($oCompleto) {
 
-					$InsPagoComprobante = new ClsPagoComprobante();
+					$InsPagoComprobante = new ClsPagoComprobante($this->InsMysql);
 					$ResPagoComprobante =  $InsPagoComprobante->MtdObtenerPagoComprobantes(NULL, NULL, "PacId", "ASC", NULL, $this->PagId);
 					$this->PagoComprobante = $ResPagoComprobante['Datos'];
 				}
@@ -1610,7 +1610,6 @@ pag.PagObservacionCaja,
 			PagNumeroTransaccion,
 			PagFechaTransaccion,
 			PagNumeroRecibo,
-			PagCantidadLetras,
 			
 			
 			PagFecha,
@@ -1650,7 +1649,6 @@ pag.PagObservacionCaja,
 			"' . ($this->PagNumeroTransaccion) . '",
 			' . (empty($this->PagFechaTransaccion) ? 'NULL, ' : '"' . $this->PagFechaTransaccion . '",') . '
 			"' . ($this->PagNumeroRecibo) . '",
-			"' . ($this->PagCantidadLetras) . '",
 			
 			"' . ($this->PagFecha) . '",
 			"' . ($this->MonId) . '",
@@ -1751,7 +1749,7 @@ pag.PagObservacionCaja,
 
 		$elementos = explode("#", $oElementos);
 
-		$InsPago = new ClsPago();
+		$InsPago = new ClsPago($this->InsMysql);
 
 
 		$i = 1;
@@ -1964,9 +1962,9 @@ pag.PagObservacionCaja,
 	function FncNotificarOrdenCobroVentaDirecta($oVentaDirectaId, $oPago, $oUsuarioId, $oUsuario, $oDescripcionAdicional = NULL)
 	{
 
-		$InsVentaDirecta = new ClsVentaDirecta();
+		$InsVentaDirecta = new ClsVentaDirecta($this->InsMysql);
 
-		$InsNotificacion = new ClsNotificacion();
+		$InsNotificacion = new ClsNotificacion($this->InsMysql);
 		$InsNotificacion->UsuId = NULL;
 		$InsNotificacion->UsuIdOrigen = $oUsuarioId;
 		$InsNotificacion->NfnUsuario = $oUsuario;

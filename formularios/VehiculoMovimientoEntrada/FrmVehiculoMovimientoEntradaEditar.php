@@ -81,8 +81,14 @@ $InsAlmacen = new ClsAlmacen();
 $InsSucursal = new ClsSucursal($InsMysql);
 $InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
-if (isset($_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador])){	
-	$_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador]);
+// if (isset($_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador])){	
+// 	$_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador]);
+// }
+
+if (!isset($_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador])) {
+  $_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+  $_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador]);
 }
 
 if (isset($_SESSION['InsOrdenCompraPedido'.$Identificador])){	

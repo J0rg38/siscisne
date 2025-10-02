@@ -248,7 +248,6 @@ class ClsVehiculoIngreso
 
 		ein.EinAnoFabricacion,
 		ein.EinAnoModelo,
-		ein.EinAnoVehiculo,
 		ein.EinNumeroMotor,
 
 		ein.EinTransmision,
@@ -834,7 +833,6 @@ ein.EinNumeroProforma,
 
 				$this->EinAnoFabricacion = $fila['EinAnoFabricacion'];
 				$this->EinAnoModelo = $fila['EinAnoModelo'];
-				$this->EinAnoVehiculo = $fila['EinAnoVehiculo'];
 
 				$this->EinNumeroMotor = $fila['EinNumeroMotor'];
 
@@ -1455,8 +1453,7 @@ ein.EinNumeroProforma,
 				DATE_FORMAT(ein.EinFechaVenta, "%d/%m/%Y") AS "NEinFechaVenta",
 
 				ein.EinAnoFabricacion,
-				ein.EinAnoModelo,
-				ein.EinAnoVehiculo,				
+				ein.EinAnoModelo,			
 				ein.EinNumeroMotor,				
 				ein.EinTransmision,
 
@@ -1733,7 +1730,6 @@ ein.EinNumeroProforma,
 
 			$VehiculoIngreso->EinAnoFabricacion = $fila['EinAnoFabricacion'];
 			$VehiculoIngreso->EinAnoModelo = $fila['EinAnoModelo'];
-			$VehiculoIngreso->EinAnoVehiculo = $fila['EinAnoVehiculo'];
 
 			$VehiculoIngreso->EinNumeroMotor = $fila['EinNumeroMotor'];
 
@@ -2415,7 +2411,6 @@ ein.EinNumeroProforma,
 			EinFechaVenta,
 			EinAnoFabricacion,
 			EinAnoModelo,
-			EinAnoVehiculo,
 			EinNumeroMotor,
 		
 			EinTransmision,
@@ -2494,7 +2489,6 @@ ein.EinNumeroProforma,
 			NULL, 
 			"' . ($this->EinAnoFabricacion) . '", 
 			"' . ($this->EinAnoModelo) . '", 
-			"' . ($this->EinAnoVehiculo) . '", 
 			"", 
 			
 			"",
@@ -2635,7 +2629,6 @@ ein.EinNumeroProforma,
 			EinFechaVenta,
 			EinAnoFabricacion,
 			EinAnoModelo,
-			EinAnoVehiculo,
 			EinNumeroMotor,
 		
 			EinTransmision,
@@ -2711,13 +2704,12 @@ ein.EinNumeroProforma,
 			EinCaracteristica20,
 			
 			EinComprobanteCompraNumero,
-			EinComprobanteCompraFecha,
 			
 			EinClaveAlarma,
 			EinCodigoPedido,
 			
 			EinFacturaNumero,
-			EinFacturaValor,
+
 			EinFacturaFecha,
 			
 			EinProveedor,
@@ -2747,7 +2739,6 @@ ein.EinNumeroProforma,
 			' . (empty($this->EinFechaVenta) ? 'NULL,' : '"' . $this->EinFechaVenta . '",') . '	
 			"' . ($this->EinAnoFabricacion) . '", 
 			"' . ($this->EinAnoModelo) . '", 
-			"' . ($this->EinAnoVehiculo) . '", 
 			"' . ($this->EinNumeroMotor) . '", 
 			
 			"' . ($this->EinTransmision) . '",			
@@ -2827,13 +2818,12 @@ ein.EinNumeroProforma,
 			"' . ($this->EinCaracteristica20) . '",
 			
 			"' . ($this->EinComprobanteCompraNumero) . '", 
-			"' . ($this->EinComprobanteCompraFecha) . '", 
 		
 			"' . ($this->EinClaveAlarma) . '", 
 			"' . ($this->EinCodigoPedido) . '", 
 			
 			"' . ($this->EinFacturaNumero) . '", 
-			"' . ($this->EinFacturaValor) . '", 
+
 			' . (empty($this->EinFacturaFecha) ? 'NULL,' : '"' . $this->EinFacturaFecha . '",') . '	
 			
 			"' . ($this->EinProveedor) . '", 
@@ -3342,7 +3332,6 @@ ein.EinNumeroProforma,
 			' . (empty($this->EinFechaVenta) ? 'EinFechaVenta = NULL, ' : 'EinFechaVenta = "' . $this->EinFechaVenta . '",') . '
 			EinAnoFabricacion = "' . ($this->EinAnoFabricacion) . '",
 			EinAnoModelo = "' . ($this->EinAnoModelo) . '",
-			EinAnoVehiculo = "' . ($this->EinAnoVehiculo) . '",
 			EinNumeroMotor = "' . ($this->EinNumeroMotor) . '",
 			
 			EinTransmision = "' . ($this->EinTransmision) . '",
@@ -3968,7 +3957,6 @@ ein.EinNumeroProforma,
 			EinFechaVenta,
 			EinAnoFabricacion,
 			EinAnoModelo,
-			EinAnoVehiculo,
 			EinNumeroMotor,
 		
 			EinTransmision,
@@ -4024,13 +4012,12 @@ ein.EinNumeroProforma,
 		
 			
 			EinComprobanteCompraNumero,
-			EinComprobanteCompraFecha,
 			
 			EinClaveAlarma,
 			EinCodigoPedido,
 			
 			EinFacturaNumero,
-			EinFacturaValor,
+
 			EinProveedor,
 			
 			
@@ -4060,7 +4047,6 @@ ein.EinNumeroProforma,
 			' . (empty($this->EinFechaVenta) ? 'NULL,' : '"' . $this->EinFechaVenta . '",') . '	
 			"' . ($this->EinAnoFabricacion) . '", 
 			"' . ($this->EinAnoModelo) . '", 
-			"' . ($this->EinAnoVehiculo) . '", 
 			"' . ($this->EinNumeroMotor) . '", 
 			
 			"' . ($this->EinTransmision) . '",			
@@ -4119,13 +4105,12 @@ ein.EinNumeroProforma,
 		
 			
 			"' . ($this->EinComprobanteCompraNumero) . '", 
-			"' . ($this->EinComprobanteCompraFecha) . '", 
 		
 			"' . ($this->EinClaveAlarma) . '", 
 			"' . ($this->EinCodigoPedido) . '", 
 			
 			"' . ($this->EinFacturaNumero) . '", 
-			"' . ($this->EinFacturaValor) . '", 
+
 			"' . ($this->EinProveedor) . '", 
 			
 			2,
@@ -4248,7 +4233,6 @@ ein.EinNumeroProforma,
 			
 			EinAnoFabricacion = "' . ($this->EinAnoFabricacion) . '",
 			EinAnoModelo = "' . ($this->EinAnoModelo) . '",
-			EinAnoVehiculo = "' . ($this->EinAnoVehiculo) . '",
 			EinNumeroMotor = "' . ($this->EinNumeroMotor) . '",
 			
 			EinTransmision = "' . ($this->EinTransmision) . '",

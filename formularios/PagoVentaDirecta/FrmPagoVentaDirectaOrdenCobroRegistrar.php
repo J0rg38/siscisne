@@ -29,9 +29,9 @@ require_once($InsPoo->MtdPaqLogistica().'ClsFormaPago.php');
 //INSTANCIAS
 $InsPago = new ClsPago($InsMysql);
 $InsMoneda = new ClsMoneda($InsMysql);
-$InsCondicionPago = new ClsCondicionPago();
-$InsVentaDirecta = new ClsVentaDirecta();
-$InsArea = new ClsArea();
+$InsCondicionPago = new ClsCondicionPago($InsMysql);
+$InsVentaDirecta = new ClsVentaDirecta($InsMysql);
+$InsArea = new ClsArea($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
 $InsFormaPago = new ClsFormaPago($InsMysql);
 

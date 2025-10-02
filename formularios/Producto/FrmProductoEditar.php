@@ -65,8 +65,13 @@ if (isset($_SESSION['InsProductoFoto'.$Identificador])){
 
 include($InsProyecto->MtdFormulariosAcc($GET_mod).'AccProductoEditar.php');
 
+//foreach($ArrProductoCategorias as $DatProductoCategoria)
+
 $RepProductoTipo = $InsProductoTipo->MtdObtenerProductoTipos(NULL,NULL,'RtiNombre',"ASC",NULL);
 $ArrProductoTipos = $RepProductoTipo['Datos'];
+
+$RepProductoCategoria = $InsProductoCategoria->MtdObtenerProductoCategorias(NULL,NULL,'PcaNombre',"ASC",NULL);
+$ArrProductoCategorias = $RepProductoCategoria['Datos'];
 
 $RepVehiculoMarca = $InsVehiculoMarca->MtdObtenerVehiculoMarcas(NULL,NULL,"VmaNombre","ASC",NULL,NULL,NULL);
 $ArrVehiculoMarcas = $RepVehiculoMarca['Datos'];
