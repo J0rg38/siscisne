@@ -3301,7 +3301,12 @@ fac.FacLeyenda,
 					$InsFacturaDetalle->FdeImpuestoSelectivo = $DatFacturaDetalle->FdeImpuestoSelectivo;
 
 					$InsFacturaDetalle->FdeValorVenta = $DatFacturaDetalle->FdeValorVenta;
-					$InsFacturaDetalle->FdeImpuesto = $DatFacturaDetalle->FdeImpuesto;
+					if($DatFacturaDetalle->FdeDescuento > 0){
+						$ImpuestoDetalleCorregido = $DatFacturaDetalle->FdeValorVenta * 0.18;
+					}else{
+						$ImpuestoDetalleCorregido = $DatFacturaDetalle->FdeImpuesto;
+					}
+					$InsFacturaDetalle->FdeImpuesto = $ImpuestoDetalleCorregido;
 					$InsFacturaDetalle->FdeDescuento = $DatFacturaDetalle->FdeDescuento;
 					$InsFacturaDetalle->FdeGratuito = $DatFacturaDetalle->FdeGratuito;
 					$InsFacturaDetalle->FdeExonerado = $DatFacturaDetalle->FdeExonerado;
@@ -5418,6 +5423,7 @@ fac.FacLeyenda,
 						$DatFacturaDetalle->FdeValorVentaUnitario = ($DatFacturaDetalle->FdeValorVentaUnitario  / $InsFactura->FacTipoCambio);
 
 						$DatFacturaDetalle->FdeImpuesto = ($DatFacturaDetalle->FdeImpuesto  / $InsFactura->FacTipoCambio);
+						$DatFacturaDetalle->FdeDescuento = ($DatFacturaDetalle->FdeDescuento  / $InsFactura->FacTipoCambio);
 						$DatFacturaDetalle->FdeValorVentaBruto = ($DatFacturaDetalle->FdeValorVentaBruto  / $InsFactura->FacTipoCambio);
 					}
 
@@ -5505,7 +5511,7 @@ fac.FacLeyenda,
 						$AlternativeConditionPrice = $PricingReference->appendChild($AlternativeConditionPrice);
 
 						//cbc:PriceAmount currencyID="PEN"
-						$PriceAmount = $domtree->createElement("cbc:PriceAmount", number_format($DatFacturaDetalle->FdePrecio, 2, '.', ''));
+						$PriceAmount = $domtree->createElement("cbc:PriceAmount", number_format(($DatFacturaDetalle->FdePrecio)-(($DatFacturaDetalle->FdeDescuento*1.18)/$DatFacturaDetalle->FdeCantidad), 2, '.', ''));
 						$PriceAmount->setAttribute('currencyID', $InsFactura->MonSigla);
 						$PriceAmount = $AlternativeConditionPrice->appendChild($PriceAmount);
 
@@ -5854,7 +5860,7 @@ fac.FacLeyenda,
 					} elseif ($DatFacturaDetalle->FdeGratuito == "2") {
 
 						//cbc:PriceAmount
-						$PriceAmount = $domtree->createElement("cbc:PriceAmount", number_format($DatFacturaDetalle->FdeValorVentaUnitario, 2, '.', ''));
+						$PriceAmount = $domtree->createElement("cbc:PriceAmount", number_format(($DatFacturaDetalle->FdeValorVentaBruto)/$DatFacturaDetalle->FdeCantidad, 2, '.', ''));
 						$PriceAmount->setAttribute('currencyID', $InsFactura->MonSigla);
 						$PriceAmount = $Price->appendChild($PriceAmount);
 					} else {

@@ -1401,9 +1401,10 @@ s      </select>-->
                         <?php
                         if ($PrivilegioEditar) {
                         ?>
-
+                          <a href="formularios/FichaIngreso/adicionales/FrmEditarNotaAsesor.php?ot=<?php echo $dat->FinId; ?>" target="_blank"><img src="imagenes/acciones/xnotas.png" width="19" height="19" border="0" title="Editar" alt="[EditarNotas]" /></a>
                           <a href="principal.php?Mod=<?php echo $GET_mod; ?>&Form=Editar&Id=<?php echo $dat->FinId; ?>"><img src="imagenes/acciones/acc_editar.png" width="19" height="19" border="0" title="Editar" alt="[Editar]" /></a>
-
+                          
+                          
                         <?php
                         }
                         ?>
@@ -1416,6 +1417,7 @@ s      </select>-->
                       //if($dat->FinEstado==11 or $dat->FinEstado==2){
                       if ($dat->FinEstado <> 1) {
                       ?>
+                        <a href="formularios/FichaIngreso/adicionales/FrmEditarNotaAsesor.php?ot=<?php echo $dat->FinId; ?>" target="_blank"><img src="imagenes/acciones/xnotas.png" width="19" height="19" border="0" title="Editar" alt="[EditarNotas]" /></a>
                         <a href="principal.php?Mod=<?php echo $GET_mod; ?>&Form=Trabajar&Id=<?php echo $dat->FinId; ?>"><img src="imagenes/acciones/trabajar.gif" width="19" height="19" border="0" title="Corregir" alt="[Corregir]" /></a>
                       <?php
                       }

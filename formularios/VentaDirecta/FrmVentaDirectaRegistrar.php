@@ -602,7 +602,7 @@ if($Registro){
 							$OpcTipo1 = 'selected = "selected"';
 						break;
 						
-						case "EXTERNO":
+						case "MAYORISTA":
 							$OpcTipo2 = 'selected = "selected"';						
 						break;
 						
@@ -617,7 +617,7 @@ if($Registro){
                         <select  class="EstFormularioCombo" name="CmpTipo" id="CmpTipo" >
                           <option value="">Escoja una opcion</option>
                           <option <?php echo $OpcTipo1;?> value="MOSTRADOR">MOSTRADOR</option>
-                          <option <?php echo $OpcTipo2;?> value="EXTERNO">EXTERNO</option>
+                          <option <?php echo $OpcTipo2;?> value="MAYORISTA">MAYORISTA</option>
                           <option <?php echo $OpcTipo3;?> value="PROVINCIA">PROVINCIA</option>
                         </select></td>
                       <td align="left" valign="top">Tipo de Venta Final:</td>

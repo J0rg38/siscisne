@@ -39,10 +39,14 @@ $POST_IncluyeImpuesto = $_POST['IncluyeImpuesto'];
 session_start();
 if (!isset($_SESSION['InsOrdenCompraPedido'.$Identificador])){
 	$_SESSION['InsOrdenCompraPedido'.$Identificador] = new ClsSesionObjeto();	
+} else{	
+	$_SESSION['InsOrdenCompraPedido'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsOrdenCompraPedido'.$Identificador]);
 }
 
 if (!isset($_SESSION['InsOrdenCompraDetalle'.$Identificador])){
 	$_SESSION['InsOrdenCompraDetalle'.$Identificador] = new ClsSesionObjeto();	
+} else{	
+	$_SESSION['InsOrdenCompraDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsOrdenCompraDetalle'.$Identificador]);
 }
 
 require_once($InsPoo->MtdPaqLogistica().'ClsPedidoCompra.php');
