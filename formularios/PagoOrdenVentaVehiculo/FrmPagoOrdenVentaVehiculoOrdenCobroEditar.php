@@ -33,7 +33,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], "Pago", "Editar")) {
   //INSTANCIAS
   $InsPago = new ClsPago($InsMysql);
   $InsMoneda = new ClsMoneda($InsMysql);
-  $InsCondicionPago = new ClsCondicionPago();
+  $InsCondicionPago = new ClsCondicionPago($InsMysql);
   $InsOrdenVentaVehiculo = new ClsOrdenVentaVehiculo($InsMysql);
   $InsArea = new ClsArea($InsMysql);
   $InsTipoDocumento = new ClsTipoDocumento($InsMysql);

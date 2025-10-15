@@ -146,7 +146,7 @@ if($_SESSION['MysqlDeb']){
 
   $InsMoneda = new ClsMoneda($InsMysql);
   $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-  $InsClienteTipo = new ClsClienteTipo();
+  $InsClienteTipo = new ClsClienteTipo($InsMysql);
 
   $InsPersonal = new ClsPersonal($InsMysql);
   $InsCliente = new ClsCliente($InsMysql);

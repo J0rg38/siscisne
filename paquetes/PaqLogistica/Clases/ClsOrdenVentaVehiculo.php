@@ -4108,7 +4108,7 @@ break;
 			$this->OvvId = $oId;
 			$this->MtdObtenerOrdenVentaVehiculo();
 
-			$InsVehiculoMovimientoSalida = new ClsVehiculoMovimientoSalida();
+			$InsVehiculoMovimientoSalida = new ClsVehiculoMovimientoSalida($this->InsMysql);
 			$InsVehiculoMovimientoSalida->UsuId = $_SESSION['SesionId'];
 
 			$ComprobanteTipoId = "";
@@ -4222,7 +4222,7 @@ break;
 			//			}
 
 
-			$InsVehiculoMovimientoSalidaDetalle1 = new ClsVehiculoMovimientoSalidaDetalle();
+			$InsVehiculoMovimientoSalidaDetalle1 = new ClsVehiculoMovimientoSalidaDetalle($this->InsMysql);
 			$InsVehiculoMovimientoSalidaDetalle1->VmdId = NULL;
 			$InsVehiculoMovimientoSalidaDetalle1->EinId = $this->EinId;
 			$InsVehiculoMovimientoSalidaDetalle1->VehId = $this->VehId;
@@ -4327,7 +4327,7 @@ break;
 			$this->MtdObtenerOrdenVentaVehiculo(true);
 
 			// deb($this);
-			$InsVehiculoMovimientoEntrada = new ClsVehiculoMovimientoEntrada();
+			$InsVehiculoMovimientoEntrada = new ClsVehiculoMovimientoEntrada($this->InsMysql);
 			$InsVehiculoMovimientoEntrada->UsuId = $_SESSION['SesionId'];
 
 			$InsVehiculoMovimientoEntrada->VmvId = NULL;
@@ -4436,7 +4436,7 @@ break;
 			//			}
 
 
-			$InsVehiculoMovimientoEntradaDetalle1 = new ClsVehiculoMovimientoEntradaDetalle();
+			$InsVehiculoMovimientoEntradaDetalle1 = new ClsVehiculoMovimientoEntradaDetalle($this->InsMysql);
 			$InsVehiculoMovimientoEntradaDetalle1->VmdId = NULL;
 			$InsVehiculoMovimientoEntradaDetalle1->EinId = $this->EinId;
 			$InsVehiculoMovimientoEntradaDetalle1->VehId = $this->VehId;

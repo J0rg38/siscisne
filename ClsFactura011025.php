@@ -31,7 +31,9 @@ class ClsFactura
 
 
 	public $CprId;
-
+	public $VdiId;
+	public $PagId;
+	public $CveId;
 	public $FacNotaCredito;
 
 	public $FacIncluyeImpuesto;
@@ -53,7 +55,6 @@ class ClsFactura
 
 	public $FacObsequio;
 	public $FacSpot;
-	public $FacRetencion;
 
 	public $FacConcepto;
 	public $FacTipo;
@@ -70,6 +71,8 @@ class ClsFactura
 	public $FacTotal;
 	public $FacObservacion;
 	public $FacObservacionImpresa;
+	public $FacObservacionCaja;
+	public $FacLeyenda;
 	public $FpaId;
 	public $FacCierre;
 
@@ -98,6 +101,87 @@ class ClsFactura
 	public $FacturaDetalle;
 	public $FacturaLetra;
 
+	// Propiedades adicionales de la factura
+	public $FacUsuario;
+	public $FacVendedor;
+	public $FacNumeroPedido;
+	public $FacProcesar;
+
+	// Propiedades adicionales para evitar warnings
+	public $FacSunatRespuestaBajaId;
+	public $FacSunatRespuestaBajaTicket;
+	public $FacSunatRespuestaBajaTicketEstado;
+	public $FacSunatRespuestaBajaFecha;
+	public $FacSunatRespuestaBajaHora;
+	public $FacSunatRespuestaBajaCodigo;
+	public $FacSunatRespuestaBajaContenido;
+	public $FacSunatRespuestaConsultaCodigo;
+	public $FacSunatRespuestaConsultaContenido;
+	public $FacSunatRespuestaConsultaFecha;
+	public $FacSunatRespuestaConsultaHora;
+	public $FacSunatRespuestaEnvioTiempoCreacion;
+	public $FacSunatRespuestaConsultaTiempoCreacion;
+	public $FacSunatRespuestaBajaTiempoCreacion;
+	public $FacSunatUltimaAccion;
+	public $FacSunatUltimaRespuesta;
+	public $FacSunatRespuestaEnvioDigestValue;
+	public $FacSunatRespuestaEnvioSignatureValue;
+	public $FacDiaVencido;
+	public $FacTotalGravado;
+	public $FacTotalExonerado;
+	public $FacTotalGratuito;
+	public $FacTotalDescuento;
+	public $FacTotalPagar;
+	public $FacTotalReal;
+	public $FacAbono;
+	public $FacMontoAmortizado;
+	public $FacMontoPendiente;
+	public $FacHoraEmision;
+	public $FacDatoAdicional1;
+	public $FacDatoAdicional2;
+	public $FacDatoAdicional3;
+	public $FacDatoAdicional4;
+	public $FacDatoAdicional5;
+	public $FacDatoAdicional6;
+	public $FacDatoAdicional7;
+	public $FacDatoAdicional8;
+	public $FacDatoAdicional9;
+	public $FacDatoAdicional10;
+	public $FacDatoAdicional11;
+	public $FacDatoAdicional12;
+	public $FacDatoAdicional13;
+	public $FacDatoAdicional14;
+	public $FacDatoAdicional15;
+	public $FacDatoAdicional16;
+	public $FacDatoAdicional17;
+	public $FacDatoAdicional18;
+	public $FacDatoAdicional19;
+	public $FacDatoAdicional20;
+	public $FacDatoAdicional21;
+	public $FacDatoAdicional22;
+	public $FacDatoAdicional23;
+	public $FacDatoAdicional24;
+	public $FacDatoAdicional25;
+	public $FacDatoAdicional26;
+	public $FacDatoAdicional27;
+	public $FacDatoAdicional28;
+	public $FacEstadoDescripcion;
+	public $FacEstadoIcono;
+	public $FacAlmacenMovimiento;
+	public $FacOrdenVentaVehiculoPropietario;
+
+	// Propiedades adicionales para evitar warnings
+	public $SucId;
+	public $FacNotaEntrega;
+	public $FacNotaDebito;
+	public $FacTipoCambioAux;
+	public $FacTotalImpuestoSelectivo;
+	public $FacSunatRespuestaEnvioTicket;
+	public $FacSunatRespuestaEnvioTicketEstado;
+	public $FacObservado;
+	public $MonSigla;
+	public $MonCodigo;
+
 
 
 	public $NpaNombre;
@@ -113,12 +197,23 @@ class ClsFactura
 
 
 	public $CliNombre;
+	public $CliNombreCompleto;
+	public $CliApellidoPaterno;
+	public $CliApellidoMaterno;
 	public $TdoId;
 	public $CliNumeroDocumento;
 	public $CliTelefono;
 	public $CliEmail;
+	public $CliEmailFacturacion;
+	public $CliContactoEmail1;
+	public $CliContactoEmail2;
+	public $CliContactoEmail3;
 	public $CliCelular;
 	public $CliFax;
+	public $CliClaveElectronica;
+	public $CliProvincia;
+	public $CliDistrito;
+	public $CliDepartamento;
 
 	public $FinVehiculoKilometraje;
 
@@ -282,7 +377,6 @@ class ClsFactura
 				fac.FacCancelado,
 				fac.FacObsequio,
 				fac.FacSpot,
-				fac.FacRetencion,
 				
 				fac.FacConcepto,	
 				fac.FacTipo,	
@@ -911,7 +1005,6 @@ fac.FacLeyenda,
 
 				$this->FacObsequio = $fila['FacObsequio'];
 				$this->FacSpot = $fila['FacSpot'];
-				$this->FacRetencion = $fila['FacRetencion'];
 
 				$this->VdiId = $fila['VdiId'];
 				$this->VdiArchivo = $fila['VdiArchivo'];
@@ -1043,8 +1136,75 @@ fac.FacLeyenda,
 		return $Respuesta;
 	}
 
-	public function MtdObtenerFacturas($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'FacId', $oSentido = 'Desc', $oPaginacion = '0,10', $oSucursal = NULL, $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oCredito = NULL, $oRegimen = NULL, $oCondicionPago = NULL, $oNotaCredito = NULL, $oMoneda = NULL, $oCliente = NULL, $oAlmacenMovimiento = NULL, $oDiaVencer = NULL, $oPagado = NULL, $oOrdenVentaVehiculo = NULL, $oVentaDirecta = NULL, $oVendedor = NULL, $oTieneCodigoExterno = NULL, $oNoProcesdado = false, $oCancelado = NULL, $oSinPago = false, $oDiasVencido = NULL, $oVencido = false, $oObsequio = NULL)
-	{
+	public function MtdObtenerFacturas(
+		$oCampo = NULL,
+		$oCondicion = NULL,
+		$oFiltro = NULL,
+		$oOrden = 'FacId',
+		$oSentido = 'Desc',
+		$oPaginacion = '0,10',
+		$oSucursal = NULL,
+		$oEstado = NULL,
+		$oFechaInicio = NULL,
+		$oFechaFin = NULL,
+		$oTalonario = NULL,
+		$oCredito = NULL,
+		$oRegimen = NULL,
+		$oCondicionPago = NULL,
+		$oNotaCredito = NULL,
+		$oMoneda = NULL,
+		$oCliente = NULL,
+		$oAlmacenMovimiento = NULL,
+		$oDiaVencer = NULL,
+		$oPagado = NULL,
+		$oOrdenVentaVehiculo = NULL,
+		$oVentaDirecta = NULL,
+		$oVendedor = NULL,
+		$oTieneCodigoExterno = NULL,
+		$oNoProcesdado = false,
+		$oCancelado = NULL,
+		$oSinPago = false,
+		$oDiasVencido = NULL,
+		$oVencido = false,
+		$oObsequio = NULL
+	) {
+
+		// Inicializar variables de filtro para evitar warnings
+		$filtrar = '';
+		$orden = '';
+		$paginacion = '';
+		$sucursal = '';
+		$estado = '';
+		$fecha = '';
+		$talonario = '';
+		$credito = '';
+		$regimen = '';
+		$cpago = '';
+		$ncredito = '';
+		$moneda = '';
+		$cliente = '';
+		$almacenmovimiento = '';
+		$diavencer = '';
+		$pagado = '';
+		$ovvehiculo = '';
+		$ventadirecta = '';
+		$vendedor = '';
+		$tienecodigoexterno = '';
+		$noprocesado = '';
+		$cancelado = '';
+		$sinpago = '';
+		$diasvencido = '';
+		$vencido = '';
+		$obsequio = '';
+
+		// Variables adicionales que se usan en la consulta SQL
+		$ncancelado = '';
+		$dvencido = '';
+		$tcexterno = '';
+		$npago = '';
+		$amovimiento = '';
+		$dvencer = '';
+		$vdirecta = '';
 
 		if (!empty($oCampo) and !empty($oFiltro)) {
 			$oFiltro = str_replace(" ", "%", $oFiltro);
@@ -1399,6 +1559,7 @@ fac.FacLeyenda,
 			$sucursal = ' AND fac.SucId = "' . $oSucursal . '"';
 		}
 
+		deb($oNoProcesdado);
 		if (($oNoProcesdado)) {
 
 			$noprocesado = ' 	AND (fac.FacSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 
@@ -1554,7 +1715,6 @@ fac.FacLeyenda,
 				fac.FacCancelado,
 				fac.FacObsequio,
 				fac.FacSpot,
-				fac.FacRetencion,
 				
 				fac.FacConcepto,
 				fac.FacTipo,
@@ -1875,7 +2035,7 @@ fac.FacLeyenda,
 
 		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-			$Factura = new $InsFactura();
+			$Factura = new $InsFactura($this->InsMysql);
 			$Factura->FacId = $fila['FacId'];
 			$Factura->FtaId = $fila['FtaId'];
 			$Factura->SucId = $fila['SucId'];
@@ -1922,7 +2082,6 @@ fac.FacLeyenda,
 
 			$Factura->FacObsequio = $fila['FacObsequio'];
 			$Factura->FacSpot = $fila['FacSpot'];
-			$Factura->FacRetencion = $fila['FacRetencion'];
 
 			$Factura->FacConcepto = $fila['FacConcepto'];
 			$Factura->FacTipo = $fila['FacTipo'];
@@ -2939,7 +3098,7 @@ fac.FacLeyenda,
 	
 				FacCancelado,	
 				FacObsequio,
-				FacSpot,
+				FacSpot,	
 				
 			
 				FacConcepto,
@@ -4466,18 +4625,16 @@ fac.FacLeyenda,
 			//$InvoiceTypeCode->setAttribute('listName', "SUNAT:Identificador de Tipo de Documento");
 			//$InvoiceTypeCode->setAttribute('listURI', "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01");
 			//$InvoiceTypeCode = $xmlRoot->appendChild($InvoiceTypeCode);
+
 			$InvoiceTypeCode = $domtree->createElement("cbc:InvoiceTypeCode", "01");
 			if ($InsFactura->FacSpot == 1) {
-				if ($InsFactura->FacTotal >= 700) {
-					$InvoiceTypeCode->setAttribute('listID', "1001");
-				} elseif ($InsFactura->FacTotal < 700) {
-					$InvoiceTypeCode->setAttribute('listID', "0101");
-				}
+				$InvoiceTypeCode->setAttribute('listID', "1001");
 			} elseif ($InsFactura->FacSpot == 2) {
 				$InvoiceTypeCode->setAttribute('listID', "0101");
 			}
+
 			$InvoiceTypeCode->setAttribute('listAgencyName', "PE:SUNAT");
-			$InvoiceTypeCode->setAttribute('listName', "SUNAT:Identificador de Tipo de Documento");
+			//$InvoiceTypeCode->setAttribute('listName', "SUNAT:Identificador de Tipo de Documento");
 			$InvoiceTypeCode->setAttribute('listURI', "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01");
 			$InvoiceTypeCode = $xmlRoot->appendChild($InvoiceTypeCode);
 
@@ -4488,7 +4645,6 @@ fac.FacLeyenda,
 			//$ProfileID->setAttribute('schemeAgencyName', "PE:SUNAT");
 			//$ProfileID->setAttribute('schemeURI', "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo17");
 			//$ProfileID = $xmlRoot->appendChild($ProfileID);
-
 
 
 			////cbc:InvoiceTypeCode
@@ -4502,13 +4658,12 @@ fac.FacLeyenda,
 			$Note->setAttribute('languageLocaleID', "1000");
 			$Note = $xmlRoot->appendChild($Note);
 
+			//DETRACCION
 			if ($InsFactura->FacSpot == 1) {
-				if ($InsFactura->FacTotal >= 700) {
-					$Note = $domtree->createElement("cbc:Note", 'Operacion sujeta a detraccion');
-					$Note->setAttribute('languageLocaleID', "2006");
-					$Note = $xmlRoot->appendChild($Note);
-				} elseif ($InsFactura->FacTotal < 700) {
-				}
+
+				$Note = $domtree->createElement("cbc:Note", 'Operacion sujeta a detraccion');
+				$Note->setAttribute('languageLocaleID', "2006");
+				$Note = $xmlRoot->appendChild($Note);
 			} elseif ($InsFactura->FacSpot == 2) {
 			}
 
@@ -4709,6 +4864,7 @@ fac.FacLeyenda,
 			$RegistrationName = $PartyLegalEntity->appendChild($domtree->createElement('cbc:RegistrationName'));
 			$RegistrationName->appendChild($domtree->createCDATASection($EmpresaNombre));
 
+
 			$RegistrationAddress = $domtree->createElement("cac:RegistrationAddress");
 			$RegistrationAddress = $PartyLegalEntity->appendChild($RegistrationAddress);
 
@@ -4720,7 +4876,6 @@ fac.FacLeyenda,
 			$AddressTypeCode->setAttribute('listAgencyName', "PE:SUNAT");
 			$AddressTypeCode->setAttribute('listName', "Establecimientos anexos");
 			$AddressTypeCode = $RegistrationAddress->appendChild($AddressTypeCode);
-
 
 
 
@@ -4935,64 +5090,70 @@ fac.FacLeyenda,
 			//		
 			//		//cac:Name		
 			//		$RegistrationName = $PartyLegalEntity->appendChild($domtree->createElement('cbc:RegistrationName')); 
-			//		$RegistrationName->appendChild($domtree->createCDATASection( $InsFactura->CliNombre." ".$InsFactura->CliApellidoPaterno." ".$InsFactura->CliApellidoMaterno )); 
-
-			//RETENCION
-			$TotalRetencion = 0;
-			if ($InsFactura->FacRetencion == '1') {
-
-				$TotalRetencion = $InsFactura->FacTotal * 0.03;
-			} elseif ($InsFactura->FacRetencion == '2') {
-			} else {
-			}
+			//		$RegistrationName->appendChild($domtree->createCDATASection( $InsFactura->CliNombre." ".$InsFactura->CliApellidoPaterno." ".$InsFactura->CliApellidoMaterno ));
 
 			//DETALLES DE LA DETRACCION
 			$DetraccionTotal = 0;
 			if ($InsFactura->FacSpot == 1) {
 
-				if ($InsFactura->FacTotal >= 700) {
 
-					$PaymentMeans = $domtree->createElement("cac:PaymentMeans");
-					$PaymentMeans = $xmlRoot->appendChild($PaymentMeans);
+				$PaymentMeans = $domtree->createElement("cac:PaymentMeans");
+				$PaymentMeans = $xmlRoot->appendChild($PaymentMeans);
 
-					$ID = $PaymentMeans->appendChild($domtree->createElement('cbc:ID', 'Detraccion'));
-					$ID = $PaymentMeans->appendChild($ID);
+				$ID = $PaymentMeans->appendChild($domtree->createElement('cbc:ID', 'Detraccion'));
+				$ID = $PaymentMeans->appendChild($ID);
 
-					$PaymentMeansCode = $PaymentMeans->appendChild($domtree->createElement('cbc:PaymentMeansCode', '001'));
-					$PaymentMeansCode = $PaymentMeans->appendChild($PaymentMeansCode);
+				$PaymentMeansCode = $PaymentMeans->appendChild($domtree->createElement('cbc:PaymentMeansCode', '001'));
+				$PaymentMeansCode = $PaymentMeans->appendChild($PaymentMeansCode);
 
-					$PayeeFinancialAccount = $domtree->createElement('cac:PayeeFinancialAccount');
-					$PayeeFinancialAccount = $PaymentMeans->appendChild($PayeeFinancialAccount);
+				$PayeeFinancialAccount = $domtree->createElement('cac:PayeeFinancialAccount');
+				$PayeeFinancialAccount = $PaymentMeans->appendChild($PayeeFinancialAccount);
 
-					$ID = $domtree->createElement("cbc:ID", '00101145778');
-					$ID = $PayeeFinancialAccount->appendChild($ID);
+				$ID = $domtree->createElement("cbc:ID", '00101135748');
+				$ID = $PayeeFinancialAccount->appendChild($ID);
 
 
-					$PaymentTerms = $domtree->createElement("cac:PaymentTerms");
-					$PaymentTerms = $xmlRoot->appendChild($PaymentTerms);
+				$PaymentTerms = $domtree->createElement("cac:PaymentTerms");
+				$PaymentTerms = $xmlRoot->appendChild($PaymentTerms);
 
-					$ID = $PaymentTerms->appendChild($domtree->createElement('cbc:ID', 'Detraccion'));
-					$ID = $PaymentTerms->appendChild($ID);
+				$ID = $PaymentTerms->appendChild($domtree->createElement('cbc:ID', 'Detraccion'));
+				$ID = $PaymentTerms->appendChild($ID);
 
-					$PaymentMeansID = $PaymentTerms->appendChild($domtree->createElement('cbc:PaymentMeansID', '020'));
-					$PaymentMeansID = $PaymentTerms->appendChild($PaymentMeansID);
+				$PaymentMeansID = $PaymentTerms->appendChild($domtree->createElement('cbc:PaymentMeansID', '020'));
+				$PaymentMeansID = $PaymentTerms->appendChild($PaymentMeansID);
 
-					$PaymentPercent = $PaymentTerms->appendChild($domtree->createElement('cbc:PaymentPercent', '12'));
-					$PaymentPercent = $PaymentTerms->appendChild($PaymentPercent);
+				$PaymentPercent = $PaymentTerms->appendChild($domtree->createElement('cbc:PaymentPercent', '12'));
+				$PaymentPercent = $PaymentTerms->appendChild($PaymentPercent);
 
-					$DetraccionTotal = round(($InsFactura->FacTotal) * 0.12);
+				$DetraccionTotal = ($InsFactura->FacTotal) * 0.12;
+				//USAR SOLO CUANDO SEA EN DOLARES
+				$DetraccionTotal = $DetraccionTotal * 3.790;
+				$DetraccionTotal = round($DetraccionTotal);
 
-					$Amount = $domtree->createElement("cbc:Amount", number_format($DetraccionTotal, 2, '.', ''));
-					$Amount->setAttribute('currencyID', $InsFactura->MonSigla);
-					$Amount = $PaymentTerms->appendChild($Amount);
-				} elseif ($InsFactura->FacTotal < 700) {
-				}
+				$Amount = $domtree->createElement("cbc:Amount", number_format($DetraccionTotal, 2, '.', ''));
+				$Amount->setAttribute('currencyID', 'PEN');
+				$Amount = $PaymentTerms->appendChild($Amount);
 			} elseif ($InsFactura->FacSpot == 2) {
 			}
 
 
-			// FORMA DE PAGO
-			$MontoTotalFormaPago = ($InsFactura->FacTotal) - $TotalRetencion;
+
+			/*
+				FORMA DE PAGO
+				*/
+
+			/*
+			
+			
+			http://190.119.207.171:81/siscisne/formularios/Boleta/acc/AccBoletaGenerarXMLv4.php?BolId=000020&BtaId=BTA-10003
+			
+			<cac:PaymentTerms>
+      <cbc:ID>FormaPago</cbc:ID>
+      <cbc:PaymentMeansID>Contado</cbc:PaymentMeansID>
+   </cac:PaymentTerms>
+   
+			*/
+
 			if ($InsFactura->NpaId == 'NPA-10000') {
 
 				//cac:PaymentTerms
@@ -5020,7 +5181,7 @@ fac.FacLeyenda,
 				$PaymentMeansID->appendChild($domtree->createCDATASection("Credito"));
 
 				//cbc:Amount
-				$MontoCredito = ($InsFactura->FacTotal) - $DetraccionTotal;
+				$MontoCredito = ($InsFactura->FacTotal) - ($DetraccionTotal / 3.790);
 				$Amount = $domtree->createElement("cbc:Amount", number_format($MontoCredito, 2, '.', ''));
 				$Amount->setAttribute('currencyID', $InsFactura->MonSigla);
 				$Amount = $PaymentTerms->appendChild($Amount);
@@ -5048,29 +5209,6 @@ fac.FacLeyenda,
 				$PaymentDueDate2->appendChild($domtree->createCDATASection($InsFactura->FacFechaVencimiento2));
 			}
 
-			if ($InsFactura->FacRetencion == '1') {
-				$AllowanceCharge = $domtree->createElement("cac:AllowanceCharge");
-				$AllowanceCharge = $xmlRoot->appendChild($AllowanceCharge);
-
-				$ChargeIndicator = $domtree->createElement("cbc:ChargeIndicator", "false");
-				$ChargeIndicator = $AllowanceCharge->appendChild($ChargeIndicator);
-
-				$AllowanceChargeReasonCode = $domtree->createElement("cbc:AllowanceChargeReasonCode", "62");
-				$AllowanceChargeReasonCode = $AllowanceCharge->appendChild($AllowanceChargeReasonCode);
-
-				$MultiplierFactorNumeric = $domtree->createElement("cbc:MultiplierFactorNumeric", "0.03");
-				$MultiplierFactorNumeric = $AllowanceCharge->appendChild($MultiplierFactorNumeric);
-
-				$Amount = $domtree->createElement("cbc:Amount", number_format($TotalRetencion, 2, '.', ''));
-				$Amount->setAttribute('currencyID', $InsFactura->MonSigla);
-				$Amount = $AllowanceCharge->appendChild($Amount);
-
-				$BaseAmount = $domtree->createElement("cbc:BaseAmount", number_format($InsFactura->FacTotal, 2, '.', ''));
-				$BaseAmount->setAttribute('currencyID', $InsFactura->MonSigla);
-				$BaseAmount = $AllowanceCharge->appendChild($BaseAmount);
-			} elseif ($InsFactura->FacRetencion == '2') {
-			} else {
-			}
 
 
 			//cac:TaxTotal
@@ -5278,9 +5416,9 @@ fac.FacLeyenda,
 
 			//cbc:AllowanceTotalAmount 
 			//SUMA TOTAL DESCUENTOS GENERAL + ITEMS
-			$AllowanceTotalAmount = $domtree->createElement("cbc:AllowanceTotalAmount", number_format($InsFactura->FacTotalDescuento, 2, '.', ''));
-			$AllowanceTotalAmount->setAttribute('currencyID', $InsFactura->MonSigla);
-			$AllowanceTotalAmount = $LegalMonetaryTotal->appendChild($AllowanceTotalAmount);
+			// $AllowanceTotalAmount = $domtree->createElement("cbc:AllowanceTotalAmount",number_format($InsFactura->FacTotalDescuento,2, '.', ''));
+			// $AllowanceTotalAmount->setAttribute('currencyID', $InsFactura->MonSigla);
+			// $AllowanceTotalAmount = $LegalMonetaryTotal->appendChild($AllowanceTotalAmount);
 
 			if ($InsFactura->FacTotalOtrosCargos > 0) {
 

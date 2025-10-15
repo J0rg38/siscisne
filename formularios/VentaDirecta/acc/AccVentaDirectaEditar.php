@@ -211,7 +211,7 @@ Parametro48 = VddAdicionalUnitario
 				$DatVentaDirectaDetalle->Parametro46 = round($DatVentaDirectaDetalle->Parametro46 * $InsVentaDirecta->VdiTipoCambio, 6);
 			}
 
-			$InsVentaDirectaDetalle1 = new ClsVentaDirectaDetalle();
+			$InsVentaDirectaDetalle1 = new ClsVentaDirectaDetalle($InsMysql);
 			$InsVentaDirectaDetalle1->VddId = $DatVentaDirectaDetalle->Parametro1;
 			$InsVentaDirectaDetalle1->ProId = $DatVentaDirectaDetalle->Parametro2;
 			$InsVentaDirectaDetalle1->UmeId = $DatVentaDirectaDetalle->Parametro10;
@@ -358,7 +358,7 @@ Parametro5 = VddImporte
 Parametro6 = VddTiempoCreacion
 Parametro7 = VddTiempoModificacion
 */
-			$InsVentaDirectaPlanchado1 = new ClsVentaDirectaTarea();
+			$InsVentaDirectaPlanchado1 = new ClsVentaDirectaTarea($InsMysql);
 			$InsVentaDirectaPlanchado1->VdtId = $DatSesionObjeto->Parametro1;
 			$InsVentaDirectaPlanchado1->VdtDescripcion = $DatSesionObjeto->Parametro3;
 			$InsVentaDirectaPlanchado1->VdtImporte = $DatSesionObjeto->Parametro5;
@@ -405,7 +405,7 @@ Parametro6 = VddTiempoCreacion
 Parametro7 = VddTiempoModificacion
 */
 
-			$InsVentaDirectaPintado1 = new ClsVentaDirectaTarea();
+			$InsVentaDirectaPintado1 = new ClsVentaDirectaTarea($InsMysql);
 			$InsVentaDirectaPintado1->VdtId = $DatSesionObjeto->Parametro1;
 			$InsVentaDirectaPintado1->VdtDescripcion = $DatSesionObjeto->Parametro3;
 			$InsVentaDirectaPintado1->VdtImporte = $DatSesionObjeto->Parametro5;
@@ -453,7 +453,7 @@ Parametro6 = VddTiempoCreacion
 Parametro7 = VddTiempoModificacion
 */
 
-			$InsVentaDirectaCentrado1 = new ClsVentaDirectaTarea();
+			$InsVentaDirectaCentrado1 = new ClsVentaDirectaTarea($InsMysql);
 			$InsVentaDirectaCentrado1->VdtId = $DatSesionObjeto->Parametro1;
 			$InsVentaDirectaCentrado1->VdtDescripcion = $DatSesionObjeto->Parametro3;
 			$InsVentaDirectaCentrado1->VdtImporte = $DatSesionObjeto->Parametro5;
@@ -501,7 +501,7 @@ Parametro6 = VddTiempoCreacion
 Parametro7 = VddTiempoModificacion
 */
 
-			$InsVentaDirectaTarea1 = new ClsVentaDirectaTarea();
+			$InsVentaDirectaTarea1 = new ClsVentaDirectaTarea($InsMysql);
 			$InsVentaDirectaTarea1->VdtId = $DatSesionObjeto->Parametro1;
 			$InsVentaDirectaTarea1->VdtDescripcion = $DatSesionObjeto->Parametro3;
 			$InsVentaDirectaTarea1->VdtImporte = $DatSesionObjeto->Parametro5;
@@ -557,7 +557,7 @@ Parametro7 = VddTiempoModificacion
 	if (!empty($ArrSesionObjetos)) {
 		foreach ($ArrSesionObjetos as $DatSesionObjeto) {
 
-			$InsVentaDirectaFoto1 = new ClsVentaDirectaFoto();
+			$InsVentaDirectaFoto1 = new ClsVentaDirectaFoto($InsMysql);
 			$InsVentaDirectaFoto1->VdfId = $DatSesionObjeto->Parametro1;
 			$InsVentaDirectaFoto1->VdfArchivo = $DatSesionObjeto->Parametro3;
 			$InsVentaDirectaFoto1->VdfTipo = $DatSesionObjeto->Parametro7;
@@ -657,7 +657,7 @@ Parametro7 = VddTiempoModificacion
 			if ($InsVentaDirecta->VdiNotificar == 1) {
 
 
-				$InsCliente = new ClsCliente();
+				$InsCliente = new ClsCliente($InsMysql);
 				$InsCliente->CliId = $InsVentaDirecta->CliId;
 				$InsCliente->MtdObtenerCliente();
 

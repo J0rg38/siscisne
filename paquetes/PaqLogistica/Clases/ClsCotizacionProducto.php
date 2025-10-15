@@ -1586,7 +1586,7 @@ CprNivelInteres,
 
 			if (!empty($this->CprVIN)) {
 
-				$InsVehiculoIngreso = new ClsVehiculoIngreso();
+				$InsVehiculoIngreso = new ClsVehiculoIngreso($this->InsMysql);
 				$ResVehiculoIngreso = $InsVehiculoIngreso->MtdObtenerVehiculoIngresos("EinVIN", "esigual", $this->CprVIN, 'EinId', 'ASC', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "EinFechaRecepcion", NULL, NULL);
 				$ArrVehiculoIngresos = $ResVehiculoIngreso['Datos'];
 
@@ -2039,7 +2039,7 @@ CprNivelInteres,
 			return false;
 		} else {
 			$this->InsMysql->MtdTransaccionHacer();
-			$this->MtdAuditarCotizacionProducto(1, "Se registro la Cotizacion", $this);
+			//	$this->MtdAuditarCotizacionProducto(1, "Se registro la Cotizacion", $this);
 			return true;
 		}
 	}

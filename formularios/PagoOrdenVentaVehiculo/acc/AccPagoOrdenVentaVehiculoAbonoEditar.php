@@ -22,7 +22,7 @@ if (isset($_POST['BtnGuardar_x']) or (isset($_POST['Guardar']) && $_POST['Guarda
 	$InsPago->PagNumeroTransaccion = $_POST['CmpNumeroTransaccion'];
 	$InsPago->PagFechaTransaccion = FncCambiaFechaAMysql($_POST['CmpFechaTransaccion'], true);
 	$InsPago->PagNumeroRecibo = $_POST['CmpNumeroRecibo'];
-	$InsPago->PagCantidadLetras = $_POST['CmpCantidadLetras'];
+	$InsPago->PagCantidadLetras = preg_replace("/,/", "", (empty($_POST['CmpCantidadLetras']) ? 0 : $_POST['CmpCantidadLetras']));
 
 	$InsPago->MonId = $_POST['CmpMonedaId'];
 	$InsPago->PagTipoCambio = $_POST['CmpTipoCambio'];

@@ -79,7 +79,7 @@ class ClsTrasladoProducto
 
 	public $InsMysql;
 
-	public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -1000,7 +1000,7 @@ class ClsTrasladoProducto
 
 		$error = false;
 
-		$InsAlmacenStock = new ClsAlmacenStock();
+		$InsAlmacenStock = new ClsAlmacenStock($this->InsMysql);
 
 
 
@@ -1083,11 +1083,11 @@ class ClsTrasladoProducto
 			if (!empty($this->TrasladoProductoDetalle)) {
 
 				$validar = 0;
-				$InsTrasladoProductoDetalle = new ClsTrasladoProductoDetalle();
+				$InsTrasladoProductoDetalle = new ClsTrasladoProductoDetalle($this->InsMysql);
 
 				foreach ($this->TrasladoProductoDetalle as $DatTrasladoProductoDetalle) {
 
-					$InsProducto = new ClsProducto();
+					$InsProducto = new ClsProducto($this->InsMysql);
 					$InsProducto->ProId = $DatTrasladoProductoDetalle->ProId;
 					$InsProducto->MtdObtenerProducto(false);
 
@@ -1200,7 +1200,7 @@ class ClsTrasladoProducto
 		global $Resultado;
 		$error = false;
 
-		$InsAlmacenStock = new ClsAlmacenStock();
+		$InsAlmacenStock = new ClsAlmacenStock($this->InsMysql);
 
 		$sql = 'UPDATE tbltpttrasladoproducto SET
 		SucId = "' . ($this->SucId) . '",
@@ -1244,11 +1244,11 @@ class ClsTrasladoProducto
 
 				$validar = 0;
 				$item = 1;
-				$InsTrasladoProductoDetalle = new ClsTrasladoProductoDetalle();
+				$InsTrasladoProductoDetalle = new ClsTrasladoProductoDetalle($this->InsMysql);
 
 				foreach ($this->TrasladoProductoDetalle as $DatTrasladoProductoDetalle) {
 
-					$InsProducto = new ClsProducto();
+					$InsProducto = new ClsProducto($this->InsMysql);
 					$InsProducto->ProId = $DatTrasladoProductoDetalle->ProId;
 					$InsProducto->MtdObtenerProducto(false);
 

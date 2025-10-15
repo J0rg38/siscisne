@@ -64,7 +64,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
   $InsCotizacionProducto = new ClsCotizacionProducto($InsMysql);
   $InsMoneda = new ClsMoneda($InsMysql);
   $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-  $InsClienteTipo = new ClsClienteTipo();
+  $InsClienteTipo = new ClsClienteTipo($InsMysql);
 
   $InsPersonal = new ClsPersonal($InsMysql);
   $InsCliente = new ClsCliente($InsMysql);
@@ -383,8 +383,8 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
                               foreach ($ArrClienteTipos as $DatClienteTipo) {
                               ?>
                                 <option value="<?php echo $DatClienteTipo->LtiId ?>" <?php if ($InsCotizacionProducto->LtiId == $DatClienteTipo->LtiId) {
-                                                                                      echo 'selected="selected"';
-                                                                                    } ?>><?php echo $DatClienteTipo->LtiNombre ?></option>
+                                                                                        echo 'selected="selected"';
+                                                                                      } ?>><?php echo $DatClienteTipo->LtiNombre ?></option>
                               <?php
                               }
                               ?>

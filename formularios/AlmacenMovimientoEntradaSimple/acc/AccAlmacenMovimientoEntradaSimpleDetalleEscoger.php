@@ -6,38 +6,41 @@ $InsProyecto->Ruta = '../../../';
 $InsPoo->Ruta = '../../../';
 
 ////CONFIGURACIONES GENERALES
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfSistema.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfEmpresa.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfConexion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfNotificacion.php');
-require_once($InsProyecto->MtdRutConfiguraciones().'CnfFormularioNota.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfSistema.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfEmpresa.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfConexion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfNotificacion.php');
+require_once($InsProyecto->MtdRutConfiguraciones() . 'CnfFormularioNota.php');
 ////MENSAJES GENERALES
-require_once($InsProyecto->MtdRutMensajes().'MsjGeneral.php');
+require_once($InsProyecto->MtdRutMensajes() . 'MsjGeneral.php');
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutClases().'ClsSesion.php');
-require_once($InsProyecto->MtdRutClases().'ClsSesionObjeto.php');
-require_once($InsProyecto->MtdRutClases().'ClsMensaje.php');
-require_once($InsProyecto->MtdRutLibrerias().'PHPMailer_5.2.4/class.phpmailer.php');
-require_once($InsProyecto->MtdRutClases().'ClsCorreo.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsSesionObjeto.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMensaje.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'PHPMailer_5.2.4/class.phpmailer.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsCorreo.php');
 
 ////CLASES GENERALES
-require_once($InsProyecto->MtdRutConexiones().'ClsConexion.php');
-require_once($InsProyecto->MtdRutClases().'ClsMysql.php');
+require_once($InsProyecto->MtdRutConexiones() . 'ClsConexion.php');
+require_once($InsProyecto->MtdRutClases() . 'ClsMysql.php');
 ////FUNCIONES GENERALES
-require_once($InsProyecto->MtdRutFunciones().'FncGeneral.php');
+require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 
-require_once($InsProyecto->MtdRutLibrerias().'JSON.php');
-require_once($InsProyecto->MtdRutLibrerias().'JSON2.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'JSON.php');
+require_once($InsProyecto->MtdRutLibrerias() . 'JSON2.php');
 
 $Identificador = $_POST['Identificador'];
 
+
 session_start();
-if (!isset($_SESSION['InsAlmacenMovimientoEntradaDetalle'.$Identificador])){
-	$_SESSION['InsAlmacenMovimientoEntradaDetalle'.$Identificador] = new ClsSesionObjeto();
+if (!isset($_SESSION['InsAlmacenMovimientoEntradaDetalle' . $Identificador])) {
+	$_SESSION['InsAlmacenMovimientoEntradaDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+	$_SESSION['InsAlmacenMovimientoEntradaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsAlmacenMovimientoEntradaDetalle' . $Identificador]);
 }
 
 $InsAlmacenMovimientoEntradaDetalle1 = array();
-$InsAlmacenMovimientoEntradaDetalle1 = $_SESSION['InsAlmacenMovimientoEntradaDetalle'.$Identificador]->MtdObtenerSesionObjeto($_POST['Item']);
+$InsAlmacenMovimientoEntradaDetalle1 = $_SESSION['InsAlmacenMovimientoEntradaDetalle' . $Identificador]->MtdObtenerSesionObjeto($_POST['Item']);
 
 //$json = new JSON;
 //$var = $json->serialize( $InsAlmacenMovimientoEntradaDetalle1 );
@@ -45,6 +48,4 @@ $InsAlmacenMovimientoEntradaDetalle1 = $_SESSION['InsAlmacenMovimientoEntradaDet
 //$json->unserialize( $var );
 
 //echo $var;
-echo json_encode($InsAlmacenMovimientoEntradaDetalle1 );
-
-?>
+echo json_encode($InsAlmacenMovimientoEntradaDetalle1);

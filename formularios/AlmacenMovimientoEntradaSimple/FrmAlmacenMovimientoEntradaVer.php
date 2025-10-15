@@ -54,13 +54,13 @@ require_once($InsPoo->MtdPaqAlmacen().'ClsAlmacen.php');
 
 
 
-$InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada();
-$InsComprobanteTipo = new ClsComprobanteTipo();
-$InsTipoOperacion = new ClsTipoOperacion();
+$InsAlmacenMovimientoEntrada = new ClsAlmacenMovimientoEntrada($InsMysql);
+$InsComprobanteTipo = new ClsComprobanteTipo($InsMysql);
+$InsTipoOperacion = new ClsTipoOperacion($InsMysql);
 $InsMoneda = new ClsMoneda($InsMysql);
 $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
-$InsCondicionPago = new ClsCondicionPago();
-$InsAlmacen = new ClsAlmacen();
+$InsCondicionPago = new ClsCondicionPago($InsMysql);
+$InsAlmacen = new ClsAlmacen($InsMysql);
 
 if (isset($_SESSION['InsAlmacenMovimientoEntradaDetalle'.$Identificador])){	
 	$_SESSION['InsAlmacenMovimientoEntradaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsAlmacenMovimientoEntradaDetalle'.$Identificador]);

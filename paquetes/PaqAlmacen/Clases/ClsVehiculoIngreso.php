@@ -2745,9 +2745,10 @@ ein.EinNumeroProforma,
 			
 			"' . ($this->EinVIN) . '", 
 			' . (empty($this->EinFechaVenta) ? 'NULL,' : '"' . $this->EinFechaVenta . '",') . '	
-			"' . ($this->EinAnoFabricacion) . '", 
-			"' . ($this->EinAnoModelo) . '", 
-			"' . ($this->EinAnoVehiculo) . '", 
+			"' . ($this->EinAnoFabricacion) . '", 		
+			' . (empty($this->EinAnoModelo) ? 'NULL,' : '' . $this->EinAnoModelo . ',') . '	
+			' . (empty($this->EinAnoVehiculo) ? 'NULL,' : '' . $this->EinAnoVehiculo . ',') . '	
+
 			"' . ($this->EinNumeroMotor) . '", 
 			
 			"' . ($this->EinTransmision) . '",			
@@ -4058,9 +4059,12 @@ ein.EinNumeroProforma,
 			
 			"' . ($this->EinVIN) . '", 
 			' . (empty($this->EinFechaVenta) ? 'NULL,' : '"' . $this->EinFechaVenta . '",') . '	
-			"' . ($this->EinAnoFabricacion) . '", 
-			"' . ($this->EinAnoModelo) . '", 
-			"' . ($this->EinAnoVehiculo) . '", 
+		
+			' . (empty($this->EinAnoFabricacion) ? 'NULL,' : '' . $this->EinAnoFabricacion . ',') . '	
+			' . (empty($this->EinAnoModelo) ? 'NULL,' : '' . $this->EinAnoModelo . ',') . '	
+			' . (empty($this->EinAnoVehiculo) ? 'NULL,' : '' . $this->EinAnoVehiculo . ',') . '	
+
+
 			"' . ($this->EinNumeroMotor) . '", 
 			
 			"' . ($this->EinTransmision) . '",			
@@ -4119,13 +4123,20 @@ ein.EinNumeroProforma,
 		
 			
 			"' . ($this->EinComprobanteCompraNumero) . '", 
-			"' . ($this->EinComprobanteCompraFecha) . '", 
+			
+			' . (empty($this->EinComprobanteCompraFecha) ? 'NULL,' : '"' . $this->EinComprobanteCompraFecha . '",') . '	
+
+
 		
 			"' . ($this->EinClaveAlarma) . '", 
 			"' . ($this->EinCodigoPedido) . '", 
 			
 			"' . ($this->EinFacturaNumero) . '", 
-			"' . ($this->EinFacturaValor) . '", 
+			
+
+			' . (empty($this->EinFacturaValor) ? '0,' : '' . $this->EinFacturaValor . ',') . '	
+
+
 			"' . ($this->EinProveedor) . '", 
 			
 			2,

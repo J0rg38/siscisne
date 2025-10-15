@@ -234,7 +234,7 @@ Parametro48 = VddAdicionalUnitario
 				$DatVentaDirectaDetalle->Parametro46 = round($DatVentaDirectaDetalle->Parametro46 * $InsVentaDirecta->VdiTipoCambio, 6);
 			}
 
-			$InsVentaDirectaDetalle1 = new ClsVentaDirectaDetalle();
+			$InsVentaDirectaDetalle1 = new ClsVentaDirectaDetalle($InsMysql);
 
 			//			$DetallePrecioBruto = 0;
 			//			$DetalleDescuento = 0;
@@ -420,7 +420,7 @@ Parametro5 = VdtImporte
 Parametro6 = VdtTiempoCreacion
 Parametro7 = VdtTiempoModificacion
 */
-			$InsVentaDirectaPlanchado1 = new ClsVentaDirectaTarea();
+			$InsVentaDirectaPlanchado1 = new ClsVentaDirectaTarea($InsMysql);
 			$InsVentaDirectaPlanchado1->VdtId = $DatSesionObjeto->Parametro1;
 			$InsVentaDirectaPlanchado1->VdtDescripcion = $DatSesionObjeto->Parametro3;
 			//if($InsVentaDirecta->MonId<>$EmpresaMonedaId ){
@@ -463,7 +463,7 @@ Parametro5 = VdtImporte
 Parametro6 = VdtTiempoCreacion
 Parametro7 = VdtTiempoModificacion
 */
-			$InsVentaDirectaPintado1 = new ClsVentaDirectaTarea();
+			$InsVentaDirectaPintado1 = new ClsVentaDirectaTarea($InsMysql);
 			$InsVentaDirectaPintado1->VdtId = $DatSesionObjeto->Parametro1;
 			$InsVentaDirectaPintado1->VdtDescripcion = $DatSesionObjeto->Parametro3;
 			$InsVentaDirectaPintado1->VdtImporte = $DatSesionObjeto->Parametro5;
@@ -508,7 +508,7 @@ Parametro6 = CrdTiempoCreacion
 Parametro7 = CrdTiempoModificacion
 */
 
-			$InsVentaDirectaCentrado1 = new ClsVentaDirectaTarea();
+			$InsVentaDirectaCentrado1 = new ClsVentaDirectaTarea($InsMysql);
 			$InsVentaDirectaCentrado1->VdtId = $DatSesionObjeto->Parametro1;
 			$InsVentaDirectaCentrado1->VdtDescripcion = $DatSesionObjeto->Parametro3;
 			$InsVentaDirectaCentrado1->VdtImporte = $DatSesionObjeto->Parametro5;
@@ -555,7 +555,7 @@ Parametro7 = CrdTiempoModificacion
 			Parametro7 = CrdTiempoModificacion
 			*/
 
-			$InsVentaDirectaTarea1 = new ClsVentaDirectaTarea();
+			$InsVentaDirectaTarea1 = new ClsVentaDirectaTarea($InsMysql);
 			$InsVentaDirectaTarea1->VdtId = $DatSesionObjeto->Parametro1;
 			$InsVentaDirectaTarea1->VdtDescripcion = $DatSesionObjeto->Parametro3;
 			$InsVentaDirectaTarea1->VdtImporte = $DatSesionObjeto->Parametro5;
@@ -609,7 +609,7 @@ Parametro7 = CrdTiempoModificacion
 	if (!empty($ArrSesionObjetos)) {
 		foreach ($ArrSesionObjetos as $DatSesionObjeto) {
 
-			$InsVentaDirectaFoto1 = new ClsVentaDirectaFoto();
+			$InsVentaDirectaFoto1 = new ClsVentaDirectaFoto($InsMysql);
 			$InsVentaDirectaFoto1->VdfId = $DatSesionObjeto->Parametro1;
 			$InsVentaDirectaFoto1->VdfArchivo = $DatSesionObjeto->Parametro3;
 			$InsVentaDirectaFoto1->VdfTipo = $DatSesionObjeto->Parametro7;
@@ -695,7 +695,7 @@ Parametro7 = CrdTiempoModificacion
 
 				$RegistrarVentaConcretada = false;
 
-				$InsVentaConcretada = new ClsVentaConcretada();
+				$InsVentaConcretada = new ClsVentaConcretada($InsMysql);
 				$InsVentaConcretada->UsuId = $_SESSION['SesionId'];
 				$InsVentaConcretada->SucId = $_SESSION['SesionSucursal'];
 
@@ -807,7 +807,7 @@ Parametro7 = CrdTiempoModificacion
 
 
 
-								$InsVentaConcretadaDetalle1 = new ClsVentaConcretadaDetalle();
+								$InsVentaConcretadaDetalle1 = new ClsVentaConcretadaDetalle($InsMysql);
 
 								$InsVentaConcretadaDetalle1->VerificarStock	= 2;
 
@@ -942,7 +942,7 @@ Parametro7 = CrdTiempoModificacion
 					$InsPago->PagMonto = round($InsPago->PagMonto * $InsPago->PagTipoCambio, 6);
 				}
 
-				$InsPagoComprobante1 = new ClsPagoComprobante();
+				$InsPagoComprobante1 = new ClsPagoComprobante($InsMysql);
 				$InsPagoComprobante1->PacId = NULL;
 				$InsPagoComprobante1->VdiId = $InsVentaDirecta->VdiId;
 				$InsPagoComprobante1->PacEstado = 1;
@@ -973,7 +973,7 @@ Parametro7 = CrdTiempoModificacion
 
 			if ($InsVentaDirecta->VdiNotificar == 1) {
 
-				$InsCliente = new ClsCliente();
+				$InsCliente = new ClsCliente($InsMysql);
 				$InsCliente->CliId = $InsVentaDirecta->CliId;
 				$InsCliente->MtdObtenerCliente();
 
@@ -1004,7 +1004,7 @@ Parametro7 = CrdTiempoModificacion
 		case "CotizacionProducto":
 
 			//$InsVentaDirecta->VdiIncluyeImpuesto = 1;			
-			$InsCotizacionProducto = new ClsCotizacionProducto();
+			$InsCotizacionProducto = new ClsCotizacionProducto($InsMysql);
 			$InsCotizacionProducto->CprId = $GET_CprId;
 			$InsCotizacionProducto->MtdObtenerCotizacionProducto();
 
@@ -1361,6 +1361,7 @@ Parametro48 = VddAdicionalUnitario
 function FncNuevo()
 {
 
+	global $InsMysql;
 	global $Identificador;
 	global $InsVentaDirecta;
 	global $EmpresaImpuestoVenta;
@@ -1389,7 +1390,7 @@ function FncNuevo()
 
 	//unset($InsVentaDirecta);
 
-	$InsVentaDirecta = new ClsVentaDirecta();
+	$InsVentaDirecta = new ClsVentaDirecta($InsMysql);
 
 	$InsVentaDirecta->VdiFecha = date("d/m/Y");
 	$InsVentaDirecta->VdiIncluyeImpuesto = 1;

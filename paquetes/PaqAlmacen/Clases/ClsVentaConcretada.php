@@ -1489,7 +1489,7 @@ class ClsVentaConcretada
 			$this->InsMysql->MtdTransaccionIniciar();
 		}
 
-		$InsAlmacenStock = new ClsAlmacenStock();
+		$InsAlmacenStock = new ClsAlmacenStock($this->InsMysql);
 
 		$this->MtdGenerarVentaConcretadaId();
 
@@ -1641,7 +1641,7 @@ class ClsVentaConcretada
 
 				foreach ($this->VentaConcretadaDetalle as $DatVentaConcretadaDetalle) {
 
-					$InsProducto = new ClsProducto();
+					$InsProducto = new ClsProducto($this->InsMysql);
 					$InsProducto->ProId = $DatVentaConcretadaDetalle->ProId;
 					$InsProducto->MtdObtenerProducto(false);
 

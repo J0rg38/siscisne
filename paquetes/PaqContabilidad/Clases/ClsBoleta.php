@@ -2735,6 +2735,8 @@ bol.BolObservacionCaja,
 				BolTotalGratuito,	
 				BolTotalGravado,
 						
+				BolTotalReal,
+
 				BolSubTotal,
 				BolImpuesto,
 				BolTotal,			
@@ -2829,6 +2831,8 @@ bol.BolObservacionCaja,
 				' . ($this->BolTotalGratuito) . ',
 				' . ($this->BolTotalGravado) . ',
 					
+				0,
+				
 				' . ($this->BolSubTotal) . ',
 				' . ($this->BolImpuesto) . ',
 				' . ($this->BolTotal) . ',			
@@ -4649,7 +4653,9 @@ bol.BolObservacionCaja,
 							$TaxAmount = $TaxSubtotal->appendChild($TaxAmount);
 						} else {
 							//cbc:TaxAmount 
-							$TaxAmount = $domtree->createElement("cbc:TaxAmount", number_format($DatBoletaDetalle->BdeImpuesto, 2, '.', ''));
+							//REVISAR2025
+							$DatBoletaDetalle->BdeImpuesto = $DatBoletaDetalle->BdeValorVenta * ($InsBoleta->BolPorcentajeImpuestoVenta / 100);
+							$TaxAmount = $domtree->createElement("cbc:TaxAmount", "" . number_format($DatBoletaDetalle->BdeImpuesto, 2, '.', ''));
 							$TaxAmount->setAttribute('currencyID', $InsBoleta->MonSigla);
 							$TaxAmount = $TaxSubtotal->appendChild($TaxAmount);
 						}

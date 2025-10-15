@@ -10,37 +10,38 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsFacturaDetalle {
+class ClsFacturaDetalle
+{
 
-    public $FdeId;
-    public $FacId;
+	public $FdeId;
+	public $FacId;
 	public $FtaId;
 	public $AmdId;
 	public $FatId;
 	public $FdeTipo;
 
 	public $FdeDescripcion;
-	public $FdeUnidadMedida;	
+	public $FdeUnidadMedida;
 
-	public $FdeCantidad;	
+	public $FdeCantidad;
 	public $FdePrecio;
 	public $FdeImporte;
 	public $FdeImpuestoSelectivo;
 	public $FdeIncluyeSelectivo;
-	
+
 	public $FdeEstado;
 	public $FdeTiempoCreacion;
 	public $FdeTiempoModificacion;
-    public $FdeEliminado;
+	public $FdeEliminado;
 
 	public $OdeId;
 	public $OriId;
-	
+
 	public $FacFechaEmision;
 	public $FacTipoCambio;
 	public $FacIncluyeImpuesto;
-    	public $InsMysql;
-	
+	public $InsMysql;
+
 	// Propiedades adicionales para evitar warnings
 	public $FdeCodigo;
 	public $FdeValorVenta;
@@ -64,7 +65,7 @@ class ClsFacturaDetalle {
 	public $FdeEstadoDescripcion;
 	public $FdeEstadoIcono;
 
-    public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -72,35 +73,32 @@ class ClsFacturaDetalle {
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
-	}
-	
-	public function __destruct(){
-
 	}
 
-	private function MtdGenerarFacturaDetalleId() {
+	public function __destruct() {}
 
-	
-			
-			$sql = 'SELECT	
+	private function MtdGenerarFacturaDetalleId()
+	{
+
+
+
+		$sql = 'SELECT	
 			MAX(CONVERT(SUBSTR(FdeId,5),unsigned)) AS "MAXIMO"
 			FROM tblfdefacturadetalle';
-			
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			if(empty($fila['MAXIMO'])){			
-				$this->FdeId = "FDE-10000";
-			}else{
-				$fila['MAXIMO']++;
-				$this->FdeId = "FDE-".$fila['MAXIMO'];					
-			}
-			
-					
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		if (empty($fila['MAXIMO'])) {
+			$this->FdeId = "FDE-10000";
+		} else {
+			$fila['MAXIMO']++;
+			$this->FdeId = "FDE-" . $fila['MAXIMO'];
 		}
-		
-    public function MtdObtenerFacturaDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'FdeId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFactura=NULL,$oTalonario=NULL,$oAlmacenMovimientoDetalleId=NULL,$oFacturaEstado=NULL,$oVentaDirectaDetalleId=NULL) {
+	}
+
+	public function MtdObtenerFacturaDetalles($oCampo = NULL, $oFiltro = NULL, $oOrden = 'FdeId', $oSentido = 'Desc', $oPaginacion = '0,10', $oFactura = NULL, $oTalonario = NULL, $oAlmacenMovimientoDetalleId = NULL, $oFacturaEstado = NULL, $oVentaDirectaDetalleId = NULL)
+	{
 
 		// Inicializar variables para evitar warnings
 		$filtrar = '';
@@ -111,36 +109,36 @@ class ClsFacturaDetalle {
 		$festado = '';
 		$vddetale = '';
 
-		if(!empty($oCampo) && !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$filtrar = ' AND '.($oCampo).' LIKE "%'.($oFiltro).'%"';
+		if (!empty($oCampo) && !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$filtrar = ' AND ' . ($oCampo) . ' LIKE "%' . ($oFiltro) . '%"';
 		}
 
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		if(!empty($oFactura) and !empty($oTalonario)){
-			$factura = ' AND fde.FacId="'.$oFactura.'" AND fde.FtaId = "'.$oTalonario.'"';
+
+		if (!empty($oFactura) and !empty($oTalonario)) {
+			$factura = ' AND fde.FacId="' . $oFactura . '" AND fde.FtaId = "' . $oTalonario . '"';
 		}
-		
-		if(!empty($oAlmacenMovimientoDetalleId)){
-			$amdetalle = ' AND fde.AmdId="'.$oAlmacenMovimientoDetalleId.'" ';
-		}	
-		
-		if(!empty($oFacturaEstado)){
-			$festado = ' AND fac.FacEstado = '.$oFacturaEstado.' ';
+
+		if (!empty($oAlmacenMovimientoDetalleId)) {
+			$amdetalle = ' AND fde.AmdId="' . $oAlmacenMovimientoDetalleId . '" ';
 		}
-		
-		if(!empty($oVentaDirectaDetalleId)){
-			$vddetale = ' AND  amd.VddId="'.$oVentaDirectaDetalleId.'" ';
-		}		
-		
-			$sql = 'SELECT
+
+		if (!empty($oFacturaEstado)) {
+			$festado = ' AND fac.FacEstado = ' . $oFacturaEstado . ' ';
+		}
+
+		if (!empty($oVentaDirectaDetalleId)) {
+			$vddetale = ' AND  amd.VddId="' . $oVentaDirectaDetalleId . '" ';
+		}
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				fde.FdeId,
 				fde.AmdId	 AS "OdeId" ,
@@ -159,7 +157,10 @@ class ClsFacturaDetalle {
 				fde.FdePrecio,
 				fde.FdeImporte,
 				
-				((fde.FdeValorVenta/fde.FdeCantidad)+(fde.FdeDescuento/fde.FdeCantidad)) AS FdeValorVentaUnitario,
+				((fde.FdeValorVenta/fde.FdeCantidad)+(fde.FdeDescuento/fde.FdeCantidad)) AS FdeValorVentaUnitario2,
+
+				(fde.FdeValorVenta/fde.FdeCantidad) AS FdeValorVentaUnitario,
+					
 				fde.FdeValorVenta,
 				fde.FdeImpuesto,
 				fde.FdeImpuestoSelectivo,
@@ -213,127 +214,132 @@ class ClsFacturaDetalle {
 						LEFT JOIN tblvddventadirectadetalle vdd
 						ON amd.VddId = vdd.VddId
 
-				WHERE 1 = 1 '.$factura.$filtrar.$amdetalle.$festado.$vddetale.$orden.$paginacion;
-											
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+				WHERE 1 = 1 ' . $factura . $filtrar . $amdetalle . $festado . $vddetale . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsFacturaDetalle = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$FacturaDetalle = new $InsFacturaDetalle();
-                    $FacturaDetalle->FdeId = $fila['FdeId'];
+		$Respuesta['Datos'] = array();
 
-					$FacturaDetalle->OdeId = $fila['OdeId'];
-					$FacturaDetalle->OriId = $fila['OriId'];
-					
-					$FacturaDetalle->AmdId = $fila['AmdId'];
-					$FacturaDetalle->FatId = $fila['FatId'];
-					
-					$FacturaDetalle->FdeTipo = $fila['FdeTipo'];
+		$InsFacturaDetalle = get_class($this);
 
-                    $FacturaDetalle->FdeCodigo = (($fila['FdeCodigo']));	
-					$FacturaDetalle->FdeDescripcion = (($fila['FdeDescripcion']));	
-					$FacturaDetalle->FdeUnidadMedida = $fila['FdeUnidadMedida'];
-					
-                    $FacturaDetalle->FdePrecio = $fila['FdePrecio'];
-					$FacturaDetalle->FdeCantidad = $fila['FdeCantidad'];
-					$FacturaDetalle->FdeImporte = $fila['FdeImporte'];	
-					$FacturaDetalle->FdeValorVentaUnitario = $fila['FdeValorVentaUnitario'];	
-					
-					$FacturaDetalle->FdeValorVenta = $fila['FdeValorVenta'];	
-					$FacturaDetalle->FdeImpuesto = $fila['FdeImpuesto'];	
-					$FacturaDetalle->FdeDescuento = $fila['FdeDescuento'];	
-					$FacturaDetalle->FdeValorVentaBruto = $fila['FdeValorVentaBruto'];	
-					$FacturaDetalle->FdeImpuestoSelectivo = $fila['FdeImpuestoSelectivo'];	
-					
-					$FacturaDetalle->FdeGratuito = $fila['FdeGratuito'];	
-					$FacturaDetalle->FdeExonerado = $fila['FdeExonerado'];	
-					$FacturaDetalle->FdeIncluyeSelectivo = $fila['FdeIncluyeSelectivo'];	
-							
-					$FacturaDetalle->FdeTiempoCreacion = $fila['NFdeTiempoCreacion'];  
-					$FacturaDetalle->FdeTiempoModificacion = $fila['NFdeTiempoModificacion']; 
-					
-					$FacturaDetalle->FacId = $fila['FacId']; 
-					$FacturaDetalle->FtaId = $fila['FtaId'];
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-					$FacturaDetalle->FtaNumero = $fila['FtaNumero']; 
-					
-					$FacturaDetalle->FacFechaEmision = $fila['NFacFechaEmision'];
-					$FacturaDetalle->FacTipoCambio = $fila['FacTipoCambio'];
-					
-					$FacturaDetalle->FacIncluyeImpuesto = $fila['FacIncluyeImpuesto'];
-					
-					$FacturaDetalle->VcdReingreso = $fila['VcdReingreso'];
-					$FacturaDetalle->AmdCompraOrigen = $fila['AmdCompraOrigen'];
-					
-					$FacturaDetalle->FdeUnidadMedidaCodigo = $fila['FdeUnidadMedidaCodigo'];
+			$FacturaDetalle = new $InsFacturaDetalle();
+			$FacturaDetalle->FdeId = $fila['FdeId'];
 
-                    $FacturaDetalle->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $FacturaDetalle;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+			$FacturaDetalle->OdeId = $fila['OdeId'];
+			$FacturaDetalle->OriId = $fila['OriId'];
+
+			$FacturaDetalle->AmdId = $fila['AmdId'];
+			$FacturaDetalle->FatId = $fila['FatId'];
+
+			$FacturaDetalle->FdeTipo = $fila['FdeTipo'];
+
+			$FacturaDetalle->FdeCodigo = (($fila['FdeCodigo']));
+			$FacturaDetalle->FdeDescripcion = (($fila['FdeDescripcion']));
+			$FacturaDetalle->FdeUnidadMedida = $fila['FdeUnidadMedida'];
+
+			$FacturaDetalle->FdePrecio = $fila['FdePrecio'];
+			$FacturaDetalle->FdeCantidad = $fila['FdeCantidad'];
+			$FacturaDetalle->FdeImporte = $fila['FdeImporte'];
+			$FacturaDetalle->FdeValorVentaUnitario = $fila['FdeValorVentaUnitario'];
+
+			$FacturaDetalle->FdeValorVenta = $fila['FdeValorVenta'];
+			$FacturaDetalle->FdeImpuesto = $fila['FdeImpuesto'];
+			$FacturaDetalle->FdeDescuento = $fila['FdeDescuento'];
+			$FacturaDetalle->FdeValorVentaBruto = $fila['FdeValorVentaBruto'];
+			$FacturaDetalle->FdePorcentajeDescuento = $fila['FdePorcentajeDescuento'];
+
+
+
+			$FacturaDetalle->FdeImpuestoSelectivo = $fila['FdeImpuestoSelectivo'];
+
+			$FacturaDetalle->FdeGratuito = $fila['FdeGratuito'];
+			$FacturaDetalle->FdeExonerado = $fila['FdeExonerado'];
+			$FacturaDetalle->FdeIncluyeSelectivo = $fila['FdeIncluyeSelectivo'];
+
+			$FacturaDetalle->FdeTiempoCreacion = $fila['NFdeTiempoCreacion'];
+			$FacturaDetalle->FdeTiempoModificacion = $fila['NFdeTiempoModificacion'];
+
+			$FacturaDetalle->FacId = $fila['FacId'];
+			$FacturaDetalle->FtaId = $fila['FtaId'];
+
+			$FacturaDetalle->FtaNumero = $fila['FtaNumero'];
+
+			$FacturaDetalle->FacFechaEmision = $fila['NFacFechaEmision'];
+			$FacturaDetalle->FacTipoCambio = $fila['FacTipoCambio'];
+
+			$FacturaDetalle->FacIncluyeImpuesto = $fila['FacIncluyeImpuesto'];
+
+			$FacturaDetalle->VcdReingreso = $fila['VcdReingreso'];
+			$FacturaDetalle->AmdCompraOrigen = $fila['AmdCompraOrigen'];
+
+			$FacturaDetalle->FdeUnidadMedidaCodigo = $fila['FdeUnidadMedidaCodigo'];
+
+			$FacturaDetalle->InsMysql = NULL;
+			$Respuesta['Datos'][] = $FacturaDetalle;
 		}
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
+
 
 	//Accion eliminar	 
-	
-	public function MtdEliminarFacturaDetalle($oElementos) {
-		
-		$elementos = explode("#",$oElementos);
-		
+
+	public function MtdEliminarFacturaDetalle($oElementos)
+	{
+
+		$elementos = explode("#", $oElementos);
+
 		// Inicializar variable para evitar warnings
 		$eliminar = '';
-		
-		$i=1;
-			foreach($elementos as $elemento){
-				if(!empty($elemento)){
-				
-					if($i==count($elementos)){						
-						$eliminar .= '  (FdeId = "'.($elemento).'")';	
-					}else{
-						$eliminar .= '  (FdeId = "'.($elemento).'")  OR';	
-					}	
+
+		$i = 1;
+		foreach ($elementos as $elemento) {
+			if (!empty($elemento)) {
+
+				if ($i == count($elementos)) {
+					$eliminar .= '  (FdeId = "' . ($elemento) . '")';
+				} else {
+					$eliminar .= '  (FdeId = "' . ($elemento) . '")  OR';
 				}
-			$i++;
-	
 			}
-			
+			$i++;
+		}
 
-		
-			$sql = 'DELETE FROM tblfdefacturadetalle 
-			WHERE '.$eliminar;
-			
-			$error = false;
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}							
+
+		$sql = 'DELETE FROM tblfdefacturadetalle 
+			WHERE ' . $eliminar;
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	
-	public function MtdRegistrarFacturaDetalle() {
-	
-			$this->MtdGenerarFacturaDetalleId();
 
-			
-			$sql = 'INSERT INTO tblfdefacturadetalle (
+
+	public function MtdRegistrarFacturaDetalle()
+	{
+
+		$this->MtdGenerarFacturaDetalleId();
+
+
+		$sql = 'INSERT INTO tblfdefacturadetalle (
 			FdeId,
 			FacId, 
 			FtaId,
@@ -364,93 +370,89 @@ class ClsFacturaDetalle {
 			FdeTiempoModificacion
 			) 
 			VALUES (
-			"'.($this->FdeId).'", 
-			"'.($this->FacId).'",
-			"'.($this->FtaId).'",
+			"' . ($this->FdeId) . '", 
+			"' . ($this->FacId) . '",
+			"' . ($this->FtaId) . '",
 			
-			'.(empty($this->AmdId)?'NULL, ':'"'.$this->AmdId.'",').'
-			'.(empty($this->FatId)?'NULL, ':'"'.$this->FatId.'",').'
+			' . (empty($this->AmdId) ? 'NULL, ' : '"' . $this->AmdId . '",') . '
+			' . (empty($this->FatId) ? 'NULL, ' : '"' . $this->FatId . '",') . '
 			
-			"'.($this->FdeTipo).'",	
-			'.($this->FdeCantidad).',
-			"'.($this->FdeCodigo).'",	
-			"'.($this->FdeDescripcion).'",
-			"'.($this->FdeUnidadMedida).'",
+			"' . ($this->FdeTipo) . '",	
+			' . ($this->FdeCantidad) . ',
+			"' . ($this->FdeCodigo) . '",	
+			"' . ($this->FdeDescripcion) . '",
+			"' . ($this->FdeUnidadMedida) . '",
 			
-			'.($this->FdePrecio).',
-			'.($this->FdeImporte).',
+			' . ($this->FdePrecio) . ',
+			' . ($this->FdeImporte) . ',
 			
-			'.($this->FdeValorVenta).',
-			'.($this->FdeImpuesto).',
-			'.($this->FdeImpuestoSelectivo).',
-			'.($this->FdeDescuento).',
+			' . ($this->FdeValorVenta) . ',
+			' . ($this->FdeImpuesto) . ',
+			' . ($this->FdeImpuestoSelectivo) . ',
+			' . ($this->FdeDescuento) . ',
 			
 			
-			'.($this->FdeGratuito).',
-			'.($this->FdeExonerado).',
-			'.($this->FdeIncluyeSelectivo).',
+			' . ($this->FdeGratuito) . ',
+			' . ($this->FdeExonerado) . ',
+			' . ($this->FdeIncluyeSelectivo) . ',
 			
-			"'.($this->FdeTiempoCreacion).'",
-			"'.($this->FdeTiempoModificacion).'");';
+			"' . ($this->FdeTiempoCreacion) . '",
+			"' . ($this->FdeTiempoModificacion) . '");';
 
-			$error = false;
+		$error = false;
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
-			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}			
-			
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	
-	public function MtdEditarFacturaDetalle() {		
 
-			$sql = 'UPDATE tblfdefacturadetalle SET
-			
-			 FdeTipo = "'.($this->FdeTipo).'",
-			 
-			 FdeCantidad = '.($this->FdeCantidad).',
-			 FdeCodigo = "'.addslashes($this->FdeCodigo).'",
-			 FdeDescripcion = "'.addslashes($this->FdeDescripcion).'",
-			 FdeUnidadMedida = "'.addslashes($this->FdeUnidadMedida).'",
-			 
-			 FdePrecio = '.($this->FdePrecio).',
-			 FdeImporte = '.($this->FdeImporte).',
-			 
-			 FdeValorVenta = '.($this->FdeValorVenta).',
-			 FdeImpuesto = '.($this->FdeImpuesto).',
-			 FdeImpuestoSelectivo = '.($this->FdeImpuestoSelectivo).',
-			 FdeDescuento = '.($this->FdeDescuento).',
-			 
-			 FdeGratuito = '.($this->FdeGratuito).',
-			 FdeExonerado = '.($this->FdeExonerado).',
-			 FdeIncluyeSelectivo = '.($this->FdeIncluyeSelectivo).',
-			 
-			 FdeTiempoModificacion = "'.($this->FdeTiempoModificacion).'"
-			 WHERE FdeId = "'.($this->FdeId).'";';
-					
-			$error = false;
+	public function MtdEditarFacturaDetalle()
+	{
 
-			$resultado = $this->InsMysql->MtdEjecutar($sql,false);        
+		$sql = 'UPDATE tblfdefacturadetalle SET
 			
-			if(!$resultado) {						
-				$error = true;
-			} 		
-			
-			if($error) {						
-				return false;
-			} else {				
-				return true;
-			}						
-				
-		}	
-		
-	
+			 FdeTipo = "' . ($this->FdeTipo) . '",
+			 
+			 FdeCantidad = ' . ($this->FdeCantidad) . ',
+			 FdeCodigo = "' . addslashes($this->FdeCodigo) . '",
+			 FdeDescripcion = "' . addslashes($this->FdeDescripcion) . '",
+			 FdeUnidadMedida = "' . addslashes($this->FdeUnidadMedida) . '",
+			 
+			 FdePrecio = ' . ($this->FdePrecio) . ',
+			 FdeImporte = ' . ($this->FdeImporte) . ',
+			 
+			 FdeValorVenta = ' . ($this->FdeValorVenta) . ',
+			 FdeImpuesto = ' . ($this->FdeImpuesto) . ',
+			 FdeImpuestoSelectivo = ' . ($this->FdeImpuestoSelectivo) . ',
+			 FdeDescuento = ' . ($this->FdeDescuento) . ',
+			 
+			 FdeGratuito = ' . ($this->FdeGratuito) . ',
+			 FdeExonerado = ' . ($this->FdeExonerado) . ',
+			 FdeIncluyeSelectivo = ' . ($this->FdeIncluyeSelectivo) . ',
+			 
+			 FdeTiempoModificacion = "' . ($this->FdeTiempoModificacion) . '"
+			 WHERE FdeId = "' . ($this->FdeId) . '";';
+
+		$error = false;
+
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
+
+		if (!$resultado) {
+			$error = true;
+		}
+
+		if ($error) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
-?>

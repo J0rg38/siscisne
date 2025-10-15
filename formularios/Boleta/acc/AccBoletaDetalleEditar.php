@@ -84,13 +84,14 @@ $InsBoletaDetalle1 = $_SESSION['InsBoletaDetalle' . $Identificador]->MtdObtenerS
 $Cantidad = round($_POST['Cantidad'], 2);
 $Importe = round($_POST['Importe'], 2);
 $Precio = round(($Importe / $Cantidad), 2);
-$Descuento = 0;
-$ImpuestoSelectivo = 0;
+
+$Descuento = 0.0;
+$Impuesto = 0.0;
+$ImpuestoSelectivo = 0.0;
+$ValorVenta = 0.0;
 
 if ($POST_IncluyeImpuesto == "1") {
-
 	if ($POST_Exonerado == "1") {
-
 		$ValorVenta = ($Importe);
 		$Descuento = ($POST_Descuento);
 		$ValorVenta = $ValorVenta - $Descuento;
@@ -100,24 +101,19 @@ if ($POST_IncluyeImpuesto == "1") {
 			$ImpuestoSelectivo = $ValorVenta * ($POST_PorcentajeImpuestoSelectivo / 100);
 		}
 	} else {
-
 		if ($POST_Gratuito == "1") {
-
 			$ValorVenta = ($Importe / (($POST_PorcentajeImpuestoVenta / 100) + 1)); //99999
 			$Descuento = ($POST_Descuento);
 			$ValorVenta = $ValorVenta - $Descuento;
 			$Impuesto = 0;
-
 			if ($POST_IncluyeSelectivo == "1") {
 				$ImpuestoSelectivo = $ValorVenta * ($POST_PorcentajeImpuestoSelectivo / 100);
 			}
 		} else {
-
 			$ValorVenta = ($Importe / (($POST_PorcentajeImpuestoVenta / 100) + 1));
 			$Descuento = ($POST_Descuento);
 			$ValorVenta = $ValorVenta - $Descuento;
 			$Impuesto = (($ValorVenta) * ($POST_PorcentajeImpuestoVenta / 100));
-
 			if ($POST_IncluyeSelectivo == "1") {
 				$ImpuestoSelectivo = $ValorVenta * ($POST_PorcentajeImpuestoSelectivo / 100);
 			}

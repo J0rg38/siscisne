@@ -1650,7 +1650,9 @@ pag.PagObservacionCaja,
 			"' . ($this->PagNumeroTransaccion) . '",
 			' . (empty($this->PagFechaTransaccion) ? 'NULL, ' : '"' . $this->PagFechaTransaccion . '",') . '
 			"' . ($this->PagNumeroRecibo) . '",
-			"' . ($this->PagCantidadLetras) . '",
+			
+	' . (empty($this->PagCantidadLetras) ? 'NULL, ' : '' . $this->PagCantidadLetras . ',') . '
+
 			
 			"' . ($this->PagFecha) . '",
 			"' . ($this->MonId) . '",
@@ -1801,8 +1803,10 @@ pag.PagObservacionCaja,
 		PagNumeroTransaccion = "' . $this->PagNumeroTransaccion . '",
 		' . (empty($this->PagFechaTransaccion) ? 'PagFechaTransaccion = NULL, ' : 'PagFechaTransaccion = "' . $this->PagFechaTransaccion . '",') . '
 		PagNumeroRecibo = "' . $this->PagNumeroRecibo . '",
-		PagCantidadLetras = "' . $this->PagCantidadLetras . '",
 		
+		' . (empty($this->PagCantidadLetras) ? 'PagCantidadLetras = NULL, ' : 'PagCantidadLetras = ' . $this->PagCantidadLetras . ',') . '
+
+
 		PagFecha = "' . ($this->PagFecha) . '",
 		MonId = "' . ($this->MonId) . '",
 		' . (empty($this->PagTipoCambio) ? 'PagTipoCambio = NULL, ' : 'PagTipoCambio = ' . $this->PagTipoCambio . ',') . '

@@ -5414,11 +5414,14 @@ fac.FacLeyenda,
 			$TaxInclusiveAmount->setAttribute('currencyID', $InsFactura->MonSigla);
 			$TaxInclusiveAmount = $LegalMonetaryTotal->appendChild($TaxInclusiveAmount);
 
+			if ($InsFactura->FacTotalDescuento > 0) {
+				//SUMA TOTAL DESCUENTOS GENERAL + ITEMS
+				$AllowanceTotalAmount = $domtree->createElement("cbc:AllowanceTotalAmount", number_format($InsFactura->FacTotalDescuento, 2, '.', ''));
+				$AllowanceTotalAmount->setAttribute('currencyID', $InsFactura->MonSigla);
+				$AllowanceTotalAmount = $LegalMonetaryTotal->appendChild($AllowanceTotalAmount);
+			}
 			//cbc:AllowanceTotalAmount 
-			//SUMA TOTAL DESCUENTOS GENERAL + ITEMS
-			// $AllowanceTotalAmount = $domtree->createElement("cbc:AllowanceTotalAmount",number_format($InsFactura->FacTotalDescuento,2, '.', ''));
-			// $AllowanceTotalAmount->setAttribute('currencyID', $InsFactura->MonSigla);
-			// $AllowanceTotalAmount = $LegalMonetaryTotal->appendChild($AllowanceTotalAmount);
+
 
 			if ($InsFactura->FacTotalOtrosCargos > 0) {
 
@@ -5441,6 +5444,9 @@ fac.FacLeyenda,
 
 					$DatFacturaDetalle->FdeDescripcion  = trim($DatFacturaDetalle->FdeDescripcion);
 
+					$DatFacturaDetalle->FdeCantidad = $DatFacturaDetalle->FdeCantidad *	1;
+					//$DatFacturaDetalle->FdeValorVenta = $DatFacturaDetalle->FdeImporte / (1 + ($InsFactura->FacPorcentajeImpuestoVenta / 100));
+
 					if ($InsFactura->MonId <> $EmpresaMonedaId) {
 
 						$DatFacturaDetalle->FdeImporte = ($DatFacturaDetalle->FdeImporte / $InsFactura->FacTipoCambio);
@@ -5452,6 +5458,9 @@ fac.FacLeyenda,
 						$DatFacturaDetalle->FdeValorVentaBruto = ($DatFacturaDetalle->FdeValorVentaBruto  / $InsFactura->FacTipoCambio);
 					}
 
+					//deb($DatFacturaDetalle->FdeValorVenta);
+					//deb($DatFacturaDetalle->FdeCantidad);
+					//deb($DatFacturaDetalle->FdeValorVentaUnitario);
 					//cac:InvoiceLine
 					$InvoiceLine = $domtree->createElement("cac:InvoiceLine");
 					$InvoiceLine = $xmlRoot->appendChild($InvoiceLine);
@@ -5492,13 +5501,9 @@ fac.FacLeyenda,
 							break;
 					}
 
-
-
-
 					$InvoicedQuantity->setAttribute('unitCodeListID', 'UN/ECE rec 20');
 					$InvoicedQuantity->setAttribute('unitCodeListAgencyName', 'Europe');
 					$InvoicedQuantity = $InvoiceLine->appendChild($InvoicedQuantity);
-
 
 					//cbc:LineExtensionAmount currencyID="PEN"
 					$LineExtensionAmount = $domtree->createElement("cbc:LineExtensionAmount", number_format($DatFacturaDetalle->FdeValorVenta, 2, '.', ''));
@@ -5508,7 +5513,6 @@ fac.FacLeyenda,
 					//cac:PricingReference
 					$PricingReference = $domtree->createElement("cac:PricingReference");
 					$PricingReference = $InvoiceLine->appendChild($PricingReference);
-
 
 					//VALOR REFERENCIAL UNITARIO POR ITEM EN OPERACIONES NO ONEROSAS
 
@@ -5529,14 +5533,18 @@ fac.FacLeyenda,
 						$PriceTypeCode->setAttribute('listAgencyName', "PE:SUNAT");
 						$PriceTypeCode->setAttribute('listURI', "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16");
 						$PriceTypeCode = $AlternativeConditionPrice->appendChild($PriceTypeCode);
+
 					} else if ($DatFacturaDetalle->FdeGratuito == 2) {
+
+						$PriceAmountAxu = $DatFacturaDetalle->FdePrecio / (1 + ($InsFactura->FacPorcentajeImpuestoVenta / 100));
 
 						//cac:AlternativeConditionPrice
 						$AlternativeConditionPrice = $domtree->createElement("cac:AlternativeConditionPrice");
 						$AlternativeConditionPrice = $PricingReference->appendChild($AlternativeConditionPrice);
 
 						//cbc:PriceAmount currencyID="PEN"
-						$PriceAmount = $domtree->createElement("cbc:PriceAmount", number_format($DatFacturaDetalle->FdePrecio, 2, '.', ''));
+						//$PriceAmount = $domtree->createElement("cbc:PriceAmount", number_format($DatFacturaDetalle->FdePrecio, 2, '.', ''));
+						$PriceAmount = $domtree->createElement("cbc:PriceAmount", number_format($PriceAmountAxu, 2, '.', ''));
 						$PriceAmount->setAttribute('currencyID', $InsFactura->MonSigla);
 						$PriceAmount = $AlternativeConditionPrice->appendChild($PriceAmount);
 
@@ -5546,13 +5554,14 @@ fac.FacLeyenda,
 						$PriceTypeCode->setAttribute('listAgencyName', "PE:SUNAT");
 						$PriceTypeCode->setAttribute('listURI', "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16");
 						$PriceTypeCode = $AlternativeConditionPrice->appendChild($PriceTypeCode);
+
 					}
 
 					//DESCUENTOS POR ITEM	
 
 					if ($DatFacturaDetalle->FdeDescuento > 0) {
 
-						$DatFacturaDetalle->FdePorcentajeDescuento = round($DatFacturaDetalle->FdePorcentajeDescuento / 100, 2);
+						//$DatFacturaDetalle->FdePorcentajeDescuento = round($DatFacturaDetalle->FdePorcentajeDescuento / 100, 2);
 
 						//cac:AllowanceCharge
 						$AllowanceCharge = $domtree->createElement("cac:AllowanceCharge");
@@ -5567,8 +5576,8 @@ fac.FacLeyenda,
 						$AllowanceChargeReasonCode = $AllowanceCharge->appendChild($AllowanceChargeReasonCode);
 
 						////cbc:MultiplierFactorNumeric
-						//					$MultiplierFactorNumeric = $domtree->createElement("cbc:MultiplierFactorNumeric",$DatFacturaDetalle->FdePorcentajeDescuento);//X
-						//					$MultiplierFactorNumeric = $AllowanceCharge->appendChild($MultiplierFactorNumeric);
+						//$MultiplierFactorNumeric = $domtree->createElement("cbc:MultiplierFactorNumeric", $DatFacturaDetalle->FdePorcentajeDescuento); //X
+						//s$MultiplierFactorNumeric = $AllowanceCharge->appendChild($MultiplierFactorNumeric);
 
 						//cbc:Amount
 						$Amount = $domtree->createElement("cbc:Amount", number_format($DatFacturaDetalle->FdeDescuento, 2, '.', ''));
@@ -5579,6 +5588,7 @@ fac.FacLeyenda,
 						$BaseAmount = $domtree->createElement("cbc:BaseAmount", number_format($DatFacturaDetalle->FdeValorVentaBruto, 2, '.', ''));
 						$BaseAmount->setAttribute('currencyID', $InsFactura->MonSigla);
 						$BaseAmount = $AllowanceCharge->appendChild($BaseAmount);
+
 					}
 
 					//OTROS CARGOS POR ITEM	
@@ -5613,13 +5623,6 @@ fac.FacLeyenda,
 						$BaseAmount->setAttribute('currencyID', $InsFactura->MonSigla);
 						$BaseAmount = $AllowanceCharge->appendChild($BaseAmount);
 					}
-
-
-
-
-
-
-
 
 
 
@@ -5691,6 +5694,7 @@ fac.FacLeyenda,
 						//cbc:TaxTypeCode
 						$TaxTypeCode = $domtree->createElement("cbc:TaxTypeCode", "VAT");
 						$TaxTypeCode = $TaxScheme->appendChild($TaxTypeCode);
+						
 					} else if ($DatFacturaDetalle->FdeExonerado == "2") {
 
 						if ($DatFacturaDetalle->FdeGratuito == "1") {
@@ -5701,6 +5705,10 @@ fac.FacLeyenda,
 							$TaxAmount = $TaxTotal->appendChild($TaxAmount);
 						} else {
 							//cbc:TaxAmount
+							//REVISAR2025
+							//$DatFacturaDetalle->FdeImpuesto = $DatFacturaDetalle->FdeValorVentaBruto * ($InsFactura->FacPorcentajeImpuestoVenta / 100);
+							$DatFacturaDetalle->FdeImpuesto = $DatFacturaDetalle->FdeValorVenta * ($InsFactura->FacPorcentajeImpuestoVenta / 100);
+
 							$TaxAmount = $domtree->createElement("cbc:TaxAmount", number_format($DatFacturaDetalle->FdeImpuesto, 2, '.', ''));
 							$TaxAmount->setAttribute('currencyID', $InsFactura->MonSigla);
 							$TaxAmount = $TaxTotal->appendChild($TaxAmount);
@@ -5723,6 +5731,9 @@ fac.FacLeyenda,
 							$TaxAmount = $TaxSubtotal->appendChild($TaxAmount);
 						} else {
 							//cbc:TaxAmount 
+
+							//REVISAR2025
+							$DatFacturaDetalle->FdeImpuesto = $DatFacturaDetalle->FdeValorVenta * ($InsFactura->FacPorcentajeImpuestoVenta / 100);
 							$TaxAmount = $domtree->createElement("cbc:TaxAmount", number_format($DatFacturaDetalle->FdeImpuesto, 2, '.', ''));
 							$TaxAmount->setAttribute('currencyID', $InsFactura->MonSigla);
 							$TaxAmount = $TaxSubtotal->appendChild($TaxAmount);
@@ -5863,7 +5874,7 @@ fac.FacLeyenda,
 						$CommodityClassification = $domtree->createElement("cac:CommodityClassification");
 						$CommodityClassification = $Item->appendChild($CommodityClassification);
 
-						//cbc:PriceAmount currencyID="PEN"
+
 						$ItemClassificationCode = $domtree->createElement("cbc:ItemClassificationCode", $DatFacturaDetalle->FdeCodigoGeneral);
 						$ItemClassificationCode->setAttribute('listID', "UNSPSC");
 						$ItemClassificationCode->setAttribute('listAgencyName', "GS1 US");
@@ -5884,8 +5895,9 @@ fac.FacLeyenda,
 						$PriceAmount = $Price->appendChild($PriceAmount);
 					} elseif ($DatFacturaDetalle->FdeGratuito == "2") {
 
+						//$DatFacturaDetalle->FdeValorVentaUnitario = (round($DatFacturaDetalle->FdeValorVenta, 2) / $DatFacturaDetalle->FdeCantidad);
 						//cbc:PriceAmount
-						$PriceAmount = $domtree->createElement("cbc:PriceAmount", number_format($DatFacturaDetalle->FdeValorVentaUnitario, 2, '.', ''));
+						$PriceAmount = $domtree->createElement("cbc:PriceAmount", "" . number_format($DatFacturaDetalle->FdeValorVentaUnitario, 2, '.', ''));
 						$PriceAmount->setAttribute('currencyID', $InsFactura->MonSigla);
 						$PriceAmount = $Price->appendChild($PriceAmount);
 					} else {

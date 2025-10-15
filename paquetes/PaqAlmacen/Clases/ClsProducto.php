@@ -1562,6 +1562,9 @@ DATE_FORMAT(pro.ProFechaUltimaSalida, "%d/%m/%Y") AS "NProFechaUltimaSalida",
 		
 			ProCritico,
 			ProDescontinuado,
+
+			ProStockRealIngresado,
+
 			ProEstado,
 			ProTiempoCreacion,
 			ProTiempoModificacion
@@ -1638,6 +1641,9 @@ DATE_FORMAT(pro.ProFechaUltimaSalida, "%d/%m/%Y") AS "NProFechaUltimaSalida",
 				
 			' . ($this->ProCritico) . ',
 			' . ($this->ProDescontinuado) . ',
+
+			0,
+			
 			' . ($this->ProEstado) . ',
 			"' . ($this->ProTiempoCreacion) . '", 
 			"' . ($this->ProTiempoModificacion) . '");';
