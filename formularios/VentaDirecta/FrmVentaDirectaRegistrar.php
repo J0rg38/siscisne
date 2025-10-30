@@ -284,10 +284,91 @@ Desactivando tecla ENTER
 
 
 
-            <ul class="tabs">
-              <li><a href="#tab1">Orden de Venta </a></li>
-              <li><a href="#tab2">Archivos de Referencia </a></li>
+					}
+					?>
+                        <select  onchange="FncVentaDirectaDetalleListar();" class="EstFormularioCombo" name="CmpIncluyeImpuesto" id="CmpIncluyeImpuesto" <?php echo !empty($InsVentaDirecta->CprId)?'disabled="disabled"':'';?>  >
+                          <option <?php echo $OpcIncluyeImpuesto1;?> value="1">Si</option>
+                          <option <?php echo $OpcIncluyeImpuesto2;?> value="2">No</option>
+                          </select></td>
+                      <td align="left" valign="top">Impuesto:<br />
+                        <span class="EstFormularioSubEtiqueta">(%)</span></td>
+                      <td align="left" valign="top"><input name="CmpPorcentajeImpuestoVenta" type="text" class="EstFormularioCajaDeshabilitada" id="CmpPorcentajeImpuestoVenta" onchange="FncVentaDirectaDetalleListar();" value="<?php echo number_format($InsVentaDirecta->VdiPorcentajeImpuestoVenta,2);?>" size="10" maxlength="5" readonly="readonly" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Mano de Obra:</td>
+                      <td align="left" valign="top"><input name="CmpManoObra" type="text" class="EstFormularioCaja" id="CmpManoObra" value="<?php echo number_format($InsVentaDirecta->VdiManoObra,2);?>" size="10" maxlength="10" /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="4" align="left" valign="top"><span class="EstFormularioSubTitulo">Observaciones y otras referencias</span></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td>Asesor de Ventas:</td>
+                      <td><select  class="EstFormularioCombo" name="CmpPersonal" id="CmpPersonal" >
+                        <option value="">Escoja una opcion</option>
+                        <?php
+					foreach($ArrPersonales as $DatPersonal){
+					?>
+                        <option <?php echo ($DatPersonal->PerId==$InsVentaDirecta->PerId)?'selected="selected"':'';?>  value="<?php echo $DatPersonal->PerId;?>"><?php echo $DatPersonal->PerNombre ?> <?php echo $DatPersonal->PerApellidoPaterno; ?> <?php echo $DatPersonal->PerApellidoMaterno; ?></option>
+                        <?php
+					}
+					?>
+                      </select></td>
+                      <td align="left" valign="top">Seguro:</td>
+                      <td align="left" valign="top"><input class="EstFormularioCajaDeshabilitada" name="CmpSeguroNombre" type="text" id="CmpSeguroNombre" size="45" maxlength="255" value="<?php echo $InsVentaDirecta->CliNombreSeguro;?> <?php echo $InsVentaDirecta->CliApellidoPaternoSeguro;?> <?php echo $InsVentaDirecta->CliApellidoMaternoSeguro;?>"  /></td>
+                      <td align="left" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td align="left" valign="top">Tipo de Venta:</td>
+                      <td align="left" valign="top"><?php
+					switch($InsVentaDirecta->VdiTipo){
+						case "MOSTRADOR":
+							$OpcTipo1 = 'selected = "selected"';
+						break;
+						
+						case "MAYORISTA":
+							$OpcTipo2 = 'selected = "selected"';						
+						break;
+						
+						case "PROVINCIA":
+							$OpcTipo3 = 'selected = "selected"';						
+						break;
+						
+						
 
+					}
+					?>
+                        <select  class="EstFormularioCombo" name="CmpTipo" id="CmpTipo" >
+                          <option value="">Escoja una opcion</option>
+                          <option <?php echo $OpcTipo1;?> value="MOSTRADOR">MOSTRADOR</option>
+                          <option <?php echo $OpcTipo2;?> value="MAYORISTA">MAYORISTA</option>
+                          <option <?php echo $OpcTipo3;?> value="PROVINCIA">PROVINCIA</option>
+                        </select></td>
+                      <td align="left" valign="top">Tipo de Venta Final:</td>
+                      <td align="left" valign="top"><?php
+					switch($InsVentaDirecta->VdiTipoFinal){
+						
+						
+						case "COLISION":
+							$OpcTipoFinal4 = 'selected = "selected"';						
+						break;
+						
+						case "DESGASTE":
+							$OpcTipoFinal5 = 'selected = "selected"';						
+						break;
+						
+						case "MANTENIMIENTO":
+							$OpcTipoFinal6 = 'selected = "selected"';						
+						break;
+						
 
 
 

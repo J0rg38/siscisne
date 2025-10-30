@@ -81,9 +81,21 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
   $InsSucursal = new ClsSucursal($InsMysql);
   $InsUnidadMedida = new ClsUnidadMedida($InsMysql);
 
+<<<<<<< HEAD
   if (isset($_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador])) {
     $_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador]);
   }
+=======
+// if (isset($_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador])){	
+// 	$_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVehiculoMovimientoEntradaDetalle'.$Identificador]);
+// }
+
+if (!isset($_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador])) {
+  $_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador] = new ClsSesionObjeto();
+} else {
+  $_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsVehiculoMovimientoEntradaDetalle' . $Identificador]);
+}
+>>>>>>> 5d290e59670c4abdd833680cd8505f6e9b0b164c
 
   if (isset($_SESSION['InsOrdenCompraPedido' . $Identificador])) {
     $_SESSION['InsOrdenCompraPedido' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsOrdenCompraPedido' . $Identificador]);

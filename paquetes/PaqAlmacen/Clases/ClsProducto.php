@@ -2569,32 +2569,21 @@ DATE_FORMAT(pro.ProFechaUltimaSalida, "%d/%m/%Y") AS "NProFechaUltimaSalida",
 
 
 	public function MtdEditarProductoDato($oCampo, $oDato, $oProductoId)
-	{
+{
+    global $Resultado;
 
-		global $Resultado;
+    $sql = 'UPDATE tblproproducto SET 
+    ' . $oCampo . ' = "' . ($oDato) . '"
+    WHERE ProId = "' . ($oProductoId) . '";';
 
-		$sql = 'UPDATE tblproproducto SET 
-		' . $oCampo . ' = "' . ($oDato) . '"
-		WHERE ProId = "' . ($oProductoId) . '";';
+    $resultado = $this->InsMysql->MtdEjecutar($sql, false);
 
-		$error = false;
-
-		$this->InsMysql->MtdTransaccionIniciar();
-
-		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
-
-		if (!$resultado) {
-			$error = true;
-		}
-
-		if ($error) {
-			$this->InsMysql->MtdTransaccionDeshacer();
-			return false;
-		} else {
-			$this->InsMysql->MtdTransaccionHacer();
-			return true;
-		}
-	}
+    if (!$resultado) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 
 	public function MtdEditarProductoStock($oProductoId, $oProductoStock)

@@ -152,9 +152,9 @@ setTimeout("window.close();",1500);
               <td colspan="5" align="left" valign="top" ><span class="EstFichaIngresoImprimirContenido"><?php echo $InsFichaIngreso->CliNombre;?> <?php echo $InsFichaIngreso->CliApellidoPaterno;?> <?php echo $InsFichaIngreso->CliApellidoMaterno;?></span></td>
             </tr>
             <tr>
-              <td align="left" valign="top" class="EstFichaIngresoImprimirEtiquetaFondo" ><span class="EstFichaIngresoImprimirEtiqueta">Contacto</span></td>
+              <td align="left" valign="top" class="EstFichaIngresoImprimirEtiquetaFondo" ><span class="EstFichaIngresoImprimirEtiqueta">Cel. Asesor</span></td>
               <td align="left" valign="top" ><span class="EstFichaIngresoImprimirEtiqueta">:</span></td>
-              <td colspan="5" align="left" valign="top" ><span class="EstFichaIngresoImprimirContenido"><?php echo $InsFichaIngreso->FinContacto;?></span></td>
+              <td colspan="5" align="left" valign="top" ><span class="EstFichaIngresoImprimirContenido"><?php echo $InsFichaIngreso->PerCelularAsesor;?></span></td>
             </tr>
             <tr>
               <td align="left" valign="top" class="EstFichaIngresoImprimirEtiquetaFondo" ><span class="EstFichaIngresoImprimirEtiqueta">Direccion</span></td>
@@ -246,7 +246,13 @@ setTimeout("window.close();",1500);
         	<table width="100%" border="0" cellpadding="0" cellspacing="0">
             <tr>
             <td height="30">    
-			<?php echo strtoupper($DatFichaIngresoModalidad->MinNombre);?> [<?php echo strtoupper($DatFichaIngresoModalidad->MinSigla);?>]
+			        <?php 
+                if($DatFichaIngresoModalidad->MinId == "MIN-10001"){
+                  echo strtoupper($DatFichaIngresoModalidad->MinNombre)." ".$InsFichaIngreso->FinMantenimientoKilometraje."KM";?> <?php echo "[".strtoupper($DatFichaIngresoModalidad->MinSigla)."]";
+                }else{
+                  echo strtoupper($DatFichaIngresoModalidad->MinNombre);?> <?php echo "[".strtoupper($DatFichaIngresoModalidad->MinSigla)."]";
+                }
+              ?>
             </td>
             </tr>
             <tr>
@@ -570,6 +576,12 @@ Realizar
 			}
 			?>             
               
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="EstFichaIngresoImprimirEtiqueta">Indicacion al Tecnico:</span>
+                <p><?php echo $InsFichaIngreso->FinIndicacionTecnico;?></p>
               </td>
             </tr>
           </tbody>

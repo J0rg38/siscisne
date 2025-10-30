@@ -132,6 +132,7 @@ $ArrReporteFichaIngresos = $ResReporteFichaIngreso['Datos'];
           <th width="8%">CELULAR</th>
           <th width="8%">EMAIL</th>
           <th width="8%">VIN</th>
+          <th width="8%">PLACA</th>
           <th width="8%">MARCA</th>
           <th width="8%">MODELO</th>
           <th width="10%">KM. MANT.</th>
@@ -171,6 +172,7 @@ $ArrReporteFichaIngresos = $ResReporteFichaIngreso['Datos'];
           <td class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" align="right" ><?php echo $DatReporteFichaIngreso->CliCelular;  ?></td>
           <td class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" align="right" ><?php echo $DatReporteFichaIngreso->CliEmail;  ?></td>
           <td class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" align="right" ><?php echo $DatReporteFichaIngreso->EinVIN;  ?></td>
+          <td class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" align="right" ><?php echo $DatReporteFichaIngreso->EinPlaca;  ?></td>
           <td class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" align="right" ><?php echo $DatReporteFichaIngreso->VmaNombre;  ?></td>
           <td class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" align="right" ><?php echo $DatReporteFichaIngreso->VmoNombre;  ?></td>
           <td class="<?php echo ($c%2==0)?"EstTablaReporteActivo":"EstTablaReporteInactivo";?>" align="right" >

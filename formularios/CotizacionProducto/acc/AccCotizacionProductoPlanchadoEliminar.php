@@ -32,6 +32,8 @@ $Identificador = $_POST['Identificador'];
 session_start();
 if (!isset($_SESSION['InsCotizacionProductoPlanchado'.$Identificador])){
 	$_SESSION['InsCotizacionProductoPlanchado'.$Identificador] = new ClsSesionObjeto();	
+} else {
+    $_SESSION['InsCotizacionProductoPlanchado' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsCotizacionProductoPlanchado' . $Identificador]);
 }
 
 $_SESSION['InsCotizacionProductoPlanchado'.$Identificador]->MtdEliminarSesionObjeto($_POST['Item']);

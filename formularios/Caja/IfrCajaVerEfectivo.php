@@ -284,7 +284,7 @@ $TotalOtrosIngresos = 0;
                       <td>
                         <?php echo $i;?>
                       </td>
-                      <td><?php echo $DatPagoFactura->FpaNombre?></td>
+                      <td><?php echo $DatPagoFactura->FpaNombre;?></td>
                       <td>
 					  
 					  
@@ -308,7 +308,7 @@ $ArrPagoComprobantes = $ResPagoComprobante['Datos'];
 if(!empty($ArrPagoComprobantes)){
 	foreach($ArrPagoComprobantes as $DatPagoComprobante){
 ?> 
-		
+		<?php		echo $DatPagoComprobante->CliNumeroDocumento." -";?> 
 		<?php		echo $DatPagoComprobante->CliNombre;?> 
 		<?php		echo $DatPagoComprobante->CliApellidoPaterno;?>
         <?php		echo $DatPagoComprobante->CliApellidoMaterno;?>
@@ -577,6 +577,7 @@ $ArrPagoComprobantes = $ResPagoComprobante['Datos'];
 if(!empty($ArrPagoComprobantes)){
 	foreach($ArrPagoComprobantes as $DatPagoComprobante){
 ?>
+                        <?php		echo $DatPagoComprobante->CliNumeroDocumento." -";?> 
                         <?php		echo $DatPagoComprobante->CliNombre;?>
                         <?php		echo $DatPagoComprobante->CliApellidoPaterno;?>
                         <?php		echo $DatPagoComprobante->CliApellidoMaterno;?>
@@ -777,6 +778,7 @@ $ArrPagoComprobantes = $ResPagoComprobante['Datos'];
 if(!empty($ArrPagoComprobantes)){
 	foreach($ArrPagoComprobantes as $DatPagoComprobante){
 ?>
+                        <?php		echo $DatPagoComprobante->CliNumeroDocumento." -";?> 
                         <?php		echo $DatPagoComprobante->CliNombre;?>
                         <?php		echo $DatPagoComprobante->CliApellidoPaterno;?>
                         <?php		echo $DatPagoComprobante->CliApellidoMaterno;?>

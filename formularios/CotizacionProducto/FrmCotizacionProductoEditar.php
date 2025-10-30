@@ -967,6 +967,7 @@ Desactivando tecla ENTER
                             <td>&nbsp;</td>
                             <td><input type="hidden" name="CmpCotizacionProductoPlanchadoAccion" id="CmpCotizacionProductoPlanchadoAccion" value="AccCotizacionProductoPlanchadoRegistrar.php" /></td>
                             <td>Nombre : </td>
+                            <td>Horas : </td>
                             <td> Importe:</td>
                             <td>Verificado:</td>
                             <td>&nbsp;</td>
@@ -976,7 +977,16 @@ Desactivando tecla ENTER
                             <td>&nbsp;</td>
                             <td><a href="javascript:FncCotizacionProductoPlanchadoNuevo();"><img src="imagenes/acciones/limpiar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
                             <td><input name="CmpCotizacionProductoPlanchadoDescripcion" type="text" class="EstFormularioCaja" id="CmpCotizacionProductoPlanchadoDescripcion" size="60" /></td>
+                            <td><input name="CmpCotizacionProductoPlanchadoHora" type="text" class="EstFormularioCaja" id="CmpCotizacionProductoPlanchadoHora" size="10" /></td>
                             <td><input name="CmpCotizacionProductoPlanchadoImporte" type="text" class="EstFormularioCaja" id="CmpCotizacionProductoPlanchadoImporte" size="10" maxlength="10" /></td>
+                            <script>
+                              document.getElementById("CmpCotizacionProductoPlanchadoHora").addEventListener("input", function() {
+                                const horas = parseFloat(this.value) || 0;
+                                const importe = horas * 17.70;
+                                document.getElementById("CmpCotizacionProductoPlanchadoImporte").value = importe.toFixed(2);
+                              });
+                            </script>
+
                             <td><select class="EstFormularioCombo" name="CmpCotizacionProductoPlanchadoEstado" id="CmpCotizacionProductoPlanchadoEstado">
                                 <option value="0">-</option>
                                 <option value="1">Si</option>
@@ -1030,6 +1040,7 @@ Desactivando tecla ENTER
                             <td>&nbsp;</td>
                             <td><input type="hidden" name="CmpCotizacionProductoPintadoAccion" id="CmpCotizacionProductoPintadoAccion" value="AccCotizacionProductoPintadoRegistrar.php" /></td>
                             <td>Nombre : </td>
+                            <td> Paños:</td>
                             <td> Importe:</td>
                             <td>Verificado:</td>
                             <td>&nbsp;</td>
@@ -1039,7 +1050,16 @@ Desactivando tecla ENTER
                             <td>&nbsp;</td>
                             <td><a href="javascript:FncCotizacionProductoPintadoNuevo();"><img src="imagenes/acciones/limpiar.png" width="25" height="25" border="0" title="Limpiar/Nuevo" alt="[Nuevo]" align="absmiddle" /></a></td>
                             <td><input name="CmpCotizacionProductoPintadoDescripcion" type="text" class="EstFormularioCaja" id="CmpCotizacionProductoPintadoDescripcion" size="60" /></td>
+                            <td><input name="CmpCotizacionProductoPintadoPanos" type="text" class="EstFormularioCaja" id="CmpCotizacionProductoPintadoPanos" size="10" maxlength="10" /></td>
                             <td><input name="CmpCotizacionProductoPintadoImporte" type="text" class="EstFormularioCaja" id="CmpCotizacionProductoPintadoImporte" size="10" maxlength="10" /></td>
+                            <script>
+                              document.getElementById("CmpCotizacionProductoPintadoPanos").addEventListener("input", function() {
+                                const panos = parseFloat(this.value) || 0;
+                                const importep = panos * 70.80;
+                                document.getElementById("CmpCotizacionProductoPintadoImporte").value = importep.toFixed(2);
+                              });
+                            </script>
+                            
                             <td><select class="EstFormularioCombo" name="CmpCotizacionProductoPintadoEstado" id="CmpCotizacionProductoPintadoEstado">
                                 <option value="0">-</option>
                                 <option value="1">Si</option>

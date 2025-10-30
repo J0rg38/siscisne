@@ -26,6 +26,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], "Pago", "Registrar")) {
   require_once($InsPoo->MtdPaqLogistica() . 'ClsTipoDocumento.php');
   require_once($InsPoo->MtdPaqLogistica() . 'ClsFormaPago.php');
 
+<<<<<<< HEAD
   //INSTANCIAS
   $InsPago = new ClsPago($InsMysql);
   $InsMoneda = new ClsMoneda($InsMysql);
@@ -34,6 +35,16 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], "Pago", "Registrar")) {
   $InsArea = new ClsArea($InsMysql);
   $InsTipoDocumento = new ClsTipoDocumento($InsMysql);
   $InsFormaPago = new ClsFormaPago($InsMysql);
+=======
+//INSTANCIAS
+$InsPago = new ClsPago($InsMysql);
+$InsMoneda = new ClsMoneda($InsMysql);
+$InsCondicionPago = new ClsCondicionPago($InsMysql);
+$InsVentaDirecta = new ClsVentaDirecta($InsMysql);
+$InsArea = new ClsArea($InsMysql);
+$InsTipoDocumento = new ClsTipoDocumento($InsMysql);
+$InsFormaPago = new ClsFormaPago($InsMysql);
+>>>>>>> 5d290e59670c4abdd833680cd8505f6e9b0b164c
 
 
   $InsVentaDirecta->VdiId = $GET_VdiId;

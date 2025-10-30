@@ -34,7 +34,9 @@ $POST_Eliminar = $_POST['Eliminar'];
 session_start();
 if (!isset($_SESSION['InsCotizacionProductoPlanchado'.$Identificador])){
 	$_SESSION['InsCotizacionProductoPlanchado'.$Identificador] = new ClsSesionObjeto();	
-}
+} else {
+    $_SESSION['InsCotizacionProductoPlanchado' . $Identificador] = FncRepararClase('ClsSesionObjeto', $_SESSION['InsCotizacionProductoPlanchado' . $Identificador]);
+  }
 
 require_once($InsPoo->MtdPaqContabilidad().'ClsMoneda.php');
 
