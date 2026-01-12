@@ -2864,7 +2864,7 @@ ein.EinNumeroProforma,
 
 				foreach ($this->VehiculoIngresoCliente as $DatVehiculoIngresoCliente) {
 
-					$InsVehiculoIngresoCliente = new ClsVehiculoIngresoCliente();
+					$InsVehiculoIngresoCliente = new ClsVehiculoIngresoCliente($this->InsMysql);
 					$InsVehiculoIngresoCliente->EinId = $this->EinId;
 					$InsVehiculoIngresoCliente->CliId = $DatVehiculoIngresoCliente->CliId;
 					$InsVehiculoIngresoCliente->VicFecha = $DatVehiculoIngresoCliente->VicFecha;
@@ -2899,7 +2899,7 @@ ein.EinNumeroProforma,
 
 				foreach ($this->VehiculoIngresoFoto as $DatVehiculoIngresoFoto) {
 
-					$InsVehiculoIngresoFoto = new ClsVehiculoIngresoFoto();
+					$InsVehiculoIngresoFoto = new ClsVehiculoIngresoFoto($this->InsMysql);
 					$InsVehiculoIngresoFoto->EinId = $this->EinId;
 					$InsVehiculoIngresoFoto->VifArchivo = $DatVehiculoIngresoFoto->VifArchivo;
 					$InsVehiculoIngresoFoto->VifEstado = $DatVehiculoIngresoFoto->VifEstado;
@@ -2927,61 +2927,61 @@ ein.EinNumeroProforma,
 			// MtdEditarVehiculoVersionDato($oCampo,$oDato,$oId) {
 			if (!empty($this->VveCaracteristica1) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica1", $this->VveCaracteristica1, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica2) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica2", $this->VveCaracteristica2, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica3) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica3", $this->VveCaracteristica3, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica4) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica4", $this->VveCaracteristica4, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica5) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica5", $this->VveCaracteristica5, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica6) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica6", $this->VveCaracteristica6, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica7) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica7", $this->VveCaracteristica7, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica8) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica8", $this->VveCaracteristica8, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica9) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica9", $this->VveCaracteristica9, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica10) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica10", $this->VveCaracteristica10, $this->VveId);
 			}
 
@@ -2990,61 +2990,61 @@ ein.EinNumeroProforma,
 
 			if (!empty($this->VveCaracteristica11) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica11", $this->VveCaracteristica11, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica12) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica12", $this->VveCaracteristica12, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica13) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica13", $this->VveCaracteristica13, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica14) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica14", $this->VveCaracteristica14, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica15) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica15", $this->VveCaracteristica15, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica16) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica16", $this->VveCaracteristica16, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica17) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica17", $this->VveCaracteristica17, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica18) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica18", $this->VveCaracteristica18, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica19) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica19", $this->VveCaracteristica19, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica20) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica20", $this->VveCaracteristica20, $this->VveId);
 			}
 		}
@@ -3341,10 +3341,12 @@ ein.EinNumeroProforma,
 			
 			EinVIN = "' . ($this->EinVIN) . '",		
 			' . (empty($this->EinFechaVenta) ? 'EinFechaVenta = NULL, ' : 'EinFechaVenta = "' . $this->EinFechaVenta . '",') . '
-			EinAnoFabricacion = "' . ($this->EinAnoFabricacion) . '",
-			EinAnoModelo = "' . ($this->EinAnoModelo) . '",
-			EinAnoVehiculo = "' . ($this->EinAnoVehiculo) . '",
-			EinNumeroMotor = "' . ($this->EinNumeroMotor) . '",
+
+			' . (empty($this->EinAnoFabricacion) ? 'EinAnoFabricacion = NULL, ' : 'EinAnoFabricacion = "' . $this->EinAnoFabricacion . '",') . '
+			' . (empty($this->EinAnoModelo) ? 'EinAnoModelo = NULL, ' : 'EinAnoModelo = "' . $this->EinAnoModelo . '",') . '
+
+			' . (empty($this->EinAnoVehiculo) ? 'EinAnoVehiculo = NULL, ' : 'EinAnoVehiculo = "' . $this->EinAnoVehiculo . '",') . '
+			' . (empty($this->EinNumeroMotor) ? 'EinNumeroMotor = NULL, ' : 'EinNumeroMotor = "' . $this->EinNumeroMotor . '",') . '
 			
 			EinTransmision = "' . ($this->EinTransmision) . '",
 
@@ -3448,7 +3450,7 @@ ein.EinNumeroProforma,
 				$validar = 0;
 				foreach ($this->VehiculoIngresoCliente as $DatVehiculoIngresoCliente) {
 
-					$InsVehiculoIngresoCliente = new ClsVehiculoIngresoCliente();
+					$InsVehiculoIngresoCliente = new ClsVehiculoIngresoCliente($this->InsMysql);
 					$InsVehiculoIngresoCliente->VicId = $DatVehiculoIngresoCliente->VicId;
 					$InsVehiculoIngresoCliente->EinId = $this->EinId;
 					$InsVehiculoIngresoCliente->CliId = $DatVehiculoIngresoCliente->CliId;
@@ -3502,7 +3504,7 @@ ein.EinNumeroProforma,
 				$validar = 0;
 				foreach ($this->VehiculoIngresoFoto as $DatVehiculoIngresoFoto) {
 
-					$InsVehiculoIngresoFoto = new ClsVehiculoIngresoFoto();
+					$InsVehiculoIngresoFoto = new ClsVehiculoIngresoFoto($this->InsMysql);
 					$InsVehiculoIngresoFoto->VifId = $DatVehiculoIngresoFoto->VifId;
 					$InsVehiculoIngresoFoto->EinId = $this->EinId;
 					$InsVehiculoIngresoFoto->VifArchivo = $DatVehiculoIngresoFoto->VifArchivo;
@@ -3553,121 +3555,121 @@ ein.EinNumeroProforma,
 
 			if (!empty($this->VveCaracteristica1) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica1", $this->VveCaracteristica1, $this->VveId);
 			}
 			//
 			if (!empty($this->VveCaracteristica2) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica2", $this->VveCaracteristica2, $this->VveId);
 			}
 			//				
 			if (!empty($this->VveCaracteristica3) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica3", $this->VveCaracteristica3, $this->VveId);
 			}
 			//				
 			if (!empty($this->VveCaracteristica4) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica4", $this->VveCaracteristica4, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica5) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica5", $this->VveCaracteristica5, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica6) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica6", $this->VveCaracteristica6, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica7) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica7", $this->VveCaracteristica7, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica8) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica8", $this->VveCaracteristica8, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica9) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica9", $this->VveCaracteristica9, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica10) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica10", $this->VveCaracteristica10, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica11) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica11", $this->VveCaracteristica11, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica12) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica12", $this->VveCaracteristica12, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica13) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica13", $this->VveCaracteristica13, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica14) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica14", $this->VveCaracteristica14, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica15) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica15", $this->VveCaracteristica15, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica16) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica16", $this->VveCaracteristica16, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica17) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica17", $this->VveCaracteristica17, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica18) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica18", $this->VveCaracteristica18, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica19) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica19", $this->VveCaracteristica19, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica20) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica20", $this->VveCaracteristica20, $this->VveId);
 			}
 			//					
@@ -3790,121 +3792,121 @@ ein.EinNumeroProforma,
 
 			if (!empty($this->VveCaracteristica1) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica1", $this->VveCaracteristica1, $this->VveId);
 			}
 			//
 			if (!empty($this->VveCaracteristica2) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica2", $this->VveCaracteristica2, $this->VveId);
 			}
 			//				
 			if (!empty($this->VveCaracteristica3) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica3", $this->VveCaracteristica3, $this->VveId);
 			}
 			//				
 			if (!empty($this->VveCaracteristica4) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica4", $this->VveCaracteristica4, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica5) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica5", $this->VveCaracteristica5, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica6) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica6", $this->VveCaracteristica6, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica7) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica7", $this->VveCaracteristica7, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica8) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica8", $this->VveCaracteristica8, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica9) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica9", $this->VveCaracteristica9, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica10) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica10", $this->VveCaracteristica10, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica11) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica11", $this->VveCaracteristica11, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica12) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica12", $this->VveCaracteristica12, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica13) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica13", $this->VveCaracteristica13, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica14) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica14", $this->VveCaracteristica14, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica15) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica15", $this->VveCaracteristica15, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica16) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica16", $this->VveCaracteristica16, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica17) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica17", $this->VveCaracteristica17, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica18) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica18", $this->VveCaracteristica18, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica19) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica19", $this->VveCaracteristica19, $this->VveId);
 			}
 
 			if (!empty($this->VveCaracteristica20) and !empty($this->VveId)) {
 
-				$InsVehiculoVersion = new ClsVehiculoVersion();
+				$InsVehiculoVersion = new ClsVehiculoVersion($this->InsMysql);
 				$InsVehiculoVersion->MtdEditarVehiculoVersionDato("VveCaracteristica20", $this->VveCaracteristica20, $this->VveId);
 			}
 			//					
@@ -4164,7 +4166,7 @@ ein.EinNumeroProforma,
 
 				foreach ($this->VehiculoIngresoCliente as $DatVehiculoIngresoCliente) {
 
-					$InsVehiculoIngresoCliente = new ClsVehiculoIngresoCliente();
+					$InsVehiculoIngresoCliente = new ClsVehiculoIngresoCliente($this->InsMysql);
 					$InsVehiculoIngresoCliente->EinId = $this->EinId;
 					$InsVehiculoIngresoCliente->CliId = $DatVehiculoIngresoCliente->CliId;
 					$InsVehiculoIngresoCliente->VicFecha = $DatVehiculoIngresoCliente->VicFecha;
@@ -4199,7 +4201,7 @@ ein.EinNumeroProforma,
 
 				foreach ($this->VehiculoIngresoFoto as $DatVehiculoIngresoFoto) {
 
-					$InsVehiculoIngresoFoto = new ClsVehiculoIngresoFoto();
+					$InsVehiculoIngresoFoto = new ClsVehiculoIngresoFoto($this->InsMysql);
 					$InsVehiculoIngresoFoto->EinId = $this->EinId;
 					$InsVehiculoIngresoFoto->VifArchivo = $DatVehiculoIngresoFoto->VifArchivo;
 					$InsVehiculoIngresoFoto->VifEstado = $DatVehiculoIngresoFoto->VifEstado;
@@ -4300,7 +4302,7 @@ ein.EinNumeroProforma,
 				$validar = 0;
 				foreach ($this->VehiculoIngresoCliente as $DatVehiculoIngresoCliente) {
 
-					$InsVehiculoIngresoCliente = new ClsVehiculoIngresoCliente();
+					$InsVehiculoIngresoCliente = new ClsVehiculoIngresoCliente($this->InsMysql);
 					$InsVehiculoIngresoCliente->VicId = $DatVehiculoIngresoCliente->VicId;
 					$InsVehiculoIngresoCliente->EinId = $this->EinId;
 					$InsVehiculoIngresoCliente->CliId = $DatVehiculoIngresoCliente->CliId;
@@ -4354,7 +4356,7 @@ ein.EinNumeroProforma,
 				$validar = 0;
 				foreach ($this->VehiculoIngresoFoto as $DatVehiculoIngresoFoto) {
 
-					$InsVehiculoIngresoFoto = new ClsVehiculoIngresoFoto();
+					$InsVehiculoIngresoFoto = new ClsVehiculoIngresoFoto($this->InsMysql);
 					$InsVehiculoIngresoFoto->VifId = $DatVehiculoIngresoFoto->VifId;
 					$InsVehiculoIngresoFoto->EinId = $this->EinId;
 					$InsVehiculoIngresoFoto->VifArchivo = $DatVehiculoIngresoFoto->VifArchivo;

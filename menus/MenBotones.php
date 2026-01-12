@@ -1817,11 +1817,19 @@
 
       <li><a href="#"><img src="imagenes/menu/reportes.png" alt="[Reportes]" title="Reportes" border="0" align="absmiddle" width="20" height="20" /> Nuevos Reportes</a>
         <ul>
-          <li><a href="principal.php?Mod=Reporte&Form=PostVentaDetallado"><img src="imagenes/menu/reporte.png" alt="[Rep. PostVenta]" title="Rep. PostVenta" border="0" align="absmiddle" width="20" height="20" /> Rep. PostVenta </a>
+          <li><a href="principal.php?Mod=Reporte&Form=VentaTaller"><img src="imagenes/menu/reporte.png" alt="[Rep. Venta Taller]" title="Rep. Venta Taller" border="0" align="absmiddle" width="20" height="20" /> Rep. Venta Taller </a>
           </li>
-          <li><a href="principal.php?Mod=Reporte&Form=KardexAlmacen"><img src="imagenes/menu/reporte.png" alt="[Rep. Kardex/Almacen]" title="Rep. Kardex/Almacen" border="0" align="absmiddle" width="20" height="20" /> Rep. Kardex/Almacen </a>
+          <li><a href="principal.php?Mod=Reporte&Form=VentaTallerDetallado"><img src="imagenes/menu/reporte.png" alt="[Rep. Venta Taller Mec. Detallado]" title="Rep. Venta Taller Mec. Detallado" border="0" align="absmiddle" width="20" height="20" /> Rep. Venta Taller Mec./ByP | Meson</a>
           </li>
+          <!--      <li><a href="principal.php?Mod=Reporte&Form=VentaTallerBypDetallado"><img src="imagenes/menu/reporte.png" alt="[Rep. Venta Taller Byp. Detallado]" title="Rep. Venta Taller Byp. Detallado" border="0" align="absmiddle" width="20" height="20" /> Rep. Venta Taller Byp. </a>
+          </li> -->
 
+          <!-- 
+          <li><a href="principal.php?Mod=Reporte&Form=VentaMeson"><img src="imagenes/menu/reporte.png" alt="[Rep. Venta Meson]" title="Rep. Venta Meson" border="0" align="absmiddle" width="20" height="20" /> Rep. Venta Meson </a>
+          </li>-->
+
+          <li><a href="principal.php?Mod=Reporte&Form=ComprobanteNoProcesado"><img src="imagenes/menu/reporte.png" alt="[Rep. Comprobante No Procesado]" title="Rep. Comprobante No Procesado" border="0" align="absmiddle" width="20" height="20" /> Rep. Comprobantes No Procesados </a>
+          </li>
 
         </ul>
       </li>

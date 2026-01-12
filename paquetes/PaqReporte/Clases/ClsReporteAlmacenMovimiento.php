@@ -10,11 +10,12 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsReporteAlmacenMovimiento {
+class ClsReporteAlmacenMovimiento
+{
 
-    public $InsMysql;
+	public $InsMysql;
 
-    public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -22,199 +23,191 @@ class ClsReporteAlmacenMovimiento {
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
 	}
-	
-	public function __destruct(){
 
-	}
-	
-  public function MtdObtenerAlmacenMovimientoEntradaDetallesValor($oFuncion="SUM",$oParametro="AmoTotal",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oAlmacenMovimientoEntrada=NULL,$oEstado=NULL,$oProducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oCliente=NULL,$oConOrdenCompra=0,$oOrdenCompra=NULL,$oPedidoCompraDetalleId=NULL,$oVentaDirectaDetalleId=NULL,$oAlmacenMovimientoEntradaEstado=NULL,$oVehiculoMarca=NULL,$oProductoTipo=NULL,$oDiasInactivoInicio=NULL,$oDiasInactivoFin=NULL,$oProducto=NULL,$oProductoABCInterno=NULL,$oSucursal=NULL) {
+	public function __destruct() {}
 
-		if(!empty($oCampo) and !empty($oFiltro)){
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+	public function MtdObtenerAlmacenMovimientoEntradaDetallesValor($oFuncion = "SUM", $oParametro = "AmoTotal", $oMes = NULL, $oAno = NULL, $oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'AmdId', $oSentido = 'Desc', $oEliminado = 1, $oPaginacion = '0,10', $oAlmacenMovimientoEntrada = NULL, $oEstado = NULL, $oProducto = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oCliente = NULL, $oConOrdenCompra = 0, $oOrdenCompra = NULL, $oPedidoCompraDetalleId = NULL, $oVentaDirectaDetalleId = NULL, $oAlmacenMovimientoEntradaEstado = NULL, $oVehiculoMarca = NULL, $oProductoTipo = NULL, $oDiasInactivoInicio = NULL, $oDiasInactivoFin = NULL, $oProducto2 = NULL, $oProductoABCInterno = NULL, $oSucursal = NULL)
+	{
 
-			$i=1;
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
-
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
-		}
-
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oAlmacenMovimientoEntrada)){
-			$amovimiento = ' AND amd.AmoId = "'.$oAlmacenMovimientoEntrada.'"';
-		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND amd.AmdEstado = '.$oEstado.' ';
-		}
-		
-		if(!empty($oProducto)){
-			$producto = ' AND (amd.ProId = "'.$oProducto.'") ';
-		}
-		
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(amo.AmoFecha)>="'.$oFechaInicio.'" AND DATE(amo.AmoFecha)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(amo.AmoFecha)>="'.$oFechaInicio.'"';
+				$i++;
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(amo.AmoFecha)<="'.$oFechaFin.'"';		
-			}			
+
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oCliente)){
-			$cliente = ' AND (pco.CliId = "'.$oCliente.'") ';
+
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-		switch($oConOrdenCompra){
-			
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
+
+		if (!empty($oAlmacenMovimientoEntrada)) {
+			$amovimiento = ' AND amd.AmoId = "' . $oAlmacenMovimientoEntrada . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND amd.AmdEstado = ' . $oEstado . ' ';
+		}
+
+		if (!empty($oProducto)) {
+			$producto = ' AND (amd.ProId = "' . $oProducto . '") ';
+		}
+
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(amo.AmoFecha)>="' . $oFechaInicio . '" AND DATE(amo.AmoFecha)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(amo.AmoFecha)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(amo.AmoFecha)<="' . $oFechaFin . '"';
+			}
+		}
+
+		if (!empty($oCliente)) {
+			$cliente = ' AND (pco.CliId = "' . $oCliente . '") ';
+		}
+
+		switch ($oConOrdenCompra) {
+
 			case 1:
-			
+
 				$cocompra = ' AND amo.OcoId IS NOT NULL ';
-				
-			break;
-			
+
+				break;
+
 			case 2:
 
 				$cocompra = ' AND amo.OcoId IS NULL ';
-				
-			break;
-			
+
+				break;
+
 			default:
-			
-			break;
+
+				break;
 		}
-		
-		if(!empty($oOrdenCompra)){
-			$ocompra = ' AND (pco.OcoId = "'.$oOrdenCompra.'") ';
-		}	
-		
-		if(!empty($oPedidoCompraDetalleId)){
-			$pcdetalle = ' AND (amd.PcdId = "'.$oPedidoCompraDetalleId.'") ';
-		}	
-		
-		if(!empty($oVentaDirectaDetalleId)){
-			$vddetalle = ' AND (pcd.VddId = "'.$oVentaDirectaDetalleId.'") ';
-		}	
-		
 
-
-
-		if(!empty($oAlmacenMovimientoEntradaEstado)){
-			$amestado = ' AND (amo.AmoEstado = "'.$oAlmacenMovimientoEntradaEstado.'") ';
+		if (!empty($oOrdenCompra)) {
+			$ocompra = ' AND (pco.OcoId = "' . $oOrdenCompra . '") ';
 		}
-		
-		
-	
-		if(!empty($oVehiculoMarca)){
 
-			$elementos = explode(",",$oVehiculoMarca);
+		if (!empty($oPedidoCompraDetalleId)) {
+			$pcdetalle = ' AND (amd.PcdId = "' . $oPedidoCompraDetalleId . '") ';
+		}
 
-				$i=1;
-				$vmarca .= ' AND (';
-				$elementos = array_filter($elementos);
+		if (!empty($oVentaDirectaDetalleId)) {
+			$vddetalle = ' AND (pcd.VddId = "' . $oVentaDirectaDetalleId . '") ';
+		}
 
-				foreach($elementos as $elemento){
-						$vmarca .= '  
+
+
+
+		if (!empty($oAlmacenMovimientoEntradaEstado)) {
+			$amestado = ' AND (amo.AmoEstado = "' . $oAlmacenMovimientoEntradaEstado . '") ';
+		}
+
+
+
+		if (!empty($oVehiculoMarca)) {
+
+			$elementos = explode(",", $oVehiculoMarca);
+
+			$i = 1;
+			$vmarca .= ' AND (';
+			$elementos = array_filter($elementos);
+
+			foreach ($elementos as $elemento) {
+				$vmarca .= '  
 
 						(
 							EXISTS (
@@ -226,90 +219,88 @@ class ClsReporteAlmacenMovimiento {
 									ON pvv.VveId = vve.VveId
 										LEFT JOIN tblvmovehiculomodelo vmo
 										ON vve.VmoId = vmo.VmoId
-								WHERE vmo.VmaId = "'.$elemento.'"
+								WHERE vmo.VmaId = "' . $elemento . '"
 								AND amd.ProId = pvv.ProId
 							)
 							
 							OR
 							
-							pro.VmaId = "'.$elemento.'"
+							pro.VmaId = "' . $elemento . '"
 						)
 			
 						
-						';	
-						if($i<>count($elementos)){						
-							$vmarca .= ' OR ';	
-						}
-				$i++;		
+						';
+				if ($i <> count($elementos)) {
+					$vmarca .= ' OR ';
 				}
-				
-				$vmarca .= ' ) ';
+				$i++;
+			}
 
+			$vmarca .= ' ) ';
 		}
-		
-		
+
+
 		//
-//		if(!empty($oVehiculoMarca)){
-//			
-//			$vmarca = '
-//			AND 
-//			
-//			(
-//				EXISTS (
-//					
-//					SELECT
-//					pvv.PvvId
-//					FROM tblpvvproductovehiculoversion pvv
-//						LEFT JOIN tblvvevehiculoversion vve
-//						ON pvv.VveId = vve.VveId
-//							LEFT JOIN tblvmovehiculomodelo vmo
-//							ON vve.VmoId = vmo.VmoId
-//					WHERE vmo.VmaId = "'.$oVehiculoMarca.'"
-//					AND amd.ProId = pvv.ProId
-//				)
-//				
-//				OR
-//				
-//				pro.VmaId = "'.$oVehiculoMarca.'"
-//			)
-//			';
-//		}
-		
-		
+		//		if(!empty($oVehiculoMarca)){
+		//			
+		//			$vmarca = '
+		//			AND 
+		//			
+		//			(
+		//				EXISTS (
+		//					
+		//					SELECT
+		//					pvv.PvvId
+		//					FROM tblpvvproductovehiculoversion pvv
+		//						LEFT JOIN tblvvevehiculoversion vve
+		//						ON pvv.VveId = vve.VveId
+		//							LEFT JOIN tblvmovehiculomodelo vmo
+		//							ON vve.VmoId = vmo.VmoId
+		//					WHERE vmo.VmaId = "'.$oVehiculoMarca.'"
+		//					AND amd.ProId = pvv.ProId
+		//				)
+		//				
+		//				OR
+		//				
+		//				pro.VmaId = "'.$oVehiculoMarca.'"
+		//			)
+		//			';
+		//		}
+
+
 		//if(!empty($oProductoTipo)){
 		//	$ptipo = ' AND (pro.RtiId = "'.$oProductoTipo.'") ';
 		//}
-		
 
-		if(!empty($oProductoTipo)){
 
-			$elementos = explode(",",$oProductoTipo);
+		if (!empty($oProductoTipo)) {
 
-				$i=1;
-				$ptipo .= ' AND (';
-				$elementos = array_filter($elementos);
-				foreach($elementos as $elemento){
-						$ptipo .= '  (pro.RtiId = "'.($elemento).'")';	
-						if($i<>count($elementos)){						
-							$ptipo .= ' OR ';	
-						}
-				$i++;		
+			$elementos = explode(",", $oProductoTipo);
+
+			$i = 1;
+			$ptipo .= ' AND (';
+			$elementos = array_filter($elementos);
+			foreach ($elementos as $elemento) {
+				$ptipo .= '  (pro.RtiId = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$ptipo .= ' OR ';
 				}
-				
-				$ptipo .= ' ) ';
+				$i++;
+			}
 
+			$ptipo .= ' ) ';
 		}
-		
-		
+
+
 		//if(!empty($oDiasInactivoInicio)){
-//			$dinactivo = ' HAVING AmoUltimaSalidaDiaTranscurridos '.$AmoUltimaSalidaDiaTranscurridos.'") ';
-//		}
-			
-	
-		if(!empty($oDiasInactivoInicio)){
-			
-			if(!empty($oDiasInactivoFin)){
-				
+		//			$dinactivo = ' HAVING AmoUltimaSalidaDiaTranscurridos '.$AmoUltimaSalidaDiaTranscurridos.'") ';
+		//		}
+
+
+		if (!empty($oDiasInactivoInicio)) {
+
+			if (!empty($oDiasInactivoFin)) {
+
 				$dinactivo .= ' AND  (
 				
 				(
@@ -332,21 +323,20 @@ class ClsReporteAlmacenMovimiento {
 								
 				';
 
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$dinactivo .= ' AND DATE(amo2.AmoFecha)>="'.$oFechaInicio.'" AND DATE(amo2.AmoFecha)<="'.$oFechaFin.'"';
-			}else{
-				$dinactivo .= ' AND DATE(amo2.AmoFecha)>="'.$oFechaInicio.'"';
-			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$dinactivo .= ' AND DATE(amo2.AmoFecha)<="'.$oFechaFin.'"';		
-			}			
-		}	
-				
-				
+				if (!empty($oFechaInicio)) {
+
+					if (!empty($oFechaFin)) {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)>="' . $oFechaInicio . '" AND DATE(amo2.AmoFecha)<="' . $oFechaFin . '"';
+					} else {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)>="' . $oFechaInicio . '"';
+					}
+				} else {
+					if (!empty($oFechaFin)) {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)<="' . $oFechaFin . '"';
+					}
+				}
+
+
 				$dinactivo .= '
 						ORDER BY amo2.AmoFecha DESC
 						LIMIT 1
@@ -358,10 +348,10 @@ class ClsReporteAlmacenMovimiento {
 		
 					
 				
-					, "'.(empty($oFechaFin)?date("Y-m-d"):$oFechaFin).' 00:00:00" ) 
+					, "' . (empty($oFechaFin) ? date("Y-m-d") : $oFechaFin) . ' 00:00:00" ) 
 					)
 					
-				) >="'.$oDiasInactivoInicio.'" AND 
+				) >="' . $oDiasInactivoInicio . '" AND 
 				
 				
 				(
@@ -382,23 +372,22 @@ class ClsReporteAlmacenMovimiento {
 								
 								
 					';
-	
-			if(!empty($oFechaInicio)){
-				
-				if(!empty($oFechaFin)){
-					$dinactivo .= ' AND DATE(amo2.AmoFecha)>="'.$oFechaInicio.'" AND DATE(amo2.AmoFecha)<="'.$oFechaFin.'"';
-				}else{
-					$dinactivo .= ' AND DATE(amo2.AmoFecha)>="'.$oFechaInicio.'"';
+
+				if (!empty($oFechaInicio)) {
+
+					if (!empty($oFechaFin)) {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)>="' . $oFechaInicio . '" AND DATE(amo2.AmoFecha)<="' . $oFechaFin . '"';
+					} else {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)>="' . $oFechaInicio . '"';
+					}
+				} else {
+					if (!empty($oFechaFin)) {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)<="' . $oFechaFin . '"';
+					}
 				}
-				
-			}else{
-				if(!empty($oFechaFin)){
-					$dinactivo .= ' AND DATE(amo2.AmoFecha)<="'.$oFechaFin.'"';		
-				}			
-			}	
-			
-			
-						$dinactivo .= '					
+
+
+				$dinactivo .= '					
 								
 								
 						ORDER BY amo2.AmoFecha DESC
@@ -411,12 +400,12 @@ class ClsReporteAlmacenMovimiento {
  				)
 				
 				
-				, "'.(empty($oFechaFin)?date("Y-m-d"):$oFechaFin).' 00:00:00" ) 
-				) <="'.$oDiasInactivoFin.'"
+				, "' . (empty($oFechaFin) ? date("Y-m-d") : $oFechaFin) . ' 00:00:00" ) 
+				) <="' . $oDiasInactivoFin . '"
 				
 				';
-			}else{
-				
+			} else {
+
 				$dinactivo = ' AND  
 				
 			(TIMESTAMPDIFF(DAY, 
@@ -437,22 +426,21 @@ class ClsReporteAlmacenMovimiento {
 			
 			';
 
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$dinactivo .= ' AND DATE(amo2.AmoFecha)>="'.$oFechaInicio.'" AND DATE(amo2.AmoFecha)<="'.$oFechaFin.'"';
-			}else{
-				$dinactivo .= ' AND DATE(amo2.AmoFecha)>="'.$oFechaInicio.'"';
-			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$dinactivo .= ' AND DATE(amo2.AmoFecha)<="'.$oFechaFin.'"';		
-			}			
-		}	
-		
-		
-					$dinactivo .= '			
+				if (!empty($oFechaInicio)) {
+
+					if (!empty($oFechaFin)) {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)>="' . $oFechaInicio . '" AND DATE(amo2.AmoFecha)<="' . $oFechaFin . '"';
+					} else {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)>="' . $oFechaInicio . '"';
+					}
+				} else {
+					if (!empty($oFechaFin)) {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)<="' . $oFechaFin . '"';
+					}
+				}
+
+
+				$dinactivo .= '			
 					
 					
 							
@@ -465,16 +453,15 @@ class ClsReporteAlmacenMovimiento {
 
  				)
 			
-				, "'.(empty($oFechaFin)?date("Y-m-d"):$oFechaFin).' 00:00:00" ) )	
+				, "' . (empty($oFechaFin) ? date("Y-m-d") : $oFechaFin) . ' 00:00:00" ) )	
 				
 				
-				 >="'.$oDiasInactivoInicio.'"';
+				 >="' . $oDiasInactivoInicio . '"';
 			}
-			
-		}else{
-			
-			if(!empty($oDiasInactivoFin)){
-				
+		} else {
+
+			if (!empty($oDiasInactivoFin)) {
+
 				$dinactivo = ' AND  
 				
 				
@@ -496,22 +483,21 @@ class ClsReporteAlmacenMovimiento {
 			
 			';
 
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$dinactivo .= ' AND DATE(amo2.AmoFecha)>="'.$oFechaInicio.'" AND DATE(amo2.AmoFecha)<="'.$oFechaFin.'"';
-			}else{
-				$dinactivo .= ' AND DATE(amo2.AmoFecha)>="'.$oFechaInicio.'"';
-			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$dinactivo .= ' AND DATE(amo2.AmoFecha)<="'.$oFechaFin.'"';		
-			}			
-		}	
-		
-		
-					$dinactivo .= '			
+				if (!empty($oFechaInicio)) {
+
+					if (!empty($oFechaFin)) {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)>="' . $oFechaInicio . '" AND DATE(amo2.AmoFecha)<="' . $oFechaFin . '"';
+					} else {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)>="' . $oFechaInicio . '"';
+					}
+				} else {
+					if (!empty($oFechaFin)) {
+						$dinactivo .= ' AND DATE(amo2.AmoFecha)<="' . $oFechaFin . '"';
+					}
+				}
+
+
+				$dinactivo .= '			
 					
 					
 								
@@ -524,75 +510,73 @@ class ClsReporteAlmacenMovimiento {
  				)
 					
 				
-					, "'.(empty($oFechaFin)?date("Y-m-d"):$oFechaFin).' 00:00:00" ) )
+					, "' . (empty($oFechaFin) ? date("Y-m-d") : $oFechaFin) . ' 00:00:00" ) )
 				
-					<="'.$oDiasInactivoFin.'"';		
+					<="' . $oDiasInactivoFin . '"';
 			}
-						
 		}
-			
-//			if(!empty($oDiasInactivoInicio)){
-//			
-//			if(!empty($oDiasInactivoFin)){
-//				$dinactivo = ' HAVING  AmoUltimaSalidaDiaTranscurridos >="'.$oDiasInactivoInicio.'" AND AmoUltimaSalidaDiaTranscurridos <="'.$oDiasInactivoFin.'"';
-//			}else{
-//				$dinactivo = ' HAVING  AmoUltimaSalidaDiaTranscurridos >="'.$oDiasInactivoInicio.'"';
-//			}
-//			
-//		}else{
-//			
-//			if(!empty($oDiasInactivoFin)){
-//				$dinactivo = ' HAVING  AmoUltimaSalidaDiaTranscurridos <="'.$oDiasInactivoFin.'"';		
-//			}
-//						
-//		}	
-		
-		
-		if(!empty($oProducto)){
-			$producto = ' AND pro.ProId = "'.$oProducto.'" ';		
-		}	
-		
-			
-		
-		if(!empty($oProductoABCInterno)){
 
-			$elementos = explode(",",$oProductoABCInterno);
+		//			if(!empty($oDiasInactivoInicio)){
+		//			
+		//			if(!empty($oDiasInactivoFin)){
+		//				$dinactivo = ' HAVING  AmoUltimaSalidaDiaTranscurridos >="'.$oDiasInactivoInicio.'" AND AmoUltimaSalidaDiaTranscurridos <="'.$oDiasInactivoFin.'"';
+		//			}else{
+		//				$dinactivo = ' HAVING  AmoUltimaSalidaDiaTranscurridos >="'.$oDiasInactivoInicio.'"';
+		//			}
+		//			
+		//		}else{
+		//			
+		//			if(!empty($oDiasInactivoFin)){
+		//				$dinactivo = ' HAVING  AmoUltimaSalidaDiaTranscurridos <="'.$oDiasInactivoFin.'"';		
+		//			}
+		//						
+		//		}	
 
-			$i=1;
+
+		if (!empty($oProducto)) {
+			$producto = ' AND pro.ProId = "' . $oProducto . '" ';
+		}
+
+
+
+		if (!empty($oProductoABCInterno)) {
+
+			$elementos = explode(",", $oProductoABCInterno);
+
+			$i = 1;
 			$pabcinterno .= ' AND (';
 			$elementos = array_filter($elementos);
-			foreach($elementos as $elemento){
-				$pabcinterno .= '  (pro.ProABCInterno = "'.($elemento).'")';
-				if($i<>count($elementos)){						
-					$pabcinterno .= ' OR ';	
+			foreach ($elementos as $elemento) {
+				$pabcinterno .= '  (pro.ProABCInterno = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$pabcinterno .= ' OR ';
 				}
-			$i++;		
+				$i++;
 			}
 
 			$pabcinterno .= ' ) ';
+		}
 
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND amo.SucId = "' . $oSucursal . '" ';
 		}
-		
-		
-		if(!empty($oSucursal)){
-			$sucursal = ' AND amo.SucId = "'.$oSucursal.'" ';		
-		}	
-		
-		
-			
-		if(!empty($oFuncion) & !empty($oParametro)){		
-			$funcion = $oFuncion.'('.$oParametro.')';			
-		}	
-		
-		if(!empty($oMes)){
-			$mes = ' AND MONTH(amo.AmoFecha) ="'.($oMes).'"';
+
+
+
+		if (!empty($oFuncion) & !empty($oParametro)) {
+			$funcion = $oFuncion . '(' . $oParametro . ')';
 		}
-		
-		if(!empty($oAno)){
-			$ano = ' AND YEAR(amo.AmoFecha) ="'.($oAno).'"';
+
+		if (!empty($oMes)) {
+			$mes = ' AND MONTH(amo.AmoFecha) ="' . ($oMes) . '"';
 		}
-		
-	/*	@AmoFechaUltimaSalida :=(
+
+		if (!empty($oAno)) {
+			$ano = ' AND YEAR(amo.AmoFecha) ="' . ($oAno) . '"';
+		}
+
+		/*	@AmoFechaUltimaSalida :=(
 				SELECT 
 				amo2.AmoFecha
 				FROM tblamdalmacenmovimientodetalle amd2
@@ -607,9 +591,9 @@ class ClsReporteAlmacenMovimiento {
 			
 			
 			(TIMESTAMPDIFF(DAY, @AmoFechaUltimaSalida, "'.(empty($oFechaFin)?date("Y-m-d"):$oFechaFin).' 00:00:00" ) ) AS AmoUltimaSalidaDiaTranscurridos*/
-			$sql = '
+		$sql = '
 			SELECT
-			'.$funcion.' AS "RESULTADO"
+			' . $funcion . ' AS "RESULTADO"
 			
 			
 			
@@ -641,180 +625,175 @@ class ClsReporteAlmacenMovimiento {
 							LEFT JOIN tblcticomprobantetipo cti
 							ON amo.CtiId = cti.CtiId
 
-			WHERE  amo.AmoTipo = 1 '.$ano.$mes.$amovimiento.$sucursal.$pabcinterno.$producto.$estado.$producto.$filtrar.$fecha.$cliente.$cocompra.$ocompra.$pcdetalle.$vddetalle.$amestado.$vmarca.$ptipo.$dinactivo.$orden.$paginacion;	
-					
-					
-//							(
-//				SELECT 
-//				DATE_FORMAT(amo2.AmoFecha, "%d/%m/%Y") 
-//				FROM tblamdalmacenmovimientodetalle amd2
-//					LEFT JOIN tblamoalmacenmovimiento amo2
-//					ON amd2.AmoId = amo2.AmoId
-//						WHERE amo2.AmoTipo = 2
-//						AND amd2.ProId = amd.ProId
-//				ORDER BY amo2.AmoFecha DESC
-//				LIMIT 1
-//
-//			) AS AmoFechaUltimaSalida,
-//			
-//
-//
-//
-//			IFNULL(
-//				(SELECT 
-//				DATE_FORMAT(amo2.AmoFecha, "%d/%m/%Y") 
-//				FROM tblamdalmacenmovimientodetalle amd2
-//					LEFT JOIN tblamoalmacenmovimiento amo2
-//					ON amd2.AmoId = amo2.AmoId
-//						WHERE amo2.AmoTipo = 2
-//						AND amd2.ProId = amd.ProId
-//				ORDER BY amo2.AmoFecha DESC
-//				LIMIT 1),NOW()
-//			) 
-//			
-//						
-//			(TIMESTAMPDIFF(DAY, @AmoFechaUltimaSalida, "'.(empty($oFechaFin)?date("Y-m-d"):$oFechaFin).' 00:00:00" ) ) AS AmoUltimaSalidaDiaTranscurridos
-//			
-//			
-//			
-//			
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			settype($fila['RESULTADO'],"float");
-			
-			return $fila['RESULTADO'];		
-		}		
-		
-		
-		
-	public function MtdObtenerTallerPedidoDetallesValor($oFuncion="SUM",$oParametro="AmoTotal",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oTallerPedido=NULL,$oEstado=NULL,$oProducto=NULL,$oTallerPedidoEstado=NULL,$oVehiculoMarca=NULL,$oProductoTipo=NULL,$oProductoABCInterno=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oSucursal=NULL) {
+			WHERE  amo.AmoTipo = 1 ' . $ano . $mes . $amovimiento . $sucursal . $pabcinterno . $producto . $estado . $producto . $filtrar . $fecha . $cliente . $cocompra . $ocompra . $pcdetalle . $vddetalle . $amestado . $vmarca . $ptipo . $dinactivo . $orden . $paginacion;
 
-		if(!empty($oCampo) and !empty($oFiltro)){
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+		//							(
+		//				SELECT 
+		//				DATE_FORMAT(amo2.AmoFecha, "%d/%m/%Y") 
+		//				FROM tblamdalmacenmovimientodetalle amd2
+		//					LEFT JOIN tblamoalmacenmovimiento amo2
+		//					ON amd2.AmoId = amo2.AmoId
+		//						WHERE amo2.AmoTipo = 2
+		//						AND amd2.ProId = amd.ProId
+		//				ORDER BY amo2.AmoFecha DESC
+		//				LIMIT 1
+		//
+		//			) AS AmoFechaUltimaSalida,
+		//			
+		//
+		//
+		//
+		//			IFNULL(
+		//				(SELECT 
+		//				DATE_FORMAT(amo2.AmoFecha, "%d/%m/%Y") 
+		//				FROM tblamdalmacenmovimientodetalle amd2
+		//					LEFT JOIN tblamoalmacenmovimiento amo2
+		//					ON amd2.AmoId = amo2.AmoId
+		//						WHERE amo2.AmoTipo = 2
+		//						AND amd2.ProId = amd.ProId
+		//				ORDER BY amo2.AmoFecha DESC
+		//				LIMIT 1),NOW()
+		//			) 
+		//			
+		//						
+		//			(TIMESTAMPDIFF(DAY, @AmoFechaUltimaSalida, "'.(empty($oFechaFin)?date("Y-m-d"):$oFechaFin).' 00:00:00" ) ) AS AmoUltimaSalidaDiaTranscurridos
+		//			
+		//			
+		//			
+		//			
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
 
-			$i=1;
+		settype($fila['RESULTADO'], "float");
+
+		return $fila['RESULTADO'];
+	}
+
+
+
+	public function MtdObtenerTallerPedidoDetallesValor($oFuncion = "SUM", $oParametro = "AmoTotal", $oMes = NULL, $oAno = NULL, $oCampo = NULL, $oFiltro = NULL, $oOrden = 'AmdId', $oSentido = 'Desc', $oPaginacion = '0,10', $oTallerPedido = NULL, $oEstado = NULL, $oProducto = NULL, $oTallerPedidoEstado = NULL, $oVehiculoMarca = NULL, $oProductoTipo = NULL, $oProductoABCInterno = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oSucursal = NULL)
+	{
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
-		}
-
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oTallerPedido)){
-			$amovimiento = ' AND amd.AmoId = "'.$oTallerPedido.'"';
-		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND amd.AmdEstado = '.$oEstado.' ';
-		}
-		
-		if(!empty($oProducto)){
-			$producto = ' AND (amd.ProId = "'.$oProducto.'") ';
+			$filtrar .= '  ) ';
 		}
 
 
 
-		if(!empty($oTallerPedidoEstado)){
-			$tpestado = ' AND ( amo.AmoEstado = "'.$oTallerPedidoEstado.'" ) ';
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-		
-		if(!empty($oVehiculoMarca)){
-			
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
+
+		if (!empty($oTallerPedido)) {
+			$amovimiento = ' AND amd.AmoId = "' . $oTallerPedido . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND amd.AmdEstado = ' . $oEstado . ' ';
+		}
+
+		if (!empty($oProducto)) {
+			$producto = ' AND (amd.ProId = "' . $oProducto . '") ';
+		}
+
+
+
+		if (!empty($oTallerPedidoEstado)) {
+			$tpestado = ' AND ( amo.AmoEstado = "' . $oTallerPedidoEstado . '" ) ';
+		}
+
+
+		if (!empty($oVehiculoMarca)) {
+
 			$vmarca = '
 			AND 
 			(
@@ -827,79 +806,77 @@ class ClsReporteAlmacenMovimiento {
 						ON pvv.VveId = vve.VveId
 							LEFT JOIN tblvmovehiculomodelo vmo
 							ON vve.VmoId = vmo.VmoId
-					WHERE vmo.VmaId = "'.$oVehiculoMarca.'"
+					WHERE vmo.VmaId = "' . $oVehiculoMarca . '"
 					AND amd.ProId = pvv.ProId
 				)
 				
 				OR
 				
-				pro.VmaId = "'.$oVehiculoMarca.'"
+				pro.VmaId = "' . $oVehiculoMarca . '"
 			)
 			';
 		}
-		
-		if(!empty($oProductoTipo)){
-			$ptipo = ' AND ( pro.RtiId = "'.$oProductoTipo.'" ) ';
-		}	
-		
-//		if(!empty($oProductoABCInterno)){
-//			$pabcinterno = ' AND ( pro.ProABCInterno = "'.$oProductoABCInterno.'" ) ';
-//		}	
 
-		if(!empty($oProductoABCInterno)){
+		if (!empty($oProductoTipo)) {
+			$ptipo = ' AND ( pro.RtiId = "' . $oProductoTipo . '" ) ';
+		}
 
-			$elementos = explode(",",$oProductoABCInterno);
+		//		if(!empty($oProductoABCInterno)){
+		//			$pabcinterno = ' AND ( pro.ProABCInterno = "'.$oProductoABCInterno.'" ) ';
+		//		}	
 
-			$i=1;
+		if (!empty($oProductoABCInterno)) {
+
+			$elementos = explode(",", $oProductoABCInterno);
+
+			$i = 1;
 			$pabcinterno .= ' AND (';
 			$elementos = array_filter($elementos);
-			foreach($elementos as $elemento){
-				$pabcinterno .= '  (pro.ProABCInterno = "'.($elemento).'")';
-				if($i<>count($elementos)){						
-					$pabcinterno .= ' OR ';	
+			foreach ($elementos as $elemento) {
+				$pabcinterno .= '  (pro.ProABCInterno = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$pabcinterno .= ' OR ';
 				}
-			$i++;		
+				$i++;
 			}
 
 			$pabcinterno .= ' ) ';
+		}
 
-		}
-		
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(amo.AmoFecha)>="'.$oFechaInicio.'" AND DATE(amo.AmoFecha)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(amo.AmoFecha)>="'.$oFechaInicio.'"';
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(amo.AmoFecha)>="' . $oFechaInicio . '" AND DATE(amo.AmoFecha)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(amo.AmoFecha)>="' . $oFechaInicio . '"';
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(amo.AmoFecha)<="'.$oFechaFin.'"';		
-			}			
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(amo.AmoFecha)<="' . $oFechaFin . '"';
+			}
 		}
-		
-		if(!empty($oSucursal)){
-			$sucursal = ' AND (amo.SucId)="'.$oSucursal.'"';		
-		}	
-			
-		if(!empty($oFuncion) & !empty($oParametro)){		
-			$funcion = $oFuncion.'('.$oParametro.')';			
-		}	
-		
-		if(!empty($oMes)){
-			$mes = ' AND MONTH(amo.AmoFecha) = "'.($oMes).'"';
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND (amo.SucId)="' . $oSucursal . '"';
 		}
-		
-		if(!empty($oAno)){
-			$ano = ' AND YEAR(amo.AmoFecha) = "'.($oAno).'"';
+
+		if (!empty($oFuncion) & !empty($oParametro)) {
+			$funcion = $oFuncion . '(' . $oParametro . ')';
 		}
-		
-		
-		
-			$sql = '
+
+		if (!empty($oMes)) {
+			$mes = ' AND MONTH(amo.AmoFecha) = "' . ($oMes) . '"';
+		}
+
+		if (!empty($oAno)) {
+			$ano = ' AND YEAR(amo.AmoFecha) = "' . ($oAno) . '"';
+		}
+
+
+
+		$sql = '
 			SELECT
-				'.$funcion.' AS "RESULTADO"
+				' . $funcion . ' AS "RESULTADO"
 
 			FROM tblamdalmacenmovimientodetalle amd
 				LEFT JOIN tblproproducto pro
@@ -916,149 +893,144 @@ class ClsReporteAlmacenMovimiento {
 
 			WHERE  amo.AmoTipo = 2  
 				AND amo.AmoSubTipo = 2 
-			'.$ano.$mes.$amovimiento.$estado.$fecha.$pabcinterno.$sucursal.$producto.$filtrar.$tpestado.$vmarca.$ptipo.$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			settype($fila['RESULTADO'],"float");
-			
-			return $fila['RESULTADO'];			
-		}
-		
-		
-		
-		
-	 public function MtdObtenerVentaConcretadaDetallesValor($oFuncion="SUM",$oParametro="AmoTotal",$oMes=NULL,$oAno=NULL,$oCampo=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVentaConcretada=NULL,$oEstado=NULL,$oProducto=NULL,$oVentaDirectaDetalleId=NULL,$oVentaConcretadaEstado=NULL,$oVehiculoMarca=NULL,$oProductoTipo=NULL,$oSucursal=NULL) {
+			' . $ano . $mes . $amovimiento . $estado . $fecha . $pabcinterno . $sucursal . $producto . $filtrar . $tpestado . $vmarca . $ptipo . $orden . $paginacion;
 
-		if(!empty($oCampo) and !empty($oFiltro)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+		settype($fila['RESULTADO'], "float");
 
-			$i=1;
+		return $fila['RESULTADO'];
+	}
+
+
+
+
+	public function MtdObtenerVentaConcretadaDetallesValor($oFuncion = "SUM", $oParametro = "AmoTotal", $oMes = NULL, $oAno = NULL, $oCampo = NULL, $oFiltro = NULL, $oOrden = 'AmdId', $oSentido = 'Desc', $oPaginacion = '0,10', $oVentaConcretada = NULL, $oEstado = NULL, $oProducto = NULL, $oVentaDirectaDetalleId = NULL, $oVentaConcretadaEstado = NULL, $oVehiculoMarca = NULL, $oProductoTipo = NULL, $oSucursal = NULL)
+	{
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oVentaConcretada)){
-			$vconcretada = ' AND amd.AmoId = "'.$oVentaConcretada.'"';
-		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND amd.AmdEstado = '.$oEstado.' ';
-		}
-		
-		if(!empty($oProducto)){
-			$producto = ' AND (amd.ProId = "'.$oProducto.'") ';
-		}
-	
-		if(!empty($oVentaDirectaDetalleId)){
-			$vddetalle = ' AND (amd.VddId = "'.$oVentaDirectaDetalleId.'") ';
+
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		if(!empty($oVentaConcretadaEstado)){
-			$vcestado = ' AND (amo.AmoEstado = "'.$oVentaConcretadaEstado.'") ';
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		
-	
-		if(!empty($oVehiculoMarca)){
-			
+
+		if (!empty($oVentaConcretada)) {
+			$vconcretada = ' AND amd.AmoId = "' . $oVentaConcretada . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND amd.AmdEstado = ' . $oEstado . ' ';
+		}
+
+		if (!empty($oProducto)) {
+			$producto = ' AND (amd.ProId = "' . $oProducto . '") ';
+		}
+
+		if (!empty($oVentaDirectaDetalleId)) {
+			$vddetalle = ' AND (amd.VddId = "' . $oVentaDirectaDetalleId . '") ';
+		}
+
+		if (!empty($oVentaConcretadaEstado)) {
+			$vcestado = ' AND (amo.AmoEstado = "' . $oVentaConcretadaEstado . '") ';
+		}
+
+
+
+		if (!empty($oVehiculoMarca)) {
+
 			$vmarca = '
 			AND 
 			
@@ -1072,44 +1044,44 @@ class ClsReporteAlmacenMovimiento {
 						ON pvv.VveId = vve.VveId
 							LEFT JOIN tblvmovehiculomodelo vmo
 							ON vve.VmoId = vmo.VmoId
-					WHERE vmo.VmaId = "'.$oVehiculoMarca.'"
+					WHERE vmo.VmaId = "' . $oVehiculoMarca . '"
 					AND amd.ProId = pvv.ProId
 				)
 				
 				OR
 				
-				pro.VmaId = "'.$oVehiculoMarca.'"
+				pro.VmaId = "' . $oVehiculoMarca . '"
 			)
 			';
 		}
-		
-		
-		if(!empty($oProductoTipo)){
-			$ptipo = ' AND (pro.RtiId = "'.$oProductoTipo.'") ';
+
+
+		if (!empty($oProductoTipo)) {
+			$ptipo = ' AND (pro.RtiId = "' . $oProductoTipo . '") ';
 		}
-			
-		if(!empty($oSucursal)){
-			$sucursal = ' AND (amo.SucId = "'.$oSucursal.'") ';
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND (amo.SucId = "' . $oSucursal . '") ';
 		}
-		
-			
-			
-			
-		if(!empty($oFuncion) & !empty($oParametro)){		
-			$funcion = $oFuncion.'('.$oParametro.')';			
-		}	
-		
-		if(!empty($oMes)){
-			$mes = ' AND MONTH(amo.AmoFecha) ="'.($oMes).'"';
+
+
+
+
+		if (!empty($oFuncion) & !empty($oParametro)) {
+			$funcion = $oFuncion . '(' . $oParametro . ')';
 		}
-		
-		if(!empty($oAno)){
-			$ano = ' AND YEAR(amo.AmoFecha) ="'.($oAno).'"';
+
+		if (!empty($oMes)) {
+			$mes = ' AND MONTH(amo.AmoFecha) ="' . ($oMes) . '"';
 		}
-		
-		 $sql = '
+
+		if (!empty($oAno)) {
+			$ano = ' AND YEAR(amo.AmoFecha) ="' . ($oAno) . '"';
+		}
+
+		$sql = '
 			SELECT
-				'.$funcion.' AS "RESULTADO"
+				' . $funcion . ' AS "RESULTADO"
 			
 			FROM tblamdalmacenmovimientodetalle amd
 				LEFT JOIN tblproproducto pro
@@ -1121,150 +1093,145 @@ class ClsReporteAlmacenMovimiento {
 							LEFT JOIN tblclicliente cli
 							ON amo.CliId = cli.CliId
 							
-			WHERE  amo.AmoTipo = 2  AND amo.AmoSubTipo = 3 '.$ano.$mes.$sucursal.$vconcretada.$estado.$producto.$filtrar.$vddetalle.$vcestado.$vmarca.$ptipo.$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);                       
-			$fila = $this->InsMysql->MtdObtenerDatos($resultado);            
-			
-			settype($fila['RESULTADO'],"float");
-			
-			return $fila['RESULTADO'];		
-		}	
-		
-		/*
+			WHERE  amo.AmoTipo = 2  AND amo.AmoSubTipo = 3 ' . $ano . $mes . $sucursal . $vconcretada . $estado . $producto . $filtrar . $vddetalle . $vcestado . $vmarca . $ptipo . $orden . $paginacion;
+
+		$resultado = $this->InsMysql->MtdConsultar($sql);
+		$fila = $this->InsMysql->MtdObtenerDatos($resultado);
+
+		settype($fila['RESULTADO'], "float");
+
+		return $fila['RESULTADO'];
+	}
+
+	/*
 		* AGREGADO 28/11/2018
 		*/
-		
-		
-		    public function MtdObtenerVentaConcretadaDetalles($oCampo=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVentaConcretada=NULL,$oEstado=NULL,$oProducto=NULL,$oVentaDirectaDetalleId=NULL,$oVentaConcretadaEstado=NULL,$oVehiculoMarca=NULL,$oProductoTipo=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oSucursal=NULL) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+	public function MtdObtenerVentaConcretadaDetalles($oCampo = NULL, $oFiltro = NULL, $oOrden = 'AmdId', $oSentido = 'Desc', $oPaginacion = '0,10', $oVentaConcretada = NULL, $oEstado = NULL, $oProducto = NULL, $oVentaDirectaDetalleId = NULL, $oVentaConcretadaEstado = NULL, $oVehiculoMarca = NULL, $oProductoTipo = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oSucursal = NULL)
+	{
 
-			$i=1;
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oVentaConcretada)){
-			$vconcretada = ' AND amd.AmoId = "'.$oVentaConcretada.'"';
-		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND amd.AmdEstado = '.$oEstado.' ';
-		}
-		
-		if(!empty($oProducto)){
-			$producto = ' AND (amd.ProId = "'.$oProducto.'") ';
-		}
-	
-		if(!empty($oVentaDirectaDetalleId)){
-			$vddetalle = ' AND (amd.VddId = "'.$oVentaDirectaDetalleId.'") ';
+
+
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		if(!empty($oVentaConcretadaEstado)){
-			$vcestado = ' AND (amo.AmoEstado = "'.$oVentaConcretadaEstado.'") ';
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		
-		if(!empty($oVehiculoMarca)){
-			
+
+		if (!empty($oVentaConcretada)) {
+			$vconcretada = ' AND amd.AmoId = "' . $oVentaConcretada . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND amd.AmdEstado = ' . $oEstado . ' ';
+		}
+
+		if (!empty($oProducto)) {
+			$producto = ' AND (amd.ProId = "' . $oProducto . '") ';
+		}
+
+		if (!empty($oVentaDirectaDetalleId)) {
+			$vddetalle = ' AND (amd.VddId = "' . $oVentaDirectaDetalleId . '") ';
+		}
+
+		if (!empty($oVentaConcretadaEstado)) {
+			$vcestado = ' AND (amo.AmoEstado = "' . $oVentaConcretadaEstado . '") ';
+		}
+
+
+		if (!empty($oVehiculoMarca)) {
+
 			$vmarca = '
 			
 			AND 
@@ -1279,40 +1246,39 @@ class ClsReporteAlmacenMovimiento {
 						ON pvv.VveId = vve.VveId
 							LEFT JOIN tblvmovehiculomodelo vmo
 							ON vve.VmoId = vmo.VmoId
-					WHERE vmo.VmaId = "'.$oVehiculoMarca.'"
+					WHERE vmo.VmaId = "' . $oVehiculoMarca . '"
 					AND amd.ProId = pvv.ProId
 				)
 				
 				OR
 				
-				pro.VmaId = "'.$oVehiculoMarca.'"
+				pro.VmaId = "' . $oVehiculoMarca . '"
 			)
 			';
 		}
-		
-		if(!empty($oProductoTipo)){
-			$ptipo = ' AND (pro.RtiId = "'.$oProductoTipo.'") ';
-		}
-		
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(amo.AmoFecha)>="'.$oFechaInicio.'" AND DATE(amo.AmoFecha)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(amo.AmoFecha)>="'.$oFechaInicio.'"';
-			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(amo.AmoFecha)<="'.$oFechaFin.'"';		
-			}			
+
+		if (!empty($oProductoTipo)) {
+			$ptipo = ' AND (pro.RtiId = "' . $oProductoTipo . '") ';
 		}
 
-		if(!empty($oSucursal)){
-			$sucursal = ' AND DATE(amo.SucId) = "'.$oSucursal.'"';		
-		}	
-				
-		 $sql = '
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(amo.AmoFecha)>="' . $oFechaInicio . '" AND DATE(amo.AmoFecha)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(amo.AmoFecha)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(amo.AmoFecha)<="' . $oFechaFin . '"';
+			}
+		}
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND DATE(amo.SucId) = "' . $oSucursal . '"';
+		}
+
+		$sql = '
 			SELECT
 			SQL_CALC_FOUND_ROWS 
 			amd.AmdId,			
@@ -1527,229 +1493,224 @@ AND ncr.NcrMotivoCodigo<> "04"
 			WHERE amo.AmoTipo = 2 
 			AND amo.AmoSubTipo = 3 
 				AND pro.ProValidarStock = 1
-			'.$vconcretada.$estado.$producto.$filtrar.$vddetalle.$sucursal.$vcestado.$vmarca.$fecha.$ptipo .$orden.$paginacion;	
+			' . $vconcretada . $estado . $producto . $filtrar . $vddetalle . $sucursal . $vcestado . $vmarca . $fecha . $ptipo . $orden . $paginacion;
 
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-			$Respuesta['Datos'] = array();
+		$Respuesta['Datos'] = array();
 
-            $InsVentaConcretadaDetalle = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$InsVentaConcretadaDetalle = get_class($this);
 
-					$VentaConcretadaDetalle = new $InsVentaConcretadaDetalle();
-                    $VentaConcretadaDetalle->VcdId = $fila['AmdId'];
-                    $VentaConcretadaDetalle->VcoId = $fila['AmoId'];
-					$VentaConcretadaDetalle->UmeId = $fila['UmeId'];
-					
-					$VentaConcretadaDetalle->VddId = $fila['VddId'];
-					
-					$VentaConcretadaDetalle->VcdCosto = $fila['AmdCosto'];  
-			        $VentaConcretadaDetalle->VcdCantidad = $fila['AmdCantidad'];  
-					$VentaConcretadaDetalle->VcdCantidadReal = $fila['AmdCantidadReal'];  
-					
-					$VentaConcretadaDetalle->VcdValorTotal = $fila['AmdValorTotal'];  
-					$VentaConcretadaDetalle->VcdUtilidad = $fila['AmdUtilidad'];  					
-					$VentaConcretadaDetalle->VcdPrecioVenta = $fila['AmdPrecioVenta'];  					
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-					$VentaConcretadaDetalle->VcdImporte = $fila['AmdImporte'];
-					$VentaConcretadaDetalle->VcdReingreso = $fila['AmdReingreso'];
-					$VentaConcretadaDetalle->VcdCompraOrigen = $fila['AmdCompraOrigen'];
-					
-					
-					$VentaConcretadaDetalle->VcdCierre = $fila['AmdCierre'];
-					$VentaConcretadaDetalle->VcdEstado = $fila['AmdEstado'];
-					$VentaConcretadaDetalle->VcdTiempoCreacion = $fila['NAmdTiempoCreacion'];  
-					$VentaConcretadaDetalle->VcdTiempoModificacion = $fila['NAmdTiempoModificacion']; 					
-				
-					
-					$VentaConcretadaDetalle->VdiId = $fila['VdiId'];
-					
-					$VentaConcretadaDetalle->VcdFactura = $fila['VcdFactura'];
-					$VentaConcretadaDetalle->VcdBoleta = $fila['VcdBoleta'];
-					
-					
-					$VentaConcretadaDetalle->ProId = $fila['ProId'];
-					$VentaConcretadaDetalle->ProCodigoOriginal = $fila['ProCodigoOriginal'];
-					$VentaConcretadaDetalle->ProCodigoAlternativo = $fila['ProCodigoAlternativo'];
-                    $VentaConcretadaDetalle->ProNombre = (($fila['ProNombre']));
-					
-					$VentaConcretadaDetalle->ProCosto = $fila['ProCosto'];
-                    $VentaConcretadaDetalle->ProCostoIngreso = (($fila['ProCostoIngreso']));
-					
-			
-					$VentaConcretadaDetalle->RtiId = (($fila['RtiId']));
-					$VentaConcretadaDetalle->UmeIdOrigen = (($fila['UmeIdOrigen']));
-					
-					$VentaConcretadaDetalle->UmeNombre = (($fila['UmeNombre']));
-					$VentaConcretadaDetalle->UmeAbreviacion = (($fila['UmeAbreviacion']));
-					
-					
-					//$VentaConcretadaDetalle->AmoFecha = (($fila['NAmoFecha']));
-					$VentaConcretadaDetalle->VcoFecha = (($fila['NAmoFecha']));
-					
-					$VentaConcretadaDetalle->CliNombreCompleto = (($fila['CliNombreCompleto']));
-					$VentaConcretadaDetalle->CliNombre = (($fila['CliNombre']));
-					$VentaConcretadaDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));
-					$VentaConcretadaDetalle->CliApellidoMaterno = (($fila['CliApellidoMaterno']));
-					
-					$VentaConcretadaDetalle->ProIdReemplazo = (($fila['ProIdReemplazo']));
-					$VentaConcretadaDetalle->ProCodigoOriginalReemplazo = (($fila['ProCodigoOriginalReemplazo']));
-					$VentaConcretadaDetalle->AmdReemplazo = (($fila['AmdReemplazo']));
-					
-					$VentaConcretadaDetalle->VcdCantidadFacturar = (($fila['AmdCantidadFacturar']));
-					
-					$VentaConcretadaDetalle->SucNombre = (($fila['SucNombre']));
-					
-					$VentaConcretadaDetalle->RtiNombre = (($fila['RtiNombre']));
-	
-	
-		$VentaConcretadaDetalle->VdiTipo = (($fila['VdiTipo']));
-	
-			
-                    $VentaConcretadaDetalle->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $VentaConcretadaDetalle;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+			$VentaConcretadaDetalle = new $InsVentaConcretadaDetalle();
+			$VentaConcretadaDetalle->VcdId = $fila['AmdId'];
+			$VentaConcretadaDetalle->VcoId = $fila['AmoId'];
+			$VentaConcretadaDetalle->UmeId = $fila['UmeId'];
+
+			$VentaConcretadaDetalle->VddId = $fila['VddId'];
+
+			$VentaConcretadaDetalle->VcdCosto = $fila['AmdCosto'];
+			$VentaConcretadaDetalle->VcdCantidad = $fila['AmdCantidad'];
+			$VentaConcretadaDetalle->VcdCantidadReal = $fila['AmdCantidadReal'];
+
+			$VentaConcretadaDetalle->VcdValorTotal = $fila['AmdValorTotal'];
+			$VentaConcretadaDetalle->VcdUtilidad = $fila['AmdUtilidad'];
+			$VentaConcretadaDetalle->VcdPrecioVenta = $fila['AmdPrecioVenta'];
+
+			$VentaConcretadaDetalle->VcdImporte = $fila['AmdImporte'];
+			$VentaConcretadaDetalle->VcdReingreso = $fila['AmdReingreso'];
+			$VentaConcretadaDetalle->VcdCompraOrigen = $fila['AmdCompraOrigen'];
+
+
+			$VentaConcretadaDetalle->VcdCierre = $fila['AmdCierre'];
+			$VentaConcretadaDetalle->VcdEstado = $fila['AmdEstado'];
+			$VentaConcretadaDetalle->VcdTiempoCreacion = $fila['NAmdTiempoCreacion'];
+			$VentaConcretadaDetalle->VcdTiempoModificacion = $fila['NAmdTiempoModificacion'];
+
+
+			$VentaConcretadaDetalle->VdiId = $fila['VdiId'];
+
+			$VentaConcretadaDetalle->VcdFactura = $fila['VcdFactura'];
+			$VentaConcretadaDetalle->VcdBoleta = $fila['VcdBoleta'];
+
+
+			$VentaConcretadaDetalle->ProId = $fila['ProId'];
+			$VentaConcretadaDetalle->ProCodigoOriginal = $fila['ProCodigoOriginal'];
+			$VentaConcretadaDetalle->ProCodigoAlternativo = $fila['ProCodigoAlternativo'];
+			$VentaConcretadaDetalle->ProNombre = (($fila['ProNombre']));
+
+			$VentaConcretadaDetalle->ProCosto = $fila['ProCosto'];
+			$VentaConcretadaDetalle->ProCostoIngreso = (($fila['ProCostoIngreso']));
+
+
+			$VentaConcretadaDetalle->RtiId = (($fila['RtiId']));
+			$VentaConcretadaDetalle->UmeIdOrigen = (($fila['UmeIdOrigen']));
+
+			$VentaConcretadaDetalle->UmeNombre = (($fila['UmeNombre']));
+			$VentaConcretadaDetalle->UmeAbreviacion = (($fila['UmeAbreviacion']));
+
+
+			//$VentaConcretadaDetalle->AmoFecha = (($fila['NAmoFecha']));
+			$VentaConcretadaDetalle->VcoFecha = (($fila['NAmoFecha']));
+
+			$VentaConcretadaDetalle->CliNombreCompleto = (($fila['CliNombreCompleto']));
+			$VentaConcretadaDetalle->CliNombre = (($fila['CliNombre']));
+			$VentaConcretadaDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));
+			$VentaConcretadaDetalle->CliApellidoMaterno = (($fila['CliApellidoMaterno']));
+
+			$VentaConcretadaDetalle->ProIdReemplazo = (($fila['ProIdReemplazo']));
+			$VentaConcretadaDetalle->ProCodigoOriginalReemplazo = (($fila['ProCodigoOriginalReemplazo']));
+			$VentaConcretadaDetalle->AmdReemplazo = (($fila['AmdReemplazo']));
+
+			$VentaConcretadaDetalle->VcdCantidadFacturar = (($fila['AmdCantidadFacturar']));
+
+			$VentaConcretadaDetalle->SucNombre = (($fila['SucNombre']));
+
+			$VentaConcretadaDetalle->RtiNombre = (($fila['RtiNombre']));
+
+
+			$VentaConcretadaDetalle->VdiTipo = (($fila['VdiTipo']));
+
+
+			$VentaConcretadaDetalle->InsMysql = NULL;
+			$Respuesta['Datos'][] = $VentaConcretadaDetalle;
 		}
-		
-		
-		
-		
 
-    public function MtdObtenerTallerPedidoDetalles($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oTallerPedido=NULL,$oEstado=NULL,$oProducto=NULL,$oTallerPedidoEstado=NULL,$oVehiculoMarca=NULL,$oProductoTipo=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oVentaDirectaDetalle=NULL,$oFichaAccion=NULL,$oSucursal=NULL) {
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
 
-			if(!empty($oCampo) and !empty($oFiltro)){
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+		return $Respuesta;
+	}
 
-			$i=1;
+
+
+
+
+	public function MtdObtenerTallerPedidoDetalles($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'AmdId', $oSentido = 'Desc', $oPaginacion = '0,10', $oTallerPedido = NULL, $oEstado = NULL, $oProducto = NULL, $oTallerPedidoEstado = NULL, $oVehiculoMarca = NULL, $oProductoTipo = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oVentaDirectaDetalle = NULL, $oFichaAccion = NULL, $oSucursal = NULL)
+	{
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
-		}
-
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oTallerPedido)){
-			$amovimiento = ' AND amd.AmoId = "'.$oTallerPedido.'"';
-		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND amd.AmdEstado = '.$oEstado.' ';
-		}
-		
-		if(!empty($oProducto)){
-			$producto = ' AND (amd.ProId = "'.$oProducto.'") ';
-		}
-		
-		
-		if(!empty($oTallerPedidoEstado)){
-			$amestado = ' AND (amo.AmoEstado = '.$oTallerPedidoEstado.') ';
+			$filtrar .= '  ) ';
 		}
 
 
 
-		if(!empty($oVehiculoMarca)){
-			
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
+		}
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
+
+		if (!empty($oTallerPedido)) {
+			$amovimiento = ' AND amd.AmoId = "' . $oTallerPedido . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND amd.AmdEstado = ' . $oEstado . ' ';
+		}
+
+		if (!empty($oProducto)) {
+			$producto = ' AND (amd.ProId = "' . $oProducto . '") ';
+		}
+
+
+		if (!empty($oTallerPedidoEstado)) {
+			$amestado = ' AND (amo.AmoEstado = ' . $oTallerPedidoEstado . ') ';
+		}
+
+
+
+		if (!empty($oVehiculoMarca)) {
+
 			$vmarca = '
 			
 			AND 
@@ -1764,51 +1725,50 @@ AND ncr.NcrMotivoCodigo<> "04"
 						ON pvv.VveId = vve.VveId
 							LEFT JOIN tblvmovehiculomodelo vmo
 							ON vve.VmoId = vmo.VmoId
-					WHERE vmo.VmaId = "'.$oVehiculoMarca.'"
+					WHERE vmo.VmaId = "' . $oVehiculoMarca . '"
 					
 					AND amd.ProId = pvv.ProId
 				)
 				
 				OR
 				
-				pro.VmaId = "'.$oVehiculoMarca.'"
+				pro.VmaId = "' . $oVehiculoMarca . '"
 			)
 			';
 		}
-		
 
-		if(!empty($oProductoTipo)){
-			$ptipo = ' AND (pro.RtiId = "'.$oProductoTipo.'") ';
-		}
-		
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(amo.AmoFecha)>="'.$oFechaInicio.'" AND DATE(amo.AmoFecha)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(amo.AmoFecha)>="'.$oFechaInicio.'"';
-			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(amo.AmoFecha)<="'.$oFechaFin.'"';		
-			}			
+
+		if (!empty($oProductoTipo)) {
+			$ptipo = ' AND (pro.RtiId = "' . $oProductoTipo . '") ';
 		}
 
-			if(!empty($oVentaDirectaDetalle)){
-				$vdetalle = ' AND (amd.VddId = "'.$oVentaDirectaDetalle.'") ';
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(amo.AmoFecha)>="' . $oFechaInicio . '" AND DATE(amo.AmoFecha)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(amo.AmoFecha)>="' . $oFechaInicio . '"';
 			}
-			
-			if(!empty($oFichaAccion)){
-				$faccion = ' AND (amo.FccId = "'.$oFichaAccion.'") ';
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(amo.AmoFecha)<="' . $oFechaFin . '"';
 			}
-			
-				
-			if(!empty($oSucursal)){
-				$sucursal = ' AND (amo.SucId = "'.$oSucursal.'") ';
-			}
-			
-			$sql = '
+		}
+
+		if (!empty($oVentaDirectaDetalle)) {
+			$vdetalle = ' AND (amd.VddId = "' . $oVentaDirectaDetalle . '") ';
+		}
+
+		if (!empty($oFichaAccion)) {
+			$faccion = ' AND (amo.FccId = "' . $oFichaAccion . '") ';
+		}
+
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND (amo.SucId = "' . $oSucursal . '") ';
+		}
+
+		$sql = '
 			SELECT
 			SQL_CALC_FOUND_ROWS 
 			amd.AmdId,			
@@ -2154,123 +2114,119 @@ AND ncr.NcrMotivoCodigo<> "04"
 			WHERE   amo.AmoTipo = 2 
 			AND amo.AmoSubTipo = 2
 			AND pro.ProValidarStock = 1
-			'.$amovimiento.$fecha.$estado.$producto.$sucursal.$filtrar.$faccion.$amestado.$vmarca.$ptipo.$vdetalle.$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+			' . $amovimiento . $fecha . $estado . $producto . $sucursal . $filtrar . $faccion . $amestado . $vmarca . $ptipo . $vdetalle . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsTallerPedidoDetalle = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$TallerPedidoDetalle = new $InsTallerPedidoDetalle();
-                    $TallerPedidoDetalle->AmdId = $fila['AmdId'];
-                    $TallerPedidoDetalle->AmoId = $fila['AmoId'];
-					$TallerPedidoDetalle->UmeId = $fila['UmeId'];
-					
-					
-					//deb($fila['FapId']);
-					
-					$TallerPedidoDetalle->VddId = $fila['VddId'];
-					$TallerPedidoDetalle->FaaId = $fila['FaaId'];
-					$TallerPedidoDetalle->FapId = $fila['FapId'];
-					
-					$TallerPedidoDetalle->AlmId = $fila['AlmId'];
-					$TallerPedidoDetalle->AmdFecha = $fila['NAmdFecha'];
-			
-					$TallerPedidoDetalle->AmdCosto = $fila['AmdCosto'];  
-			        $TallerPedidoDetalle->AmdCantidad = $fila['AmdCantidad'];  
-					$TallerPedidoDetalle->AmdCantidadReal = $fila['AmdCantidadReal'];  
-					
-					$TallerPedidoDetalle->AmdValorTotal = $fila['AmdValorTotal'];  
-					$TallerPedidoDetalle->AmdUtilidad = $fila['AmdUtilidad'];  					
-					$TallerPedidoDetalle->AmdPrecioVenta = $fila['AmdPrecioVenta'];  					
+		$Respuesta['Datos'] = array();
 
-					$TallerPedidoDetalle->AmdImporte = $fila['AmdImporte'];
-					
-					$TallerPedidoDetalle->AmdEstado = $fila['AmdEstado'];
-					$TallerPedidoDetalle->AmdTiempoCreacion = $fila['NAmdTiempoCreacion'];  
-					$TallerPedidoDetalle->AmdTiempoModificacion = $fila['NAmdTiempoModificacion']; 					
-					$TallerPedidoDetalle->ProId = $fila['ProId'];
-					$TallerPedidoDetalle->ProCodigoOriginal = $fila['ProCodigoOriginal'];
-					$TallerPedidoDetalle->ProCodigoAlternativo = $fila['ProCodigoAlternativo'];
-                    $TallerPedidoDetalle->ProNombre = (($fila['ProNombre']));
-					$TallerPedidoDetalle->RtiId = (($fila['RtiId']));
-					$TallerPedidoDetalle->ProTienePromocion = (($fila['ProTienePromocion']));
-					
-					
-					$TallerPedidoDetalle->UmeIdOrigen = (($fila['UmeIdOrigen']));
-					$TallerPedidoDetalle->UmeNombreOrigen = (($fila['UmeNombreOrigen']));
-					
-					
-					$TallerPedidoDetalle->UmeNombre = (($fila['UmeNombre']));
-					$TallerPedidoDetalle->UmeAbreviacion = (($fila['UmeAbreviacion']));
-					
-					$TallerPedidoDetalle->AmoFecha = (($fila['NAmoFecha']));
-					
-					$TallerPedidoDetalle->PmtId = (($fila['PmtId']));
-					
-					$TallerPedidoDetalle->FaaAccion = (($fila['FaaAccion']));
-					$TallerPedidoDetalle->FaaNivel = (($fila['FaaNivel']));
-					$TallerPedidoDetalle->FaaVerificar1 = (($fila['FaaVerificar1']));
-					$TallerPedidoDetalle->FaaVerificar2 = (($fila['FaaVerificar2']));
-					
-					$TallerPedidoDetalle->CliNombreCompleto = (($fila['CliNombreCompleto']));
-					$TallerPedidoDetalle->CliNombre = (($fila['CliNombre']));
-					$TallerPedidoDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));
-					$TallerPedidoDetalle->CliApellidoMaterno = (($fila['CliApellidoMaterno']));
-					
-					$TallerPedidoDetalle->CliNumeroDocumento = (($fila['CliNumeroDocumento']));
-					
-					$TallerPedidoDetalle->TopNombre = (($fila['TopNombre']));
-					
-					$TallerPedidoDetalle->FinId = (($fila['FinId']));
-					
-					$TallerPedidoDetalle->MinNombre = (($fila['MinNombre']));
-					
-					$TallerPedidoDetalle->AmdFactura = (($fila['AmdFactura']));
-					$TallerPedidoDetalle->AmdFacturaFechaEmision = (($fila['AmdFacturaFechaEmision']));
-					
-					$TallerPedidoDetalle->AmdBoleta = (($fila['AmdBoleta']));
-					$TallerPedidoDetalle->AmdBoletaFechaEmision = (($fila['AmdBoletaFechaEmision']));
-			
-					$TallerPedidoDetalle->VdiId = (($fila['VdiId']));
-					
-					$TallerPedidoDetalle->FdeCantidad = (($fila['FdeCantidad']));
-					$TallerPedidoDetalle->BdeCantidad = (($fila['BdeCantidad']));
-					$TallerPedidoDetalle->AmdCantidadPendienteFacturar = (($fila['AmdCantidadPendienteFacturar']));
-			
-					$TallerPedidoDetalle->AmdReingreso = (($fila['AmdReingreso']));
-					$TallerPedidoDetalle->AmdCompraOrigen = (($fila['AmdCompraOrigen']));
-					
-					$TallerPedidoDetalle->AmdFacturado = (($fila['AmdFacturado']));
-					
-					$TallerPedidoDetalle->AmoCierre = (($fila['AmoCierre']));
-					
-					$TallerPedidoDetalle->ProTienePromocion = (($fila['ProTienePromocion']));
-					
-					$TallerPedidoDetalle->ProCosto = (($fila['ProCosto']));
-					$TallerPedidoDetalle->ProCostoIngreso = (($fila['ProCostoIngreso']));
-					
-					$TallerPedidoDetalle->SucNombre = (($fila['SucNombre']));
-					
-					$TallerPedidoDetalle->RtiNombre = (($fila['RtiNombre']));
-			
-					
-                    $TallerPedidoDetalle->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $TallerPedidoDetalle;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		$InsTallerPedidoDetalle = get_class($this);
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+
+			$TallerPedidoDetalle = new $InsTallerPedidoDetalle();
+			$TallerPedidoDetalle->AmdId = $fila['AmdId'];
+			$TallerPedidoDetalle->AmoId = $fila['AmoId'];
+			$TallerPedidoDetalle->UmeId = $fila['UmeId'];
+
+
+			//deb($fila['FapId']);
+
+			$TallerPedidoDetalle->VddId = $fila['VddId'];
+			$TallerPedidoDetalle->FaaId = $fila['FaaId'];
+			$TallerPedidoDetalle->FapId = $fila['FapId'];
+
+			$TallerPedidoDetalle->AlmId = $fila['AlmId'];
+			$TallerPedidoDetalle->AmdFecha = $fila['NAmdFecha'];
+
+			$TallerPedidoDetalle->AmdCosto = $fila['AmdCosto'];
+			$TallerPedidoDetalle->AmdCantidad = $fila['AmdCantidad'];
+			$TallerPedidoDetalle->AmdCantidadReal = $fila['AmdCantidadReal'];
+
+			$TallerPedidoDetalle->AmdValorTotal = $fila['AmdValorTotal'];
+			$TallerPedidoDetalle->AmdUtilidad = $fila['AmdUtilidad'];
+			$TallerPedidoDetalle->AmdPrecioVenta = $fila['AmdPrecioVenta'];
+
+			$TallerPedidoDetalle->AmdImporte = $fila['AmdImporte'];
+
+			$TallerPedidoDetalle->AmdEstado = $fila['AmdEstado'];
+			$TallerPedidoDetalle->AmdTiempoCreacion = $fila['NAmdTiempoCreacion'];
+			$TallerPedidoDetalle->AmdTiempoModificacion = $fila['NAmdTiempoModificacion'];
+			$TallerPedidoDetalle->ProId = $fila['ProId'];
+			$TallerPedidoDetalle->ProCodigoOriginal = $fila['ProCodigoOriginal'];
+			$TallerPedidoDetalle->ProCodigoAlternativo = $fila['ProCodigoAlternativo'];
+			$TallerPedidoDetalle->ProNombre = (($fila['ProNombre']));
+			$TallerPedidoDetalle->RtiId = (($fila['RtiId']));
+			$TallerPedidoDetalle->ProTienePromocion = (($fila['ProTienePromocion']));
+
+
+			$TallerPedidoDetalle->UmeIdOrigen = (($fila['UmeIdOrigen']));
+			$TallerPedidoDetalle->UmeNombreOrigen = (($fila['UmeNombreOrigen']));
+
+
+			$TallerPedidoDetalle->UmeNombre = (($fila['UmeNombre']));
+			$TallerPedidoDetalle->UmeAbreviacion = (($fila['UmeAbreviacion']));
+
+			$TallerPedidoDetalle->AmoFecha = (($fila['NAmoFecha']));
+
+			$TallerPedidoDetalle->PmtId = (($fila['PmtId']));
+
+			$TallerPedidoDetalle->FaaAccion = (($fila['FaaAccion']));
+			$TallerPedidoDetalle->FaaNivel = (($fila['FaaNivel']));
+			$TallerPedidoDetalle->FaaVerificar1 = (($fila['FaaVerificar1']));
+			$TallerPedidoDetalle->FaaVerificar2 = (($fila['FaaVerificar2']));
+
+			$TallerPedidoDetalle->CliNombreCompleto = (($fila['CliNombreCompleto']));
+			$TallerPedidoDetalle->CliNombre = (($fila['CliNombre']));
+			$TallerPedidoDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));
+			$TallerPedidoDetalle->CliApellidoMaterno = (($fila['CliApellidoMaterno']));
+
+			$TallerPedidoDetalle->CliNumeroDocumento = (($fila['CliNumeroDocumento']));
+
+			$TallerPedidoDetalle->TopNombre = (($fila['TopNombre']));
+
+			$TallerPedidoDetalle->FinId = (($fila['FinId']));
+
+			$TallerPedidoDetalle->MinNombre = (($fila['MinNombre']));
+
+			$TallerPedidoDetalle->AmdFactura = (($fila['AmdFactura']));
+			$TallerPedidoDetalle->AmdFacturaFechaEmision = (($fila['AmdFacturaFechaEmision']));
+
+			$TallerPedidoDetalle->AmdBoleta = (($fila['AmdBoleta']));
+			$TallerPedidoDetalle->AmdBoletaFechaEmision = (($fila['AmdBoletaFechaEmision']));
+
+			$TallerPedidoDetalle->VdiId = (($fila['VdiId']));
+
+			$TallerPedidoDetalle->FdeCantidad = (($fila['FdeCantidad']));
+			$TallerPedidoDetalle->BdeCantidad = (($fila['BdeCantidad']));
+			$TallerPedidoDetalle->AmdCantidadPendienteFacturar = (($fila['AmdCantidadPendienteFacturar']));
+
+			$TallerPedidoDetalle->AmdReingreso = (($fila['AmdReingreso']));
+			$TallerPedidoDetalle->AmdCompraOrigen = (($fila['AmdCompraOrigen']));
+
+			$TallerPedidoDetalle->AmdFacturado = (($fila['AmdFacturado']));
+
+			$TallerPedidoDetalle->AmoCierre = (($fila['AmoCierre']));
+
+			$TallerPedidoDetalle->ProTienePromocion = (($fila['ProTienePromocion']));
+
+			$TallerPedidoDetalle->ProCosto = (($fila['ProCosto']));
+			$TallerPedidoDetalle->ProCostoIngreso = (($fila['ProCostoIngreso']));
+
+			$TallerPedidoDetalle->SucNombre = (($fila['SucNombre']));
+
+			$TallerPedidoDetalle->RtiNombre = (($fila['RtiNombre']));
+
+
+			$TallerPedidoDetalle->InsMysql = NULL;
+			$Respuesta['Datos'][] = $TallerPedidoDetalle;
 		}
-		
 
-		
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
 }
-?>

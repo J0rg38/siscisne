@@ -10,13 +10,14 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsReporteComprobanteVenta {
+class ClsReporteComprobanteVenta
+{
 
 	public $InsMysql;
 
 	public $Transaccion;
 
-    public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -24,167 +25,158 @@ class ClsReporteComprobanteVenta {
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
 	}
 
-	public function __destruct(){
+	public function __destruct() {}
 
-	}
-	
-    public function MtdObtenerAsignacionVentaVehiculos($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'AvvId',$oSentido = 'Desc',$oPaginacion = '0,10',$oFechaInicio=NULL,$oFechaFin=NULL,$oEstado=NULL,$oOrdenVentaVehiculo=NULL,$oConFechaEntrega=false,$oSucursal=NULL,$oTipoFecha="avv.AvvFecha") {
+	public function MtdObtenerAsignacionVentaVehiculos($oCampo = NULL, $oCondicion = "contiene", $oFiltro = NULL, $oOrden = 'AvvId', $oSentido = 'Desc', $oPaginacion = '0,10', $oFechaInicio = NULL, $oFechaFin = NULL, $oEstado = NULL, $oOrdenVentaVehiculo = NULL, $oConFechaEntrega = false, $oSucursal = NULL, $oTipoFecha = "avv.AvvFecha")
+	{
 
-		if(!empty($oCampo) and !empty($oFiltro)){
-			
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			
-			$elementos = explode(",",$oCampo);
+		if (!empty($oCampo) and !empty($oFiltro)) {
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				//
-//				$filtrar .= '  OR EXISTS( 
-//					
-//					SELECT 
-//					ood.OodId
-//					
-//					FROM tbloodordencotizaciondetalle ood
-//						
-//						LEFT JOIN tblproproducto pro
-//						ON ood.ProId = pro.ProId
-//						
-//							
-//								
-//								
-//					WHERE 
-//					
-//						ood.AvvId = avv.AvvId
-//						AND
-//						(
-//							pro.ProNombre LIKE "%'.$oFiltro.'%" OR
-//							pro.ProCodigoOriginal LIKE "%'.$oFiltro.'%"  OR
-//							pro.ProCodigoAlternativo LIKE "%'.$oFiltro.'%" 
-//						)
-//						
-//
-//					) ';
-					
-					
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-			
+			//
+			//				$filtrar .= '  OR EXISTS( 
+			//					
+			//					SELECT 
+			//					ood.OodId
+			//					
+			//					FROM tbloodordencotizaciondetalle ood
+			//						
+			//						LEFT JOIN tblproproducto pro
+			//						ON ood.ProId = pro.ProId
+			//						
+			//							
+			//								
+			//								
+			//					WHERE 
+			//					
+			//						ood.AvvId = avv.AvvId
+			//						AND
+			//						(
+			//							pro.ProNombre LIKE "%'.$oFiltro.'%" OR
+			//							pro.ProCodigoOriginal LIKE "%'.$oFiltro.'%"  OR
+			//							pro.ProCodigoAlternativo LIKE "%'.$oFiltro.'%" 
+			//						)
+			//						
+			//
+			//					) ';
+
+
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
 		//
-//		if(!empty($oFechaInicio)){
-//			if(!empty($oFechaFin)){
-//				$fecha = ' AND DATE(avv.AvvFecha)>="'.$oFechaInicio.'" AND DATE(avv.AvvFecha)<="'.$oFechaFin.'"';
-//			}else{
-//				$fecha = ' AND DATE(avv.AvvFecha)>="'.$oFechaInicio.'"';
-//			}
-//		}else{
-//			if(!empty($oFechaFin)){
-//				$fecha = ' AND DATE(avv.AvvFecha)<="'.$oFechaFin.'"';		
-//			}			
-//		}
-		
-		
-		if(!empty($oTipoFecha)){
-			
-			 if($oTipoFecha=="Comprobante"){
-			
-				if(!empty($oFechaInicio)){
-					if(!empty($oFechaFin)){
-						
+		//		if(!empty($oFechaInicio)){
+		//			if(!empty($oFechaFin)){
+		//				$fecha = ' AND DATE(avv.AvvFecha)>="'.$oFechaInicio.'" AND DATE(avv.AvvFecha)<="'.$oFechaFin.'"';
+		//			}else{
+		//				$fecha = ' AND DATE(avv.AvvFecha)>="'.$oFechaInicio.'"';
+		//			}
+		//		}else{
+		//			if(!empty($oFechaFin)){
+		//				$fecha = ' AND DATE(avv.AvvFecha)<="'.$oFechaFin.'"';		
+		//			}			
+		//		}
+
+
+		if (!empty($oTipoFecha)) {
+
+			if ($oTipoFecha == "Comprobante") {
+
+				if (!empty($oFechaInicio)) {
+					if (!empty($oFechaFin)) {
+
 						$fecha = ' AND  
 					(
 					
@@ -247,7 +239,7 @@ class ClsReporteComprobanteVenta {
 						
 	
 					
-					) >="'.$oFechaInicio.'" 
+					) >="' . $oFechaInicio . '" 
 					
 					AND 
 					
@@ -314,11 +306,8 @@ class ClsReporteComprobanteVenta {
 					
 					)
 					
-					<="'.$oFechaFin.'"';
-					
-					
-					
-					}else{
+					<="' . $oFechaFin . '"';
+					} else {
 						$fecha = ' AND  
 						
 						
@@ -389,12 +378,11 @@ class ClsReporteComprobanteVenta {
 					)
 					
 						
-						>="'.$oFechaInicio.'"';
+						>="' . $oFechaInicio . '"';
 					}
-					
-				}else{
-					
-					if(!empty($oFechaFin)){
+				} else {
+
+					if (!empty($oFechaFin)) {
 						$fecha = ' AND  (
 					
 						 (
@@ -461,21 +449,16 @@ class ClsReporteComprobanteVenta {
 					)
 	
 					
-					)  <="'.$oFechaFin.'"';		
-					}			
+					)  <="' . $oFechaFin . '"';
+					}
 				}
-				
-				
-				
-				
-			
-			}else  if($oTipoFecha=="ComprobanteS"){
-				 
-				 
-				 
-				if(!empty($oFechaInicio)){
-					if(!empty($oFechaFin)){
-						
+			} else  if ($oTipoFecha == "ComprobanteS") {
+
+
+
+				if (!empty($oFechaInicio)) {
+					if (!empty($oFechaFin)) {
+
 						$fecha = ' AND  
 					(
 					
@@ -512,7 +495,7 @@ class ClsReporteComprobanteVenta {
 						
 	
 					
-					) >="'.$oFechaInicio.'" 
+					) >="' . $oFechaInicio . '" 
 					
 					AND 
 					
@@ -555,11 +538,8 @@ class ClsReporteComprobanteVenta {
 					
 					)
 					
-					<="'.$oFechaFin.'"';
-					
-					
-					
-					}else{
+					<="' . $oFechaFin . '"';
+					} else {
 						$fecha = ' AND  
 						
 						
@@ -606,10 +586,10 @@ class ClsReporteComprobanteVenta {
 					)
 					
 						
-						>="'.$oFechaInicio.'"';
+						>="' . $oFechaInicio . '"';
 					}
-				}else{
-					if(!empty($oFechaFin)){
+				} else {
+					if (!empty($oFechaFin)) {
 						$fecha = ' AND  (
 					
 						 (
@@ -650,52 +630,48 @@ class ClsReporteComprobanteVenta {
 					)
 	
 					
-					)  <="'.$oFechaFin.'"';		
-					}			
-				}
-				
-				
-			}else{
-				
-				if(!empty($oFechaInicio)){
-					if(!empty($oFechaFin)){
-						
-						$fecha = ' AND DATE('.$oTipoFecha.')>="'.$oFechaInicio.'" AND DATE('.$oTipoFecha.')<="'.$oFechaFin.'"';
-					}else{
-						$fecha = ' AND DATE('.$oTipoFecha.')>="'.$oFechaInicio.'"';
+					)  <="' . $oFechaFin . '"';
 					}
-				}else{
-					if(!empty($oFechaFin)){
-						$fecha = ' AND DATE('.$oTipoFecha.')<="'.$oFechaFin.'"';		
-					}			
 				}
-				
+			} else {
+
+				if (!empty($oFechaInicio)) {
+					if (!empty($oFechaFin)) {
+
+						$fecha = ' AND DATE(' . $oTipoFecha . ')>="' . $oFechaInicio . '" AND DATE(' . $oTipoFecha . ')<="' . $oFechaFin . '"';
+					} else {
+						$fecha = ' AND DATE(' . $oTipoFecha . ')>="' . $oFechaInicio . '"';
+					}
+				} else {
+					if (!empty($oFechaFin)) {
+						$fecha = ' AND DATE(' . $oTipoFecha . ')<="' . $oFechaFin . '"';
+					}
+				}
 			}
-			
-		}
-		
-		
-		
-		
-		if(!empty($oEstado)){
-			$estado = ' AND avv.AvvEstado = '.$oEstado;
-		}
-		
-		if(!empty($oOrdenVentaVehiculo)){
-			$ovvehiculo = ' AND avv.OvvId = "'.$oOrdenVentaVehiculo.'"';
 		}
 
-	
-		if(($oConFechaEntrega)){
+
+
+
+		if (!empty($oEstado)) {
+			$estado = ' AND avv.AvvEstado = ' . $oEstado;
+		}
+
+		if (!empty($oOrdenVentaVehiculo)) {
+			$ovvehiculo = ' AND avv.OvvId = "' . $oOrdenVentaVehiculo . '"';
+		}
+
+
+		if (($oConFechaEntrega)) {
 			$entrega = ' AND ovv.OvvActaEntregaFecha IS NOT NULL AND ovv.OvvActaEntregaFecha != "0000-00-00" ';
 		}
-		
-		if(!empty($oSucursal)){
-			$sucursal = ' AND ovv.SucId = "'.$oSucursal.'"';
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND ovv.SucId = "' . $oSucursal . '"';
 		}
 
 
-			$sql = 'SELECT
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				avv.AvvId,
 				avv.PerId,
@@ -1516,182 +1492,181 @@ class ClsReporteComprobanteVenta {
 					
 					LEFT JOIN tblmonmoneda mon
 					ON ovv.MonId = mon.MonId
-				WHERE 1 = 1  AND ovv.OvvEstado <> 6 '.$filtrar.$fecha.$ovvehiculo.$sucursal.$tipo.$stipo.$entrega.$estado.$moneda.$cocompra.$vdirecta.$ocompra.$faccion.$fingreso.$orden.$paginacion;
-											
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+				WHERE 1 = 1  AND ovv.OvvEstado <> 6 ' . $filtrar . $fecha . $ovvehiculo . $sucursal . $tipo . $stipo . $entrega . $estado . $moneda . $cocompra . $vdirecta . $ocompra . $faccion . $fingreso . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsAsignacionVentaVehiculo = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$AsignacionVentaVehiculo = new $InsAsignacionVentaVehiculo();
-                    $AsignacionVentaVehiculo->AvvId = $fila['AvvId'];
-					
-					$AsignacionVentaVehiculo->PerId = $fila['PerId'];
-					$AsignacionVentaVehiculo->OvvId = $fila['OvvId'];
-					$AsignacionVentaVehiculo->EinId = $fila['EinId'];
-					
-					$AsignacionVentaVehiculo->AvvFecha = $fila['NAvvFecha'];
-					$AsignacionVentaVehiculo->AvvHora = $fila['AvvHora'];
-					
-					$AsignacionVentaVehiculo->AvvObservacion = $fila['AvvObservacion'];
-					
-					$AsignacionVentaVehiculo->AvvSolicitante = $fila['AvvSolicitante'];
-					$AsignacionVentaVehiculo->AvvVehiculoMarca = $fila['AvvVehiculoMarca'];					
-					$AsignacionVentaVehiculo->AvvVehiculoModelo = $fila['AvvVehiculoModelo'];
-					$AsignacionVentaVehiculo->AvvVehiculoVersion = $fila['AvvVehiculoVersion'];										
-					$AsignacionVentaVehiculo->AvvColor = $fila['AvvColor'];
-					$AsignacionVentaVehiculo->AvvAnoModelo = $fila['AvvAnoModelo'];
+		$Respuesta['Datos'] = array();
+
+		$InsAsignacionVentaVehiculo = get_class($this);
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+
+			$AsignacionVentaVehiculo = new $InsAsignacionVentaVehiculo();
+			$AsignacionVentaVehiculo->AvvId = $fila['AvvId'];
+
+			$AsignacionVentaVehiculo->PerId = $fila['PerId'];
+			$AsignacionVentaVehiculo->OvvId = $fila['OvvId'];
+			$AsignacionVentaVehiculo->EinId = $fila['EinId'];
+
+			$AsignacionVentaVehiculo->AvvFecha = $fila['NAvvFecha'];
+			$AsignacionVentaVehiculo->AvvHora = $fila['AvvHora'];
+
+			$AsignacionVentaVehiculo->AvvObservacion = $fila['AvvObservacion'];
+
+			$AsignacionVentaVehiculo->AvvSolicitante = $fila['AvvSolicitante'];
+			$AsignacionVentaVehiculo->AvvVehiculoMarca = $fila['AvvVehiculoMarca'];
+			$AsignacionVentaVehiculo->AvvVehiculoModelo = $fila['AvvVehiculoModelo'];
+			$AsignacionVentaVehiculo->AvvVehiculoVersion = $fila['AvvVehiculoVersion'];
+			$AsignacionVentaVehiculo->AvvColor = $fila['AvvColor'];
+			$AsignacionVentaVehiculo->AvvAnoModelo = $fila['AvvAnoModelo'];
 
 
 
-					$AsignacionVentaVehiculo->AvvAprobacion = $fila['AvvAprobacion'];
-					$AsignacionVentaVehiculo->AvvEstado = $fila['AvvEstado'];
-					$AsignacionVentaVehiculo->AvvTiempoCreacion = $fila['NAvvTiempoCreacion'];  
-					$AsignacionVentaVehiculo->AvvTiempoModificacion = $fila['NAvvTiempoModificacion']; 
-					
-					$AsignacionVentaVehiculo->OvvPago = $fila['OvvPago']; 
-					$AsignacionVentaVehiculo->OvvPagoInicial = $fila['OvvPagoInicial']; 
-					$AsignacionVentaVehiculo->OvvPagoInicialMonedaSimbolo = $fila['OvvPagoInicialMonedaSimbolo']; 
-					
-						
-					$AsignacionVentaVehiculo->FacId = $fila['FacId'];
-					$AsignacionVentaVehiculo->FtaId = $fila['FtaId'];
-					
-					$AsignacionVentaVehiculo->BolId = $fila['BolId'];
-					$AsignacionVentaVehiculo->BtaId = $fila['BtaId'];
-					
-					
-					$AsignacionVentaVehiculo->FacIdS = $fila['FacIdS'];
-					$AsignacionVentaVehiculo->FtaIdS = $fila['FtaIdS'];
-					
-					$AsignacionVentaVehiculo->BolIdS = $fila['BolIdS'];
-					$AsignacionVentaVehiculo->BtaIdS = $fila['BtaIdS'];
-					
-					
-					
-					$AsignacionVentaVehiculo->AvvCancelado = $fila['AvvCancelado'];
-					$AsignacionVentaVehiculo->AvvCancelado = $fila['AvvCancelado2'];
-					
-					if(!empty($AsignacionVentaVehiculo->FacId ) || !empty($AsignacionVentaVehiculo->BolId )){
-						$AsignacionVentaVehiculo->AvvFacturado = "Si";
-					}else{
-						$AsignacionVentaVehiculo->AvvFacturado = "No";
-					}
-					
-					
-					$AsignacionVentaVehiculo->VmaNombre = $fila['VmaNombre'];
-					$AsignacionVentaVehiculo->VmoNombre = $fila['VmoNombre'];
-					$AsignacionVentaVehiculo->VveNombre = $fila['VveNombre'];
-					
-					$AsignacionVentaVehiculo->EinVIN = $fila['EinVIN'];
-					$AsignacionVentaVehiculo->EinNumeroMotor = $fila['EinNumeroMotor'];
-					$AsignacionVentaVehiculo->EinAnoModelo = $fila['EinAnoModelo'];
-					$AsignacionVentaVehiculo->EinAnoFabricacion = $fila['EinAnoFabricacion'];
-					$AsignacionVentaVehiculo->EinColor = $fila['EinColor'];
-					
-					
-				
-				$AsignacionVentaVehiculo->TdoId = $fila['TdoId'];
-					$AsignacionVentaVehiculo->PerNombre = $fila['PerNombre'];
-					$AsignacionVentaVehiculo->PerApellidoPaterno = $fila['PerApellidoPaterno'];
-					$AsignacionVentaVehiculo->PerApellidoMaterno = $fila['PerApellidoMaterno'];
-					$AsignacionVentaVehiculo->PerEmail = $fila['PerEmail'];
-					
-					
-					$AsignacionVentaVehiculo->PerNombreVendedor = $fila['PerNombreVendedor'];
-					$AsignacionVentaVehiculo->PerApellidoPaternoVendedor = $fila['PerApellidoPaternoVendedor'];
-					$AsignacionVentaVehiculo->PerApellidoMaternoVendedor = $fila['PerApellidoMaternoVendedor'];
-					$AsignacionVentaVehiculo->PerEmailVendedor = $fila['PerEmailVendedor'];
-					
-					$AsignacionVentaVehiculo->SucNombre = $fila['SucNombre'];
-					
-					$AsignacionVentaVehiculo->OvvActaEntregaFecha = $fila['NOvvActaEntregaFecha'];
-					$AsignacionVentaVehiculo->OvvFecha = $fila['NOvvFecha'];
-					
-					
-					$AsignacionVentaVehiculo->OvvAprobacion1 = $fila['OvvAprobacion1'];
-					$AsignacionVentaVehiculo->OvvAprobacion2 = $fila['OvvAprobacion2'];
-					$AsignacionVentaVehiculo->OvvAprobacion3 = $fila['OvvAprobacion3'];
-					
-					$AsignacionVentaVehiculo->OvvTotal = $fila['OvvTotal'];
-					$AsignacionVentaVehiculo->OvvTipoCambio = $fila['OvvTipoCambio'];
-					$AsignacionVentaVehiculo->MonId = $fila['MonId'];
-					
-					$AsignacionVentaVehiculo->OvvTiempoSolicitudEnvio = $fila['NOvvTiempoSolicitudEnvio']; 
-					$AsignacionVentaVehiculo->OvvTiempoAprobacion1Envio = $fila['NOvvTiempoAprobacion1Envio'];
-					$AsignacionVentaVehiculo->OvvTiempoAprobacion2Envio = $fila['NOvvTiempoAprobacion2Envio'];
-					$AsignacionVentaVehiculo->OvvTiempoEmitido = $fila['NOvvTiempoEmitido'];
-					$AsignacionVentaVehiculo->OvvTiempoAnulado = $fila['NOvvTiempoAnulado'];
-					$AsignacionVentaVehiculo->OvvTiempoPorFacturar = $fila['NOvvTiempoPorFacturar'];
-					$AsignacionVentaVehiculo->OvvTiempoFacturado = $fila['NOvvTiempoFacturado'];
-					
-					$AsignacionVentaVehiculo->CliId = $fila['CliId'];
-					$AsignacionVentaVehiculo->CliNumeroDocumento = $fila['CliNumeroDocumento'];
-					$AsignacionVentaVehiculo->CliNombre = $fila['CliNombre'];
-					$AsignacionVentaVehiculo->CliApellidoPaterno = $fila['CliApellidoPaterno'];
-					$AsignacionVentaVehiculo->CliApellidoMaterno = $fila['CliApellidoMaterno'];
-					
-					$AsignacionVentaVehiculo->CliTelefono = $fila['CliTelefono'];
-					$AsignacionVentaVehiculo->CliCelular = $fila['CliCelular'];
-					$AsignacionVentaVehiculo->CliEmail = $fila['CliEmail'];
-					$AsignacionVentaVehiculo->CliDireccion = $fila['CliDireccion'];
-					
-					$AsignacionVentaVehiculo->CliDepartamento = $fila['CliDepartamento'];
-					$AsignacionVentaVehiculo->CliProvincia = $fila['CliProvincia'];
-					$AsignacionVentaVehiculo->CliDistrito = $fila['CliDistrito'];
-					
-		
-					$AsignacionVentaVehiculo->TdoNombre = $fila['TdoNombre'];
-					
-					$AsignacionVentaVehiculo->MonNombre = $fila['MonNombre'];
-					$AsignacionVentaVehiculo->MonSimbolo = $fila['MonSimbolo'];
-			
+			$AsignacionVentaVehiculo->AvvAprobacion = $fila['AvvAprobacion'];
+			$AsignacionVentaVehiculo->AvvEstado = $fila['AvvEstado'];
+			$AsignacionVentaVehiculo->AvvTiempoCreacion = $fila['NAvvTiempoCreacion'];
+			$AsignacionVentaVehiculo->AvvTiempoModificacion = $fila['NAvvTiempoModificacion'];
+
+			$AsignacionVentaVehiculo->OvvPago = $fila['OvvPago'];
+			$AsignacionVentaVehiculo->OvvPagoInicial = $fila['OvvPagoInicial'];
+			$AsignacionVentaVehiculo->OvvPagoInicialMonedaSimbolo = $fila['OvvPagoInicialMonedaSimbolo'];
+
+
+			$AsignacionVentaVehiculo->FacId = $fila['FacId'];
+			$AsignacionVentaVehiculo->FtaId = $fila['FtaId'];
+
+			$AsignacionVentaVehiculo->BolId = $fila['BolId'];
+			$AsignacionVentaVehiculo->BtaId = $fila['BtaId'];
+
+
+			$AsignacionVentaVehiculo->FacIdS = $fila['FacIdS'];
+			$AsignacionVentaVehiculo->FtaIdS = $fila['FtaIdS'];
+
+			$AsignacionVentaVehiculo->BolIdS = $fila['BolIdS'];
+			$AsignacionVentaVehiculo->BtaIdS = $fila['BtaIdS'];
+
+
+
+			$AsignacionVentaVehiculo->AvvCancelado = $fila['AvvCancelado'];
+			$AsignacionVentaVehiculo->AvvCancelado = $fila['AvvCancelado2'];
+
+			if (!empty($AsignacionVentaVehiculo->FacId) || !empty($AsignacionVentaVehiculo->BolId)) {
+				$AsignacionVentaVehiculo->AvvFacturado = "Si";
+			} else {
+				$AsignacionVentaVehiculo->AvvFacturado = "No";
+			}
+
+
+			$AsignacionVentaVehiculo->VmaNombre = $fila['VmaNombre'];
+			$AsignacionVentaVehiculo->VmoNombre = $fila['VmoNombre'];
+			$AsignacionVentaVehiculo->VveNombre = $fila['VveNombre'];
+
+			$AsignacionVentaVehiculo->EinVIN = $fila['EinVIN'];
+			$AsignacionVentaVehiculo->EinNumeroMotor = $fila['EinNumeroMotor'];
+			$AsignacionVentaVehiculo->EinAnoModelo = $fila['EinAnoModelo'];
+			$AsignacionVentaVehiculo->EinAnoFabricacion = $fila['EinAnoFabricacion'];
+			$AsignacionVentaVehiculo->EinColor = $fila['EinColor'];
+
+
+
+			$AsignacionVentaVehiculo->TdoId = $fila['TdoId'];
+			$AsignacionVentaVehiculo->PerNombre = $fila['PerNombre'];
+			$AsignacionVentaVehiculo->PerApellidoPaterno = $fila['PerApellidoPaterno'];
+			$AsignacionVentaVehiculo->PerApellidoMaterno = $fila['PerApellidoMaterno'];
+			$AsignacionVentaVehiculo->PerEmail = $fila['PerEmail'];
+
+
+			$AsignacionVentaVehiculo->PerNombreVendedor = $fila['PerNombreVendedor'];
+			$AsignacionVentaVehiculo->PerApellidoPaternoVendedor = $fila['PerApellidoPaternoVendedor'];
+			$AsignacionVentaVehiculo->PerApellidoMaternoVendedor = $fila['PerApellidoMaternoVendedor'];
+			$AsignacionVentaVehiculo->PerEmailVendedor = $fila['PerEmailVendedor'];
+
+			$AsignacionVentaVehiculo->SucNombre = $fila['SucNombre'];
+
+			$AsignacionVentaVehiculo->OvvActaEntregaFecha = $fila['NOvvActaEntregaFecha'];
+			$AsignacionVentaVehiculo->OvvFecha = $fila['NOvvFecha'];
+
+
+			$AsignacionVentaVehiculo->OvvAprobacion1 = $fila['OvvAprobacion1'];
+			$AsignacionVentaVehiculo->OvvAprobacion2 = $fila['OvvAprobacion2'];
+			$AsignacionVentaVehiculo->OvvAprobacion3 = $fila['OvvAprobacion3'];
+
+			$AsignacionVentaVehiculo->OvvTotal = $fila['OvvTotal'];
+			$AsignacionVentaVehiculo->OvvTipoCambio = $fila['OvvTipoCambio'];
+			$AsignacionVentaVehiculo->MonId = $fila['MonId'];
+
+			$AsignacionVentaVehiculo->OvvTiempoSolicitudEnvio = $fila['NOvvTiempoSolicitudEnvio'];
+			$AsignacionVentaVehiculo->OvvTiempoAprobacion1Envio = $fila['NOvvTiempoAprobacion1Envio'];
+			$AsignacionVentaVehiculo->OvvTiempoAprobacion2Envio = $fila['NOvvTiempoAprobacion2Envio'];
+			$AsignacionVentaVehiculo->OvvTiempoEmitido = $fila['NOvvTiempoEmitido'];
+			$AsignacionVentaVehiculo->OvvTiempoAnulado = $fila['NOvvTiempoAnulado'];
+			$AsignacionVentaVehiculo->OvvTiempoPorFacturar = $fila['NOvvTiempoPorFacturar'];
+			$AsignacionVentaVehiculo->OvvTiempoFacturado = $fila['NOvvTiempoFacturado'];
+
+			$AsignacionVentaVehiculo->CliId = $fila['CliId'];
+			$AsignacionVentaVehiculo->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+			$AsignacionVentaVehiculo->CliNombre = $fila['CliNombre'];
+			$AsignacionVentaVehiculo->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+			$AsignacionVentaVehiculo->CliApellidoMaterno = $fila['CliApellidoMaterno'];
+
+			$AsignacionVentaVehiculo->CliTelefono = $fila['CliTelefono'];
+			$AsignacionVentaVehiculo->CliCelular = $fila['CliCelular'];
+			$AsignacionVentaVehiculo->CliEmail = $fila['CliEmail'];
+			$AsignacionVentaVehiculo->CliDireccion = $fila['CliDireccion'];
+
+			$AsignacionVentaVehiculo->CliDepartamento = $fila['CliDepartamento'];
+			$AsignacionVentaVehiculo->CliProvincia = $fila['CliProvincia'];
+			$AsignacionVentaVehiculo->CliDistrito = $fila['CliDistrito'];
+
+
+			$AsignacionVentaVehiculo->TdoNombre = $fila['TdoNombre'];
+
+			$AsignacionVentaVehiculo->MonNombre = $fila['MonNombre'];
+			$AsignacionVentaVehiculo->MonSimbolo = $fila['MonSimbolo'];
+
 			$AsignacionVentaVehiculo->OvvTiempoSolicitudEnvio = $fila['NOvvTiempoSolicitudEnvio'];
 			$AsignacionVentaVehiculo->RcvNotaCredito = $fila['RcvNotaCredito'];
 			$AsignacionVentaVehiculo->RcvNotaCreditoMotivo = $fila['RcvNotaCreditoMotivo'];
 			$AsignacionVentaVehiculo->RcvNotaCreditoTotal = $fila['RcvNotaCreditoTotal'];
 			$AsignacionVentaVehiculo->RcvNotaCreditoTipoCambio = $fila['RcvNotaCreditoTipoCambio'];
-			
-					switch($AsignacionVentaVehiculo->AvvEstado){
-					
-					case 1:
-							$AsignacionVentaVehiculo->AvvEstadoDescripcion = "Pendiente";
-						break;
-					
-						case 3:
-							$AsignacionVentaVehiculo->AvvEstadoDescripcion = "Revisado";
-						break;	
-					
-						case 6:
-							$AsignacionVentaVehiculo->AvvEstadoDescripcion = "Anulado";
-						break;	
-					
-						default:
-							$AsignacionVentaVehiculo->AvvEstadoDescripcion = "";
-						break;
-					
-					}
-						
 
-                    $AsignacionVentaVehiculo->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $AsignacionVentaVehiculo;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+			switch ($AsignacionVentaVehiculo->AvvEstado) {
+
+				case 1:
+					$AsignacionVentaVehiculo->AvvEstadoDescripcion = "Pendiente";
+					break;
+
+				case 3:
+					$AsignacionVentaVehiculo->AvvEstadoDescripcion = "Revisado";
+					break;
+
+				case 6:
+					$AsignacionVentaVehiculo->AvvEstadoDescripcion = "Anulado";
+					break;
+
+				default:
+					$AsignacionVentaVehiculo->AvvEstadoDescripcion = "";
+					break;
+			}
+
+
+			$AsignacionVentaVehiculo->InsMysql = NULL;
+			$Respuesta['Datos'][] = $AsignacionVentaVehiculo;
 		}
 
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
 
 
 
-/*
+
+	/*
 
 
 
@@ -2712,105 +2687,101 @@ fac.FacLeyenda,
 			
 			return $Respuesta;			
 		}*/
-	
 
 
 
 
-   public function MtdObtenerBoletaVentaVehiculos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'BolId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oRegimen=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oAlmacenMovimiento=NULL,$oCliente=NULL,$oOrdenVentaVehiculo=NULL,$oVentaDirecta=NULL,$oVendedor=NULL, $oSucursal=NULL,$oNoProcesdado=false,$oCancelado=NULL,$oSinPago=false,$oDiasVencido=NULL,$oVencido=false,$oObsequio=NULL) {
-	
+
+	public function MtdObtenerBoletaVentaVehiculos($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'BolId', $oSentido = 'Desc', $oPaginacion = '0,10', $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oRegimen = NULL, $oCondicionPago = NULL, $oMoneda = NULL, $oAlmacenMovimiento = NULL, $oCliente = NULL, $oOrdenVentaVehiculo = NULL, $oVentaDirecta = NULL, $oVendedor = NULL, $oSucursal = NULL, $oNoProcesdado = false, $oCancelado = NULL, $oSinPago = false, $oDiasVencido = NULL, $oVencido = false, $oObsequio = NULL)
+	{
 
 
-		if(!empty($oCampo) and !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$elementos = explode(",",$oCampo);
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+		if (!empty($oCampo) and !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				
-				$filtrar .= '  OR EXISTS( 
+				$i++;
+			}
+
+
+			$filtrar .= '  OR EXISTS( 
 					
 					SELECT 
 					bde.BdeId
@@ -2821,108 +2792,104 @@ fac.FacLeyenda,
 						bde.BtaId = bol.BtaId AND
 						
 						(
-						bde.BdeDescripcion LIKE "%'.$oFiltro.'%" 
+						bde.BdeDescripcion LIKE "%' . $oFiltro . '%" 
 						
 						)
 						
 					) ';
-					
-					
-				$filtrar .= '  ) ';
 
 
-		}
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-			
-		if(!empty($oEstado)){
 
-			$elementos = explode(",",$oEstado);
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
 
-				$i=1;
-				$estado .= ' AND (';
-				$elementos = array_filter($elementos);
-				foreach($elementos as $elemento){
-						$estado .= '  (bol.BolEstado = "'.($elemento).'")';	
-						if($i<>count($elementos)){						
-							$estado .= ' OR ';	
-						}
-				$i++;		
+		if (!empty($oEstado)) {
+
+			$elementos = explode(",", $oEstado);
+
+			$i = 1;
+			$estado .= ' AND (';
+			$elementos = array_filter($elementos);
+			foreach ($elementos as $elemento) {
+				$estado .= '  (bol.BolEstado = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$estado .= ' OR ';
 				}
-				
-				$estado .= ' ) ';
-
-		}
-						
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(bol.BolFechaEmision)>="'.$oFechaInicio.'" AND DATE(bol.BolFechaEmision)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(bol.BolFechaEmision)>="'.$oFechaInicio.'"';
+				$i++;
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(bol.BolFechaEmision)<="'.$oFechaFin.'"';		
-			}			
-		}
-		
-		if(!empty($oTalonario)){
-			$talonario = ' AND bol.BtaId = "'.$oTalonario.'"';
-		}
-		
-		
-		if(!empty($oRegimen)){
-			$regimen = ' AND bol.RegId = "'.$oRegimen.'"';
-		}
-		
-		
-		if(!empty($oCondicionPago)){
-			$npago = ' AND bol.NpaId = "'.$oCondicionPago.'"';
-		}
-		
-		if(!empty($oMoneda)){
-			$moneda = ' AND bol.MonId = "'.$oMoneda.'"';
-		}
-			
 
-		if(!empty($oAlmacenMovimiento)){
-			$amovimiento = ' AND bol.AmoId = "'.$oAlmacenMovimiento.'"';
-		}
-		
-		
-		if(!empty($oCliente)){
-			$cliente = ' AND bol.CliId = "'.$oCliente.'"';
+			$estado .= ' ) ';
 		}
 
-		if(!empty($oOrdenVentaVehiculo)){
-			$ovvehiculo = ' AND bol.OvvId = "'.$oOrdenVentaVehiculo.'"';
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(bol.BolFechaEmision)>="' . $oFechaInicio . '" AND DATE(bol.BolFechaEmision)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(bol.BolFechaEmision)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(bol.BolFechaEmision)<="' . $oFechaFin . '"';
+			}
 		}
 
-		if(!empty($oVentaDirecta)){
-			$vdirecta = ' AND amo.VdiId = "'.$oVentaDirecta.'"';
+		if (!empty($oTalonario)) {
+			$talonario = ' AND bol.BtaId = "' . $oTalonario . '"';
 		}
-		
 
-		
-		if(!empty($oVendedor)){
-			$vendedor = ' AND vdi.PerId = "'.$oVendedor.'" OR ovv.PerId = "'.$oVendedor.'" ';
+
+		if (!empty($oRegimen)) {
+			$regimen = ' AND bol.RegId = "' . $oRegimen . '"';
 		}
-		
-		if(!empty($oSucursal)){
-			$sucursal = ' AND bol.SucId = "'.$oSucursal.'"';
+
+
+		if (!empty($oCondicionPago)) {
+			$npago = ' AND bol.NpaId = "' . $oCondicionPago . '"';
 		}
-		
-		
-		if(($oNoProcesdado)){
+
+		if (!empty($oMoneda)) {
+			$moneda = ' AND bol.MonId = "' . $oMoneda . '"';
+		}
+
+
+		if (!empty($oAlmacenMovimiento)) {
+			$amovimiento = ' AND bol.AmoId = "' . $oAlmacenMovimiento . '"';
+		}
+
+
+		if (!empty($oCliente)) {
+			$cliente = ' AND bol.CliId = "' . $oCliente . '"';
+		}
+
+		if (!empty($oOrdenVentaVehiculo)) {
+			$ovvehiculo = ' AND bol.OvvId = "' . $oOrdenVentaVehiculo . '"';
+		}
+
+		if (!empty($oVentaDirecta)) {
+			$vdirecta = ' AND amo.VdiId = "' . $oVentaDirecta . '"';
+		}
+
+
+
+		if (!empty($oVendedor)) {
+			$vendedor = ' AND vdi.PerId = "' . $oVendedor . '" OR ovv.PerId = "' . $oVendedor . '" ';
+		}
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND bol.SucId = "' . $oSucursal . '"';
+		}
+
+
+		if (($oNoProcesdado)) {
 
 			$noprocesado = ' AND	(bol.BolSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 
 				OR bol.BolSunatRespuestaEnvioContenido IS NULL 
@@ -2930,28 +2897,26 @@ fac.FacLeyenda,
 				
 				) ';
 		}
-		
-							
-		if(!empty($oCancelado)){
-			switch($oCancelado){
-				
+
+
+		if (!empty($oCancelado)) {
+			switch ($oCancelado) {
+
 				case "Si":
-				
+
 					$cancelado = ' AND BolCancelado = 1 ';
-					
-				break;
-				
+
+					break;
+
 				case "No":
-				
+
 					$cancelado = ' AND BolCancelado = 2 ';
-					
-				break;
-				
+
+					break;
 			}
-			
 		}
-			
-		if(($oSinPago)){
+
+		if (($oSinPago)) {
 
 			$sinpago = ' AND 
 			
@@ -2980,31 +2945,30 @@ fac.FacLeyenda,
 			) AND bol.OvvId IS NULL
 			
 			';
-			
 		}
-		
-		if(!empty($oDiaVencido)){
-			
-			if($oDiasVencido==-1){
+
+		if (!empty($oDiaVencido)) {
+
+			if ($oDiasVencido == -1) {
 				$oDiasVencido = 0;
 			}
-			
-			$dvencido = ' AND DATEDIFF(DATE(NOW()),bol.BolFechaVencimiento) =  ' .$oDiasVencido;
+
+			$dvencido = ' AND DATEDIFF(DATE(NOW()),bol.BolFechaVencimiento) =  ' . $oDiasVencido;
 		}
-			
-			
-		if($oVencido){
+
+
+		if ($oVencido) {
 			$vencido = ' AND DATEDIFF(DATE(NOW()),bol.BolFechaVencimiento) > 0 ';
 		}
-		
-						
-		if(!empty($oObsequio)){
-			$obsequio = ' AND bol.BolObsequio = '.$oObsequio.' ';
+
+
+		if (!empty($oObsequio)) {
+			$obsequio = ' AND bol.BolObsequio = ' . $oObsequio . ' ';
 		}
-		
-		
-		
-			$sql = 'SELECT
+
+
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				bol.BolId,
 				bol.BtaId,
@@ -3355,385 +3319,376 @@ bol.BolObservacionCaja,
 						ON ncr.NctId = nct.NctId
 																											
 				WHERE bol.OvvId  IS NOT NULL 
-					AND (ncr.NcrEstado <> 6 OR ncr.NcrEstado IS NULL) '.$filtrar.$sucursal.$estado.$sinpago.$dvencido.$obsequio.$fecha.$vendedor.$dvencido.$vencido.$noprocesado.$talonario.$credito.$regimen.$npago.$moneda.$amovimiento.$cliente.$ovvehiculo.$vdirecta.$cancelado.$orden.$paginacion;
-									
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+					AND (ncr.NcrEstado <> 6 OR ncr.NcrEstado IS NULL) ' . $filtrar . $sucursal . $estado . $sinpago . $dvencido . $obsequio . $fecha . $vendedor . $dvencido . $vencido . $noprocesado . $talonario . $credito . $regimen . $npago . $moneda . $amovimiento . $cliente . $ovvehiculo . $vdirecta . $cancelado . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsBoleta = get_class($this);
-	
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-					$Boleta = new $InsBoleta();
-                    $Boleta->BolId = $fila['BolId'];
-					$Boleta->BtaId = $fila['BtaId'];
-					$Boleta->SucId = $fila['SucId'];
-					
-                    $Boleta->UsuId= $fila['UsuId'];
-					$Boleta->CliId= $fila['CliId'];
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$Boleta->NpaId= $fila['NpaId'];
-					$Boleta->AmoId= $fila['AmoId'];
-					$Boleta->OvvId= $fila['OvvId'];
-					
-					$Boleta->PagId= $fila['PagId'];
-					
-					$Boleta->BolNotaCredito = $fila['BolNotaCredito'];
-					$Boleta->BolNotaDebito = $fila['BolNotaDebito'];
-					
-					$Boleta->BolFechaEmision = $fila['NBolFechaEmision'];
-					$Boleta->BolHoraEmision = $fila['BolHoraEmision'];
-					
-					$Boleta->BolDiaTranscurrido = $fila['BolDiaTranscurrido'];
-					
-					
-					$Boleta->BolPorcentajeImpuestoVenta = $fila['BolPorcentajeImpuestoVenta'];
-					$Boleta->BolPorcentajeImpuestoSelectivo = $fila['BolPorcentajeImpuestoSelectivo'];
-					$Boleta->BolDireccion = $fila['BolDireccion'];
+		$Respuesta['Datos'] = array();
 
-					$Boleta->BolNotaCredito = $fila['BolNotaCredito'];
-					$Boleta->BolNotaDebito = $fila['BolNotaDebito'];
+		$InsBoleta = get_class($this);
 
-					$Boleta->BolTotalImpuestoSelectivo = $fila['BolTotalImpuestoSelectivo']; 	
-					$Boleta->BolTotalGravado = $fila['BolTotalGravado']; 
-					$Boleta->BolTotalDescuento = $fila['BolTotalDescuento']; 
-					$Boleta->BolTotalGratuito = $fila['BolTotalGratuito']; 
-					$Boleta->BolTotalExonerado = $fila['BolTotalExonerado']; 
-					$Boleta->BolTotalPagar = $fila['BolTotalPagar']; 
-					
-					$Boleta->BolSubTotal = $fila['BolSubTotal']; 
-					$Boleta->BolImpuesto = $fila['BolImpuesto']; 					
-					$Boleta->BolTotal = $fila['BolTotal']; 
-					$Boleta->BolTotalReal = $fila['BolTotalReal']; 
-					
-					list($Boleta->BolObservacion,$Boleta->BolObservacionImpresa) = explode("###",$fila['BolObservacion']);	
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+			$Boleta = new $InsBoleta();
+			$Boleta->BolId = $fila['BolId'];
+			$Boleta->BtaId = $fila['BtaId'];
+			$Boleta->SucId = $fila['SucId'];
 
-					$Boleta->BolObservacionCaja = $fila['BolObservacionCaja'];
-					$Boleta->BolLeyenda = $fila['BolLeyenda'];
-					$Boleta->BolCancelado = $fila['BolCancelado'];
-					$Boleta->BolCantidadDia = $fila['BolCantidadDia'];
-					
-					
-					$Boleta->BolDiaVencido = $fila['BolDiaVencido']; 	
-					$Boleta->BolFechaVencimiento = $fila['NBolFechaVencimiento']; 	
-					$Boleta->BolDiaTranscurrido = $fila['BolDiaTranscurrido']; 	
-			
-			
-					
-					$Boleta->MonId = $fila['MonId'];
-					$Boleta->BolTipoCambio = $fila['BolTipoCambio'];
-					$Boleta->BolObsequio = $fila['BolObsequio'];
-					$Boleta->BolTieneAbono = $fila['BolTieneAbono'];
-					
-					
-								$Boleta->BolDatoAdicional1 = $fila['BolDatoAdicional1'];
-					$Boleta->BolDatoAdicional2 = $fila['BolDatoAdicional2'];
-					$Boleta->BolDatoAdicional3 = $fila['BolDatoAdicional3'];
-					$Boleta->BolDatoAdicional4 = $fila['BolDatoAdicional4'];
-					$Boleta->BolDatoAdicional5 = $fila['BolDatoAdicional5'];
-					$Boleta->BolDatoAdicional6 = $fila['BolDatoAdicional6'];
-					$Boleta->BolDatoAdicional7 = $fila['BolDatoAdicional7'];
-					$Boleta->BolDatoAdicional8 = $fila['BolDatoAdicional8'];
-					$Boleta->BolDatoAdicional9 = $fila['BolDatoAdicional9'];
-					$Boleta->BolDatoAdicional10 = $fila['BolDatoAdicional10'];
-					
-					$Boleta->BolDatoAdicional11 = $fila['BolDatoAdicional11'];
-					$Boleta->BolDatoAdicional12 = $fila['BolDatoAdicional12'];
-					$Boleta->BolDatoAdicional13 = $fila['BolDatoAdicional13'];
-					$Boleta->BolDatoAdicional14 = $fila['BolDatoAdicional14'];
-					$Boleta->BolDatoAdicional15 = $fila['BolDatoAdicional15'];
-					$Boleta->BolDatoAdicional16 = $fila['BolDatoAdicional16'];
-					$Boleta->BolDatoAdicional17 = $fila['BolDatoAdicional17'];
-					$Boleta->BolDatoAdicional18 = $fila['BolDatoAdicional18'];
-					$Boleta->BolDatoAdicional19 = $fila['BolDatoAdicional19'];
-					$Boleta->BolDatoAdicional20 = $fila['BolDatoAdicional20'];
-					
-					$Boleta->BolDatoAdicional21 = $fila['BolDatoAdicional21'];
-					$Boleta->BolDatoAdicional22 = $fila['BolDatoAdicional22'];
-					$Boleta->BolDatoAdicional23 = $fila['BolDatoAdicional23'];
-					$Boleta->BolDatoAdicional24 = $fila['BolDatoAdicional24'];
-					$Boleta->BolDatoAdicional25 = $fila['BolDatoAdicional25'];
-					$Boleta->BolDatoAdicional26 = $fila['BolDatoAdicional26'];
-					
-					$Boleta->BolDatoAdicional27 = $fila['BolDatoAdicional27'];
-					$Boleta->BolDatoAdicional28 = $fila['BolDatoAdicional28'];
-					
-					$Boleta->BolEstado = $fila['BolEstado'];
-					$Boleta->BolCierre = $fila['BolCierre'];	
-					
-					$Boleta->RegId = $fila['RegId'];	
-					$Boleta->BolRegimenPorcentaje = $fila['BolRegimenPorcentaje'];	
-					$Boleta->BolRegimenMonto = $fila['BolRegimenMonto'];	
-					$Boleta->BolRegimenComprobanteNumero = $fila['BolRegimenComprobanteNumero'];	
-					$Boleta->BolRegimenComprobanteFecha = $fila['NBolRegimenComprobanteFecha'];	
+			$Boleta->UsuId = $fila['UsuId'];
+			$Boleta->CliId = $fila['CliId'];
 
-					$Boleta->BolSunatRespuestaTicket = $fila['BolSunatRespuestaTicket']; 	
-					$Boleta->BolSunatRespuestaTicketEstado = $fila['BolSunatRespuestaTicketEstado']; 			
-					$Boleta->BolSunatRespuestaObservacion = $fila['BolSunatRespuestaObservacion']; 	
-					
-					$Boleta->BolSunatRespuestaEnvioTicket = $fila['BolSunatRespuestaEnvioTicket']; 	
-					$Boleta->BolSunatRespuestaEnvioTicketEstado = $fila['BolSunatRespuestaEnvioTicketEstado']; 	
-					$Boleta->BolSunatRespuestaEnvioFecha = $fila['NBolSunatRespuestaEnvioFecha']; 	
-					$Boleta->BolSunatRespuestaEnvioHora = $fila['BolSunatRespuestaEnvioHora']; 	
-					$Boleta->BolSunatRespuestaEnvioCodigo = $fila['BolSunatRespuestaEnvioCodigo']; 	
-					$Boleta->BolSunatRespuestaEnvioContenido = $fila['BolSunatRespuestaEnvioContenido']; 	
-					
-					$Boleta->BolSunatRespuestaBajaTicket = $fila['BolSunatRespuestaBajaTicket']; 
-					$Boleta->BolSunatRespuestaBajaTicketEstado = $fila['BolSunatRespuestaBajaTicketEstado'];	
-					$Boleta->BolSunatRespuestaBajaFecha = $fila['NBolSunatRespuestaBajaFecha']; 	
-					$Boleta->BolSunatRespuestaBajaHora = $fila['BolSunatRespuestaBajaHora']; 	
-					$Boleta->BolSunatRespuestaBajaCodigo = $fila['BolSunatRespuestaBajaCodigo']; 	
-					$Boleta->BolSunatRespuestaBajaContenido = $fila['BolSunatRespuestaBajaContenido']; 	
-					$Boleta->BolSunatRespuestaBajaId = $fila['BolSunatRespuestaBajaId']; 	
-					
-					$Boleta->BolSunatRespuestaConsultaCodigo = $fila['BolSunatRespuestaConsultaCodigo']; 	
-					$Boleta->BolSunatRespuestaConsultaContenido = $fila['BolSunatRespuestaConsultaContenido']; 	
-					$Boleta->BolSunatRespuestaConsultaFecha = $fila['NBolSunatRespuestaConsultaFecha']; 	
-					$Boleta->BolSunatRespuestaConsultaHora = $fila['BolSunatRespuestaConsultaHora']; 	
-					
-					$Boleta->BolSunatRespuestaEnvioTiempoCreacion = $fila['NBolSunatRespuestaEnvioTiempoCreacion']; 	
-					$Boleta->BolSunatRespuestaConsultaTiempoCreacion = $fila['NBolSunatRespuestaConsultaTiempoCreacion']; 	
-					$Boleta->BolSunatRespuestaBajaTiempoCreacion = $fila['NBolSunatRespuestaBajaTiempoCreacion']; 
-					
-					$Boleta->BolSunatUltimaAccion = $fila['BolSunatUltimaAccion']; 
-					$Boleta->BolSunatUltimaRespuesta = $fila['BolSunatUltimaRespuesta']; 
-					
-					$Boleta->BolObservado = $fila['BolObservado']; 
-					$Boleta->BolTiempoCreacion = $fila['NBolTiempoCreacion'];
-                    $Boleta->BolTiempoModificacion = $fila['NBolTiempoModificacion'];
+			$Boleta->NpaId = $fila['NpaId'];
+			$Boleta->AmoId = $fila['AmoId'];
+			$Boleta->OvvId = $fila['OvvId'];
 
-                    $Boleta->BolTotalItems = $fila['BolTotalItems'];					
+			$Boleta->PagId = $fila['PagId'];
 
-					$Boleta->NpaNombre = $fila['NpaNombre'];
-					
-					$Boleta->BtaNumero = $fila['BtaNumero'];
-					
-					$Boleta->RegAplicacion = $fila['RegAplicacion'];
-					$Boleta->RegNombre = $fila['RegNombre'];
-					
-					if($Boleta->BolEstado == 6){
+			$Boleta->BolNotaCredito = $fila['BolNotaCredito'];
+			$Boleta->BolNotaDebito = $fila['BolNotaDebito'];
 
-						$Boleta->CliNombreCompleto = "ANULADO";
-						$Boleta->CliNombre = "ANULADO";
-						$Boleta->CliApellidoPaterno = "";
-						$Boleta->CliApellidoMaterno = "";
-						
-					}else{
-					
-						$Boleta->CliNombreCompleto = $fila['CliNombreCompleto'];
-						$Boleta->CliNombre = $fila['CliNombre'];
-						$Boleta->CliApellidoPaterno = $fila['CliApellidoPaterno'];
-						$Boleta->CliApellidoMaterno = $fila['CliApellidoMaterno'];
-						
-					}
-					$Boleta->CliDireccion = $fila['CliDireccion'];
-						$Boleta->CliDistrito = $fila['CliDistrito'];
-						$Boleta->CliProvincia = $fila['CliProvincia'];
-						$Boleta->CliDepartamento = $fila['CliDepartamento'];
-					
-					$Boleta->CliNumeroDocumento = $fila['CliNumeroDocumento'];
-					$Boleta->TdoId = $fila['TdoId'];
-					$Boleta->CliTelefono = $fila['CliTelefono'];
-					$Boleta->CliEmail = $fila['CliEmail'];
-					$Boleta->CliCelular = $fila['CliCelular'];
-					$Boleta->CliFax = $fila['CliFax'];
-					
-					$Boleta->MonNombre = $fila['MonNombre'];
-					$Boleta->MonSimbolo = $fila['MonSimbolo'];
-					$Boleta->MonSigla = $fila['MonSigla'];
-					
-					
-					$Boleta->FinId = $fila['FinId'];
-					$Boleta->CprId = $fila['CprId'];
-					
-					
-					$Boleta->BolMontoAmortizado = $fila['BolMontoAmortizado'];
-					$Boleta->BolMontoPendiente = $fila['BolMontoPendiente'];
-					//$Boleta->BolCancelado = $fila['NBolCancelado'];
-					
-					$Boleta->VdiId = $fila['VdiId'];
-					$Boleta->VdiOrdenCompraNumero = $fila['VdiOrdenCompraNumero'];
-					$Boleta->VdiArchivo = $fila['VdiArchivo'];		
+			$Boleta->BolFechaEmision = $fila['NBolFechaEmision'];
+			$Boleta->BolHoraEmision = $fila['BolHoraEmision'];
 
-					$Boleta->AmoTipo = $fila['AmoTipo'];	
-					$Boleta->AmoSubTipo = $fila['AmoSubTipo'];	
+			$Boleta->BolDiaTranscurrido = $fila['BolDiaTranscurrido'];
 
-					$Boleta->TdoNombre = $fila['TdoNombre'];
-					$Boleta->TdoCodigo = $fila['TdoCodigo'];
-						
-					$Boleta->SucNombre = $fila['SucNombre'];	
-					$Boleta->SucSiglas = $fila['SucSiglas'];	
-					
-					$Boleta->EinVIN = $fila['EinVIN'];	
-					$Boleta->VmaNombre = $fila['VmaNombre'];	
-					$Boleta->VmoNombre = $fila['VmoNombre'];	
-					$Boleta->VveNombre = $fila['VveNombre'];	
-					$Boleta->EinColor = $fila['EinColor'];	
-					$Boleta->EinAnoFabricacion = $fila['EinAnoFabricacion'];	
-					$Boleta->EinAnoModelo = $fila['EinAnoModelo'];	
-					
-					
-					
-					$Boleta->NcrId = $fila['NcrId'];	
-					$Boleta->NctNumero = $fila['NctNumero'];	
-					$Boleta->NcrTipoCambio = $fila['NcrTipoCambio'];	
-					$Boleta->NcrTotal = $fila['NcrTotal'];	
-					$Boleta->NcrMotivo = $fila['NcrMotivo'];	
-					
-					$Boleta->BolAsesorVenta = $fila['BolAsesorVenta'];	
-					
-					
-					
-				switch($Boleta->BolEstado){
-					case 1:
-						$Boleta->BolEstadoDescripcion = "Pendiente";
+
+			$Boleta->BolPorcentajeImpuestoVenta = $fila['BolPorcentajeImpuestoVenta'];
+			$Boleta->BolPorcentajeImpuestoSelectivo = $fila['BolPorcentajeImpuestoSelectivo'];
+			$Boleta->BolDireccion = $fila['BolDireccion'];
+
+			$Boleta->BolNotaCredito = $fila['BolNotaCredito'];
+			$Boleta->BolNotaDebito = $fila['BolNotaDebito'];
+
+			$Boleta->BolTotalImpuestoSelectivo = $fila['BolTotalImpuestoSelectivo'];
+			$Boleta->BolTotalGravado = $fila['BolTotalGravado'];
+			$Boleta->BolTotalDescuento = $fila['BolTotalDescuento'];
+			$Boleta->BolTotalGratuito = $fila['BolTotalGratuito'];
+			$Boleta->BolTotalExonerado = $fila['BolTotalExonerado'];
+			$Boleta->BolTotalPagar = $fila['BolTotalPagar'];
+
+			$Boleta->BolSubTotal = $fila['BolSubTotal'];
+			$Boleta->BolImpuesto = $fila['BolImpuesto'];
+			$Boleta->BolTotal = $fila['BolTotal'];
+			$Boleta->BolTotalReal = $fila['BolTotalReal'];
+
+			list($Boleta->BolObservacion, $Boleta->BolObservacionImpresa) = explode("###", $fila['BolObservacion']);
+
+			$Boleta->BolObservacionCaja = $fila['BolObservacionCaja'];
+			$Boleta->BolLeyenda = $fila['BolLeyenda'];
+			$Boleta->BolCancelado = $fila['BolCancelado'];
+			$Boleta->BolCantidadDia = $fila['BolCantidadDia'];
+
+
+			$Boleta->BolDiaVencido = $fila['BolDiaVencido'];
+			$Boleta->BolFechaVencimiento = $fila['NBolFechaVencimiento'];
+			$Boleta->BolDiaTranscurrido = $fila['BolDiaTranscurrido'];
+
+
+
+			$Boleta->MonId = $fila['MonId'];
+			$Boleta->BolTipoCambio = $fila['BolTipoCambio'];
+			$Boleta->BolObsequio = $fila['BolObsequio'];
+			$Boleta->BolTieneAbono = $fila['BolTieneAbono'];
+
+
+			$Boleta->BolDatoAdicional1 = $fila['BolDatoAdicional1'];
+			$Boleta->BolDatoAdicional2 = $fila['BolDatoAdicional2'];
+			$Boleta->BolDatoAdicional3 = $fila['BolDatoAdicional3'];
+			$Boleta->BolDatoAdicional4 = $fila['BolDatoAdicional4'];
+			$Boleta->BolDatoAdicional5 = $fila['BolDatoAdicional5'];
+			$Boleta->BolDatoAdicional6 = $fila['BolDatoAdicional6'];
+			$Boleta->BolDatoAdicional7 = $fila['BolDatoAdicional7'];
+			$Boleta->BolDatoAdicional8 = $fila['BolDatoAdicional8'];
+			$Boleta->BolDatoAdicional9 = $fila['BolDatoAdicional9'];
+			$Boleta->BolDatoAdicional10 = $fila['BolDatoAdicional10'];
+
+			$Boleta->BolDatoAdicional11 = $fila['BolDatoAdicional11'];
+			$Boleta->BolDatoAdicional12 = $fila['BolDatoAdicional12'];
+			$Boleta->BolDatoAdicional13 = $fila['BolDatoAdicional13'];
+			$Boleta->BolDatoAdicional14 = $fila['BolDatoAdicional14'];
+			$Boleta->BolDatoAdicional15 = $fila['BolDatoAdicional15'];
+			$Boleta->BolDatoAdicional16 = $fila['BolDatoAdicional16'];
+			$Boleta->BolDatoAdicional17 = $fila['BolDatoAdicional17'];
+			$Boleta->BolDatoAdicional18 = $fila['BolDatoAdicional18'];
+			$Boleta->BolDatoAdicional19 = $fila['BolDatoAdicional19'];
+			$Boleta->BolDatoAdicional20 = $fila['BolDatoAdicional20'];
+
+			$Boleta->BolDatoAdicional21 = $fila['BolDatoAdicional21'];
+			$Boleta->BolDatoAdicional22 = $fila['BolDatoAdicional22'];
+			$Boleta->BolDatoAdicional23 = $fila['BolDatoAdicional23'];
+			$Boleta->BolDatoAdicional24 = $fila['BolDatoAdicional24'];
+			$Boleta->BolDatoAdicional25 = $fila['BolDatoAdicional25'];
+			$Boleta->BolDatoAdicional26 = $fila['BolDatoAdicional26'];
+
+			$Boleta->BolDatoAdicional27 = $fila['BolDatoAdicional27'];
+			$Boleta->BolDatoAdicional28 = $fila['BolDatoAdicional28'];
+
+			$Boleta->BolEstado = $fila['BolEstado'];
+			$Boleta->BolCierre = $fila['BolCierre'];
+
+			$Boleta->RegId = $fila['RegId'];
+			$Boleta->BolRegimenPorcentaje = $fila['BolRegimenPorcentaje'];
+			$Boleta->BolRegimenMonto = $fila['BolRegimenMonto'];
+			$Boleta->BolRegimenComprobanteNumero = $fila['BolRegimenComprobanteNumero'];
+			$Boleta->BolRegimenComprobanteFecha = $fila['NBolRegimenComprobanteFecha'];
+
+			$Boleta->BolSunatRespuestaTicket = $fila['BolSunatRespuestaTicket'];
+			$Boleta->BolSunatRespuestaTicketEstado = $fila['BolSunatRespuestaTicketEstado'];
+			$Boleta->BolSunatRespuestaObservacion = $fila['BolSunatRespuestaObservacion'];
+
+			$Boleta->BolSunatRespuestaEnvioTicket = $fila['BolSunatRespuestaEnvioTicket'];
+			$Boleta->BolSunatRespuestaEnvioTicketEstado = $fila['BolSunatRespuestaEnvioTicketEstado'];
+			$Boleta->BolSunatRespuestaEnvioFecha = $fila['NBolSunatRespuestaEnvioFecha'];
+			$Boleta->BolSunatRespuestaEnvioHora = $fila['BolSunatRespuestaEnvioHora'];
+			$Boleta->BolSunatRespuestaEnvioCodigo = $fila['BolSunatRespuestaEnvioCodigo'];
+			$Boleta->BolSunatRespuestaEnvioContenido = $fila['BolSunatRespuestaEnvioContenido'];
+
+			$Boleta->BolSunatRespuestaBajaTicket = $fila['BolSunatRespuestaBajaTicket'];
+			$Boleta->BolSunatRespuestaBajaTicketEstado = $fila['BolSunatRespuestaBajaTicketEstado'];
+			$Boleta->BolSunatRespuestaBajaFecha = $fila['NBolSunatRespuestaBajaFecha'];
+			$Boleta->BolSunatRespuestaBajaHora = $fila['BolSunatRespuestaBajaHora'];
+			$Boleta->BolSunatRespuestaBajaCodigo = $fila['BolSunatRespuestaBajaCodigo'];
+			$Boleta->BolSunatRespuestaBajaContenido = $fila['BolSunatRespuestaBajaContenido'];
+			$Boleta->BolSunatRespuestaBajaId = $fila['BolSunatRespuestaBajaId'];
+
+			$Boleta->BolSunatRespuestaConsultaCodigo = $fila['BolSunatRespuestaConsultaCodigo'];
+			$Boleta->BolSunatRespuestaConsultaContenido = $fila['BolSunatRespuestaConsultaContenido'];
+			$Boleta->BolSunatRespuestaConsultaFecha = $fila['NBolSunatRespuestaConsultaFecha'];
+			$Boleta->BolSunatRespuestaConsultaHora = $fila['BolSunatRespuestaConsultaHora'];
+
+			$Boleta->BolSunatRespuestaEnvioTiempoCreacion = $fila['NBolSunatRespuestaEnvioTiempoCreacion'];
+			$Boleta->BolSunatRespuestaConsultaTiempoCreacion = $fila['NBolSunatRespuestaConsultaTiempoCreacion'];
+			$Boleta->BolSunatRespuestaBajaTiempoCreacion = $fila['NBolSunatRespuestaBajaTiempoCreacion'];
+
+			$Boleta->BolSunatUltimaAccion = $fila['BolSunatUltimaAccion'];
+			$Boleta->BolSunatUltimaRespuesta = $fila['BolSunatUltimaRespuesta'];
+
+			$Boleta->BolObservado = $fila['BolObservado'];
+			$Boleta->BolTiempoCreacion = $fila['NBolTiempoCreacion'];
+			$Boleta->BolTiempoModificacion = $fila['NBolTiempoModificacion'];
+
+			$Boleta->BolTotalItems = $fila['BolTotalItems'];
+
+			$Boleta->NpaNombre = $fila['NpaNombre'];
+
+			$Boleta->BtaNumero = $fila['BtaNumero'];
+
+			$Boleta->RegAplicacion = $fila['RegAplicacion'];
+			$Boleta->RegNombre = $fila['RegNombre'];
+
+			if ($Boleta->BolEstado == 6) {
+
+				$Boleta->CliNombreCompleto = "ANULADO";
+				$Boleta->CliNombre = "ANULADO";
+				$Boleta->CliApellidoPaterno = "";
+				$Boleta->CliApellidoMaterno = "";
+			} else {
+
+				$Boleta->CliNombreCompleto = $fila['CliNombreCompleto'];
+				$Boleta->CliNombre = $fila['CliNombre'];
+				$Boleta->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+				$Boleta->CliApellidoMaterno = $fila['CliApellidoMaterno'];
+			}
+			$Boleta->CliDireccion = $fila['CliDireccion'];
+			$Boleta->CliDistrito = $fila['CliDistrito'];
+			$Boleta->CliProvincia = $fila['CliProvincia'];
+			$Boleta->CliDepartamento = $fila['CliDepartamento'];
+
+			$Boleta->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+			$Boleta->TdoId = $fila['TdoId'];
+			$Boleta->CliTelefono = $fila['CliTelefono'];
+			$Boleta->CliEmail = $fila['CliEmail'];
+			$Boleta->CliCelular = $fila['CliCelular'];
+			$Boleta->CliFax = $fila['CliFax'];
+
+			$Boleta->MonNombre = $fila['MonNombre'];
+			$Boleta->MonSimbolo = $fila['MonSimbolo'];
+			$Boleta->MonSigla = $fila['MonSigla'];
+
+
+			$Boleta->FinId = $fila['FinId'];
+			$Boleta->CprId = $fila['CprId'];
+
+
+			$Boleta->BolMontoAmortizado = $fila['BolMontoAmortizado'];
+			$Boleta->BolMontoPendiente = $fila['BolMontoPendiente'];
+			//$Boleta->BolCancelado = $fila['NBolCancelado'];
+
+			$Boleta->VdiId = $fila['VdiId'];
+			$Boleta->VdiOrdenCompraNumero = $fila['VdiOrdenCompraNumero'];
+			$Boleta->VdiArchivo = $fila['VdiArchivo'];
+
+			$Boleta->AmoTipo = $fila['AmoTipo'];
+			$Boleta->AmoSubTipo = $fila['AmoSubTipo'];
+
+			$Boleta->TdoNombre = $fila['TdoNombre'];
+			$Boleta->TdoCodigo = $fila['TdoCodigo'];
+
+			$Boleta->SucNombre = $fila['SucNombre'];
+			$Boleta->SucSiglas = $fila['SucSiglas'];
+
+			$Boleta->EinVIN = $fila['EinVIN'];
+			$Boleta->VmaNombre = $fila['VmaNombre'];
+			$Boleta->VmoNombre = $fila['VmoNombre'];
+			$Boleta->VveNombre = $fila['VveNombre'];
+			$Boleta->EinColor = $fila['EinColor'];
+			$Boleta->EinAnoFabricacion = $fila['EinAnoFabricacion'];
+			$Boleta->EinAnoModelo = $fila['EinAnoModelo'];
+
+
+
+			$Boleta->NcrId = $fila['NcrId'];
+			$Boleta->NctNumero = $fila['NctNumero'];
+			$Boleta->NcrTipoCambio = $fila['NcrTipoCambio'];
+			$Boleta->NcrTotal = $fila['NcrTotal'];
+			$Boleta->NcrMotivo = $fila['NcrMotivo'];
+
+			$Boleta->BolAsesorVenta = $fila['BolAsesorVenta'];
+
+
+
+			switch ($Boleta->BolEstado) {
+				case 1:
+					$Boleta->BolEstadoDescripcion = "Pendiente";
 					break;
-										
-					case 5:
-						$Boleta->BolEstadoDescripcion = "Entregado";
+
+				case 5:
+					$Boleta->BolEstadoDescripcion = "Entregado";
 					break;
-					
-					case 6:
-						$Boleta->BolEstadoDescripcion = "Anulado";
-				
+
+				case 6:
+					$Boleta->BolEstadoDescripcion = "Anulado";
+
 					break;
-					
-					case 7:
-						$Boleta->BolEstadoDescripcion = "Reservado";
+
+				case 7:
+					$Boleta->BolEstadoDescripcion = "Reservado";
 					break;
-					
-					
-				}
-				
-				
-								switch($Boleta->BolEstado){
-					case 1:
-						$Boleta->BolEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
+			}
+
+
+			switch ($Boleta->BolEstado) {
+				case 1:
+					$Boleta->BolEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
 					break;
-										
-					case 5:
-						$Boleta->BolEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
+
+				case 5:
+					$Boleta->BolEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
 					break;
-					
-					case 6:
-						$Boleta->BolEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
-				
+
+				case 6:
+					$Boleta->BolEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
+
 					break;
-					
-					case 7:
-						$Boleta->BolEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
+
+				case 7:
+					$Boleta->BolEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
 					break;
-					
-				}
-				
-				
-					$Boleta->InsMysql = NULL;     
-					               
-					$Respuesta['Datos'][]= $Boleta;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+			}
+
+
+			$Boleta->InsMysql = NULL;
+
+			$Respuesta['Datos'][] = $Boleta;
 		}
 
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
 
 
-    public function MtdObtenerFacturaVentaVehiculos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'FacId',$oSentido = 'Desc',$oPaginacion = '0,10',$oSucursal=NULL,$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oCredito=NULL,$oRegimen=NULL,$oCondicionPago=NULL,$oNotaCredito=NULL,$oMoneda=NULL,$oCliente=NULL,$oAlmacenMovimiento=NULL,$oDiaVencer=NULL,$oPagado=NULL,$oOrdenVentaVehiculo=NULL,$oVentaDirecta=NULL,$oVendedor=NULL,$oTieneCodigoExterno=NULL,$oSucursal=NULL,$oNoProcesdado=false,$oCancelado=NULL,$oSinPago=false,$oDiasVencido=NULL,$oVencido=false,$oObsequio=NULL) {
-	
-		if(!empty($oCampo) and !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$elementos = explode(",",$oCampo);
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+	public function MtdObtenerFacturaVentaVehiculos($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'FacId', $oSentido = 'Desc', $oPaginacion = '0,10', $oSucursal = NULL, $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oCredito = NULL, $oRegimen = NULL, $oCondicionPago = NULL, $oNotaCredito = NULL, $oMoneda = NULL, $oCliente = NULL, $oAlmacenMovimiento = NULL, $oDiaVencer = NULL, $oPagado = NULL, $oOrdenVentaVehiculo = NULL, $oVentaDirecta = NULL, $oVendedor = NULL, $oTieneCodigoExterno = NULL, $oSucursal2 = NULL, $oNoProcesdado = false, $oCancelado = NULL, $oSinPago = false, $oDiasVencido = NULL, $oVencido = false, $oObsequio = NULL)
+	{
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				
-				$filtrar .= '  OR EXISTS( 
+				$i++;
+			}
+
+
+			$filtrar .= '  OR EXISTS( 
 					
 					SELECT 
 					fde.FdeId
@@ -3744,75 +3699,69 @@ bol.BolObservacionCaja,
 						fde.FtaId = fac.FtaId AND
 						
 						(
-						fde.FdeDescripcion LIKE "%'.$oFiltro.'%" 
+						fde.FdeDescripcion LIKE "%' . $oFiltro . '%" 
 						
 						)
 						
 					) ';
-					
-					
-				$filtrar .= '  ) ';
 
 
-
-
-		}
-		
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-//		if(!empty($oSucursal)){
-//			$sucursal = ' AND fta.SucId = "'.$oSucursal.'"';
-//		}
-//			
-		if(!empty($oEstado)){
 
-			$elementos = explode(",",$oEstado);
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
 
-				$i=1;
-				$estado .= ' AND (';
-				$elementos = array_filter($elementos);
-				foreach($elementos as $elemento){
-						$estado .= '  (fac.FacEstado = "'.($elemento).'")';	
-						if($i<>count($elementos)){						
-							$estado .= ' OR ';	
-						}
-				$i++;		
+		//		if(!empty($oSucursal)){
+		//			$sucursal = ' AND fta.SucId = "'.$oSucursal.'"';
+		//		}
+		//			
+		if (!empty($oEstado)) {
+
+			$elementos = explode(",", $oEstado);
+
+			$i = 1;
+			$estado .= ' AND (';
+			$elementos = array_filter($elementos);
+			foreach ($elementos as $elemento) {
+				$estado .= '  (fac.FacEstado = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$estado .= ' OR ';
 				}
-				
-				$estado .= ' ) ';
-
-		}
-		
-
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(fac.FacFechaEmision)>="'.$oFechaInicio.'" AND DATE(fac.FacFechaEmision)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(fac.FacFechaEmision)>="'.$oFechaInicio.'"';
+				$i++;
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(fac.FacFechaEmision)<="'.$oFechaFin.'"';		
-			}			
+
+			$estado .= ' ) ';
 		}
-		
-						
-		if(!empty($oTalonario)){
-			$talonario = ' AND fac.FtaId = "'.$oTalonario.'"';
+
+
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(fac.FacFechaEmision)>="' . $oFechaInicio . '" AND DATE(fac.FacFechaEmision)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(fac.FacFechaEmision)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(fac.FacFechaEmision)<="' . $oFechaFin . '"';
+			}
 		}
-		
-		
-		
-		if(!empty($oNotaCredito)){
-			switch($oNotaCredito){
+
+
+		if (!empty($oTalonario)) {
+			$talonario = ' AND fac.FtaId = "' . $oTalonario . '"';
+		}
+
+
+
+		if (!empty($oNotaCredito)) {
+			switch ($oNotaCredito) {
 				case 1:
 
 					$ncredito = ' AND EXISTS (
@@ -3825,8 +3774,8 @@ bol.BolObservacionCaja,
 											AND ncr.BtaId IS NULL
 				)';
 
-				break;
-				
+					break;
+
 				case 2:
 
 					$ncredito = ' AND NOT EXISTS  (
@@ -3839,41 +3788,41 @@ bol.BolObservacionCaja,
 											AND ncr.BtaId IS NULL
 						)';
 
-				break;
+					break;
 			}
 		}
-		
-		if(!empty($oRegimen)){
-			$regimen = ' AND fac.RegId = "'.$oRegimen.'"';
+
+		if (!empty($oRegimen)) {
+			$regimen = ' AND fac.RegId = "' . $oRegimen . '"';
 		}
-		
-		if(!empty($oCondicionPago)){
-			$npago = ' AND fac.NpaId = "'.$oCondicionPago.'"';
+
+		if (!empty($oCondicionPago)) {
+			$npago = ' AND fac.NpaId = "' . $oCondicionPago . '"';
 		}
-		
-		if(!empty($oMoneda)){
-			$moneda = ' AND fac.MonId = "'.$oMoneda.'"';
+
+		if (!empty($oMoneda)) {
+			$moneda = ' AND fac.MonId = "' . $oMoneda . '"';
 		}
-		
-		if(!empty($oCliente)){
-			$cliente = ' AND fac.CliId = "'.$oCliente.'"';
+
+		if (!empty($oCliente)) {
+			$cliente = ' AND fac.CliId = "' . $oCliente . '"';
 		}
-		
-		
-		if(!empty($oAlmacenMovimiento)){
-			 $amovimiento = ' AND fac.AmoId = "'.$oAlmacenMovimiento.'"';
+
+
+		if (!empty($oAlmacenMovimiento)) {
+			$amovimiento = ' AND fac.AmoId = "' . $oAlmacenMovimiento . '"';
 		}
-		
-		
-		if(!empty($oDiaVencer)){
-			$dvencer = ' AND (fac.FacCantidadDia - IFNULL(DATEDIFF(DATE(NOW()),fac.FacFechaEmision),0)) <= '.$oDiaVencer;
+
+
+		if (!empty($oDiaVencer)) {
+			$dvencer = ' AND (fac.FacCantidadDia - IFNULL(DATEDIFF(DATE(NOW()),fac.FacFechaEmision),0)) <= ' . $oDiaVencer;
 		}
-		
-		if(!empty($oPagado)){
-			
-			switch($oPagado){
+
+		if (!empty($oPagado)) {
+
+			switch ($oPagado) {
 				case 1:
-				
+
 					/*$pagado = '
 						
 						AND
@@ -3894,7 +3843,7 @@ bol.BolObservacionCaja,
 						
 						
 					';*/
-					
+
 					$pagado = '
 
 						AND
@@ -3914,8 +3863,8 @@ bol.BolObservacionCaja,
 
 					';
 
-				break;
-				
+					break;
+
 				case 2:
 
 					$pagado = '
@@ -3935,35 +3884,33 @@ bol.BolObservacionCaja,
 							),0) < (fac.FacTotal/IFNULL(fac.FacTipoCambio,1))
 						)
 					';
-					
-				break;
-				
+
+					break;
+
 				default:
-				
-				break;
-				
+
+					break;
 			}
-			
 		}
-		
-		if(!empty($oOrdenVentaVehiculo)){
-			$ovvehiculo = ' AND fac.OvvId = "'.$oOrdenVentaVehiculo.'"';
+
+		if (!empty($oOrdenVentaVehiculo)) {
+			$ovvehiculo = ' AND fac.OvvId = "' . $oOrdenVentaVehiculo . '"';
 		}
-		
-			
-		if(!empty($oVentaDirecta)){
-			$vdirecta = ' AND amo.VdiId = "'.$oVentaDirecta.'"';
+
+
+		if (!empty($oVentaDirecta)) {
+			$vdirecta = ' AND amo.VdiId = "' . $oVentaDirecta . '"';
 		}
-		
-		
-		if(!empty($oVendedor)){
-			$vendedor = ' AND vdi.PerId = "'.$oVendedor.'" OR ovv.PerId = "'.$oVendedor.'" ';
+
+
+		if (!empty($oVendedor)) {
+			$vendedor = ' AND vdi.PerId = "' . $oVendedor . '" OR ovv.PerId = "' . $oVendedor . '" ';
 		}
-		
-		if(!empty($oTieneCodigoExterno)){
-			
-			
-		switch($oTieneCodigoExterno){
+
+		if (!empty($oTieneCodigoExterno)) {
+
+
+			switch ($oTieneCodigoExterno) {
 				case 1:
 					$tcexterno = ' AND 
 					EXISTS(
@@ -3980,10 +3927,10 @@ bol.BolObservacionCaja,
 						
 					)					
 					';
-				break;
-				
+					break;
+
 				case 2:
-				$tcexterno = ' AND 
+					$tcexterno = ' AND 
 					EXISTS(
 						SELECT 
 						fam.FamId
@@ -3997,54 +3944,51 @@ bol.BolObservacionCaja,
 						AND  vdi.VdiCodigoExterno = ""		
 					)			
 					';
-				break;
-				
+					break;
+
 				default:
-				
-				break;
-				
+
+					break;
 			}
 		}
-		
-				
-		if(!empty($oSucursal)){
-			$sucursal = ' AND fac.SucId = "'.$oSucursal.'"';
-		}
-		
-		if(($oNoProcesdado)){
 
-				$noprocesado = ' 	AND (fac.FacSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND fac.SucId = "' . $oSucursal . '"';
+		}
+
+		if (($oNoProcesdado)) {
+
+			$noprocesado = ' 	AND (fac.FacSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 
 				OR fac.FacSunatRespuestaEnvioContenido IS NULL 
 				OR fac.FacSunatRespuestaEnvioContenido  = ""
 				
 				) ';
 		}
-		
-		
-		
-				
-				
-				
-		if(!empty($oCancelado)){
-			switch($oCancelado){
-				
+
+
+
+
+
+
+		if (!empty($oCancelado)) {
+			switch ($oCancelado) {
+
 				case "Si":
-				
+
 					$cancelado = ' AND FacCancelado = 1 ';
-					
-				break;
-				
+
+					break;
+
 				case "No":
-				
+
 					$cancelado = '  AND FacCancelado = 2 ';
-					
-				break;
-				
+
+					break;
 			}
-			
 		}
-		
-		if(($oSinPago)){
+
+		if (($oSinPago)) {
 
 			$sinpago = ' AND 
 			
@@ -4074,32 +4018,30 @@ bol.BolObservacionCaja,
 			) AND fac.OvvId IS NULL
 			
 			';
-			
 		}
-		
-		
-			
-		if(!empty($oDiaVencido)){
-			
-			if($oDiasVencido==-1){
+
+
+
+		if (!empty($oDiaVencido)) {
+
+			if ($oDiasVencido == -1) {
 				$oDiasVencido = 0;
 			}
-			$dvencido = 'AND DATEDIFF(DATE(NOW()),fac.FacFechaVencimiento) = ' .$oDiasVencido;
-			
+			$dvencido = 'AND DATEDIFF(DATE(NOW()),fac.FacFechaVencimiento) = ' . $oDiasVencido;
 		}
-		
-		
-				
-		if($oVencido){
+
+
+
+		if ($oVencido) {
 			$vencido = ' AND DATEDIFF(DATE(NOW()),fac.FacFechaVencimiento) > 0 ';
 		}
-		
-					
-		if(!empty($oObsequio)){
-			$obsequio = ' AND fac.FacObsequio = '.$oObsequio.' ';
+
+
+		if (!empty($oObsequio)) {
+			$obsequio = ' AND fac.FacObsequio = ' . $oObsequio . ' ';
 		}
-		
-			 $sql = 'SELECT
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				fac.FacId,
 				fac.FtaId,
@@ -4518,9 +4460,9 @@ fac.FacLeyenda,
 																											
 				WHERE fac.OvvId  IS NOT NULL
 				AND (ncr.NcrEstado <> 6 OR ncr.NcrEstado IS NULL)
-				 '.$filtrar.$sucursal.$estado.$fecha.$sinpago .$dvencido.$vencido.	$obsequio.$noprocesado.$talonario.$tcexterno.$credito.$regimen.$npago.$moneda.$cliente.$ncredito.$amovimiento.$dvencer.$pagado.$ovvehiculo.$ovvehiculo.$vdirecta.$vendedor.$cancelado.$orden.$paginacion;
-				
-		
+				 ' . $filtrar . $sucursal . $estado . $fecha . $sinpago . $dvencido . $vencido .	$obsequio . $noprocesado . $talonario . $tcexterno . $credito . $regimen . $npago . $moneda . $cliente . $ncredito . $amovimiento . $dvencer . $pagado . $ovvehiculo . $ovvehiculo . $vdirecta . $vendedor . $cancelado . $orden . $paginacion;
+
+
 		/*
 			IF(
 
@@ -4539,413 +4481,403 @@ fac.FacLeyenda,
 				
 				) AS FacPagado
 		*/
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-			$Respuesta['Datos'] = array();
-			
-            $InsFactura = get_class($this);
-	
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$Respuesta['Datos'] = array();
 
-					$Factura = new $InsFactura();
-                    $Factura->FacId = $fila['FacId'];
-					$Factura->FtaId = $fila['FtaId'];
-					$Factura->SucId = $fila['SucId'];
-                    $Factura->UsuId= $fila['UsuId'];
-					
-					$Factura->CliId= $fila['CliId'];
+		$InsFactura = get_class($this);
 
-					
-					$Factura->GreId= $fila['GreId'];
-					$Factura->GrtId= $fila['GrtId'];
-					
-					$Factura->NpaId= $fila['NpaId'];
-					$Factura->AmoId= $fila['AmoId'];
-					$Factura->OvvId= $fila['OvvId'];
-					$Factura->FccId= $fila['FccId'];
-					
-					$Factura->PagId = $fila['PagId'];
-					
-					
-					$Factura->FacNotaEntrega = $fila['FacNotaEntrega'];
-					$Factura->FacNotaCredito = $fila['FacNotaCredito'];	
-					$Factura->FacNotaDebito = $fila['FacNotaDebito'];					
-					
-					$Factura->FacSIAFNumero = $fila['FacSIAFNumero'];
-					$Factura->FacOrdenNumero = $fila['FacOrdenNumero'];
-					$Factura->FacOrdenFecha = $fila['NFacOrdenFecha'];
-					$Factura->FacOrdenTipo = $fila['FacOrdenTipo'];
-					$Factura->FacOrdenFoto = $fila['FacOrdenFoto'];
-					$Factura->FacCantidadDia = $fila['FacCantidadDia'];
-					$Factura->FacDiaVencido = $fila['FacDiaVencido'];
-					
-					$Factura->FacFechaVencimiento = $fila['NFacFechaVencimiento'];
-					$Factura->FacDiaTranscurrido = $fila['FacDiaTranscurrido'];
-				
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-					$Factura->FacIncluyeImpuesto = $fila['FacIncluyeImpuesto'];
-					$Factura->MonId = $fila['MonId'];
-					$Factura->FacTipoCambio = $fila['FacTipoCambio'];
-					
-					
-					$Factura->FacCancelado = $fila['FacCancelado'];
-					
-					$Factura->FacObsequio = $fila['FacObsequio'];
-					$Factura->FacSpot = $fila['FacSpot'];
-					
-					$Factura->FacConcepto = $fila['FacConcepto'];
-					$Factura->FacTipo = $fila['FacTipo'];
-					
-					
-								$Factura->FacDatoAdicional1 = $fila['FacDatoAdicional1'];
-					$Factura->FacDatoAdicional2 = $fila['FacDatoAdicional2'];
-					$Factura->FacDatoAdicional3 = $fila['FacDatoAdicional3'];
-					$Factura->FacDatoAdicional4 = $fila['FacDatoAdicional4'];
-					$Factura->FacDatoAdicional5 = $fila['FacDatoAdicional5'];
-					$Factura->FacDatoAdicional6 = $fila['FacDatoAdicional6'];
-					$Factura->FacDatoAdicional7 = $fila['FacDatoAdicional7'];
-					$Factura->FacDatoAdicional8 = $fila['FacDatoAdicional8'];
-					$Factura->FacDatoAdicional9 = $fila['FacDatoAdicional9'];
-					$Factura->FacDatoAdicional10 = $fila['FacDatoAdicional10'];
-					
-					$Factura->FacDatoAdicional11 = $fila['FacDatoAdicional11'];
-					$Factura->FacDatoAdicional12 = $fila['FacDatoAdicional12'];
-					$Factura->FacDatoAdicional13 = $fila['FacDatoAdicional13'];
-					$Factura->FacDatoAdicional14 = $fila['FacDatoAdicional14'];
-					$Factura->FacDatoAdicional15 = $fila['FacDatoAdicional15'];
-					$Factura->FacDatoAdicional16 = $fila['FacDatoAdicional16'];
-					$Factura->FacDatoAdicional17 = $fila['FacDatoAdicional17'];
-					$Factura->FacDatoAdicional18 = $fila['FacDatoAdicional18'];
-					$Factura->FacDatoAdicional19 = $fila['FacDatoAdicional19'];
-					$Factura->FacDatoAdicional20 = $fila['FacDatoAdicional20'];
-					
-					$Factura->FacDatoAdicional21 = $fila['FacDatoAdicional21'];
-					$Factura->FacDatoAdicional22 = $fila['FacDatoAdicional22'];
-					$Factura->FacDatoAdicional23 = $fila['FacDatoAdicional23'];
-					$Factura->FacDatoAdicional24 = $fila['FacDatoAdicional24'];
-					$Factura->FacDatoAdicional25 = $fila['FacDatoAdicional25'];
-					$Factura->FacDatoAdicional26 = $fila['FacDatoAdicional26'];
-					
-					$Factura->FacDatoAdicional27 = $fila['FacDatoAdicional27'];
-					$Factura->FacDatoAdicional28 = $fila['FacDatoAdicional28'];
-					
-					$Factura->FacEstado = $fila['FacEstado'];
-					$Factura->FacFechaEmision = $fila['NFacFechaEmision'];
-					$Factura->FacHoraEmision = $fila['FacHoraEmision'];
-					
-					
-					$Factura->FacFechaVencimiento = $fila['NFacFechaVencimiento'];
+			$Factura = new $InsFactura();
+			$Factura->FacId = $fila['FacId'];
+			$Factura->FtaId = $fila['FtaId'];
+			$Factura->SucId = $fila['SucId'];
+			$Factura->UsuId = $fila['UsuId'];
 
-					$Factura->FacPorcentajeImpuestoVenta = $fila['FacPorcentajeImpuestoVenta']; 
-					$Factura->FacPorcentajeImpuestoSelectivo = $fila['FacPorcentajeImpuestoSelectivo']; 
-					$Factura->FacDireccion = $fila['FacDireccion']; 
+			$Factura->CliId = $fila['CliId'];
 
-					$Factura->FacTotalBruto = $fila['FacTotalBruto']; 	
-					
-					
-					
-				
-					$Factura->FacTotalImpuestoSelectivo = $fila['FacTotalImpuestoSelectivo']; 
-					$Factura->FacTotalGravado = $fila['FacTotalGravado']; 
-					$Factura->FacTotalDescuento = $fila['FacTotalDescuento']; 
-					$Factura->FacTotalGratuito = $fila['FacTotalGratuito']; 
-					$Factura->FacTotalExonerado = $fila['FacTotalExonerado']; 
-					$Factura->FacTotalPagar = $fila['FacTotalPagar']; 
-					
-					$Factura->FacSubTotal = $fila['FacSubTotal']; 
-					$Factura->FacDescuento = $fila['FacDescuento']; 
-					$Factura->FacImpuesto = $fila['FacImpuesto']; 
-					$Factura->FacTotal = $fila['FacTotal']; 
-					$Factura->FacTotalReal = $fila['FacTotalReal']; 
 
-					list($Factura->FacObservacion,$Factura->FacObservacionImpresa) = explode("###",$fila['FacObservacion']);
-						$Factura->FacObservacionCaja = $fila['FacObservacionCaja'];								
-					$Factura->FacLeyenda = $fila['FacLeyenda'];
-					$Factura->FacCierre = $fila['FacCierre'];
-					
-					$Factura->RegId = $fila['RegId'];
-					$Factura->FacRegimenPorcentaje = $fila['FacRegimenPorcentaje'];
-					$Factura->FacRegimenMonto = $fila['FacRegimenMonto'];
-					$Factura->FacRegimenComprobanteNumero = $fila['FacRegimenComprobanteNumero'];
-					$Factura->FacRegimenComprobanteFecha = $fila['NFacRegimenComprobanteFecha'];
-				
-					$Factura->FacSunatRespuestaTicket = $fila['FacSunatRespuestaTicket'];
-					$Factura->FacSunatRespuestaTicketEstado = $fila['FacSunatRespuestaTicketEstado'];
-					$Factura->FacSunatRespuestaObservacion = $fila['FacSunatRespuestaObservacion'];
+			$Factura->GreId = $fila['GreId'];
+			$Factura->GrtId = $fila['GrtId'];
 
-					$Factura->FacSunatRespuestaEnvioTicket = $fila['FacSunatRespuestaEnvioTicket'];
-					$Factura->FacSunatRespuestaEnvioTicketEstado = $fila['FacSunatRespuestaEnvioTicketEstado'];
-					$Factura->FacSunatRespuestaEnvioCodigo = $fila['FacSunatRespuestaEnvioCodigo'];
-					$Factura->FacSunatRespuestaEnvioContenido = $fila['FacSunatRespuestaEnvioContenido'];
-					$Factura->FacSunatRespuestaEnvioFecha = $fila['NFacSunatRespuestaEnvioFecha'];
-					$Factura->FacSunatRespuestaEnvioHora = $fila['FacSunatRespuestaEnvioHora'];
-					
-					$Factura->FacSunatRespuestaBajaTicket = $fila['FacSunatRespuestaBajaTicket']; 	
-					$Factura->FacSunatRespuestaBajaTicketEstado = $fila['FacSunatRespuestaBajaTicketEstado'];
-					$Factura->FacSunatRespuestaBajaFecha = $fila['NFacSunatRespuestaBajaFecha'];
-					$Factura->FacSunatRespuestaBajaHora = $fila['FacSunatRespuestaBajaHora']; 	
-					$Factura->FacSunatRespuestaBajaCodigo = $fila['FacSunatRespuestaBajaCodigo']; 	
-					$Factura->FacSunatRespuestaBajaContenido = $fila['FacSunatRespuestaBajaContenido']; 	
-					$Factura->FacSunatRespuestaBajaId = $fila['FacSunatRespuestaBajaId']; 	
-					
-					$Factura->FacSunatRespuestaConsultaCodigo = $fila['FacSunatRespuestaConsultaCodigo']; 	
-					$Factura->FacSunatRespuestaConsultaContenido = $fila['FacSunatRespuestaConsultaContenido']; 	
-					$Factura->FacSunatRespuestaConsultaFecha = $fila['NFacSunatRespuestaConsultaFecha']; 	
-					$Factura->FacSunatRespuestaConsultaHora = $fila['FacSunatRespuestaConsultaHora']; 	
-					
-					$Factura->FacSunatRespuestaEnvioTiempoCreacion = $fila['NFacSunatRespuestaEnvioTiempoCreacion']; 	
-					$Factura->FacSunatRespuestaConsultaTiempoCreacion = $fila['NFacSunatRespuestaConsultaTiempoCreacion']; 	
-					$Factura->FacSunatRespuestaBajaTiempoCreacion = $fila['NFacSunatRespuestaBajaTiempoCreacion']; 	
-					
-					$Factura->FacSunatUltimaAccion = $fila['FacSunatUltimaAccion']; 	
-					$Factura->FacSunatUltimaRespuesta = $fila['FacSunatUltimaRespuesta']; 	
-					
-					$Factura->FacObservado = $fila['FacObservado']; 
-                    $Factura->FacTiempoCreacion = $fila['NFacTiempoCreacion'];
-                    $Factura->FacTiempoModificacion = $fila['NFacTiempoModificacion'];
-					
-					$Factura->FacTotalItems = $fila['FacTotalItems'];
-					
-					$Factura->NpaNombre = $fila['NpaNombre'];
-					
-					$Factura->FtaNumero = $fila['FtaNumero'];
-					
-					$Factura->RegAplicacion = $fila['RegAplicacion'];
-					$Factura->RegNombre = $fila['RegNombre'];
-					
-					if($Factura->FacEstado == 6){
+			$Factura->NpaId = $fila['NpaId'];
+			$Factura->AmoId = $fila['AmoId'];
+			$Factura->OvvId = $fila['OvvId'];
+			$Factura->FccId = $fila['FccId'];
 
-					
-						$Factura->CliNombre = "ANULADO";
-						$Factura->CliNombreCompleto = "ANULADO";
-						$Factura->CliApellidoPaterno = "";
-						$Factura->CliApellidoMaterno = "";
-							
-					}else{
-						$Factura->CliNombre = $fila['CliNombre'];
-						$Factura->CliNombreCompleto = $fila['CliNombreCompleto'];
-						$Factura->CliApellidoPaterno = $fila['CliApellidoPaterno'];
-						$Factura->CliApellidoMaterno = $fila['CliApellidoMaterno'];
-							
-					}
-					
-					
-					$Factura->CliDireccion = $fila['CliDireccion'];
-						$Factura->CliDistrito = $fila['CliDistrito'];
-						$Factura->CliProvincia = $fila['CliProvincia'];
-						$Factura->CliDepartamento = $fila['CliDepartamento'];
-					
-					
-					$Factura->TdoId = $fila['TdoId'];
-					$Factura->CliNumeroDocumento = $fila['CliNumeroDocumento'];					
-					$Factura->CliTelefono = $fila['CliTelefono'];
-					$Factura->CliEmail = $fila['CliEmail'];
-					$Factura->CliEmailFacturacion = $fila['CliEmailFacturacion'];
-					$Factura->CliCelular = $fila['CliCelular'];
-					$Factura->CliFax = $fila['CliFax'];
-					$Factura->CliClaveElectronica = $fila['CliClaveElectronica'];
-					
-					$Factura->MonNombre = $fila['MonNombre'];
-					$Factura->MonSimbolo = $fila['MonSimbolo'];
-					$Factura->MonSigla = $fila['MonSigla'];
-					
-					$Factura->FinId = $fila['FinId'];
-					$Factura->FccId = $fila['FccId'];
-					$Factura->CprId = $fila['CprId'];
-					
-					$Factura->FacTieneAbono = $fila['FacTieneAbono'];
-					
-					$Factura->FacMontoAmortizado = $fila['FacMontoAmortizado'];
-					$Factura->FacMontoPendiente = $fila['FacMontoPendiente'];
-					//$Factura->FacCancelado = $fila['NFacCancelado'];
-					
-					$Factura->VdiId = $fila['VdiId'];
-					$Factura->VdiOrdenCompraNumero = $fila['VdiOrdenCompraNumero'];
-					$Factura->VdiArchivo = $fila['VdiArchivo'];
-					
-					$Factura->AmoTipo = $fila['AmoTipo'];
-					$Factura->AmoSubTipo = $fila['AmoSubTipo'];
-					$Factura->VdiCodigoExterno = $fila['VdiCodigoExterno'];
-					
-					$Factura->FacPagoComision = $fila['FacPagoComision'];
-					$Factura->FacPorcentajeComision = $fila['FacPorcentajeComision'];
-					$Factura->FacPagado = $fila['FacPagado'];
-					
-						
-$Factura->TdoNombre = $fila['TdoNombre'];
-$Factura->TdoCodigo = $fila['TdoCodigo'];
+			$Factura->PagId = $fila['PagId'];
 
-$Factura->SucNombre = $fila['SucNombre'];	
-					$Factura->SucSiglas = $fila['SucSiglas'];	
 
-					
-					$Factura->EinVIN = $fila['EinVIN'];	
-					$Factura->VmaNombre = $fila['VmaNombre'];	
-					$Factura->VmoNombre = $fila['VmoNombre'];	
-					$Factura->VveNombre = $fila['VveNombre'];	
-					$Factura->EinColor = $fila['EinColor'];	
-					$Factura->EinAnoFabricacion = $fila['EinAnoFabricacion'];	
-					$Factura->EinAnoModelo = $fila['EinAnoModelo'];	
-					
-					$Factura->NcrId = $fila['NcrId'];	
-					$Factura->NctNumero = $fila['NctNumero'];	
-					$Factura->NcrTipoCambio = $fila['NcrTipoCambio'];	
-					$Factura->NcrTotal = $fila['NcrTotal'];	
-					$Factura->NcrMotivo = $fila['NcrMotivo'];	
-					
-					
-					$Factura->FacAsesorVenta = $fila['FacAsesorVenta'];	
-					
-					
-				switch($Factura->FacEstado){
-					case 1:
-						$Factura->FacEstadoDescripcion = "Pendiente";
+			$Factura->FacNotaEntrega = $fila['FacNotaEntrega'];
+			$Factura->FacNotaCredito = $fila['FacNotaCredito'];
+			$Factura->FacNotaDebito = $fila['FacNotaDebito'];
+
+			$Factura->FacSIAFNumero = $fila['FacSIAFNumero'];
+			$Factura->FacOrdenNumero = $fila['FacOrdenNumero'];
+			$Factura->FacOrdenFecha = $fila['NFacOrdenFecha'];
+			$Factura->FacOrdenTipo = $fila['FacOrdenTipo'];
+			$Factura->FacOrdenFoto = $fila['FacOrdenFoto'];
+			$Factura->FacCantidadDia = $fila['FacCantidadDia'];
+			$Factura->FacDiaVencido = $fila['FacDiaVencido'];
+
+			$Factura->FacFechaVencimiento = $fila['NFacFechaVencimiento'];
+			$Factura->FacDiaTranscurrido = $fila['FacDiaTranscurrido'];
+
+
+			$Factura->FacIncluyeImpuesto = $fila['FacIncluyeImpuesto'];
+			$Factura->MonId = $fila['MonId'];
+			$Factura->FacTipoCambio = $fila['FacTipoCambio'];
+
+
+			$Factura->FacCancelado = $fila['FacCancelado'];
+
+			$Factura->FacObsequio = $fila['FacObsequio'];
+			$Factura->FacSpot = $fila['FacSpot'];
+
+			$Factura->FacConcepto = $fila['FacConcepto'];
+			$Factura->FacTipo = $fila['FacTipo'];
+
+
+			$Factura->FacDatoAdicional1 = $fila['FacDatoAdicional1'];
+			$Factura->FacDatoAdicional2 = $fila['FacDatoAdicional2'];
+			$Factura->FacDatoAdicional3 = $fila['FacDatoAdicional3'];
+			$Factura->FacDatoAdicional4 = $fila['FacDatoAdicional4'];
+			$Factura->FacDatoAdicional5 = $fila['FacDatoAdicional5'];
+			$Factura->FacDatoAdicional6 = $fila['FacDatoAdicional6'];
+			$Factura->FacDatoAdicional7 = $fila['FacDatoAdicional7'];
+			$Factura->FacDatoAdicional8 = $fila['FacDatoAdicional8'];
+			$Factura->FacDatoAdicional9 = $fila['FacDatoAdicional9'];
+			$Factura->FacDatoAdicional10 = $fila['FacDatoAdicional10'];
+
+			$Factura->FacDatoAdicional11 = $fila['FacDatoAdicional11'];
+			$Factura->FacDatoAdicional12 = $fila['FacDatoAdicional12'];
+			$Factura->FacDatoAdicional13 = $fila['FacDatoAdicional13'];
+			$Factura->FacDatoAdicional14 = $fila['FacDatoAdicional14'];
+			$Factura->FacDatoAdicional15 = $fila['FacDatoAdicional15'];
+			$Factura->FacDatoAdicional16 = $fila['FacDatoAdicional16'];
+			$Factura->FacDatoAdicional17 = $fila['FacDatoAdicional17'];
+			$Factura->FacDatoAdicional18 = $fila['FacDatoAdicional18'];
+			$Factura->FacDatoAdicional19 = $fila['FacDatoAdicional19'];
+			$Factura->FacDatoAdicional20 = $fila['FacDatoAdicional20'];
+
+			$Factura->FacDatoAdicional21 = $fila['FacDatoAdicional21'];
+			$Factura->FacDatoAdicional22 = $fila['FacDatoAdicional22'];
+			$Factura->FacDatoAdicional23 = $fila['FacDatoAdicional23'];
+			$Factura->FacDatoAdicional24 = $fila['FacDatoAdicional24'];
+			$Factura->FacDatoAdicional25 = $fila['FacDatoAdicional25'];
+			$Factura->FacDatoAdicional26 = $fila['FacDatoAdicional26'];
+
+			$Factura->FacDatoAdicional27 = $fila['FacDatoAdicional27'];
+			$Factura->FacDatoAdicional28 = $fila['FacDatoAdicional28'];
+
+			$Factura->FacEstado = $fila['FacEstado'];
+			$Factura->FacFechaEmision = $fila['NFacFechaEmision'];
+			$Factura->FacHoraEmision = $fila['FacHoraEmision'];
+
+
+			$Factura->FacFechaVencimiento = $fila['NFacFechaVencimiento'];
+
+			$Factura->FacPorcentajeImpuestoVenta = $fila['FacPorcentajeImpuestoVenta'];
+			$Factura->FacPorcentajeImpuestoSelectivo = $fila['FacPorcentajeImpuestoSelectivo'];
+			$Factura->FacDireccion = $fila['FacDireccion'];
+
+			$Factura->FacTotalBruto = $fila['FacTotalBruto'];
+
+
+
+
+			$Factura->FacTotalImpuestoSelectivo = $fila['FacTotalImpuestoSelectivo'];
+			$Factura->FacTotalGravado = $fila['FacTotalGravado'];
+			$Factura->FacTotalDescuento = $fila['FacTotalDescuento'];
+			$Factura->FacTotalGratuito = $fila['FacTotalGratuito'];
+			$Factura->FacTotalExonerado = $fila['FacTotalExonerado'];
+			$Factura->FacTotalPagar = $fila['FacTotalPagar'];
+
+			$Factura->FacSubTotal = $fila['FacSubTotal'];
+			$Factura->FacDescuento = $fila['FacDescuento'];
+			$Factura->FacImpuesto = $fila['FacImpuesto'];
+			$Factura->FacTotal = $fila['FacTotal'];
+			$Factura->FacTotalReal = $fila['FacTotalReal'];
+
+			list($Factura->FacObservacion, $Factura->FacObservacionImpresa) = explode("###", $fila['FacObservacion']);
+			$Factura->FacObservacionCaja = $fila['FacObservacionCaja'];
+			$Factura->FacLeyenda = $fila['FacLeyenda'];
+			$Factura->FacCierre = $fila['FacCierre'];
+
+			$Factura->RegId = $fila['RegId'];
+			$Factura->FacRegimenPorcentaje = $fila['FacRegimenPorcentaje'];
+			$Factura->FacRegimenMonto = $fila['FacRegimenMonto'];
+			$Factura->FacRegimenComprobanteNumero = $fila['FacRegimenComprobanteNumero'];
+			$Factura->FacRegimenComprobanteFecha = $fila['NFacRegimenComprobanteFecha'];
+
+			$Factura->FacSunatRespuestaTicket = $fila['FacSunatRespuestaTicket'];
+			$Factura->FacSunatRespuestaTicketEstado = $fila['FacSunatRespuestaTicketEstado'];
+			$Factura->FacSunatRespuestaObservacion = $fila['FacSunatRespuestaObservacion'];
+
+			$Factura->FacSunatRespuestaEnvioTicket = $fila['FacSunatRespuestaEnvioTicket'];
+			$Factura->FacSunatRespuestaEnvioTicketEstado = $fila['FacSunatRespuestaEnvioTicketEstado'];
+			$Factura->FacSunatRespuestaEnvioCodigo = $fila['FacSunatRespuestaEnvioCodigo'];
+			$Factura->FacSunatRespuestaEnvioContenido = $fila['FacSunatRespuestaEnvioContenido'];
+			$Factura->FacSunatRespuestaEnvioFecha = $fila['NFacSunatRespuestaEnvioFecha'];
+			$Factura->FacSunatRespuestaEnvioHora = $fila['FacSunatRespuestaEnvioHora'];
+
+			$Factura->FacSunatRespuestaBajaTicket = $fila['FacSunatRespuestaBajaTicket'];
+			$Factura->FacSunatRespuestaBajaTicketEstado = $fila['FacSunatRespuestaBajaTicketEstado'];
+			$Factura->FacSunatRespuestaBajaFecha = $fila['NFacSunatRespuestaBajaFecha'];
+			$Factura->FacSunatRespuestaBajaHora = $fila['FacSunatRespuestaBajaHora'];
+			$Factura->FacSunatRespuestaBajaCodigo = $fila['FacSunatRespuestaBajaCodigo'];
+			$Factura->FacSunatRespuestaBajaContenido = $fila['FacSunatRespuestaBajaContenido'];
+			$Factura->FacSunatRespuestaBajaId = $fila['FacSunatRespuestaBajaId'];
+
+			$Factura->FacSunatRespuestaConsultaCodigo = $fila['FacSunatRespuestaConsultaCodigo'];
+			$Factura->FacSunatRespuestaConsultaContenido = $fila['FacSunatRespuestaConsultaContenido'];
+			$Factura->FacSunatRespuestaConsultaFecha = $fila['NFacSunatRespuestaConsultaFecha'];
+			$Factura->FacSunatRespuestaConsultaHora = $fila['FacSunatRespuestaConsultaHora'];
+
+			$Factura->FacSunatRespuestaEnvioTiempoCreacion = $fila['NFacSunatRespuestaEnvioTiempoCreacion'];
+			$Factura->FacSunatRespuestaConsultaTiempoCreacion = $fila['NFacSunatRespuestaConsultaTiempoCreacion'];
+			$Factura->FacSunatRespuestaBajaTiempoCreacion = $fila['NFacSunatRespuestaBajaTiempoCreacion'];
+
+			$Factura->FacSunatUltimaAccion = $fila['FacSunatUltimaAccion'];
+			$Factura->FacSunatUltimaRespuesta = $fila['FacSunatUltimaRespuesta'];
+
+			$Factura->FacObservado = $fila['FacObservado'];
+			$Factura->FacTiempoCreacion = $fila['NFacTiempoCreacion'];
+			$Factura->FacTiempoModificacion = $fila['NFacTiempoModificacion'];
+
+			$Factura->FacTotalItems = $fila['FacTotalItems'];
+
+			$Factura->NpaNombre = $fila['NpaNombre'];
+
+			$Factura->FtaNumero = $fila['FtaNumero'];
+
+			$Factura->RegAplicacion = $fila['RegAplicacion'];
+			$Factura->RegNombre = $fila['RegNombre'];
+
+			if ($Factura->FacEstado == 6) {
+
+
+				$Factura->CliNombre = "ANULADO";
+				$Factura->CliNombreCompleto = "ANULADO";
+				$Factura->CliApellidoPaterno = "";
+				$Factura->CliApellidoMaterno = "";
+			} else {
+				$Factura->CliNombre = $fila['CliNombre'];
+				$Factura->CliNombreCompleto = $fila['CliNombreCompleto'];
+				$Factura->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+				$Factura->CliApellidoMaterno = $fila['CliApellidoMaterno'];
+			}
+
+
+			$Factura->CliDireccion = $fila['CliDireccion'];
+			$Factura->CliDistrito = $fila['CliDistrito'];
+			$Factura->CliProvincia = $fila['CliProvincia'];
+			$Factura->CliDepartamento = $fila['CliDepartamento'];
+
+
+			$Factura->TdoId = $fila['TdoId'];
+			$Factura->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+			$Factura->CliTelefono = $fila['CliTelefono'];
+			$Factura->CliEmail = $fila['CliEmail'];
+			$Factura->CliEmailFacturacion = $fila['CliEmailFacturacion'];
+			$Factura->CliCelular = $fila['CliCelular'];
+			$Factura->CliFax = $fila['CliFax'];
+			$Factura->CliClaveElectronica = $fila['CliClaveElectronica'];
+
+			$Factura->MonNombre = $fila['MonNombre'];
+			$Factura->MonSimbolo = $fila['MonSimbolo'];
+			$Factura->MonSigla = $fila['MonSigla'];
+
+			$Factura->FinId = $fila['FinId'];
+			$Factura->FccId = $fila['FccId'];
+			$Factura->CprId = $fila['CprId'];
+
+			$Factura->FacTieneAbono = $fila['FacTieneAbono'];
+
+			$Factura->FacMontoAmortizado = $fila['FacMontoAmortizado'];
+			$Factura->FacMontoPendiente = $fila['FacMontoPendiente'];
+			//$Factura->FacCancelado = $fila['NFacCancelado'];
+
+			$Factura->VdiId = $fila['VdiId'];
+			$Factura->VdiOrdenCompraNumero = $fila['VdiOrdenCompraNumero'];
+			$Factura->VdiArchivo = $fila['VdiArchivo'];
+
+			$Factura->AmoTipo = $fila['AmoTipo'];
+			$Factura->AmoSubTipo = $fila['AmoSubTipo'];
+			$Factura->VdiCodigoExterno = $fila['VdiCodigoExterno'];
+
+			$Factura->FacPagoComision = $fila['FacPagoComision'];
+			$Factura->FacPorcentajeComision = $fila['FacPorcentajeComision'];
+			$Factura->FacPagado = $fila['FacPagado'];
+
+
+			$Factura->TdoNombre = $fila['TdoNombre'];
+			$Factura->TdoCodigo = $fila['TdoCodigo'];
+
+			$Factura->SucNombre = $fila['SucNombre'];
+			$Factura->SucSiglas = $fila['SucSiglas'];
+
+
+			$Factura->EinVIN = $fila['EinVIN'];
+			$Factura->VmaNombre = $fila['VmaNombre'];
+			$Factura->VmoNombre = $fila['VmoNombre'];
+			$Factura->VveNombre = $fila['VveNombre'];
+			$Factura->EinColor = $fila['EinColor'];
+			$Factura->EinAnoFabricacion = $fila['EinAnoFabricacion'];
+			$Factura->EinAnoModelo = $fila['EinAnoModelo'];
+
+			$Factura->NcrId = $fila['NcrId'];
+			$Factura->NctNumero = $fila['NctNumero'];
+			$Factura->NcrTipoCambio = $fila['NcrTipoCambio'];
+			$Factura->NcrTotal = $fila['NcrTotal'];
+			$Factura->NcrMotivo = $fila['NcrMotivo'];
+
+
+			$Factura->FacAsesorVenta = $fila['FacAsesorVenta'];
+
+
+			switch ($Factura->FacEstado) {
+				case 1:
+					$Factura->FacEstadoDescripcion = "Pendiente";
 					break;
-										
-					case 5:
-						$Factura->FacEstadoDescripcion = "Entregado";
+
+				case 5:
+					$Factura->FacEstadoDescripcion = "Entregado";
 					break;
-					
-					case 6:
-						$Factura->FacEstadoDescripcion = "Anulado";
-				
+
+				case 6:
+					$Factura->FacEstadoDescripcion = "Anulado";
+
 					break;
-					
-					case 7:
-						$Factura->FacEstadoDescripcion = "Reservado";
+
+				case 7:
+					$Factura->FacEstadoDescripcion = "Reservado";
 					break;
-					
-					
-				}
-				
-				
-				switch($Factura->FacEstado){
-					case 1:
-						$Factura->FacEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
+			}
+
+
+			switch ($Factura->FacEstado) {
+				case 1:
+					$Factura->FacEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
 					break;
-										
-					case 5:
-						$Factura->FacEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
+
+				case 5:
+					$Factura->FacEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
 					break;
-					
-					case 6:
-						$Factura->FacEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
-				
+
+				case 6:
+					$Factura->FacEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
+
 					break;
-					
-					case 7:
-						$Factura->FacEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
+
+				case 7:
+					$Factura->FacEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
 					break;
-					
-					
-				}
-				
-				
-					$Factura->InsMysql = NULL;     
-					               
-					$Respuesta['Datos'][]= $Factura;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+			}
+
+
+			$Factura->InsMysql = NULL;
+
+			$Respuesta['Datos'][] = $Factura;
 		}
-	
-	 public function MtdObtenerFacturas($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'FacId',$oSentido = 'Desc',$oPaginacion = '0,10',$oSucursal=NULL,$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oCredito=NULL,$oRegimen=NULL,$oCondicionPago=NULL,$oNotaCredito=NULL,$oMoneda=NULL,$oCliente=NULL,$oAlmacenMovimiento=NULL,$oDiaVencer=NULL,$oPagado=NULL,$oOrdenVentaVehiculo=NULL,$oVentaDirecta=NULL,$oVendedor=NULL,$oTieneCodigoExterno=NULL,$oSucursal=NULL,$oNoProcesdado=false,$oCancelado=NULL,$oSinPago=false,$oDiasVencido=NULL,$oVencido=false,$oObsequio=NULL) {
-	
-		if(!empty($oCampo) and !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$elementos = explode(",",$oCampo);
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
+
+	public function MtdObtenerFacturas($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'FacId', $oSentido = 'Desc', $oPaginacion = '0,10', $oSucursal = NULL, $oEstado = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oTalonario = NULL, $oCredito = NULL, $oRegimen = NULL, $oCondicionPago = NULL, $oNotaCredito = NULL, $oMoneda = NULL, $oCliente = NULL, $oAlmacenMovimiento = NULL, $oDiaVencer = NULL, $oPagado = NULL, $oOrdenVentaVehiculo = NULL, $oVentaDirecta = NULL, $oVendedor = NULL, $oTieneCodigoExterno = NULL, $oSucursal2 = NULL, $oNoProcesdado = false, $oCancelado = NULL, $oSinPago = false, $oDiasVencido = NULL, $oVencido = false, $oObsequio = NULL)
+	{
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				
-				$filtrar .= '  OR EXISTS( 
+				$i++;
+			}
+
+
+			$filtrar .= '  OR EXISTS( 
 					
 					SELECT 
 					fde.FdeId
@@ -4956,75 +4888,69 @@ $Factura->SucNombre = $fila['SucNombre'];
 						fde.FtaId = fac.FtaId AND
 						
 						(
-						fde.FdeDescripcion LIKE "%'.$oFiltro.'%" 
+						fde.FdeDescripcion LIKE "%' . $oFiltro . '%" 
 						
 						)
 						
 					) ';
-					
-					
-				$filtrar .= '  ) ';
 
 
-
-
-		}
-		
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-//		if(!empty($oSucursal)){
-//			$sucursal = ' AND fta.SucId = "'.$oSucursal.'"';
-//		}
-//			
-		if(!empty($oEstado)){
 
-			$elementos = explode(",",$oEstado);
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
 
-				$i=1;
-				$estado .= ' AND (';
-				$elementos = array_filter($elementos);
-				foreach($elementos as $elemento){
-						$estado .= '  (fac.FacEstado = "'.($elemento).'")';	
-						if($i<>count($elementos)){						
-							$estado .= ' OR ';	
-						}
-				$i++;		
+		//		if(!empty($oSucursal)){
+		//			$sucursal = ' AND fta.SucId = "'.$oSucursal.'"';
+		//		}
+		//			
+		if (!empty($oEstado)) {
+
+			$elementos = explode(",", $oEstado);
+
+			$i = 1;
+			$estado .= ' AND (';
+			$elementos = array_filter($elementos);
+			foreach ($elementos as $elemento) {
+				$estado .= '  (fac.FacEstado = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$estado .= ' OR ';
 				}
-				
-				$estado .= ' ) ';
-
-		}
-		
-
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(fac.FacFechaEmision)>="'.$oFechaInicio.'" AND DATE(fac.FacFechaEmision)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(fac.FacFechaEmision)>="'.$oFechaInicio.'"';
+				$i++;
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(fac.FacFechaEmision)<="'.$oFechaFin.'"';		
-			}			
+
+			$estado .= ' ) ';
 		}
-		
-						
-		if(!empty($oTalonario)){
-			$talonario = ' AND fac.FtaId = "'.$oTalonario.'"';
+
+
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(fac.FacFechaEmision)>="' . $oFechaInicio . '" AND DATE(fac.FacFechaEmision)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(fac.FacFechaEmision)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(fac.FacFechaEmision)<="' . $oFechaFin . '"';
+			}
 		}
-		
-		
-		
-		if(!empty($oNotaCredito)){
-			switch($oNotaCredito){
+
+
+		if (!empty($oTalonario)) {
+			$talonario = ' AND fac.FtaId = "' . $oTalonario . '"';
+		}
+
+
+
+		if (!empty($oNotaCredito)) {
+			switch ($oNotaCredito) {
 				case 1:
 
 					$ncredito = ' AND EXISTS (
@@ -5037,8 +4963,8 @@ $Factura->SucNombre = $fila['SucNombre'];
 											AND ncr.BtaId IS NULL
 				)';
 
-				break;
-				
+					break;
+
 				case 2:
 
 					$ncredito = ' AND NOT EXISTS  (
@@ -5051,41 +4977,41 @@ $Factura->SucNombre = $fila['SucNombre'];
 											AND ncr.BtaId IS NULL
 						)';
 
-				break;
+					break;
 			}
 		}
-		
-		if(!empty($oRegimen)){
-			$regimen = ' AND fac.RegId = "'.$oRegimen.'"';
+
+		if (!empty($oRegimen)) {
+			$regimen = ' AND fac.RegId = "' . $oRegimen . '"';
 		}
-		
-		if(!empty($oCondicionPago)){
-			$npago = ' AND fac.NpaId = "'.$oCondicionPago.'"';
+
+		if (!empty($oCondicionPago)) {
+			$npago = ' AND fac.NpaId = "' . $oCondicionPago . '"';
 		}
-		
-		if(!empty($oMoneda)){
-			$moneda = ' AND fac.MonId = "'.$oMoneda.'"';
+
+		if (!empty($oMoneda)) {
+			$moneda = ' AND fac.MonId = "' . $oMoneda . '"';
 		}
-		
-		if(!empty($oCliente)){
-			$cliente = ' AND fac.CliId = "'.$oCliente.'"';
+
+		if (!empty($oCliente)) {
+			$cliente = ' AND fac.CliId = "' . $oCliente . '"';
 		}
-		
-		
-		if(!empty($oAlmacenMovimiento)){
-			 $amovimiento = ' AND fac.AmoId = "'.$oAlmacenMovimiento.'"';
+
+
+		if (!empty($oAlmacenMovimiento)) {
+			$amovimiento = ' AND fac.AmoId = "' . $oAlmacenMovimiento . '"';
 		}
-		
-		
-		if(!empty($oDiaVencer)){
-			$dvencer = ' AND (fac.FacCantidadDia - IFNULL(DATEDIFF(DATE(NOW()),fac.FacFechaEmision),0)) <= '.$oDiaVencer;
+
+
+		if (!empty($oDiaVencer)) {
+			$dvencer = ' AND (fac.FacCantidadDia - IFNULL(DATEDIFF(DATE(NOW()),fac.FacFechaEmision),0)) <= ' . $oDiaVencer;
 		}
-		
-		if(!empty($oPagado)){
-			
-			switch($oPagado){
+
+		if (!empty($oPagado)) {
+
+			switch ($oPagado) {
 				case 1:
-				
+
 					/*$pagado = '
 						
 						AND
@@ -5106,7 +5032,7 @@ $Factura->SucNombre = $fila['SucNombre'];
 						
 						
 					';*/
-					
+
 					$pagado = '
 
 						AND
@@ -5126,8 +5052,8 @@ $Factura->SucNombre = $fila['SucNombre'];
 
 					';
 
-				break;
-				
+					break;
+
 				case 2:
 
 					$pagado = '
@@ -5147,35 +5073,33 @@ $Factura->SucNombre = $fila['SucNombre'];
 							),0) < (fac.FacTotal/IFNULL(fac.FacTipoCambio,1))
 						)
 					';
-					
-				break;
-				
+
+					break;
+
 				default:
-				
-				break;
-				
+
+					break;
 			}
-			
 		}
-		
-		if(!empty($oOrdenVentaVehiculo)){
-			$ovvehiculo = ' AND fac.OvvId = "'.$oOrdenVentaVehiculo.'"';
+
+		if (!empty($oOrdenVentaVehiculo)) {
+			$ovvehiculo = ' AND fac.OvvId = "' . $oOrdenVentaVehiculo . '"';
 		}
-		
-			
-		if(!empty($oVentaDirecta)){
-			$vdirecta = ' AND amo.VdiId = "'.$oVentaDirecta.'"';
+
+
+		if (!empty($oVentaDirecta)) {
+			$vdirecta = ' AND amo.VdiId = "' . $oVentaDirecta . '"';
 		}
-		
-		
-		if(!empty($oVendedor)){
-			$vendedor = ' AND vdi.PerId = "'.$oVendedor.'" OR ovv.PerId = "'.$oVendedor.'" ';
+
+
+		if (!empty($oVendedor)) {
+			$vendedor = ' AND vdi.PerId = "' . $oVendedor . '" OR ovv.PerId = "' . $oVendedor . '" ';
 		}
-		
-		if(!empty($oTieneCodigoExterno)){
-			
-			
-		switch($oTieneCodigoExterno){
+
+		if (!empty($oTieneCodigoExterno)) {
+
+
+			switch ($oTieneCodigoExterno) {
 				case 1:
 					$tcexterno = ' AND 
 					EXISTS(
@@ -5192,10 +5116,10 @@ $Factura->SucNombre = $fila['SucNombre'];
 						
 					)					
 					';
-				break;
-				
+					break;
+
 				case 2:
-				$tcexterno = ' AND 
+					$tcexterno = ' AND 
 					EXISTS(
 						SELECT 
 						fam.FamId
@@ -5209,54 +5133,51 @@ $Factura->SucNombre = $fila['SucNombre'];
 						AND  vdi.VdiCodigoExterno = ""		
 					)			
 					';
-				break;
-				
+					break;
+
 				default:
-				
-				break;
-				
+
+					break;
 			}
 		}
-		
-				
-		if(!empty($oSucursal)){
-			$sucursal = ' AND fac.SucId = "'.$oSucursal.'"';
-		}
-		
-		if(($oNoProcesdado)){
 
-				$noprocesado = ' 	AND (fac.FacSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND fac.SucId = "' . $oSucursal . '"';
+		}
+
+		if (($oNoProcesdado)) {
+
+			$noprocesado = ' 	AND (fac.FacSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 
 				OR fac.FacSunatRespuestaEnvioContenido IS NULL 
 				OR fac.FacSunatRespuestaEnvioContenido  = ""
 				
 				) ';
 		}
-		
-		
-		
-				
-				
-				
-		if(!empty($oCancelado)){
-			switch($oCancelado){
-				
+
+
+
+
+
+
+		if (!empty($oCancelado)) {
+			switch ($oCancelado) {
+
 				case "Si":
-				
+
 					$cancelado = ' AND FacCancelado = 1 ';
-					
-				break;
-				
+
+					break;
+
 				case "No":
-				
+
 					$cancelado = '  AND FacCancelado = 2 ';
-					
-				break;
-				
+
+					break;
 			}
-			
 		}
-		
-		if(($oSinPago)){
+
+		if (($oSinPago)) {
 
 			$sinpago = ' AND 
 			
@@ -5286,32 +5207,30 @@ $Factura->SucNombre = $fila['SucNombre'];
 			) AND fac.OvvId IS NULL
 			
 			';
-			
 		}
-		
-		
-			
-		if(!empty($oDiaVencido)){
-			
-			if($oDiasVencido==-1){
+
+
+
+		if (!empty($oDiaVencido)) {
+
+			if ($oDiasVencido == -1) {
 				$oDiasVencido = 0;
 			}
-			$dvencido = 'AND DATEDIFF(DATE(NOW()),fac.FacFechaVencimiento) = ' .$oDiasVencido;
-			
+			$dvencido = 'AND DATEDIFF(DATE(NOW()),fac.FacFechaVencimiento) = ' . $oDiasVencido;
 		}
-		
-		
-				
-		if($oVencido){
+
+
+
+		if ($oVencido) {
 			$vencido = ' AND DATEDIFF(DATE(NOW()),fac.FacFechaVencimiento) > 0 ';
 		}
-		
-					
-		if(!empty($oObsequio)){
-			$obsequio = ' AND fac.FacObsequio = '.$oObsequio.' ';
+
+
+		if (!empty($oObsequio)) {
+			$obsequio = ' AND fac.FacObsequio = ' . $oObsequio . ' ';
 		}
-		
-			 $sql = 'SELECT
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				fac.FacId,
 				fac.FtaId,
@@ -5699,9 +5618,9 @@ fac.FacLeyenda,
 					
 							
 															
-				WHERE 1 = 1 '.$filtrar.$sucursal.$estado.$fecha.$sinpago .$dvencido.$vencido.	$obsequio.$noprocesado.$talonario.$tcexterno.$credito.$regimen.$npago.$moneda.$cliente.$ncredito.$amovimiento.$dvencer.$pagado.$ovvehiculo.$ovvehiculo.$vdirecta.$vendedor.$cancelado.$orden.$paginacion;
-				
-		
+				WHERE 1 = 1 ' . $filtrar . $sucursal . $estado . $fecha . $sinpago . $dvencido . $vencido .	$obsequio . $noprocesado . $talonario . $tcexterno . $credito . $regimen . $npago . $moneda . $cliente . $ncredito . $amovimiento . $dvencer . $pagado . $ovvehiculo . $ovvehiculo . $vdirecta . $vendedor . $cancelado . $orden . $paginacion;
+
+
 		/*
 			IF(
 
@@ -5720,395 +5639,410 @@ fac.FacLeyenda,
 				
 				) AS FacPagado
 		*/
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-			$Respuesta['Datos'] = array();
-			
-            $InsFactura = get_class($this);
-	
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$Respuesta['Datos'] = array();
 
-					$Factura = new $InsFactura();
-                    $Factura->FacId = $fila['FacId'];
-					$Factura->FtaId = $fila['FtaId'];
-					$Factura->SucId = $fila['SucId'];
-                    $Factura->UsuId= $fila['UsuId'];
-					
-					$Factura->CliId= $fila['CliId'];
+		$InsFactura = get_class($this);
 
-					
-					$Factura->GreId= $fila['GreId'];
-					$Factura->GrtId= $fila['GrtId'];
-					
-					$Factura->NpaId= $fila['NpaId'];
-					$Factura->AmoId= $fila['AmoId'];
-					$Factura->OvvId= $fila['OvvId'];
-					$Factura->FccId= $fila['FccId'];
-					
-					$Factura->PagId = $fila['PagId'];
-					
-					
-					$Factura->FacNotaEntrega = $fila['FacNotaEntrega'];
-					$Factura->FacNotaCredito = $fila['FacNotaCredito'];	
-					$Factura->FacNotaDebito = $fila['FacNotaDebito'];					
-					
-					$Factura->FacSIAFNumero = $fila['FacSIAFNumero'];
-					$Factura->FacOrdenNumero = $fila['FacOrdenNumero'];
-					$Factura->FacOrdenFecha = $fila['NFacOrdenFecha'];
-					$Factura->FacOrdenTipo = $fila['FacOrdenTipo'];
-					$Factura->FacOrdenFoto = $fila['FacOrdenFoto'];
-					$Factura->FacCantidadDia = $fila['FacCantidadDia'];
-					$Factura->FacDiaVencido = $fila['FacDiaVencido'];
-					
-					$Factura->FacFechaVencimiento = $fila['NFacFechaVencimiento'];
-					$Factura->FacDiaTranscurrido = $fila['FacDiaTranscurrido'];
-				
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-					$Factura->FacIncluyeImpuesto = $fila['FacIncluyeImpuesto'];
-					$Factura->MonId = $fila['MonId'];
-					$Factura->FacTipoCambio = $fila['FacTipoCambio'];
-					$Factura->FacTipoCambioAux = $fila['FacTipoCambioAux'];
-					
-					
-					$Factura->FacCancelado = $fila['FacCancelado'];
-					
-					$Factura->FacObsequio = $fila['FacObsequio'];
-					$Factura->FacSpot = $fila['FacSpot'];
-					
-					$Factura->FacConcepto = $fila['FacConcepto'];
-					$Factura->FacTipo = $fila['FacTipo'];
-					
-					
-								$Factura->FacDatoAdicional1 = $fila['FacDatoAdicional1'];
-					$Factura->FacDatoAdicional2 = $fila['FacDatoAdicional2'];
-					$Factura->FacDatoAdicional3 = $fila['FacDatoAdicional3'];
-					$Factura->FacDatoAdicional4 = $fila['FacDatoAdicional4'];
-					$Factura->FacDatoAdicional5 = $fila['FacDatoAdicional5'];
-					$Factura->FacDatoAdicional6 = $fila['FacDatoAdicional6'];
-					$Factura->FacDatoAdicional7 = $fila['FacDatoAdicional7'];
-					$Factura->FacDatoAdicional8 = $fila['FacDatoAdicional8'];
-					$Factura->FacDatoAdicional9 = $fila['FacDatoAdicional9'];
-					$Factura->FacDatoAdicional10 = $fila['FacDatoAdicional10'];
-					
-					$Factura->FacDatoAdicional11 = $fila['FacDatoAdicional11'];
-					$Factura->FacDatoAdicional12 = $fila['FacDatoAdicional12'];
-					$Factura->FacDatoAdicional13 = $fila['FacDatoAdicional13'];
-					$Factura->FacDatoAdicional14 = $fila['FacDatoAdicional14'];
-					$Factura->FacDatoAdicional15 = $fila['FacDatoAdicional15'];
-					$Factura->FacDatoAdicional16 = $fila['FacDatoAdicional16'];
-					$Factura->FacDatoAdicional17 = $fila['FacDatoAdicional17'];
-					$Factura->FacDatoAdicional18 = $fila['FacDatoAdicional18'];
-					$Factura->FacDatoAdicional19 = $fila['FacDatoAdicional19'];
-					$Factura->FacDatoAdicional20 = $fila['FacDatoAdicional20'];
-					
-					$Factura->FacDatoAdicional21 = $fila['FacDatoAdicional21'];
-					$Factura->FacDatoAdicional22 = $fila['FacDatoAdicional22'];
-					$Factura->FacDatoAdicional23 = $fila['FacDatoAdicional23'];
-					$Factura->FacDatoAdicional24 = $fila['FacDatoAdicional24'];
-					$Factura->FacDatoAdicional25 = $fila['FacDatoAdicional25'];
-					$Factura->FacDatoAdicional26 = $fila['FacDatoAdicional26'];
-					
-					$Factura->FacDatoAdicional27 = $fila['FacDatoAdicional27'];
-					$Factura->FacDatoAdicional28 = $fila['FacDatoAdicional28'];
-					
-					$Factura->FacEstado = $fila['FacEstado'];
-					$Factura->FacFechaEmision = $fila['NFacFechaEmision'];
-					$Factura->FacHoraEmision = $fila['FacHoraEmision'];
-					
-					
-					$Factura->FacFechaVencimiento = $fila['NFacFechaVencimiento'];
+			$Factura = new $InsFactura();
+			$Factura->FacId = $fila['FacId'];
+			$Factura->FtaId = $fila['FtaId'];
+			$Factura->SucId = $fila['SucId'];
+			$Factura->UsuId = $fila['UsuId'];
 
-					$Factura->FacPorcentajeImpuestoVenta = $fila['FacPorcentajeImpuestoVenta']; 
-					$Factura->FacPorcentajeImpuestoSelectivo = $fila['FacPorcentajeImpuestoSelectivo']; 
-					$Factura->FacDireccion = $fila['FacDireccion']; 
+			$Factura->CliId = $fila['CliId'];
 
-					$Factura->FacTotalBruto = $fila['FacTotalBruto']; 	
-					
-					
-					
-				
-					$Factura->FacTotalImpuestoSelectivo = $fila['FacTotalImpuestoSelectivo']; 
-					$Factura->FacTotalGravado = $fila['FacTotalGravado']; 
-					$Factura->FacTotalDescuento = $fila['FacTotalDescuento']; 
-					$Factura->FacTotalGratuito = $fila['FacTotalGratuito']; 
-					$Factura->FacTotalExonerado = $fila['FacTotalExonerado']; 
-					$Factura->FacTotalPagar = $fila['FacTotalPagar']; 
-					
-					$Factura->FacSubTotal = $fila['FacSubTotal']; 
-					$Factura->FacDescuento = $fila['FacDescuento']; 
-					$Factura->FacImpuesto = $fila['FacImpuesto']; 
-					$Factura->FacTotal = $fila['FacTotal']; 
-					$Factura->FacTotalReal = $fila['FacTotalReal']; 
 
-					list($Factura->FacObservacion,$Factura->FacObservacionImpresa) = explode("###",$fila['FacObservacion']);
-						$Factura->FacObservacionCaja = $fila['FacObservacionCaja'];								
-					$Factura->FacLeyenda = $fila['FacLeyenda'];
-					$Factura->FacCierre = $fila['FacCierre'];
-					
-					$Factura->RegId = $fila['RegId'];
-					$Factura->FacRegimenPorcentaje = $fila['FacRegimenPorcentaje'];
-					$Factura->FacRegimenMonto = $fila['FacRegimenMonto'];
-					$Factura->FacRegimenComprobanteNumero = $fila['FacRegimenComprobanteNumero'];
-					$Factura->FacRegimenComprobanteFecha = $fila['NFacRegimenComprobanteFecha'];
-				
-					$Factura->FacSunatRespuestaTicket = $fila['FacSunatRespuestaTicket'];
-					$Factura->FacSunatRespuestaTicketEstado = $fila['FacSunatRespuestaTicketEstado'];
-					$Factura->FacSunatRespuestaObservacion = $fila['FacSunatRespuestaObservacion'];
+			$Factura->GreId = $fila['GreId'];
+			$Factura->GrtId = $fila['GrtId'];
 
-					$Factura->FacSunatRespuestaEnvioTicket = $fila['FacSunatRespuestaEnvioTicket'];
-					$Factura->FacSunatRespuestaEnvioTicketEstado = $fila['FacSunatRespuestaEnvioTicketEstado'];
-					$Factura->FacSunatRespuestaEnvioCodigo = $fila['FacSunatRespuestaEnvioCodigo'];
-					$Factura->FacSunatRespuestaEnvioContenido = $fila['FacSunatRespuestaEnvioContenido'];
-					$Factura->FacSunatRespuestaEnvioFecha = $fila['NFacSunatRespuestaEnvioFecha'];
-					$Factura->FacSunatRespuestaEnvioHora = $fila['FacSunatRespuestaEnvioHora'];
-					
-					$Factura->FacSunatRespuestaBajaTicket = $fila['FacSunatRespuestaBajaTicket']; 	
-					$Factura->FacSunatRespuestaBajaTicketEstado = $fila['FacSunatRespuestaBajaTicketEstado'];
-					$Factura->FacSunatRespuestaBajaFecha = $fila['NFacSunatRespuestaBajaFecha'];
-					$Factura->FacSunatRespuestaBajaHora = $fila['FacSunatRespuestaBajaHora']; 	
-					$Factura->FacSunatRespuestaBajaCodigo = $fila['FacSunatRespuestaBajaCodigo']; 	
-					$Factura->FacSunatRespuestaBajaContenido = $fila['FacSunatRespuestaBajaContenido']; 	
-					$Factura->FacSunatRespuestaBajaId = $fila['FacSunatRespuestaBajaId']; 	
-					
-					$Factura->FacSunatRespuestaConsultaCodigo = $fila['FacSunatRespuestaConsultaCodigo']; 	
-					$Factura->FacSunatRespuestaConsultaContenido = $fila['FacSunatRespuestaConsultaContenido']; 	
-					$Factura->FacSunatRespuestaConsultaFecha = $fila['NFacSunatRespuestaConsultaFecha']; 	
-					$Factura->FacSunatRespuestaConsultaHora = $fila['FacSunatRespuestaConsultaHora']; 	
-					
-					$Factura->FacSunatRespuestaEnvioTiempoCreacion = $fila['NFacSunatRespuestaEnvioTiempoCreacion']; 	
-					$Factura->FacSunatRespuestaConsultaTiempoCreacion = $fila['NFacSunatRespuestaConsultaTiempoCreacion']; 	
-					$Factura->FacSunatRespuestaBajaTiempoCreacion = $fila['NFacSunatRespuestaBajaTiempoCreacion']; 	
-					
-					$Factura->FacSunatUltimaAccion = $fila['FacSunatUltimaAccion']; 	
-					$Factura->FacSunatUltimaRespuesta = $fila['FacSunatUltimaRespuesta']; 	
-					
-					$Factura->FacObservado = $fila['FacObservado']; 
-                    $Factura->FacTiempoCreacion = $fila['NFacTiempoCreacion'];
-                    $Factura->FacTiempoModificacion = $fila['NFacTiempoModificacion'];
-					
-					$Factura->FacTotalItems = $fila['FacTotalItems'];
-					
-					$Factura->NpaNombre = $fila['NpaNombre'];
-					
-					$Factura->FtaNumero = $fila['FtaNumero'];
-					
-					$Factura->RegAplicacion = $fila['RegAplicacion'];
-					$Factura->RegNombre = $fila['RegNombre'];
-					
-					if($Factura->FacEstado == 6){
+			$Factura->NpaId = $fila['NpaId'];
+			$Factura->AmoId = $fila['AmoId'];
+			$Factura->OvvId = $fila['OvvId'];
+			$Factura->FccId = $fila['FccId'];
 
-					
-						$Factura->CliNombre = "ANULADO";
-						$Factura->CliNombreCompleto = "ANULADO";
-						$Factura->CliApellidoPaterno = "";
-						$Factura->CliApellidoMaterno = "";
-							
-					}else{
-						$Factura->CliNombre = $fila['CliNombre'];
-						$Factura->CliNombreCompleto = $fila['CliNombreCompleto'];
-						$Factura->CliApellidoPaterno = $fila['CliApellidoPaterno'];
-						$Factura->CliApellidoMaterno = $fila['CliApellidoMaterno'];
-							
-					}
-					
-					
-					
-					
-					$Factura->TdoId = $fila['TdoId'];
-					$Factura->CliNumeroDocumento = $fila['CliNumeroDocumento'];					
-					$Factura->CliTelefono = $fila['CliTelefono'];
-					$Factura->CliEmail = $fila['CliEmail'];
-					$Factura->CliEmailFacturacion = $fila['CliEmailFacturacion'];
-					$Factura->CliCelular = $fila['CliCelular'];
-					$Factura->CliFax = $fila['CliFax'];
-					$Factura->CliClaveElectronica = $fila['CliClaveElectronica'];
-					
-					$Factura->MonNombre = $fila['MonNombre'];
-					$Factura->MonSimbolo = $fila['MonSimbolo'];
-					$Factura->MonSigla = $fila['MonSigla'];
-					
-					$Factura->FinId = $fila['FinId'];
-					$Factura->FccId = $fila['FccId'];
-					$Factura->CprId = $fila['CprId'];
-					
-					$Factura->FacTieneAbono = $fila['FacTieneAbono'];
-					
-					$Factura->FacMontoAmortizado = $fila['FacMontoAmortizado'];
-					$Factura->FacMontoPendiente = $fila['FacMontoPendiente'];
-					//$Factura->FacCancelado = $fila['NFacCancelado'];
-					
-					$Factura->VdiId = $fila['VdiId'];
-					$Factura->VdiOrdenCompraNumero = $fila['VdiOrdenCompraNumero'];
-					$Factura->VdiArchivo = $fila['VdiArchivo'];
-					
-					$Factura->AmoTipo = $fila['AmoTipo'];
-					$Factura->AmoSubTipo = $fila['AmoSubTipo'];
-					$Factura->VdiCodigoExterno = $fila['VdiCodigoExterno'];
-					
-					$Factura->FacPagoComision = $fila['FacPagoComision'];
-					$Factura->FacPorcentajeComision = $fila['FacPorcentajeComision'];
-					$Factura->FacPagado = $fila['FacPagado'];
-					
-						
-$Factura->TdoNombre = $fila['TdoNombre'];
-$Factura->TdoCodigo = $fila['TdoCodigo'];
+			$Factura->PagId = $fila['PagId'];
 
-$Factura->SucNombre = $fila['SucNombre'];	
-					$Factura->SucSiglas = $fila['SucSiglas'];	
 
-					
-				switch($Factura->FacEstado){
-					case 1:
-						$Factura->FacEstadoDescripcion = "Pendiente";
+			$Factura->FacNotaEntrega = $fila['FacNotaEntrega'];
+			$Factura->FacNotaCredito = $fila['FacNotaCredito'];
+			$Factura->FacNotaDebito = $fila['FacNotaDebito'];
+
+			$Factura->FacSIAFNumero = $fila['FacSIAFNumero'];
+			$Factura->FacOrdenNumero = $fila['FacOrdenNumero'];
+			$Factura->FacOrdenFecha = $fila['NFacOrdenFecha'];
+			$Factura->FacOrdenTipo = $fila['FacOrdenTipo'];
+			$Factura->FacOrdenFoto = $fila['FacOrdenFoto'];
+			$Factura->FacCantidadDia = $fila['FacCantidadDia'];
+			$Factura->FacDiaVencido = $fila['FacDiaVencido'];
+
+			$Factura->FacFechaVencimiento = $fila['NFacFechaVencimiento'];
+			$Factura->FacDiaTranscurrido = $fila['FacDiaTranscurrido'];
+
+
+			$Factura->FacIncluyeImpuesto = $fila['FacIncluyeImpuesto'];
+			$Factura->MonId = $fila['MonId'];
+			$Factura->FacTipoCambio = $fila['FacTipoCambio'];
+			$Factura->FacTipoCambioAux = $fila['FacTipoCambioAux'];
+
+
+			$Factura->FacCancelado = $fila['FacCancelado'];
+
+			$Factura->FacObsequio = $fila['FacObsequio'];
+			$Factura->FacSpot = $fila['FacSpot'];
+
+			$Factura->FacConcepto = $fila['FacConcepto'];
+			$Factura->FacTipo = $fila['FacTipo'];
+
+
+			$Factura->FacDatoAdicional1 = $fila['FacDatoAdicional1'];
+			$Factura->FacDatoAdicional2 = $fila['FacDatoAdicional2'];
+			$Factura->FacDatoAdicional3 = $fila['FacDatoAdicional3'];
+			$Factura->FacDatoAdicional4 = $fila['FacDatoAdicional4'];
+			$Factura->FacDatoAdicional5 = $fila['FacDatoAdicional5'];
+			$Factura->FacDatoAdicional6 = $fila['FacDatoAdicional6'];
+			$Factura->FacDatoAdicional7 = $fila['FacDatoAdicional7'];
+			$Factura->FacDatoAdicional8 = $fila['FacDatoAdicional8'];
+			$Factura->FacDatoAdicional9 = $fila['FacDatoAdicional9'];
+			$Factura->FacDatoAdicional10 = $fila['FacDatoAdicional10'];
+
+			$Factura->FacDatoAdicional11 = $fila['FacDatoAdicional11'];
+			$Factura->FacDatoAdicional12 = $fila['FacDatoAdicional12'];
+			$Factura->FacDatoAdicional13 = $fila['FacDatoAdicional13'];
+			$Factura->FacDatoAdicional14 = $fila['FacDatoAdicional14'];
+			$Factura->FacDatoAdicional15 = $fila['FacDatoAdicional15'];
+			$Factura->FacDatoAdicional16 = $fila['FacDatoAdicional16'];
+			$Factura->FacDatoAdicional17 = $fila['FacDatoAdicional17'];
+			$Factura->FacDatoAdicional18 = $fila['FacDatoAdicional18'];
+			$Factura->FacDatoAdicional19 = $fila['FacDatoAdicional19'];
+			$Factura->FacDatoAdicional20 = $fila['FacDatoAdicional20'];
+
+			$Factura->FacDatoAdicional21 = $fila['FacDatoAdicional21'];
+			$Factura->FacDatoAdicional22 = $fila['FacDatoAdicional22'];
+			$Factura->FacDatoAdicional23 = $fila['FacDatoAdicional23'];
+			$Factura->FacDatoAdicional24 = $fila['FacDatoAdicional24'];
+			$Factura->FacDatoAdicional25 = $fila['FacDatoAdicional25'];
+			$Factura->FacDatoAdicional26 = $fila['FacDatoAdicional26'];
+
+			$Factura->FacDatoAdicional27 = $fila['FacDatoAdicional27'];
+			$Factura->FacDatoAdicional28 = $fila['FacDatoAdicional28'];
+
+			$Factura->FacEstado = $fila['FacEstado'];
+			$Factura->FacFechaEmision = $fila['NFacFechaEmision'];
+			$Factura->FacHoraEmision = $fila['FacHoraEmision'];
+
+
+			$Factura->FacFechaVencimiento = $fila['NFacFechaVencimiento'];
+
+			$Factura->FacPorcentajeImpuestoVenta = $fila['FacPorcentajeImpuestoVenta'];
+			$Factura->FacPorcentajeImpuestoSelectivo = $fila['FacPorcentajeImpuestoSelectivo'];
+			$Factura->FacDireccion = $fila['FacDireccion'];
+
+			$Factura->FacTotalBruto = $fila['FacTotalBruto'];
+
+
+
+
+			$Factura->FacTotalImpuestoSelectivo = $fila['FacTotalImpuestoSelectivo'];
+			$Factura->FacTotalGravado = $fila['FacTotalGravado'];
+			$Factura->FacTotalDescuento = $fila['FacTotalDescuento'];
+			$Factura->FacTotalGratuito = $fila['FacTotalGratuito'];
+			$Factura->FacTotalExonerado = $fila['FacTotalExonerado'];
+			$Factura->FacTotalPagar = $fila['FacTotalPagar'];
+
+			$Factura->FacSubTotal = $fila['FacSubTotal'];
+			$Factura->FacDescuento = $fila['FacDescuento'];
+			$Factura->FacImpuesto = $fila['FacImpuesto'];
+			$Factura->FacTotal = $fila['FacTotal'];
+			$Factura->FacTotalReal = $fila['FacTotalReal'];
+
+			list($Factura->FacObservacion, $Factura->FacObservacionImpresa) = explode("###", $fila['FacObservacion']);
+			$Factura->FacObservacionCaja = $fila['FacObservacionCaja'];
+			$Factura->FacLeyenda = $fila['FacLeyenda'];
+			$Factura->FacCierre = $fila['FacCierre'];
+
+			$Factura->RegId = $fila['RegId'];
+			$Factura->FacRegimenPorcentaje = $fila['FacRegimenPorcentaje'];
+			$Factura->FacRegimenMonto = $fila['FacRegimenMonto'];
+			$Factura->FacRegimenComprobanteNumero = $fila['FacRegimenComprobanteNumero'];
+			$Factura->FacRegimenComprobanteFecha = $fila['NFacRegimenComprobanteFecha'];
+
+			$Factura->FacSunatRespuestaTicket = $fila['FacSunatRespuestaTicket'];
+			$Factura->FacSunatRespuestaTicketEstado = $fila['FacSunatRespuestaTicketEstado'];
+			$Factura->FacSunatRespuestaObservacion = $fila['FacSunatRespuestaObservacion'];
+
+			$Factura->FacSunatRespuestaEnvioTicket = $fila['FacSunatRespuestaEnvioTicket'];
+			$Factura->FacSunatRespuestaEnvioTicketEstado = $fila['FacSunatRespuestaEnvioTicketEstado'];
+			$Factura->FacSunatRespuestaEnvioCodigo = $fila['FacSunatRespuestaEnvioCodigo'];
+			$Factura->FacSunatRespuestaEnvioContenido = $fila['FacSunatRespuestaEnvioContenido'];
+			$Factura->FacSunatRespuestaEnvioFecha = $fila['NFacSunatRespuestaEnvioFecha'];
+			$Factura->FacSunatRespuestaEnvioHora = $fila['FacSunatRespuestaEnvioHora'];
+
+			$Factura->FacSunatRespuestaBajaTicket = $fila['FacSunatRespuestaBajaTicket'];
+			$Factura->FacSunatRespuestaBajaTicketEstado = $fila['FacSunatRespuestaBajaTicketEstado'];
+			$Factura->FacSunatRespuestaBajaFecha = $fila['NFacSunatRespuestaBajaFecha'];
+			$Factura->FacSunatRespuestaBajaHora = $fila['FacSunatRespuestaBajaHora'];
+			$Factura->FacSunatRespuestaBajaCodigo = $fila['FacSunatRespuestaBajaCodigo'];
+			$Factura->FacSunatRespuestaBajaContenido = $fila['FacSunatRespuestaBajaContenido'];
+			$Factura->FacSunatRespuestaBajaId = $fila['FacSunatRespuestaBajaId'];
+
+			$Factura->FacSunatRespuestaConsultaCodigo = $fila['FacSunatRespuestaConsultaCodigo'];
+			$Factura->FacSunatRespuestaConsultaContenido = $fila['FacSunatRespuestaConsultaContenido'];
+			$Factura->FacSunatRespuestaConsultaFecha = $fila['NFacSunatRespuestaConsultaFecha'];
+			$Factura->FacSunatRespuestaConsultaHora = $fila['FacSunatRespuestaConsultaHora'];
+
+			$Factura->FacSunatRespuestaEnvioTiempoCreacion = $fila['NFacSunatRespuestaEnvioTiempoCreacion'];
+			$Factura->FacSunatRespuestaConsultaTiempoCreacion = $fila['NFacSunatRespuestaConsultaTiempoCreacion'];
+			$Factura->FacSunatRespuestaBajaTiempoCreacion = $fila['NFacSunatRespuestaBajaTiempoCreacion'];
+
+			$Factura->FacSunatUltimaAccion = $fila['FacSunatUltimaAccion'];
+			$Factura->FacSunatUltimaRespuesta = $fila['FacSunatUltimaRespuesta'];
+
+			$Factura->FacObservado = $fila['FacObservado'];
+			$Factura->FacTiempoCreacion = $fila['NFacTiempoCreacion'];
+			$Factura->FacTiempoModificacion = $fila['NFacTiempoModificacion'];
+
+			$Factura->FacTotalItems = $fila['FacTotalItems'];
+
+			$Factura->NpaNombre = $fila['NpaNombre'];
+
+			$Factura->FtaNumero = $fila['FtaNumero'];
+
+			$Factura->RegAplicacion = $fila['RegAplicacion'];
+			$Factura->RegNombre = $fila['RegNombre'];
+
+			if ($Factura->FacEstado == 6) {
+
+
+				$Factura->CliNombre = "ANULADO";
+				$Factura->CliNombreCompleto = "ANULADO";
+				$Factura->CliApellidoPaterno = "";
+				$Factura->CliApellidoMaterno = "";
+			} else {
+				$Factura->CliNombre = $fila['CliNombre'];
+				$Factura->CliNombreCompleto = $fila['CliNombreCompleto'];
+				$Factura->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+				$Factura->CliApellidoMaterno = $fila['CliApellidoMaterno'];
+			}
+
+
+
+
+			$Factura->TdoId = $fila['TdoId'];
+			$Factura->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+			$Factura->CliTelefono = $fila['CliTelefono'];
+			$Factura->CliEmail = $fila['CliEmail'];
+			$Factura->CliEmailFacturacion = $fila['CliEmailFacturacion'];
+			$Factura->CliCelular = $fila['CliCelular'];
+			$Factura->CliFax = $fila['CliFax'];
+			$Factura->CliClaveElectronica = $fila['CliClaveElectronica'];
+
+			$Factura->MonNombre = $fila['MonNombre'];
+			$Factura->MonSimbolo = $fila['MonSimbolo'];
+			$Factura->MonSigla = $fila['MonSigla'];
+
+			$Factura->FinId = $fila['FinId'];
+			$Factura->FccId = $fila['FccId'];
+			$Factura->CprId = $fila['CprId'];
+
+			$Factura->FacTieneAbono = $fila['FacTieneAbono'];
+
+			$Factura->FacMontoAmortizado = $fila['FacMontoAmortizado'];
+			$Factura->FacMontoPendiente = $fila['FacMontoPendiente'];
+			//$Factura->FacCancelado = $fila['NFacCancelado'];
+
+			$Factura->VdiId = $fila['VdiId'];
+			$Factura->VdiOrdenCompraNumero = $fila['VdiOrdenCompraNumero'];
+			$Factura->VdiArchivo = $fila['VdiArchivo'];
+
+			$Factura->AmoTipo = $fila['AmoTipo'];
+			$Factura->AmoSubTipo = $fila['AmoSubTipo'];
+			$Factura->VdiCodigoExterno = $fila['VdiCodigoExterno'];
+
+			$Factura->FacPagoComision = $fila['FacPagoComision'];
+			$Factura->FacPorcentajeComision = $fila['FacPorcentajeComision'];
+			$Factura->FacPagado = $fila['FacPagado'];
+
+
+			$Factura->TdoNombre = $fila['TdoNombre'];
+			$Factura->TdoCodigo = $fila['TdoCodigo'];
+
+			$Factura->SucNombre = $fila['SucNombre'];
+			$Factura->SucSiglas = $fila['SucSiglas'];
+
+
+			switch ($Factura->FacEstado) {
+				case 1:
+					$Factura->FacEstadoDescripcion = "Pendiente";
 					break;
-										
-					case 5:
-						$Factura->FacEstadoDescripcion = "Entregado";
+
+				case 5:
+					$Factura->FacEstadoDescripcion = "Entregado";
 					break;
-					
-					case 6:
-						$Factura->FacEstadoDescripcion = "Anulado";
-				
+
+				case 6:
+					$Factura->FacEstadoDescripcion = "Anulado";
+
 					break;
-					
-					case 7:
-						$Factura->FacEstadoDescripcion = "Reservado";
+
+				case 7:
+					$Factura->FacEstadoDescripcion = "Reservado";
 					break;
-					
-					
-				}
-				
-				
-				switch($Factura->FacEstado){
-					case 1:
-						$Factura->FacEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
+			}
+
+
+			switch ($Factura->FacEstado) {
+				case 1:
+					$Factura->FacEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
 					break;
-										
-					case 5:
-						$Factura->FacEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
+
+				case 5:
+					$Factura->FacEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
 					break;
-					
-					case 6:
-						$Factura->FacEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
-				
+
+				case 6:
+					$Factura->FacEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
+
 					break;
-					
-					case 7:
-						$Factura->FacEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
+
+				case 7:
+					$Factura->FacEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
 					break;
-					
-					
-				}
-				
-				
-					$Factura->InsMysql = NULL;     
-					               
-					$Respuesta['Datos'][]= $Factura;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+			}
+
+
+			$Factura->InsMysql = NULL;
+
+			$Respuesta['Datos'][] = $Factura;
 		}
-	
-	
-    public function MtdObtenerBoletas($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'BolId',$oSentido = 'Desc',$oPaginacion = '0,10',$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oRegimen=NULL,$oCondicionPago=NULL,$oMoneda=NULL,$oAlmacenMovimiento=NULL,$oCliente=NULL,$oOrdenVentaVehiculo=NULL,$oVentaDirecta=NULL,$oVendedor=NULL, $oSucursal=NULL,$oNoProcesdado=false,$oCancelado=NULL,$oSinPago=false,$oDiasVencido=NULL,$oVencido=false,$oObsequio=NULL) {
-	
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
 
 
-		if(!empty($oCampo) and !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$elementos = explode(",",$oCampo);
+	public function MtdObtenerBoletas(
+		$oCampo = NULL,
+		$oCondicion = NULL,
+		$oFiltro = NULL,
+		$oOrden = 'BolId',
+		$oSentido = 'Desc',
+		$oPaginacion = '0,10',
+		$oEstado = NULL,
+		$oFechaInicio = NULL,
+		$oFechaFin = NULL,
+		$oTalonario = NULL,
+		$oRegimen = NULL,
+		$oCondicionPago = NULL,
+		$oMoneda = NULL,
+		$oAlmacenMovimiento = NULL,
+		$oCliente = NULL,
+		$oOrdenVentaVehiculo = NULL,
+		$oVentaDirecta = NULL,
+		$oVendedor = NULL,
+		$oSucursal = NULL,
+		$oNoProcesdado = false,
+		$oCancelado = NULL,
+		$oSinPago = false,
+		$oDiasVencido = NULL,
+		$oVencido = false,
+		$oObsequio = NULL
+	) {
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				
-				$filtrar .= '  OR EXISTS( 
+				$i++;
+			}
+
+
+			$filtrar .= '  OR EXISTS( 
 					
 					SELECT 
 					bde.BdeId
@@ -6119,108 +6053,104 @@ $Factura->SucNombre = $fila['SucNombre'];
 						bde.BtaId = bol.BtaId AND
 						
 						(
-						bde.BdeDescripcion LIKE "%'.$oFiltro.'%" 
+						bde.BdeDescripcion LIKE "%' . $oFiltro . '%" 
 						
 						)
 						
 					) ';
-					
-					
-				$filtrar .= '  ) ';
 
 
-		}
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-			
-		if(!empty($oEstado)){
 
-			$elementos = explode(",",$oEstado);
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
 
-				$i=1;
-				$estado .= ' AND (';
-				$elementos = array_filter($elementos);
-				foreach($elementos as $elemento){
-						$estado .= '  (bol.BolEstado = "'.($elemento).'")';	
-						if($i<>count($elementos)){						
-							$estado .= ' OR ';	
-						}
-				$i++;		
+		if (!empty($oEstado)) {
+
+			$elementos = explode(",", $oEstado);
+
+			$i = 1;
+			$estado .= ' AND (';
+			$elementos = array_filter($elementos);
+			foreach ($elementos as $elemento) {
+				$estado .= '  (bol.BolEstado = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$estado .= ' OR ';
 				}
-				
-				$estado .= ' ) ';
-
-		}
-						
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(bol.BolFechaEmision)>="'.$oFechaInicio.'" AND DATE(bol.BolFechaEmision)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(bol.BolFechaEmision)>="'.$oFechaInicio.'"';
+				$i++;
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(bol.BolFechaEmision)<="'.$oFechaFin.'"';		
-			}			
-		}
-		
-		if(!empty($oTalonario)){
-			$talonario = ' AND bol.BtaId = "'.$oTalonario.'"';
-		}
-		
-		
-		if(!empty($oRegimen)){
-			$regimen = ' AND bol.RegId = "'.$oRegimen.'"';
-		}
-		
-		
-		if(!empty($oCondicionPago)){
-			$npago = ' AND bol.NpaId = "'.$oCondicionPago.'"';
-		}
-		
-		if(!empty($oMoneda)){
-			$moneda = ' AND bol.MonId = "'.$oMoneda.'"';
-		}
-			
 
-		if(!empty($oAlmacenMovimiento)){
-			$amovimiento = ' AND bol.AmoId = "'.$oAlmacenMovimiento.'"';
-		}
-		
-		
-		if(!empty($oCliente)){
-			$cliente = ' AND bol.CliId = "'.$oCliente.'"';
+			$estado .= ' ) ';
 		}
 
-		if(!empty($oOrdenVentaVehiculo)){
-			$ovvehiculo = ' AND bol.OvvId = "'.$oOrdenVentaVehiculo.'"';
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(bol.BolFechaEmision)>="' . $oFechaInicio . '" AND DATE(bol.BolFechaEmision)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(bol.BolFechaEmision)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(bol.BolFechaEmision)<="' . $oFechaFin . '"';
+			}
 		}
 
-		if(!empty($oVentaDirecta)){
-			$vdirecta = ' AND amo.VdiId = "'.$oVentaDirecta.'"';
+		if (!empty($oTalonario)) {
+			$talonario = ' AND bol.BtaId = "' . $oTalonario . '"';
 		}
-		
 
-		
-		if(!empty($oVendedor)){
-			$vendedor = ' AND vdi.PerId = "'.$oVendedor.'" OR ovv.PerId = "'.$oVendedor.'" ';
+
+		if (!empty($oRegimen)) {
+			$regimen = ' AND bol.RegId = "' . $oRegimen . '"';
 		}
-		
-		if(!empty($oSucursal)){
-			$sucursal = ' AND bol.SucId = "'.$oSucursal.'"';
+
+
+		if (!empty($oCondicionPago)) {
+			$npago = ' AND bol.NpaId = "' . $oCondicionPago . '"';
 		}
-		
-		
-		if(($oNoProcesdado)){
+
+		if (!empty($oMoneda)) {
+			$moneda = ' AND bol.MonId = "' . $oMoneda . '"';
+		}
+
+
+		if (!empty($oAlmacenMovimiento)) {
+			$amovimiento = ' AND bol.AmoId = "' . $oAlmacenMovimiento . '"';
+		}
+
+
+		if (!empty($oCliente)) {
+			$cliente = ' AND bol.CliId = "' . $oCliente . '"';
+		}
+
+		if (!empty($oOrdenVentaVehiculo)) {
+			$ovvehiculo = ' AND bol.OvvId = "' . $oOrdenVentaVehiculo . '"';
+		}
+
+		if (!empty($oVentaDirecta)) {
+			$vdirecta = ' AND amo.VdiId = "' . $oVentaDirecta . '"';
+		}
+
+
+
+		if (!empty($oVendedor)) {
+			$vendedor = ' AND vdi.PerId = "' . $oVendedor . '" OR ovv.PerId = "' . $oVendedor . '" ';
+		}
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND bol.SucId = "' . $oSucursal . '"';
+		}
+
+
+		if (($oNoProcesdado)) {
 
 			$noprocesado = ' AND	(bol.BolSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 
 				OR bol.BolSunatRespuestaEnvioContenido IS NULL 
@@ -6228,30 +6158,28 @@ $Factura->SucNombre = $fila['SucNombre'];
 				
 				) ';
 		}
-		
-							
-		if(!empty($oCancelado)){
-			switch($oCancelado){
-				
+
+
+		if (!empty($oCancelado)) {
+			switch ($oCancelado) {
+
 				case "Si":
-				
+
 					//$cancelado = ' HAVING NBolCancelado = 1 ';
 					$cancelado = ' AND bol.BolCancelado = 1 ';
-					
-				break;
-				
+
+					break;
+
 				case "No":
-				
-					$cancelado = '  AND bol.BolCancelado = 2 ';//
+
+					$cancelado = '  AND bol.BolCancelado = 2 '; //
 					//$cancelado = '  HAVING NBolCancelado = 2 ';
-					
-				break;
-				
+
+					break;
 			}
-			
 		}
-			
-		if(($oSinPago)){
+
+		if (($oSinPago)) {
 
 			$sinpago = ' AND 
 			
@@ -6280,31 +6208,30 @@ $Factura->SucNombre = $fila['SucNombre'];
 			) AND bol.OvvId IS NULL
 			
 			';
-			
 		}
-		
-		if(!empty($oDiaVencido)){
-			
-			if($oDiasVencido==-1){
+
+		if (!empty($oDiaVencido)) {
+
+			if ($oDiasVencido == -1) {
 				$oDiasVencido = 0;
 			}
-			
-			$dvencido = ' AND DATEDIFF(DATE(NOW()),bol.BolFechaVencimiento) =  ' .$oDiasVencido;
+
+			$dvencido = ' AND DATEDIFF(DATE(NOW()),bol.BolFechaVencimiento) =  ' . $oDiasVencido;
 		}
-			
-			
-		if($oVencido){
+
+
+		if ($oVencido) {
 			$vencido = ' AND DATEDIFF(DATE(NOW()),bol.BolFechaVencimiento) > 0 ';
 		}
-		
-						
-		if(!empty($oObsequio)){
-			$obsequio = ' AND bol.BolObsequio = '.$oObsequio.' ';
+
+
+		if (!empty($oObsequio)) {
+			$obsequio = ' AND bol.BolObsequio = ' . $oObsequio . ' ';
 		}
-		
-		
-		
-			$sql = 'SELECT
+
+
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				bol.BolId,
 				bol.BtaId,
@@ -6627,441 +6554,446 @@ bol.BolObservacionCaja,
 					LEFT JOIN tblfaxfacturaexportar fax
 					ON fax.BolId = bol.BolId AND fax.BtaId = bol.BtaId
 																										
-				WHERE 1 = 1 '.$filtrar.$sucursal.$estado.$sinpago.$dvencido.$obsequio.$fecha.$vendedor.$dvencido.$vencido.$noprocesado.$talonario.$credito.$regimen.$npago.$moneda.$amovimiento.$cliente.$ovvehiculo.$vdirecta.$cancelado.$orden.$paginacion;
-									
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+				WHERE 1 = 1 ' . $filtrar . $sucursal . $estado . $sinpago . $dvencido . $obsequio . $fecha . $vendedor . $dvencido . $vencido . $noprocesado . $talonario . $credito . $regimen . $npago . $moneda . $amovimiento . $cliente . $ovvehiculo . $vdirecta . $cancelado . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsBoleta = get_class($this);
-	
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-					$Boleta = new $InsBoleta();
-                    $Boleta->BolId = $fila['BolId'];
-					$Boleta->BtaId = $fila['BtaId'];
-					$Boleta->SucId = $fila['SucId'];
-					
-                    $Boleta->UsuId= $fila['UsuId'];
-					$Boleta->CliId= $fila['CliId'];
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$Boleta->NpaId= $fila['NpaId'];
-					$Boleta->AmoId= $fila['AmoId'];
-					$Boleta->OvvId= $fila['OvvId'];
-					
-					$Boleta->PagId= $fila['PagId'];
-					
-					$Boleta->BolNotaCredito = $fila['BolNotaCredito'];
-					$Boleta->BolNotaDebito = $fila['BolNotaDebito'];
-					
-					$Boleta->BolFechaEmision = $fila['NBolFechaEmision'];
-					$Boleta->BolHoraEmision = $fila['BolHoraEmision'];
-					
-					$Boleta->BolDiaTranscurrido = $fila['BolDiaTranscurrido'];
-					
-					
-					$Boleta->BolPorcentajeImpuestoVenta = $fila['BolPorcentajeImpuestoVenta'];
-					$Boleta->BolPorcentajeImpuestoSelectivo = $fila['BolPorcentajeImpuestoSelectivo'];
-					$Boleta->BolDireccion = $fila['BolDireccion'];
+		$Respuesta['Datos'] = array();
 
-					$Boleta->BolNotaCredito = $fila['BolNotaCredito'];
-					$Boleta->BolNotaDebito = $fila['BolNotaDebito'];
+		$InsBoleta = get_class($this);
 
-					$Boleta->BolTotalImpuestoSelectivo = $fila['BolTotalImpuestoSelectivo']; 	
-					$Boleta->BolTotalGravado = $fila['BolTotalGravado']; 
-					$Boleta->BolTotalDescuento = $fila['BolTotalDescuento']; 
-					$Boleta->BolTotalGratuito = $fila['BolTotalGratuito']; 
-					$Boleta->BolTotalExonerado = $fila['BolTotalExonerado']; 
-					$Boleta->BolTotalPagar = $fila['BolTotalPagar']; 
-					
-					$Boleta->BolSubTotal = $fila['BolSubTotal']; 
-					$Boleta->BolImpuesto = $fila['BolImpuesto']; 					
-					$Boleta->BolTotal = $fila['BolTotal']; 
-					$Boleta->BolTotalReal = $fila['BolTotalReal']; 
-					
-					list($Boleta->BolObservacion,$Boleta->BolObservacionImpresa) = explode("###",$fila['BolObservacion']);	
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+			$Boleta = new $InsBoleta();
+			$Boleta->BolId = $fila['BolId'];
+			$Boleta->BtaId = $fila['BtaId'];
+			$Boleta->SucId = $fila['SucId'];
 
-					$Boleta->BolObservacionCaja = $fila['BolObservacionCaja'];
-					$Boleta->BolLeyenda = $fila['BolLeyenda'];
-					$Boleta->BolCancelado = $fila['BolCancelado'];
-					$Boleta->BolCantidadDia = $fila['BolCantidadDia'];
-					
-					
-					$Boleta->BolDiaVencido = $fila['BolDiaVencido']; 	
-					$Boleta->BolFechaVencimiento = $fila['NBolFechaVencimiento']; 	
-					$Boleta->BolDiaTranscurrido = $fila['BolDiaTranscurrido']; 	
-			
-			
-					
-					$Boleta->MonId = $fila['MonId'];
-					$Boleta->BolTipoCambio = $fila['BolTipoCambio'];
-					$Boleta->BolTipoCambioAux = $fila['BolTipoCambioAux'];
-					
-					
-					$Boleta->BolObsequio = $fila['BolObsequio'];
-					$Boleta->BolTieneAbono = $fila['BolTieneAbono'];
-					
-					
-								$Boleta->BolDatoAdicional1 = $fila['BolDatoAdicional1'];
-					$Boleta->BolDatoAdicional2 = $fila['BolDatoAdicional2'];
-					$Boleta->BolDatoAdicional3 = $fila['BolDatoAdicional3'];
-					$Boleta->BolDatoAdicional4 = $fila['BolDatoAdicional4'];
-					$Boleta->BolDatoAdicional5 = $fila['BolDatoAdicional5'];
-					$Boleta->BolDatoAdicional6 = $fila['BolDatoAdicional6'];
-					$Boleta->BolDatoAdicional7 = $fila['BolDatoAdicional7'];
-					$Boleta->BolDatoAdicional8 = $fila['BolDatoAdicional8'];
-					$Boleta->BolDatoAdicional9 = $fila['BolDatoAdicional9'];
-					$Boleta->BolDatoAdicional10 = $fila['BolDatoAdicional10'];
-					
-					$Boleta->BolDatoAdicional11 = $fila['BolDatoAdicional11'];
-					$Boleta->BolDatoAdicional12 = $fila['BolDatoAdicional12'];
-					$Boleta->BolDatoAdicional13 = $fila['BolDatoAdicional13'];
-					$Boleta->BolDatoAdicional14 = $fila['BolDatoAdicional14'];
-					$Boleta->BolDatoAdicional15 = $fila['BolDatoAdicional15'];
-					$Boleta->BolDatoAdicional16 = $fila['BolDatoAdicional16'];
-					$Boleta->BolDatoAdicional17 = $fila['BolDatoAdicional17'];
-					$Boleta->BolDatoAdicional18 = $fila['BolDatoAdicional18'];
-					$Boleta->BolDatoAdicional19 = $fila['BolDatoAdicional19'];
-					$Boleta->BolDatoAdicional20 = $fila['BolDatoAdicional20'];
-					
-					$Boleta->BolDatoAdicional21 = $fila['BolDatoAdicional21'];
-					$Boleta->BolDatoAdicional22 = $fila['BolDatoAdicional22'];
-					$Boleta->BolDatoAdicional23 = $fila['BolDatoAdicional23'];
-					$Boleta->BolDatoAdicional24 = $fila['BolDatoAdicional24'];
-					$Boleta->BolDatoAdicional25 = $fila['BolDatoAdicional25'];
-					$Boleta->BolDatoAdicional26 = $fila['BolDatoAdicional26'];
-					
-					$Boleta->BolDatoAdicional27 = $fila['BolDatoAdicional27'];
-					$Boleta->BolDatoAdicional28 = $fila['BolDatoAdicional28'];
-					
-					$Boleta->BolEstado = $fila['BolEstado'];
-					$Boleta->BolCierre = $fila['BolCierre'];	
-					
-					$Boleta->RegId = $fila['RegId'];	
-					$Boleta->BolRegimenPorcentaje = $fila['BolRegimenPorcentaje'];	
-					$Boleta->BolRegimenMonto = $fila['BolRegimenMonto'];	
-					$Boleta->BolRegimenComprobanteNumero = $fila['BolRegimenComprobanteNumero'];	
-					$Boleta->BolRegimenComprobanteFecha = $fila['NBolRegimenComprobanteFecha'];	
+			$Boleta->UsuId = $fila['UsuId'];
+			$Boleta->CliId = $fila['CliId'];
 
-					$Boleta->BolSunatRespuestaTicket = $fila['BolSunatRespuestaTicket']; 	
-					$Boleta->BolSunatRespuestaTicketEstado = $fila['BolSunatRespuestaTicketEstado']; 			
-					$Boleta->BolSunatRespuestaObservacion = $fila['BolSunatRespuestaObservacion']; 	
-					
-					$Boleta->BolSunatRespuestaEnvioTicket = $fila['BolSunatRespuestaEnvioTicket']; 	
-					$Boleta->BolSunatRespuestaEnvioTicketEstado = $fila['BolSunatRespuestaEnvioTicketEstado']; 	
-					$Boleta->BolSunatRespuestaEnvioFecha = $fila['NBolSunatRespuestaEnvioFecha']; 	
-					$Boleta->BolSunatRespuestaEnvioHora = $fila['BolSunatRespuestaEnvioHora']; 	
-					$Boleta->BolSunatRespuestaEnvioCodigo = $fila['BolSunatRespuestaEnvioCodigo']; 	
-					$Boleta->BolSunatRespuestaEnvioContenido = $fila['BolSunatRespuestaEnvioContenido']; 	
-					
-					$Boleta->BolSunatRespuestaBajaTicket = $fila['BolSunatRespuestaBajaTicket']; 
-					$Boleta->BolSunatRespuestaBajaTicketEstado = $fila['BolSunatRespuestaBajaTicketEstado'];	
-					$Boleta->BolSunatRespuestaBajaFecha = $fila['NBolSunatRespuestaBajaFecha']; 	
-					$Boleta->BolSunatRespuestaBajaHora = $fila['BolSunatRespuestaBajaHora']; 	
-					$Boleta->BolSunatRespuestaBajaCodigo = $fila['BolSunatRespuestaBajaCodigo']; 	
-					$Boleta->BolSunatRespuestaBajaContenido = $fila['BolSunatRespuestaBajaContenido']; 	
-					$Boleta->BolSunatRespuestaBajaId = $fila['BolSunatRespuestaBajaId']; 	
-					
-					$Boleta->BolSunatRespuestaConsultaCodigo = $fila['BolSunatRespuestaConsultaCodigo']; 	
-					$Boleta->BolSunatRespuestaConsultaContenido = $fila['BolSunatRespuestaConsultaContenido']; 	
-					$Boleta->BolSunatRespuestaConsultaFecha = $fila['NBolSunatRespuestaConsultaFecha']; 	
-					$Boleta->BolSunatRespuestaConsultaHora = $fila['BolSunatRespuestaConsultaHora']; 	
-					
-					$Boleta->BolSunatRespuestaEnvioTiempoCreacion = $fila['NBolSunatRespuestaEnvioTiempoCreacion']; 	
-					$Boleta->BolSunatRespuestaConsultaTiempoCreacion = $fila['NBolSunatRespuestaConsultaTiempoCreacion']; 	
-					$Boleta->BolSunatRespuestaBajaTiempoCreacion = $fila['NBolSunatRespuestaBajaTiempoCreacion']; 
-					
-					$Boleta->BolSunatUltimaAccion = $fila['BolSunatUltimaAccion']; 
-					$Boleta->BolSunatUltimaRespuesta = $fila['BolSunatUltimaRespuesta']; 
-					
-					$Boleta->BolObservado = $fila['BolObservado']; 
-					$Boleta->BolTiempoCreacion = $fila['NBolTiempoCreacion'];
-                    $Boleta->BolTiempoModificacion = $fila['NBolTiempoModificacion'];
+			$Boleta->NpaId = $fila['NpaId'];
+			$Boleta->AmoId = $fila['AmoId'];
+			$Boleta->OvvId = $fila['OvvId'];
 
-                    $Boleta->BolTotalItems = $fila['BolTotalItems'];					
+			$Boleta->PagId = $fila['PagId'];
 
-					$Boleta->NpaNombre = $fila['NpaNombre'];
-					
-					$Boleta->BtaNumero = $fila['BtaNumero'];
-					
-					$Boleta->RegAplicacion = $fila['RegAplicacion'];
-					$Boleta->RegNombre = $fila['RegNombre'];
-					
-					if($Boleta->BolEstado == 6){
+			$Boleta->BolNotaCredito = $fila['BolNotaCredito'];
+			$Boleta->BolNotaDebito = $fila['BolNotaDebito'];
 
-						$Boleta->CliNombreCompleto = "ANULADO";
-						$Boleta->CliNombre = "ANULADO";
-						$Boleta->CliApellidoPaterno = "";
-						$Boleta->CliApellidoMaterno = "";
-						
-					}else{
-					
-						$Boleta->CliNombreCompleto = $fila['CliNombreCompleto'];
-						$Boleta->CliNombre = $fila['CliNombre'];
-						$Boleta->CliApellidoPaterno = $fila['CliApellidoPaterno'];
-						$Boleta->CliApellidoMaterno = $fila['CliApellidoMaterno'];
-						
-					}
-					
-					$Boleta->CliNumeroDocumento = $fila['CliNumeroDocumento'];
-					$Boleta->TdoId = $fila['TdoId'];
-					$Boleta->CliTelefono = $fila['CliTelefono'];
-					$Boleta->CliEmail = $fila['CliTelefono'];
-					$Boleta->CliCelular = $fila['CliCelular'];
-					$Boleta->CliFax = $fila['CliFax'];
-					
-					$Boleta->MonNombre = $fila['MonNombre'];
-					$Boleta->MonSimbolo = $fila['MonSimbolo'];
-					$Boleta->MonSigla = $fila['MonSigla'];
-					
-					
-					$Boleta->FinId = $fila['FinId'];
-					$Boleta->CprId = $fila['CprId'];
-					
-					
-					$Boleta->BolMontoAmortizado = $fila['BolMontoAmortizado'];
-					$Boleta->BolMontoPendiente = $fila['BolMontoPendiente'];
-					//$Boleta->BolCancelado = $fila['NBolCancelado'];
-					
-					$Boleta->VdiId = $fila['VdiId'];
-					$Boleta->VdiOrdenCompraNumero = $fila['VdiOrdenCompraNumero'];
-					$Boleta->VdiArchivo = $fila['VdiArchivo'];		
+			$Boleta->BolFechaEmision = $fila['NBolFechaEmision'];
+			$Boleta->BolHoraEmision = $fila['BolHoraEmision'];
 
-					$Boleta->AmoTipo = $fila['AmoTipo'];	
-					$Boleta->AmoSubTipo = $fila['AmoSubTipo'];	
+			$Boleta->BolDiaTranscurrido = $fila['BolDiaTranscurrido'];
 
-					$Boleta->TdoNombre = $fila['TdoNombre'];
-					$Boleta->TdoCodigo = $fila['TdoCodigo'];
-						
-					$Boleta->SucNombre = $fila['SucNombre'];	
-					$Boleta->SucSiglas = $fila['SucSiglas'];	
+
+			$Boleta->BolPorcentajeImpuestoVenta = $fila['BolPorcentajeImpuestoVenta'];
+			$Boleta->BolPorcentajeImpuestoSelectivo = $fila['BolPorcentajeImpuestoSelectivo'];
+			$Boleta->BolDireccion = $fila['BolDireccion'];
+
+			$Boleta->BolNotaCredito = $fila['BolNotaCredito'];
+			$Boleta->BolNotaDebito = $fila['BolNotaDebito'];
+
+			$Boleta->BolTotalImpuestoSelectivo = $fila['BolTotalImpuestoSelectivo'];
+			$Boleta->BolTotalGravado = $fila['BolTotalGravado'];
+			$Boleta->BolTotalDescuento = $fila['BolTotalDescuento'];
+			$Boleta->BolTotalGratuito = $fila['BolTotalGratuito'];
+			$Boleta->BolTotalExonerado = $fila['BolTotalExonerado'];
+			$Boleta->BolTotalPagar = $fila['BolTotalPagar'];
+
+			$Boleta->BolSubTotal = $fila['BolSubTotal'];
+			$Boleta->BolImpuesto = $fila['BolImpuesto'];
+			$Boleta->BolTotal = $fila['BolTotal'];
+			$Boleta->BolTotalReal = $fila['BolTotalReal'];
+
+			list($Boleta->BolObservacion, $Boleta->BolObservacionImpresa) = explode("###", $fila['BolObservacion']);
+
+			$Boleta->BolObservacionCaja = $fila['BolObservacionCaja'];
+			$Boleta->BolLeyenda = $fila['BolLeyenda'];
+			$Boleta->BolCancelado = $fila['BolCancelado'];
+			$Boleta->BolCantidadDia = $fila['BolCantidadDia'];
+
+
+			$Boleta->BolDiaVencido = $fila['BolDiaVencido'];
+			$Boleta->BolFechaVencimiento = $fila['NBolFechaVencimiento'];
+			$Boleta->BolDiaTranscurrido = $fila['BolDiaTranscurrido'];
 
 
 
-				switch($Boleta->BolEstado){
-					case 1:
-						$Boleta->BolEstadoDescripcion = "Pendiente";
+			$Boleta->MonId = $fila['MonId'];
+			$Boleta->BolTipoCambio = $fila['BolTipoCambio'];
+			$Boleta->BolTipoCambioAux = $fila['BolTipoCambioAux'];
+
+
+			$Boleta->BolObsequio = $fila['BolObsequio'];
+			$Boleta->BolTieneAbono = $fila['BolTieneAbono'];
+
+
+			$Boleta->BolDatoAdicional1 = $fila['BolDatoAdicional1'];
+			$Boleta->BolDatoAdicional2 = $fila['BolDatoAdicional2'];
+			$Boleta->BolDatoAdicional3 = $fila['BolDatoAdicional3'];
+			$Boleta->BolDatoAdicional4 = $fila['BolDatoAdicional4'];
+			$Boleta->BolDatoAdicional5 = $fila['BolDatoAdicional5'];
+			$Boleta->BolDatoAdicional6 = $fila['BolDatoAdicional6'];
+			$Boleta->BolDatoAdicional7 = $fila['BolDatoAdicional7'];
+			$Boleta->BolDatoAdicional8 = $fila['BolDatoAdicional8'];
+			$Boleta->BolDatoAdicional9 = $fila['BolDatoAdicional9'];
+			$Boleta->BolDatoAdicional10 = $fila['BolDatoAdicional10'];
+
+			$Boleta->BolDatoAdicional11 = $fila['BolDatoAdicional11'];
+			$Boleta->BolDatoAdicional12 = $fila['BolDatoAdicional12'];
+			$Boleta->BolDatoAdicional13 = $fila['BolDatoAdicional13'];
+			$Boleta->BolDatoAdicional14 = $fila['BolDatoAdicional14'];
+			$Boleta->BolDatoAdicional15 = $fila['BolDatoAdicional15'];
+			$Boleta->BolDatoAdicional16 = $fila['BolDatoAdicional16'];
+			$Boleta->BolDatoAdicional17 = $fila['BolDatoAdicional17'];
+			$Boleta->BolDatoAdicional18 = $fila['BolDatoAdicional18'];
+			$Boleta->BolDatoAdicional19 = $fila['BolDatoAdicional19'];
+			$Boleta->BolDatoAdicional20 = $fila['BolDatoAdicional20'];
+
+			$Boleta->BolDatoAdicional21 = $fila['BolDatoAdicional21'];
+			$Boleta->BolDatoAdicional22 = $fila['BolDatoAdicional22'];
+			$Boleta->BolDatoAdicional23 = $fila['BolDatoAdicional23'];
+			$Boleta->BolDatoAdicional24 = $fila['BolDatoAdicional24'];
+			$Boleta->BolDatoAdicional25 = $fila['BolDatoAdicional25'];
+			$Boleta->BolDatoAdicional26 = $fila['BolDatoAdicional26'];
+
+			$Boleta->BolDatoAdicional27 = $fila['BolDatoAdicional27'];
+			$Boleta->BolDatoAdicional28 = $fila['BolDatoAdicional28'];
+
+			$Boleta->BolEstado = $fila['BolEstado'];
+			$Boleta->BolCierre = $fila['BolCierre'];
+
+			$Boleta->RegId = $fila['RegId'];
+			$Boleta->BolRegimenPorcentaje = $fila['BolRegimenPorcentaje'];
+			$Boleta->BolRegimenMonto = $fila['BolRegimenMonto'];
+			$Boleta->BolRegimenComprobanteNumero = $fila['BolRegimenComprobanteNumero'];
+			$Boleta->BolRegimenComprobanteFecha = $fila['NBolRegimenComprobanteFecha'];
+
+			$Boleta->BolSunatRespuestaTicket = $fila['BolSunatRespuestaTicket'];
+			$Boleta->BolSunatRespuestaTicketEstado = $fila['BolSunatRespuestaTicketEstado'];
+			$Boleta->BolSunatRespuestaObservacion = $fila['BolSunatRespuestaObservacion'];
+
+			$Boleta->BolSunatRespuestaEnvioTicket = $fila['BolSunatRespuestaEnvioTicket'];
+			$Boleta->BolSunatRespuestaEnvioTicketEstado = $fila['BolSunatRespuestaEnvioTicketEstado'];
+			$Boleta->BolSunatRespuestaEnvioFecha = $fila['NBolSunatRespuestaEnvioFecha'];
+			$Boleta->BolSunatRespuestaEnvioHora = $fila['BolSunatRespuestaEnvioHora'];
+			$Boleta->BolSunatRespuestaEnvioCodigo = $fila['BolSunatRespuestaEnvioCodigo'];
+			$Boleta->BolSunatRespuestaEnvioContenido = $fila['BolSunatRespuestaEnvioContenido'];
+
+			$Boleta->BolSunatRespuestaBajaTicket = $fila['BolSunatRespuestaBajaTicket'];
+			$Boleta->BolSunatRespuestaBajaTicketEstado = $fila['BolSunatRespuestaBajaTicketEstado'];
+			$Boleta->BolSunatRespuestaBajaFecha = $fila['NBolSunatRespuestaBajaFecha'];
+			$Boleta->BolSunatRespuestaBajaHora = $fila['BolSunatRespuestaBajaHora'];
+			$Boleta->BolSunatRespuestaBajaCodigo = $fila['BolSunatRespuestaBajaCodigo'];
+			$Boleta->BolSunatRespuestaBajaContenido = $fila['BolSunatRespuestaBajaContenido'];
+			$Boleta->BolSunatRespuestaBajaId = $fila['BolSunatRespuestaBajaId'];
+
+			$Boleta->BolSunatRespuestaConsultaCodigo = $fila['BolSunatRespuestaConsultaCodigo'];
+			$Boleta->BolSunatRespuestaConsultaContenido = $fila['BolSunatRespuestaConsultaContenido'];
+			$Boleta->BolSunatRespuestaConsultaFecha = $fila['NBolSunatRespuestaConsultaFecha'];
+			$Boleta->BolSunatRespuestaConsultaHora = $fila['BolSunatRespuestaConsultaHora'];
+
+			$Boleta->BolSunatRespuestaEnvioTiempoCreacion = $fila['NBolSunatRespuestaEnvioTiempoCreacion'];
+			$Boleta->BolSunatRespuestaConsultaTiempoCreacion = $fila['NBolSunatRespuestaConsultaTiempoCreacion'];
+			$Boleta->BolSunatRespuestaBajaTiempoCreacion = $fila['NBolSunatRespuestaBajaTiempoCreacion'];
+
+			$Boleta->BolSunatUltimaAccion = $fila['BolSunatUltimaAccion'];
+			$Boleta->BolSunatUltimaRespuesta = $fila['BolSunatUltimaRespuesta'];
+
+			$Boleta->BolObservado = $fila['BolObservado'];
+			$Boleta->BolTiempoCreacion = $fila['NBolTiempoCreacion'];
+			$Boleta->BolTiempoModificacion = $fila['NBolTiempoModificacion'];
+
+			$Boleta->BolTotalItems = $fila['BolTotalItems'];
+
+			$Boleta->NpaNombre = $fila['NpaNombre'];
+
+			$Boleta->BtaNumero = $fila['BtaNumero'];
+
+			$Boleta->RegAplicacion = $fila['RegAplicacion'];
+			$Boleta->RegNombre = $fila['RegNombre'];
+
+			if ($Boleta->BolEstado == 6) {
+
+				$Boleta->CliNombreCompleto = "ANULADO";
+				$Boleta->CliNombre = "ANULADO";
+				$Boleta->CliApellidoPaterno = "";
+				$Boleta->CliApellidoMaterno = "";
+			} else {
+
+				$Boleta->CliNombreCompleto = $fila['CliNombreCompleto'];
+				$Boleta->CliNombre = $fila['CliNombre'];
+				$Boleta->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+				$Boleta->CliApellidoMaterno = $fila['CliApellidoMaterno'];
+			}
+
+			$Boleta->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+			$Boleta->TdoId = $fila['TdoId'];
+			$Boleta->CliTelefono = $fila['CliTelefono'];
+			$Boleta->CliEmail = $fila['CliTelefono'];
+			$Boleta->CliCelular = $fila['CliCelular'];
+			$Boleta->CliFax = $fila['CliFax'];
+
+			$Boleta->MonNombre = $fila['MonNombre'];
+			$Boleta->MonSimbolo = $fila['MonSimbolo'];
+			$Boleta->MonSigla = $fila['MonSigla'];
+
+
+			$Boleta->FinId = $fila['FinId'];
+			$Boleta->CprId = $fila['CprId'];
+
+
+			$Boleta->BolMontoAmortizado = $fila['BolMontoAmortizado'];
+			$Boleta->BolMontoPendiente = $fila['BolMontoPendiente'];
+			//$Boleta->BolCancelado = $fila['NBolCancelado'];
+
+			$Boleta->VdiId = $fila['VdiId'];
+			$Boleta->VdiOrdenCompraNumero = $fila['VdiOrdenCompraNumero'];
+			$Boleta->VdiArchivo = $fila['VdiArchivo'];
+
+			$Boleta->AmoTipo = $fila['AmoTipo'];
+			$Boleta->AmoSubTipo = $fila['AmoSubTipo'];
+
+			$Boleta->TdoNombre = $fila['TdoNombre'];
+			$Boleta->TdoCodigo = $fila['TdoCodigo'];
+
+			$Boleta->SucNombre = $fila['SucNombre'];
+			$Boleta->SucSiglas = $fila['SucSiglas'];
+
+
+
+			switch ($Boleta->BolEstado) {
+				case 1:
+					$Boleta->BolEstadoDescripcion = "Pendiente";
 					break;
-										
-					case 5:
-						$Boleta->BolEstadoDescripcion = "Entregado";
+
+				case 5:
+					$Boleta->BolEstadoDescripcion = "Entregado";
 					break;
-					
-					case 6:
-						$Boleta->BolEstadoDescripcion = "Anulado";
-				
+
+				case 6:
+					$Boleta->BolEstadoDescripcion = "Anulado";
+
 					break;
-					
-					case 7:
-						$Boleta->BolEstadoDescripcion = "Reservado";
+
+				case 7:
+					$Boleta->BolEstadoDescripcion = "Reservado";
 					break;
-					
-					
-				}
-				
-				
-								switch($Boleta->BolEstado){
-					case 1:
-						$Boleta->BolEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
+			}
+
+
+			switch ($Boleta->BolEstado) {
+				case 1:
+					$Boleta->BolEstadoIcono = '<img src="imagenes/pendiente.gif" alt="[Pendiente]" title="Pendiente" border="0" width="15" height="15"  />';
 					break;
-										
-					case 5:
-						$Boleta->BolEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
+
+				case 5:
+					$Boleta->BolEstadoIcono = '<img src="imagenes/entregado.jpg" alt="[Entregado]" title="Entregado" border="0" width="15" height="15"  />';
 					break;
-					
-					case 6:
-						$Boleta->BolEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
-				
+
+				case 6:
+					$Boleta->BolEstadoIcono = '<img src="imagenes/anulado.png" alt="[Anulado]" title="Anulado" border="0" width="15" height="15"  />';
+
 					break;
-					
-					case 7:
-						$Boleta->BolEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
+
+				case 7:
+					$Boleta->BolEstadoIcono = '<img src="imagenes/reservado.png" alt="[Reservado]" title="Reservado" border="0" width="15" height="15"  />';
 					break;
-					
-				}
-				
-				
-					$Boleta->InsMysql = NULL;     
-					               
-					$Respuesta['Datos'][]= $Boleta;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+			}
+
+
+			$Boleta->InsMysql = NULL;
+
+			$Respuesta['Datos'][] = $Boleta;
 		}
-		
-		 public function MtdObtenerNotaCreditos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'NcrId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oSucursal=NULL,$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oMoneda=NULL,$oDocumentoId=NULL,$oDocumentoTalonarioId=NULL,$oSucursal=NULL,$oClienteId=NULL,$oNoProcesdado=false) {
-	
-		if(!empty($oCampo) and !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$elementos = explode(",",$oCampo);
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
+
+	public function MtdObtenerNotaCreditos(
+		$oCampo = NULL,
+		$oCondicion = NULL,
+		$oFiltro = NULL,
+		$oOrden = 'NcrId',
+		$oSentido = 'Desc',
+		$oEliminado = 1,
+		$oPaginacion = '0,10',
+		$oSucursal = NULL,
+		$oEstado = NULL,
+		$oFechaInicio = NULL,
+		$oFechaFin = NULL,
+		$oTalonario = NULL,
+		$oMoneda = NULL,
+		$oDocumentoId = NULL,
+		$oDocumentoTalonarioId = NULL,
+		$oSucursal2 = NULL,
+		$oClienteId = NULL,
+		$oNoProcesdado = false
+	) {
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
+				}
 				$i++;
-		
-				}
-				
-				$filtrar .= '  ) ';
-
-
-		}
-		
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
-		}
-
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-			
-		if(!empty($oEstado)){
-
-			$elementos = explode(",",$oEstado);
-
-				$i=1;
-				$estado .= ' AND (';
-				$elementos = array_filter($elementos);
-				foreach($elementos as $elemento){
-						$estado .= '  (ncr.NcrEstado = "'.($elemento).'")';	
-						if($i<>count($elementos)){						
-							$estado .= ' OR ';	
-						}
-				$i++;		
-				}
-				
-				$estado .= ' ) ';
-
-		}
-		
-
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(ncr.NcrFechaEmision)>="'.$oFechaInicio.'" AND DATE(ncr.NcrFechaEmision)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(ncr.NcrFechaEmision)>="'.$oFechaInicio.'"';
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(ncr.NcrFechaEmision)<="'.$oFechaFin.'"';		
-			}			
+
+			$filtrar .= '  ) ';
 		}
-				
-		if(!empty($oTalonario)){
-			$talonario = ' AND ncr.NctId = "'.$oTalonario.'"';
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
 		}
-		
-		if(!empty($oMoneda)){
-			$moneda = ' AND ncr.MonId = "'.$oMoneda.'"';
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
 		}
-		
-		
-		if(!empty($oDocumentoId)){
-			$did = ' AND (ncr.FacId = "'.$oDocumentoId.'" OR ncr.BolId = "'.$oDocumentoId.'")';
+
+
+		if (!empty($oEstado)) {
+
+			$elementos = explode(",", $oEstado);
+
+			$i = 1;
+			$estado .= ' AND (';
+			$elementos = array_filter($elementos);
+			foreach ($elementos as $elemento) {
+				$estado .= '  (ncr.NcrEstado = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$estado .= ' OR ';
+				}
+				$i++;
+			}
+
+			$estado .= ' ) ';
 		}
-		
-		if(!empty($oDocumentoTalonarioId)){
-			$dtalonario = ' AND (ncr.FtaId = "'.$oDocumentoTalonarioId.'" OR ncr.BtaId = "'.$oDocumentoTalonarioId.'")';
+
+
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(ncr.NcrFechaEmision)>="' . $oFechaInicio . '" AND DATE(ncr.NcrFechaEmision)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(ncr.NcrFechaEmision)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(ncr.NcrFechaEmision)<="' . $oFechaFin . '"';
+			}
 		}
-		
-			if(!empty($oMoneda)){
-			$moneda = ' AND (ncr.MonId = "'.$oMoneda.'")';
+
+		if (!empty($oTalonario)) {
+			$talonario = ' AND ncr.NctId = "' . $oTalonario . '"';
 		}
-		
-			
-			if(!empty($oSucursal)){
-			$sucursal = ' AND (ncr.SucId = "'.$oSucursal.'")';
+
+		if (!empty($oMoneda)) {
+			$moneda = ' AND ncr.MonId = "' . $oMoneda . '"';
 		}
-		
-		if(!empty($oClienteId)){
-			$cliente = ' AND (ncr.CliId = "'.$oClienteId.'")';
+
+
+		if (!empty($oDocumentoId)) {
+			$did = ' AND (ncr.FacId = "' . $oDocumentoId . '" OR ncr.BolId = "' . $oDocumentoId . '")';
 		}
-		
-		if(($oNoProcesdado)){
+
+		if (!empty($oDocumentoTalonarioId)) {
+			$dtalonario = ' AND (ncr.FtaId = "' . $oDocumentoTalonarioId . '" OR ncr.BtaId = "' . $oDocumentoTalonarioId . '")';
+		}
+
+		if (!empty($oMoneda)) {
+			$moneda = ' AND (ncr.MonId = "' . $oMoneda . '")';
+		}
+
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND (ncr.SucId = "' . $oSucursal . '")';
+		}
+
+		if (!empty($oClienteId)) {
+			$cliente = ' AND (ncr.CliId = "' . $oClienteId . '")';
+		}
+
+		if (($oNoProcesdado)) {
 
 			$noprocesado = ' AND	(ncr.NcrSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 
 				OR ncr.NcrSunatRespuestaEnvioContenido IS NULL 
@@ -7069,11 +7001,11 @@ bol.BolObservacionCaja,
 				
 				) ';
 		}
-		
-		
-		
-		
-			$sql = 'SELECT
+
+
+
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				ncr.NcrId,
 				ncr.NctId,
@@ -7277,385 +7209,401 @@ ncr.NcrDatoAdicional28,
 					LEFT JOIN tblfaxfacturaexportar fax
 					ON fax.NcrId = ncr.NcrId AND fax.NctId = ncr.NctId
 					
-				WHERE 1 = 1 '.$filtrar.$sucursal.$estado.$did.$dtalonario.$noprocesado.$cliente.$fecha.$moneda.$talonario.$credito.$regimen.$npago.$orden.$paginacion;
-				/*LEFT JOIN tblclicliente cli
+				WHERE 1 = 1 ' . $filtrar . $sucursal . $estado . $did . $dtalonario . $noprocesado . $cliente . $fecha . $moneda . $talonario . $credito . $regimen . $npago . $orden . $paginacion;
+		/*LEFT JOIN tblclicliente cli
 				  ON (ncr.CliId = cli.CliId OR bol.CliId = cli.CliId)*/
-					
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
-
-			$Respuesta['Datos'] = array();
-			
-            $InsNotaCredito = get_class($this);
-	
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
-
-					$NotaCredito = new $InsNotaCredito();
-                    $NotaCredito->NcrId = $fila['NcrId'];
-					$NotaCredito->NctId = $fila['NctId'];
-					$NotaCredito->SucId = $fila['SucId'];
-					
-					$NotaCredito->OvvId = $fila['OvvId'];
-					$NotaCredito->VdiId = $fila['VdiId'];
-					
-					$NotaCredito->AmoId = $fila['AmoId'];
-					$NotaCredito->VmvId = $fila['VmvId'];
-					
-					$NotaCredito->CliId= $fila['CliId'];
-					$NotaCredito->NcrDireccion = $fila['NcrDireccion'];	
-					$NotaCredito->NcrFechaEmision = $fila['NNcrFechaEmision'];
-					$NotaCredito->NcrHoraEmision = $fila['NcrHoraEmision'];	
-					$NotaCredito->NcrDiaTranscurrido = $fila['NcrDiaTranscurrido'];
-					
-					$NotaCredito->DocId= $fila['DocId'];
-					$NotaCredito->DtaId= $fila['DtaId'];
-					$NotaCredito->DtaNumero= $fila['DtaNumero'];
-					$NotaCredito->DocFechaEmision= $fila['DocFechaEmision'];
-					$NotaCredito->DocTipoDocumentoCodigo= $fila['DocTipoDocumentoCodigo'];
 
 
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$NotaCredito->NcrIncluyeImpuesto = $fila['NcrIncluyeImpuesto'];
-					$NotaCredito->NcrPorcentajeImpuestoVenta = $fila['NcrPorcentajeImpuestoVenta'];
-					$NotaCredito->NcrPorcentajeImpuestoSelectivo = $fila['NcrPorcentajeImpuestoSelectivo'];
-							
-					$NotaCredito->MonId = $fila['MonId'];
-					$NotaCredito->NcrTipoCambio = $fila['NcrTipoCambio'];
-					$NotaCredito->NcrTipoCambioAux = $fila['NcrTipoCambioAux'];
+		$Respuesta['Datos'] = array();
 
-					$NotaCredito->NcrTipo = $fila['NcrTipo'];
-										
-					$NotaCredito->NcrDatoAdicional1 = $fila['NcrDatoAdicional1'];
-					$NotaCredito->NcrDatoAdicional2 = $fila['NcrDatoAdicional2'];
-					$NotaCredito->NcrDatoAdicional3 = $fila['NcrDatoAdicional3'];
-					$NotaCredito->NcrDatoAdicional4 = $fila['NcrDatoAdicional4'];
-					$NotaCredito->NcrDatoAdicional5 = $fila['NcrDatoAdicional5'];
-					$NotaCredito->NcrDatoAdicional6 = $fila['NcrDatoAdicional6'];
-					$NotaCredito->NcrDatoAdicional7 = $fila['NcrDatoAdicional7'];
-					$NotaCredito->NcrDatoAdicional8 = $fila['NcrDatoAdicional8'];
-					$NotaCredito->NcrDatoAdicional9 = $fila['NcrDatoAdicional9'];
-					$NotaCredito->NcrDatoAdicional10 = $fila['NcrDatoAdicional10'];
-					
-					$NotaCredito->NcrDatoAdicional11 = $fila['NcrDatoAdicional11'];
-					$NotaCredito->NcrDatoAdicional12 = $fila['NcrDatoAdicional12'];
-					$NotaCredito->NcrDatoAdicional13 = $fila['NcrDatoAdicional13'];
-					$NotaCredito->NcrDatoAdicional14 = $fila['NcrDatoAdicional14'];
-					$NotaCredito->NcrDatoAdicional15 = $fila['NcrDatoAdicional15'];
-					$NotaCredito->NcrDatoAdicional16 = $fila['NcrDatoAdicional16'];
-					$NotaCredito->NcrDatoAdicional17 = $fila['NcrDatoAdicional17'];
-					$NotaCredito->NcrDatoAdicional18 = $fila['NcrDatoAdicional18'];
-					$NotaCredito->NcrDatoAdicional19 = $fila['NcrDatoAdicional19'];
-					$NotaCredito->NcrDatoAdicional20 = $fila['NcrDatoAdicional20'];
-					
-					$NotaCredito->NcrDatoAdicional21 = $fila['NcrDatoAdicional21'];
-					$NotaCredito->NcrDatoAdicional22 = $fila['NcrDatoAdicional22'];
-					$NotaCredito->NcrDatoAdicional23 = $fila['NcrDatoAdicional23'];
-					$NotaCredito->NcrDatoAdicional24 = $fila['NcrDatoAdicional24'];
-					$NotaCredito->NcrDatoAdicional25 = $fila['NcrDatoAdicional25'];
-					$NotaCredito->NcrDatoAdicional26 = $fila['NcrDatoAdicional26'];
-					
-					
-					$NotaCredito->NcrDatoAdicional27 = $fila['NcrDatoAdicional27'];
-					$NotaCredito->NcrDatoAdicional28 = $fila['NcrDatoAdicional28'];
-					
-					$NotaCredito->NcrEstado = $fila['NcrEstado'];
+		$InsNotaCredito = get_class($this);
 
-					$NotaCredito->NcrTotalImpuestoSelectivo = $fila['NcrTotalImpuestoSelectivo']; 
-					$NotaCredito->NcrTotalGravado = $fila['NcrTotalGravado']; 
-					$NotaCredito->NcrTotalDescuento = $fila['NcrTotalDescuento']; 
-					$NotaCredito->NcrTotalGratuito = $fila['NcrTotalGratuito']; 
-					$NotaCredito->NcrTotalExonerado = $fila['NcrTotalExonerado']; 
-					$NotaCredito->NcrTotalPagar = $fila['NcrTotalPagar'];
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-					$NotaCredito->NcrSubTotal = $fila['NcrSubTotal']; 
-					$NotaCredito->NcrDescuento = $fila['NcrDescuento']; 
-					$NotaCredito->NcrImpuesto = $fila['NcrImpuesto']; 
-					$NotaCredito->NcrTotal = $fila['NcrTotal']; 
+			$NotaCredito = new $InsNotaCredito();
+			$NotaCredito->NcrId = $fila['NcrId'];
+			$NotaCredito->NctId = $fila['NctId'];
+			$NotaCredito->SucId = $fila['SucId'];
 
-					list($NotaCredito->NcrObservacion,$NotaCredito->NcrObservacionImpresa) = explode("###",$fila['NcrObservacion']);								
-					$NotaCredito->NcrMotivo = $fila['NcrMotivo'];
-					$NotaCredito->NcrMotivoCodigo = $fila['NcrMotivoCodigo'];
-					
-					$NotaCredito->NcrSunatRespuestaTicket = $fila['NcrSunatRespuestaTicket'];
-					$NotaCredito->NcrSunatRespuestaTicketEstado = $fila['NcrSunatRespuestaTicketEstado'];
-					$NotaCredito->NcrSunatRespuestaObservacion = $fila['NcrSunatRespuestaObservacion'];
+			$NotaCredito->OvvId = $fila['OvvId'];
+			$NotaCredito->VdiId = $fila['VdiId'];
 
-					$NotaCredito->NcrSunatRespuestaEnvioTicket = $fila['NcrSunatRespuestaEnvioTicket'];
-					$NotaCredito->NcrSunatRespuestaEnvioTicketEstado = $fila['NcrSunatRespuestaEnvioTicketEstado'];
-					$NotaCredito->NcrSunatRespuestaEnvioFecha = $fila['NNcrSunatRespuestaEnvioFecha'];
-					$NotaCredito->NcrSunatRespuestaEnvioHora = $fila['NcrSunatRespuestaEnvioHora'];
-					$NotaCredito->NcrSunatRespuestaEnvioCodigo = $fila['NcrSunatRespuestaEnvioCodigo'];
-					$NotaCredito->NcrSunatRespuestaEnvioContenido = $fila['NcrSunatRespuestaEnvioContenido'];
-					
-					$NotaCredito->NcrSunatRespuestaBajaTicket = $fila['NcrSunatRespuestaBajaTicket']; 	
-					$NotaCredito->NcrSunatRespuestaBajaTicketEstado = $fila['NcrSunatRespuestaBajaTicketEstado'];
-					$NotaCredito->NcrSunatRespuestaBajaFecha = $fila['NNcrSunatRespuestaBajaFecha'];
-					$NotaCredito->NcrSunatRespuestaBajaHora = $fila['NcrSunatRespuestaBajaHora']; 	
-					$NotaCredito->NcrSunatRespuestaBajaCodigo = $fila['NcrSunatRespuestaBajaCodigo']; 	
-					$NotaCredito->NcrSunatRespuestaBajaContenido = $fila['NcrSunatRespuestaBajaContenido']; 	
-					$NotaCredito->NcrSunatRespuestaBajaId = $fila['NcrSunatRespuestaBajaId']; 	
-					
-					$NotaCredito->NcrSunatRespuestaConsultaCodigo = $fila['NcrSunatRespuestaConsultaCodigo']; 	
-					$NotaCredito->NcrSunatRespuestaConsultaContenido = $fila['NcrSunatRespuestaConsultaContenido']; 	
-					$NotaCredito->NcrSunatRespuestaConsultaFecha = $fila['NNcrSunatRespuestaConsultaFecha']; 	
-					$NotaCredito->NcrSunatRespuestaConsultaHora = $fila['NcrSunatRespuestaConsultaHora']; 	
-					
-					$NotaCredito->NcrSunatRespuestaEnvioTiempoCreacion = $fila['NNcrSunatRespuestaEnvioTiempoCreacion']; 	
-					$NotaCredito->NcrSunatRespuestaConsultaTiempoCreacion = $fila['NNcrSunatRespuestaConsultaTiempoCreacion']; 	
-					$NotaCredito->NcrSunatRespuestaBajaTiempoCreacion = $fila['NNcrSunatRespuestaBajaTiempoCreacion']; 	
-					
-					$NotaCredito->NcrSunatUltimaAccion = $fila['NcrSunatUltimaAccion']; 	
-					$NotaCredito->NcrSunatUltimaRespuesta = $fila['NcrSunatUltimaRespuesta']; 	
-															
-					$NotaCredito->NcrCierre = $fila['NcrCierre'];					
-                   	$NotaCredito->NcrTiempoCreacion = $fila['NNcrTiempoCreacion'];
-                    $NotaCredito->NcrTiempoModificacion = $fila['NNcrTiempoModificacion'];
-					
-					$NotaCredito->NcrTotalItems = $fila['NcrTotalItems'];
-					
-					$NotaCredito->NctNumero = $fila['NctNumero'];
-					
-					if($NotaCredito->NcrEstado == 6){
+			$NotaCredito->AmoId = $fila['AmoId'];
+			$NotaCredito->VmvId = $fila['VmvId'];
 
-						$NotaCredito->CliNombreCompleto = "ANULADO";
-						$NotaCredito->CliNombre = "ANULADO";
-						$NotaCredito->CliApellidoPaterno = "";
-						$NotaCredito->CliApellidoMaterno = "";
+			$NotaCredito->CliId = $fila['CliId'];
+			$NotaCredito->NcrDireccion = $fila['NcrDireccion'];
+			$NotaCredito->NcrFechaEmision = $fila['NNcrFechaEmision'];
+			$NotaCredito->NcrHoraEmision = $fila['NcrHoraEmision'];
+			$NotaCredito->NcrDiaTranscurrido = $fila['NcrDiaTranscurrido'];
 
-					}else{
-					
-						$NotaCredito->CliNombreCompleto = $fila['CliNombreCompleto'];
-						$NotaCredito->CliNombre = $fila['CliNombre'];
-						$NotaCredito->CliApellidoPaterno = $fila['CliApellidoPaterno'];
-						$NotaCredito->CliApellidoMaterno = $fila['CliApellidoMaterno'];
-							
-					}
-					
-					
-					$NotaCredito->TdoId = $fila['TdoId'];
-					$NotaCredito->CliNumeroDocumento = $fila['CliNumeroDocumento'];					
-					$NotaCredito->CliTelefono = $fila['CliTelefono'];
-					$NotaCredito->CliEmail = $fila['CliEmail'];
-					$NotaCredito->CliCelular = $fila['CliCelular'];
-					$NotaCredito->CliFax = $fila['CliFax'];
-					
-					
-					$NotaCredito->MonSigla = $fila['MonSigla'];
-					$NotaCredito->MonNombre = $fila['MonNombre'];
-					$NotaCredito->MonSimbolo = $fila['MonSimbolo'];
-	
-	$NotaCredito->TdoNombre = $fila['TdoNombre'];
-	$NotaCredito->TdoCodigo = $fila['TdoCodigo'];
-	
-	$NotaCredito->SucNombre = $fila['SucNombre'];
-	$NotaCredito->SucSiglas = $fila['SucSiglas'];
-	
-	
-	
-				switch($NotaCredito->NcrEstado){
-					case 1:
-						$NotaCredito->NcrEstadoDescripcion = "Pendiente";
+			$NotaCredito->DocId = $fila['DocId'];
+			$NotaCredito->DtaId = $fila['DtaId'];
+			$NotaCredito->DtaNumero = $fila['DtaNumero'];
+			$NotaCredito->DocFechaEmision = $fila['DocFechaEmision'];
+			$NotaCredito->DocTipoDocumentoCodigo = $fila['DocTipoDocumentoCodigo'];
+
+
+
+			$NotaCredito->NcrIncluyeImpuesto = $fila['NcrIncluyeImpuesto'];
+			$NotaCredito->NcrPorcentajeImpuestoVenta = $fila['NcrPorcentajeImpuestoVenta'];
+			$NotaCredito->NcrPorcentajeImpuestoSelectivo = $fila['NcrPorcentajeImpuestoSelectivo'];
+
+			$NotaCredito->MonId = $fila['MonId'];
+			$NotaCredito->NcrTipoCambio = $fila['NcrTipoCambio'];
+			$NotaCredito->NcrTipoCambioAux = $fila['NcrTipoCambioAux'];
+
+			$NotaCredito->NcrTipo = $fila['NcrTipo'];
+
+			$NotaCredito->NcrDatoAdicional1 = $fila['NcrDatoAdicional1'];
+			$NotaCredito->NcrDatoAdicional2 = $fila['NcrDatoAdicional2'];
+			$NotaCredito->NcrDatoAdicional3 = $fila['NcrDatoAdicional3'];
+			$NotaCredito->NcrDatoAdicional4 = $fila['NcrDatoAdicional4'];
+			$NotaCredito->NcrDatoAdicional5 = $fila['NcrDatoAdicional5'];
+			$NotaCredito->NcrDatoAdicional6 = $fila['NcrDatoAdicional6'];
+			$NotaCredito->NcrDatoAdicional7 = $fila['NcrDatoAdicional7'];
+			$NotaCredito->NcrDatoAdicional8 = $fila['NcrDatoAdicional8'];
+			$NotaCredito->NcrDatoAdicional9 = $fila['NcrDatoAdicional9'];
+			$NotaCredito->NcrDatoAdicional10 = $fila['NcrDatoAdicional10'];
+
+			$NotaCredito->NcrDatoAdicional11 = $fila['NcrDatoAdicional11'];
+			$NotaCredito->NcrDatoAdicional12 = $fila['NcrDatoAdicional12'];
+			$NotaCredito->NcrDatoAdicional13 = $fila['NcrDatoAdicional13'];
+			$NotaCredito->NcrDatoAdicional14 = $fila['NcrDatoAdicional14'];
+			$NotaCredito->NcrDatoAdicional15 = $fila['NcrDatoAdicional15'];
+			$NotaCredito->NcrDatoAdicional16 = $fila['NcrDatoAdicional16'];
+			$NotaCredito->NcrDatoAdicional17 = $fila['NcrDatoAdicional17'];
+			$NotaCredito->NcrDatoAdicional18 = $fila['NcrDatoAdicional18'];
+			$NotaCredito->NcrDatoAdicional19 = $fila['NcrDatoAdicional19'];
+			$NotaCredito->NcrDatoAdicional20 = $fila['NcrDatoAdicional20'];
+
+			$NotaCredito->NcrDatoAdicional21 = $fila['NcrDatoAdicional21'];
+			$NotaCredito->NcrDatoAdicional22 = $fila['NcrDatoAdicional22'];
+			$NotaCredito->NcrDatoAdicional23 = $fila['NcrDatoAdicional23'];
+			$NotaCredito->NcrDatoAdicional24 = $fila['NcrDatoAdicional24'];
+			$NotaCredito->NcrDatoAdicional25 = $fila['NcrDatoAdicional25'];
+			$NotaCredito->NcrDatoAdicional26 = $fila['NcrDatoAdicional26'];
+
+
+			$NotaCredito->NcrDatoAdicional27 = $fila['NcrDatoAdicional27'];
+			$NotaCredito->NcrDatoAdicional28 = $fila['NcrDatoAdicional28'];
+
+			$NotaCredito->NcrEstado = $fila['NcrEstado'];
+
+			$NotaCredito->NcrTotalImpuestoSelectivo = $fila['NcrTotalImpuestoSelectivo'];
+			$NotaCredito->NcrTotalGravado = $fila['NcrTotalGravado'];
+			$NotaCredito->NcrTotalDescuento = $fila['NcrTotalDescuento'];
+			$NotaCredito->NcrTotalGratuito = $fila['NcrTotalGratuito'];
+			$NotaCredito->NcrTotalExonerado = $fila['NcrTotalExonerado'];
+			$NotaCredito->NcrTotalPagar = $fila['NcrTotalPagar'];
+
+			$NotaCredito->NcrSubTotal = $fila['NcrSubTotal'];
+			$NotaCredito->NcrDescuento = $fila['NcrDescuento'];
+			$NotaCredito->NcrImpuesto = $fila['NcrImpuesto'];
+			$NotaCredito->NcrTotal = $fila['NcrTotal'];
+
+			list($NotaCredito->NcrObservacion, $NotaCredito->NcrObservacionImpresa) = explode("###", $fila['NcrObservacion']);
+			$NotaCredito->NcrMotivo = $fila['NcrMotivo'];
+			$NotaCredito->NcrMotivoCodigo = $fila['NcrMotivoCodigo'];
+
+			$NotaCredito->NcrSunatRespuestaTicket = $fila['NcrSunatRespuestaTicket'];
+			$NotaCredito->NcrSunatRespuestaTicketEstado = $fila['NcrSunatRespuestaTicketEstado'];
+			$NotaCredito->NcrSunatRespuestaObservacion = $fila['NcrSunatRespuestaObservacion'];
+
+			$NotaCredito->NcrSunatRespuestaEnvioTicket = $fila['NcrSunatRespuestaEnvioTicket'];
+			$NotaCredito->NcrSunatRespuestaEnvioTicketEstado = $fila['NcrSunatRespuestaEnvioTicketEstado'];
+			$NotaCredito->NcrSunatRespuestaEnvioFecha = $fila['NNcrSunatRespuestaEnvioFecha'];
+			$NotaCredito->NcrSunatRespuestaEnvioHora = $fila['NcrSunatRespuestaEnvioHora'];
+			$NotaCredito->NcrSunatRespuestaEnvioCodigo = $fila['NcrSunatRespuestaEnvioCodigo'];
+			$NotaCredito->NcrSunatRespuestaEnvioContenido = $fila['NcrSunatRespuestaEnvioContenido'];
+
+			$NotaCredito->NcrSunatRespuestaBajaTicket = $fila['NcrSunatRespuestaBajaTicket'];
+			$NotaCredito->NcrSunatRespuestaBajaTicketEstado = $fila['NcrSunatRespuestaBajaTicketEstado'];
+			$NotaCredito->NcrSunatRespuestaBajaFecha = $fila['NNcrSunatRespuestaBajaFecha'];
+			$NotaCredito->NcrSunatRespuestaBajaHora = $fila['NcrSunatRespuestaBajaHora'];
+			$NotaCredito->NcrSunatRespuestaBajaCodigo = $fila['NcrSunatRespuestaBajaCodigo'];
+			$NotaCredito->NcrSunatRespuestaBajaContenido = $fila['NcrSunatRespuestaBajaContenido'];
+			$NotaCredito->NcrSunatRespuestaBajaId = $fila['NcrSunatRespuestaBajaId'];
+
+			$NotaCredito->NcrSunatRespuestaConsultaCodigo = $fila['NcrSunatRespuestaConsultaCodigo'];
+			$NotaCredito->NcrSunatRespuestaConsultaContenido = $fila['NcrSunatRespuestaConsultaContenido'];
+			$NotaCredito->NcrSunatRespuestaConsultaFecha = $fila['NNcrSunatRespuestaConsultaFecha'];
+			$NotaCredito->NcrSunatRespuestaConsultaHora = $fila['NcrSunatRespuestaConsultaHora'];
+
+			$NotaCredito->NcrSunatRespuestaEnvioTiempoCreacion = $fila['NNcrSunatRespuestaEnvioTiempoCreacion'];
+			$NotaCredito->NcrSunatRespuestaConsultaTiempoCreacion = $fila['NNcrSunatRespuestaConsultaTiempoCreacion'];
+			$NotaCredito->NcrSunatRespuestaBajaTiempoCreacion = $fila['NNcrSunatRespuestaBajaTiempoCreacion'];
+
+			$NotaCredito->NcrSunatUltimaAccion = $fila['NcrSunatUltimaAccion'];
+			$NotaCredito->NcrSunatUltimaRespuesta = $fila['NcrSunatUltimaRespuesta'];
+
+			$NotaCredito->NcrCierre = $fila['NcrCierre'];
+			$NotaCredito->NcrTiempoCreacion = $fila['NNcrTiempoCreacion'];
+			$NotaCredito->NcrTiempoModificacion = $fila['NNcrTiempoModificacion'];
+
+			$NotaCredito->NcrTotalItems = $fila['NcrTotalItems'];
+
+			$NotaCredito->NctNumero = $fila['NctNumero'];
+
+			if ($NotaCredito->NcrEstado == 6) {
+
+				$NotaCredito->CliNombreCompleto = "ANULADO";
+				$NotaCredito->CliNombre = "ANULADO";
+				$NotaCredito->CliApellidoPaterno = "";
+				$NotaCredito->CliApellidoMaterno = "";
+			} else {
+
+				$NotaCredito->CliNombreCompleto = $fila['CliNombreCompleto'];
+				$NotaCredito->CliNombre = $fila['CliNombre'];
+				$NotaCredito->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+				$NotaCredito->CliApellidoMaterno = $fila['CliApellidoMaterno'];
+			}
+
+
+			$NotaCredito->TdoId = $fila['TdoId'];
+			$NotaCredito->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+			$NotaCredito->CliTelefono = $fila['CliTelefono'];
+			$NotaCredito->CliEmail = $fila['CliEmail'];
+			$NotaCredito->CliCelular = $fila['CliCelular'];
+			$NotaCredito->CliFax = $fila['CliFax'];
+
+
+			$NotaCredito->MonSigla = $fila['MonSigla'];
+			$NotaCredito->MonNombre = $fila['MonNombre'];
+			$NotaCredito->MonSimbolo = $fila['MonSimbolo'];
+
+			$NotaCredito->TdoNombre = $fila['TdoNombre'];
+			$NotaCredito->TdoCodigo = $fila['TdoCodigo'];
+
+			$NotaCredito->SucNombre = $fila['SucNombre'];
+			$NotaCredito->SucSiglas = $fila['SucSiglas'];
+
+
+
+			switch ($NotaCredito->NcrEstado) {
+				case 1:
+					$NotaCredito->NcrEstadoDescripcion = "Pendiente";
 					break;
-										
-					case 5:
-						$NotaCredito->NcrEstadoDescripcion = "Entregado";
-					break;
-					
-					case 6:
-						$NotaCredito->NcrEstadoDescripcion = "Anulado";
-				
-					break;
-					
-					case 7:
-						$NotaCredito->NcrEstadoDescripcion = "Reservado";
-					break;
-					
-					
-				}
-				
 
-				
-					$NotaCredito->InsMysql = NULL;     
-					               
-					$Respuesta['Datos'][]= $NotaCredito;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+				case 5:
+					$NotaCredito->NcrEstadoDescripcion = "Entregado";
+					break;
+
+				case 6:
+					$NotaCredito->NcrEstadoDescripcion = "Anulado";
+
+					break;
+
+				case 7:
+					$NotaCredito->NcrEstadoDescripcion = "Reservado";
+					break;
+			}
+
+
+
+			$NotaCredito->InsMysql = NULL;
+
+			$Respuesta['Datos'][] = $NotaCredito;
 		}
-		
-		
-    public function MtdObtenerNotaDebitos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'NdbId',$oSentido = 'Desc',$oEliminado=1,$oPaginacion = '0,10',$oSucursal=NULL,$oEstado=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oTalonario=NULL,$oMoneda=NULL,$oDocumentoId=NULL,$oDocumentoTalonarioId=NULL,$oSucursal=NULL) {
-	
-		if(!empty($oCampo) and !empty($oFiltro)){
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			$elementos = explode(",",$oCampo);
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
+
+
+	public function MtdObtenerNotaDebitos(
+		$oCampo = NULL,
+		$oCondicion = NULL,
+		$oFiltro = NULL,
+		$oOrden = 'NdbId',
+		$oSentido = 'Desc',
+		$oEliminado = 1,
+		$oPaginacion = '0,10',
+		$oSucursal = NULL,
+		$oEstado = NULL,
+		$oFechaInicio = NULL,
+		$oFechaFin = NULL,
+		$oTalonario = NULL,
+		$oMoneda = NULL,
+		$oDocumentoId = NULL,
+		$oDocumentoTalonarioId = NULL,
+		$oSucursal2 = NULL,
+		$oNoProcesdado = false
+	) {
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
+				}
 				$i++;
-		
-				}
-				
-				$filtrar .= '  ) ';
-
-
-		}
-		
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
-		}
-
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-			
-		if(!empty($oEstado)){
-
-			$elementos = explode(",",$oEstado);
-
-				$i=1;
-				$estado .= ' AND (';
-				$elementos = array_filter($elementos);
-				foreach($elementos as $elemento){
-						$estado .= '  (ndb.NdbEstado = "'.($elemento).'")';	
-						if($i<>count($elementos)){						
-							$estado .= ' OR ';	
-						}
-				$i++;		
-				}
-				
-				$estado .= ' ) ';
-
-		}
-		
-
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(ndb.NdbFechaEmision)>="'.$oFechaInicio.'" AND DATE(ndb.NdbFechaEmision)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(ndb.NdbFechaEmision)>="'.$oFechaInicio.'"';
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(ndb.NdbFechaEmision)<="'.$oFechaFin.'"';		
-			}			
+
+			$filtrar .= '  ) ';
 		}
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
+		}
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
+
+
+		if (!empty($oEstado)) {
+
+			$elementos = explode(",", $oEstado);
+
+			$i = 1;
+			$estado .= ' AND (';
+			$elementos = array_filter($elementos);
+			foreach ($elementos as $elemento) {
+				$estado .= '  (ndb.NdbEstado = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$estado .= ' OR ';
+				}
+				$i++;
+			}
+
+			$estado .= ' ) ';
+		}
+
+
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(ndb.NdbFechaEmision)>="' . $oFechaInicio . '" AND DATE(ndb.NdbFechaEmision)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(ndb.NdbFechaEmision)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(ndb.NdbFechaEmision)<="' . $oFechaFin . '"';
+			}
+		}
+
+		if (!empty($oTalonario)) {
+			$talonario = ' AND ndb.NdtId = "' . $oTalonario . '"';
+		}
+
+		if (!empty($oMoneda)) {
+			$moneda = ' AND ndb.MonId = "' . $oMoneda . '"';
+		}
+
+
+		if (!empty($oDocumentoId)) {
+			$did = ' AND (ndb.FacId = "' . $oDocumentoId . '" OR ndb.BolId = "' . $oDocumentoId . '")';
+		}
+
+		if (!empty($oDocumentoTalonarioId)) {
+			$dtalonario = ' AND (ndb.FtaId = "' . $oDocumentoTalonarioId . '" OR ndb.BtaId = "' . $oDocumentoTalonarioId . '")';
+		}
+
+
+		if (!empty($oMoneda)) {
+			$moneda = ' AND (ndb.MonId = "' . $oMoneda . '")';
+		}
+
+
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND (ndb.SucId = "' . $oSucursal . '")';
+		}
+
+
+		if (($oNoProcesdado)) {
+
+			$noprocesado = ' AND	(ndb.NdbSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 
+				OR ndb.NdbSunatRespuestaEnvioContenido IS NULL 
+				OR ndb.NdbSunatRespuestaEnvioContenido  = ""
 				
-		if(!empty($oTalonario)){
-			$talonario = ' AND ndb.NdtId = "'.$oTalonario.'"';
+				) ';
 		}
-		
-		if(!empty($oMoneda)){
-			$moneda = ' AND ndb.MonId = "'.$oMoneda.'"';
-		}
-		
-		
-		if(!empty($oDocumentoId)){
-			$did = ' AND (ndb.FacId = "'.$oDocumentoId.'" OR ndb.BolId = "'.$oDocumentoId.'")';
-		}
-		
-		if(!empty($oDocumentoTalonarioId)){
-			$dtalonario = ' AND (ndb.FtaId = "'.$oDocumentoTalonarioId.'" OR ndb.BtaId = "'.$oDocumentoTalonarioId.'")';
-		}
-		
-		
-		if(!empty($oMoneda)){
-			$moneda = ' AND (ndb.MonId = "'.$oMoneda.'")';
-		}
-		
-			
-		
-		if(!empty($oSucursal)){
-			$sucursal = ' AND (ndb.SucId = "'.$oSucursal.'")';
-		}
-		
-			$sql = 'SELECT
+
+
+		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
 				ndb.NdbId,
 				ndb.NdtId,
@@ -7843,165 +7791,164 @@ ndb.NdbDatoAdicional26,
 					LEFT JOIN tblfaxfacturaexportar fax
 					ON fax.NdbId = ndb.NdbId AND fax.NdtId = ndb.NdtId
 					
-				WHERE 1 = 1 '.$filtrar.$sucursal.$estado.$did.$dtalonario.$fecha.$moneda.$talonario.$credito.$regimen.$npago.$orden.$paginacion;
-				/*LEFT JOIN tblclicliente cli
+				WHERE 1 = 1 ' . $filtrar . $sucursal . $estado . $did . $dtalonario . $fecha . $moneda . $talonario . $noprocesado . $credito . $regimen . $npago . $orden . $paginacion;
+		/*LEFT JOIN tblclicliente cli
 				  ON (ndb.CliId = cli.CliId OR bol.CliId = cli.CliId)*/
-					
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
 
-			$Respuesta['Datos'] = array();
-			
-            $InsNotaDebito = get_class($this);
-	
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
 
-					$NotaDebito = new $InsNotaDebito();
-                    $NotaDebito->NdbId = $fila['NdbId'];
-					$NotaDebito->NdtId = $fila['NdtId'];
-					$NotaDebito->SucId = $fila['SucId'];
-					
-					$NotaDebito->CliId= $fila['CliId'];
-					$NotaDebito->NdbDireccion = $fila['NdbDireccion'];	
-					$NotaDebito->NdbFechaEmision = $fila['NNdbFechaEmision'];
-					$NotaDebito->NdbHoraEmision = $fila['NdbHoraEmision'];
-					
-					
-					$NotaDebito->DocId= $fila['DocId'];
-					$NotaDebito->DtaId= $fila['DtaId'];
-					$NotaDebito->DtaNumero= $fila['DtaNumero'];
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$NotaDebito->NdbIncluyeImpuesto = $fila['NdbIncluyeImpuesto'];
-					$NotaDebito->NdbPorcentajeImpuestoVenta = $fila['NdbPorcentajeImpuestoVenta'];
-					$NotaDebito->NdbPorcentajeImpuestoSelectivo = $fila['NdbPorcentajeImpuestoSelectivo'];
-							
-					$NotaDebito->MonId = $fila['MonId'];
-					$NotaDebito->NdbTipoCambio = $fila['NdbTipoCambio'];
-					$NotaDebito->NdbTipoCambioAux = $fila['NdbTipoCambioAux'];
+		$Respuesta['Datos'] = array();
 
-					$NotaDebito->NdbTipo = $fila['NdbTipo'];
-										
-					$NotaDebito->NdbDatoAdicional1 = $fila['NdbDatoAdicional1'];
-					$NotaDebito->NdbDatoAdicional2 = $fila['NdbDatoAdicional2'];
-					$NotaDebito->NdbDatoAdicional3 = $fila['NdbDatoAdicional3'];
-					$NotaDebito->NdbDatoAdicional4 = $fila['NdbDatoAdicional4'];
-					$NotaDebito->NdbDatoAdicional5 = $fila['NdbDatoAdicional5'];
-					$NotaDebito->NdbDatoAdicional6 = $fila['NdbDatoAdicional6'];
-					$NotaDebito->NdbDatoAdicional7 = $fila['NdbDatoAdicional7'];
-					$NotaDebito->NdbDatoAdicional8 = $fila['NdbDatoAdicional8'];
-					$NotaDebito->NdbDatoAdicional9 = $fila['NdbDatoAdicional9'];
-					$NotaDebito->NdbDatoAdicional10 = $fila['NdbDatoAdicional10'];
-					
-					$NotaDebito->NdbDatoAdicional11 = $fila['NdbDatoAdicional11'];
-					$NotaDebito->NdbDatoAdicional12 = $fila['NdbDatoAdicional12'];
-					$NotaDebito->NdbDatoAdicional13 = $fila['NdbDatoAdicional13'];
-					$NotaDebito->NdbDatoAdicional14 = $fila['NdbDatoAdicional14'];
-					$NotaDebito->NdbDatoAdicional15 = $fila['NdbDatoAdicional15'];
-					$NotaDebito->NdbDatoAdicional16 = $fila['NdbDatoAdicional16'];
-					$NotaDebito->NdbDatoAdicional17 = $fila['NdbDatoAdicional17'];
-					$NotaDebito->NdbDatoAdicional18 = $fila['NdbDatoAdicional18'];
-					$NotaDebito->NdbDatoAdicional19 = $fila['NdbDatoAdicional19'];
-					$NotaDebito->NdbDatoAdicional20 = $fila['NdbDatoAdicional20'];
-					
-					$NotaDebito->NdbDatoAdicional21 = $fila['NdbDatoAdicional21'];
-					$NotaDebito->NdbDatoAdicional22 = $fila['NdbDatoAdicional22'];
-					$NotaDebito->NdbDatoAdicional23 = $fila['NdbDatoAdicional23'];
-					$NotaDebito->NdbDatoAdicional24 = $fila['NdbDatoAdicional24'];
-					$NotaDebito->NdbDatoAdicional25 = $fila['NdbDatoAdicional25'];
-					$NotaDebito->NdbDatoAdicional26 = $fila['NdbDatoAdicional26'];
-					
-					$NotaDebito->NdbEstado = $fila['NdbEstado'];
+		$InsNotaDebito = get_class($this);
 
-					$NotaDebito->NdbTotalImpuestoSelectivo = $fila['NdbTotalImpuestoSelectivo']; 
-					$NotaDebito->NdbTotalGravado = $fila['NdbTotalGravado']; 
-					$NotaDebito->NdbTotalDescuento = $fila['NdbTotalDescuento']; 
-					$NotaDebito->NdbTotalGratuito = $fila['NdbTotalGratuito']; 
-					$NotaDebito->NdbTotalExonerado = $fila['NdbTotalExonerado']; 
-					$NotaDebito->NdbTotalPagar = $fila['NdbTotalPagar'];
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-					$NotaDebito->NdbSubTotal = $fila['NdbSubTotal']; 
-					$NotaDebito->NdbDescuento = $fila['NdbDescuento']; 
-					$NotaDebito->NdbImpuesto = $fila['NdbImpuesto']; 
-					$NotaDebito->NdbTotal = $fila['NdbTotal']; 
+			$NotaDebito = new $InsNotaDebito();
+			$NotaDebito->NdbId = $fila['NdbId'];
+			$NotaDebito->NdtId = $fila['NdtId'];
+			$NotaDebito->SucId = $fila['SucId'];
 
-					list($NotaDebito->NdbObservacion,$NotaDebito->NdbObservacionImpresa) = explode("###",$fila['NdbObservacion']);								
-					$NotaDebito->NdbMotivo = $fila['NdbMotivo'];
-					$NotaDebito->NdbMotivoCodigo = $fila['NdbMotivoCodigo'];
-					
-					$NotaDebito->NdbSunatRespuestaTicket = $fila['NdbSunatRespuestaTicket'];
-					$NotaDebito->NdbSunatRespuestaTicketEstado = $fila['NdbSunatRespuestaTicketEstado'];
-					$NotaDebito->NdbSunatRespuestaObservacion = $fila['NdbSunatRespuestaObservacion'];
+			$NotaDebito->CliId = $fila['CliId'];
+			$NotaDebito->NdbDireccion = $fila['NdbDireccion'];
+			$NotaDebito->NdbFechaEmision = $fila['NNdbFechaEmision'];
+			$NotaDebito->NdbHoraEmision = $fila['NdbHoraEmision'];
 
-					$NotaDebito->NdbSunatRespuestaEnvioTicket = $fila['NdbSunatRespuestaEnvioTicket'];
-					$NotaDebito->NdbSunatRespuestaEnvioTicketEstado = $fila['NdbSunatRespuestaEnvioTicketEstado'];
-					$NotaDebito->NdbSunatRespuestaEnvioFecha = $fila['NNdbSunatRespuestaEnvioFecha'];
-					$NotaDebito->NdbSunatRespuestaEnvioHora = $fila['NdbSunatRespuestaEnvioHora'];
-					$NotaDebito->NdbSunatRespuestaEnvioCodigo = $fila['NdbSunatRespuestaEnvioCodigo'];
-					$NotaDebito->NdbSunatRespuestaEnvioContenido = $fila['NdbSunatRespuestaEnvioContenido'];
-					
-					$NotaDebito->NdbSunatRespuestaBajaTicket = $fila['NdbSunatRespuestaBajaTicket']; 	
-					$NotaDebito->NdbSunatRespuestaBajaTicketEstado = $fila['NdbSunatRespuestaBajaTicketEstado'];
-					$NotaDebito->NdbSunatRespuestaBajaFecha = $fila['NNdbSunatRespuestaBajaFecha'];
-					$NotaDebito->NdbSunatRespuestaBajaHora = $fila['NdbSunatRespuestaBajaHora']; 	
-					$NotaDebito->NdbSunatRespuestaBajaCodigo = $fila['NdbSunatRespuestaBajaCodigo']; 	
-					$NotaDebito->NdbSunatRespuestaBajaContenido = $fila['NdbSunatRespuestaBajaContenido']; 	
-					$NotaDebito->NdbSunatRespuestaBajaId = $fila['NdbSunatRespuestaBajaId']; 	
-					
-					$NotaDebito->NdbSunatRespuestaConsultaCodigo = $fila['NdbSunatRespuestaConsultaCodigo']; 	
-					$NotaDebito->NdbSunatRespuestaConsultaContenido = $fila['NdbSunatRespuestaConsultaContenido']; 	
-					$NotaDebito->NdbSunatRespuestaConsultaFecha = $fila['NNdbSunatRespuestaConsultaFecha']; 	
-					$NotaDebito->NdbSunatRespuestaConsultaHora = $fila['NdbSunatRespuestaConsultaHora']; 	
-					
-					$NotaDebito->NdbSunatRespuestaEnvioTiempoCreacion = $fila['NNdbSunatRespuestaEnvioTiempoCreacion']; 	
-					$NotaDebito->NdbSunatRespuestaConsultaTiempoCreacion = $fila['NNdbSunatRespuestaConsultaTiempoCreacion']; 	
-					$NotaDebito->NdbSunatRespuestaBajaTiempoCreacion = $fila['NNdbSunatRespuestaBajaTiempoCreacion']; 	
-					
-					$NotaDebito->NdbSunatUltimaAccion = $fila['NdbSunatUltimaAccion']; 	
-					$NotaDebito->NdbSunatUltimaRespuesta = $fila['NdbSunatUltimaRespuesta']; 	
-															
-					$NotaDebito->NdbCierre = $fila['NdbCierre'];					
-                   	$NotaDebito->NdbTiempoCreacion = $fila['NNdbTiempoCreacion'];
-                    $NotaDebito->NdbTiempoModificacion = $fila['NNdbTiempoModificacion'];
-					
-					$NotaDebito->NdbTotalItems = $fila['NdbTotalItems'];
-					
-					$NotaDebito->NdtNumero = $fila['NdtNumero'];
-					
-					$NotaDebito->CliNombreCompleto = $fila['CliNombreCompleto'];
-					$NotaDebito->CliNombre = $fila['CliNombre'];
-					$NotaDebito->CliApellidoPaterno = $fila['CliApellidoPaterno'];
-					$NotaDebito->CliApellidoMaterno = $fila['CliApellidoMaterno'];
-					
-					$NotaDebito->TdoId = $fila['TdoId'];
-					$NotaDebito->CliNumeroDocumento = $fila['CliNumeroDocumento'];					
-					$NotaDebito->CliTelefono = $fila['CliTelefono'];
-					$NotaDebito->CliEmail = $fila['CliEmail'];
-					$NotaDebito->CliCelular = $fila['CliCelular'];
-					$NotaDebito->CliFax = $fila['CliFax'];
-					
-					
-					$NotaDebito->MonSigla = $fila['MonSigla'];
-					$NotaDebito->MonNombre = $fila['MonNombre'];
-					$NotaDebito->MonSimbolo = $fila['MonSimbolo'];
-				
-				$NotaDebito->TdoNombre = $fila['TdoNombre'];
-				$NotaDebito->TdoCodigo = $fila['TdoCodigo'];
-				
-				$NotaDebito->SucNombre = $fila['SucNombre'];
-				$NotaDebito->SucSiglas = $fila['SucSiglas'];
-				
-				
-					$NotaDebito->InsMysql = NULL;     
-					               
-					$Respuesta['Datos'][]= $NotaDebito;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+
+			$NotaDebito->DocId = $fila['DocId'];
+			$NotaDebito->DtaId = $fila['DtaId'];
+			$NotaDebito->DtaNumero = $fila['DtaNumero'];
+
+			$NotaDebito->NdbIncluyeImpuesto = $fila['NdbIncluyeImpuesto'];
+			$NotaDebito->NdbPorcentajeImpuestoVenta = $fila['NdbPorcentajeImpuestoVenta'];
+			$NotaDebito->NdbPorcentajeImpuestoSelectivo = $fila['NdbPorcentajeImpuestoSelectivo'];
+
+			$NotaDebito->MonId = $fila['MonId'];
+			$NotaDebito->NdbTipoCambio = $fila['NdbTipoCambio'];
+			$NotaDebito->NdbTipoCambioAux = $fila['NdbTipoCambioAux'];
+
+			$NotaDebito->NdbTipo = $fila['NdbTipo'];
+
+			$NotaDebito->NdbDatoAdicional1 = $fila['NdbDatoAdicional1'];
+			$NotaDebito->NdbDatoAdicional2 = $fila['NdbDatoAdicional2'];
+			$NotaDebito->NdbDatoAdicional3 = $fila['NdbDatoAdicional3'];
+			$NotaDebito->NdbDatoAdicional4 = $fila['NdbDatoAdicional4'];
+			$NotaDebito->NdbDatoAdicional5 = $fila['NdbDatoAdicional5'];
+			$NotaDebito->NdbDatoAdicional6 = $fila['NdbDatoAdicional6'];
+			$NotaDebito->NdbDatoAdicional7 = $fila['NdbDatoAdicional7'];
+			$NotaDebito->NdbDatoAdicional8 = $fila['NdbDatoAdicional8'];
+			$NotaDebito->NdbDatoAdicional9 = $fila['NdbDatoAdicional9'];
+			$NotaDebito->NdbDatoAdicional10 = $fila['NdbDatoAdicional10'];
+
+			$NotaDebito->NdbDatoAdicional11 = $fila['NdbDatoAdicional11'];
+			$NotaDebito->NdbDatoAdicional12 = $fila['NdbDatoAdicional12'];
+			$NotaDebito->NdbDatoAdicional13 = $fila['NdbDatoAdicional13'];
+			$NotaDebito->NdbDatoAdicional14 = $fila['NdbDatoAdicional14'];
+			$NotaDebito->NdbDatoAdicional15 = $fila['NdbDatoAdicional15'];
+			$NotaDebito->NdbDatoAdicional16 = $fila['NdbDatoAdicional16'];
+			$NotaDebito->NdbDatoAdicional17 = $fila['NdbDatoAdicional17'];
+			$NotaDebito->NdbDatoAdicional18 = $fila['NdbDatoAdicional18'];
+			$NotaDebito->NdbDatoAdicional19 = $fila['NdbDatoAdicional19'];
+			$NotaDebito->NdbDatoAdicional20 = $fila['NdbDatoAdicional20'];
+
+			$NotaDebito->NdbDatoAdicional21 = $fila['NdbDatoAdicional21'];
+			$NotaDebito->NdbDatoAdicional22 = $fila['NdbDatoAdicional22'];
+			$NotaDebito->NdbDatoAdicional23 = $fila['NdbDatoAdicional23'];
+			$NotaDebito->NdbDatoAdicional24 = $fila['NdbDatoAdicional24'];
+			$NotaDebito->NdbDatoAdicional25 = $fila['NdbDatoAdicional25'];
+			$NotaDebito->NdbDatoAdicional26 = $fila['NdbDatoAdicional26'];
+
+			$NotaDebito->NdbEstado = $fila['NdbEstado'];
+
+			$NotaDebito->NdbTotalImpuestoSelectivo = $fila['NdbTotalImpuestoSelectivo'];
+			$NotaDebito->NdbTotalGravado = $fila['NdbTotalGravado'];
+			$NotaDebito->NdbTotalDescuento = $fila['NdbTotalDescuento'];
+			$NotaDebito->NdbTotalGratuito = $fila['NdbTotalGratuito'];
+			$NotaDebito->NdbTotalExonerado = $fila['NdbTotalExonerado'];
+			$NotaDebito->NdbTotalPagar = $fila['NdbTotalPagar'];
+
+			$NotaDebito->NdbSubTotal = $fila['NdbSubTotal'];
+			$NotaDebito->NdbDescuento = $fila['NdbDescuento'];
+			$NotaDebito->NdbImpuesto = $fila['NdbImpuesto'];
+			$NotaDebito->NdbTotal = $fila['NdbTotal'];
+
+			list($NotaDebito->NdbObservacion, $NotaDebito->NdbObservacionImpresa) = explode("###", $fila['NdbObservacion']);
+			$NotaDebito->NdbMotivo = $fila['NdbMotivo'];
+			$NotaDebito->NdbMotivoCodigo = $fila['NdbMotivoCodigo'];
+
+			$NotaDebito->NdbSunatRespuestaTicket = $fila['NdbSunatRespuestaTicket'];
+			$NotaDebito->NdbSunatRespuestaTicketEstado = $fila['NdbSunatRespuestaTicketEstado'];
+			$NotaDebito->NdbSunatRespuestaObservacion = $fila['NdbSunatRespuestaObservacion'];
+
+			$NotaDebito->NdbSunatRespuestaEnvioTicket = $fila['NdbSunatRespuestaEnvioTicket'];
+			$NotaDebito->NdbSunatRespuestaEnvioTicketEstado = $fila['NdbSunatRespuestaEnvioTicketEstado'];
+			$NotaDebito->NdbSunatRespuestaEnvioFecha = $fila['NNdbSunatRespuestaEnvioFecha'];
+			$NotaDebito->NdbSunatRespuestaEnvioHora = $fila['NdbSunatRespuestaEnvioHora'];
+			$NotaDebito->NdbSunatRespuestaEnvioCodigo = $fila['NdbSunatRespuestaEnvioCodigo'];
+			$NotaDebito->NdbSunatRespuestaEnvioContenido = $fila['NdbSunatRespuestaEnvioContenido'];
+
+			$NotaDebito->NdbSunatRespuestaBajaTicket = $fila['NdbSunatRespuestaBajaTicket'];
+			$NotaDebito->NdbSunatRespuestaBajaTicketEstado = $fila['NdbSunatRespuestaBajaTicketEstado'];
+			$NotaDebito->NdbSunatRespuestaBajaFecha = $fila['NNdbSunatRespuestaBajaFecha'];
+			$NotaDebito->NdbSunatRespuestaBajaHora = $fila['NdbSunatRespuestaBajaHora'];
+			$NotaDebito->NdbSunatRespuestaBajaCodigo = $fila['NdbSunatRespuestaBajaCodigo'];
+			$NotaDebito->NdbSunatRespuestaBajaContenido = $fila['NdbSunatRespuestaBajaContenido'];
+			$NotaDebito->NdbSunatRespuestaBajaId = $fila['NdbSunatRespuestaBajaId'];
+
+			$NotaDebito->NdbSunatRespuestaConsultaCodigo = $fila['NdbSunatRespuestaConsultaCodigo'];
+			$NotaDebito->NdbSunatRespuestaConsultaContenido = $fila['NdbSunatRespuestaConsultaContenido'];
+			$NotaDebito->NdbSunatRespuestaConsultaFecha = $fila['NNdbSunatRespuestaConsultaFecha'];
+			$NotaDebito->NdbSunatRespuestaConsultaHora = $fila['NdbSunatRespuestaConsultaHora'];
+
+			$NotaDebito->NdbSunatRespuestaEnvioTiempoCreacion = $fila['NNdbSunatRespuestaEnvioTiempoCreacion'];
+			$NotaDebito->NdbSunatRespuestaConsultaTiempoCreacion = $fila['NNdbSunatRespuestaConsultaTiempoCreacion'];
+			$NotaDebito->NdbSunatRespuestaBajaTiempoCreacion = $fila['NNdbSunatRespuestaBajaTiempoCreacion'];
+
+			$NotaDebito->NdbSunatUltimaAccion = $fila['NdbSunatUltimaAccion'];
+			$NotaDebito->NdbSunatUltimaRespuesta = $fila['NdbSunatUltimaRespuesta'];
+
+			$NotaDebito->NdbCierre = $fila['NdbCierre'];
+			$NotaDebito->NdbTiempoCreacion = $fila['NNdbTiempoCreacion'];
+			$NotaDebito->NdbTiempoModificacion = $fila['NNdbTiempoModificacion'];
+
+			$NotaDebito->NdbTotalItems = $fila['NdbTotalItems'];
+
+			$NotaDebito->NdtNumero = $fila['NdtNumero'];
+
+			$NotaDebito->CliNombreCompleto = $fila['CliNombreCompleto'];
+			$NotaDebito->CliNombre = $fila['CliNombre'];
+			$NotaDebito->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+			$NotaDebito->CliApellidoMaterno = $fila['CliApellidoMaterno'];
+
+			$NotaDebito->TdoId = $fila['TdoId'];
+			$NotaDebito->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+			$NotaDebito->CliTelefono = $fila['CliTelefono'];
+			$NotaDebito->CliEmail = $fila['CliEmail'];
+			$NotaDebito->CliCelular = $fila['CliCelular'];
+			$NotaDebito->CliFax = $fila['CliFax'];
+
+
+			$NotaDebito->MonSigla = $fila['MonSigla'];
+			$NotaDebito->MonNombre = $fila['MonNombre'];
+			$NotaDebito->MonSimbolo = $fila['MonSimbolo'];
+
+			$NotaDebito->TdoNombre = $fila['TdoNombre'];
+			$NotaDebito->TdoCodigo = $fila['TdoCodigo'];
+
+			$NotaDebito->SucNombre = $fila['SucNombre'];
+			$NotaDebito->SucSiglas = $fila['SucSiglas'];
+
+
+			$NotaDebito->InsMysql = NULL;
+
+			$Respuesta['Datos'][] = $NotaDebito;
 		}
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
 }
-?>

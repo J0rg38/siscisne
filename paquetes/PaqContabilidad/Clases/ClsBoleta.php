@@ -1438,7 +1438,7 @@ bol.BolDatoAdicional28,
 			
 			';
 		} else {
-			deb("oSinPago NO ");
+			//deb("oSinPago NO ");
 		}
 
 		if (!empty($oDiaVencido)) {

@@ -56,8 +56,11 @@ Parametro10 = FiaEstado
 */
 
 
+$RepSesionObjetos = $_SESSION['InsFichaIngresoMantenimiento' . $ModalidadIngreso . $Identificador]->MtdObtenerSesionObjetos(true);
+$ArrSesionObjetos = $RepSesionObjetos['Datos'];
+$SesionObjetosTotal = $RepSesionObjetos['Total'];
+$SesionObjetosTotalSeleccionado = $RepSesionObjetos['TotalSeleccionado'];
 
-//deb($ArrSesionObjetos);
 
 //VARIABLES
 $POST_VehiculoVersion = $_POST['VehiculoVersion'];
@@ -152,7 +155,7 @@ if (empty($POST_VehiculoModelo)) {
         //deb($InsPlanMantenimiento->VmaId);
     ?>
 
-        <input type="hidden" value="<?php echo $InsPlanMantenimiento->PmaId; ?>" name="CmpPlanMantenimientoIdAux" id="CmpPlanMantenimientoIdAux" />
+        <input type="text" aux=1 value="<?php echo $InsPlanMantenimiento->PmaId; ?>" name="CmpPlanMantenimientoIdAux" id="CmpPlanMantenimientoIdAux" />
 
 
 
@@ -170,7 +173,7 @@ if (empty($POST_VehiculoModelo)) {
                 <table border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
                     <tr>
                         <td width="4">&nbsp;</td>
-                        <td colspan="6"><input type="hidden" name="CmpPlanMantenimiento" id="CmpPlanMantenimiento" value="<?php echo $InsPlanMantenimiento->PmaId; ?>" /></td>
+                        <td colspan="6"><input type="text" aux=1 name="CmpPlanMantenimiento" id="CmpPlanMantenimiento" value="<?php echo $InsPlanMantenimiento->PmaId; ?>" /></td>
                         <td width="4">&nbsp;</td>
                     </tr>
                     <tr>
@@ -276,20 +279,20 @@ if (empty($POST_VehiculoModelo)) {
 
                                                                 <?php
                                                                 /*
-                                            SesionObjeto-FichaIngresoMantenimiento
-                                            Parametro1 = FiaId
-                                            Parametro2 = 
-                                            Parametro3 = PmtId
-                                            Parametro4 = FiaAccion
-                                            Parametro5 = FiaTiempoCreacion
-                                            Parametro6 = FiaTiempoModificacion
-                                            Parametro7 = FiaNivel
-                                            Parametro8 = FiaVerificar1
-                                            Parametro9 = FiaVerificar2
-                                            Parametro10 = FiaEstado,
-                                            
-                                             Parametro11 = ProId
-                                            */
+                                                                SesionObjeto-FichaIngresoMantenimiento
+                                                                Parametro1 = FiaId
+                                                                Parametro2 = 
+                                                                Parametro3 = PmtId
+                                                                Parametro4 = FiaAccion
+                                                                Parametro5 = FiaTiempoCreacion
+                                                                Parametro6 = FiaTiempoModificacion
+                                                                Parametro7 = FiaNivel
+                                                                Parametro8 = FiaVerificar1
+                                                                Parametro9 = FiaVerificar2
+                                                                Parametro10 = FiaEstado,
+
+                                                                Parametro11 = ProId
+                                                                */
 
                                                                 if (!empty($ArrSesionObjetos)) {
                                                                     foreach ($ArrSesionObjetos as $DatSesionObjeto) {
@@ -303,8 +306,6 @@ if (empty($POST_VehiculoModelo)) {
                                                                         $OpcAccion3 = '';
                                                                         $OpcAccion4 = '';
                                                                         $OpcAccion5 = '';
-
-
 
                                                                         if ($DatSesionObjeto->Parametro3 == $DatPlanMantenimientoTarea->PmtId) {
 
@@ -367,7 +368,7 @@ if (empty($POST_VehiculoModelo)) {
                                                                 </select>
 
 
-                                                                <input size="2" type="hidden" name="CmpPlanMantenimientoDetalleId_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" id="CmpPlanMantenimientoDetalleId_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" value="<?php echo $PlanMantenimientoDetalleId; ?>" />
+                                                                <input size="2" type="text" aux=1 name="CmpPlanMantenimientoDetalleId_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" id="CmpPlanMantenimientoDetalleId_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" value="<?php echo $PlanMantenimientoDetalleId; ?>" />
 
 
                                                             </td>
@@ -476,7 +477,7 @@ if (empty($POST_VehiculoModelo)) {
                 <table border="0" cellpadding="2" cellspacing="2" class="EstFormulario">
                     <tr>
                         <td width="4">&nbsp;</td>
-                        <td colspan="6"><input type="hidden" name="CmpPlanMantenimiento" id="CmpPlanMantenimiento" value="<?php echo $InsPlanMantenimiento->PmaId; ?>" /></td>
+                        <td colspan="6"><input type="text" aux=1 name="CmpPlanMantenimiento" id="CmpPlanMantenimiento" value="<?php echo $InsPlanMantenimiento->PmaId; ?>" /></td>
                         <td width="4">&nbsp;</td>
                     </tr>
                     <tr>
@@ -660,8 +661,8 @@ if (empty($POST_VehiculoModelo)) {
                                                                 <option value="U" <?php echo $OpcAccion7; ?>>Agregar</option>
                                                             </select>
 
-                                                            <!--                <input size="2" type="hidden" name="CmpPlanMantenimientoDetalleNivel_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" id="CmpPlanMantenimientoDetalleNivel_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" value="<?php echo $PlanMantenimientoDetalleNivel; ?>" />-->
-                                                            <input size="2" type="hidden" name="CmpPlanMantenimientoDetalleId_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" id="CmpPlanMantenimientoDetalleId_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" value="<?php echo $PlanMantenimientoDetalleId; ?>" />
+                                                            <!--                <input size="2" type="text" aux=1  name="CmpPlanMantenimientoDetalleNivel_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" id="CmpPlanMantenimientoDetalleNivel_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" value="<?php echo $PlanMantenimientoDetalleNivel; ?>" />-->
+                                                            <input size="2" type="text" aux=1 name="CmpPlanMantenimientoDetalleId_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" id="CmpPlanMantenimientoDetalleId_<?php echo $DatPlanMantenimientoTarea->PmtId; ?>" value="<?php echo $PlanMantenimientoDetalleId; ?>" />
 
 
                                                         </td>

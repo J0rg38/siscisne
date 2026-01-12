@@ -137,7 +137,7 @@ if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, $GET_form)) {
   include($InsProyecto->MtdFormulariosMsj($GET_mod) . 'MsjFichaIngreso.php');
 
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngreso.php');
-require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoManoObra.php');
+  require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoManoObra.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoLlamada.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsFichaIngresoGasto.php');
   require_once($InsPoo->MtdPaqActividad() . 'ClsPreEntregaDetalle.php');
@@ -1279,11 +1279,9 @@ s      </select>-->
                     </td>
                     <td width="3%" align="right" bgcolor="<?php echo $Color; ?>">
 
-
                       <div id="CapFichaIngresoEstado_<?php echo $dat->FinId ?>">
                         <?php echo $dat->FinEstadoDescripcion; ?>
                       </div>
-
 
                     </td>
                     <td width="4%" align="center" bgcolor="<?php echo $Color; ?>">
@@ -1403,8 +1401,8 @@ s      </select>-->
                         ?>
                           <a href="formularios/FichaIngreso/adicionales/FrmEditarNotaAsesor.php?ot=<?php echo $dat->FinId; ?>" target="_blank"><img src="imagenes/acciones/xnotas.png" width="19" height="19" border="0" title="Editar" alt="[EditarNotas]" /></a>
                           <a href="principal.php?Mod=<?php echo $GET_mod; ?>&Form=Editar&Id=<?php echo $dat->FinId; ?>"><img src="imagenes/acciones/acc_editar.png" width="19" height="19" border="0" title="Editar" alt="[Editar]" /></a>
-                          
-                          
+
+
                         <?php
                         }
                         ?>

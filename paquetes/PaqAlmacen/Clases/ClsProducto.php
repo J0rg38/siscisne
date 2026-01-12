@@ -125,7 +125,7 @@ class ClsProducto
 
 	public $InsMysql;
 
-	public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -133,7 +133,6 @@ class ClsProducto
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
 	}
 
 	public function __destruct() {}
@@ -2569,21 +2568,21 @@ DATE_FORMAT(pro.ProFechaUltimaSalida, "%d/%m/%Y") AS "NProFechaUltimaSalida",
 
 
 	public function MtdEditarProductoDato($oCampo, $oDato, $oProductoId)
-{
-    global $Resultado;
+	{
+		global $Resultado;
 
-    $sql = 'UPDATE tblproproducto SET 
+		$sql = 'UPDATE tblproproducto SET 
     ' . $oCampo . ' = "' . ($oDato) . '"
     WHERE ProId = "' . ($oProductoId) . '";';
 
-    $resultado = $this->InsMysql->MtdEjecutar($sql, false);
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
 
-    if (!$resultado) {
-        return false;
-    } else {
-        return true;
-    }
-}
+		if (!$resultado) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 
 	public function MtdEditarProductoStock($oProductoId, $oProductoStock)

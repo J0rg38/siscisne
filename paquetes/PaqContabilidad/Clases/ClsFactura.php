@@ -1559,7 +1559,7 @@ fac.FacLeyenda,
 			$sucursal = ' AND fac.SucId = "' . $oSucursal . '"';
 		}
 
-		deb($oNoProcesdado);
+		//deb($oNoProcesdado);
 		if (($oNoProcesdado)) {
 
 			$noprocesado = ' 	AND (fac.FacSunatRespuestaEnvioContenido NOT LIKE "%aceptad%" 
@@ -4415,6 +4415,8 @@ fac.FacLeyenda,
 		global $EmpresaDireccion;
 		global $EmpresaMonedaId;
 
+		global $EmpresaCuentaDestraccion;
+
 		if (!empty($oTalonario) and !empty($oId)) {
 
 
@@ -4659,7 +4661,7 @@ fac.FacLeyenda,
 			$Note = $xmlRoot->appendChild($Note);
 
 			//DETRACCION
-			if ($InsFactura->FacSpot == 1) {
+			if ($InsFactura->FacSpot == 1 or $InsFactura->RegId != "") {
 
 				$Note = $domtree->createElement("cbc:Note", 'Operacion sujeta a detraccion');
 				$Note->setAttribute('languageLocaleID', "2006");
@@ -5093,48 +5095,95 @@ fac.FacLeyenda,
 			//		$RegistrationName->appendChild($domtree->createCDATASection( $InsFactura->CliNombre." ".$InsFactura->CliApellidoPaterno." ".$InsFactura->CliApellidoMaterno ));
 
 			//DETALLES DE LA DETRACCION
-			$DetraccionTotal = 0;
-			if ($InsFactura->FacSpot == 1) {
+
+			if ($InsFactura->RegId != "") {
+
+				if ($InsFactura->RegId == "REG-10000") {
+
+					$PaymentMeans = $domtree->createElement("cac:PaymentMeans");
+					$PaymentMeans = $xmlRoot->appendChild($PaymentMeans);
+
+					$ID = $PaymentMeans->appendChild($domtree->createElement('cbc:ID', 'Detraccion'));
+					$ID = $PaymentMeans->appendChild($ID);
+
+					$PaymentMeansCode = $PaymentMeans->appendChild($domtree->createElement('cbc:PaymentMeansCode', '001'));
+					$PaymentMeansCode = $PaymentMeans->appendChild($PaymentMeansCode);
+
+					$PayeeFinancialAccount = $domtree->createElement('cac:PayeeFinancialAccount');
+					$PayeeFinancialAccount = $PaymentMeans->appendChild($PayeeFinancialAccount);
+
+					$ID = $domtree->createElement("cbc:ID", $EmpresaCuentaDestraccion);
+					$ID = $PayeeFinancialAccount->appendChild($ID);
 
 
-				$PaymentMeans = $domtree->createElement("cac:PaymentMeans");
-				$PaymentMeans = $xmlRoot->appendChild($PaymentMeans);
+					$PaymentTerms = $domtree->createElement("cac:PaymentTerms");
+					$PaymentTerms = $xmlRoot->appendChild($PaymentTerms);
 
-				$ID = $PaymentMeans->appendChild($domtree->createElement('cbc:ID', 'Detraccion'));
-				$ID = $PaymentMeans->appendChild($ID);
+					$ID = $PaymentTerms->appendChild($domtree->createElement('cbc:ID', 'Detraccion'));
+					$ID = $PaymentTerms->appendChild($ID);
 
-				$PaymentMeansCode = $PaymentMeans->appendChild($domtree->createElement('cbc:PaymentMeansCode', '001'));
-				$PaymentMeansCode = $PaymentMeans->appendChild($PaymentMeansCode);
+					$PaymentMeansID = $PaymentTerms->appendChild($domtree->createElement('cbc:PaymentMeansID', '019'));
+					$PaymentMeansID = $PaymentTerms->appendChild($PaymentMeansID);
 
-				$PayeeFinancialAccount = $domtree->createElement('cac:PayeeFinancialAccount');
-				$PayeeFinancialAccount = $PaymentMeans->appendChild($PayeeFinancialAccount);
+					$PaymentPercent = $PaymentTerms->appendChild($domtree->createElement('cbc:PaymentPercent', $InsFactura->FacRegimenPorcentaje));
+					$PaymentPercent = $PaymentTerms->appendChild($PaymentPercent);
 
-				$ID = $domtree->createElement("cbc:ID", '00101135748');
-				$ID = $PayeeFinancialAccount->appendChild($ID);
+					/*$DetraccionTotal = ($InsFactura->FacTotal) * 0.12;
+					//USAR SOLO CUANDO SEA EN DOLARES
+					$DetraccionTotal = $DetraccionTotal * 3.790;
+					$DetraccionTotal = round($DetraccionTotal);*/
+
+					$Amount = $domtree->createElement("cbc:Amount", number_format($InsFactura->FacRegimenMonto, 2, '.', ''));
+					$Amount->setAttribute('currencyID', 'PEN');
+					$Amount = $PaymentTerms->appendChild($Amount);
+				}
+			} else {
+
+				$DetraccionTotal = 0;
+				if ($InsFactura->FacSpot == 1) {
 
 
-				$PaymentTerms = $domtree->createElement("cac:PaymentTerms");
-				$PaymentTerms = $xmlRoot->appendChild($PaymentTerms);
+					$PaymentMeans = $domtree->createElement("cac:PaymentMeans");
+					$PaymentMeans = $xmlRoot->appendChild($PaymentMeans);
 
-				$ID = $PaymentTerms->appendChild($domtree->createElement('cbc:ID', 'Detraccion'));
-				$ID = $PaymentTerms->appendChild($ID);
+					$ID = $PaymentMeans->appendChild($domtree->createElement('cbc:ID', 'Detraccion'));
+					$ID = $PaymentMeans->appendChild($ID);
 
-				$PaymentMeansID = $PaymentTerms->appendChild($domtree->createElement('cbc:PaymentMeansID', '020'));
-				$PaymentMeansID = $PaymentTerms->appendChild($PaymentMeansID);
+					$PaymentMeansCode = $PaymentMeans->appendChild($domtree->createElement('cbc:PaymentMeansCode', '001'));
+					$PaymentMeansCode = $PaymentMeans->appendChild($PaymentMeansCode);
 
-				$PaymentPercent = $PaymentTerms->appendChild($domtree->createElement('cbc:PaymentPercent', '12'));
-				$PaymentPercent = $PaymentTerms->appendChild($PaymentPercent);
+					$PayeeFinancialAccount = $domtree->createElement('cac:PayeeFinancialAccount');
+					$PayeeFinancialAccount = $PaymentMeans->appendChild($PayeeFinancialAccount);
 
-				$DetraccionTotal = ($InsFactura->FacTotal) * 0.12;
-				//USAR SOLO CUANDO SEA EN DOLARES
-				$DetraccionTotal = $DetraccionTotal * 3.790;
-				$DetraccionTotal = round($DetraccionTotal);
+					$ID = $domtree->createElement("cbc:ID", '00101135748');
+					$ID = $PayeeFinancialAccount->appendChild($ID);
 
-				$Amount = $domtree->createElement("cbc:Amount", number_format($DetraccionTotal, 2, '.', ''));
-				$Amount->setAttribute('currencyID', 'PEN');
-				$Amount = $PaymentTerms->appendChild($Amount);
-			} elseif ($InsFactura->FacSpot == 2) {
+
+					$PaymentTerms = $domtree->createElement("cac:PaymentTerms");
+					$PaymentTerms = $xmlRoot->appendChild($PaymentTerms);
+
+					$ID = $PaymentTerms->appendChild($domtree->createElement('cbc:ID', 'Detraccion'));
+					$ID = $PaymentTerms->appendChild($ID);
+
+					$PaymentMeansID = $PaymentTerms->appendChild($domtree->createElement('cbc:PaymentMeansID', '020'));
+					$PaymentMeansID = $PaymentTerms->appendChild($PaymentMeansID);
+
+					$PaymentPercent = $PaymentTerms->appendChild($domtree->createElement('cbc:PaymentPercent', '12'));
+					$PaymentPercent = $PaymentTerms->appendChild($PaymentPercent);
+
+					$DetraccionTotal = ($InsFactura->FacTotal) * 0.12;
+					//USAR SOLO CUANDO SEA EN DOLARES
+					$DetraccionTotal = $DetraccionTotal * 3.790;
+					$DetraccionTotal = round($DetraccionTotal);
+
+					$Amount = $domtree->createElement("cbc:Amount", number_format($DetraccionTotal, 2, '.', ''));
+					$Amount->setAttribute('currencyID', 'PEN');
+					$Amount = $PaymentTerms->appendChild($Amount);
+				} elseif ($InsFactura->FacSpot == 2) {
+				}
 			}
+
+
 
 
 
@@ -5533,7 +5582,6 @@ fac.FacLeyenda,
 						$PriceTypeCode->setAttribute('listAgencyName', "PE:SUNAT");
 						$PriceTypeCode->setAttribute('listURI', "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16");
 						$PriceTypeCode = $AlternativeConditionPrice->appendChild($PriceTypeCode);
-
 					} else if ($DatFacturaDetalle->FdeGratuito == 2) {
 
 						$PriceAmountAxu = $DatFacturaDetalle->FdePrecio / (1 + ($InsFactura->FacPorcentajeImpuestoVenta / 100));
@@ -5554,7 +5602,6 @@ fac.FacLeyenda,
 						$PriceTypeCode->setAttribute('listAgencyName', "PE:SUNAT");
 						$PriceTypeCode->setAttribute('listURI', "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16");
 						$PriceTypeCode = $AlternativeConditionPrice->appendChild($PriceTypeCode);
-
 					}
 
 					//DESCUENTOS POR ITEM	
@@ -5588,7 +5635,6 @@ fac.FacLeyenda,
 						$BaseAmount = $domtree->createElement("cbc:BaseAmount", number_format($DatFacturaDetalle->FdeValorVentaBruto, 2, '.', ''));
 						$BaseAmount->setAttribute('currencyID', $InsFactura->MonSigla);
 						$BaseAmount = $AllowanceCharge->appendChild($BaseAmount);
-
 					}
 
 					//OTROS CARGOS POR ITEM	
@@ -5694,7 +5740,6 @@ fac.FacLeyenda,
 						//cbc:TaxTypeCode
 						$TaxTypeCode = $domtree->createElement("cbc:TaxTypeCode", "VAT");
 						$TaxTypeCode = $TaxScheme->appendChild($TaxTypeCode);
-						
 					} else if ($DatFacturaDetalle->FdeExonerado == "2") {
 
 						if ($DatFacturaDetalle->FdeGratuito == "1") {

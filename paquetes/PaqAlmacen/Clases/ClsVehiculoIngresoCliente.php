@@ -23,7 +23,7 @@ class ClsVehiculoIngresoCliente
 
 	public $InsMysql;
 
-	public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -31,7 +31,6 @@ class ClsVehiculoIngresoCliente
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
 	}
 
 	public function __destruct() {}
@@ -339,7 +338,7 @@ class ClsVehiculoIngresoCliente
 
 		$error = false;
 
-		$resultado = $this->InsMysql->MtdEjecutar($sql, true);
+		$resultado = $this->InsMysql->MtdEjecutar($sql, false);
 
 		if (!$resultado) {
 			$error = true;

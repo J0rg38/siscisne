@@ -64,6 +64,8 @@ class ClsModalidadIngreso
 		min.MinSigla,
 		min.MinDescripcion,
 		min.MinUso,
+		min.MinTipo,
+
 		DATE_FORMAT(min.MinTiempoCreacion, "%d/%m/%Y %H:%i:%s") AS "NMinTiempoCreacion",
         DATE_FORMAT(min.MinTiempoModificacion, "%d/%m/%Y %H:%i:%s") AS "NMinTiempoModificacion"	
         FROM tblminmodalidadingreso min
@@ -79,6 +81,7 @@ class ClsModalidadIngreso
 				$this->MinSigla = $fila['MinSigla'];
 				$this->MinDescripcion = $fila['MinDescripcion'];
 				$this->MinUso = $fila['MinUso'];
+				$this->MinTipo = $fila['MinTipo'];
 				//$this->MinEstado = $fila['MinEstado'];
 				$this->MinTiempoCreacion = $fila['NMinTiempoCreacion'];
 				$this->MinTiempoModificacion = $fila['NMinTiempoModificacion'];
@@ -93,8 +96,16 @@ class ClsModalidadIngreso
 		return $Respuesta;
 	}
 
-	public function MtdObtenerModalidadIngresos($oCampo = NULL, $oFiltro = NULL, $oOrden = 'MinId', $oSentido = 'Desc', $oPaginacion = '0,10', $oUso = NULL, $oEstado = NULL)
-	{
+	public function MtdObtenerModalidadIngresos(
+		$oCampo = NULL,
+		$oFiltro = NULL,
+		$oOrden = 'MinId',
+		$oSentido = 'Desc',
+		$oPaginacion = '0,10',
+		$oUso = NULL,
+		$oEstado = NULL,
+		$oTipo = NULL
+	) {
 
 		// Inicializar variables para evitar warnings
 		$filtrar = '';
@@ -146,6 +157,9 @@ class ClsModalidadIngreso
 			$estado = ' AND MinEstado = ' . $oEstado;
 		}
 
+		if (!empty($oTipo)) {
+			$tipo = ' AND MinTipo = "' . $oTipo . '"';
+		}
 
 		$sql = 'SELECT
 				SQL_CALC_FOUND_ROWS 
@@ -154,11 +168,13 @@ class ClsModalidadIngreso
 				MinSigla,
 				MinDescripcion,
 				MinUso,
+				MinTipo,
+				
 				MinEstado,
 				DATE_FORMAT(MinTiempoCreacion, "%d/%m/%Y %H:%i:%s") AS "NMinTiempoCreacion",
                 DATE_FORMAT(MinTiempoModificacion, "%d/%m/%Y %H:%i:%s") AS "NMinTiempoModificacion"				
 				FROM tblminmodalidadingreso
-				WHERE 1  = 1 ' . $filtrar . $estado . $uso . $orden . $paginacion;
+				WHERE 1  = 1 ' . $filtrar . $estado . $tipo . $uso . $orden . $paginacion;
 
 		$resultado = $this->InsMysql->MtdConsultar($sql);
 
@@ -174,8 +190,9 @@ class ClsModalidadIngreso
 			$ModalidadIngreso->MinSigla = $fila['MinSigla'];
 			$ModalidadIngreso->MinDescripcion = $fila['MinDescripcion'];
 
-
 			$ModalidadIngreso->MinUso = $fila['MinUso'];
+			$ModalidadIngreso->MinTipo = $fila['MinTipo'];
+
 			$ModalidadIngreso->MinEstado = $fila['MinEstado'];
 			$ModalidadIngreso->MinTiempoCreacion = $fila['NMinTiempoCreacion'];
 			$ModalidadIngreso->MinTiempoModificacion = $fila['NMinTiempoModificacion'];
@@ -248,6 +265,8 @@ class ClsModalidadIngreso
 			MinSigla,
 			MinDescripcion,
 			MinUso,
+			MinTipo,
+
 			MinEstado,
 			MinTiempoCreacion,
 			MinTiempoModificacion,
@@ -258,6 +277,8 @@ class ClsModalidadIngreso
 			"' . ($this->MinSigla) . '", 
 			"' . ($this->MinDescripcion) . '", 
 			' . ($this->MinUso) . ', 
+			"' . ($this->MinTipo) . '",
+
 			' . ($this->MinEstado) . ', 
 			"' . ($this->MinTiempoCreacion) . '", 
 			"' . ($this->MinTiempoModificacion) . '", 				
@@ -285,7 +306,9 @@ class ClsModalidadIngreso
 			 MinNombre = "' . ($this->MinNombre) . '",
 			 MinSigla = "' . ($this->MinSigla) . '",
 			 MinDescripcion = "' . ($this->MinDescripcion) . '",
-			 MinUso = ' . ($this->MinUso) . ',			 
+			 MinUso = ' . ($this->MinUso) . ',	
+			 MinTipo = "' . ($this->MinTipo) . '",	
+
 			 MinEstado = ' . ($this->MinEstado) . ',
 			 MinTiempoModificacion = "' . ($this->MinTiempoModificacion) . '"
 			 WHERE MinId = "' . ($this->MinId) . '";';

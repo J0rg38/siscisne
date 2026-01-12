@@ -43,6 +43,10 @@ $POST_MonedaSimbolo = $_POST['MonedaSimbolo'];
 $POST_PorcentajeImpuestoVenta = $_POST['PorcentajeImpuestoVenta'];
 $POST_PorcentajeImpuestoSelectivo = $_POST['PorcentajeImpuestoSelectivo'];
 
+$POST_RegimenPorcentaje = $_POST['RegimenPorcentaje'];
+$POST_RegimenMonto = $_POST['RegimenMonto'];
+$POST_RegimenId = $_POST['RegimenId'];
+
 $POST_TotalDescuentoGlobal = $_POST['TotalDescuentoGlobal'];
 
 
@@ -612,6 +616,37 @@ if (empty($ArrSesionObjetos)) {
         </td>
         <td align="right">&nbsp;</td>
       </tr>
+
+      <?php
+      if ($POST_RegimenId == "REG-10000") {
+
+        $TotalPagar = $Total - $POST_RegimenMonto;
+      ?>
+        <tr>
+          <td colspan="6" align="right"><span class="Total">DETRACCION (<?php echo $POST_RegimenPorcentaje; ?>%):</span></td>
+          <td align="right">
+            <span class="EstMonedaSimbolo"><?php echo $InsMoneda->MonSimbolo; ?></span><?php echo number_format($POST_RegimenMonto, 2); ?>
+          </td>
+          <td align="right">&nbsp;</td>
+        </tr>
+
+        <tr>
+          <td colspan="6" align="right"><span class="Total">IMPOTE A PAGAR:</span></td>
+          <td align="right">
+            <span class="EstMonedaSimbolo"><?php echo $InsMoneda->MonSimbolo; ?></span><?php echo number_format($TotalPagar, 2); ?>
+          </td>
+          <td align="right">&nbsp;</td>
+        </tr>
+
+
+      <?php
+      }
+      ?>
+
+
+
+
+
     </tbody>
   </table>
 <?php

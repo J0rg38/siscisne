@@ -1,46 +1,46 @@
 <?php
-if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Ver")){
+if ($InsACL->MtdVerificarACL($_SESSION['SesionRol'], $GET_mod, "Ver")) {
 ?>
 
 
 
-<div class="EstCapMenu">
+  <div class="EstCapMenu">
 
-</div>
+  </div>
 
-<div class="EstCapContenido">
+  <div class="EstCapContenido">
 
 
-<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
-      
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+
       <tr>
         <td width="961" height="25"><span class="EstFormularioTitulo">IMPORTAR VEHICULOS</span></td>
       </tr>
       <tr>
         <td>
-        
-        
-                                <br />
-   
-        
-        
-     
 
-      
-    
-		
-		
-		 <div class="EstFormularioArea" >
-		<table class="EstFormulario" width="594" border="0" cellpadding="2" cellspacing="2">
-          <tr>
-            <td width="5">&nbsp;</td>
-            <td colspan="2">&nbsp;</td>
-            <td width="15">&nbsp;</td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>El archivo excel debe cumplir con lo siguiente distribucion de columnas <a href="descargas/ImportarVehiculoIngreso.xlsx" target="_blank">(Descargar Formato)</a>, y comenzar desde la fila 2, considerando la fila 1 como los titulos de las columnas<!-- <br />
+
+          <br />
+
+
+
+
+
+
+
+
+
+          <div class="EstFormularioArea">
+            <table class="EstFormulario" width="594" border="0" cellpadding="2" cellspacing="2">
+              <tr>
+                <td width="5">&nbsp;</td>
+                <td colspan="2">&nbsp;</td>
+                <td width="15">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>El archivo excel debe cumplir con lo siguiente distribucion de columnas <a href="descargas/ImportarVehiculoIngreso.xlsx" target="_blank">(Descargar Formato)</a>, y comenzar desde la fila 2, considerando la fila 1 como los titulos de las columnas<!-- <br />
               Columna B: Codigo SAP<br />
               Columna C: Modelo<br />
               Columna D: Transmision<br />
@@ -55,60 +55,60 @@ if($InsACL->MtdVerificarACL($_SESSION['SesionRol'],$GET_mod,"Ver")){
               Columna M: Precio con IGV<br />
               Columna N: Dealer<br />
               Columna O: Pedido--></td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>
 
-			<iframe src="<?php echo $InsProyecto->MtdFormulariosAcc("VehiculoIngreso")?>AccVehiculoIngresoImportar.php" id="IfrVehiculoIngresoImportar" name="IfrVehiculoIngresoImportar" scrolling="Auto"  frameborder="0" width="800" height="500"></iframe>            
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td width="97">&nbsp;</td>
-            <td width="451">&nbsp;</td>
-            <td>&nbsp;</td>
-          </tr>
-        </table>
-		
-		
-   
-        </div>		
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                  <iframe src="<?php echo $InsProyecto->MtdFormulariosAcc("VehiculoIngreso") ?>AccVehiculoIngresoImportar.php" id="IfrVehiculoIngresoImportar" name="IfrVehiculoIngresoImportar" scrolling="Auto" frameborder="0" width="800" height="500"></iframe>
+                </td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td width="97">&nbsp;</td>
+                <td width="451">&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+
+
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </td>
       </tr>
       <tr>
         <td align="center">&nbsp;</td>
       </tr>
     </table>
-    
-    
-</div>
+
+
+  </div>
 
 
 <?php
-}else{
-	echo ERR_GEN_101;
+} else {
+  echo ERR_GEN_101;
 }
 
 //$InsMensaje->MenResultado = $Resultado;

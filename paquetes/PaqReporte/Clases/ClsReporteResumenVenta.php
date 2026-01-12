@@ -10,11 +10,12 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsReporteResumenVenta {
+class ClsReporteResumenVenta
+{
 
-    public $InsMysql;
+	public $InsMysql;
 
-    public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -22,164 +23,165 @@ class ClsReporteResumenVenta {
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
-	}
-	
-	public function __destruct(){
-
 	}
 
+	public function __destruct() {}
 
 
-    public function MtdObtenerReporteResumenVentas($oCampo=NULL,$oCondicion="contiene",$oFiltro=NULL,$oOrden = 'RveId',$oSentido = 'Desc',$oPaginacion = '0,10',$oAno=NULL,$oMes=NULL,$oSucursal=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oVehiculoMarca=NULL) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
-			
-			$oFiltro = str_replace(" ","%",$oFiltro);
-			
-			$elementos = explode(",",$oCampo);
+	public function MtdObtenerReporteResumenVentas(
+		$oCampo = NULL,
+		$oCondicion = "contiene",
+		$oFiltro = NULL,
+		$oOrden = 'RveId',
+		$oSentido = 'Desc',
+		$oPaginacion = '0,10',
+		$oAno = NULL,
+		$oMes = NULL,
+		$oSucursal = NULL,
+		$oFechaInicio = NULL,
+		$oFechaFin = NULL,
+		$oVehiculoMarca = NULL
+	) {
 
-				$i=1;
-				$filtrar .= '  AND (';
-				foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
+			$filtrar .= '  AND (';
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
-
-			
-	
-		}
-
-
-
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
-		}
-
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oAno)){
-			$ano = ' AND rve.RveAno = "'.$oAno.'"';
-		}
-		
-		if(!empty($oMes)){
-			$mes = ' AND rve.RveMes = "'.$oMes.'"';
-		}
-		
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fechab = ' AND DATE(bol.BolFechaEmision)>="'.$oFechaInicio.'" AND DATE(bol.BolFechaEmision)<="'.$oFechaFin.'"';
-				$fechaf = ' AND DATE(fac.FacFechaEmision)>="'.$oFechaInicio.'" AND DATE(fac.FacFechaEmision)<="'.$oFechaFin.'"';
-			}else{
-				$fechab = ' AND DATE(bol.BolFechaEmision)>="'.$oFechaInicio.'"';
-				$fechaf = ' AND DATE(fac.FacFechaEmision)>="'.$oFechaInicio.'"';
+				$i++;
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fechab = ' AND DATE(bol.BolFechaEmision)<="'.$oFechaFin.'"';	
-				$fechab = ' AND DATE(fac.FacFechaEmision)<="'.$oFechaFin.'"';		
-			}			
+
+			$filtrar .= '  ) ';
 		}
 
-			if(!empty($oSucursal)){
-				$sucursalb = ' AND (bol.SucId) = "'.$oSucursal.'"';	
-				$sucursalf = ' AND (fac.SucId) = "'.$oSucursal.'"';		
-			}	
 
 
-		if(!empty($oVehiculoMarca)){
-				$vmarcab = ' AND (vmo.VmaId) = "'.$oVehiculoMarca.'"';	
-				$vmarcaf = ' AND (vmo.VmaId) = "'.$oVehiculoMarca.'"';		
-			}	
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
+		}
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
+
+		if (!empty($oAno)) {
+			$ano = ' AND rve.RveAno = "' . $oAno . '"';
+		}
+
+		if (!empty($oMes)) {
+			$mes = ' AND rve.RveMes = "' . $oMes . '"';
+		}
+
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fechab = ' AND DATE(bol.BolFechaEmision)>="' . $oFechaInicio . '" AND DATE(bol.BolFechaEmision)<="' . $oFechaFin . '"';
+				$fechaf = ' AND DATE(fac.FacFechaEmision)>="' . $oFechaInicio . '" AND DATE(fac.FacFechaEmision)<="' . $oFechaFin . '"';
+			} else {
+				$fechab = ' AND DATE(bol.BolFechaEmision)>="' . $oFechaInicio . '"';
+				$fechaf = ' AND DATE(fac.FacFechaEmision)>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fechab = ' AND DATE(bol.BolFechaEmision)<="' . $oFechaFin . '"';
+				$fechab = ' AND DATE(fac.FacFechaEmision)<="' . $oFechaFin . '"';
+			}
+		}
+
+		if (!empty($oSucursal)) {
+			$sucursalb = ' AND (bol.SucId) = "' . $oSucursal . '"';
+			$sucursalf = ' AND (fac.SucId) = "' . $oSucursal . '"';
+		}
 
 
-			
-			$sql = 'SELECT
+		if (!empty($oVehiculoMarca)) {
+			$vmarcab = ' AND (vmo.VmaId) = "' . $oVehiculoMarca . '"';
+			$vmarcaf = ' AND (vmo.VmaId) = "' . $oVehiculoMarca . '"';
+		}
+
+
+
+		$sql = 'SELECT
 			bde.BdeId AS "RvrId",
 			CONCAT(bta.BtaNumero,"-",bol.BolId) AS "RvrDoc",
 			bol.BolFechaEmision AS "RvrFecha",
@@ -452,7 +454,7 @@ class ClsReporteResumenVenta {
 																			LEFT JOIN tblvmavehiculomarca vma
 																			ON vmo.VmaId = vma.VmaId
 																			
-			WHERE 1 = 1 AND bol.BolEstado <> 6 AND bol.OvvId IS NULL '.$fechab.$vmarcab.$sucursalb.'
+			WHERE 1 = 1 AND bol.BolEstado <> 6 AND bol.OvvId IS NULL ' . $fechab . $vmarcab . $sucursalb . '
 
 UNION ALL 
 
@@ -741,91 +743,87 @@ FROM tblfdefacturadetalle fde
 																LEFT JOIN tblvmavehiculomarca vma
 																ON vmo.VmaId = vma.VmaId
 																
-WHERE 1 = 1 AND fac.FacEstado <> 6 AND fac.OvvId IS NULL '.$fechaf.$vmarcaf.$sucursalf.'
+WHERE 1 = 1 AND fac.FacEstado <> 6 AND fac.OvvId IS NULL ' . $fechaf . $vmarcaf . $sucursalf . '
 
 
-				 '.$orden.$paginacion; //.$filtrar.$fecha.$estado.$vmarca.$vmodelo.$ano.$mes.$cvin.$orden.$paginacion;
-											
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+				 ' . $orden . $paginacion; //.$filtrar.$fecha.$estado.$vmarca.$vmodelo.$ano.$mes.$cvin.$orden.$paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsReporteResumenVenta = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$ReporteResumenVenta = new $InsReporteResumenVenta();
-                    $ReporteResumenVenta->RvrId = $fila['RvrId'];
-					$ReporteResumenVenta->RvrDoc = $fila['RvrDoc'];					
-					$ReporteResumenVenta->RvrFecha = $fila['RvrFecha'];
-					$ReporteResumenVenta->RvrTipoMoneda = $fila['RvrTipoMoneda'];					
-					$ReporteResumenVenta->RvrOrdenTrabajo = $fila['RvrOrdenTrabajo'];
-					$ReporteResumenVenta->RvrCliente = $fila['RvrCliente'];
-					
-					$ReporteResumenVenta->RvrLocal = $fila['RvrLocal'];
-					$ReporteResumenVenta->RvrMarca = $fila['RvrMarca'];
-					// $ReporteResumenVenta->RvrResumen = $fila['RvrResumen'];
-					// $ReporteResumenVenta->RvrTipo = $fila['RvrTipo'];
-					// $ReporteResumenVenta->RvrServicios = $fila['RvrServicios'];
-					// $ReporteResumenVenta->RvrTipoDetalle = $fila['RvrTipoDetalle'];
-					
-					$ReporteResumenVenta->RvrVendedor = $fila['RvrVendedor'];
-					$ReporteResumenVenta->RvrAsesorAccesorio = $fila['RvrAsesorAccesorio'];
-					$ReporteResumenVenta->RvrCodigo = $fila['RvrCodigo'];
-					$ReporteResumenVenta->RvrDescripcion = $fila['RvrDescripcion'];
-					
-					$ReporteResumenVenta->RvrCantidad = $fila['RvrCantidad'];
-					$ReporteResumenVenta->RvrCostoUs = $fila['RvrCostoUs'];
-					$ReporteResumenVenta->RvrCostoIgv = $fila['RvrCostoIgv'];
-					$ReporteResumenVenta->RvrTipoCambio = $fila['RvrTipoCambio'];
-					// $ReporteResumenVenta->RvrCostoTotal1 = $fila['RvrCostoTotal1'];
-					// $ReporteResumenVenta->RvrCostoIGVSoles = $fila['RvrCostoIGVSoles'];
-					
-					// $ReporteResumenVenta->RvrCostoTotal2 = $fila['RvrCostoTotal2'];
-					// $ReporteResumenVenta->RvrCostoGeneral = $fila['RvrCostoGeneral'];
-					// $ReporteResumenVenta->RvrPrecioUs = $fila['RvrPrecioUs'];
-					// $ReporteResumenVenta->RvvrPrecioS = $fila['RvvrPrecioS'];
-			
-					// $ReporteResumenVenta->RvrPrecioUnitario = $fila['RvrPrecioUnitario'];
-					// $ReporteResumenVenta->RvrPrecioCliente = $fila['RvrPrecioCliente'];
-					// $ReporteResumenVenta->RvrGanancia = $fila['RvrGanancia'];
-					// $ReporteResumenVenta->RvrMargen = $fila['RvrMargen'];
-					
-					$ReporteResumenVenta->RvrUnidadMedida = $fila['RvrUnidadMedida'];
-					
-					$ReporteResumenVenta->RvrPrecioSFinal = $fila['RvrPrecioSFinal'];
-					$ReporteResumenVenta->RvrDescuentoSFinal = $fila['RvrDescuentoSFinal'];
-					$ReporteResumenVenta->RvrPrecioDescuentoSFinal = $ReporteResumenVenta->RvrPrecioSFinal - $ReporteResumenVenta->RvrDescuentoSFinal;
-					
-					$ReporteResumenVenta->RvrImporteSFinal = $fila['RvrImporteSFinal'];
-					$ReporteResumenVenta->RvrImporteDescuentoSFinal = $ReporteResumenVenta->RvrImporteSFinal - ($ReporteResumenVenta->RvrDescuentoSFinal*$ReporteResumenVenta->RvrCantidad);
-					
-					$ReporteResumenVenta->RvrPrecioUSFinal = $fila['RvrPrecioUSFinal'];
-					$ReporteResumenVenta->RvrDescuentoUSFinal = $fila['RvrDescuentoUSFinal'];
-					$ReporteResumenVenta->RvrPrecioDescuentoUSFinal = $ReporteResumenVenta->RvrPrecioUSFinal - $ReporteResumenVenta->RvrDescuentoUSFinal;
-					
-					$ReporteResumenVenta->RvrImporteUSFinal = $fila['RvrImporteUSFinal'];
-					$ReporteResumenVenta->RvrImporteDescuentoUSFinal = $ReporteResumenVenta->RvrImporteUSFinal - ($ReporteResumenVenta->RvrDescuentoUSFinal*$ReporteResumenVenta->RvrCantidad);
-					
-					
-					
-					$ReporteResumenVenta->RvrModalidad = $fila['RvrModalidad'];
-					$ReporteResumenVenta->RvrNotaCredito = $fila['RvrNotaCredito'];		
-					$ReporteResumenVenta->RvrNotaCreditoTotal = $fila['RvrNotaCreditoTotal'];		
-							
-                    $ReporteResumenVenta->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $ReporteResumenVenta;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		$Respuesta['Datos'] = array();
+
+		$InsReporteResumenVenta = get_class($this);
+
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+
+			$ReporteResumenVenta = new $InsReporteResumenVenta();
+			$ReporteResumenVenta->RvrId = $fila['RvrId'];
+			$ReporteResumenVenta->RvrDoc = $fila['RvrDoc'];
+			$ReporteResumenVenta->RvrFecha = $fila['RvrFecha'];
+			$ReporteResumenVenta->RvrTipoMoneda = $fila['RvrTipoMoneda'];
+			$ReporteResumenVenta->RvrOrdenTrabajo = $fila['RvrOrdenTrabajo'];
+			$ReporteResumenVenta->RvrCliente = $fila['RvrCliente'];
+
+			$ReporteResumenVenta->RvrLocal = $fila['RvrLocal'];
+			$ReporteResumenVenta->RvrMarca = $fila['RvrMarca'];
+			// $ReporteResumenVenta->RvrResumen = $fila['RvrResumen'];
+			// $ReporteResumenVenta->RvrTipo = $fila['RvrTipo'];
+			// $ReporteResumenVenta->RvrServicios = $fila['RvrServicios'];
+			// $ReporteResumenVenta->RvrTipoDetalle = $fila['RvrTipoDetalle'];
+
+			$ReporteResumenVenta->RvrVendedor = $fila['RvrVendedor'];
+			$ReporteResumenVenta->RvrAsesorAccesorio = $fila['RvrAsesorAccesorio'];
+			$ReporteResumenVenta->RvrCodigo = $fila['RvrCodigo'];
+			$ReporteResumenVenta->RvrDescripcion = $fila['RvrDescripcion'];
+
+			$ReporteResumenVenta->RvrCantidad = $fila['RvrCantidad'];
+			$ReporteResumenVenta->RvrCostoUs = $fila['RvrCostoUs'];
+			$ReporteResumenVenta->RvrCostoIgv = $fila['RvrCostoIgv'];
+			$ReporteResumenVenta->RvrTipoCambio = $fila['RvrTipoCambio'];
+			// $ReporteResumenVenta->RvrCostoTotal1 = $fila['RvrCostoTotal1'];
+			// $ReporteResumenVenta->RvrCostoIGVSoles = $fila['RvrCostoIGVSoles'];
+
+			// $ReporteResumenVenta->RvrCostoTotal2 = $fila['RvrCostoTotal2'];
+			// $ReporteResumenVenta->RvrCostoGeneral = $fila['RvrCostoGeneral'];
+			// $ReporteResumenVenta->RvrPrecioUs = $fila['RvrPrecioUs'];
+			// $ReporteResumenVenta->RvvrPrecioS = $fila['RvvrPrecioS'];
+
+			// $ReporteResumenVenta->RvrPrecioUnitario = $fila['RvrPrecioUnitario'];
+			// $ReporteResumenVenta->RvrPrecioCliente = $fila['RvrPrecioCliente'];
+			// $ReporteResumenVenta->RvrGanancia = $fila['RvrGanancia'];
+			// $ReporteResumenVenta->RvrMargen = $fila['RvrMargen'];
+
+			$ReporteResumenVenta->RvrUnidadMedida = $fila['RvrUnidadMedida'];
+
+			$ReporteResumenVenta->RvrPrecioSFinal = $fila['RvrPrecioSFinal'];
+			$ReporteResumenVenta->RvrDescuentoSFinal = $fila['RvrDescuentoSFinal'];
+			$ReporteResumenVenta->RvrPrecioDescuentoSFinal = $ReporteResumenVenta->RvrPrecioSFinal - $ReporteResumenVenta->RvrDescuentoSFinal;
+
+			$ReporteResumenVenta->RvrImporteSFinal = $fila['RvrImporteSFinal'];
+			$ReporteResumenVenta->RvrImporteDescuentoSFinal = $ReporteResumenVenta->RvrImporteSFinal - ($ReporteResumenVenta->RvrDescuentoSFinal * $ReporteResumenVenta->RvrCantidad);
+
+			$ReporteResumenVenta->RvrPrecioUSFinal = $fila['RvrPrecioUSFinal'];
+			$ReporteResumenVenta->RvrDescuentoUSFinal = $fila['RvrDescuentoUSFinal'];
+			$ReporteResumenVenta->RvrPrecioDescuentoUSFinal = $ReporteResumenVenta->RvrPrecioUSFinal - $ReporteResumenVenta->RvrDescuentoUSFinal;
+
+			$ReporteResumenVenta->RvrImporteUSFinal = $fila['RvrImporteUSFinal'];
+			$ReporteResumenVenta->RvrImporteDescuentoUSFinal = $ReporteResumenVenta->RvrImporteUSFinal - ($ReporteResumenVenta->RvrDescuentoUSFinal * $ReporteResumenVenta->RvrCantidad);
+
+
+
+			$ReporteResumenVenta->RvrModalidad = $fila['RvrModalidad'];
+			$ReporteResumenVenta->RvrNotaCredito = $fila['RvrNotaCredito'];
+			$ReporteResumenVenta->RvrNotaCreditoTotal = $fila['RvrNotaCreditoTotal'];
+
+			$ReporteResumenVenta->InsMysql = NULL;
+			$Respuesta['Datos'][] = $ReporteResumenVenta;
 		}
-		
 
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
 
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
 }
-?>
