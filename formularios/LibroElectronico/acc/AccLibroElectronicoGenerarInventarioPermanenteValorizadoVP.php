@@ -31,19 +31,16 @@ require_once($InsProyecto->MtdRutFunciones() . 'FncGeneral.php');
 //if($_GET['P']==2){
 //	header("Content-Type: text/html");
 //	header("Content-Disposition:  filename=\"LE".$EmpresaCodigo.date('d-m-Y').".txt\";");
-//}
+//} 
 
-$POST_Sucursal = ($_GET['Sucursal']);
 $POST_Sucursal = "";
 
 $POST_Ano = ($_GET['Ano']);
 $POST_Mes = ($_GET['Mes']);
 
-
-
 $POST_FechaInicio = "01/" . $POST_Mes . "/" . $POST_Ano;
 $POST_FechaFin = FncCantidadDiaMes($POST_Ano, $POST_Mes) . "/" . $POST_Mes . "/" . $POST_Ano;
-
+$FechaInventarioInicio = "01/01/" . $POST_Ano;
 
 require_once($InsPoo->MtdPaqContabilidad() . 'ClsFactura.php');
 require_once($InsPoo->MtdPaqContabilidad() . 'ClsMoneda.php');
@@ -60,32 +57,31 @@ require_once($InsPoo->MtdPaqContabilidad() . 'ClsMoneda.php');
 
 
 $InsPago = new ClsPago($InsMysql);
-$InsFactura = new ClsFactura();
+$InsFactura = new ClsFactura($InsMysql);
 $InsMoneda = new ClsMoneda($InsMysql);
-$InsCliente = new ClsCliente();
-$InsNotaCredito = new ClsNotaCredito();
-$InsBoleta = new ClsBoleta();
-$InsNotaDebito = new ClsNotaDebito();
-$InsKardexVehiculo = new ClsKardexVehiculo();
-$InsVehiculo = new ClsVehiculo();
+$InsCliente = new ClsCliente($InsMysql);
+$InsNotaCredito = new ClsNotaCredito($InsMysql);
+$InsBoleta = new ClsBoleta($InsMysql);
+$InsNotaDebito = new ClsNotaDebito($InsMysql);
+$InsKardexVehiculo = new ClsKardexVehiculo($InsMysql);
+$InsVehiculo = new ClsVehiculo($InsMysql);
 
 require_once($InsPoo->MtdPaqAlmacen() . 'ClsKardex.php');
 require_once($InsPoo->MtdPaqAlmacen() . 'ClsProducto.php');
 require_once($InsPoo->MtdPaqEmpresa() . 'ClsSucursal.php');
 
-$InsKardex = new ClsKardex();
+$InsKardex = new ClsKardex($InsMysql);
 $InsProducto = new ClsProducto($InsMysql);
 $InsSucursal = new ClsSucursal($InsMysql);
+
 
 $aux = explode("/", $POST_FechaInicio);
 $KardexFechaInicio = "01/01/" . $aux[2];
 
-//$InsSucursal->SucId = $POST_Sucursal;
-//$InsSucursal->MtdObtenerSucursal();
+$InsSucursal->SucId = $POST_Sucursal;
+$InsSucursal->MtdObtenerSucursal();
 
-//$InventarioFechaInicio = (empty($InsSucursal->SucInventarioFechaInicio) ? $SistemaInventarioFecha : $InsSucursal->SucInventarioFechaInicio);
-
-$InventarioFechaInicio = "01/01/2025";
+$InventarioFechaInicio = (empty($InsSucursal->SucInventarioFechaInicio) ? $SistemaInventarioFecha : $InsSucursal->SucInventarioFechaInicio);
 
 list($Dia, $Mes, $Ano) = explode("/", $POST_FechaInicio);
 
@@ -209,35 +205,55 @@ $libro = "";
 
 	foreach ($ArrProductos as $DatProducto) {
 
-		//deb($InventarioFechaInicio );
-		//MtdObtenerKardexs($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'AmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oProducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oUso=NULL,$oMoneda=NULL,$oFechaTipo="AmoFecha",$oAlmacen=NULL,$oSucursal=NULL) 
-		$ResKardex = $InsKardex->MtdObtenerKardexs(NULL, NULL, NULL, 'amd.AmdFecha ASC,(amd.AmdTiempoCreacion) ASC', '', NULL, $DatProducto->ProId, FncCambiaFechaAMysql($InventarioFechaInicio), FncCambiaFechaAMysql($POST_FechaFin), 3, $POST_Moneda, "amd.AmdFecha", $POST_Almacen, $POST_Sucursal);
+		$ResKardex = $InsKardex->MtdObtenerKardexs(NULL, NULL, NULL, 'IFNULL(amo.AmoComprobanteFecha,amd.AmdFecha) ', 'ASC', NULL, $DatProducto->ProId, NULL, FncCambiaFechaAMysql($POST_FechaFin), 3, $POST_Moneda, "IFNULL(amo.AmoComprobanteFecha,amd.AmdFecha)", $POST_Almacen, $POST_Sucursal);
 		$ArrKardexs = $ResKardex['Datos'];
+
 
 		$TotalMovimientoEntradas = 0;
 		$TotalMovimientoSalidas = 0;
 
-		//$TotalMontoMovimientoEntradas = 0;
-		//$TotalMontoMovimientoSalidas = 0;
 
 		$TotalEntradaGeneral = 0;
 		$TotalSalidaGeneral = 0;
 
-		//$MostrarSaldoAnterior = true;
-		//$MostrarSaldoAnterior2 = true;
-		$MostrarSaldoInicial = true;
+		//
+		$TotalEntradaCantidadItem = 0;
+		$TotalEntradaUnitarioItem = 0;
+		$TotalEntradaTotalItem = 0;
+
+		$TotalSalidaCantidadItem = 0;
+		$TotalSalidaUnitarioItem = 0;
+		$TotalSalidaTotalItem = 0;
+
+		$TotalSaldoCantidadItem = 0;
+		$TotalSaldoUnitarioItem = 0;
+		$TotalSaldoTotalItem = 0;
+
+
+		$TotalEntradaFiltro = 0;
+		$TotalCostoTotalEntradaFiltro = 0;
+
+		$TotalSalidaFiltro = 0;
+		$TotalCostoTotalSalidaFiltro = 0;
+
+		$MostrarSaldoAnterior = true;
 
 		$Primera = true;
-		$MostrarInventario = true;
+		//$MostrarInventario = true;	
+		$MostratTotales = false;
+
+
+		$Saldo = 0;
+		$CostoUnitarioAnterior = 0;
+		$CostoTotalSaldo = 0;
+
+		$CostoActual = 0;
+		$CostoTotalActual = 0;
+
 
 		foreach ($ArrKardexs as $DatKardex) {
 
 			$DatKardex->KdxCostoUnitario = (($EmpresaMonedaId == $POST_Moneda or empty($POST_Moneda)) ? $DatKardex->KdxCostoUnitario : ($DatKardex->KdxCostoUnitario / $DatKardex->KdxTipoCambio));
-			$DatKardex->ProCodigoOriginal = str_replace(" ", "", $DatKardex->ProCodigoOriginal);
-			$DatKardex->ProCodigoOriginal = str_replace(":", "", $DatKardex->ProCodigoOriginal);
-
-			//$DatKardex->CtiCodigo = $DatKardex->CtiCodigo + 1 -1 ;
-			//$DatKardex->TopCodigo = $DatKardex->TopCodigo + 1 -1 ;
 
 			if (FncConvetirTimestamp($DatKardex->KdxFecha) < FncConvetirTimestamp($POST_FechaInicio)) {
 
@@ -257,10 +273,12 @@ $libro = "";
 						//$CostoUnitarioAnterior = round(($CostoUnitarioAnterior + $CostoActual)/2,2);	
 						$CostoUnitarioAnterior = (($CostoUnitarioAnterior + $CostoActual) / 2);
 					}
+
+					// $TotalEntradaCantidadItem += $DatKardex->KdxCantidad;
+					$TotalCostoTotalEntradaItem += $CostoTotalActual;
 				}
 
 				if ($DatKardex->KdxMovimientoTipo == 2) {
-
 					$TotalSalidaGeneral += $DatKardex->KdxCantidad;
 
 					$CostoActual = $CostoUnitarioAnterior;
@@ -270,15 +288,20 @@ $libro = "";
 				}
 			} else {
 
-				//$MostrarSaldoAnterior2 = false; //NO SE USA
-				//$MostrarSaldoAnterior = false; //NO SE USA
+	?>
 
 
-				$Fecha = "01/01/0001";
 
+
+				<?php
+
+				//VARIABLES - INICIO
 				switch ($DatKardex->KdxMovimientoTipo) {
 					case 1:
 						$Fecha = $DatKardex->KdxComprobanteFecha;
+						if (empty($Fecha)) {
+							$Fecha = $DatKardex->KdxFecha;
+						}
 						break;
 
 					case 2:
@@ -302,6 +325,12 @@ $libro = "";
 				$ProductoNombre = trim($ProductoNombre);
 				$ProductoNombre = substr($ProductoNombre, 0, 80);
 
+				$ProductoCodigo  = $DatKardex->ProCodigoOriginal;
+				$ProductoCodigo = trim($ProductoCodigo);
+				$ProductoCodigo = str_replace(":", " ", $ProductoCodigo);
+
+
+				/*
 				if ($Serie == "11") {
 					$Serie = "FF" . $Serie;
 				}
@@ -309,13 +338,86 @@ $libro = "";
 				if ($Serie == "14") {
 					$Serie = "FF" . $Serie;
 				}
-	?>
+				*/
+
+				/*
+				if ($Serie == "") {
+					$Serie = "000";
+				}
+				if ($Numero == "") {
+					$Numero = "0000";
+				}
+				*/
+
+				if ($Serie != "") {
+					$Serie = str_pad($Serie, 4, '0', STR_PAD_LEFT);
+				}
+
+				if ($Numero != "") {
+					$Numero = (int) $Numero;
+					$Numero = str_pad($Numero, 6, '0', STR_PAD_LEFT);
+				}
+
+
+				if ($Numero == "") {
+					$Numero = "0";
+				}
+
+				$TipoOperacion = ""; //COLUMNA 14
+
+				if (empty($DatKardex->TopCodigo)) {
+					$TipoOperacion = "10";
+				} else {
+					$TipoOperacion = $DatKardex->TopCodigo;
+				}
+
+				$ComprobanteTipo = ""; //COLUMNA 11
+
+				if (empty($DatKardex->CtiCodigo)) {
+					$ComprobanteTipo = "00"; //ERA 00
+					$TipoOperacion = "10";
+				} else {
+					$ComprobanteTipo = $DatKardex->CtiCodigo;
+				}
+
+
+				if ($TipoOperacion == "05" && (($Serie == "") && ($Numero == "0") || ($Serie == "INVENTARIO") && ($Numero != ""))) {
+					$TipoOperacion = "10";
+					$ComprobanteTipo = "00";
+				}
+
+				//$TipoOperacion != "01"
+				if (
+					$TipoOperacion == "01"
+					|| $TipoOperacion == "02"
+					|| $TipoOperacion == "03"
+					|| $TipoOperacion == "04"
+					|| $TipoOperacion == "05"
+					|| $TipoOperacion == "06"
+				) {
+				} else {
+					$Serie = "";
+					$Numero = "0";
+				}
+
+				/*
+				if (
+					$TipoOperacion == "16"
+				) {
+					$ComprobanteTipo = "00";
+				}
+				*/
+
+				//VARIABLES - FIN
+
+				?>
+
 
 
 
 				<?php
-				if ($MostrarSaldoInicial) {
-					$MostrarSaldoInicial = false;
+				if ($MostrarSaldoAnterior) {
+					$SaldoAnterior = $Saldo;
 				?>
 
 					<tr>
@@ -327,10 +429,10 @@ $libro = "";
 						<td> 9 </td>
 
 						<td> 07 </td>
-						<td> <?php echo $DatKardex->ProCodigoOriginal; ?> </td>
+						<td> <?php echo $ProductoCodigo; ?> </td>
 						<td> &nbsp; </td>
 						<td> &nbsp; </td>
-						<td> 01/01/0001 </td>
+						<td> <?php echo $FechaInventarioInicio; ?> </td>
 						<td> 00 </td>
 
 						<td> 0000 </td>
@@ -340,7 +442,7 @@ $libro = "";
 						<td> <?php echo $DatKardex->UmeCodigo; ?> </td>
 
 						<td> 1 </td>
-						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($Saldo) ? '0.00' : number_format($Saldo, 3, '.', '')); ?> </td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($SaldoAnterior) ? '0.00' : number_format($SaldoAnterior, 3, '.', '')); ?> </td>
 						<td align="right"> <?php echo (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')); ?> </td>
 						<td align="right"> <?php echo (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')); ?> </td>
 
@@ -348,7 +450,7 @@ $libro = "";
 						<td align="right"> 0.00 </td>
 						<td align="right"> 0.00 </td>
 
-						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($Saldo) ? '0.00' : number_format($Saldo, 3, '.', '')); ?> </td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($SaldoAnterior) ? '0.00' : number_format($SaldoAnterior, 3, '.', '')); ?> </td>
 						<td align="right"> <?php echo (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')); ?> </td>
 						<td align="right"> <?php echo (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')); ?> </td>
 
@@ -357,21 +459,20 @@ $libro = "";
 					</tr>
 				<?php
 					$j++;
+					$MostrarSaldoAnterior = false;
 				}
 				?>
+
 
 				<?php
 				if ($DatKardex->KdxMovimientoTipo == 1) {
 
-					//$DatKardex->KdxCantidad = round($DatKardex->KdxCantidad,3);
-					//$DatKardex->KdxCostoUnitario = round($DatKardex->KdxCostoUnitario,3);
-
 					$TotalEntradaGeneral += $DatKardex->KdxCantidad;
-					$Saldo =  ($TotalEntradaGeneral - $TotalSalidaGeneral);
 
-					//$CantidadEntrada = $DatKardex->KdvCantidad;
 					$CostoActual = $DatKardex->KdxCostoUnitario;
 					$CostoTotalActual = $CostoActual * $DatKardex->KdxCantidad;
+
+					$Saldo =  ($TotalEntradaGeneral - $TotalSalidaGeneral);
 
 					if ($Primera) {
 						$CostoUnitarioAnterior = $CostoActual;
@@ -382,158 +483,113 @@ $libro = "";
 
 					$CostoTotalSaldo = ($CostoUnitarioAnterior * $Saldo);
 
-					//$CostoTotalActual = round($CostoTotalActual,2);
-					//				$Saldo = round($Saldo,3);
-					//				$CostoUnitarioAnterior = round($CostoUnitarioAnterior,3);
-					//				$CostoTotalSaldo = round($CostoTotalSaldo,2);
-
-					$DatKardex->KdxCantidad = $DatKardex->KdxCantidad + 1 - 1;
-					$DatKardex->KdxCostoUnitario = $DatKardex->KdxCostoUnitario + 1 - 1;
-					$CostoTotalActual = $CostoTotalActual + 1 - 1;
-
-					$Saldo = $Saldo + 1 - 1;
-					$CostoUnitarioAnterior = $CostoUnitarioAnterior + 1 - 1;
-					$CostoTotalSaldo = $CostoTotalSaldo + 1 - 1;
+					$TotalEntradaFiltro += $DatKardex->KdxCantidad;
+					$TotalCostoTotalEntradaFiltro += $CostoTotalActual;
 				?>
 
+					<tr>
+						<td> <?php echo $j	?>.- </td>
+						<td> <?php echo $Ano . $Mes . "00"	?> </td>
+						<td> C1 </td>
+						<td> <?php echo "M" . $j; ?> </td>
+						<td> 0003 </td>
+						<td> 9 </td>
 
+						<td> 07 </td>
+						<td> <?php echo $ProductoCodigo; ?> </td>
+						<td> &nbsp; </td>
+						<td> &nbsp; </td>
+						<td> <?php echo $Fecha; ?> </td>
+						<td> <?php echo $ComprobanteTipo; ?> </td>
 
+						<td> <?php echo $Serie; ?> </td>
+						<td> <?php echo $Numero; ?> </td>
+						<td> <?php echo $TipoOperacion; ?> </td>
+						<td> <?php echo $ProductoNombre; ?> </td>
+						<td> <?php echo $DatKardex->UmeCodigo; ?> </td>
 
+						<td> 1 </td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($DatKardex->KdxCantidad) ? '0.00' : number_format($DatKardex->KdxCantidad, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($DatKardex->KdxCostoUnitario) ? '0.00' : number_format($DatKardex->KdxCostoUnitario, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoTotalActual) ? '0.00' : number_format($CostoTotalActual, 2, '.', '')); ?> </td>
 
-					<?php
-					if ($Saldo >= 0 and $CostoUnitarioAnterior >= 0 and $CostoTotalSaldo >= 0) {
+						<td align="right" bgcolor="#CCCCCC"> 0.00 </td>
+						<td align="right"> 0.00 </td>
+						<td align="right"> 0.00 </td>
 
-					?>
-						<tr>
-							<td> <?php echo $j	?>.- </td>
-							<td> <?php echo $Ano . $Mes . "00"	?> </td>
-							<td> C1 </td>
-							<td> <?php echo "M" . $j; ?> </td>
-							<td> 0003 </td>
-							<td> 9 </td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($Saldo) ? '0.00' : number_format($Saldo, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')); ?> </td>
 
-							<td> 07 </td>
-							<td> <?php echo $DatKardex->ProCodigoOriginal; ?> </td>
-							<td> &nbsp; </td>
-							<td> &nbsp; </td>
-							<td> <?php echo $Fecha; ?> </td>
-							<td> <?php echo $DatKardex->CtiCodigo; ?> </td>
+						<td> 1 </td>
+						<td> <?php echo $DatKardex->KdxId; ?> </td>
+					</tr>
+				<?php
 
-							<td> <?php echo $Serie; ?> </td>
-							<td> <?php echo $Numero; ?> </td>
-							<td> <?php echo $DatKardex->TopCodigo; ?> </td>
-							<td> <?php echo $ProductoNombre; ?> </td>
-							<td> <?php echo $DatKardex->UmeCodigo; ?> </td>
-
-							<td> 1 </td>
-							<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($DatKardex->KdxCantidad) ? '0.00' : number_format($DatKardex->KdxCantidad, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($DatKardex->KdxCostoUnitario) ? '0.00' : number_format($DatKardex->KdxCostoUnitario, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($CostoTotalActual) ? '0.00' : number_format($CostoTotalActual, 2, '.', '')); ?> </td>
-
-							<td align="right" bgcolor="#CCCCCC"> 0.00 </td>
-							<td align="right"> 0.00 </td>
-							<td align="right"> 0.00 </td>
-
-							<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($Saldo) ? '0.00' : number_format($Saldo, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')); ?> </td>
-
-							<td> 1 </td>
-							<td> &nbsp; </td>
-						</tr>
-						<?php
-						//$libro .= $Ano . $Mes . "00" . "|C1|M" . $j . "|0003|9|07|" . $DatKardex->ProCodigoOriginal . "||" . $Fecha . "|" . $DatKardex->CtiCodigo . "|" . $Serie . "|" . $Numero . "|" . $DatKardex->TopCodigo . "|" . $ProductoNombre . "|" . $DatKardex->UmeCodigo . "|1|" . (empty($DatKardex->KdxCantidad) ? '0.00' : number_format($DatKardex->KdxCantidad, 3, '.', '')) . "|" . (empty($DatKardex->KdxCostoUnitario) ? '0.00' : number_format($DatKardex->KdxCostoUnitario, 3, '.', '')) . "|" . (empty($CostoTotalActual) ? '0.00' : number_format($CostoTotalActual, 2, '.', '')) . "|0.00|0.00|0.00|" . (empty($Saldo) ? '0.00' : number_format($Saldo, 3, '.', '')) . "|" . (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')) . "|" . (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')) . "|1|\n";
-
-						$j++;
-					}
+					$j++;
 				}
 
 				if ($DatKardex->KdxMovimientoTipo == 2) {
 
-					if (!empty($DatKardex->KdxComprobanteNumero) or !empty($DatKardex->KdxComprobanteNumero2)) {
+					$TotalSalidaGeneral += $DatKardex->KdxCantidad;
+
+					$CostoActual = $CostoUnitarioAnterior;
+					$CostoTotalActual = $CostoActual * $DatKardex->KdxCantidad;
+
+					$Saldo =  ($TotalEntradaGeneral - $TotalSalidaGeneral);
+
+					$CostoTotalSaldo = ($Saldo * $CostoUnitarioAnterior);
 
 
-						//$DatKardex->KdxCantidad = round($DatKardex->KdxCantidad,3);
-
-						$TotalSalidaGeneral += $DatKardex->KdxCantidad;
-
-						$CostoActual = $CostoUnitarioAnterior;
-						$CostoTotalActual = $CostoActual * $DatKardex->KdxCantidad;
-
-						$Saldo =  ($TotalEntradaGeneral - $TotalSalidaGeneral);
-
-						$CostoTotalSaldo = ($Saldo * $CostoUnitarioAnterior);
+					$TotalSalidaFiltro  += $DatKardex->KdxCantidad;
+					$TotalCostoTotalSalidaFiltro += $CostoTotalActual;
 
 
-						//$CostoActual = round($CostoActual,3);
-						//						$CostoTotalActual = round($CostoTotalActual,2);
-						//						
-						//						
-						//						$Saldo = round($Saldo,3);
-						//						$CostoUnitarioAnterior = round($CostoUnitarioAnterior,3);
-						//						$CostoTotalSaldo = round($CostoTotalSaldo,2);
+				?>
+					<tr>
+						<td> <?php echo $j	?>.- </td>
 
-						$CostoTotalSaldo = $CostoTotalSaldo + 1 - 1;
-						$CostoUnitarioAnterior = $CostoUnitarioAnterior + 1 - 1;
-						$Saldo = $Saldo + 1 - 1;
+						<td> <?php echo $Ano . $Mes . "00"    ?> </td>
+						<td> C1 </td>
+						<td> <?php echo "M" . $j; ?> </td>
+						<td> 0003 </td>
+						<td> 9 </td>
 
-						$CostoTotalActual = $CostoTotalActual + 1 - 1;
-						$CostoActual = $CostoActual + 1 - 1;
-						$DatKardex->KdxCantidad = $DatKardex->KdxCantidad + 1 - 1;
+						<td> 07 </td>
+						<td> <?php echo $ProductoCodigo; ?> </td>
+						<td> &nbsp; </td>
+						<td> &nbsp; </td>
+						<td> <?php echo $Fecha; ?> </td>
+						<td> <?php echo $ComprobanteTipo; ?> </td>
 
+						<td> <?php echo $Serie; ?> </td>
+						<td> <?php echo $Numero; ?> </td>
+						<td> <?php echo $TipoOperacion; ?> </td>
+						<td> <?php echo $ProductoNombre; ?> </td>
+						<td> <?php echo $DatKardex->UmeCodigo; ?> </td>
 
-						if ($Saldo >= 0 and $CostoUnitarioAnterior >= 0 and $CostoTotalSaldo >= 0) {
-						?>
-							<tr>
-								<td> <?php echo $j	?>.- </td>
+						<td> 1 </td>
+						<td align="right" bgcolor="#CCCCCC"> 0.00 </td>
+						<td align="right"> 0.00 </td>
+						<td align="right"> 0.00 </td>
 
-								<td> <?php echo $Ano . $Mes . "00"    ?> </td>
-								<td> C1 </td>
-								<td> <?php echo "M" . $j; ?> </td>
-								<td> 0003 </td>
-								<td> 9 </td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($DatKardex->KdxCantidad) ? '0.00' : number_format($DatKardex->KdxCantidad, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoActual) ? '0.00' : number_format($CostoActual, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoTotalActual) ? '0.00' : number_format($CostoTotalActual, 2, '.', '')); ?> </td>
 
-								<td> 07 </td>
-								<td> <?php echo $DatKardex->ProCodigoOriginal; ?> </td>
-								<td> &nbsp; </td>
-								<td> &nbsp; </td>
-								<td> <?php echo $Fecha; ?> </td>
-								<td> <?php echo $DatKardex->CtiCodigo; ?> </td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($Saldo) ? '0.00' : number_format($Saldo, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')); ?> </td>
 
-								<td> <?php echo $Serie; ?> </td>
-								<td> <?php echo $Numero; ?> </td>
-								<td> <?php echo $DatKardex->TopCodigo; ?> </td>
-								<td> <?php echo $ProductoNombre; ?> </td>
-								<td> <?php echo $DatKardex->UmeCodigo; ?> </td>
-
-								<td> 1 </td>
-								<td align="right" bgcolor="#CCCCCC"> 0.00 </td>
-								<td align="right"> 0.00 </td>
-								<td align="right"> 0.00 </td>
-
-								<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($DatKardex->KdxCantidad) ? '0.00' : number_format($DatKardex->KdxCantidad, 3, '.', '')); ?> </td>
-								<td align="right"> <?php echo (empty($CostoActual) ? '0.00' : number_format($CostoActual, 3, '.', '')); ?> </td>
-								<td align="right"> <?php echo (empty($CostoTotalActual) ? '0.00' : number_format($CostoTotalActual, 2, '.', '')); ?> </td>
-
-								<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($Saldo) ? '0.00' : number_format($Saldo, 3, '.', '')); ?> </td>
-								<td align="right"> <?php echo (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')); ?> </td>
-								<td align="right"> <?php echo (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')); ?> </td>
-
-								<td> 1 </td>
-								<td> &nbsp; </td>
-							</tr>
+						<td> 1 </td>
+						<td> <?php echo $DatKardex->KdxId; ?> </td>
+					</tr>
 
 	<?php
-							//$libro .= $Ano . $Mes . "00" . "|C1|M" . $j . "|0003|9|07|" . $DatKardex->ProCodigoOriginal . "||" . $Fecha . "|" . $DatKardex->CtiCodigo . "|" . $Serie . "|" . $Numero . "|" . $DatKardex->TopCodigo . "|" . $ProductoNombre . "|" . $DatKardex->UmeCodigo . "|1|0.00|0.00|0.00|" . (empty($DatKardex->KdxCantidad) ? '0.00' : number_format($DatKardex->KdxCantidad, 3, '.', '')) . "|" . (empty($CostoActual) ? '0.00' : number_format($CostoActual, 3, '.', '')) . "|" . (empty($CostoTotalActual) ? '0.00' : number_format($CostoTotalActual, 2, '.', '')) . "|" . (empty($Saldo) ? '0.00' : number_format($Saldo, 3, '.', '')) . "|" . (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')) . "|" . (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')) . "|1|\n";
-							$j++;
-						}
-					}
+					$j++;
 				}
 			}
 		}
-
-		//if ($MostrarSaldoAnterior2) {
-		//}
 	}
 
 	?>
@@ -550,7 +606,10 @@ $libro = "";
 
 		//deb($POST_UnidadMedidaUso);
 		//MtdObtenerKardexVehiculos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'VmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVehducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oUso=NULL,$oMoneda=NULL,$oFechaTipo="VmvFecha",$oSucursal=NULL,$oVehiculoId=NULL,$oVehiculoIngresoId=NULL)
-		$ResKardexVehiculo = $InsKardexVehiculo->MtdObtenerKardexVehiculos(NULL, NULL, NULL, 'ein.EinVIN, vmd.VmdFecha ASC ', '', NULL, NULL, FncCambiaFechaAMysql($KardexFechaInicio), FncCambiaFechaAMysql($POST_FechaFin), $POST_UnidadMedidaUso, $POST_Moneda, "vmd.VmdFecha", $POST_SucursalId, $DatVehiculo->VehId, NULL);
+		//$ResKardexVehiculo = $InsKardexVehiculo->MtdObtenerKardexVehiculos(NULL, NULL, NULL, 'ein.EinVIN, vmd.VmdFecha ASC ', '', NULL, NULL, FncCambiaFechaAMysql($KardexFechaInicio), FncCambiaFechaAMysql($POST_FechaFin), $POST_UnidadMedidaUso, $POST_Moneda, "vmd.VmdFecha", $POST_SucursalId, $DatVehiculo->VehId, NULL);
+		//$ArrKardexVehiculos = $ResKardexVehiculo['Datos'];
+
+		$ResKardexVehiculo = $InsKardexVehiculo->MtdObtenerKardexVehiculos(NULL, NULL, NULL, 'ein.EinVIN,vmd.VmdFecha ASC,(vmd.VmdTiempoCreacion) ASC', '', NULL, NULL, FncCambiaFechaAMysql($KardexFechaInicio), FncCambiaFechaAMysql($POST_FechaFin), $POST_UnidadMedidaUso, $POST_Moneda, "vmd.VmdFecha", $POST_SucursalId, $DatVehiculo->VehId, NULL);
 		$ArrKardexVehiculos = $ResKardexVehiculo['Datos'];
 
 		$InsVehiculo->VehId = $DatVehiculo->VehId;
@@ -572,11 +631,12 @@ $libro = "";
 		//$MostrarSaldoAnterior = true;
 		//$MostrarSaldoAnterior2 = true;
 		$MostrarSaldoInicial = true;
-
+		$MostrarSaldoAnterior = false;
 
 		//	$j = 1;
 		$Primera = true;
 		$MostrarInventario = true;
+
 		foreach ($ArrKardexVehiculos as $DatKardexVehiculo) {
 
 			$DatKardexVehiculo->KdvCostoUnitario = (($EmpresaMonedaId == $POST_Moneda or empty($POST_Moneda)) ? $DatKardexVehiculo->KdvCostoUnitario : ($DatKardexVehiculo->KdvCostoUnitario / $DatKardexVehiculo->KdvTipoCambio));
@@ -586,6 +646,9 @@ $libro = "";
 			//$DatKardexVehiculo->CtiCodigo = $DatKardexVehiculo->CtiCodigo + 1 -1 ;
 			//$DatKardexVehiculo->TopCodigo = $DatKardexVehiculo->TopCodigo + 1 -1 ;
 
+			//VARIABLES - INICIO
+
+			/*
 			$Fecha = "01/01/0001";
 
 			switch ($DatKardexVehiculo->KdvMovimientoTipo) {
@@ -615,8 +678,16 @@ $libro = "";
 			$ProductoNombre = $DatKardexVehiculo->VmoNombre . " " . $DatKardexVehiculo->VveNombre;
 			$ProductoNombre = trim($ProductoNombre);
 			$ProductoNombre = substr($ProductoNombre, 0, 80);
+			*/
 
+			//VARIABLES - FIN
 
+			if ($DatKardexVehiculo->EinVIN != $VINAnterior) {
+				$VINAnterior = $DatKardexVehiculo->EinVIN;
+				$MostrarSaldoAnterior = FALSE;
+				$TotalEntradaGeneral = 0;
+				$TotalSalidaGeneral = 0;
+			}
 
 
 			if (FncConvetirTimestamp($DatKardexVehiculo->KdvFecha) < FncConvetirTimestamp($POST_FechaInicio)) {
@@ -648,6 +719,8 @@ $libro = "";
 
 					$CantidadSaldo =  ($TotalEntradaGeneral - $TotalSalidaGeneral);
 				}
+
+				$MostrarSaldoAnterior = true;
 			} else {
 
 				//$MostrarSaldoAnterior2 = false;
@@ -655,26 +728,151 @@ $libro = "";
 
 	?>
 
-
+				<?php
+				/*if ($DatKardexVehiculo->EinVIN != $VINAnterior) {
+					$VINAnterior = $DatKardexVehiculo->EinVIN;
+					$MostrarSaldoAnterior = true;
+					$TotalEntradaGeneral = 0;
+					$TotalSalidaGeneral = 0;
+				}*/
+				?>
 
 				<?php
-				/*if ($MostrarSaldoInicial) {
-					$MostrarSaldoInicial = false;
+
+
+				//VARIABLES - INICIO
+				switch ($DatKardexVehiculo->KdvMovimientoTipo) {
+					case 1:
+						$Fecha = $DatKardexVehiculo->KdvComprobanteFecha;
+						break;
+
+					case 2:
+						$Fecha = $DatKardexVehiculo->KdvFecha;
+						break;
+
+					default:
+						break;
+				}
+
+				$Serie = "";
+				$Numero = "";
+
+				if (empty($DatKardexVehiculo->KdvComprobanteNumero)) {
+					list($Serie, $Numero) = explode("-", $DatKardexVehiculo->KdvComprobanteNumero2);
+				} else {
+					list($Serie, $Numero) = explode("-", $DatKardexVehiculo->KdvComprobanteNumero);
+				}
+
+				$ProductoNombre = $DatKardexVehiculo->VmoNombre . " " . $DatKardexVehiculo->VveNombre;
+				$ProductoNombre = trim($ProductoNombre);
+				$ProductoNombre = substr($ProductoNombre, 0, 80);
+
+				$ProductoCodigo  = $DatKardexVehiculo->EinVIN;
+				$ProductoCodigo = trim($ProductoCodigo);
+				$ProductoCodigo = str_replace(":", "_", $ProductoCodigo);
+
+
+				/*
+if ($Serie == "11") {
+	$Serie = "FF" . $Serie;
+}
+
+if ($Serie == "14") {
+	$Serie = "FF" . $Serie;
+}
+*/
+
+				/*
+if ($Serie == "") {
+	$Serie = "000";
+}
+if ($Numero == "") {
+	$Numero = "0000";
+}
+*/
+				if ($Serie != "") {
+					$Serie = str_pad($Serie, 4, '0', STR_PAD_LEFT);
+				}
+
+				if ($Numero != "") {
+					$Numero = (int) $Numero;
+					$Numero = str_pad($Numero, 6, '0', STR_PAD_LEFT);
+				}
+
+
+				if ($Numero == "") {
+					$Numero = "0";
+				}
+
+				$TipoOperacion = ""; //COLUMNA 14
+
+				if (empty($DatKardexVehiculo->TopCodigo)) {
+					$TipoOperacion = "10";
+				} else {
+					$TipoOperacion = $DatKardexVehiculo->TopCodigo;
+				}
+
+				$ComprobanteTipo = ""; //COLUMNA 11
+
+				if (empty($DatKardexVehiculo->CtiCodigo)) {
+					$ComprobanteTipo = "00"; //ERA 00
+					$TipoOperacion = "10";
+				} else {
+					$ComprobanteTipo = $DatKardexVehiculo->CtiCodigo;
+				}
+
+				if ($TipoOperacion == "05" && (($Serie == "") && ($Numero == "0") || ($Serie == "INVENTARIO") && ($Numero != ""))) {
+					$TipoOperacion = "10";
+					$ComprobanteTipo = "00";
+				}
+
+				if (
+					$TipoOperacion == "01"
+					|| $TipoOperacion == "02"
+					|| $TipoOperacion == "03"
+					|| $TipoOperacion == "04"
+					|| $TipoOperacion == "05"
+					|| $TipoOperacion == "06"
+				) {
+				} else {
+					$Serie = "";
+					$Numero = "0";
+				}
+
+				/*
+				if (
+					$TipoOperacion == "16"
+				) {
+					$ComprobanteTipo = "00";
+				}
+				*/
+
+
+				//VARIABLES - FIN
+
+				?>
+
+				<?php
+				if ($MostrarSaldoAnterior) {
+					$SaldoAnterior = $CantidadSaldo;
+
 				?>
 
 					<tr>
-						<td> <?php echo $Ano . $Mes . "00"	?> </td>
+						<td> <?php echo $j	?>.- </td>
+						<td> <?php echo $Ano . $Mes . "00"; ?></td>
 						<td> C1 </td>
 						<td> <?php echo "MV" . $j; ?> </td>
 						<td> 0003 </td>
 						<td> 9 </td>
 
-						<td> 07 </td>
-						<td> <?php echo $DatKardexVehiculo->VehCodigoIdentificador; ?> </td>
+						<td> 01 </td>
+						<td> <?php echo $ProductoCodigo; ?> </td>
 						<td> &nbsp; </td>
 						<td> &nbsp; </td>
-						<td> 01/01/0001 </td>
+						<td> <?php echo $FechaInventarioInicio; ?> </td>
 						<td> 00 </td>
+
 
 						<td> 0000 </td>
 						<td> 000000 </td>
@@ -682,46 +880,46 @@ $libro = "";
 						<td> <?php echo $ProductoNombre; ?> </td>
 						<td> <?php echo $DatKardexVehiculo->UmeCodigo; ?> </td>
 
-						<td> 5 </td>
-						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($CantidadSaldo) ? '0.00' : number_format($CantidadSaldo, 3, '.', '')); ?> </td>
-						<td align="right"> <?php echo (empty($CostoUnitarioSaldo) ? '0.00' : number_format($CostoUnitarioSaldo, 3, '.', '')); ?> </td>
+						<td> 2</td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($SaldoAnterior) ? '0.00' : number_format($SaldoAnterior, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')); ?> </td>
 						<td align="right"> <?php echo (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')); ?> </td>
 
 						<td align="right" bgcolor="#CCCCCC"> 0.00 </td>
 						<td align="right"> 0.00 </td>
 						<td align="right"> 0.00 </td>
 
-						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($CantidadSaldo) ? '0.00' : number_format($CantidadSaldo, 3, '.', '')); ?> </td>
-						<td align="right"> <?php echo (empty($CostoUnitarioSaldo) ? '0.00' : number_format($CostoUnitarioSaldo, 3, '.', '')); ?> </td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($SaldoAnterior) ? '0.00' : number_format($SaldoAnterior, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')); ?> </td>
 						<td align="right"> <?php echo (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')); ?> </td>
 
 						<td> 1 </td>
-						<td> &nbsp; </td>
+						<td> </td>
 					</tr>
+
 				<?php
-				}*/
+					$j++;
+					$MostrarSaldoAnterior = false;
+				}
 				?>
 
+
 				<?php
-
-
 				if ($DatKardexVehiculo->KdvMovimientoTipo == 1) {
 
-
 					$TotalEntradaGeneral += $DatKardexVehiculo->KdvCantidad;
-					$CantidadSaldo =  ($TotalEntradaGeneral - $TotalSalidaGeneral);
 
-
-					$CantidadEntrada = $DatKardexVehiculo->KdvCantidad;
+					//$CantidadEntrada = $DatKardexVehiculo->KdvCantidad;
 					$CostoActual = $DatKardexVehiculo->KdvCostoUnitario;
 					$CostoTotalActual = $CostoActual * $DatKardexVehiculo->KdvCantidad;
 					//$CostoTotalMovimientoEntradas += $CostoTotalActual;
+
+					$CantidadSaldo =  ($TotalEntradaGeneral - $TotalSalidaGeneral);
 
 					if ($Primera) {
 						$CostoTotalAnterior = $CostoTotalActual;
 						$Primera = false;
 					} else {
-
 						$CostoTotalAnterior = (($CostoTotalAnterior + $CostoActual));
 					}
 
@@ -729,76 +927,68 @@ $libro = "";
 					$CostoUnitarioSaldo = $CostoTotalSaldo / (empty($CantidadSaldo) ? 1 : $CantidadSaldo);
 
 
-
-
-					$CantidadSaldo = $CantidadSaldo + 1 - 1;
+					//SETEANDO VARIABLES
+					/*$CantidadSaldo = $CantidadSaldo + 1 - 1;
 					$CostoUnitarioSaldo = $CostoUnitarioSaldo + 1 - 1;
 					$CostoTotalSaldo = $CostoTotalSaldo + 1 - 1;
 
-					$CantidadEntrada = $CantidadEntrada + 1 - 1;
+					//$CantidadEntrada = $CantidadEntrada + 1 - 1;
 					$DatKardexVehiculo->KdxCostoUnitario = $DatKardexVehiculo->KdxCostoUnitario + 1 - 1;
-					$CostoTotalActual = $CostoTotalActual + 1 - 1;
+					$CostoTotalActual = $CostoTotalActual + 1 - 1;*/
 
-					if ($CantidadSaldo >= 0 and $CostoUnitarioSaldo >= 0 and $CostoTotalSaldo >= 0) {
+					//if ($CantidadSaldo >= 0 and $CostoUnitarioSaldo >= 0 and $CostoTotalSaldo >= 0) {
 				?>
 
-						<tr>
-							<td> <?php echo $j	?>.- </td>
+					<tr>
+						<td> <?php echo $j	?>.- </td>
 
-							<td> <?php echo $Ano . $Mes . "00"; ?></td>
-							<td> C1 </td>
-							<td> <?php echo "MV" . $j; ?> </td>
-							<td> 0003 </td>
-							<td> 9 </td>
+						<td> <?php echo $Ano . $Mes . "00"; ?></td>
+						<td> C1 </td>
+						<td> <?php echo "MV" . $j; ?> </td>
+						<td> 0003 </td>
+						<td> 9 </td>
 
-							<td> 01 </td>
-							<td> <?php echo $DatKardexVehiculo->EinVIN; ?> </td>
-							<td> &nbsp; </td>
-							<td> &nbsp; </td>
-							<td> <?php echo $Fecha; ?> </td>
-							<td> <?php echo $DatKardexVehiculo->CtiCodigo; ?> </td>
+						<td> 01 </td>
+						<td> <?php echo $ProductoCodigo; ?> </td>
+						<td> &nbsp; </td>
+						<td> &nbsp; </td>
+						<td> <?php echo $Fecha; ?> </td>
+						<td> <?php echo $ComprobanteTipo; ?> </td>
 
-							<td> <?php echo $Serie; ?> </td>
-							<td> <?php echo $Numero; ?> </td>
-							<td> <?php echo $DatKardexVehiculo->TopCodigo; ?> </td>
-							<td> <?php echo $ProductoNombre; ?> </td>
-							<td> <?php echo $DatKardexVehiculo->UmeCodigo; ?> </td>
+						<td> <?php echo $Serie; ?> </td>
+						<td> <?php echo $Numero; ?> </td>
+						<td> <?php echo $TipoOperacion; ?> </td>
+						<td> <?php echo $ProductoNombre; ?> </td>
+						<td> <?php echo $DatKardexVehiculo->UmeCodigo; ?> </td>
 
-							<td> 5</td>
-							<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($DatKardexVehiculo->KdvCantidad) ? '0.00' : number_format($DatKardexVehiculo->KdvCantidad, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoUnitario) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoUnitario, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoTotal) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoTotal, 2, '.', '')); ?> </td>
+						<td> 5</td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($DatKardexVehiculo->KdvCantidad) ? '0.00' : number_format($DatKardexVehiculo->KdvCantidad, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoUnitario) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoUnitario, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoTotalActual) ? '0.00' : number_format($CostoTotalActual, 2, '.', '')); ?> </td>
 
-							<td align="right" bgcolor="#CCCCCC"> 0.00 </td>
-							<td align="right"> 0.00 </td>
-							<td align="right"> 0.00 </td>
+						<td align="right" bgcolor="#CCCCCC"> 0.00 </td>
+						<td align="right"> 0.00 </td>
+						<td align="right"> 0.00 </td>
 
-							<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($DatKardexVehiculo->KdvCantidad) ? '0.00' : number_format($DatKardexVehiculo->KdvCantidad, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoUnitario) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoUnitario, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoTotal) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoTotal, 2, '.', '')); ?> </td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($SaldoAnterior) ? '0.00' : number_format($SaldoAnterior, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')); ?> </td>
 
-							<td> 1 </td>
-							<td> &nbsp; </td>
+						<td> 1 </td>
+						<td> <?php echo $DatKardexVehiculo->KdvId; ?> </td>
 
-						</tr>
-					<?php
-						$j++;
-
-						//$libro .= $Ano . $Mes . "00" . "|C1|M" . $j . "|0003|9|01|" . $DatKardexVehiculo->VehCodigoIdentificador . "||" . $Fecha . "|" . $DatKardexVehiculo->CtiCodigo . "|" . $Serie . "|" . $Numero . "|" . $DatKardexVehiculo->TopCodigo . "|" . $ProductoNombre . "|" . $DatKardexVehiculo->UmeCodigo . "|1|" . (empty($CantidadEntrada) ? '0.00' : number_format($CantidadEntrada, 3, '.', '')) . "|" . (empty($DatKardexVehiculo->KdxCostoUnitario) ? '0.00' : number_format($DatKardexVehiculo->KdxCostoUnitario, 3, '.', '')) . "|" . (empty($CostoTotalActual) ? '0.00' : number_format($CostoTotalActual, 2, '.', '')) . "|0.00|0.00|0.00|" . (empty($CantidadSaldo) ? '0.00' : number_format($CantidadSaldo, 3, '.', '')) . "|" . (empty($CostoUnitarioSaldo) ? '0.00' : number_format($CostoUnitarioSaldo, 3, '.', '')) . "|" . (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')) . "|1|\n";
-					}
-
-
+					</tr>
+				<?php
 					$j++;
 				}
 
 				if ($DatKardexVehiculo->KdvMovimientoTipo == 2) {
 
 
-
 					$TotalSalidaGeneral += $DatKardexVehiculo->KdvCantidad;
 					$CantidadSaldo =  ($TotalEntradaGeneral - $TotalSalidaGeneral);
 
-					$CantidadSalida = $DatKardexVehiculo->KdvCantidad;
+					//$CantidadSalida = $DatKardexVehiculo->KdvCantidad;
 					$CostoActual = $DatKardexVehiculo->KdvCostoIngreso;
 					$CostoTotalActual = $CostoActual * $DatKardexVehiculo->KdvCantidad;
 
@@ -810,67 +1000,63 @@ $libro = "";
 					$CostoUnitarioSaldo = $CostoTotalSaldo / (empty($CantidadSaldo) ? 1 : $CantidadSaldo);
 
 
-
-
-					$CantidadSaldo = $CantidadSaldo + 1 - 1;
+					//SETEANDO VARIABLES
+					/*$CantidadSaldo = $CantidadSaldo + 1 - 1;
 					$CostoUnitarioSaldo = $CostoUnitarioSaldo + 1 - 1;
 					$CostoTotalSaldo = $CostoTotalSaldo + 1 - 1;
-
-
-					$CantidadSalida = $CantidadSalida + 1 - 1;
+ 
+					//$CantidadSalida = $CantidadSalida + 1 - 1;
 					$CostoActual = $CostoActual + 1 - 1;
-					$CostoTotalActual = $CostoTotalActual + 1 - 1;
+					$CostoTotalActual = $CostoTotalActual + 1 - 1;*/
 
-					if ($CantidadSaldo >= 0 and $CostoUnitarioSaldo >= 0 and $CostoTotalSaldo >= 0) {
-					?>
-						<tr>
-							<td> <?php echo $j	?>.- </td>
-							<td> <?php echo $Ano . $Mes . "00"; ?></td>
-							<td> C1 </td>
-							<td> <?php echo "MV" . $j; ?> </td>
-							<td> 0003 </td>
-							<td> 9 </td>
+					//if ($CantidadSaldo >= 0 and $CostoUnitarioSaldo >= 0 and $CostoTotalSaldo >= 0) {
+				?>
+					<tr>
+						<td> <?php echo $j	?>.- </td>
+						<td> <?php echo $Ano . $Mes . "00"; ?></td>
+						<td> C1 </td>
+						<td> <?php echo "MV" . $j; ?> </td>
+						<td> 0003 </td>
+						<td> 9 </td>
 
-							<td> 01 </td>
-							<td> <?php echo $DatKardexVehiculo->EinVIN; ?> </td>
-							<td> &nbsp; </td>
-							<td> &nbsp; </td>
-							<td> <?php echo $Fecha; ?> </td>
-							<td> <?php echo $DatKardexVehiculo->CtiCodigo; ?> </td>
+						<td> 01 </td>
+						<td> <?php echo $ProductoCodigo; ?> </td>
+						<td> &nbsp; </td>
+						<td> &nbsp; </td>
+						<td> <?php echo $Fecha; ?> </td>
+						<td> <?php echo $ComprobanteTipo; ?> </td>
 
-							<td> <?php echo $Serie; ?> </td>
-							<td> <?php echo $Numero; ?> </td>
-							<td> <?php echo $DatKardexVehiculo->TopCodigo; ?> </td>
-							<td> <?php echo $ProductoNombre; ?> </td>
-							<td> <?php echo $DatKardexVehiculo->UmeCodigo; ?> </td>
+						<td> <?php echo $Serie; ?> </td>
+						<td> <?php echo $Numero; ?> </td>
+						<td> <?php echo $TipoOperacion; ?> </td>
+						<td> <?php echo $ProductoNombre; ?> </td>
+						<td> <?php echo $DatKardexVehiculo->UmeCodigo; ?> </td>
 
-							<td> 5 </td>
-							<td align="right" bgcolor="#CCCCCC"> 0.00 </td>
-							<td align="right"> 0.00 </td>
-							<td align="right"> 0.00 </td>
+						<td> 5 </td>
+						<td align="right" bgcolor="#CCCCCC"> 0.00 </td>
+						<td align="right"> 0.00 </td>
+						<td align="right"> 0.00 </td>
 
-							<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($DatKardexVehiculo->KdvCantidad) ? '0.00' : number_format($DatKardexVehiculo->KdvCantidad, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoUnitario) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoUnitario, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoTotal) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoTotal, 2, '.', '')); ?> </td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($DatKardexVehiculo->KdvCantidad) ? '0.00' : number_format($DatKardexVehiculo->KdvCantidad, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoUnitario) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoUnitario, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoTotal) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoTotal, 2, '.', '')); ?> </td>
 
-							<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($DatKardexVehiculo->KdvCantidad) ? '0.00' : number_format($DatKardexVehiculo->KdvCantidad, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoUnitario) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoUnitario, 3, '.', '')); ?> </td>
-							<td align="right"> <?php echo (empty($DatKardexVehiculo->KdvCostoTotal) ? '0.00' : number_format($DatKardexVehiculo->KdvCostoTotal, 2, '.', '')); ?> </td>
+						<td align="right" bgcolor="#CCCCCC"> <?php echo (empty($CantidadSaldo) ? '0.00' : number_format($CantidadSaldo, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoUnitarioAnterior) ? '0.00' : number_format($CostoUnitarioAnterior, 3, '.', '')); ?> </td>
+						<td align="right"> <?php echo (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')); ?> </td>
 
-							<td> 1 </td>
-							<td> &nbsp; </td>
-		<?php
-						//$libro .= $Ano . $Mes . "00" . "|C1|M" . $j . "|0003|9|01|" . $DatKardexVehiculo->VehCodigoIdentificador . "||" . $Fecha . "|" . $DatKardexVehiculo->CtiCodigo . "|" . $Serie . "|" . $Numero . "|" . $DatKardexVehiculo->TopCodigo . "|" . $ProductoNombre . "|" . $DatKardexVehiculo->UmeCodigo . "|1|0.00|0.00|0.00|" . (empty($CantidadSalida) ? '0.00' : number_format($CantidadSalida, 3, '.', '')) . "|" . (empty($CostoActual) ? '0.00' : number_format($CostoActual, 3, '.', '')) . "|" . (empty($CostoTotalActual) ? '0.00' : number_format($CostoTotalActual, 2, '.', '')) . "|" . (empty($CantidadSaldo) ? '0.00' : number_format($CantidadSaldo, 3, '.', '')) . "|" . (empty($CostoUnitarioSaldo) ? '0.00' : number_format($CostoUnitarioSaldo, 3, '.', '')) . "|" . (empty($CostoTotalSaldo) ? '0.00' : number_format($CostoTotalSaldo, 2, '.', '')) . "|1|\n";
-
-						$j++;
-					}
+						<td> 1 </td>
+						<td> <?php echo $DatKardexVehiculo->KdvId; ?> </td>
+					</tr>
+	<?php
+					$j++;
 				}
 			}
 		}
 	}
 
 
-		?>
+	?>
 </table>
 
 <?php

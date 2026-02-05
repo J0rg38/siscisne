@@ -42,7 +42,7 @@ class ClsVehiculo
 
 	public $InsMysql;
 
-	public function __construct($oInsMysql=NULL)
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -50,7 +50,6 @@ class ClsVehiculo
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
 	}
 
 	public function __destruct() {}

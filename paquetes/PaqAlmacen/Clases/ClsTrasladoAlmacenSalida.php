@@ -1439,6 +1439,7 @@ class ClsTrasladoAlmacenSalida {
 						$InsTrasladoAlmacenSalidaDetalle->AlmId = $this->AlmId;
 						$InsTrasladoAlmacenSalidaDetalle->TsdFecha = $this->TasFecha;
 						
+						
 						$StockReal = 0;
 						$Fecha = explode("/",$this->TasFecha);
 						$Ano = $Fecha[2];

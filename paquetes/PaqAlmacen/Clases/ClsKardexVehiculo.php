@@ -10,33 +10,34 @@
  * @author Ing. Jonathan Blanco Alave
  */
 
-class ClsKardexVehiculo {
+class ClsKardexVehiculo
+{
 
-    public $KdvId;
+	public $KdvId;
 	public $KdvFecha;
 	public $VehId;
 	public $UmeId;
-    public $KdvCantidad;	
+	public $KdvCantidad;
 	public $KdvCostoUnitario;
 	public $KdvCostoTotal;
 	public $KdvTiempoCreacion;
-	
+
 	public $VehNombre;
 	public $UmeNombre;
 
 	public $TopCodigo;
 	public $TopNombre;
-	
+
 	public $KdvComprobanteNumero;
 	public $CtiCodigo;
 	public $CtiNombre;
-	
+
 	public $RtiNombre;
 
-	
-    public $InsMysql;
 
-    public function __construct($oInsMysql=NULL)
+	public $InsMysql;
+
+	public function __construct($oInsMysql = NULL)
 	{
 
 		if ($oInsMysql) {
@@ -44,167 +45,158 @@ class ClsKardexVehiculo {
 		} else {
 			$this->InsMysql = new ClsMysql();
 		}
-
-	}
-	
-	public function __destruct(){
-
 	}
 
+	public function __destruct() {}
 
-		
 
-    public function MtdObtenerKardexVehiculos($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'VmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oVehducto=NULL,$oFechaInicio=NULL,$oFechaFin=NULL,$oUso=NULL,$oMoneda=NULL,$oFechaTipo="VmvFecha",$oSucursal=NULL,$oVehiculoId=NULL,$oVehiculoIngresoId=NULL) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+	public function MtdObtenerKardexVehiculos($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'VmdId', $oSentido = 'Desc', $oPaginacion = '0,10', $oVehducto = NULL, $oFechaInicio = NULL, $oFechaFin = NULL, $oUso = NULL, $oMoneda = NULL, $oFechaTipo = "VmvFecha", $oSucursal = NULL, $oVehiculoId = NULL, $oVehiculoIngresoId = NULL)
+	{
 
-			$i=1;
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
-
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
-		}
-
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		//if(!empty($oVehducto)){
-//			$vehiculo = ' AND (vmd.VehId = "'.$oVehducto.'") ';
-//		}
-		
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE('.$oFechaTipo.')>="'.$oFechaInicio.'" AND DATE('.$oFechaTipo.')<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE('.$oFechaTipo.')>="'.$oFechaInicio.'"';
+				$i++;
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE('.$oFechaTipo.')<="'.$oFechaFin.'"';		
-			}			
+
+			$filtrar .= '  ) ';
 		}
-//			vmd.VmdCostoTotal AS KdvCostoUnitario,		
-//			vmd.VmdCostoTotal * vmd.VmdCantidadReal AS KdvCostoTotal,
 
-//			ROUND(vmd.VmdCosto/vmd.VmdCantidadReal,3) AS KdvCostoUnitario,
-//			
-//			vmd.VmdCantidadReal AS KdvCantidad,
-//			(ROUND(vmd.VmdCosto/vmd.VmdCantidadReal,3) * vmd.VmdCantidadReal) AS KdvCostoTotal,
 
-//		if($oUso==1){
-//			$uso = '
-//			(vmd.VmdImporte/vmd.VmdCantidadReal) AS KdvCostoUnitario,
-//			vmd.VmdCantidadReal AS KdvCantidad,
-//			((vmd.VmdImporte/vmd.VmdCantidadReal) * vmd.VmdCantidadReal) AS KdvCostoTotal,
-//			
-//			';	
-//			
-//		}else{
-//			$uso = '
-//			(vmd.VmdImporte/vmd.VmdCantidad) AS KdvCostoUnitario,
-//			vmd.VmdCantidad AS KdvCantidad,
-//			((vmd.VmdImporte/vmd.VmdCantidad) * vmd.VmdCantidad) AS KdvCostoTotal,
-//			';	
-//		}
 
-//
-        if($oUso==3){
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
+		}
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
+
+		//if(!empty($oVehducto)){
+		//			$vehiculo = ' AND (vmd.VehId = "'.$oVehducto.'") ';
+		//		}
+
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(' . $oFechaTipo . ')>="' . $oFechaInicio . '" AND DATE(' . $oFechaTipo . ')<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(' . $oFechaTipo . ')>="' . $oFechaInicio . '"';
+			}
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(' . $oFechaTipo . ')<="' . $oFechaFin . '"';
+			}
+		}
+		//			vmd.VmdCostoTotal AS KdvCostoUnitario,		
+		//			vmd.VmdCostoTotal * vmd.VmdCantidadReal AS KdvCostoTotal,
+
+		//			ROUND(vmd.VmdCosto/vmd.VmdCantidadReal,3) AS KdvCostoUnitario,
+		//			
+		//			vmd.VmdCantidadReal AS KdvCantidad,
+		//			(ROUND(vmd.VmdCosto/vmd.VmdCantidadReal,3) * vmd.VmdCantidadReal) AS KdvCostoTotal,
+
+		//		if($oUso==1){
+		//			$uso = '
+		//			(vmd.VmdImporte/vmd.VmdCantidadReal) AS KdvCostoUnitario,
+		//			vmd.VmdCantidadReal AS KdvCantidad,
+		//			((vmd.VmdImporte/vmd.VmdCantidadReal) * vmd.VmdCantidadReal) AS KdvCostoTotal,
+		//			
+		//			';	
+		//			
+		//		}else{
+		//			$uso = '
+		//			(vmd.VmdImporte/vmd.VmdCantidad) AS KdvCostoUnitario,
+		//			vmd.VmdCantidad AS KdvCantidad,
+		//			((vmd.VmdImporte/vmd.VmdCantidad) * vmd.VmdCantidad) AS KdvCostoTotal,
+		//			';	
+		//		}
+
+		//
+		if ($oUso == 3) {
 			//vmd.VmdCantidad AS KdvCantidad,
-			
+
 			$uso = '
 			
 			( vmd.vmd.VmdValorTotal / vmd.VmdCantidad ) AS KdvCostoUnitario,
@@ -213,10 +205,9 @@ class ClsKardexVehiculo {
 			
 			( (vmd.VmdValorTotal / vmd.VmdCantidad ) * ( vmd.VmdCantidad ) ) AS KdvCostoTotal,
 			
-			';	
-			
-		}else{
-			
+			';
+		} else {
+
 			/*$uso = '
 			
 			( IF( top.TopCodigo="05", vmd.VmdValorTotal*-1, vmd.VmdValorTotal) ) AS KdvCostoUnitario,
@@ -226,7 +217,7 @@ class ClsKardexVehiculo {
             ( (IF( top.TopCodigo="05", vmd.VmdValorTotal*-1, vmd.VmdValorTotal) ) * ((IF(top.TopCodigo="05", vmd.VmdCantidad*-1, vmd.VmdCantidad))/umc.UmcEquivalente) ) AS KdvCostoTotal,
             
 			';	*/
-			
+
 			$uso = '
 			
 			( vmd.VmdValorTotal  ) AS KdvCostoUnitario,
@@ -235,79 +226,78 @@ class ClsKardexVehiculo {
 			
             ( vmd.VmdValorTotal  * (vmd.VmdCantidad / umc.UmcEquivalente) ) AS KdvCostoTotal,
             
-			';	
-			
+			';
 		}
 
-//		if($oUso==3){
-//			
-//			$uso = '
-//			(vmd.VmdValorTotal/(vmd.VmdCantidad)) AS KdvCostoUnitario,
-//			vmd.VmdCantidad AS KdvCantidad,
-//			((VmdValorTotal/(vmd.VmdCantidad)) * vmd.VmdCantidad) AS KdvCostoTotal,
-//			
-//			';	
-//			
-//		}else{
-//			
-//			$uso = '
-//			(VmdValorTotal) AS KdvCostoUnitario,
-//			(vmd.VmdCantidad/umc.UmcEquivalente) AS KdvCantidad,
-//			((VmdValorTotal) * (vmd.VmdCantidad/umc.UmcEquivalente) ) AS KdvCostoTotal,
-//			';	
-//			
-//		}
+		//		if($oUso==3){
+		//			
+		//			$uso = '
+		//			(vmd.VmdValorTotal/(vmd.VmdCantidad)) AS KdvCostoUnitario,
+		//			vmd.VmdCantidad AS KdvCantidad,
+		//			((VmdValorTotal/(vmd.VmdCantidad)) * vmd.VmdCantidad) AS KdvCostoTotal,
+		//			
+		//			';	
+		//			
+		//		}else{
+		//			
+		//			$uso = '
+		//			(VmdValorTotal) AS KdvCostoUnitario,
+		//			(vmd.VmdCantidad/umc.UmcEquivalente) AS KdvCantidad,
+		//			((VmdValorTotal) * (vmd.VmdCantidad/umc.UmcEquivalente) ) AS KdvCostoTotal,
+		//			';	
+		//			
+		//		}
 
-		if(!empty($oMoneda)){
-			$moneda = ' AND (vmv.MonId = "'.$oMoneda.'") ';
+		if (!empty($oMoneda)) {
+			$moneda = ' AND (vmv.MonId = "' . $oMoneda . '") ';
 		}
-		
-		if(!empty($oSucursal)){
-			$sucursal = ' AND (vmd.AlmId = "'.$oSucursal.'") ';
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND (vmd.AlmId = "' . $oSucursal . '") ';
 			$stipo = "";
-		}else{
+		} else {
 			$stipo = ' AND (vmv.VmvSubTipo = 1 OR vmv.VmvSubTipo = 2 OR vmv.VmvSubTipo = 3 OR vmv.VmvSubTipo = 4 OR vmv.VmvSubTipo = 7 OR vmv.VmvSubTipo = 5)';
 		}
-		
-		if(!empty($oVehiculoId)){
-			$vehiculo = ' AND (vmd.VehId = "'.$oVehiculoId.'") ';
-		}
-		
-		if(!empty($oVehiculoIngresoId)){
-			$vingreso = ' AND (vmd.EinId = "'.$oVehiculoIngresoId.'") ';
+
+		if (!empty($oVehiculoId)) {
+			$vehiculo = ' AND (vmd.VehId = "' . $oVehiculoId . '") ';
 		}
 
-//
-//		if(!empty($oSucursalMovimientoSubTipo)){
-//
-//			$elementos = explode(",",$oSucursalMovimientoSubTipo);
-//
-//			$i=1;
-//			$amstipo .= ' AND (
-//			(';
-//			$elementos = array_filter($elementos);
-//			foreach($elementos as $elemento){
-//				$amstipo .= '  (vmv.VmvSubTipo = "'.($elemento).'" )';
-//				if($i<>count($elementos)){						
-//					$amstipo .= ' OR ';	
-//				}
-//			$i++;		
-//			}
-//
-//			$amstipo .= ' ) 
-//			)
-//			';
-//
-//		}
-//		
-		
-//16.746196
+		if (!empty($oVehiculoIngresoId)) {
+			$vingreso = ' AND (vmd.EinId = "' . $oVehiculoIngresoId . '") ';
+		}
+
+		//
+		//		if(!empty($oSucursalMovimientoSubTipo)){
+		//
+		//			$elementos = explode(",",$oSucursalMovimientoSubTipo);
+		//
+		//			$i=1;
+		//			$amstipo .= ' AND (
+		//			(';
+		//			$elementos = array_filter($elementos);
+		//			foreach($elementos as $elemento){
+		//				$amstipo .= '  (vmv.VmvSubTipo = "'.($elemento).'" )';
+		//				if($i<>count($elementos)){						
+		//					$amstipo .= ' OR ';	
+		//				}
+		//			$i++;		
+		//			}
+		//
+		//			$amstipo .= ' ) 
+		//			)
+		//			';
+		//
+		//		}
+		//		
+
+		//16.746196
 
 
 
-//vmd.VmdCostoIngreso AS KdvCostoIngreso,
+		//vmd.VmdCostoIngreso AS KdvCostoIngreso,
 
-//  (IF(top.TopCodigo="05", vmd.VmdCostoIngreso*-1, vmd.VmdCostoIngreso)) AS KdvCostoIngreso,
+		//  (IF(top.TopCodigo="05", vmd.VmdCostoIngreso*-1, vmd.VmdCostoIngreso)) AS KdvCostoIngreso,
 		$sql = '
 
 			SELECT
@@ -318,11 +308,11 @@ class ClsKardexVehiculo {
             
 			vmv.VmvFoto AS "KdvFoto",			
 			
-			DATE_FORMAT('.$oFechaTipo.', "%d/%m/%Y") AS "KdvFecha",
+			DATE_FORMAT(' . $oFechaTipo . ', "%d/%m/%Y") AS "KdvFecha",
 			vmd.VehId,
 			vmd.UmeId,
 			
-			'.$uso.'			
+			' . $uso . '			
 			
 			/* IF(top.TopCodigo="05",2,vmv.VmvTipo) AS "KdvMovimientoTipo",*/ 
 			
@@ -1120,261 +1110,254 @@ class ClsKardexVehiculo {
 			WHERE  vmd.VmdEstado = 3 
 			
 				
-			'.$fecha.$vehiculo.$filtrar.$vingreso.$moneda.$sucursal.$stipo.$orden.$paginacion;	
-	
+			' . $fecha . $vehiculo . $filtrar . $vingreso . $moneda . $sucursal . $stipo . $orden . $paginacion;
+
 		//MK0EH6453
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-			$Respuesta['Datos'] = array();
-			
-            $InsKardexVehiculo = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$Respuesta['Datos'] = array();
 
-					$KardexVehiculo = new $InsKardexVehiculo();
-                    $KardexVehiculo->KdvId = $fila['KdvId'];
-					$KardexVehiculo->KdvCostoIngreso = $fila['KdvCostoIngreso'];
-					
-				$KardexVehiculo->KdvFoto = $fila['KdvFoto'];
-	
-                    $KardexVehiculo->KdvFecha = $fila['KdvFecha'];
-					$KardexVehiculo->VehId = $fila['VehId'];
-					$KardexVehiculo->UmeId = $fila['UmeId'];
-					$KardexVehiculo->KdvCostoUnitario = $fila['KdvCostoUnitario'];
-			        $KardexVehiculo->KdvCantidad = $fila['KdvCantidad'];  
-					$KardexVehiculo->KdvCostoTotal = $fila['KdvCostoTotal'];  
-					$KardexVehiculo->KdvMovimientoTipo = $fila['KdvMovimientoTipo'];
-					$KardexVehiculo->KdvMovimientoSubTipo = $fila['KdvMovimientoSubTipo'];
-					
-					$KardexVehiculo->KdvTiempoCreacion = $fila['KdvTiempoCreacion'];
-					
-					$KardexVehiculo->VehNombre = $fila['VehNombre'];
+		$InsKardexVehiculo = get_class($this);
 
-				
-					$KardexVehiculo->UmeNombre = $fila['UmeNombre'];
-					
-					$KardexVehiculo->TopCodigo = $fila['TopCodigo'];
-					$KardexVehiculo->TopNombre = $fila['TopNombre'];
-					
-					$KardexVehiculo->KdvComprobanteNumero = $fila['KdvComprobanteNumero'];
-					$KardexVehiculo->KdvComprobanteNumero2 = $fila['KdvComprobanteNumero2'];
-					$KardexVehiculo->KdvComprobanteFecha = $fila['KdvComprobanteFecha'];
-					
-					
-					$KardexVehiculo->CtiNombre = $fila['CtiNombre'];
-					$KardexVehiculo->CtiCodigo = $fila['CtiCodigo'];
-					
-					$KardexVehiculo->VehCodigoIdentificador = $fila['VehCodigoIdentificador'];
-					
-				
-					$KardexVehiculo->TopId = $fila['TopId'];
-					
-					$KardexVehiculo->KdvTipoCambio = $fila['KdvTipoCambio'];
-					$KardexVehiculo->MonId = $fila['MonId'];
-					
-					$KardexVehiculo->CliNombre = $fila['CliNombre'];
-					$KardexVehiculo->CliApellidoPaterno = $fila['CliApellidoPaterno'];
-					$KardexVehiculo->CliApellidoMaterno = $fila['CliApellidoMaterno'];
-					$KardexVehiculo->CliNumeroDocumento = $fila['CliNumeroDocumento'];
-					
-					$KardexVehiculo->PrvNombre = $fila['PrvNombre'];
-					$KardexVehiculo->PrvApellidoPaterno = $fila['PrvApellidoPaterno'];
-					$KardexVehiculo->PrvApellidoMaterno = $fila['PrvApellidoMaterno'];
-					$KardexVehiculo->PrvNumeroDocumento = $fila['PrvNumeroDocumento'];
-					
-				
-					$KardexVehiculo->UmcEquivalente = $fila['UmcEquivalente'];
-					
-					$KardexVehiculo->EinVIN = $fila['EinVIN'];
-				
-					
-					$KardexVehiculo->VehNombre = $fila['VehNombre'];
-					$KardexVehiculo->VmaNombre = $fila['VmaNombre'];
-					$KardexVehiculo->VmoNombre = $fila['VmoNombre'];
-					$KardexVehiculo->VveNombre = $fila['VveNombre'];
-					
-					
-					$KardexVehiculo->SucNombre = $fila['SucNombre'];
-					$KardexVehiculo->UmeCodigo = $fila['UmeCodigo'];
-					
-                    $KardexVehiculo->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $KardexVehiculo;
-                }
-						
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;			
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
+
+			$KardexVehiculo = new $InsKardexVehiculo();
+			$KardexVehiculo->KdvId = $fila['KdvId'];
+			$KardexVehiculo->KdvCostoIngreso = $fila['KdvCostoIngreso'];
+
+			$KardexVehiculo->KdvFoto = $fila['KdvFoto'];
+
+			$KardexVehiculo->KdvFecha = $fila['KdvFecha'];
+			$KardexVehiculo->VehId = $fila['VehId'];
+			$KardexVehiculo->UmeId = $fila['UmeId'];
+			$KardexVehiculo->KdvCostoUnitario = $fila['KdvCostoUnitario'];
+			$KardexVehiculo->KdvCantidad = $fila['KdvCantidad'];
+			$KardexVehiculo->KdvCostoTotal = $fila['KdvCostoTotal'];
+			$KardexVehiculo->KdvMovimientoTipo = $fila['KdvMovimientoTipo'];
+			$KardexVehiculo->KdvMovimientoSubTipo = $fila['KdvMovimientoSubTipo'];
+
+			$KardexVehiculo->KdvTiempoCreacion = $fila['KdvTiempoCreacion'];
+
+			$KardexVehiculo->VehNombre = $fila['VehNombre'];
+
+
+			$KardexVehiculo->UmeNombre = $fila['UmeNombre'];
+
+			$KardexVehiculo->TopCodigo = $fila['TopCodigo'];
+			$KardexVehiculo->TopNombre = $fila['TopNombre'];
+
+			$KardexVehiculo->KdvComprobanteNumero = $fila['KdvComprobanteNumero'];
+			$KardexVehiculo->KdvComprobanteNumero2 = $fila['KdvComprobanteNumero2'];
+			$KardexVehiculo->KdvComprobanteFecha = $fila['KdvComprobanteFecha'];
+
+
+			$KardexVehiculo->CtiNombre = $fila['CtiNombre'];
+			$KardexVehiculo->CtiCodigo = $fila['CtiCodigo'];
+
+			$KardexVehiculo->VehCodigoIdentificador = $fila['VehCodigoIdentificador'];
+
+
+			$KardexVehiculo->TopId = $fila['TopId'];
+
+			$KardexVehiculo->KdvTipoCambio = $fila['KdvTipoCambio'];
+			$KardexVehiculo->MonId = $fila['MonId'];
+
+			$KardexVehiculo->CliNombre = $fila['CliNombre'];
+			$KardexVehiculo->CliApellidoPaterno = $fila['CliApellidoPaterno'];
+			$KardexVehiculo->CliApellidoMaterno = $fila['CliApellidoMaterno'];
+			$KardexVehiculo->CliNumeroDocumento = $fila['CliNumeroDocumento'];
+
+			$KardexVehiculo->PrvNombre = $fila['PrvNombre'];
+			$KardexVehiculo->PrvApellidoPaterno = $fila['PrvApellidoPaterno'];
+			$KardexVehiculo->PrvApellidoMaterno = $fila['PrvApellidoMaterno'];
+			$KardexVehiculo->PrvNumeroDocumento = $fila['PrvNumeroDocumento'];
+
+
+			$KardexVehiculo->UmcEquivalente = $fila['UmcEquivalente'];
+
+			$KardexVehiculo->EinVIN = $fila['EinVIN'];
+
+
+			$KardexVehiculo->VehNombre = $fila['VehNombre'];
+			$KardexVehiculo->VmaNombre = $fila['VmaNombre'];
+			$KardexVehiculo->VmoNombre = $fila['VmoNombre'];
+			$KardexVehiculo->VveNombre = $fila['VveNombre'];
+
+
+			$KardexVehiculo->SucNombre = $fila['SucNombre'];
+			$KardexVehiculo->UmeCodigo = $fila['UmeCodigo'];
+
+			$KardexVehiculo->InsMysql = NULL;
+			$Respuesta['Datos'][] = $KardexVehiculo;
 		}
-		
-		
-		
-		
-	  public function MtdObtenerVehiculoMovimientoEntradaDetalles($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'VmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oCompraVehiculo=NULL,$oEstado=NULL,$oVehiculo=NULL,$oTipo=NULL,$oSucursal=NULL,$oFechaInicio=NULL,$oFechaFin=NULL) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 
-			$i=1;
+		return $Respuesta;
+	}
+
+
+
+
+	public function MtdObtenerVehiculoMovimientoEntradaDetalles($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'VmdId', $oSentido = 'Desc', $oPaginacion = '0,10', $oCompraVehiculo = NULL, $oEstado = NULL, $oVehiculo = NULL, $oTipo = NULL, $oSucursal = NULL, $oFechaInicio = NULL, $oFechaFin = NULL)
+	{
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oCompraVehiculo)){
-			$amovimiento = ' AND vmd.VmvId = "'.$oCompraVehiculo.'"';
-		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND vmd.VmdEstado = '.$oEstado.' ';
-		}
-		
-		if(!empty($oVehiculo)){
-			$producto = ' AND (vmd.VehId = "'.$oVehiculo.'") ';
-		}
-		
-		if(!empty($oSucursal)){
-			$sucursal = ' AND (vmv.SucId = "'.$oSucursal.'") ';
-		}
-		
-		if(!empty($oTipo)){
 
-			$elementos = explode(",",$oTipo);
 
-			$i=1;
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
+		}
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
+
+		if (!empty($oCompraVehiculo)) {
+			$amovimiento = ' AND vmd.VmvId = "' . $oCompraVehiculo . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND vmd.VmdEstado = ' . $oEstado . ' ';
+		}
+
+		if (!empty($oVehiculo)) {
+			$producto = ' AND (vmd.VehId = "' . $oVehiculo . '") ';
+		}
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND (vmv.SucId = "' . $oSucursal . '") ';
+		}
+
+		if (!empty($oTipo)) {
+
+			$elementos = explode(",", $oTipo);
+
+			$i = 1;
 			$cltipo .= ' AND (
 			(';
 			$elementos = array_filter($elementos);
-			foreach($elementos as $elemento){
-				$cltipo .= '  (vmv.VmvTipo = "'.($elemento).'")';
-				if($i<>count($elementos)){						
-					$cltipo .= ' OR ';	
+			foreach ($elementos as $elemento) {
+				$cltipo .= '  (vmv.VmvTipo = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$cltipo .= ' OR ';
 				}
-			$i++;		
+				$i++;
 			}
 
 			$cltipo .= ' ) 
 			)
 			';
+		}
 
-		}
-		
-		
-		
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(vmv.VmvFecha)>="'.$oFechaInicio.'" AND DATE(vmv.VmvFecha)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(vmv.VmvFecha)>="'.$oFechaInicio.'"';
+
+
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(vmv.VmvFecha)>="' . $oFechaInicio . '" AND DATE(vmv.VmvFecha)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(vmv.VmvFecha)>="' . $oFechaInicio . '"';
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(vmv.VmvFecha)<="'.$oFechaFin.'"';		
-			}			
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(vmv.VmvFecha)<="' . $oFechaFin . '"';
+			}
 		}
-		
-		
-		
-			$sql = '
+
+
+
+		$sql = '
 			SELECT
 			SQL_CALC_FOUND_ROWS 
 			vmd.VmdId,
@@ -1464,7 +1447,7 @@ class ClsKardexVehiculo {
 
 			) AS VmvFechaUltimaEntrada,
 
-			(TIMESTAMPDIFF(DAY, @VmvFechaUltimaEntrada, "'.(empty($oFechaFin)?date("Y-m-d"):$oFechaFin).' 00:00:00" ) ) AS VmvUltimaEntradaDiaTranscurridos,
+			(TIMESTAMPDIFF(DAY, @VmvFechaUltimaEntrada, "' . (empty($oFechaFin) ? date("Y-m-d") : $oFechaFin) . ' 00:00:00" ) ) AS VmvUltimaEntradaDiaTranscurridos,
 			
 			vma.VmaNombre,
 			vmo.VmoNombre,
@@ -1514,295 +1497,287 @@ class ClsKardexVehiculo {
 									LEFT JOIN tblprvproveedor prv
 									ON vmv.PrvId = prv.PrvId
 									
-			WHERE  vmv.VmvTipo = 1  '.$amovimiento.$estado.$producto.$ctipo.$filtrar.$fecha.$cliente.$cocompra.$ocompra.$pcdetalle.$vddetalle.$almacen .$sucursal.$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+			WHERE  vmv.VmvTipo = 1  ' . $amovimiento . $estado . $producto . $ctipo . $filtrar . $fecha . $cliente . $cocompra . $ocompra . $pcdetalle . $vddetalle . $almacen . $sucursal . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsVehiculoMovimientoEntradaDetalle = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$VehiculoMovimientoEntradaDetalle = new $InsVehiculoMovimientoEntradaDetalle();
-                    $VehiculoMovimientoEntradaDetalle->VmdId = $fila['VmdId'];
-					$VehiculoMovimientoEntradaDetalle->TveId = $fila['TveId'];
-					$VehiculoMovimientoEntradaDetalle->VmvTipo = $fila['VmvTipo'];
-					$VehiculoMovimientoEntradaDetalle->VmvSubTipo = $fila['VmvSubTipo'];
-					
-					
-			
-                    $VehiculoMovimientoEntradaDetalle->VmvId = $fila['VmvId'];
-					$VehiculoMovimientoEntradaDetalle->EinId = $fila['EinId'];
-					$VehiculoMovimientoEntradaDetalle->VehId = $fila['VehId'];
-					
-					$VehiculoMovimientoEntradaDetalle->UmeId = $fila['UmeId'];
-					
-					$VehiculoMovimientoEntradaDetalle->VmdIdAnterior = $fila['VmdIdAnterior'];
-					$VehiculoMovimientoEntradaDetalle->VmdCosto = $fila['VmdCosto'];
-					$VehiculoMovimientoEntradaDetalle->VmdCostoIngreso = $fila['VmdCostoIngreso'];
-					$VehiculoMovimientoEntradaDetalle->VmdCostoAnterior = $fila['VmdCostoAnterior'];
-					$VehiculoMovimientoEntradaDetalle->VmdCostoExtraTotal = $fila['VmdCostoExtraTotal'];
-					$VehiculoMovimientoEntradaDetalle->VmdCostoExtraUnitario = $fila['VmdCostoExtraUnitario'];
-					$VehiculoMovimientoEntradaDetalle->VmdValorTotal = $fila['VmdValorTotal'];
-			        $VehiculoMovimientoEntradaDetalle->VmdCantidad = $fila['VmdCantidad'];  
-					$VehiculoMovimientoEntradaDetalle->VmdObservacion = $fila['VmdObservacion'];  
-					
-					$VehiculoMovimientoEntradaDetalle->VmdImporte = $fila['VmdImporte'];
-					$VehiculoMovimientoEntradaDetalle->VmdCostoPromedio = $fila['VmdCostoPromedio'];
-					
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica1 = $fila['VmdCaracteristica1'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica2 = $fila['VmdCaracteristica2'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica3 = $fila['VmdCaracteristica3'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica4 = $fila['VmdCaracteristica4'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica5 = $fila['VmdCaracteristica5'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica6 = $fila['VmdCaracteristica6'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica7 = $fila['VmdCaracteristica7'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica8 = $fila['VmdCaracteristica8'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica9 = $fila['VmdCaracteristica9'];					
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica10 = $fila['VmdCaracteristica10'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica11 = $fila['VmdCaracteristica11'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica12 = $fila['VmdCaracteristica12'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica13 = $fila['VmdCaracteristica13'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica14 = $fila['VmdCaracteristica14'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica15 = $fila['VmdCaracteristica15'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica16 = $fila['VmdCaracteristica16'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica17 = $fila['VmdCaracteristica17'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica18 = $fila['VmdCaracteristica18'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica19 = $fila['VmdCaracteristica19'];
-					$VehiculoMovimientoEntradaDetalle->VmdCaracteristica20 = $fila['VmdCaracteristica20'];
-					
-					$VehiculoMovimientoEntradaDetalle->VmdEstado = $fila['VmdEstado'];  
-					$VehiculoMovimientoEntradaDetalle->VmdTiempoCreacion = $fila['NVmdTiempoCreacion'];  
-					$VehiculoMovimientoEntradaDetalle->VmdTiempoModificacion = $fila['NVmdTiempoModificacion']; 	
-									
-					$VehiculoMovimientoEntradaDetalle->EinId = $fila['EinId'];	
-					
-					$VehiculoMovimientoEntradaDetalle->VmvFecha = $fila['NVmvFecha'];	
-					$VehiculoMovimientoEntradaDetalle->VmvComprobanteNumero = $fila['VmvComprobanteNumero'];	
-					$VehiculoMovimientoEntradaDetalle->VmvComprobanteFecha = $fila['NVmvComprobanteFecha'];	
-					
-					$VehiculoMovimientoEntradaDetalle->CtiNombre = $fila['CtiNombre'];
-					
-					$VehiculoMovimientoEntradaDetalle->VmvSubTotal = $fila['VmvSubTotal'];
-	
-                    $VehiculoMovimientoEntradaDetalle->EinVIN = (($fila['EinVIN']));
-					$VehiculoMovimientoEntradaDetalle->EinNumeroMotor = (($fila['EinNumeroMotor']));
-					$VehiculoMovimientoEntradaDetalle->EinColor = (($fila['EinColor']));					
-					$VehiculoMovimientoEntradaDetalle->EinColorInterno = (($fila['EinColorInterno']));
-					$VehiculoMovimientoEntradaDetalle->EinAnoFabricacion = (($fila['EinAnoFabricacion']));
-					$VehiculoMovimientoEntradaDetalle->EinAnoModelo = (($fila['EinAnoModelo']));
-					
-					$VehiculoMovimientoEntradaDetalle->PrvNombreCompleto = (($fila['PrvNombreCompleto']));
-					$VehiculoMovimientoEntradaDetalle->PrvNumeroDocumento = (($fila['PrvNumeroDocumento']));
+		$Respuesta['Datos'] = array();
 
-					$VehiculoMovimientoEntradaDetalle->TopNombre = (($fila['TopNombre']));
+		$InsVehiculoMovimientoEntradaDetalle = get_class($this);
 
-					$VehiculoMovimientoEntradaDetalle->VmvComprobanteNumero = (($fila['VmvComprobanteNumero']));
-					$VehiculoMovimientoEntradaDetalle->VmvComprobanteFecha = (($fila['NVmvComprobanteFecha']));
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-					$VehiculoMovimientoEntradaDetalle->TopId = (($fila['TopId']));
-					
-					$VehiculoMovimientoEntradaDetalle->VmvFechaUltimaEntrada = (($fila['VmvFechaUltimaEntrada']));
-					$VehiculoMovimientoEntradaDetalle->VmvUltimaEntradaDiaTranscurridos = (($fila['VmvUltimaEntradaDiaTranscurridos']));
-
-					$VehiculoMovimientoEntradaDetalle->VmaNombre = (($fila['VmaNombre']));
-					$VehiculoMovimientoEntradaDetalle->VmoNombre = (($fila['VmoNombre']));
-					$VehiculoMovimientoEntradaDetalle->VveNombre = (($fila['VveNombre']));
-					
-					$VehiculoMovimientoEntradaDetalle->UmeNombre = (($fila['UmeNombre']));
-					$VehiculoMovimientoEntradaDetalle->VehCodigoIdentificador = (($fila['VehCodigoIdentificador']));
+			$VehiculoMovimientoEntradaDetalle = new $InsVehiculoMovimientoEntradaDetalle();
+			$VehiculoMovimientoEntradaDetalle->VmdId = $fila['VmdId'];
+			$VehiculoMovimientoEntradaDetalle->TveId = $fila['TveId'];
+			$VehiculoMovimientoEntradaDetalle->VmvTipo = $fila['VmvTipo'];
+			$VehiculoMovimientoEntradaDetalle->VmvSubTipo = $fila['VmvSubTipo'];
 
 
-					
-					$VehiculoMovimientoEntradaDetalle->CliNombre = (($fila['CliNombre']));
-					$VehiculoMovimientoEntradaDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));
-					$VehiculoMovimientoEntradaDetalle->CliApellidoMaterno = (($fila['CliApellidoMaterno']));
-					
-					$VehiculoMovimientoEntradaDetalle->PrvNombre = (($fila['PrvNombre']));
-					$VehiculoMovimientoEntradaDetalle->PrvApellidoPaterno = (($fila['PrvApellidoPaterno']));
-					$VehiculoMovimientoEntradaDetalle->PrvApellidoMaterno = (($fila['PrvApellidoMaterno']));
+
+			$VehiculoMovimientoEntradaDetalle->VmvId = $fila['VmvId'];
+			$VehiculoMovimientoEntradaDetalle->EinId = $fila['EinId'];
+			$VehiculoMovimientoEntradaDetalle->VehId = $fila['VehId'];
+
+			$VehiculoMovimientoEntradaDetalle->UmeId = $fila['UmeId'];
+
+			$VehiculoMovimientoEntradaDetalle->VmdIdAnterior = $fila['VmdIdAnterior'];
+			$VehiculoMovimientoEntradaDetalle->VmdCosto = $fila['VmdCosto'];
+			$VehiculoMovimientoEntradaDetalle->VmdCostoIngreso = $fila['VmdCostoIngreso'];
+			$VehiculoMovimientoEntradaDetalle->VmdCostoAnterior = $fila['VmdCostoAnterior'];
+			$VehiculoMovimientoEntradaDetalle->VmdCostoExtraTotal = $fila['VmdCostoExtraTotal'];
+			$VehiculoMovimientoEntradaDetalle->VmdCostoExtraUnitario = $fila['VmdCostoExtraUnitario'];
+			$VehiculoMovimientoEntradaDetalle->VmdValorTotal = $fila['VmdValorTotal'];
+			$VehiculoMovimientoEntradaDetalle->VmdCantidad = $fila['VmdCantidad'];
+			$VehiculoMovimientoEntradaDetalle->VmdObservacion = $fila['VmdObservacion'];
+
+			$VehiculoMovimientoEntradaDetalle->VmdImporte = $fila['VmdImporte'];
+			$VehiculoMovimientoEntradaDetalle->VmdCostoPromedio = $fila['VmdCostoPromedio'];
+
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica1 = $fila['VmdCaracteristica1'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica2 = $fila['VmdCaracteristica2'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica3 = $fila['VmdCaracteristica3'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica4 = $fila['VmdCaracteristica4'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica5 = $fila['VmdCaracteristica5'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica6 = $fila['VmdCaracteristica6'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica7 = $fila['VmdCaracteristica7'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica8 = $fila['VmdCaracteristica8'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica9 = $fila['VmdCaracteristica9'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica10 = $fila['VmdCaracteristica10'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica11 = $fila['VmdCaracteristica11'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica12 = $fila['VmdCaracteristica12'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica13 = $fila['VmdCaracteristica13'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica14 = $fila['VmdCaracteristica14'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica15 = $fila['VmdCaracteristica15'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica16 = $fila['VmdCaracteristica16'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica17 = $fila['VmdCaracteristica17'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica18 = $fila['VmdCaracteristica18'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica19 = $fila['VmdCaracteristica19'];
+			$VehiculoMovimientoEntradaDetalle->VmdCaracteristica20 = $fila['VmdCaracteristica20'];
+
+			$VehiculoMovimientoEntradaDetalle->VmdEstado = $fila['VmdEstado'];
+			$VehiculoMovimientoEntradaDetalle->VmdTiempoCreacion = $fila['NVmdTiempoCreacion'];
+			$VehiculoMovimientoEntradaDetalle->VmdTiempoModificacion = $fila['NVmdTiempoModificacion'];
+
+			$VehiculoMovimientoEntradaDetalle->EinId = $fila['EinId'];
+
+			$VehiculoMovimientoEntradaDetalle->VmvFecha = $fila['NVmvFecha'];
+			$VehiculoMovimientoEntradaDetalle->VmvComprobanteNumero = $fila['VmvComprobanteNumero'];
+			$VehiculoMovimientoEntradaDetalle->VmvComprobanteFecha = $fila['NVmvComprobanteFecha'];
+
+			$VehiculoMovimientoEntradaDetalle->CtiNombre = $fila['CtiNombre'];
+
+			$VehiculoMovimientoEntradaDetalle->VmvSubTotal = $fila['VmvSubTotal'];
+
+			$VehiculoMovimientoEntradaDetalle->EinVIN = (($fila['EinVIN']));
+			$VehiculoMovimientoEntradaDetalle->EinNumeroMotor = (($fila['EinNumeroMotor']));
+			$VehiculoMovimientoEntradaDetalle->EinColor = (($fila['EinColor']));
+			$VehiculoMovimientoEntradaDetalle->EinColorInterno = (($fila['EinColorInterno']));
+			$VehiculoMovimientoEntradaDetalle->EinAnoFabricacion = (($fila['EinAnoFabricacion']));
+			$VehiculoMovimientoEntradaDetalle->EinAnoModelo = (($fila['EinAnoModelo']));
+
+			$VehiculoMovimientoEntradaDetalle->PrvNombreCompleto = (($fila['PrvNombreCompleto']));
+			$VehiculoMovimientoEntradaDetalle->PrvNumeroDocumento = (($fila['PrvNumeroDocumento']));
+
+			$VehiculoMovimientoEntradaDetalle->TopNombre = (($fila['TopNombre']));
+
+			$VehiculoMovimientoEntradaDetalle->VmvComprobanteNumero = (($fila['VmvComprobanteNumero']));
+			$VehiculoMovimientoEntradaDetalle->VmvComprobanteFecha = (($fila['NVmvComprobanteFecha']));
+
+			$VehiculoMovimientoEntradaDetalle->TopId = (($fila['TopId']));
+
+			$VehiculoMovimientoEntradaDetalle->VmvFechaUltimaEntrada = (($fila['VmvFechaUltimaEntrada']));
+			$VehiculoMovimientoEntradaDetalle->VmvUltimaEntradaDiaTranscurridos = (($fila['VmvUltimaEntradaDiaTranscurridos']));
+
+			$VehiculoMovimientoEntradaDetalle->VmaNombre = (($fila['VmaNombre']));
+			$VehiculoMovimientoEntradaDetalle->VmoNombre = (($fila['VmoNombre']));
+			$VehiculoMovimientoEntradaDetalle->VveNombre = (($fila['VveNombre']));
+
+			$VehiculoMovimientoEntradaDetalle->UmeNombre = (($fila['UmeNombre']));
+			$VehiculoMovimientoEntradaDetalle->VehCodigoIdentificador = (($fila['VehCodigoIdentificador']));
 
 
-                    $VehiculoMovimientoEntradaDetalle->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $VehiculoMovimientoEntradaDetalle;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;					
-			
+
+			$VehiculoMovimientoEntradaDetalle->CliNombre = (($fila['CliNombre']));
+			$VehiculoMovimientoEntradaDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));
+			$VehiculoMovimientoEntradaDetalle->CliApellidoMaterno = (($fila['CliApellidoMaterno']));
+
+			$VehiculoMovimientoEntradaDetalle->PrvNombre = (($fila['PrvNombre']));
+			$VehiculoMovimientoEntradaDetalle->PrvApellidoPaterno = (($fila['PrvApellidoPaterno']));
+			$VehiculoMovimientoEntradaDetalle->PrvApellidoMaterno = (($fila['PrvApellidoMaterno']));
+
+
+			$VehiculoMovimientoEntradaDetalle->InsMysql = NULL;
+			$Respuesta['Datos'][] = $VehiculoMovimientoEntradaDetalle;
 		}
-		
-		
-	
-	
-	  public function MtdObtenerVehiculoMovimientoSalidaDetalles($oCampo=NULL,$oCondicion=NULL,$oFiltro=NULL,$oOrden = 'VmdId',$oSentido = 'Desc',$oPaginacion = '0,10',$oCompraVehiculo=NULL,$oEstado=NULL,$oVehiculo=NULL,$oTipo=NULL,$oSucursal=NULL,$oFechaInicio=NULL,$oFechaFin=NULL) {
 
-		if(!empty($oCampo) and !empty($oFiltro)){
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
 
-			$oFiltro = str_replace(" ","%",$oFiltro);			
-			$elementos = explode(",",$oCampo);
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
 
-			$i=1;
+		return $Respuesta;
+	}
+
+
+
+
+	public function MtdObtenerVehiculoMovimientoSalidaDetalles($oCampo = NULL, $oCondicion = NULL, $oFiltro = NULL, $oOrden = 'VmdId', $oSentido = 'Desc', $oPaginacion = '0,10', $oCompraVehiculo = NULL, $oEstado = NULL, $oVehiculo = NULL, $oTipo = NULL, $oSucursal = NULL, $oFechaInicio = NULL, $oFechaFin = NULL)
+	{
+
+		if (!empty($oCampo) and !empty($oFiltro)) {
+
+			$oFiltro = str_replace(" ", "%", $oFiltro);
+			$elementos = explode(",", $oCampo);
+
+			$i = 1;
 			$filtrar .= '  AND (';
-			foreach($elementos as $elemento){
-					if(!empty($elemento)){				
-						if($i==count($elementos)){	
+			foreach ($elementos as $elemento) {
+				if (!empty($elemento)) {
+					if ($i == count($elementos)) {
 
 						$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
 								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
 								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
 								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
 								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
 								break;
-							
-							}
-							
-							$filtrar .= ' )';
-							
-						}else{
-							
-							$filtrar .= ' (';
-							switch($oCondicion){
-					
-								case "esigual":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'"';	
-								break;
-				
-								case "noesigual":
-									$filtrar .= '  '.($elemento).' <> "'.($oFiltro).'"';
-								break;
-								
-								case "comienza":
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-								
-								case "termina":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'"';
-								break;
-								
-								case "contiene":
-									$filtrar .= '  '.($elemento).' LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								case "nocontiene":
-									$filtrar .= '  '.($elemento).' NOT LIKE "%'.($oFiltro).'%"';
-								break;
-								
-								default:
-									$filtrar .= '  '.($elemento).' LIKE "'.($oFiltro).'%"';
-								break;
-							
-							}
-							
-							$filtrar .= ' ) OR';
-							
 						}
+
+						$filtrar .= ' )';
+					} else {
+
+						$filtrar .= ' (';
+						switch ($oCondicion) {
+
+							case "esigual":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '"';
+								break;
+
+							case "noesigual":
+								$filtrar .= '  ' . ($elemento) . ' <> "' . ($oFiltro) . '"';
+								break;
+
+							case "comienza":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+
+							case "termina":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '"';
+								break;
+
+							case "contiene":
+								$filtrar .= '  ' . ($elemento) . ' LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							case "nocontiene":
+								$filtrar .= '  ' . ($elemento) . ' NOT LIKE "%' . ($oFiltro) . '%"';
+								break;
+
+							default:
+								$filtrar .= '  ' . ($elemento) . ' LIKE "' . ($oFiltro) . '%"';
+								break;
+						}
+
+						$filtrar .= ' ) OR';
 					}
-				$i++;
-		
 				}
-				
-				$filtrar .= '  ) ';
+				$i++;
+			}
 
-		}
-		
-		
-		
-
-		if(!empty($oOrden)){
-			$orden = ' ORDER BY '.($oOrden).' '.($oSentido);
+			$filtrar .= '  ) ';
 		}
 
-		if(!empty($oPaginacion)){
-			$paginacion = ' LIMIT '.($oPaginacion);
-		}
-		
-		if(!empty($oCompraVehiculo)){
-			$amovimiento = ' AND vmd.VmvId = "'.$oCompraVehiculo.'"';
-		}
-		
-		if(!empty($oEstado)){
-			$estado = ' AND vmd.VmdEstado = '.$oEstado.' ';
-		}
-		
-		if(!empty($oVehiculo)){
-			$producto = ' AND (vmd.VehId = "'.$oVehiculo.'") ';
-		}
-		
-		if(!empty($oSucursal)){
-			$sucursal = ' AND (vmv.SucId = "'.$oSucursal.'") ';
-		}
-		
-		if(!empty($oTipo)){
 
-			$elementos = explode(",",$oTipo);
 
-			$i=1;
+
+		if (!empty($oOrden)) {
+			$orden = ' ORDER BY ' . ($oOrden) . ' ' . ($oSentido);
+		}
+
+		if (!empty($oPaginacion)) {
+			$paginacion = ' LIMIT ' . ($oPaginacion);
+		}
+
+		if (!empty($oCompraVehiculo)) {
+			$amovimiento = ' AND vmd.VmvId = "' . $oCompraVehiculo . '"';
+		}
+
+		if (!empty($oEstado)) {
+			$estado = ' AND vmd.VmdEstado = ' . $oEstado . ' ';
+		}
+
+		if (!empty($oVehiculo)) {
+			$producto = ' AND (vmd.VehId = "' . $oVehiculo . '") ';
+		}
+
+		if (!empty($oSucursal)) {
+			$sucursal = ' AND (vmv.SucId = "' . $oSucursal . '") ';
+		}
+
+		if (!empty($oTipo)) {
+
+			$elementos = explode(",", $oTipo);
+
+			$i = 1;
 			$cltipo .= ' AND (
 			(';
 			$elementos = array_filter($elementos);
-			foreach($elementos as $elemento){
-				$cltipo .= '  (vmv.VmvTipo = "'.($elemento).'")';
-				if($i<>count($elementos)){						
-					$cltipo .= ' OR ';	
+			foreach ($elementos as $elemento) {
+				$cltipo .= '  (vmv.VmvTipo = "' . ($elemento) . '")';
+				if ($i <> count($elementos)) {
+					$cltipo .= ' OR ';
 				}
-			$i++;		
+				$i++;
 			}
 
 			$cltipo .= ' ) 
 			)
 			';
+		}
 
-		}
-		
-		
-		
-		
-		
-		if(!empty($oFechaInicio)){
-			
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(vmv.VmvFecha)>="'.$oFechaInicio.'" AND DATE(vmv.VmvFecha)<="'.$oFechaFin.'"';
-			}else{
-				$fecha = ' AND DATE(vmv.VmvFecha)>="'.$oFechaInicio.'"';
+
+
+
+
+		if (!empty($oFechaInicio)) {
+
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(vmv.VmvFecha)>="' . $oFechaInicio . '" AND DATE(vmv.VmvFecha)<="' . $oFechaFin . '"';
+			} else {
+				$fecha = ' AND DATE(vmv.VmvFecha)>="' . $oFechaInicio . '"';
 			}
-			
-		}else{
-			if(!empty($oFechaFin)){
-				$fecha = ' AND DATE(vmv.VmvFecha)<="'.$oFechaFin.'"';		
-			}			
+		} else {
+			if (!empty($oFechaFin)) {
+				$fecha = ' AND DATE(vmv.VmvFecha)<="' . $oFechaFin . '"';
+			}
 		}
-	
-			$sql = '
+
+		$sql = '
 			SELECT
 			SQL_CALC_FOUND_ROWS 
 			vmd.VmdId,		
@@ -1954,7 +1929,7 @@ class ClsKardexVehiculo {
 			
 			
 
-			(TIMESTAMPDIFF(DAY, @VmvFechaUltimaSalida, "'.(empty($oFechaFin)?date("Y-m-d"):$oFechaFin).' 00:00:00" ) ) AS VmvUltimaSalidaDiaTranscurridos,
+			(TIMESTAMPDIFF(DAY, @VmvFechaUltimaSalida, "' . (empty($oFechaFin) ? date("Y-m-d") : $oFechaFin) . ' 00:00:00" ) ) AS VmvUltimaSalidaDiaTranscurridos,
 			
 			vma.VmaNombre,
 			vmo.VmoNombre,
@@ -2004,125 +1979,121 @@ class ClsKardexVehiculo {
 							LEFT JOIN tblcticomprobantetipo cti
 							ON vmv.CtiId = cti.CtiId
 							
-			WHERE  vmv.VmvTipo = 2  '.$amovimiento.$estado.$producto.$sucursal.$ctipo.$filtrar.$fecha.$cliente.$cocompra.$ocompra.$pcdetalle.$vddetalle.$almacen .$orden.$paginacion;	
-		
-			$resultado = $this->InsMysql->MtdConsultar($sql);            
+			WHERE  vmv.VmvTipo = 2  ' . $amovimiento . $estado . $producto . $sucursal . $ctipo . $filtrar . $fecha . $cliente . $cocompra . $ocompra . $pcdetalle . $vddetalle . $almacen . $orden . $paginacion;
 
-			$Respuesta['Datos'] = array();
-			
-            $InsVehiculoMovimientoSalidaDetalle = get_class($this);
-				
-				while( $fila = $this->InsMysql->MtdObtenerDatos($resultado)){
+		$resultado = $this->InsMysql->MtdConsultar($sql);
 
-					$VehiculoMovimientoSalidaDetalle = new $InsVehiculoMovimientoSalidaDetalle();
-                    $VehiculoMovimientoSalidaDetalle->VmdId = $fila['VmdId'];
-					$VehiculoMovimientoSalidaDetalle->TveId = $fila['TveId'];
-					$VehiculoMovimientoSalidaDetalle->VmvTipo = $fila['VmvTipo'];
-					$VehiculoMovimientoSalidaDetalle->VmvSubTipo = $fila['VmvSubTipo'];
-					
-					
-                    $VehiculoMovimientoSalidaDetalle->VmvId = $fila['VmvId'];
-					$VehiculoMovimientoSalidaDetalle->UmeId = $fila['UmeId'];
-					
-					$VehiculoMovimientoSalidaDetalle->VmdIdAnterior = $fila['VmdIdAnterior'];
-					$VehiculoMovimientoSalidaDetalle->VmdCosto = $fila['VmdCosto'];
-					$VehiculoMovimientoSalidaDetalle->VmdCostoIngreso = $fila['VmdCostoIngreso'];
-					
-					$VehiculoMovimientoSalidaDetalle->VmdCostoAnterior = $fila['VmdCostoAnterior'];
-					$VehiculoMovimientoSalidaDetalle->VmdCostoExtraTotal = $fila['VmdCostoExtraTotal'];
-					$VehiculoMovimientoSalidaDetalle->VmdCostoExtraUnitario = $fila['VmdCostoExtraUnitario'];
-					$VehiculoMovimientoSalidaDetalle->VmdValorTotal = $fila['VmdValorTotal'];
-			        $VehiculoMovimientoSalidaDetalle->VmdCantidad = $fila['VmdCantidad'];  
-					$VehiculoMovimientoSalidaDetalle->VmdObservacion = $fila['VmdObservacion'];  
-					
-					$VehiculoMovimientoSalidaDetalle->VmdImporte = $fila['VmdImporte'];
-					$VehiculoMovimientoSalidaDetalle->VmdCostoPromedio = $fila['VmdCostoPromedio'];
-					
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica1 = $fila['VmdCaracteristica1'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica2 = $fila['VmdCaracteristica2'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica3 = $fila['VmdCaracteristica3'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica4 = $fila['VmdCaracteristica4'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica5 = $fila['VmdCaracteristica5'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica6 = $fila['VmdCaracteristica6'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica7 = $fila['VmdCaracteristica7'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica8 = $fila['VmdCaracteristica8'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica9 = $fila['VmdCaracteristica9'];					
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica10 = $fila['VmdCaracteristica10'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica11 = $fila['VmdCaracteristica11'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica12 = $fila['VmdCaracteristica12'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica13 = $fila['VmdCaracteristica13'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica14 = $fila['VmdCaracteristica14'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica15 = $fila['VmdCaracteristica15'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica16 = $fila['VmdCaracteristica16'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica17 = $fila['VmdCaracteristica17'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica18 = $fila['VmdCaracteristica18'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica19 = $fila['VmdCaracteristica19'];
-					$VehiculoMovimientoSalidaDetalle->VmdCaracteristica20 = $fila['VmdCaracteristica20'];
-					
-					$VehiculoMovimientoSalidaDetalle->VmdEstado = $fila['VmdEstado'];  
-					$VehiculoMovimientoSalidaDetalle->VmdTiempoCreacion = $fila['NVmdTiempoCreacion'];  
-					$VehiculoMovimientoSalidaDetalle->VmdTiempoModificacion = $fila['NVmdTiempoModificacion']; 	
-									
-					$VehiculoMovimientoSalidaDetalle->EinId = $fila['EinId'];	
-					
-					$VehiculoMovimientoSalidaDetalle->VmvFecha = $fila['NVmvFecha'];	
-					$VehiculoMovimientoSalidaDetalle->VmvComprobanteNumero = $fila['VmvComprobanteNumero'];	
-					$VehiculoMovimientoSalidaDetalle->VmvComprobanteFecha = $fila['NVmvComprobanteFecha'];	
-					
-					$VehiculoMovimientoSalidaDetalle->CtiNombre = $fila['CtiNombre'];
-					
-					$VehiculoMovimientoSalidaDetalle->VmvSubTotal = $fila['VmvSubTotal'];
-	
-                    $VehiculoMovimientoSalidaDetalle->EinVIN = (($fila['EinVIN']));
-					$VehiculoMovimientoSalidaDetalle->EinNumeroMotor = (($fila['EinNumeroMotor']));
-					$VehiculoMovimientoSalidaDetalle->EinColor = (($fila['EinColor']));					
-					$VehiculoMovimientoSalidaDetalle->EinColorInterno = (($fila['EinColorInterno']));
-					$VehiculoMovimientoSalidaDetalle->EinAnoFabricacion = (($fila['EinAnoFabricacion']));
-					$VehiculoMovimientoSalidaDetalle->EinAnoModelo = (($fila['EinAnoModelo']));
-					
-					$VehiculoMovimientoSalidaDetalle->PrvNombreCompleto = (($fila['PrvNombreCompleto']));
-					$VehiculoMovimientoSalidaDetalle->PrvNumeroDocumento = (($fila['PrvNumeroDocumento']));
+		$Respuesta['Datos'] = array();
 
-					$VehiculoMovimientoSalidaDetalle->TopNombre = (($fila['TopNombre']));
+		$InsVehiculoMovimientoSalidaDetalle = get_class($this);
 
-					$VehiculoMovimientoSalidaDetalle->VmvComprobanteNumero = (($fila['VmvComprobanteNumero']));
-					$VehiculoMovimientoSalidaDetalle->VmvComprobanteFecha = (($fila['NVmvComprobanteFecha']));
+		while ($fila = $this->InsMysql->MtdObtenerDatos($resultado)) {
 
-					$VehiculoMovimientoSalidaDetalle->TopId = (($fila['TopId']));
-					
-					$VehiculoMovimientoSalidaDetalle->VmvFechaUltimaSalida = (($fila['VmvFechaUltimaSalida']));
-					$VehiculoMovimientoSalidaDetalle->VmvUltimaSalidaDiaTranscurridos = (($fila['VmvUltimaSalidaDiaTranscurridos']));
+			$VehiculoMovimientoSalidaDetalle = new $InsVehiculoMovimientoSalidaDetalle();
+			$VehiculoMovimientoSalidaDetalle->VmdId = $fila['VmdId'];
+			$VehiculoMovimientoSalidaDetalle->TveId = $fila['TveId'];
+			$VehiculoMovimientoSalidaDetalle->VmvTipo = $fila['VmvTipo'];
+			$VehiculoMovimientoSalidaDetalle->VmvSubTipo = $fila['VmvSubTipo'];
 
-					$VehiculoMovimientoSalidaDetalle->VmaNombre = (($fila['VmaNombre']));
-					$VehiculoMovimientoSalidaDetalle->VmoNombre = (($fila['VmoNombre']));
-					$VehiculoMovimientoSalidaDetalle->VveNombre = (($fila['VveNombre']));
-					
-					$VehiculoMovimientoSalidaDetalle->UmeNombre = (($fila['UmeNombre']));
-					
-					$VehiculoMovimientoSalidaDetalle->VehCodigoIdentificador = (($fila['VehCodigoIdentificador']));
 
-					
-					$VehiculoMovimientoSalidaDetalle->CliNombre = (($fila['CliNombre']));
-					$VehiculoMovimientoSalidaDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));
-					$VehiculoMovimientoSalidaDetalle->CliApellidoMaterno = (($fila['CliApellidoMaterno']));
-					
-					$VehiculoMovimientoSalidaDetalle->PrvNombre = (($fila['PrvNombre']));
-					$VehiculoMovimientoSalidaDetalle->PrvApellidoPaterno = (($fila['PrvApellidoPaterno']));
-					$VehiculoMovimientoSalidaDetalle->PrvApellidoMaterno = (($fila['PrvApellidoMaterno']));
+			$VehiculoMovimientoSalidaDetalle->VmvId = $fila['VmvId'];
+			$VehiculoMovimientoSalidaDetalle->UmeId = $fila['UmeId'];
 
-                    $VehiculoMovimientoSalidaDetalle->InsMysql = NULL;                    
-					$Respuesta['Datos'][]= $VehiculoMovimientoSalidaDetalle;
-                }
-			
-			$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL',true); 
-			 				
-			$Respuesta['Total'] = $filaTotal['TOTAL'];
-			$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
-			
-			return $Respuesta;					
-			
+			$VehiculoMovimientoSalidaDetalle->VmdIdAnterior = $fila['VmdIdAnterior'];
+			$VehiculoMovimientoSalidaDetalle->VmdCosto = $fila['VmdCosto'];
+			$VehiculoMovimientoSalidaDetalle->VmdCostoIngreso = $fila['VmdCostoIngreso'];
+
+			$VehiculoMovimientoSalidaDetalle->VmdCostoAnterior = $fila['VmdCostoAnterior'];
+			$VehiculoMovimientoSalidaDetalle->VmdCostoExtraTotal = $fila['VmdCostoExtraTotal'];
+			$VehiculoMovimientoSalidaDetalle->VmdCostoExtraUnitario = $fila['VmdCostoExtraUnitario'];
+			$VehiculoMovimientoSalidaDetalle->VmdValorTotal = $fila['VmdValorTotal'];
+			$VehiculoMovimientoSalidaDetalle->VmdCantidad = $fila['VmdCantidad'];
+			$VehiculoMovimientoSalidaDetalle->VmdObservacion = $fila['VmdObservacion'];
+
+			$VehiculoMovimientoSalidaDetalle->VmdImporte = $fila['VmdImporte'];
+			$VehiculoMovimientoSalidaDetalle->VmdCostoPromedio = $fila['VmdCostoPromedio'];
+
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica1 = $fila['VmdCaracteristica1'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica2 = $fila['VmdCaracteristica2'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica3 = $fila['VmdCaracteristica3'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica4 = $fila['VmdCaracteristica4'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica5 = $fila['VmdCaracteristica5'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica6 = $fila['VmdCaracteristica6'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica7 = $fila['VmdCaracteristica7'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica8 = $fila['VmdCaracteristica8'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica9 = $fila['VmdCaracteristica9'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica10 = $fila['VmdCaracteristica10'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica11 = $fila['VmdCaracteristica11'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica12 = $fila['VmdCaracteristica12'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica13 = $fila['VmdCaracteristica13'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica14 = $fila['VmdCaracteristica14'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica15 = $fila['VmdCaracteristica15'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica16 = $fila['VmdCaracteristica16'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica17 = $fila['VmdCaracteristica17'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica18 = $fila['VmdCaracteristica18'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica19 = $fila['VmdCaracteristica19'];
+			$VehiculoMovimientoSalidaDetalle->VmdCaracteristica20 = $fila['VmdCaracteristica20'];
+
+			$VehiculoMovimientoSalidaDetalle->VmdEstado = $fila['VmdEstado'];
+			$VehiculoMovimientoSalidaDetalle->VmdTiempoCreacion = $fila['NVmdTiempoCreacion'];
+			$VehiculoMovimientoSalidaDetalle->VmdTiempoModificacion = $fila['NVmdTiempoModificacion'];
+
+			$VehiculoMovimientoSalidaDetalle->EinId = $fila['EinId'];
+
+			$VehiculoMovimientoSalidaDetalle->VmvFecha = $fila['NVmvFecha'];
+			$VehiculoMovimientoSalidaDetalle->VmvComprobanteNumero = $fila['VmvComprobanteNumero'];
+			$VehiculoMovimientoSalidaDetalle->VmvComprobanteFecha = $fila['NVmvComprobanteFecha'];
+
+			$VehiculoMovimientoSalidaDetalle->CtiNombre = $fila['CtiNombre'];
+
+			$VehiculoMovimientoSalidaDetalle->VmvSubTotal = $fila['VmvSubTotal'];
+
+			$VehiculoMovimientoSalidaDetalle->EinVIN = (($fila['EinVIN']));
+			$VehiculoMovimientoSalidaDetalle->EinNumeroMotor = (($fila['EinNumeroMotor']));
+			$VehiculoMovimientoSalidaDetalle->EinColor = (($fila['EinColor']));
+			$VehiculoMovimientoSalidaDetalle->EinColorInterno = (($fila['EinColorInterno']));
+			$VehiculoMovimientoSalidaDetalle->EinAnoFabricacion = (($fila['EinAnoFabricacion']));
+			$VehiculoMovimientoSalidaDetalle->EinAnoModelo = (($fila['EinAnoModelo']));
+
+			$VehiculoMovimientoSalidaDetalle->PrvNombreCompleto = (($fila['PrvNombreCompleto']));
+			$VehiculoMovimientoSalidaDetalle->PrvNumeroDocumento = (($fila['PrvNumeroDocumento']));
+
+			$VehiculoMovimientoSalidaDetalle->TopNombre = (($fila['TopNombre']));
+
+			$VehiculoMovimientoSalidaDetalle->VmvComprobanteNumero = (($fila['VmvComprobanteNumero']));
+			$VehiculoMovimientoSalidaDetalle->VmvComprobanteFecha = (($fila['NVmvComprobanteFecha']));
+
+			$VehiculoMovimientoSalidaDetalle->TopId = (($fila['TopId']));
+
+			$VehiculoMovimientoSalidaDetalle->VmvFechaUltimaSalida = (($fila['VmvFechaUltimaSalida']));
+			$VehiculoMovimientoSalidaDetalle->VmvUltimaSalidaDiaTranscurridos = (($fila['VmvUltimaSalidaDiaTranscurridos']));
+
+			$VehiculoMovimientoSalidaDetalle->VmaNombre = (($fila['VmaNombre']));
+			$VehiculoMovimientoSalidaDetalle->VmoNombre = (($fila['VmoNombre']));
+			$VehiculoMovimientoSalidaDetalle->VveNombre = (($fila['VveNombre']));
+
+			$VehiculoMovimientoSalidaDetalle->UmeNombre = (($fila['UmeNombre']));
+
+			$VehiculoMovimientoSalidaDetalle->VehCodigoIdentificador = (($fila['VehCodigoIdentificador']));
+
+
+			$VehiculoMovimientoSalidaDetalle->CliNombre = (($fila['CliNombre']));
+			$VehiculoMovimientoSalidaDetalle->CliApellidoPaterno = (($fila['CliApellidoPaterno']));
+			$VehiculoMovimientoSalidaDetalle->CliApellidoMaterno = (($fila['CliApellidoMaterno']));
+
+			$VehiculoMovimientoSalidaDetalle->PrvNombre = (($fila['PrvNombre']));
+			$VehiculoMovimientoSalidaDetalle->PrvApellidoPaterno = (($fila['PrvApellidoPaterno']));
+			$VehiculoMovimientoSalidaDetalle->PrvApellidoMaterno = (($fila['PrvApellidoMaterno']));
+
+			$VehiculoMovimientoSalidaDetalle->InsMysql = NULL;
+			$Respuesta['Datos'][] = $VehiculoMovimientoSalidaDetalle;
 		}
-		
-		
+
+		$filaTotal = $this->InsMysql->MtdConsultar('SELECT FOUND_ROWS() AS TOTAL', true);
+
+		$Respuesta['Total'] = $filaTotal['TOTAL'];
+		$Respuesta['TotalSeleccionado'] = $this->InsMysql->MtdObtenerDatosTotal($resultado);
+
+		return $Respuesta;
+	}
 }
-?>

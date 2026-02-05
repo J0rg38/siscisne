@@ -1876,7 +1876,7 @@ amo.AmoSubTipo = 0 OR
 												$Ano = $Fecha[2];
 
 												$StockReal = $InsAlmacenStock->MtdObtenerAlmacenStockProductoStockReal($this->SucId, $this->AlmId, $Ano, $InsTallerPedidoDetalle->ProId);
-												$StockReal = 10000;
+												//$StockReal = 10000;
 
 												if (($StockReal) < $InsTallerPedidoDetalle->AmdCantidadReal and $InsTallerPedidoDetalle->AmdEliminado == 1 and $InsTallerPedidoDetalle->AmdEstado == 3) {
 
@@ -1983,7 +1983,7 @@ amo.AmoSubTipo = 0 OR
 												$Ano = $Fecha[2];
 
 												$StockReal = $InsAlmacenStock->MtdObtenerAlmacenStockProductoStockReal($this->SucId, $this->AlmId, $Ano, $InsTallerPedidoDetalle->ProId);
-												$StockReal = 10000;
+												//$StockReal = 10000;
 
 												if (($StockReal + $InsTallerPedidoDetalle->AmdCantidadRealAnterior) < $InsTallerPedidoDetalle->AmdCantidadReal and $InsTallerPedidoDetalle->AmdEliminado == 1 and $InsTallerPedidoDetalle->AmdEstado == 3) {
 

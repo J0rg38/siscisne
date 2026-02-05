@@ -1682,7 +1682,7 @@ class ClsVentaConcretada
 					//MtdObtenerAlmacenProductoStockActual($oProducto,$oAlmacen,$oAno)
 					//$StockReal = $InsAlmacenProducto->MtdObtenerAlmacenProductoStockActual($InsVentaConcretadaDetalle->ProId,$this->AlmId,$Ano,$this->SucId);
 					$StockReal = $InsAlmacenStock->MtdObtenerAlmacenStockProductoStockReal($this->SucId, $this->AlmId, $Ano, $InsVentaConcretadaDetalle->ProId);
-					$StockReal = 10000;
+					//$StockReal = 10000;
 					//if( ($StockReal + $InsVentaConcretadaDetalle->VcdCantidadRealAnterior) < $InsVentaConcretadaDetalle->VcdCantidadReal and $InsVentaConcretadaDetalle->VcdEliminado == 1 and $InsVentaConcretadaDetalle->VcdEstado == 3){
 					if ($StockReal < $InsVentaConcretadaDetalle->VcdCantidadReal and $InsVentaConcretadaDetalle->VcdEliminado == 1 and $InsVentaConcretadaDetalle->VcdEstado == 3) {
 
@@ -1842,7 +1842,7 @@ class ClsVentaConcretada
 							//MtdObtenerAlmacenProductoStockActual($oProducto,$oAlmacen,$oAno)
 							//$StockReal = $InsAlmacenProducto->MtdObtenerAlmacenProductoStockActual($InsVentaConcretadaDetalle->ProId,$this->AlmId,$Ano,$this->SucId);
 							$StockReal = $InsAlmacenStock->MtdObtenerAlmacenStockProductoStockReal($this->SucId, $this->AlmId, $Ano, $InsVentaConcretadaDetalle->ProId);
-							$StockReal = 10000;
+							//$StockReal = 10000;
 
 							//if( ($StockReal + $InsVentaConcretadaDetalle->VcdCantidadRealAnterior) < $InsVentaConcretadaDetalle->VcdCantidadReal and $InsVentaConcretadaDetalle->VcdEliminado == 1 and $InsVentaConcretadaDetalle->VcdEstado == 3){
 							if ($StockReal < $InsVentaConcretadaDetalle->VcdCantidadReal and $InsVentaConcretadaDetalle->VcdEliminado == 1 and $InsVentaConcretadaDetalle->VcdEstado == 3) {

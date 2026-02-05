@@ -1105,6 +1105,8 @@ class ClsTrasladoProducto
 					$InsTrasladoProductoDetalle->TpdTiempoModificacion = $DatTrasladoProductoDetalle->TpdTiempoModificacion;
 					$InsTrasladoProductoDetalle->TpdEliminado = $DatTrasladoProductoDetalle->TpdEliminado;
 
+					
+
 					$StockReal = 0;
 					$Fecha = explode("/", $this->TptFecha);
 					$Ano = $Fecha[2];
@@ -1113,7 +1115,7 @@ class ClsTrasladoProducto
 					//MtdObtenerAlmacenProductoStockActual($oProducto,$oAlmacen,$oAno)
 					//$StockReal = $InsAlmacenProducto->MtdObtenerAlmacenProductoStockActual($InsTallerPedidoDetalle->ProId,$this->CtiId,$Ano,$this->SucId);
 					$StockReal = $InsAlmacenStock->MtdObtenerAlmacenStockProductoStockReal($this->SucId, NULL, $Ano, $InsTrasladoProductoDetalle->ProId);
-					$StockReal = 10000;
+					//$StockReal = 10000;
 
 					//if( ($StockReal + $InsTrasladoProductoDetalle->TpdCantidadRealAnterior) < $InsTrasladoProductoDetalle->TpdCantidadReal and $InsTrasladoProductoDetalle->TpdEliminado == 1 and $InsTrasladoProductoDetalle->TpdEstado == 3){
 					if (($StockReal) < $InsTrasladoProductoDetalle->TpdCantidadReal and $InsTrasladoProductoDetalle->TpdEliminado == 1 and $InsTrasladoProductoDetalle->TpdEstado == 3) {
@@ -1291,7 +1293,7 @@ class ClsTrasladoProducto
 											//																
 											$StockReal = $InsAlmacenStock->MtdObtenerAlmacenStockProductoStockReal($this->SucId, NULL, $Ano, $InsTrasladoProductoDetalle->ProId);
 
-											$StockReal = 10000;
+											//$StockReal = 10000;
 											//if( ($StockReal + $InsTrasladoProductoDetalle->TpdCantidadRealAnterior) < $InsTrasladoProductoDetalle->TpdCantidadReal and $InsTrasladoProductoDetalle->TpdEliminado == 1 and $InsTrasladoProductoDetalle->TpdEstado == 3){
 											if (($StockReal) < $InsTrasladoProductoDetalle->TpdCantidadReal and $InsTrasladoProductoDetalle->TpdEliminado == 1 and $InsTrasladoProductoDetalle->TpdEstado == 3) {
 												////							
@@ -1384,7 +1386,7 @@ class ClsTrasladoProducto
 											$StockReal = $InsAlmacenStock->MtdObtenerAlmacenStockProductoStockReal($this->SucId, NULL, $Ano, $InsTrasladoProductoDetalle->ProId);
 
 
-											$StockReal = 10000;
+											//$StockReal = 10000;
 
 
 											if (($StockReal + $InsTrasladoProductoDetalle->TpdCantidadRealAnterior) < $InsTrasladoProductoDetalle->TpdCantidadReal and $InsTrasladoProductoDetalle->TpdEliminado == 1 and $InsTrasladoProductoDetalle->TpdEstado == 3) {
